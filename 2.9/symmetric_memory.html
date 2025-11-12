@@ -9,20 +9,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PyTorch Symmetric Memory &#8212; PyTorch 2.9 documentation</title>
-
-
-
+  
+  
+  
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-
+  
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 <link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-
+  
   <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
-
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
@@ -58,7 +58,7 @@
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.9';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
     <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/symmetric_memory.html" />
@@ -185,13 +185,14 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-
+  
     <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
@@ -529,33 +530,33 @@
 </div>
 
 <!-- End Mobile Menu -->
-
-
-
-
+  
+  
+  
+  
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-
-
+  
+  
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
-
+  
+  
   <div id="pst-scroll-pixel-helper"></div>
-
+  
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-
+  
   <input type="checkbox"
           class="sidebar-toggle"
           id="pst-primary-sidebar-checkbox"/>
   <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-
+  
   <input type="checkbox"
           class="sidebar-toggle"
           id="pst-secondary-sidebar-checkbox"/>
   <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-
+  
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
@@ -581,16 +582,16 @@
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
 
-
+  
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
-
-
+  
+  
   <div class=" navbar-header-items__start">
-
+    
       <div class="navbar-item">
 <script>
 document.write(`
@@ -614,34 +615,34 @@ document.write(`
   </div>
 `);
 </script></div>
-
+    
       <div class="navbar-item">
 
-
-
-
+  
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
     <p class="title logo__title">Home</p>
-
+  
 </a></div>
-
+    
   </div>
-
+  
   <div class=" navbar-header-items">
-
+    
     <div class="me-auto navbar-header-items__center">
-
+      
         <div class="navbar-item">
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
-
+    
 <li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
     Install PyTorch
@@ -685,17 +686,17 @@ document.write(`
 
   </ul>
 </nav></div>
-
+      
     </div>
-
-
+    
+    
     <div class="navbar-header-items__end">
-
-
+      
+      
         <div class="navbar-item">
 <div class="search-container-wrapper">
   <div id="sphinx-search" class="search-container">
-
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -1000,7 +1001,7 @@ document.write(`
 });
 </script>
 </div>
-
+      
         <div class="navbar-item">
 
 <script>
@@ -1012,95 +1013,95 @@ document.write(`
   </button>
 `);
 </script></div>
-
+      
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
             <span class="sr-only">X</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyTorch Forum</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPi</span></a>
         </li>
 </ul></div>
-
+      
     </div>
-
+    
   </div>
+  
+  
 
-
-
-
+  
     <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
-
+  
 </div>
 
     </header>
-
+  
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-
-
-
+      
+      
+      
       <div class="bd-sidebar-primary bd-sidebar">
+        
 
-
-
+  
   <div class="sidebar-header-items sidebar-primary__section">
-
-
+    
+    
       <div class="sidebar-header-items__center">
-
-
-
+        
+          
+          
             <div class="navbar-item">
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
-
+    
 <li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
     Install PyTorch
@@ -1144,18 +1145,18 @@ document.write(`
 
   </ul>
 </nav></div>
-
-
+          
+        
       </div>
-
-
-
+    
+    
+    
       <div class="sidebar-header-items__end">
-
+        
           <div class="navbar-item">
 <div class="search-container-wrapper">
   <div id="sphinx-search" class="search-container">
-
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -1460,7 +1461,7 @@ document.write(`
 });
 </script>
 </div>
-
+        
           <div class="navbar-item">
 
 <script>
@@ -1472,63 +1473,63 @@ document.write(`
   </button>
 `);
 </script></div>
-
+        
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
             <span class="sr-only">X</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyTorch Forum</span></a>
         </li>
         <li class="nav-item">
-
-
-
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
           <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPi</span></a>
         </li>
 </ul></div>
-
+        
       </div>
-
+    
   </div>
-
+  
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 <nav class="bd-docs-nav bd-links"
@@ -2567,10 +2568,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.grid_sample.html">torch.nn.functional.grid_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.affine_grid.html">torch.nn.functional.affine_grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.ScalingType.html">ScalingType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3184,7 +3181,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.current_device.html">torch.cpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.current_stream.html">torch.cpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
@@ -3196,7 +3192,6 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3216,7 +3211,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_available.html">torch.cuda.is_available</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3295,27 +3289,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.set_rng_state.html">torch.cuda.random.set_rng_state</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.set_rng_state_all.html">torch.cuda.random.set_rng_state_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.manual_seed.html">torch.cuda.random.manual_seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.manual_seed_all.html">torch.cuda.random.manual_seed_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.seed.html">torch.cuda.random.seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.seed_all.html">torch.cuda.random.seed_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.random.initial_seed.html">torch.cuda.random.initial_seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.graphs.is_current_stream_capturing.html">torch.cuda.graphs.is_current_stream_capturing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.graphs.graph_pool_handle.html">torch.cuda.graphs.graph_pool_handle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.graphs.CUDAGraph.html">CUDAGraph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.graphs.graph.html">graph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.graphs.make_graphed_callables.html">torch.cuda.graphs.make_graphed_callables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.streams.Stream.html">Stream</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.streams.ExternalStream.html">ExternalStream</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.cuda.streams.Event.html">Event</a></li>
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
@@ -3343,7 +3316,6 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device.html">device</a></li>
@@ -3357,9 +3329,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
@@ -3385,20 +3355,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.initial_seed.html">torch.xpu.random.initial_seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.manual_seed.html">torch.xpu.random.manual_seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.manual_seed_all.html">torch.xpu.random.manual_seed_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.seed.html">torch.xpu.random.seed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.seed_all.html">torch.xpu.random.seed_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.set_rng_state.html">torch.xpu.random.set_rng_state</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.set_rng_state_all.html">torch.xpu.random.set_rng_state_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.streams.Event.html">Event</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.streams.Stream.html">Stream</a></li>
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.html">torch.mtia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3409,7 +3365,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_available.html">torch.mtia.is_available</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3446,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3471,22 +3426,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
-
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
-</ul>
-</details></li>
-<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3548,22 +3488,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
-
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
-</ul>
-</details></li>
-<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
-<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3600,6 +3524,7 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -3800,7 +3725,6 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nativert.html">torch.nativert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
@@ -3816,14 +3740,12 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nn.attention.varlen.html">torch.nn.attention.varlen</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3918,14 +3840,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.swap_module.html">swap_module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.propagate_qconfig_.html">propagate_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.default_eval_fn.html">default_eval_fn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.activation_is_dynamically_quantized.html">activation_is_dynamically_quantized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.activation_is_int32_quantized.html">activation_is_int32_quantized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.activation_is_int8_quantized.html">activation_is_int8_quantized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.activation_is_statically_quantized.html">activation_is_statically_quantized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.determine_qparams.html">determine_qparams</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.check_min_max_valid.html">check_min_max_valid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.calculate_qmin_qmax.html">calculate_qmin_qmax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.utils.validate_qmin_qmax.html">validate_qmin_qmax</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantize_fx.prepare_fx.html">prepare_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantize_fx.prepare_qat_fx.html">prepare_qat_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantize_fx.convert_fx.html">convert_fx</a></li>
@@ -4344,6 +4258,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
 <li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
@@ -4380,106 +4295,106 @@ document.write(`
 </div>
 </nav></div>
     </div>
-
-
+  
+  
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-
+  
   <div id="rtd-footer-container"></div>
 
 
       </div>
-
+      
       <main id="main-content" class="bd-main" role="main">
-
-
+        
+        
           <div class="bd-content">
             <div class="bd-article-container">
-
+              
               <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
-
+  
     <div class="header-article-items__start">
-
+      
         <div class="header-article-item">
 
 
 
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
-
+    
     <li class="breadcrumb-item breadcrumb-home">
       <a href="index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-
+    
     <li class="breadcrumb-item"><a href="pytorch-api.html" class="nav-link">Reference API</a></li>
-
+    
     <li class="breadcrumb-item active" aria-current="page">PyTorch...</li>
   </ul>
 </nav>
 </div>
-
+      
     </div>
-
-
+  
+  
     <div class="header-article-items__end">
-
+      
         <div class="header-article-item">
 <div class="rating">
     Rate this Page
     <div class="stars">
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
-
+        
     </div>
 </div>
 </div>
-
+      
     </div>
-
+  
 </div>
 </div>
-
-
-
+              
+              
+  
 <div id="searchbox"></div>
   <article class="bd-article" id="pytorch-article">
     <!-- Hidden breadcrumb schema for SEO only -->
     <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-
+      
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <link itemprop="item" href="pytorch-api.html">
         <meta itemprop="name" content="Reference API">
         <meta itemprop="position" content="1">
       </div>
-
+      
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="PyTorch Symmetric Memory">
         <meta itemprop="position" content="2">
       </div>
     </div>
 
+    
 
-
-
-
-
+    
+              
+                
 <div id="searchbox"></div>
                 <article class="bd-article">
-
+                  
   <div class="section" id="pytorch-symmetric-memory">
 <h1>PyTorch Symmetric Memory<a class="headerlink" href="#pytorch-symmetric-memory" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 24, 2025 | Last Updated On: Oct 24, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 10, 2025 | Last Updated On: Nov 10, 2025</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.distributed._symmetric_memory</span></code> is currently in alpha state and under
@@ -4684,7 +4599,7 @@ to use the NVSHMEM functions.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._symmetric_memory.empty">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_dtype</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_device</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86f9f1d0abe614e8a10dd94192d0abaa75aa0d4c/torch/distributed/_symmetric_memory/__init__.py#L1860"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.empty" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_dtype</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_device</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.9.1/torch/distributed/_symmetric_memory/__init__.py#L1671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.empty" title="Permalink to this definition">#</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_dtype</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_device</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span></dt>
 <dd><p>Similar to <a class="reference internal" href="generated/torch.empty.html#torch.empty" title="torch.empty"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty()</span></code></a>. The returned tensor can be used by
@@ -4710,7 +4625,7 @@ for CPU tensor types and the current CUDA device for CUDA tensor types.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._symmetric_memory.rendezvous">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_SymmetricMemory</span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86f9f1d0abe614e8a10dd94192d0abaa75aa0d4c/torch/distributed/_symmetric_memory/__init__.py#L1901"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.rendezvous" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_SymmetricMemory</span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.9.1/torch/distributed/_symmetric_memory/__init__.py#L1712"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.rendezvous" title="Permalink to this definition">#</a></dt>
 <dd><p>Establish a symmetric memory tensor among participating processes. This is
 a collective operation.</p>
 <dl class="field-list simple">
@@ -4731,7 +4646,7 @@ participating processes. This can be either a group name or a process group obje
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._symmetric_memory.is_nvshmem_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">is_nvshmem_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86f9f1d0abe614e8a10dd94192d0abaa75aa0d4c/torch/distributed/_symmetric_memory/__init__.py#L1930"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.is_nvshmem_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">is_nvshmem_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.9.1/torch/distributed/_symmetric_memory/__init__.py#L1741"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.is_nvshmem_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if NVSHMEM is available in current build and on current system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4742,7 +4657,7 @@ participating processes. This can be either a group name or a process group obje
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._symmetric_memory.set_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">set_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86f9f1d0abe614e8a10dd94192d0abaa75aa0d4c/torch/distributed/_symmetric_memory/__init__.py#L1946"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.set_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">set_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.9.1/torch/distributed/_symmetric_memory/__init__.py#L1757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.set_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
 <code class="xref py py-func docutils literal notranslate"><span class="pre">torch._distributed._symmetric_memory.empty()</span></code>.  Note that the backend
@@ -4757,7 +4672,7 @@ only <cite>“NVSHMEM”</cite>, <cite>“CUDA”</cite>, <cite>“NCCL”</cite
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._symmetric_memory.get_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86f9f1d0abe614e8a10dd94192d0abaa75aa0d4c/torch/distributed/_symmetric_memory/__init__.py#L1960"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.get_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._symmetric_memory.</span></span><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.9.1/torch/distributed/_symmetric_memory/__init__.py#L1771"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._symmetric_memory.get_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the backend for symmetric memory allocation for a given device. If not
 found, return None.</p>
 <dl class="field-list simple">
@@ -4942,31 +4857,31 @@ tokens to experts).</p>
 
 
                 </article>
-
+              
   </article>
-
-
-
+  
+              
+              
                 <footer class="bd-footer-article">
                   <div class="footer-article-items footer-article__inner">
-
+  
     <div class="footer-article-item">
 <div class="feedback">
-
+  
 <div class="rating">
     Rate this Page
     <div class="stars">
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
-
+        
         <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
-
+        
     </div>
 </div>
 
@@ -5004,12 +4919,12 @@ tokens to experts).</p>
 
 <div class="footer-info">
   <p class="copyright">
-
-
+    
+      
         © Copyright PyTorch Contributors.
-
+      
       <br/>
-
+    
   </p>
 
   <p class="theme-version">
@@ -5017,14 +4932,14 @@ tokens to experts).</p>
   </p>
 </div>
 </div>
-
+  
 </div>
                 </footer>
-
-
-
+              
+              
+              
                 <footer class="prev-next-footer d-print-none">
-
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="distributed.pipelining.html"
@@ -5046,14 +4961,14 @@ tokens to experts).</p>
     </a>
 </div>
                 </footer>
-
+              
             </div>
-
-
-
+            
+            
+              
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
-
+    
        <div class="sidebar-secondary-item">
 <div
     id="pst-page-navigation-heading-2"
@@ -5088,23 +5003,23 @@ tokens to experts).</p>
 </li>
 </ul>
   </nav></div>
-
+    
        <div class="sidebar-secondary-item">
 
-
+  
   <div class="tocsection editthispage">
     <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/symmetric_memory.md">
       <i class="fa-solid fa-pencil"></i>
-
-
-
+      
+      
+        
           Edit on GitHub
-
-
+        
+      
     </a>
   </div>
 </div>
-
+    
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
       <a href="_sources/symmetric_memory.md.txt">
@@ -5112,7 +5027,7 @@ tokens to experts).</p>
       </a>
     </div>
 </div>
-
+    
 
 
 
@@ -5120,37 +5035,37 @@ tokens to experts).</p>
 <div class="sidebar-secondary-item">
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
-
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
-
+  
   </ul>
 </div>
 
 </div>
 </div>
-
-
+              
+            
           </div>
           <footer class="bd-footer-content">
-
+            
           </footer>
-
+        
       </main>
     </div>
   </div>
-
+  
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
@@ -5182,7 +5097,7 @@ tokens to experts).</p>
 <footer class="site-footer">
   <div class="container footer-container">
 
-
+    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5205,7 +5120,7 @@ tokens to experts).</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-
+    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5258,7 +5173,7 @@ tokens to experts).</p>
 
     <div class="privacy-policy">
       <div class="copyright">
-
+        
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5266,7 +5181,7 @@ tokens to experts).</p>
             href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
             href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
         </p>
-
+        
       </div>
     </div>
 
@@ -5280,22 +5195,22 @@ tokens to experts).</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
-
+  
     <div class="footer-items__start">
-
+      
         <div class="footer-item">
 
   <p class="copyright">
-
+    
       © Copyright PyTorch Contributors.
       <br/>
-
+    
   </p>
 </div>
-
+      
         <div class="footer-item">
 
   <p class="sphinx-version">
@@ -5303,20 +5218,20 @@ tokens to experts).</p>
     <br/>
   </p>
 </div>
-
+      
     </div>
-
-
-
+  
+  
+  
     <div class="footer-items__end">
-
+      
         <div class="footer-item">
 <p class="theme-version">
   Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
 </p></div>
-
+      
     </div>
-
+  
 </div>
 
   </footer>
@@ -5328,7 +5243,7 @@ tokens to experts).</p>
        "headline": "PyTorch Symmetric Memory",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/symmetric_memory.html",
-       "articleBody": "PyTorch Symmetric Memory# Created On: Oct 24, 2025 | Last Updated On: Oct 24, 2025 Note torch.distributed._symmetric_memory is currently in alpha state and under development. API changes may be possible. Why Symmetric Memory?# With rapidly evolving parallelization techniques, existing frameworks and libraries often struggle to keep up, and developers increasingly rely on custom implementations directly scheduling communications and computations. In recent years we\u2019ve witnessed a shift from primarily relying on one-dimensional data-parallelism techniques to multi-dimensional parallelism ones. The latter have different latency requirements for different types of communications and thus require fine-grained overlapping of compute and communications. To minimize compute interference, they also require the use of copy engines and network interface cards (NICs) to drive communication. Network transport protocols such as remote direct memory access (RDMA) enhance the performance by enabling direct, high-speed, and low-latency communication between processors and memory. This increase in variety indicates the need for finer-grained communication primitives than are offered today by high-level collective APIs, ones that would enable developers to implement specific algorithms tailored for their use cases, such as low-latency collectives, fine-grained compute-communications overlap, or custom fusions. Furthermore, today\u2019s advanced AI systems connect GPUs with high-bandwidth links (such as NVLinks, InfiniBand or RoCE), making GPU global memory directly accessible to peers. Such connections present a great opportunity for programmers to program the system as a single, gigantic GPU with vast accessible memory, instead of programming singular \u201cGPU islands.\u201d In this document, we will show how you can use PyTorch Symmetric Memory to program modern GPU systems as a \u201csingle GPU\u201d and achieve fine-grained remote access. What PyTorch Symmetric Memory unlocks?# PyTorch Symmetric Memory unlocks three new capabilities: Customized communication patterns: Increased flexibility in kernel writing allows developers to write custom kernels that implement their custom computations and communications, directly tailored to the need of the application. It will also be straightforward to add support for new data types along with the special compute that those data types might require, even if it\u2019s not present yet in the standard libraries. In-kernel compute-comm fusion: Device-initiated communication capability allows developers to write kernels with both computation and communication instructions, allowing for the fusion of computation and data movement in the smallest possible granularity. Low-latency remote access: Network transport protocols like RDMA enhance the performance of symmetric memory in networked environments by enabling direct, high-speed, and low-latency communication between processors and memory. RDMA eliminates the overhead associated with the traditional network stack and CPU involvement. It also offloads data transfer from the compute to the NICs, freeing up compute resources for computational tasks. Next, we will show you how PyTorch Symmetric Memory (SymmMem) enables new applications with the above capabilities. A \u201cHello World\u201d example# The PyTorch SymmMem programming model involves two key elements: creating symmetric tensors creating SymmMem kernels To create symmetric tensors, one can use the torch.distributed._symmetric_memory package: import torch.distributed._symmetric_memory as symm_mem t = symm_mem.empty(128, device=torch.device(\"cuda\", rank)) hdl = symm_mem.rendezvous(t, group) The symm_mem.empty function creates a tensor that is backed by a symmetric memory allocation. The rendezvous function establishes a rendezvous with peers in the group, and returns a handle to the symmetric memory allocation. The handle provides method to access information related to the symmetric memory allocation, such as pointers to symmetric buffer on peer ranks, multicast pointer (if supported), and signal pads. The empty and rendezvous functions must be called in the same order on all ranks in the group. Then, collectives can be called on these tensors. For example, to perform a one-shot all-reduce: # Most SymmMem ops are under the torch.ops.symm_mem namespace torch.ops.symm_mem.one_shot_all_reduce(t, \"sum\", group) Please note that torch.ops.symm_mem is an \u201cop namespace\u201d instead of a python module. Therefore, you can\u2019t import it by import torch.ops.symm_mem, neither can you import an op by from torch.ops.symm_mem import one_shot_all_reduce. You can call the op directly as in the example above. Write your own kernel# To write your own kernel doing communications with symmetric memory, you\u2019ll need access to the addresses of mapped peer buffers and access to signal pads that are required for synchronization. In the kernel you\u2019ll also need to perform correct synchronizations to make sure that peers are ready for communication, and signal to them that this GPU is ready. PyTorch Symmetric Memory provides CUDA Graph-compatible synchronization primitives that operate on the signal pad accompanying each symmetric memory allocation. Kernels using symmetric memory can be written both in CUDA and in Triton. Here\u2019s an example allocating symmetric tensor and exchanging handles: import torch.distributed._symmetric_memory as symm_mem dist.init_process_group() rank = dist.get_rank() # Allocate a tensor t = symm_mem.empty(4096, device=f\"cuda:{rank}\") # Establish symmetric memory and obtain the handle hdl = symm_mem.rendezvous(t, dist.group.WORLD) Access to buffer pointers, multimem pointer, and signal pads is provided via: hdl.buffer_ptrs hdl.multicast_ptr hdl.signal_pad_ptrs Data pointed to by buffer_ptrs can be accessed just like regular local data, and any necessary compute can also be performed in the usual ways. As with local data, you can and should use vectorized accesses to improve efficiency. Symmetric memory is especially convenient for writing kernels in Triton. While previously Triton removed the barriers to writing efficient CUDA code, now communications can be added easily to Triton kernels. The kernel below demonstrates a low-latency, all-reduce kernel written in Triton. @triton.jit def one_shot_all_reduce_kernel( buf_tuple, signal_pad_ptrs, output_ptr, numel: tl.constexpr, rank: tl.constexpr, world_size: tl.constexpr, BLOCK_SIZE: tl.constexpr, ): ptx_utils.symm_mem_sync( signal_pad_ptrs, None, rank, world_size, hasSubsequenceMemAccess=True ) pid = tl.program_id(axis=0) block_start = pid * BLOCK_SIZE while block_start \u003c numel: offsets = block_start + tl.arange(0, BLOCK_SIZE) mask = offsets \u003c numel acc = tl.zeros((BLOCK_SIZE,), dtype=tl.bfloat16) for i in tl.static_range(world_size): buffer_rank = buf_tuple[i] x = tl.load(buffer_rank + offsets, mask=mask) acc += x tl.store(output_ptr + offsets, acc, mask=mask) block_start += tl.num_programs(axis=0) * BLOCK_SIZE ptx_utils.symm_mem_sync( signal_pad_ptrs, None, rank, world_size, hasPreviousMemAccess=True ) Synchronizations at the beginning and the end of the kernel above guarantee that all the processes see consistent data. The bulk of the kernel is recognizable Triton code, and Triton will optimize it behind the scene, making sure memory accesses are performed in an efficient way with vectorization and unrolling. As with all Triton kernels, it is easily modifiable to add extra computations or change the communication algorithm. Visit https://github.com/meta-pytorch/kraken/blob/main/kraken to see additional utilities and examples of using symmetric memory to implement common patterns in Triton. Scale out# Large language models distribute experts onto more than 8 GPUs, hence requiring multi-node access capability. NICs capable of RDMA come to help. In addition, software libraries such as NVSHMEM or rocSHMEM abstract away the programming difference between intra-node access and inter-node access with primitives that are slightly higher level than pointer access, such as put and get. PyTorch provides NVSHMEM plugins to augment Triton kernels\u2019 cross-node capabilities. As shown in the code snippet below, one can initiate a cross-node put command within the kernel. import torch.distributed._symmetric_memory._nvshmem_triton as nvshmem from torch.distributed._symmetric_memory._nvshmem_triton import requires_nvshmem @requires_nvshmem @triton.jit def my_put_kernel( dest, src, nelems, pe, ): nvshmem.put(dest, src, nelems, pe) The requires_nvshmem decorator is used to indicate that the kernel requires the NVSHMEM device library as an external dependency. When Triton compiles the kernel, the decorator will search your system paths for the NVSHMEM device library. If it is available, Triton will include the necessary device assembly to use the NVSHMEM functions. API Reference# torch.distributed._symmetric_memory.empty(*size: _int, dtype: _dtype | None = None, device: _device | None = None) \u2192 Tensor[source]# torch.distributed._symmetric_memory.empty(size: Sequence[_int], *, dtype: _dtype | None = None, device: _device | None = None) \u2192 Tensor Similar to torch.empty(). The returned tensor can be used by torch._distributed._symmetric_memory.rendezvous() to establish a symmetric memory tensor among participating processes. Parameters size (int...) \u2013 a sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple. Keyword Arguments dtype (torch.dtype, optional) \u2013 the desired data type of returned tensor. Default: if None, uses a global default (see torch.set_default_dtype()). device (torch.device, optional) \u2013 the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. torch.distributed._symmetric_memory.rendezvous(tensor, group) \u2192 _SymmetricMemory[source]# Establish a symmetric memory tensor among participating processes. This is a collective operation. Parameters tensor (torch.Tensor) \u2013 the local tensor used to establish the symmetric memory tensor. It must be allocated via torch._distributed._symmetric_memory.empty(). The shape, dtype, and device type must be identical across all participating processes. group (Union[str, torch.distributed.ProcessGroup]) \u2013 The group identifying the participating processes. This can be either a group name or a process group object. Return type _SymmetricMemory torch.distributed._symmetric_memory.is_nvshmem_available() \u2192 bool[source]# Check if NVSHMEM is available in current build and on current system. Return type bool torch.distributed._symmetric_memory.set_backend(name)[source]# Set the backend for symmetric memory allocation. This is a global setting and affects all subsequent calls to torch._distributed._symmetric_memory.empty(). Note that the backend cannot be changed once a symmetric memory tensor has been allocated. Parameters backend (str) \u2013 the backend for symmetric memory allocation. Currently, only \u201cNVSHMEM\u201d, \u201cCUDA\u201d, \u201cNCCL\u201d are supported. torch.distributed._symmetric_memory.get_backend(device)[source]# Get the backend for symmetric memory allocation for a given device. If not found, return None. Parameters device (torch.device or str) \u2013 the device for which to get the backend. Return type str | None Op Reference# Note The following ops are hosted in the torch.ops.symm_mem namespace. You can call them directly via torch.ops.symm_mem.\u003cop_name\u003e. torch.ops.symm_mem.multimem_all_reduce_(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a multimem all-reduce operation on the input tensor. This operation requires hardware support for multimem operations. On NVIDIA GPUs, NVLink SHARP is required. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.multimem_all_gather_out(input: Tensor, group_name: str, out: Tensor) \u2192 Tensor# Performs a multimem all-gather operation on the input tensor. This operation requires hardware support for multimem operations. On NVIDIA GPUs, NVLink SHARP is required. Parameters input (Tensor) \u2013 Input tensor to perform all-gather on. group_name (str) \u2013 Name of the group to perform all-gather on. out (Tensor) \u2013 Output tensor to store the result of the all-gather operation. Must be symmetric. torch.ops.symm_mem.one_shot_all_reduce(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a one-shot all-reduce operation on the input tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.one_shot_all_reduce_out(input: Tensor, reduce_op: str, group_name: str, out: Tensor) \u2192 Tensor# Performs a one-shot all-reduce operation based on the input tensor and writes the result to the output tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. out (Tensor) \u2013 Output tensor to store the result of the all-reduce operation. Can be a regular tensor. torch.ops.symm_mem.two_shot_all_reduce_(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a two-shot all-reduce operation on the input tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.all_to_all_vdev(input: Tensor, out: Tensor, in_splits: Tensor, out_splits_offsets: Tensor, group_name: str) \u2192 None# Performs an all-to-all-v operation using NVSHMEM, with split information provided on device. Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits (Tensor) \u2013 Tensor containing splits of data to send to each peer. Must be symmetric. Must be of size (group_size,). The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on. torch.ops.symm_mem.all_to_all_vdev_2d(input: Tensor, out: Tensor, in_splits: Tensor, out_splits_offsets: Tensor, group_name: str[, major_align: int = None]) \u2192 None# Perform a 2D all-to-all-v operation using NVSHMEM, with split information provided on device. In Mixture of Experts models, this operation can be used to dispatch tokens. Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits (Tensor) \u2013 Tensor containing the splits of data to send to each expert. Must be symmetric. Must be of size (group_size * ne,), where ne is the number of experts per rank. The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on. major_align (int) \u2013 Optional alignment for the major dimension of the output chunk for each expert. If not provided, the alignment is assumed to be 1. Any alignment adjustment will be reflected in the output offsets. A 2D AllToAllv shuffle is illustrated below: (world_size = 2, ne = 2, total number of experts = 4): Source: | Rank 0 | Rank 1 | | c0 | c1 | c2 | c3 | d0 | d1 | d2 | d3 | Dest : | Rank 0 | Rank 1 | | c0 | d0 | c1 | d1 | c2 | d2 | c3 | d3 | where each c_i / d_i are slices of the input tensor, targeting expert i, with length indicated by input splits. That is, the 2D AllToAllv shuffle achieves a transpose from rank-major order at input to expert-major order at output. If major_align is not 1, the output offsets of c1, c2, c3 will be up-aligned to this value. For example, if c0 has length 5 and d0 has length 7 (making a total of 12), and if the major_align is set to 16, the output offset of c1 will be 16. Similar for c2 and c3. This value has no effect on the offset of the minor dimension, i.e. d0, d1, d2 and d3. Note: since cutlass does not support empty bins, we set the aligned length to major_align if it is 0. See pytorch/pytorch#152668. torch.ops.symm_mem.all_to_all_vdev_2d_offset(Tensor input, Tensor out, Tensor in_splits_offsets, Tensor out_splits_offsets, str group_name) \u2192 None# Perform a 2D AllToAllv shuffle operation, with input split and offset information provided on device. The input offsets are not required to be exact prefix sum of the input splits, i.e. paddings are allowed between the split chunks. The paddings, however, will not be transferred to peer ranks. In Mixture of Experts models, this operation can be used to combine tokens processed by experts on parallel ranks. This operation can be viewed as an \u201creverse\u201d operation to the all_to_all_vdev_2d operation (which shuffles tokens to experts). Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data to send to each expert. Must be symmetric. Must be of size (2, group_size * ne), where ne is the number of experts. The rows are (in order): input splits and input offsets. The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on.",
+       "articleBody": "PyTorch Symmetric Memory# Created On: Nov 10, 2025 | Last Updated On: Nov 10, 2025 Note torch.distributed._symmetric_memory is currently in alpha state and under development. API changes may be possible. Why Symmetric Memory?# With rapidly evolving parallelization techniques, existing frameworks and libraries often struggle to keep up, and developers increasingly rely on custom implementations directly scheduling communications and computations. In recent years we\u2019ve witnessed a shift from primarily relying on one-dimensional data-parallelism techniques to multi-dimensional parallelism ones. The latter have different latency requirements for different types of communications and thus require fine-grained overlapping of compute and communications. To minimize compute interference, they also require the use of copy engines and network interface cards (NICs) to drive communication. Network transport protocols such as remote direct memory access (RDMA) enhance the performance by enabling direct, high-speed, and low-latency communication between processors and memory. This increase in variety indicates the need for finer-grained communication primitives than are offered today by high-level collective APIs, ones that would enable developers to implement specific algorithms tailored for their use cases, such as low-latency collectives, fine-grained compute-communications overlap, or custom fusions. Furthermore, today\u2019s advanced AI systems connect GPUs with high-bandwidth links (such as NVLinks, InfiniBand or RoCE), making GPU global memory directly accessible to peers. Such connections present a great opportunity for programmers to program the system as a single, gigantic GPU with vast accessible memory, instead of programming singular \u201cGPU islands.\u201d In this document, we will show how you can use PyTorch Symmetric Memory to program modern GPU systems as a \u201csingle GPU\u201d and achieve fine-grained remote access. What PyTorch Symmetric Memory unlocks?# PyTorch Symmetric Memory unlocks three new capabilities: Customized communication patterns: Increased flexibility in kernel writing allows developers to write custom kernels that implement their custom computations and communications, directly tailored to the need of the application. It will also be straightforward to add support for new data types along with the special compute that those data types might require, even if it\u2019s not present yet in the standard libraries. In-kernel compute-comm fusion: Device-initiated communication capability allows developers to write kernels with both computation and communication instructions, allowing for the fusion of computation and data movement in the smallest possible granularity. Low-latency remote access: Network transport protocols like RDMA enhance the performance of symmetric memory in networked environments by enabling direct, high-speed, and low-latency communication between processors and memory. RDMA eliminates the overhead associated with the traditional network stack and CPU involvement. It also offloads data transfer from the compute to the NICs, freeing up compute resources for computational tasks. Next, we will show you how PyTorch Symmetric Memory (SymmMem) enables new applications with the above capabilities. A \u201cHello World\u201d example# The PyTorch SymmMem programming model involves two key elements: creating symmetric tensors creating SymmMem kernels To create symmetric tensors, one can use the torch.distributed._symmetric_memory package: import torch.distributed._symmetric_memory as symm_mem t = symm_mem.empty(128, device=torch.device(\"cuda\", rank)) hdl = symm_mem.rendezvous(t, group) The symm_mem.empty function creates a tensor that is backed by a symmetric memory allocation. The rendezvous function establishes a rendezvous with peers in the group, and returns a handle to the symmetric memory allocation. The handle provides method to access information related to the symmetric memory allocation, such as pointers to symmetric buffer on peer ranks, multicast pointer (if supported), and signal pads. The empty and rendezvous functions must be called in the same order on all ranks in the group. Then, collectives can be called on these tensors. For example, to perform a one-shot all-reduce: # Most SymmMem ops are under the torch.ops.symm_mem namespace torch.ops.symm_mem.one_shot_all_reduce(t, \"sum\", group) Please note that torch.ops.symm_mem is an \u201cop namespace\u201d instead of a python module. Therefore, you can\u2019t import it by import torch.ops.symm_mem, neither can you import an op by from torch.ops.symm_mem import one_shot_all_reduce. You can call the op directly as in the example above. Write your own kernel# To write your own kernel doing communications with symmetric memory, you\u2019ll need access to the addresses of mapped peer buffers and access to signal pads that are required for synchronization. In the kernel you\u2019ll also need to perform correct synchronizations to make sure that peers are ready for communication, and signal to them that this GPU is ready. PyTorch Symmetric Memory provides CUDA Graph-compatible synchronization primitives that operate on the signal pad accompanying each symmetric memory allocation. Kernels using symmetric memory can be written both in CUDA and in Triton. Here\u2019s an example allocating symmetric tensor and exchanging handles: import torch.distributed._symmetric_memory as symm_mem dist.init_process_group() rank = dist.get_rank() # Allocate a tensor t = symm_mem.empty(4096, device=f\"cuda:{rank}\") # Establish symmetric memory and obtain the handle hdl = symm_mem.rendezvous(t, dist.group.WORLD) Access to buffer pointers, multimem pointer, and signal pads is provided via: hdl.buffer_ptrs hdl.multicast_ptr hdl.signal_pad_ptrs Data pointed to by buffer_ptrs can be accessed just like regular local data, and any necessary compute can also be performed in the usual ways. As with local data, you can and should use vectorized accesses to improve efficiency. Symmetric memory is especially convenient for writing kernels in Triton. While previously Triton removed the barriers to writing efficient CUDA code, now communications can be added easily to Triton kernels. The kernel below demonstrates a low-latency, all-reduce kernel written in Triton. @triton.jit def one_shot_all_reduce_kernel( buf_tuple, signal_pad_ptrs, output_ptr, numel: tl.constexpr, rank: tl.constexpr, world_size: tl.constexpr, BLOCK_SIZE: tl.constexpr, ): ptx_utils.symm_mem_sync( signal_pad_ptrs, None, rank, world_size, hasSubsequenceMemAccess=True ) pid = tl.program_id(axis=0) block_start = pid * BLOCK_SIZE while block_start \u003c numel: offsets = block_start + tl.arange(0, BLOCK_SIZE) mask = offsets \u003c numel acc = tl.zeros((BLOCK_SIZE,), dtype=tl.bfloat16) for i in tl.static_range(world_size): buffer_rank = buf_tuple[i] x = tl.load(buffer_rank + offsets, mask=mask) acc += x tl.store(output_ptr + offsets, acc, mask=mask) block_start += tl.num_programs(axis=0) * BLOCK_SIZE ptx_utils.symm_mem_sync( signal_pad_ptrs, None, rank, world_size, hasPreviousMemAccess=True ) Synchronizations at the beginning and the end of the kernel above guarantee that all the processes see consistent data. The bulk of the kernel is recognizable Triton code, and Triton will optimize it behind the scene, making sure memory accesses are performed in an efficient way with vectorization and unrolling. As with all Triton kernels, it is easily modifiable to add extra computations or change the communication algorithm. Visit https://github.com/meta-pytorch/kraken/blob/main/kraken to see additional utilities and examples of using symmetric memory to implement common patterns in Triton. Scale out# Large language models distribute experts onto more than 8 GPUs, hence requiring multi-node access capability. NICs capable of RDMA come to help. In addition, software libraries such as NVSHMEM or rocSHMEM abstract away the programming difference between intra-node access and inter-node access with primitives that are slightly higher level than pointer access, such as put and get. PyTorch provides NVSHMEM plugins to augment Triton kernels\u2019 cross-node capabilities. As shown in the code snippet below, one can initiate a cross-node put command within the kernel. import torch.distributed._symmetric_memory._nvshmem_triton as nvshmem from torch.distributed._symmetric_memory._nvshmem_triton import requires_nvshmem @requires_nvshmem @triton.jit def my_put_kernel( dest, src, nelems, pe, ): nvshmem.put(dest, src, nelems, pe) The requires_nvshmem decorator is used to indicate that the kernel requires the NVSHMEM device library as an external dependency. When Triton compiles the kernel, the decorator will search your system paths for the NVSHMEM device library. If it is available, Triton will include the necessary device assembly to use the NVSHMEM functions. API Reference# torch.distributed._symmetric_memory.empty(*size: _int, dtype: _dtype | None = None, device: _device | None = None) \u2192 Tensor[source]# torch.distributed._symmetric_memory.empty(size: Sequence[_int], *, dtype: _dtype | None = None, device: _device | None = None) \u2192 Tensor Similar to torch.empty(). The returned tensor can be used by torch._distributed._symmetric_memory.rendezvous() to establish a symmetric memory tensor among participating processes. Parameters size (int...) \u2013 a sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple. Keyword Arguments dtype (torch.dtype, optional) \u2013 the desired data type of returned tensor. Default: if None, uses a global default (see torch.set_default_dtype()). device (torch.device, optional) \u2013 the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. torch.distributed._symmetric_memory.rendezvous(tensor, group) \u2192 _SymmetricMemory[source]# Establish a symmetric memory tensor among participating processes. This is a collective operation. Parameters tensor (torch.Tensor) \u2013 the local tensor used to establish the symmetric memory tensor. It must be allocated via torch._distributed._symmetric_memory.empty(). The shape, dtype, and device type must be identical across all participating processes. group (Union[str, torch.distributed.ProcessGroup]) \u2013 The group identifying the participating processes. This can be either a group name or a process group object. Return type _SymmetricMemory torch.distributed._symmetric_memory.is_nvshmem_available() \u2192 bool[source]# Check if NVSHMEM is available in current build and on current system. Return type bool torch.distributed._symmetric_memory.set_backend(name)[source]# Set the backend for symmetric memory allocation. This is a global setting and affects all subsequent calls to torch._distributed._symmetric_memory.empty(). Note that the backend cannot be changed once a symmetric memory tensor has been allocated. Parameters backend (str) \u2013 the backend for symmetric memory allocation. Currently, only \u201cNVSHMEM\u201d, \u201cCUDA\u201d, \u201cNCCL\u201d are supported. torch.distributed._symmetric_memory.get_backend(device)[source]# Get the backend for symmetric memory allocation for a given device. If not found, return None. Parameters device (torch.device or str) \u2013 the device for which to get the backend. Return type str | None Op Reference# Note The following ops are hosted in the torch.ops.symm_mem namespace. You can call them directly via torch.ops.symm_mem.\u003cop_name\u003e. torch.ops.symm_mem.multimem_all_reduce_(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a multimem all-reduce operation on the input tensor. This operation requires hardware support for multimem operations. On NVIDIA GPUs, NVLink SHARP is required. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.multimem_all_gather_out(input: Tensor, group_name: str, out: Tensor) \u2192 Tensor# Performs a multimem all-gather operation on the input tensor. This operation requires hardware support for multimem operations. On NVIDIA GPUs, NVLink SHARP is required. Parameters input (Tensor) \u2013 Input tensor to perform all-gather on. group_name (str) \u2013 Name of the group to perform all-gather on. out (Tensor) \u2013 Output tensor to store the result of the all-gather operation. Must be symmetric. torch.ops.symm_mem.one_shot_all_reduce(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a one-shot all-reduce operation on the input tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.one_shot_all_reduce_out(input: Tensor, reduce_op: str, group_name: str, out: Tensor) \u2192 Tensor# Performs a one-shot all-reduce operation based on the input tensor and writes the result to the output tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. out (Tensor) \u2013 Output tensor to store the result of the all-reduce operation. Can be a regular tensor. torch.ops.symm_mem.two_shot_all_reduce_(input: Tensor, reduce_op: str, group_name: str) \u2192 Tensor# Performs a two-shot all-reduce operation on the input tensor. Parameters input (Tensor) \u2013 Input tensor to perform all-reduce on. Must be symmetric. reduce_op (str) \u2013 Reduction operation to perform. Currently only \u201csum\u201d is supported. group_name (str) \u2013 Name of the group to perform all-reduce on. torch.ops.symm_mem.all_to_all_vdev(input: Tensor, out: Tensor, in_splits: Tensor, out_splits_offsets: Tensor, group_name: str) \u2192 None# Performs an all-to-all-v operation using NVSHMEM, with split information provided on device. Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits (Tensor) \u2013 Tensor containing splits of data to send to each peer. Must be symmetric. Must be of size (group_size,). The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on. torch.ops.symm_mem.all_to_all_vdev_2d(input: Tensor, out: Tensor, in_splits: Tensor, out_splits_offsets: Tensor, group_name: str[, major_align: int = None]) \u2192 None# Perform a 2D all-to-all-v operation using NVSHMEM, with split information provided on device. In Mixture of Experts models, this operation can be used to dispatch tokens. Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits (Tensor) \u2013 Tensor containing the splits of data to send to each expert. Must be symmetric. Must be of size (group_size * ne,), where ne is the number of experts per rank. The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on. major_align (int) \u2013 Optional alignment for the major dimension of the output chunk for each expert. If not provided, the alignment is assumed to be 1. Any alignment adjustment will be reflected in the output offsets. A 2D AllToAllv shuffle is illustrated below: (world_size = 2, ne = 2, total number of experts = 4): Source: | Rank 0 | Rank 1 | | c0 | c1 | c2 | c3 | d0 | d1 | d2 | d3 | Dest : | Rank 0 | Rank 1 | | c0 | d0 | c1 | d1 | c2 | d2 | c3 | d3 | where each c_i / d_i are slices of the input tensor, targeting expert i, with length indicated by input splits. That is, the 2D AllToAllv shuffle achieves a transpose from rank-major order at input to expert-major order at output. If major_align is not 1, the output offsets of c1, c2, c3 will be up-aligned to this value. For example, if c0 has length 5 and d0 has length 7 (making a total of 12), and if the major_align is set to 16, the output offset of c1 will be 16. Similar for c2 and c3. This value has no effect on the offset of the minor dimension, i.e. d0, d1, d2 and d3. Note: since cutlass does not support empty bins, we set the aligned length to major_align if it is 0. See pytorch/pytorch#152668. torch.ops.symm_mem.all_to_all_vdev_2d_offset(Tensor input, Tensor out, Tensor in_splits_offsets, Tensor out_splits_offsets, str group_name) \u2192 None# Perform a 2D AllToAllv shuffle operation, with input split and offset information provided on device. The input offsets are not required to be exact prefix sum of the input splits, i.e. paddings are allowed between the split chunks. The paddings, however, will not be transferred to peer ranks. In Mixture of Experts models, this operation can be used to combine tokens processed by experts on parallel ranks. This operation can be viewed as an \u201creverse\u201d operation to the all_to_all_vdev_2d operation (which shuffles tokens to experts). Parameters input (Tensor) \u2013 Input tensor to perform all-to-all on. Must be symmetric. out (Tensor) \u2013 Output tensor to store the result of the all-to-all operation. Must be symmetric. in_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data to send to each expert. Must be symmetric. Must be of size (2, group_size * ne), where ne is the number of experts. The rows are (in order): input splits and input offsets. The splits are in the unit of elements in the 1st dimension. out_splits_offsets (Tensor) \u2013 Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets. group_name (str) \u2013 Name of the group to perform all-to-all on.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -5339,8 +5254,8 @@ tokens to experts).</p>
          "@type": "WebPage",
          "@id": "/symmetric_memory.html"
        },
-       "datePublished": "Oct 24, 2025T00:00:00Z",
-       "dateModified": "Oct 24, 2025T00:00:00Z"
+       "datePublished": "Nov 10, 2025T00:00:00Z",
+       "dateModified": "Nov 10, 2025T00:00:00Z"
      }
  </script>
   <script>
@@ -5361,6 +5276,6 @@ tokens to experts).</p>
       }
     });
   </script>
-
+  
   </body>
 </html>
