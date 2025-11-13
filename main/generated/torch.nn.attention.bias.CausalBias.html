@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite8d411e )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0c5d5c7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,7 +3177,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -3876,6 +3875,10 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../nn.attention.html">torch.nn.attention</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.register_flash_attention_impl.html">torch.nn.attention.register_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.activate_flash_attention_impl.html">torch.nn.attention.activate_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.list_flash_attention_impls.html">torch.nn.attention.list_flash_attention_impls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.current_flash_attention_impl.html">torch.nn.attention.current_flash_attention_impl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.nn.attention.bias.CausalBias</a></li>
@@ -4584,7 +4587,7 @@ document.write(`
 <h1>torch.nn.attention.bias.CausalBias<a class="headerlink" href="#torch-nn-attention-bias-causalbias" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.bias.CausalBias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/nn/attention/bias.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/nn/attention/bias.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Link to this definition">#</a></dt>
 <dd><p>A bias representing causal attention patterns. For an overview of the bias structure, see the <a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html#torch.nn.attention.bias.CausalVariant" title="torch.nn.attention.bias.CausalVariant"><code class="xref py py-class docutils literal notranslate"><span class="pre">CausalVariant</span></code></a> enum.</p>
 <p>This class is used for defining causal (triangular) attention biases. For construing the bias, there exist
 two factory functions: <a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html#torch.nn.attention.bias.causal_upper_left" title="torch.nn.attention.bias.causal_upper_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_upper_left()</span></code></a> and <a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html#torch.nn.attention.bias.causal_lower_right" title="torch.nn.attention.bias.causal_lower_right"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_lower_right()</span></code></a>.</p>

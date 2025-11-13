@@ -1,6 +1,0 @@
-﻿torch.accelerator.memory.get\_memory\_info
-==========================================
-
-.. currentmodule:: torch.accelerator.memory
-
-.. autofunction:: get_memory_info

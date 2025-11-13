@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite8d411e )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0c5d5c7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,7 +3177,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -3876,6 +3875,10 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../nn.attention.html">torch.nn.attention</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.register_flash_attention_impl.html">torch.nn.attention.register_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.activate_flash_attention_impl.html">torch.nn.attention.activate_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.list_flash_attention_impls.html">torch.nn.attention.list_flash_attention_impls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.current_flash_attention_impl.html">torch.nn.attention.current_flash_attention_impl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
@@ -4573,23 +4576,23 @@ document.write(`
 <h1>BackwardCFunction<a class="headerlink" href="#backwardcfunction" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">BackwardCFunction</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">BackwardCFunction</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction" title="Link to this definition">#</a></dt>
 <dd><p>This class is used for internal autograd work. Do not use.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.apply" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.apply" title="Link to this definition">#</a></dt>
 <dd><p>Apply method used when executing this Node during the backward</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.apply_jvp">
-<span class="sig-name descname"><span class="pre">apply_jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.apply_jvp" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply_jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.apply_jvp" title="Link to this definition">#</a></dt>
 <dd><p>Apply method used when executing forward mode AD during the forward</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.mark_dirty">
-<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.mark_dirty" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.mark_dirty" title="Link to this definition">#</a></dt>
 <dd><p>Mark given tensors as modified in an in-place operation.</p>
 <p>This should be called at most once, in either the <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code>
 or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and all arguments should be inputs.</p>
@@ -4627,7 +4630,7 @@ modification.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.mark_non_differentiable">
-<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.mark_non_differentiable" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.mark_non_differentiable" title="Link to this definition">#</a></dt>
 <dd><p>Mark outputs as non-differentiable.</p>
 <p>This should be called at most once, in either the <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code>
 or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and all arguments should be tensor outputs.</p>
@@ -4662,7 +4665,7 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.save_for_backward">
-<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.save_for_backward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.save_for_backward" title="Link to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code> should be called at most once, in either the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and only with tensors.</p>
@@ -4718,7 +4721,7 @@ they weren’t used in any in-place operation that modified their content.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.save_for_forward">
-<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.save_for_forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.save_for_forward" title="Link to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_forward</span></code> should be called at most once, in either the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and all arguments
@@ -4764,7 +4767,7 @@ attribute.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.BackwardCFunction.set_materialize_grads">
-<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e8d411e7f763a2411b5fa7fb2ec2161d8d2d42e9/torch/autograd/function.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.set_materialize_grads" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/autograd/function.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.BackwardCFunction.set_materialize_grads" title="Link to this definition">#</a></dt>
 <dd><p>Set whether to materialize grad tensors. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>This should be called only from either the <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code> or
 <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods.</p>
