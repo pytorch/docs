@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0c5d5c7 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git532389f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,6 +3177,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -4576,7 +4577,7 @@ document.write(`
 <h1>torch.fx.experimental.proxy_tensor.fetch_sym_proxy<a class="headerlink" href="#torch-fx-experimental-proxy-tensor-fetch-sym-proxy" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.proxy_tensor.fetch_sym_proxy">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">fetch_sym_proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/fx/experimental/proxy_tensor.py#L882"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.fetch_sym_proxy" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">fetch_sym_proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/fx/experimental/proxy_tensor.py#L889"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.fetch_sym_proxy" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[<a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a> | <a class="reference internal" href="../torch.html#torch.SymFloat" title="torch.SymFloat"><em>SymFloat</em></a> | <a class="reference internal" href="../torch.html#torch.SymBool" title="torch.SymBool"><em>SymBool</em></a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../fx.html#torch.fx.Proxy" title="torch.fx.proxy.Proxy"><em>Proxy</em></a>]</p>

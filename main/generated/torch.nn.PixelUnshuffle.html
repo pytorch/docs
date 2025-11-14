@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0c5d5c7 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git532389f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,6 +3177,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -4576,7 +4577,7 @@ document.write(`
 <h1>PixelUnshuffle<a class="headerlink" href="#pixelunshuffle" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.PixelUnshuffle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">PixelUnshuffle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">downscale_factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/nn/modules/pixelshuffle.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">PixelUnshuffle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">downscale_factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/nn/modules/pixelshuffle.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle" title="Link to this definition">#</a></dt>
 <dd><p>Reverse the PixelShuffle operation.</p>
 <p>Reverses the <a class="reference internal" href="torch.nn.PixelShuffle.html#torch.nn.PixelShuffle" title="torch.nn.PixelShuffle"><code class="xref py py-class docutils literal notranslate"><span class="pre">PixelShuffle</span></code></a> operation by rearranging elements
 in a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>H</mi><mo>×</mo><mi>r</mi><mo separator="true">,</mo><mi>W</mi><mo>×</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C, H \times r, W \times r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span></span> to a tensor of shape
@@ -4615,7 +4616,7 @@ by Shi et al. (2016) for more details.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.PixelUnshuffle.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/nn/modules/pixelshuffle.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle.extra_repr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/nn/modules/pixelshuffle.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle.extra_repr" title="Link to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4626,7 +4627,7 @@ by Shi et al. (2016) for more details.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.PixelUnshuffle.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0c5d5c7e9a53c0b32d8193eaaab2bfaabe7d070f/torch/nn/modules/pixelshuffle.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/nn/modules/pixelshuffle.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.PixelUnshuffle.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
