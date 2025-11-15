@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git532389f )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitee0b5b4 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3456,8 +3456,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3554,6 +3554,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
@@ -4575,7 +4576,7 @@ document.write(`
                   
   <section id="torch-compiler-api-reference">
 <span id="torch-compiler-api"></span><span id="module-torch.compiler"></span><h1>torch.compiler API reference<a class="headerlink" href="#torch-compiler-api-reference" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Jun 22, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Nov 14, 2025</p>
 <p>For a quick overview of <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>, see <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -4630,7 +4631,10 @@ document.write(`
 <tr class="row-odd"><td><p><p id="torch.compiler.skip_guard_on_globals_unsafe"/><p id="torch.compiler.skip_guard_on_globals_unsafe"/><a class="reference internal" href="generated/torch.compiler.skip_guard_on_globals_unsafe.html#torch.compiler.skip_guard_on_globals_unsafe" title="torch.compiler.skip_guard_on_globals_unsafe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skip_guard_on_globals_unsafe</span></code></a></p></td>
 <td><p>A common function to skip guards on all globals.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.compiler.nested_compile_region"/><p id="torch.compiler.nested_compile_region"/><a class="reference internal" href="generated/torch.compiler.nested_compile_region.html#torch.compiler.nested_compile_region" title="torch.compiler.nested_compile_region"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nested_compile_region</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.compiler.skip_all_guards_unsafe"/><p id="torch.compiler.skip_all_guards_unsafe"/><a class="reference internal" href="generated/torch.compiler.skip_all_guards_unsafe.html#torch.compiler.skip_all_guards_unsafe" title="torch.compiler.skip_all_guards_unsafe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skip_all_guards_unsafe</span></code></a></p></td>
+<td><p>A function for skipping all guards on a compiled function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.compiler.nested_compile_region"/><p id="torch.compiler.nested_compile_region"/><a class="reference internal" href="generated/torch.compiler.nested_compile_region.html#torch.compiler.nested_compile_region" title="torch.compiler.nested_compile_region"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nested_compile_region</span></code></a></p></td>
 <td><p>Tells <strong>``torch.compile``</strong> that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused.</p></td>
 </tr>
 </tbody>
@@ -4990,7 +4994,7 @@ document.write(`
        "headline": "torch.compiler API reference",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/torch.compiler_api.html",
-       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Jun 22, 2025 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused.",
+       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Nov 14, 2025 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -5002,7 +5006,7 @@ document.write(`
          "@id": "/torch.compiler_api.html"
        },
        "datePublished": "Jun 02, 2023T00:00:00Z",
-       "dateModified": "Jun 22, 2025T00:00:00Z"
+       "dateModified": "Nov 14, 2025T00:00:00Z"
      }
  </script>
   <script>

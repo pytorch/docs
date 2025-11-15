@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git532389f )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitee0b5b4 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3456,8 +3456,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3554,6 +3554,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
@@ -4577,11 +4578,29 @@ document.write(`
 <h1>torch.autograd.profiler.profile.total_average<a class="headerlink" href="#torch-autograd-profiler-profile-total-average" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.profile.total_average">
-<span class="sig-prename descclassname"><span class="pre">profile.</span></span><span class="sig-name descname"><span class="pre">total_average</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/autograd/profiler.py#L540"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile.total_average" title="Link to this definition">#</a></dt>
-<dd><p>Averages all events.</p>
+<span class="sig-prename descclassname"><span class="pre">profile.</span></span><span class="sig-name descname"><span class="pre">total_average</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ee0b5b4b1c931e73f098b609fedf5ecace909ceb/torch/autograd/profiler.py#L521"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile.total_average" title="Link to this definition">#</a></dt>
+<dd><p>Compute aggregate statistics across all events.</p>
+<p>Accumulates statistics from all events into a single FunctionEventAvg object.
+This is primarily useful for computing total metrics (total CPU time, total
+memory usage, etc.) across the entire profiling session, regardless of
+operation type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This sums up times and counts across ALL different operations, so the
+“average” metrics (like cpu_time) represent the average time per operation
+call across the entire session, mixing all operation types together.
+For per-operation averages, use <a class="reference internal" href="torch.autograd.profiler.profile.key_averages.html#torch.autograd.profiler.profile.key_averages" title="torch.autograd.profiler.profile.key_averages"><code class="xref py py-meth docutils literal notranslate"><span class="pre">key_averages()</span></code></a> instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A FunctionEventAvg object.</p>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A single aggregate object with key=”Total” containing</dt><dd><p>accumulated statistics.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>FunctionEventAvg</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4936,7 +4955,7 @@ document.write(`
        "headline": "torch.autograd.profiler.profile.total_average",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.autograd.profiler.profile.total_average.html",
-       "articleBody": "torch.autograd.profiler.profile.total_average# profile.total_average()[source]# Averages all events. Returns: A FunctionEventAvg object.",
+       "articleBody": "torch.autograd.profiler.profile.total_average# profile.total_average()[source]# Compute aggregate statistics across all events. Accumulates statistics from all events into a single FunctionEventAvg object. This is primarily useful for computing total metrics (total CPU time, total memory usage, etc.) across the entire profiling session, regardless of operation type. Note This sums up times and counts across ALL different operations, so the \u201caverage\u201d metrics (like cpu_time) represent the average time per operation call across the entire session, mixing all operation types together. For per-operation averages, use key_averages() instead. Returns: A single aggregate object with key=\u201dTotal\u201d containingaccumulated statistics. Return type: FunctionEventAvg",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

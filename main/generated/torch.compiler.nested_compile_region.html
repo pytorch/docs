@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.compiler.config" href="../torch.compiler.config.html" />
-    <link rel="prev" title="torch.compiler.skip_guard_on_globals_unsafe" href="torch.compiler.skip_guard_on_globals_unsafe.html" />
+    <link rel="prev" title="torch.compiler.skip_all_guards_unsafe" href="torch.compiler.skip_all_guards_unsafe.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git532389f )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitee0b5b4 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3456,8 +3456,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3554,6 +3554,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
@@ -4588,7 +4589,7 @@ document.write(`
 <h1>torch.compiler.nested_compile_region<a class="headerlink" href="#torch-compiler-nested-compile-region" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.nested_compile_region">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nested_compile_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/532389fe9ed9fbc787a67cd3d4ffe22c7cc1c8ab/torch/compiler/__init__.py#L620"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nested_compile_region" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nested_compile_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ee0b5b4b1c931e73f098b609fedf5ecace909ceb/torch/compiler/__init__.py#L638"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nested_compile_region" title="Link to this definition">#</a></dt>
 <dd><p>Tells <strong>``torch.compile``</strong> that the marked set of operations forms a nested
 compile region (which is often repeated in the full model) whose code can be
 compiled once and safely reused.  <code class="docutils literal notranslate"><span class="pre">nested_compile_region</span></code> can also be used
@@ -4655,12 +4656,12 @@ compilation cost only when required.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler.skip_guard_on_globals_unsafe.html"
+       href="torch.compiler.skip_all_guards_unsafe.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.compiler.skip_guard_on_globals_unsafe</p>
+        <p class="prev-next-title">torch.compiler.skip_all_guards_unsafe</p>
       </div>
     </a>
     <a class="right-next"
@@ -4694,12 +4695,12 @@ compilation cost only when required.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler.skip_guard_on_globals_unsafe.html"
+       href="torch.compiler.skip_all_guards_unsafe.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.compiler.skip_guard_on_globals_unsafe</p>
+        <p class="prev-next-title">torch.compiler.skip_all_guards_unsafe</p>
       </div>
     </a>
     <a class="right-next"
