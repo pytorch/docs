@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.nn.functional.scaled_grouped_mm" href="torch.nn.functional.scaled_grouped_mm.html" />
-    <link rel="prev" title="SwizzleType" href="torch.nn.functional.SwizzleType.html" />
+    <link rel="prev" title="torch.nn.functional.grouped_mm" href="torch.nn.functional.grouped_mm.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git63ce1fb )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git6c8c03c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2575,6 +2575,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.grouped_mm.html">torch.nn.functional.grouped_mm</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.nn.functional.scaled_mm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
@@ -3456,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4578,7 +4579,7 @@ document.write(`
 <h1>torch.nn.functional.scaled_mm<a class="headerlink" href="#torch-nn-functional-scaled-mm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.scaled_mm">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">scaled_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_recipe_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_recipe_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swizzle_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swizzle_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.bfloat16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contraction_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_accum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/63ce1fb4d7c647f2941b8602d86edc79da74fce9/torch/nn/functional.py#L6643"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.scaled_mm" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">scaled_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_recipe_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_recipe_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swizzle_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swizzle_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.bfloat16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contraction_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_accum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c8c03c96183ed565d6d9766cbd994a6c4c6196d/torch/nn/functional.py#L6691"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.scaled_mm" title="Link to this definition">#</a></dt>
 <dd><dl class="simple">
 <dt>scaled_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, output_dtype,</dt><dd><p>contraction_dim, use_fast_accum)</p>
 </dd>
@@ -4651,12 +4652,12 @@ scale_recipe_a and scale_recipe_b respectively.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.nn.functional.SwizzleType.html"
+       href="torch.nn.functional.grouped_mm.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SwizzleType</p>
+        <p class="prev-next-title">torch.nn.functional.grouped_mm</p>
       </div>
     </a>
     <a class="right-next"
@@ -4690,12 +4691,12 @@ scale_recipe_a and scale_recipe_b respectively.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.nn.functional.SwizzleType.html"
+       href="torch.nn.functional.grouped_mm.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SwizzleType</p>
+        <p class="prev-next-title">torch.nn.functional.grouped_mm</p>
       </div>
     </a>
     <a class="right-next"

@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git63ce1fb )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git6c8c03c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2575,6 +2575,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.grouped_mm.html">torch.nn.functional.grouped_mm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
@@ -3456,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4578,7 +4579,7 @@ document.write(`
 <h1>torch.jit.trace<a class="headerlink" href="#torch-jit-trace" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.trace">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_tolerance=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_force_outplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compilation_unit=&lt;torch.jit.CompilationUnit</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwarg_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_store_inputs=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/63ce1fb4d7c647f2941b8602d86edc79da74fce9/torch/jit/_trace.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.trace" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_tolerance=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_force_outplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compilation_unit=&lt;torch.jit.CompilationUnit</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwarg_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_store_inputs=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c8c03c96183ed565d6d9766cbd994a6c4c6196d/torch/jit/_trace.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.trace" title="Link to this definition">#</a></dt>
 <dd><p>Trace a function and return an executable  or <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> that will be optimized using just-in-time compilation.</p>
 <p>Tracing is ideal for code that operates only on
 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>\s and lists, dictionaries, and

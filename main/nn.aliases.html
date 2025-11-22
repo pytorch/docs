@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git63ce1fb )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git6c8c03c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2575,6 +2575,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.grouped_mm.html">torch.nn.functional.grouped_mm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
@@ -3456,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4848,7 +4849,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Tanhshrink.html#torch.nn.modules.activation.Tanhshrink" title="torch.nn.modules.activation.Tanhshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Tanhshrink</span></code></a></p></td>
 <td><p>Applies the element-wise Tanhshrink function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Threshold.html#torch.nn.modules.activation.Threshold" title="torch.nn.modules.activation.Threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Threshold</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Threshold.html#torch.nn.Threshold" title="torch.nn.modules.activation.Threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Threshold</span></code></a></p></td>
 <td><p>Thresholds each element of the input Tensor.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.GLU.html#torch.nn.modules.activation.GLU" title="torch.nn.modules.activation.GLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GLU</span></code></a></p></td>
@@ -5109,7 +5110,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MultiLabelMarginLoss.html#torch.nn.modules.loss.MultiLabelMarginLoss" title="torch.nn.modules.loss.MultiLabelMarginLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MultiLabelMarginLoss</span></code></a></p></td>
 <td><p>Creates a criterion that optimizes a multi-class multi-classification hinge loss (margin-based loss) between input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> (a 2D mini-batch <cite>Tensor</cite>) and output <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (which is a 2D <cite>Tensor</cite> of target class indices).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HuberLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.HuberLoss.html#torch.nn.modules.loss.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HuberLoss</span></code></a></p></td>
 <td><p>Creates a criterion that uses a squared term if the absolute element-wise error falls below delta and a delta-scaled L1 term otherwise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.SmoothL1Loss.html#torch.nn.modules.loss.SmoothL1Loss" title="torch.nn.modules.loss.SmoothL1Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.SmoothL1Loss</span></code></a></p></td>
