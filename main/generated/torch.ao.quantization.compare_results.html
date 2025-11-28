@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb5a4cde )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2f9b7da )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3457,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4590,7 +4590,7 @@ document.write(`
 <h1>compare_results<a class="headerlink" href="#compare-results" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.compare_results">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">compare_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_results</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5a4cde874bc667652facede4161d64b68a8db01/torch/ao/quantization/pt2e/_numeric_debugger.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.compare_results" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">compare_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_results</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2f9b7dad7b5419b063bd0f2e204de192720ebb94/torch/ao/quantization/pt2e/_numeric_debugger.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.compare_results" title="Link to this definition">#</a></dt>
 <dd><p>Given two dict mapping from <cite>debug_handle_id</cite> (int) to list of tensors
 return a map from <cite>debug_handle_id</cite> to <cite>NodeAccuracySummary</cite> that contains
 comparison information like SQNR, MSE etc.</p>
