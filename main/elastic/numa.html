@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8414958 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb8c4ba3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3457,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4215,6 +4215,57 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.RNNCell.html">RNNCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.LSTMCell.html">LSTMCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../quantization-support.aliases.html">Aliases in torch.ao</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d.html">ConvBnReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d.html">ConvBnReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d.html">ConvBnReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d.html">BNReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d.html">BNReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.quantized.dynamic.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.modules.fused.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.modules.fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.modules.fused.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.intrinsic.modules.fused.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.embedding_ops.Embedding.html">Embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.embedding_ops.EmbeddingBag.html">EmbeddingBag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.qat.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantizable.modules.activation.MultiheadAttention.html">MultiheadAttention</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantizable.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantizable.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose1d.html">ConvTranspose1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose2d.html">ConvTranspose2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose3d.html">ConvTranspose3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRU.html">GRU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter.html">PackedParameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase.html">RNNBase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell.html">RNNCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase.html">RNNCellBase</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 </ul>
@@ -4580,14 +4631,14 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025</p>
 <dl class="py class" id="module-torch.numa.binding">
 <dt class="sig sig-object py" id="torch.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/numa/binding.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/numa/binding.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Link to this definition">#</a></dt>
 <dd><p>See behavior description for each affinity mode
 in torch.distributed.run.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/numa/binding.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/numa/binding.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -4603,7 +4654,7 @@ mass rollouts of numa binding.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_command_args_with_numa_binding">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_command_args_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/numa/binding.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_command_args_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/numa/binding.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding" title="Link to this definition">#</a></dt>
 <dd><p>Wraps command arguments with numactl to apply NUMA CPU binding.</p>
 <p>This function prepends numactl with appropriate CPU affinity flags to the
 provided command arguments, binding the process to CPUs associated with
@@ -4630,7 +4681,7 @@ and fallback is enabled.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_with_numa_binding">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/numa/binding.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_with_numa_binding" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/numa/binding.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_with_numa_binding" title="Link to this definition">#</a></dt>
 <dd><p>Wraps a function to apply NUMA CPU binding before execution.</p>
 <p>This decorator applies NUMA CPU affinity to all threads in the current process
 before calling the wrapped function, binding them to CPUs associated with the

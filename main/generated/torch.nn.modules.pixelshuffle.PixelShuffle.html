@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8414958 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb8c4ba3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3457,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4215,6 +4215,57 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.RNNCell.html">RNNCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.LSTMCell.html">LSTMCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../quantization-support.aliases.html">Aliases in torch.ao</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d.html">ConvBnReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d.html">ConvBnReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d.html">ConvBnReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d.html">BNReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d.html">BNReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.quantized.dynamic.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.modules.fused.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.modules.fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.modules.fused.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.intrinsic.modules.fused.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.embedding_ops.Embedding.html">Embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.embedding_ops.EmbeddingBag.html">EmbeddingBag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.qat.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantizable.modules.activation.MultiheadAttention.html">MultiheadAttention</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantizable.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantizable.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose1d.html">ConvTranspose1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose2d.html">ConvTranspose2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose3d.html">ConvTranspose3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.GRU.html">GRU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter.html">PackedParameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase.html">RNNBase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell.html">RNNCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase.html">RNNCellBase</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 </ul>
@@ -4590,7 +4641,7 @@ document.write(`
 <h1>PixelShuffle<a class="headerlink" href="#pixelshuffle" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.pixelshuffle.PixelShuffle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pixelshuffle.</span></span><span class="sig-name descname"><span class="pre">PixelShuffle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">upscale_factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/nn/modules/pixelshuffle.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pixelshuffle.</span></span><span class="sig-name descname"><span class="pre">PixelShuffle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">upscale_factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/nn/modules/pixelshuffle.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle" title="Link to this definition">#</a></dt>
 <dd><p>Rearrange elements in a tensor according to an upscaling factor.</p>
 <p>Rearranges elements in a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>×</mo><msup><mi>r</mi><mn>2</mn></msup><mo separator="true">,</mo><mi>H</mi><mo separator="true">,</mo><mi>W</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C \times r^2, H, W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span></span>
 to a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>H</mi><mo>×</mo><mi>r</mi><mo separator="true">,</mo><mi>W</mi><mo>×</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C, H \times r, W \times r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span></span>, where r is an upscale factor.</p>
@@ -4630,7 +4681,7 @@ by Shi et al. (2016) for more details.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.pixelshuffle.PixelShuffle.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/nn/modules/pixelshuffle.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle.extra_repr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/nn/modules/pixelshuffle.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle.extra_repr" title="Link to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4641,7 +4692,7 @@ by Shi et al. (2016) for more details.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.pixelshuffle.PixelShuffle.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/nn/modules/pixelshuffle.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/nn/modules/pixelshuffle.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pixelshuffle.PixelShuffle.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

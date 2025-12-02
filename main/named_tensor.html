@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8414958 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb8c4ba3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3457,8 +3457,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4215,6 +4215,57 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.RNNCell.html">RNNCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.LSTMCell.html">LSTMCell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="quantization-support.aliases.html">Aliases in torch.ao</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d.html">ConvBnReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d.html">ConvBnReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d.html">ConvBnReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d.html">ConvReLU1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d.html">ConvReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d.html">ConvReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d.html">BNReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d.html">BNReLU3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_add.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.dynamic.modules.linear_relu.LinearReLU.html">LinearReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.html">ConvAdd2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.modules.fused.ConvAddReLU2d.html">ConvAddReLU2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.modules.fused.LinearBn1d.html">LinearBn1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.modules.fused.LinearLeakyReLU.html">LinearLeakyReLU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.modules.fused.LinearTanh.html">LinearTanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.embedding_ops.Embedding.html">Embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.embedding_ops.EmbeddingBag.html">EmbeddingBag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.qat.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantizable.modules.activation.MultiheadAttention.html">MultiheadAttention</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantizable.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantizable.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv1d.html">Conv1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv2d.html">Conv2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.Conv3d.html">Conv3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose1d.html">ConvTranspose1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose2d.html">ConvTranspose2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose3d.html">ConvTranspose3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.linear.Linear.html">Linear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRU.html">GRU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell.html">GRUCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTM.html">LSTM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell.html">LSTMCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter.html">PackedParameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase.html">RNNBase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell.html">RNNCell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase.html">RNNCellBase</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 </ul>
@@ -4838,7 +4889,7 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename">
-<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/_tensor.py#L1476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/_tensor.py#L1476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Link to this definition">#</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -4871,13 +4922,13 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename_">
-<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/_tensor.py#L1461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/_tensor.py#L1461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Link to this definition">#</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.refine_names">
-<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/_tensor.py#L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/_tensor.py#L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Link to this definition">#</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -4959,7 +5010,7 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.align_to">
-<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/84149583d483e9c973c9a0feda70e4f3964947b0/torch/_tensor.py#L1394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8c4ba3593761e7b2a3ebd86f040fb07b47c02cf/torch/_tensor.py#L1394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Link to this definition">#</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.
