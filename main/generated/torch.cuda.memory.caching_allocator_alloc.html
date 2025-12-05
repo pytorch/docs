@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git65c4620 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4380129 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.XPUPluggableAllocator.html">XPUPluggableAllocator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -4567,7 +4569,7 @@ document.write(`
 <h1>torch.cuda.memory.caching_allocator_alloc<a class="headerlink" href="#torch-cuda-memory-caching-allocator-alloc" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.caching_allocator_alloc">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">caching_allocator_alloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/65c4620d6bb0c6029f69762c22b91dda2294da9a/torch/cuda/memory.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.caching_allocator_alloc" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">caching_allocator_alloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4380129736e058d7baf8d3a97f54232b3f35c175/torch/cuda/memory.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.caching_allocator_alloc" title="Link to this definition">#</a></dt>
 <dd><p>Perform a memory allocation using the CUDA memory allocator.</p>
 <p>Memory is allocated for a given device and a stream, this
 function is intended to be used for interoperability with other
