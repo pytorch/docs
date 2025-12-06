@@ -1,0 +1,6 @@
+﻿torch.utils.flop\_counter.sdpa\_flop
+====================================
+
+.. currentmodule:: torch.utils.flop_counter
+
+.. autofunction:: sdpa_flop

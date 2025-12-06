@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4380129 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitaea0296 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3625,6 +3625,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_contiguous.html">torch.fx.experimental.sym_node.sympy_is_contiguous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_contiguous_generic.html">torch.fx.experimental.sym_node.sympy_is_contiguous_generic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.to_node.html">torch.fx.experimental.sym_node.to_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.ShapeEnv.html">ShapeEnv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DimDynamic.html">DimDynamic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html">StrictMinMaxConstraint</a></li>
@@ -3685,11 +3686,16 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.handle_sym_dispatch.html">torch.fx.experimental.proxy_tensor.handle_sym_dispatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.get_proxy_mode.html">torch.fx.experimental.proxy_tensor.get_proxy_mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_enable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_enable_thunkify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_disable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_disable_thunkify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.thunkify.html">torch.fx.experimental.proxy_tensor.thunkify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.track_tensor.html">torch.fx.experimental.proxy_tensor.track_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.track_tensor_tree.html">torch.fx.experimental.proxy_tensor.track_tensor_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
@@ -3716,6 +3722,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.update_in.html">torch.fx.experimental.unification.unification_tools.update_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.valfilter.html">torch.fx.experimental.unification.unification_tools.valfilter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.valmap.html">torch.fx.experimental.unification.unification_tools.valmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.itemfilter.html">torch.fx.experimental.unification.unification_tools.itemfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.itemmap.html">torch.fx.experimental.unification.unification_tools.itemmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_algebraic_expression.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_algebraic_expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
@@ -4421,6 +4435,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.utils.swap_tensors.html">torch.utils.swap_tensors</a></li>
 </ul>
 </details></li>
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../benchmark_utils.html">torch.utils.benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_extension.html">torch.utils.cpp_extension</a></li>
@@ -4569,7 +4586,7 @@ document.write(`
 <h1>torch.mtia.record_memory_history<a class="headerlink" href="#torch-mtia-record-memory-history" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.mtia.record_memory_history">
-<span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'python'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4380129736e058d7baf8d3a97f54232b3f35c175/torch/mtia/__init__.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.record_memory_history" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'python'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/mtia/__init__.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.record_memory_history" title="Link to this definition">#</a></dt>
 <dd><p>Enable/Disable the memory profiler on MTIA allocator</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

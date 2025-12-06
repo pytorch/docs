@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.file\_specific\_replacement
+=============================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: file_specific_replacement

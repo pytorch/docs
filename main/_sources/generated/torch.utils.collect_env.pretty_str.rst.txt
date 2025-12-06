@@ -1,0 +1,6 @@
+﻿torch.utils.collect\_env.pretty\_str
+====================================
+
+.. currentmodule:: torch.utils.collect_env
+
+.. autofunction:: pretty_str
