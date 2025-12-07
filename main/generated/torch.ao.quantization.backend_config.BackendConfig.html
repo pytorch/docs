@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitaea0296 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git347c6ec )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3459,8 +3459,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4597,7 +4597,7 @@ document.write(`
 <h1>BackendConfig<a class="headerlink" href="#backendconfig" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig" title="Link to this definition">#</a></dt>
 <dd><p>Config that defines the set of patterns that can be quantized on a given backend, and how reference
 quantized models can be produced from these patterns.</p>
 <p>A pattern in this context refers to a module, a functional, an operator, or a directed acyclic graph
@@ -4650,7 +4650,7 @@ of the above. Each pattern supported on the target backend can be individually c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="Link to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">BackendConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“name”: the name of the target backend</p>
@@ -4665,7 +4665,7 @@ of the above. Each pattern supported on the target backend can be individually c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config">
-<span class="sig-name descname"><span class="pre">set_backend_pattern_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_backend_pattern_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config" title="Link to this definition">#</a></dt>
 <dd><p>Set the config for an pattern that can be run on the target backend.
 This overrides any existing config for the given pattern.</p>
 <dl class="field-list simple">
@@ -4677,7 +4677,7 @@ This overrides any existing config for the given pattern.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs">
-<span class="sig-name descname"><span class="pre">set_backend_pattern_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_backend_pattern_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs" title="Link to this definition">#</a></dt>
 <dd><p>Set the configs for patterns that can be run on the target backend.
 This overrides any existing config for a given pattern if it was previously registered already.</p>
 <dl class="field-list simple">
@@ -4689,7 +4689,7 @@ This overrides any existing config for a given pattern if it was previously regi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_name">
-<span class="sig-name descname"><span class="pre">set_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_name" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_name" title="Link to this definition">#</a></dt>
 <dd><p>Set the name of the target backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4700,7 +4700,7 @@ This overrides any existing config for a given pattern if it was previously regi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/aea02967dbd4945075a018334c11fee3c50c405a/torch/ao/quantization/backend_config/backend_config.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.to_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/347c6ecf8abc32c92f56ab2cfd42f65c147aca7e/torch/ao/quantization/backend_config/backend_config.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.to_dict" title="Link to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">BackendConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="torch.ao.quantization.backend_config.BackendConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">
