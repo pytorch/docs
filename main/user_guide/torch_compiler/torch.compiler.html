@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git347c6ec )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita98471c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1638,8 +1638,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -1829,7 +1829,7 @@ document.write(`
                   
   <section id="torch-compiler">
 <span id="torch-compiler-overview"></span><h1>torch.compiler<a class="headerlink" href="#torch-compiler" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Dec 03, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Dec 07, 2025</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code> is a namespace through which some of the internal compiler
 methods are surfaced for user consumption. The main function and the feature in
 this namespace is <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
@@ -1858,6 +1858,20 @@ learn more about the internals of <code class="docutils literal notranslate"><sp
 <p class="admonition-title">Note</p>
 <p>In some cases, the terms <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, TorchDynamo, <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>
 might be used interchangeably in this documentation.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> may not support recently released major versions of Python.</p>
+<p>If you attempt to use <code class="docutils literal notranslate"><span class="pre">&#64;torch.compile</span></code> in an unsupported Python
+environment, you may encounter an error similar to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">supported</span> <span class="n">on</span> <span class="n">Python</span> <span class="mf">3.</span><span class="n">xx</span><span class="mf">.0</span><span class="o">+</span>
+
+</pre></div>
+</div>
+<p>Please ensure that your current Python version is within the range
+supported by PyTorch for <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
+<p>If you have installed PyTorch on a Python version that is too new,
+you will need to switch to an earlier Python version in order to use <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
 </div>
 <p>As mentioned above, to run your workflows faster, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> through
 TorchDynamo requires a backend that converts the captured graphs into a fast
@@ -2284,7 +2298,7 @@ with its optional dependencies.</p>
        "headline": "torch.compiler",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/user_guide/torch_compiler/torch.compiler.html",
-       "articleBody": "torch.compiler# Created On: Jul 28, 2023 | Last Updated On: Dec 03, 2025 torch.compiler is a namespace through which some of the internal compiler methods are surfaced for user consumption. The main function and the feature in this namespace is torch.compile. torch.compile is a PyTorch function introduced in PyTorch 2.x that aims to solve the problem of accurate graph capturing in PyTorch and ultimately enable software engineers to run their PyTorch programs faster. torch.compile is written in Python and it marks the transition of PyTorch from C++ to Python. torch.compile leverages the following underlying technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs. Methods that are available externally for PyTorch users are surfaced through the torch.compiler namespace. TorchInductor is the default torch.compile deep learning compiler that generates fast code for multiple accelerators and backends. You need to use a backend compiler to make speedups through torch.compile possible. For NVIDIA, AMD and Intel GPUs, it leverages OpenAI Triton as the key building block. AOT Autograd captures not only the user-level code, but also backpropagation, which results in capturing the backwards pass \u201cahead-of-time\u201d. This enables acceleration of both forwards and backwards pass using TorchInductor. To better understand how torch.compile tracing behavior on your code, or to learn more about the internals of torch.compile, please refer to the torch.compile programming model. Note In some cases, the terms torch.compile, TorchDynamo, torch.compiler might be used interchangeably in this documentation. As mentioned above, to run your workflows faster, torch.compile through TorchDynamo requires a backend that converts the captured graphs into a fast machine code. Different backends can result in various optimization gains. The default backend is called TorchInductor, also known as inductor, TorchDynamo has a list of supported backends developed by our partners, which can be seen by running torch.compiler.list_backends() each of which with its optional dependencies. Some of the most commonly used backends include: Training \u0026 inference backends Backend Description torch.compile(m, backend=\"inductor\") Uses the TorchInductor backend. Read more torch.compile(m, backend=\"cudagraphs\") CUDA graphs with AOT Autograd. Read more torch.compile(m, backend=\"ipex\") Uses IPEX on CPU. Read more Inference-only backends Backend Description torch.compile(m, backend=\"tensorrt\") Uses Torch-TensorRT for inference optimizations. Requires import torch_tensorrt in the calling script to register backend. Read more torch.compile(m, backend=\"ipex\") Uses IPEX for inference on CPU. Read more torch.compile(m, backend=\"tvm\") Uses Apache TVM for inference optimizations. Read more torch.compile(m, backend=\"openvino\") Uses OpenVINO for inference optimizations. Read more",
+       "articleBody": "torch.compiler# Created On: Jul 28, 2023 | Last Updated On: Dec 07, 2025 torch.compiler is a namespace through which some of the internal compiler methods are surfaced for user consumption. The main function and the feature in this namespace is torch.compile. torch.compile is a PyTorch function introduced in PyTorch 2.x that aims to solve the problem of accurate graph capturing in PyTorch and ultimately enable software engineers to run their PyTorch programs faster. torch.compile is written in Python and it marks the transition of PyTorch from C++ to Python. torch.compile leverages the following underlying technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs. Methods that are available externally for PyTorch users are surfaced through the torch.compiler namespace. TorchInductor is the default torch.compile deep learning compiler that generates fast code for multiple accelerators and backends. You need to use a backend compiler to make speedups through torch.compile possible. For NVIDIA, AMD and Intel GPUs, it leverages OpenAI Triton as the key building block. AOT Autograd captures not only the user-level code, but also backpropagation, which results in capturing the backwards pass \u201cahead-of-time\u201d. This enables acceleration of both forwards and backwards pass using TorchInductor. To better understand how torch.compile tracing behavior on your code, or to learn more about the internals of torch.compile, please refer to the torch.compile programming model. Note In some cases, the terms torch.compile, TorchDynamo, torch.compiler might be used interchangeably in this documentation. Warning torch.compile may not support recently released major versions of Python. If you attempt to use @torch.compile in an unsupported Python environment, you may encounter an error similar to: RuntimeError: torch.compile is not supported on Python 3.xx.0+ Please ensure that your current Python version is within the range supported by PyTorch for torch.compile. If you have installed PyTorch on a Python version that is too new, you will need to switch to an earlier Python version in order to use torch.compile. As mentioned above, to run your workflows faster, torch.compile through TorchDynamo requires a backend that converts the captured graphs into a fast machine code. Different backends can result in various optimization gains. The default backend is called TorchInductor, also known as inductor, TorchDynamo has a list of supported backends developed by our partners, which can be seen by running torch.compiler.list_backends() each of which with its optional dependencies. Some of the most commonly used backends include: Training \u0026 inference backends Backend Description torch.compile(m, backend=\"inductor\") Uses the TorchInductor backend. Read more torch.compile(m, backend=\"cudagraphs\") CUDA graphs with AOT Autograd. Read more torch.compile(m, backend=\"ipex\") Uses IPEX on CPU. Read more Inference-only backends Backend Description torch.compile(m, backend=\"tensorrt\") Uses Torch-TensorRT for inference optimizations. Requires import torch_tensorrt in the calling script to register backend. Read more torch.compile(m, backend=\"ipex\") Uses IPEX for inference on CPU. Read more torch.compile(m, backend=\"tvm\") Uses Apache TVM for inference optimizations. Read more torch.compile(m, backend=\"openvino\") Uses OpenVINO for inference optimizations. Read more",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -2296,7 +2310,7 @@ with its optional dependencies.</p>
          "@id": "/user_guide/torch_compiler/torch.compiler.html"
        },
        "datePublished": "Jul 28, 2023T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "dateModified": "Dec 07, 2025T00:00:00Z"
      }
  </script>
   <script>
