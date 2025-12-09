@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita98471c )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite51bd3c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4597,7 +4597,7 @@ document.write(`
 <h1>torch.func.replace_all_batch_norm_modules_<a class="headerlink" href="#torch-func-replace-all-batch-norm-modules" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.replace_all_batch_norm_modules_">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a98471c720ac203c066acc887ca51ae6b3daf628/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e51bd3c68d821117ddd7920914466b72b8cb175b/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Link to this definition">#</a></dt>
 <dd><p>In place updates <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">running_mean</span></code> and <code class="docutils literal notranslate"><span class="pre">running_var</span></code> to be None and
 setting track_running_stats to be False for any nn.BatchNorm module in <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code></p>
 <dl class="field-list simple">
