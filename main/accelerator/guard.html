@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite51bd3c )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita8d5b97 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1839,25 +1839,23 @@ document.write(`
                   
   <section id="guard">
 <h1>Guard<a class="headerlink" href="#guard" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 08, 2025 | Last Updated On: Dec 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 08, 2025 | Last Updated On: Dec 09, 2025</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>The Device Guard abstraction in PyTorch provides RAII-based device and stream management, allowing code to temporarily switch device contexts and automatically restore the original device upon exiting a scope. This is essential for operations that need to ensure they execute on a specific device regardless of the current global device state.</p>
-<p>For custom accelerators registered via the OpenReg framework, implementing a DeviceGuardImpl enables seamless integration with PyTorch’s device management infrastructure. The <code class="docutils literal notranslate"><span class="pre">OpenRegGuardImpl</span></code> class implements <code class="docutils literal notranslate"><span class="pre">c10::impl::DeviceGuardImplInterface</span></code> for the <code class="docutils literal notranslate"><span class="pre">PrivateUse1</span></code> dispatch key, providing the following key capabilities:</p>
+<p>For custom accelerators, a <code class="docutils literal notranslate"><span class="pre">CustomDeviceGuardImpl</span></code> that implements <code class="docutils literal notranslate"><span class="pre">c10::impl::DeviceGuardImplInterface</span></code> enables seamless integration with PyTorch’s device management infrastructure. For example, the OpenReg (Open Registration) integration example in PyTorch provides an <code class="docutils literal notranslate"><span class="pre">OpenRegGuardImpl</span></code> for the <code class="docutils literal notranslate"><span class="pre">PrivateUse1</span></code> dispatch key, with the following capabilities:</p>
 <ul class="simple">
-<li><p><strong>Device Context Management</strong>: Save, switch, and restore the current device index</p></li>
+<li><p><strong>Device Management</strong>: Save, switch, and restore the current device index</p></li>
 <li><p><strong>Stream Management</strong>: Create, query, and switch between computation streams</p></li>
-<li><p><strong>Event Synchronization</strong>: Record events on streams and synchronize execution</p></li>
-<li><p><strong>Device Synchronization</strong>: Wait for all operations on a device or stream to complete</p></li>
+<li><p><strong>Event Management</strong>: Record events on streams and synchronize execution</p></li>
 </ul>
-<p>By registering <code class="docutils literal notranslate"><span class="pre">OpenRegGuardImpl</span></code> with PyTorch, user code can use device context managers like <code class="docutils literal notranslate"><span class="pre">torch.accelerator.device_index()</span></code> and operations automatically handle device switching through the guard’s RAII semantics.</p>
+<p>By registering <code class="docutils literal notranslate"><span class="pre">OpenRegGuardImpl</span></code> with PyTorch, user code can use device context managers like <code class="docutils literal notranslate"><span class="pre">torch.accelerator.device_index()</span></code>, and operations automatically handle device switching via the guard’s RAII semantics.</p>
 </section>
 <section id="design">
 <h2>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">OpenRegGuardImpl</span></code> implements the <code class="docutils literal notranslate"><span class="pre">c10::impl::DeviceGuardImplInterface</span></code> and provides three main categories of functionality:</p>
+<p>The guard interface class <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/c10/core/impl/DeviceGuardImplInterface.h" title="DeviceGuardImplInterface"><code class="docutils literal notranslate"><span class="pre">c10::impl::DeviceGuardImplInterface</span></code></a> provides three main categories of functionality:</p>
 <section id="device-management">
 <h3>Device Management<a class="headerlink" href="#device-management" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="device.html#device-guard"><span class="std std-ref">Implementation</span></a></p>
 <p>Device management enables switching between different accelerator devices and querying device information. This forms the foundation for device context management in PyTorch.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1869,7 +1867,7 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><strong>Device Query and Switch</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">exchangeDevice</span></code>, <code class="docutils literal notranslate"><span class="pre">setDevice</span></code>, <code class="docutils literal notranslate"><span class="pre">getDevice</span></code>, <code class="docutils literal notranslate"><span class="pre">uncheckedSetDevice</span></code></p></td>
-<td><p>Change current device for operations, save/restore device context in RAII guards</p></td>
+<td><p>Change the current device for operations; save/restore device context in RAII guards</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Device Count</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">deviceCount</span></code> (noexcept)</p></td>
@@ -1885,7 +1883,6 @@ document.write(`
 </section>
 <section id="stream-management">
 <h3>Stream Management<a class="headerlink" href="#stream-management" title="Link to this heading">#</a></h3>
-<p>Implementation (documentation upcoming, currently can see code in <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/test/cpp_extensions/open_registration_extension/torch_openreg/csrc/runtime/OpenRegGuard.h" title="OpenReg Guard"><code class="docutils literal notranslate"><span class="pre">OpenRegGuard.h</span></code></a> for reference)</p>
 <p>Streams enable asynchronous execution of operations on accelerator devices. Multiple streams allow concurrent execution of independent operations on the same device.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1897,7 +1894,7 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><strong>Stream Creation/Access</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">getStream</span></code>, <code class="docutils literal notranslate"><span class="pre">getDefaultStream</span></code>, <code class="docutils literal notranslate"><span class="pre">getNewStream</span></code>, <code class="docutils literal notranslate"><span class="pre">getStreamFromGlobalPool</span></code>, <code class="docutils literal notranslate"><span class="pre">exchangeStream</span></code></p></td>
-<td><p>Create and manage computation streams for asynchronous execution</p></td>
+<td><p>Create and manage compute streams for asynchronous execution</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Stream Synchronization</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">queryStream</span></code>, <code class="docutils literal notranslate"><span class="pre">synchronizeStream</span></code></p></td>
@@ -1909,8 +1906,7 @@ document.write(`
 </section>
 <section id="event-management">
 <h3>Event Management<a class="headerlink" href="#event-management" title="Link to this heading">#</a></h3>
-<p>Implementation (documentation upcoming, currently can see code in <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/test/cpp_extensions/open_registration_extension/torch_openreg/csrc/runtime/OpenRegGuard.h" title="OpenReg Guard"><code class="docutils literal notranslate"><span class="pre">OpenRegGuard.h</span></code></a> for reference)</p>
-<p>Events provide synchronization primitives for coordinating execution across streams and measuring execution time. They mark specific points in stream execution that can be waited on or timed.</p>
+<p>Events provide synchronization primitives for coordinating execution across streams and measuring execution time. They mark specific points in stream execution that can be awaited or timed.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Functionality</p></th>
@@ -1942,15 +1938,15 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><strong>Design Principles:</strong></p>
-<ul class="simple">
-<li><p>All device parameters must be validated to ensure they have <code class="docutils literal notranslate"><span class="pre">DeviceType::PrivateUse1</span></code></p></li>
-<li><p>Operations that access device-specific resources (streams, events) must temporarily switch to that device and restore the original device afterward to maintain consistent global state</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">deviceCount()</span></code> method must be noexcept and return 0 on fatal errors (required by C10 contract)</p></li>
-<li><p>Event objects are created lazily on first <code class="docutils literal notranslate"><span class="pre">record()</span></code> call with flags determined by <code class="docutils literal notranslate"><span class="pre">EventFlag</span></code> parameter</p></li>
-<li><p>Streams and events are thin wrappers around OpenReg runtime types, requiring conversions via <code class="docutils literal notranslate"><span class="pre">OpenRegStream</span></code> and <code class="docutils literal notranslate"><span class="pre">orEvent_t</span></code></p></li>
-</ul>
 </section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="device.html#device-guard"><span class="std std-ref">Device Guard Implementation</span></a></p></li>
+<li><p>Stream Guard Implementation (Upcoming)</p></li>
+<li><p>Event Guard Implementation (Upcoming)</p></li>
+</ul>
 </section>
 </section>
 
@@ -2078,6 +2074,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#event-management">Event Management</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
 </ul>
   </nav></div>
     
@@ -2324,7 +2321,7 @@ document.write(`
        "headline": "Guard",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/accelerator/guard.html",
-       "articleBody": "Guard# Created On: Dec 08, 2025 | Last Updated On: Dec 08, 2025 Background# The Device Guard abstraction in PyTorch provides RAII-based device and stream management, allowing code to temporarily switch device contexts and automatically restore the original device upon exiting a scope. This is essential for operations that need to ensure they execute on a specific device regardless of the current global device state. For custom accelerators registered via the OpenReg framework, implementing a DeviceGuardImpl enables seamless integration with PyTorch\u2019s device management infrastructure. The OpenRegGuardImpl class implements c10::impl::DeviceGuardImplInterface for the PrivateUse1 dispatch key, providing the following key capabilities: Device Context Management: Save, switch, and restore the current device index Stream Management: Create, query, and switch between computation streams Event Synchronization: Record events on streams and synchronize execution Device Synchronization: Wait for all operations on a device or stream to complete By registering OpenRegGuardImpl with PyTorch, user code can use device context managers like torch.accelerator.device_index() and operations automatically handle device switching through the guard\u2019s RAII semantics. Design# The OpenRegGuardImpl implements the c10::impl::DeviceGuardImplInterface and provides three main categories of functionality: Device Management# Implementation Device management enables switching between different accelerator devices and querying device information. This forms the foundation for device context management in PyTorch. Functionality Description Application Scenario Device Query and Switch exchangeDevice, setDevice, getDevice, uncheckedSetDevice Change current device for operations, save/restore device context in RAII guards Device Count deviceCount (noexcept) Query number of available devices; must return 0 on errors rather than throwing Device Synchronization synchronizeDevice Wait for all operations on a device to complete Stream Management# Implementation (documentation upcoming, currently can see code in OpenRegGuard.h for reference) Streams enable asynchronous execution of operations on accelerator devices. Multiple streams allow concurrent execution of independent operations on the same device. Functionality Description Application Scenario Stream Creation/Access getStream, getDefaultStream, getNewStream, getStreamFromGlobalPool, exchangeStream Create and manage computation streams for asynchronous execution Stream Synchronization queryStream, synchronizeStream Check stream completion status, wait for stream operations to finish Event Management# Implementation (documentation upcoming, currently can see code in OpenRegGuard.h for reference) Events provide synchronization primitives for coordinating execution across streams and measuring execution time. They mark specific points in stream execution that can be waited on or timed. Functionality Description Application Scenario Event Recording record Mark a point in stream execution for later synchronization or timing Event Blocking block Make one stream wait for an event from another stream (inter-stream dependencies) Event Synchronization queryEvent, synchronizeEvent Check event completion, wait for event to complete Event Lifecycle destroyEvent Free event resources when no longer needed Event Timing elapsedTime Measure time between two events for performance profiling Design Principles: All device parameters must be validated to ensure they have DeviceType::PrivateUse1 Operations that access device-specific resources (streams, events) must temporarily switch to that device and restore the original device afterward to maintain consistent global state The deviceCount() method must be noexcept and return 0 on fatal errors (required by C10 contract) Event objects are created lazily on first record() call with flags determined by EventFlag parameter Streams and events are thin wrappers around OpenReg runtime types, requiring conversions via OpenRegStream and orEvent_t",
+       "articleBody": "Guard# Created On: Dec 08, 2025 | Last Updated On: Dec 09, 2025 Background# The Device Guard abstraction in PyTorch provides RAII-based device and stream management, allowing code to temporarily switch device contexts and automatically restore the original device upon exiting a scope. This is essential for operations that need to ensure they execute on a specific device regardless of the current global device state. For custom accelerators, a CustomDeviceGuardImpl that implements c10::impl::DeviceGuardImplInterface enables seamless integration with PyTorch\u2019s device management infrastructure. For example, the OpenReg (Open Registration) integration example in PyTorch provides an OpenRegGuardImpl for the PrivateUse1 dispatch key, with the following capabilities: Device Management: Save, switch, and restore the current device index Stream Management: Create, query, and switch between computation streams Event Management: Record events on streams and synchronize execution By registering OpenRegGuardImpl with PyTorch, user code can use device context managers like torch.accelerator.device_index(), and operations automatically handle device switching via the guard\u2019s RAII semantics. Design# The guard interface class c10::impl::DeviceGuardImplInterface provides three main categories of functionality: Device Management# Device management enables switching between different accelerator devices and querying device information. This forms the foundation for device context management in PyTorch. Functionality Description Application Scenario Device Query and Switch exchangeDevice, setDevice, getDevice, uncheckedSetDevice Change the current device for operations; save/restore device context in RAII guards Device Count deviceCount (noexcept) Query number of available devices; must return 0 on errors rather than throwing Device Synchronization synchronizeDevice Wait for all operations on a device to complete Stream Management# Streams enable asynchronous execution of operations on accelerator devices. Multiple streams allow concurrent execution of independent operations on the same device. Functionality Description Application Scenario Stream Creation/Access getStream, getDefaultStream, getNewStream, getStreamFromGlobalPool, exchangeStream Create and manage compute streams for asynchronous execution Stream Synchronization queryStream, synchronizeStream Check stream completion status, wait for stream operations to finish Event Management# Events provide synchronization primitives for coordinating execution across streams and measuring execution time. They mark specific points in stream execution that can be awaited or timed. Functionality Description Application Scenario Event Recording record Mark a point in stream execution for later synchronization or timing Event Blocking block Make one stream wait for an event from another stream (inter-stream dependencies) Event Synchronization queryEvent, synchronizeEvent Check event completion, wait for event to complete Event Lifecycle destroyEvent Free event resources when no longer needed Event Timing elapsedTime Measure time between two events for performance profiling Implementation# Device Guard Implementation Stream Guard Implementation (Upcoming) Event Guard Implementation (Upcoming)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -2336,7 +2333,7 @@ document.write(`
          "@id": "/accelerator/guard.html"
        },
        "datePublished": "Dec 08, 2025T00:00:00Z",
-       "dateModified": "Dec 08, 2025T00:00:00Z"
+       "dateModified": "Dec 09, 2025T00:00:00Z"
      }
  </script>
   <script>

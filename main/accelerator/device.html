@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite51bd3c )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita8d5b97 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1839,20 +1839,19 @@ document.write(`
                   
   <section id="device-management">
 <h1>Device Management<a class="headerlink" href="#device-management" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 14, 2025 | Last Updated On: Dec 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 14, 2025 | Last Updated On: Dec 09, 2025</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
-<p>Device management handles basic operations like querying how many devices are available and switching between them. Accelerator backends need to wrap their device runtime’s APIs and expose them to PyTorch.</p>
-<p>The OpenReg implementation (<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/test/cpp_extensions/open_registration_extension/torch_openreg/csrc/runtime/OpenRegFunctions.cpp" title="OpenReg Device Management"><code class="docutils literal notranslate"><span class="pre">OpenRegFunctions.h/cpp</span></code></a>) shows how to wrap a third-party runtime. These functions are used throughout the backend - by streams, events, generators, and Python bindings.</p>
+<p>Device management covers basics such as querying how many devices are available and switching between them. Accelerator backends wrap their device‑runtime APIs and expose them to PyTorch.</p>
 </section>
 <section id="design">
 <h2>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h2>
-<p>Accelerator vendors need to implement these core functions:</p>
+<p>Accelerator vendors should implement these core functions:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Function Name</p></th>
+<tr class="row-odd"><th class="head"><p>Function name</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Application Scenarios</p></th>
+<th class="head"><p>Application scenarios</p></th>
 </tr>
 </thead>
 <tbody>
@@ -1873,25 +1872,26 @@ document.write(`
 <td><p>- Implementing device guards<br>- Temporarily switching device context<br>- RAII-based device management</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maybe_exchange_device()</span></code></p></td>
-<td><p>Conditionally exchange device only if the index is valid (-1 OK)</p></td>
+<td><p>Conditionally exchange device only if the index is valid (−1 allowed)</p></td>
 <td><p>- Safe device switching with optional indices<br>- Guard implementations with nullable device values</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>These functions are building blocks for more complex features like streams, events, and memory management. Make sure to validate inputs and handle errors properly.</p>
+<p>These functions are the building blocks for streams, events, and memory management. Validate inputs and handle errors properly.</p>
 </section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
-<p>This section shows how to implement device management using <code class="docutils literal notranslate"><span class="pre">set_device</span></code> as an example. The implementation requires:</p>
+<p>This section illustrates device management using <code class="docutils literal notranslate"><span class="pre">set_device</span></code> as an example. The implementation requires:</p>
 <ol class="arabic simple">
 <li><p>C++ wrappers around the device runtime</p></li>
 <li><p>Python bindings to expose the C++ functions</p></li>
 <li><p>User-friendly Python APIs</p></li>
 </ol>
+<p>For illustration, OpenReg (Open Registration) is a PyTorch integration example that fills the gap for out‑of‑tree accelerator backend integration. Its implementation (<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/test/cpp_extensions/open_registration_extension/torch_openreg/csrc/runtime/OpenRegFunctions.cpp" title="OpenReg Device Management"><code class="docutils literal notranslate"><span class="pre">OpenRegFunctions.h/cpp</span></code></a>) demonstrates how to wrap a third‑party runtime cleanly. These functions are reused across the backend—for streams, events, generators, and Python bindings.</p>
 <section id="c-side">
-<h3>C++ Side<a class="headerlink" href="#c-side" title="Link to this heading">#</a></h3>
-<p>Wrap the device runtime’s API and add error handling. The <code class="docutils literal notranslate"><span class="pre">SetDevice</span></code> function shows this pattern:</p>
+<h3>C++ side<a class="headerlink" href="#c-side" title="Link to this heading">#</a></h3>
+<p>Wrap the device‑runtime API and add error handling. The <code class="docutils literal notranslate"><span class="pre">SetDevice</span></code> function shows this pattern:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">orError_t</span><span class="w"> </span><span class="nf">SetDevice</span><span class="p">(</span><span class="n">DeviceIndex</span><span class="w"> </span><span class="n">device</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="linenos">2</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">cur_device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 <span class="linenos">3</span><span class="w">  </span><span class="n">OPENREG_CHECK</span><span class="p">(</span><span class="n">orGetDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cur_device</span><span class="p">));</span>
@@ -1909,8 +1909,8 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="binding">
-<h3>Binding<a class="headerlink" href="#binding" title="Link to this heading">#</a></h3>
+<section id="bindings">
+<h3>Bindings<a class="headerlink" href="#bindings" title="Link to this heading">#</a></h3>
 <p>Expose the C++ functions to Python using pybind11:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="nf">_setDevice</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="n">HANDLE_TH_ERRORS</span>
@@ -1936,7 +1936,7 @@ document.write(`
 </div>
 </section>
 <section id="python-side">
-<h3>Python Side<a class="headerlink" href="#python-side" title="Link to this heading">#</a></h3>
+<h3>Python side<a class="headerlink" href="#python-side" title="Link to this heading">#</a></h3>
 <p>Wrap the C++ bindings with user-friendly Python functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">set_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">2</span>    <span class="k">if</span> <span class="n">device</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1948,9 +1948,9 @@ document.write(`
 <p>Here’s the complete mapping from C++ to Python:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>C++ Binding Function</p></th>
-<th class="head"><p>C++ Binding API (pybind11)</p></th>
-<th class="head"><p>Python User API</p></th>
+<tr class="row-odd"><th class="head"><p>C++ binding function</p></th>
+<th class="head"><p>C++ binding API (pybind11)</p></th>
+<th class="head"><p>Python user API</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -1982,7 +1982,7 @@ document.write(`
 </section>
 <section id="guard">
 <span id="device-guard"></span><h2>Guard<a class="headerlink" href="#guard" title="Link to this heading">#</a></h2>
-<p>Device guards provide automatic device switching with exception safety. They’re similar to lock guards in C++ - they switch device on construction and restore it on destruction.</p>
+<p>Device guards provide automatic device switching with exception safety. They’re similar to C++ lock guards—they switch devices on construction and restore on destruction.</p>
 <p>Implement <code class="docutils literal notranslate"><span class="pre">DeviceGuardImplInterface</span></code> to integrate with PyTorch’s guard system:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">  </span><span class="cm">/**</span>
 <span class="linenos"> 2</span><span class="cm">   * Return the type of device managed by this guard implementation.</span>
@@ -2055,14 +2055,7 @@ document.write(`
 <span class="linenos">69</span><span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>What needs to be implemented:</strong></p>
-<ol class="arabic simple">
-<li><p><strong>exchangeDevice()</strong>: Switch to a new device and return the old one (used by guard constructors)</p></li>
-<li><p><strong>getDevice()</strong>: Get the current device</p></li>
-<li><p><strong>setDevice()</strong>: Set the active device</p></li>
-<li><p><strong>Type checking</strong>: Validate that device type matches the backend</p></li>
-</ol>
-<p>This makes the guard available to PyTorch for the <code class="docutils literal notranslate"><span class="pre">PrivateUse1</span></code> device type. Users can then use standard PyTorch device guards with the custom backend.</p>
+<p>This makes the guard available in PyTorch for the <code class="docutils literal notranslate"><span class="pre">PrivateUse1</span></code> device type; users can then use standard PyTorch device guards with the custom backend.</p>
 </section>
 </section>
 
@@ -2186,9 +2179,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design">Design</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-side">C++ Side</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binding">Binding</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-side">Python Side</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-side">C++ side</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bindings">Bindings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-side">Python side</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guard">Guard</a></li>
@@ -2438,7 +2431,7 @@ document.write(`
        "headline": "Device Management",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/accelerator/device.html",
-       "articleBody": "Device Management# Created On: Nov 14, 2025 | Last Updated On: Dec 08, 2025 Background# Device management handles basic operations like querying how many devices are available and switching between them. Accelerator backends need to wrap their device runtime\u2019s APIs and expose them to PyTorch. The OpenReg implementation (OpenRegFunctions.h/cpp) shows how to wrap a third-party runtime. These functions are used throughout the backend - by streams, events, generators, and Python bindings. Design# Accelerator vendors need to implement these core functions: Function Name Description Application Scenarios device_count() Query the total number of available devices in the system - Application initialization- Multi-device workload distribution- Validating device indices before use current_device() Get the currently active device for the calling thread - Debugging and logging- Determining tensor placement- Guard implementations set_device() Change the active device for subsequent operations - Switching context between devices- Initializing specific device resources- Multi-GPU training loops exchange_device() Atomically swap device and return the previous device - Implementing device guards- Temporarily switching device context- RAII-based device management maybe_exchange_device() Conditionally exchange device only if the index is valid (-1 OK) - Safe device switching with optional indices- Guard implementations with nullable device values These functions are building blocks for more complex features like streams, events, and memory management. Make sure to validate inputs and handle errors properly. Implementation# This section shows how to implement device management using set_device as an example. The implementation requires: C++ wrappers around the device runtime Python bindings to expose the C++ functions User-friendly Python APIs C++ Side# Wrap the device runtime\u2019s API and add error handling. The SetDevice function shows this pattern: 1orError_t SetDevice(DeviceIndex device) { 2 int cur_device = -1; 3 OPENREG_CHECK(orGetDevice(\u0026cur_device)); 4 if (device == cur_device) { 5 return orSuccess; 6 } 7 return orSetDevice(device); 8} 1OPENREG_EXPORT void set_device(DeviceIndex device) { 2 check_device_index(device); 3 OPENREG_CHECK(SetDevice(device)); 4} Binding# Expose the C++ functions to Python using pybind11: 1PyObject* _setDevice(PyObject* self, PyObject* arg) { 2 HANDLE_TH_ERRORS 3 TORCH_CHECK(THPUtils_checkLong(arg), \"invalid argument to setDevice\"); 4 auto device = THPUtils_unpackDeviceIndex(arg); 5 torch::utils::device_lazy_init(at::kPrivateUse1); 6 c10::openreg::set_device(device); 7 8 Py_RETURN_NONE; 9 END_HANDLE_TH_ERRORS 10} 1static PyMethodDef methods[] = { 2 {\"_init\", _initExtension, METH_NOARGS, nullptr}, 3 {\"_get_default_generator\", _getDefaultGenerator, METH_O, nullptr}, 4 {\"_get_device\", _getDevice, METH_NOARGS, nullptr}, 5 {\"_set_device\", _setDevice, METH_O, nullptr}, 6 {\"_exchangeDevice\", _exchangeDevice, METH_O, nullptr}, 7 {\"_get_device_count\", _getDeviceCount, METH_NOARGS, nullptr}, 8 {nullptr, nullptr, 0, nullptr}}; Python Side# Wrap the C++ bindings with user-friendly Python functions: 1def set_device(device) -\u003e None: 2 if device \u003e= 0: 3 torch_openreg._C._set_device(device) 4 5 Here\u2019s the complete mapping from C++ to Python: C++ Binding Function C++ Binding API (pybind11) Python User API Description _getDeviceCount torch_openreg._C._get_device_count() torch.openreg.device_count() Returns the total number of devices _getDevice torch_openreg._C._get_device() torch.openreg.current_device() Returns the current active device index _setDevice torch_openreg._C._set_device(idx) torch.openreg.set_device(idx) Sets the active device _exchangeDevice torch_openreg._C._exchange_device(idx) N/A (internal use only) Atomically swaps device and returns previous Guard# Device guards provide automatic device switching with exception safety. They\u2019re similar to lock guards in C++ - they switch device on construction and restore it on destruction. Implement DeviceGuardImplInterface to integrate with PyTorch\u2019s guard system: 1 /** 2 * Return the type of device managed by this guard implementation. 3 */ 4 DeviceType type() const override { 5 return static_type; 6 } 7 /** 8 * Set the current device to device d, and return the previous Device. 9 */ 10 // LITERALINCLUDE START: OPENREG GUARD DEVICE MANAGEMENT 11 Device exchangeDevice(Device d) const override { 12 TORCH_CHECK(d.is_privateuseone(), \"Expected a PrivateUse1 device, but got \", d); 13 14 auto old_device_index = ExchangeDevice(d.index()); 15 return Device(static_type, old_device_index); 16 } 17 // LITERALINCLUDE END: OPENREG GUARD DEVICE MANAGEMENT 18 19 /** 20 * Get the current device. 21 */ 22 Device getDevice() const override { 23 int device_index = current_device(); 24 return c10::Device(static_type, device_index); 25 } 26 27 /** 28 * Get the device capability for a given device. 29 * By default, OpenReg has 2 same devices with the same capability. 30 */ 31 DeviceCapability getDeviceCapability(Device /*unused*/) const override { 32 return DeviceCapability(); 33 } 34 35 /** 36 * Set the current device to c10::Device. 37 */ 38 void setDevice(Device d) const override { 39 TORCH_CHECK(d.is_privateuseone(), \"Expected a PrivateUse1 device, but got \", d); 40 41 set_device(d.index()); 42 } 43 44 /** 45 * Set the current device to device d, without checking for errors 46 * (so, e.g., this can be called from a destructor). 47 */ 48 void uncheckedSetDevice(Device d) const noexcept override { 49 set_device(d.index()); 50 } 51 52 /** 53 * Get the number of devices. 54 * 55 * WARNING: This is REQUIRED to not raise an exception. 56 * If there is some sort of problem, e.g., driver error, 57 * you should report that there are zero available devices. 58 */ 59 DeviceIndex deviceCount() const noexcept override { 60 return device_count(); 61 } 62 63 /** 64 * Wait (by blocking the calling thread) until all the work has 65 * completed running on the device. 66 */ 67 void synchronizeDevice(const DeviceIndex device_index) const override { 68 OPENREG_CHECK(orDeviceSynchronize()); 69 } What needs to be implemented: exchangeDevice(): Switch to a new device and return the old one (used by guard constructors) getDevice(): Get the current device setDevice(): Set the active device Type checking: Validate that device type matches the backend This makes the guard available to PyTorch for the PrivateUse1 device type. Users can then use standard PyTorch device guards with the custom backend.",
+       "articleBody": "Device Management# Created On: Nov 14, 2025 | Last Updated On: Dec 09, 2025 Background# Device management covers basics such as querying how many devices are available and switching between them. Accelerator backends wrap their device\u2011runtime APIs and expose them to PyTorch. Design# Accelerator vendors should implement these core functions: Function name Description Application scenarios device_count() Query the total number of available devices in the system - Application initialization- Multi-device workload distribution- Validating device indices before use current_device() Get the currently active device for the calling thread - Debugging and logging- Determining tensor placement- Guard implementations set_device() Change the active device for subsequent operations - Switching context between devices- Initializing specific device resources- Multi-GPU training loops exchange_device() Atomically swap device and return the previous device - Implementing device guards- Temporarily switching device context- RAII-based device management maybe_exchange_device() Conditionally exchange device only if the index is valid (\u22121 allowed) - Safe device switching with optional indices- Guard implementations with nullable device values These functions are the building blocks for streams, events, and memory management. Validate inputs and handle errors properly. Implementation# This section illustrates device management using set_device as an example. The implementation requires: C++ wrappers around the device runtime Python bindings to expose the C++ functions User-friendly Python APIs For illustration, OpenReg (Open Registration) is a PyTorch integration example that fills the gap for out\u2011of\u2011tree accelerator backend integration. Its implementation (OpenRegFunctions.h/cpp) demonstrates how to wrap a third\u2011party runtime cleanly. These functions are reused across the backend\u2014for streams, events, generators, and Python bindings. C++ side# Wrap the device\u2011runtime API and add error handling. The SetDevice function shows this pattern: 1orError_t SetDevice(DeviceIndex device) { 2 int cur_device = -1; 3 OPENREG_CHECK(orGetDevice(\u0026cur_device)); 4 if (device == cur_device) { 5 return orSuccess; 6 } 7 return orSetDevice(device); 8} 1OPENREG_EXPORT void set_device(DeviceIndex device) { 2 check_device_index(device); 3 OPENREG_CHECK(SetDevice(device)); 4} Bindings# Expose the C++ functions to Python using pybind11: 1PyObject* _setDevice(PyObject* self, PyObject* arg) { 2 HANDLE_TH_ERRORS 3 TORCH_CHECK(THPUtils_checkLong(arg), \"invalid argument to setDevice\"); 4 auto device = THPUtils_unpackDeviceIndex(arg); 5 torch::utils::device_lazy_init(at::kPrivateUse1); 6 c10::openreg::set_device(device); 7 8 Py_RETURN_NONE; 9 END_HANDLE_TH_ERRORS 10} 1static PyMethodDef methods[] = { 2 {\"_init\", _initExtension, METH_NOARGS, nullptr}, 3 {\"_get_default_generator\", _getDefaultGenerator, METH_O, nullptr}, 4 {\"_get_device\", _getDevice, METH_NOARGS, nullptr}, 5 {\"_set_device\", _setDevice, METH_O, nullptr}, 6 {\"_exchangeDevice\", _exchangeDevice, METH_O, nullptr}, 7 {\"_get_device_count\", _getDeviceCount, METH_NOARGS, nullptr}, 8 {nullptr, nullptr, 0, nullptr}}; Python side# Wrap the C++ bindings with user-friendly Python functions: 1def set_device(device) -\u003e None: 2 if device \u003e= 0: 3 torch_openreg._C._set_device(device) 4 5 Here\u2019s the complete mapping from C++ to Python: C++ binding function C++ binding API (pybind11) Python user API Description _getDeviceCount torch_openreg._C._get_device_count() torch.openreg.device_count() Returns the total number of devices _getDevice torch_openreg._C._get_device() torch.openreg.current_device() Returns the current active device index _setDevice torch_openreg._C._set_device(idx) torch.openreg.set_device(idx) Sets the active device _exchangeDevice torch_openreg._C._exchange_device(idx) N/A (internal use only) Atomically swaps device and returns previous Guard# Device guards provide automatic device switching with exception safety. They\u2019re similar to C++ lock guards\u2014they switch devices on construction and restore on destruction. Implement DeviceGuardImplInterface to integrate with PyTorch\u2019s guard system: 1 /** 2 * Return the type of device managed by this guard implementation. 3 */ 4 DeviceType type() const override { 5 return static_type; 6 } 7 /** 8 * Set the current device to device d, and return the previous Device. 9 */ 10 // LITERALINCLUDE START: OPENREG GUARD DEVICE MANAGEMENT 11 Device exchangeDevice(Device d) const override { 12 TORCH_CHECK(d.is_privateuseone(), \"Expected a PrivateUse1 device, but got \", d); 13 14 auto old_device_index = ExchangeDevice(d.index()); 15 return Device(static_type, old_device_index); 16 } 17 // LITERALINCLUDE END: OPENREG GUARD DEVICE MANAGEMENT 18 19 /** 20 * Get the current device. 21 */ 22 Device getDevice() const override { 23 int device_index = current_device(); 24 return c10::Device(static_type, device_index); 25 } 26 27 /** 28 * Get the device capability for a given device. 29 * By default, OpenReg has 2 same devices with the same capability. 30 */ 31 DeviceCapability getDeviceCapability(Device /*unused*/) const override { 32 return DeviceCapability(); 33 } 34 35 /** 36 * Set the current device to c10::Device. 37 */ 38 void setDevice(Device d) const override { 39 TORCH_CHECK(d.is_privateuseone(), \"Expected a PrivateUse1 device, but got \", d); 40 41 set_device(d.index()); 42 } 43 44 /** 45 * Set the current device to device d, without checking for errors 46 * (so, e.g., this can be called from a destructor). 47 */ 48 void uncheckedSetDevice(Device d) const noexcept override { 49 set_device(d.index()); 50 } 51 52 /** 53 * Get the number of devices. 54 * 55 * WARNING: This is REQUIRED to not raise an exception. 56 * If there is some sort of problem, e.g., driver error, 57 * you should report that there are zero available devices. 58 */ 59 DeviceIndex deviceCount() const noexcept override { 60 return device_count(); 61 } 62 63 /** 64 * Wait (by blocking the calling thread) until all the work has 65 * completed running on the device. 66 */ 67 void synchronizeDevice(const DeviceIndex device_index) const override { 68 OPENREG_CHECK(orDeviceSynchronize()); 69 } This makes the guard available in PyTorch for the PrivateUse1 device type; users can then use standard PyTorch device guards with the custom backend.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -2450,7 +2443,7 @@ document.write(`
          "@id": "/accelerator/device.html"
        },
        "datePublished": "Nov 14, 2025T00:00:00Z",
-       "dateModified": "Dec 08, 2025T00:00:00Z"
+       "dateModified": "Dec 09, 2025T00:00:00Z"
      }
  </script>
   <script>

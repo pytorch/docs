@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite51bd3c )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita8d5b97 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4586,9 +4586,9 @@ document.write(`
 <h1>torch.cuda.memory.get_allocator_backend<a class="headerlink" href="#torch-cuda-memory-get-allocator-backend" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.get_allocator_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">get_allocator_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e51bd3c68d821117ddd7920914466b72b8cb175b/torch/cuda/memory.py#L1307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.get_allocator_backend" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">get_allocator_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a8d5b97f7177e1271dfdb0fa6aff9e452ce74ced/torch/cuda/memory.py#L1307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.get_allocator_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return a string describing the active allocator backend as set by
-<code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF</span></code>. Currently available backends are
+<code class="docutils literal notranslate"><span class="pre">PYTORCH_ALLOC_CONF</span></code>. Currently available backends are
 <code class="docutils literal notranslate"><span class="pre">native</span></code> (PyTorch’s native caching allocator) and <cite>cudaMallocAsync`</cite>
 (CUDA’s built-in asynchronous allocator).</p>
 <div class="admonition note">
@@ -4952,7 +4952,7 @@ document.write(`
        "headline": "torch.cuda.memory.get_allocator_backend",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.cuda.memory.get_allocator_backend.html",
-       "articleBody": "torch.cuda.memory.get_allocator_backend# torch.cuda.memory.get_allocator_backend()[source]# Return a string describing the active allocator backend as set by PYTORCH_CUDA_ALLOC_CONF. Currently available backends are native (PyTorch\u2019s native caching allocator) and cudaMallocAsync` (CUDA\u2019s built-in asynchronous allocator). Note See Memory management for details on choosing the allocator backend. Return type: str",
+       "articleBody": "torch.cuda.memory.get_allocator_backend# torch.cuda.memory.get_allocator_backend()[source]# Return a string describing the active allocator backend as set by PYTORCH_ALLOC_CONF. Currently available backends are native (PyTorch\u2019s native caching allocator) and cudaMallocAsync` (CUDA\u2019s built-in asynchronous allocator). Note See Memory management for details on choosing the allocator backend. Return type: str",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
