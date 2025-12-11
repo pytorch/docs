@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf6bf70b )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite33fa0e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3436,6 +3436,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state_all.html">torch.mtia.set_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state_all.html">torch.mtia.get_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed.html">torch.mtia.manual_seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed_all.html">torch.mtia.manual_seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed.html">torch.mtia.seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed_all.html">torch.mtia.seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.initial_seed.html">torch.mtia.initial_seed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Stream_class.html">Stream</a></li>
@@ -3459,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4597,7 +4604,7 @@ document.write(`
 <h1>BNReLU3d<a class="headerlink" href="#bnrelu3d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.BNReLU3d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.</span></span><span class="sig-name descname"><span class="pre">BNReLU3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relu</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/ao/nn/intrinsic/modules/fused.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.BNReLU3d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.</span></span><span class="sig-name descname"><span class="pre">BNReLU3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relu</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/ao/nn/intrinsic/modules/fused.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.BNReLU3d" title="Link to this definition">#</a></dt>
 <dd><p>This is a sequential container which calls the BatchNorm 3d and ReLU modules.
 During quantization this will be replaced with the corresponding fused module.</p>
 </dd></dl>

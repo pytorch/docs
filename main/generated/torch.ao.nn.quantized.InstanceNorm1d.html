@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf6bf70b )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite33fa0e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3436,6 +3436,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state_all.html">torch.mtia.set_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state_all.html">torch.mtia.get_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed.html">torch.mtia.manual_seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed_all.html">torch.mtia.manual_seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed.html">torch.mtia.seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed_all.html">torch.mtia.seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.initial_seed.html">torch.mtia.initial_seed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Stream_class.html">Stream</a></li>
@@ -3459,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4597,7 +4604,7 @@ document.write(`
 <h1>InstanceNorm1d<a class="headerlink" href="#instancenorm1d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.quantized.InstanceNorm1d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.</span></span><span class="sig-name descname"><span class="pre">InstanceNorm1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/ao/nn/quantized/modules/normalization.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.InstanceNorm1d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.</span></span><span class="sig-name descname"><span class="pre">InstanceNorm1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/ao/nn/quantized/modules/normalization.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.InstanceNorm1d" title="Link to this definition">#</a></dt>
 <dd><p>This is the quantized version of <a class="reference internal" href="torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d" title="torch.nn.InstanceNorm1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm1d</span></code></a>.</p>
 <dl class="simple">
 <dt>Additional args:</dt><dd><ul class="simple">

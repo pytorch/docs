@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf6bf70b )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite33fa0e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3436,6 +3436,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state_all.html">torch.mtia.set_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state_all.html">torch.mtia.get_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed.html">torch.mtia.manual_seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.manual_seed_all.html">torch.mtia.manual_seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed.html">torch.mtia.seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.seed_all.html">torch.mtia.seed_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.initial_seed.html">torch.mtia.initial_seed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Stream_class.html">Stream</a></li>
@@ -3459,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4586,7 +4593,7 @@ document.write(`
 <h1>ParameterDict<a class="headerlink" href="#parameterdict" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ParameterDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ParameterDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict" title="Link to this definition">#</a></dt>
 <dd><p>Holds parameters in a dictionary.</p>
 <p>ParameterDict can be indexed like a regular Python dictionary, but Parameters it
 contains are properly registered, and will be visible by all Module methods.
@@ -4624,7 +4631,7 @@ of type (string, Any)</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.clear" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.clear" title="Link to this definition">#</a></dt>
 <dd><p>Remove all items from the ParameterDict.</p>
 <dl class="field-list simple">
 </dl>
@@ -4632,7 +4639,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L882"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.copy" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L882"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.copy" title="Link to this definition">#</a></dt>
 <dd><p>Return a copy of this <a class="reference internal" href="#torch.nn.ParameterDict" title="torch.nn.ParameterDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterDict</span></code></a> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4643,7 +4650,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.fromkeys">
-<span class="sig-name descname"><span class="pre">fromkeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L939"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.fromkeys" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fromkeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L939"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.fromkeys" title="Link to this definition">#</a></dt>
 <dd><p>Return a new ParameterDict with the keys provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4660,7 +4667,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L930"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.get" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L930"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.get" title="Link to this definition">#</a></dt>
 <dd><p>Return the parameter associated with key if present. Otherwise return default if provided, None if not.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4677,7 +4684,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.items">
-<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L954"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.items" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L954"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.items" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ParameterDict key/value pairs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4688,7 +4695,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L950"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.keys" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L950"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.keys" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ParameterDict keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4699,7 +4706,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L911"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.pop" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L911"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.pop" title="Link to this definition">#</a></dt>
 <dd><p>Remove key from the ParameterDict and return its parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4713,7 +4720,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.popitem">
-<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L921"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.popitem" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L921"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.popitem" title="Link to this definition">#</a></dt>
 <dd><p>Remove and return the last inserted <cite>(key, parameter)</cite> pair from the ParameterDict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4724,7 +4731,7 @@ of type (string, Any)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.setdefault">
-<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L891"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.setdefault" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L891"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.setdefault" title="Link to this definition">#</a></dt>
 <dd><p>Set the default for a key in the Parameterdict.</p>
 <p>If key is in the ParameterDict, return its value.
 If not, insert <cite>key</cite> with a parameter <cite>default</cite> and return <cite>default</cite>.
@@ -4744,7 +4751,7 @@ If not, insert <cite>key</cite> with a parameter <cite>default</cite> and return
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L962"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.update" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L962"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.update" title="Link to this definition">#</a></dt>
 <dd><p>Update the <a class="reference internal" href="#torch.nn.ParameterDict" title="torch.nn.ParameterDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterDict</span></code></a> with key-value pairs from <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, overwriting existing keys.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4762,7 +4769,7 @@ key-value pairs of type (string, <code class="xref py py-class docutils literal 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterDict.values">
-<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f6bf70bd12b1a860b01d34b8fd8425829bfdcbed/torch/nn/modules/container.py#L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.values" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e33fa0ece36a93dbc8ff19b0251b8d99f8ae8668/torch/nn/modules/container.py#L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterDict.values" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ParameterDict values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
