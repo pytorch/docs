@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8b21f92 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0213024 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4593,25 +4593,30 @@ document.write(`
 <h1>set_multithreading_enabled<a class="headerlink" href="#set-multithreading-enabled" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.set_multithreading_enabled">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">set_multithreading_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8b21f924c3c24d4cbe239265c87aeb7b271fe974/torch/autograd/grad_mode.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_multithreading_enabled" title="Link to this definition">#</a></dt>
-<dd><p>Context-manager that sets multithreaded backwards on or off.</p>
-<p><code class="docutils literal notranslate"><span class="pre">set_multithreading_enabled</span></code> will enable or disable multithreaded backwards based on its argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">mode</span></code>.
-It can be used as a context-manager or as a function.</p>
-<p>This context manager is thread local; it will not affect computation
-in other threads.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">set_multithreading_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0213024dcfc49947a656b4cc2fad6ed74304905d/torch/autograd/grad_mode.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_multithreading_enabled" title="Link to this definition">#</a></dt>
+<dd><p>Context-manager that enables or disables multithreaded backward.</p>
+<p>Ordinarily, when <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a> devices are in use,
+the backward pass runs on device-specific worker threads. The engine
+creates these threads based on the number of available devices and
+reuses them across iterations.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">mode=False</span></code>, the backward pass runs on the calling thread
+instead. <code class="docutils literal notranslate"><span class="pre">mode=True</span></code> restores the default behavior.</p>
+<p>This can be used as a context-manager or as a function. It is
+thread-local and will not affect computation in other threads.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag whether to enable multithreaded backwards (<code class="docutils literal notranslate"><span class="pre">True</span></code>), or disable
-(<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to enable multithreaded backward (<code class="docutils literal notranslate"><span class="pre">True</span></code>,
+default) or disable (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This API does not apply to <a class="reference internal" href="../autograd.html#forward-mode-ad"><span class="std std-ref">forward-mode AD</span></a>.</p>
+<p>This API does not apply to <a class="reference internal" href="../autograd.html#forward-mode-ad"><span class="std std-ref">forward-mode AD</span></a>,
+which never uses multithreading.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.set_multithreading_enabled.clone">
-<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8b21f924c3c24d4cbe239265c87aeb7b271fe974/torch/autograd/grad_mode.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_multithreading_enabled.clone" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0213024dcfc49947a656b4cc2fad6ed74304905d/torch/autograd/grad_mode.py#L348"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_multithreading_enabled.clone" title="Link to this definition">#</a></dt>
 <dd><p>Create a copy of this class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4975,7 +4980,7 @@ in other threads.</p>
        "headline": "set_multithreading_enabled",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.autograd.grad_mode.set_multithreading_enabled.html",
-       "articleBody": "set_multithreading_enabled# class torch.autograd.grad_mode.set_multithreading_enabled(mode)[source]# Context-manager that sets multithreaded backwards on or off. set_multithreading_enabled will enable or disable multithreaded backwards based on its argument mode. It can be used as a context-manager or as a function. This context manager is thread local; it will not affect computation in other threads. Parameters: mode (bool) \u2013 Flag whether to enable multithreaded backwards (True), or disable (False). Note This API does not apply to forward-mode AD. clone()[source]# Create a copy of this class Return type: set_multithreading_enabled",
+       "articleBody": "set_multithreading_enabled# class torch.autograd.grad_mode.set_multithreading_enabled(mode)[source]# Context-manager that enables or disables multithreaded backward. Ordinarily, when accelerator devices are in use, the backward pass runs on device-specific worker threads. The engine creates these threads based on the number of available devices and reuses them across iterations. When mode=False, the backward pass runs on the calling thread instead. mode=True restores the default behavior. This can be used as a context-manager or as a function. It is thread-local and will not affect computation in other threads. Parameters: mode (bool) \u2013 Whether to enable multithreaded backward (True, default) or disable (False). Note This API does not apply to forward-mode AD, which never uses multithreading. clone()[source]# Create a copy of this class Return type: set_multithreading_enabled",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

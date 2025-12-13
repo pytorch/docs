@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8b21f92 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0213024 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4593,7 +4593,7 @@ document.write(`
 <h1>torch.jit.interface<a class="headerlink" href="#torch-jit-interface" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.interface">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8b21f924c3c24d4cbe239265c87aeb7b271fe974/torch/jit/_script.py#L1581"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.interface" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0213024dcfc49947a656b4cc2fad6ed74304905d/torch/jit/_script.py#L1588"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.interface" title="Link to this definition">#</a></dt>
 <dd><p>Decorate to annotate classes or modules of different types.</p>
 <p>This decorator can be used to define an interface that can be used to annotate
 classes or modules of different types. This can be used for to annotate a submodule
@@ -4638,6 +4638,11 @@ an interface but whose implementations differ and which can be swapped out.</p>
 <span class="n">user_fn_jit</span><span class="p">(</span><span class="n">impls</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>_T</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -4990,7 +4995,7 @@ an interface but whose implementations differ and which can be swapped out.</p>
        "headline": "torch.jit.interface",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.jit.interface.html",
-       "articleBody": "torch.jit.interface# torch.jit.interface(obj)[source]# Decorate to annotate classes or modules of different types. This decorator can be used to define an interface that can be used to annotate classes or modules of different types. This can be used for to annotate a submodule or attribute class that could have different types that implement the same interface, or which could be swapped at runtime; or to store a list of modules or classes of varying types. It is sometimes used to implement \u201cCallables\u201d - functions or modules that implement an interface but whose implementations differ and which can be swapped out. Example: .. testcode: import torch from typing import List @torch.jit.interface class InterfaceType: def run(self, x: torch.Tensor) -\u003e torch.Tensor: pass # implements InterfaceType @torch.jit.script class Impl1: def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x.relu() class Impl2(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.val = torch.rand(()) @torch.jit.export def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x + self.val def user_fn(impls: List[InterfaceType], idx: int, val: torch.Tensor) -\u003e torch.Tensor: return impls[idx].run(val) user_fn_jit = torch.jit.script(user_fn) impls = [Impl1(), torch.jit.script(Impl2())] val = torch.rand(4, 4) user_fn_jit(impls, 0, val) user_fn_jit(impls, 1, val)",
+       "articleBody": "torch.jit.interface# torch.jit.interface(obj)[source]# Decorate to annotate classes or modules of different types. This decorator can be used to define an interface that can be used to annotate classes or modules of different types. This can be used for to annotate a submodule or attribute class that could have different types that implement the same interface, or which could be swapped at runtime; or to store a list of modules or classes of varying types. It is sometimes used to implement \u201cCallables\u201d - functions or modules that implement an interface but whose implementations differ and which can be swapped out. Example: .. testcode: import torch from typing import List @torch.jit.interface class InterfaceType: def run(self, x: torch.Tensor) -\u003e torch.Tensor: pass # implements InterfaceType @torch.jit.script class Impl1: def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x.relu() class Impl2(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.val = torch.rand(()) @torch.jit.export def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x + self.val def user_fn(impls: List[InterfaceType], idx: int, val: torch.Tensor) -\u003e torch.Tensor: return impls[idx].run(val) user_fn_jit = torch.jit.script(user_fn) impls = [Impl1(), torch.jit.script(Impl2())] val = torch.rand(4, 4) user_fn_jit(impls, 0, val) user_fn_jit(impls, 1, val) Return type: _T",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
