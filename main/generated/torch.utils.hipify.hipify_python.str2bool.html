@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitdd1f0f8 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git9407f09 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3842,6 +3842,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.activate_flash_attention_impl.html">torch.nn.attention.activate_flash_attention_impl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.list_flash_attention_impls.html">torch.nn.attention.list_flash_attention_impls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.current_flash_attention_impl.html">torch.nn.attention.current_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.restore_flash_attention_impl.html">torch.nn.attention.restore_flash_attention_impl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
@@ -4593,7 +4594,7 @@ document.write(`
 <h1>torch.utils.hipify.hipify_python.str2bool<a class="headerlink" href="#torch-utils-hipify-hipify-python-str2bool" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.hipify.hipify_python.str2bool">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.hipify.hipify_python.</span></span><span class="sig-name descname"><span class="pre">str2bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dd1f0f8f66671424347b323f59beae2964254491/torch/utils/hipify/hipify_python.py#L1092"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hipify.hipify_python.str2bool" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.hipify.hipify_python.</span></span><span class="sig-name descname"><span class="pre">str2bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9407f0951682dd6817aa37c8fec9e1532c0dd039/torch/utils/hipify/hipify_python.py#L1092"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hipify.hipify_python.str2bool" title="Link to this definition">#</a></dt>
 <dd><p>ArgumentParser doesn’t support type=bool. Thus, this helper method will convert
 from possible string types to True / False.</p>
 <dl class="field-list simple">
