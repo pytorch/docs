@@ -146,7 +146,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git9407f09 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd8f8e6a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1702,10 +1702,10 @@ document.write(`
 </li>
       <li><a href="generated/torch._foreach_expm1.html#torch._foreach_expm1">_foreach_expm1() (in module torch)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch._foreach_expm1_.html#torch._foreach_expm1_">_foreach_expm1_() (in module torch)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch._foreach_floor.html#torch._foreach_floor">_foreach_floor() (in module torch)</a>
 </li>
       <li><a href="generated/torch._foreach_floor_.html#torch._foreach_floor_">_foreach_floor_() (in module torch)</a>
@@ -1776,6 +1776,8 @@ document.write(`
 </li>
       <li><a href="profiler.html#torch.profiler._KinetoProfile">_KinetoProfile (class in torch.profiler)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._MaskPartial">_MaskPartial (class in torch.distributed.tensor.placement_types)</a>
+</li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers">_monitor_workers() (torch.distributed.elastic.agent.server.SimpleElasticAgent method)</a>
 </li>
       <li><a href="torch_cuda_memory.html#torch.cuda.memory._record_memory_history">_record_memory_history() (in module torch.cuda.memory)</a>
@@ -1791,6 +1793,8 @@ document.write(`
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers">_start_workers() (torch.distributed.elastic.agent.server.SimpleElasticAgent method)</a>
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers">_stop_workers() (torch.distributed.elastic.agent.server.SimpleElasticAgent method)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._StridedShard">_StridedShard (class in torch.distributed.tensor.placement_types)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -9103,8 +9107,12 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.functional.local_response_norm.html#torch.nn.functional.local_response_norm">local_response_norm() (in module torch.nn.functional)</a>
 </li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.local_shard_size_and_offset">local_shard_size_and_offset() (torch.distributed.tensor.placement_types.Shard static method)</a>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._StridedShard.local_shard_size_and_offset">local_shard_size_and_offset() (torch.distributed.tensor.placement_types._StridedShard static method)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.local_shard_size_and_offset">(torch.distributed.tensor.placement_types.Shard static method)</a>
 </li>
+      </ul></li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.local_value">local_value() (torch.distributed.rpc.PyRRef method)</a>
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent">LocalElasticAgent (class in torch.distributed.elastic.agent.server.local_elastic_agent)</a>
@@ -9589,7 +9597,7 @@ document.write(`
         <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.mark_non_differentiable">(torch.autograd.function.NestedIOFunction method)</a>
 </li>
       </ul></li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.mask_buffer">mask_buffer (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._MaskPartial.mask_buffer">mask_buffer (torch.distributed.tensor.placement_types._MaskPartial attribute)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.mask_mod">mask_mod (torch.nn.attention.flex_attention.BlockMask attribute)</a>
 </li>
@@ -9609,8 +9617,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.masked_select.html#torch.Tensor.masked_select">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial">MaskPartial (class in torch.distributed.tensor.placement_types)</a>
-</li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.math_sdp_enabled">math_sdp_enabled() (in module torch.backends.cuda)</a>
@@ -12300,9 +12306,9 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.OffloadPolicy">OffloadPolicy (class in torch.distributed.fsdp)</a>
 </li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.offset_dim">offset_dim (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._MaskPartial.offset_dim">offset_dim (torch.distributed.tensor.placement_types._MaskPartial attribute)</a>
 </li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.offset_shape">offset_shape (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._MaskPartial.offset_shape">offset_shape (torch.distributed.tensor.placement_types._MaskPartial attribute)</a>
 </li>
       <li><a href="fx.html#torch.fx.Graph.on_generate_code">on_generate_code() (torch.fx.Graph method)</a>
 </li>
