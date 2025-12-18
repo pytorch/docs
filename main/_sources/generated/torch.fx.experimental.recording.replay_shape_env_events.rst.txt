@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.recording.replay\_shape\_env\_events
+==========================================================
+
+.. currentmodule:: torch.fx.experimental.recording
+
+.. autofunction:: replay_shape_env_events

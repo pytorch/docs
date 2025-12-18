@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_transformation.transform\_transpose
+=============================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_transformation
+
+.. autofunction:: transform_transpose

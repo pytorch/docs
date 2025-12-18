@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd8f8e6a )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2a397d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3558,6 +3558,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_exporting.html">torch.compiler.is_exporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.keep_portable_guards_unsafe.html">torch.compiler.keep_portable_guards_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe.html">torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
@@ -3718,6 +3719,17 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.set_original_aten_op.html">torch.fx.experimental.proxy_tensor.set_original_aten_op</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.extract_subgraph.html">torch.fx.experimental.optimization.extract_subgraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.modules_to_mkldnn.html">torch.fx.experimental.optimization.modules_to_mkldnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.optimize_for_inference.html">torch.fx.experimental.optimization.optimize_for_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.remove_dropout.html">torch.fx.experimental.optimization.remove_dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.replace_node_module.html">torch.fx.experimental.optimization.replace_node_module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.reset_modules.html">torch.fx.experimental.optimization.reset_modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.use_mkl_length.html">torch.fx.experimental.optimization.use_mkl_length</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.record_shapeenv_event.html">torch.fx.experimental.recording.record_shapeenv_event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.replay_shape_env_events.html">torch.fx.experimental.recording.replay_shape_env_events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
@@ -3737,6 +3749,68 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.transform_to_z3.evaluate_conditional_with_constraints.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.evaluate_conditional_with_constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression.html">torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr.html">torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint.is_dim.html">torch.fx.experimental.migrate_gradual_types.constraint.is_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.assert_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.assert_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.batchnorm_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.batchnorm_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.bmm_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.bmm_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.eq_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.eq_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.equality_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.equality_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.full_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.full_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.gt_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.gt_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.lt_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.lt_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.tensor_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.tensor_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.transpose_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.transpose_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.no_broadcast_dim_with_index.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.no_broadcast_dim_with_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_constraint.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_constraint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_index_select.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_index_select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_dim_div_by_target.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_dim_div_by_target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_check.html">torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.all_eq.html">torch.fx.experimental.graph_gradual_typechecker.all_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension.html">torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule.html">torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.conv_rule.html">torch.fx.experimental.graph_gradual_typechecker.conv_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.element_wise_eq.html">torch.fx.experimental.graph_gradual_typechecker.element_wise_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim.html">torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.first_two_eq.html">torch.fx.experimental.graph_gradual_typechecker.first_two_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.register_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.embedding_override.html">torch.fx.experimental.meta_tracer.embedding_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.functional_relu_override.html">torch.fx.experimental.meta_tracer.functional_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.nn_layernorm_override.html">torch.fx.experimental.meta_tracer.nn_layernorm_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.proxys_to_metas.html">torch.fx.experimental.meta_tracer.proxys_to_metas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.symbolic_trace.html">torch.fx.experimental.meta_tracer.symbolic_trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_abs_override.html">torch.fx.experimental.meta_tracer.torch_abs_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_nn_relu_override.html">torch.fx.experimental.meta_tracer.torch_nn_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_relu_override.html">torch.fx.experimental.meta_tracer.torch_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_where_override.html">torch.fx.experimental.meta_tracer.torch_where_override</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
@@ -4615,19 +4689,19 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvReLU1d</span></code></a></p></td>
 <td><p>A ConvReLU1d module is a fused module of Conv1d and ReLU, attached with FakeQuantize modules for weight for quantization aware training.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.ConvReLU2d.html#torch.ao.nn.intrinsic.qat.ConvReLU2d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvReLU2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvReLU2d</span></code></a></p></td>
 <td><p>A ConvReLU2d module is a fused module of Conv2d and ReLU, attached with FakeQuantize modules for weight for quantization aware training.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.ConvReLU3d.html#torch.ao.nn.intrinsic.qat.ConvReLU3d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvReLU3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvReLU3d</span></code></a></p></td>
 <td><p>A ConvReLU3d module is a fused module of Conv3d and ReLU, attached with FakeQuantize modules for weight for quantization aware training.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvBnReLU1d</span></code></a></p></td>
 <td><p>A ConvBnReLU1d module is a module fused from Conv1d, BatchNorm1d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.ConvBnReLU2d.html#torch.ao.nn.intrinsic.qat.ConvBnReLU2d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvBnReLU2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvBnReLU2d</span></code></a></p></td>
 <td><p>A ConvBnReLU2d module is a module fused from Conv2d, BatchNorm2d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.ConvBnReLU3d.html#torch.ao.nn.intrinsic.qat.ConvBnReLU3d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvBnReLU3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d.html#torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d" title="torch.ao.nn.intrinsic.qat.modules.conv_fused.ConvBnReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_fused.ConvBnReLU3d</span></code></a></p></td>
 <td><p>A ConvBnReLU3d module is a module fused from Conv3d, BatchNorm3d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training.</p></td>
 </tr>
 </tbody>
@@ -4649,7 +4723,7 @@ document.write(`
 <h3>torch.ao.nn.intrinsic.qat.modules.linear_relu (Aliases)<a class="headerlink" href="#torch-ao-nn-intrinsic-qat-modules-linear-relu-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.LinearReLU.html#torch.ao.nn.intrinsic.qat.LinearReLU" title="torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_relu.LinearReLU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU.html#torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU" title="torch.ao.nn.intrinsic.qat.modules.linear_relu.LinearReLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_relu.LinearReLU</span></code></a></p></td>
 <td><p>A LinearReLU module fused from Linear and ReLU modules, attached with FakeQuantize modules for weight, used in quantization aware training.</p></td>
 </tr>
 </tbody>
@@ -4664,13 +4738,13 @@ document.write(`
 <h3>torch.ao.nn.intrinsic.quantized.modules.conv_relu (Aliases)<a class="headerlink" href="#torch-ao-nn-intrinsic-quantized-modules-conv-relu-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d.html#torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.ConvReLU1d.html#torch.ao.nn.intrinsic.quantized.ConvReLU1d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU1d</span></code></a></p></td>
 <td><p>A ConvReLU1d module is a fused module of Conv1d and ReLU</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d.html#torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.ConvReLU2d.html#torch.ao.nn.intrinsic.quantized.ConvReLU2d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU2d</span></code></a></p></td>
 <td><p>A ConvReLU2d module is a fused module of Conv2d and ReLU</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d.html#torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.ConvReLU3d.html#torch.ao.nn.intrinsic.quantized.ConvReLU3d" title="torch.ao.nn.intrinsic.quantized.modules.conv_relu.ConvReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_relu.ConvReLU3d</span></code></a></p></td>
 <td><p>A ConvReLU3d module is a fused module of Conv3d and ReLU</p></td>
 </tr>
 </tbody>
@@ -4681,10 +4755,10 @@ document.write(`
 <h3>torch.ao.nn.intrinsic.quantized.modules.bn_relu (Aliases)<a class="headerlink" href="#torch-ao-nn-intrinsic-quantized-modules-bn-relu-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d.html#torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d" title="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bn_relu.BNReLU2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.BNReLU2d.html#torch.ao.nn.intrinsic.quantized.BNReLU2d" title="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bn_relu.BNReLU2d</span></code></a></p></td>
 <td><p>A BNReLU2d module is a fused module of BatchNorm2d and ReLU</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d.html#torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d" title="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bn_relu.BNReLU3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.intrinsic.quantized.BNReLU3d.html#torch.ao.nn.intrinsic.quantized.BNReLU3d" title="torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bn_relu.BNReLU3d</span></code></a></p></td>
 <td><p>A BNReLU3d module is a fused module of BatchNorm3d and ReLU</p></td>
 </tr>
 </tbody>
@@ -4873,7 +4947,7 @@ document.write(`
 <h3>torch.ao.nn.quantized.dynamic.modules.linear (Aliases)<a class="headerlink" href="#torch-ao-nn-quantized-dynamic-modules-linear-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.linear.Linear.html#torch.ao.nn.quantized.dynamic.modules.linear.Linear" title="torch.ao.nn.quantized.dynamic.modules.linear.Linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Linear</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.Linear.html#torch.ao.nn.quantized.dynamic.Linear" title="torch.ao.nn.quantized.dynamic.modules.linear.Linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Linear</span></code></a></p></td>
 <td><p>A dynamic quantized linear module with floating point tensor as inputs and outputs.</p></td>
 </tr>
 </tbody>
@@ -4884,16 +4958,16 @@ document.write(`
 <h3>torch.ao.nn.quantized.dynamic.modules.rnn (Aliases)<a class="headerlink" href="#torch-ao-nn-quantized-dynamic-modules-rnn-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRU.html#torch.ao.nn.quantized.dynamic.modules.rnn.GRU" title="torch.ao.nn.quantized.dynamic.modules.rnn.GRU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.GRU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.GRU.html#torch.ao.nn.quantized.dynamic.GRU" title="torch.ao.nn.quantized.dynamic.modules.rnn.GRU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.GRU</span></code></a></p></td>
 <td><p>Applies a multi-layer gated recurrent unit (GRU) RNN to an input sequence.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell.html#torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.GRUCell</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.GRUCell.html#torch.ao.nn.quantized.dynamic.GRUCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.GRUCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.GRUCell</span></code></a></p></td>
 <td><p>A gated recurrent unit (GRU) cell</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTM.html#torch.ao.nn.quantized.dynamic.modules.rnn.LSTM" title="torch.ao.nn.quantized.dynamic.modules.rnn.LSTM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.LSTM</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.LSTM.html#torch.ao.nn.quantized.dynamic.LSTM" title="torch.ao.nn.quantized.dynamic.modules.rnn.LSTM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.LSTM</span></code></a></p></td>
 <td><p>A dynamic quantized LSTM module with floating point tensor as inputs and outputs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell.html#torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.LSTMCell</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.LSTMCell.html#torch.ao.nn.quantized.dynamic.LSTMCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.LSTMCell</span></code></a></p></td>
 <td><p>A long short-term memory (LSTM) cell.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter.html#torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter" title="torch.ao.nn.quantized.dynamic.modules.rnn.PackedParameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.PackedParameter</span></code></a></p></td>
@@ -4902,7 +4976,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase.html#torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase" title="torch.ao.nn.quantized.dynamic.modules.rnn.RNNBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.RNNBase</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell.html#torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.RNNCell</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.RNNCell.html#torch.ao.nn.quantized.dynamic.RNNCell" title="torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.RNNCell</span></code></a></p></td>
 <td><p>An Elman RNN cell with tanh or ReLU non-linearity.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase.html#torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase" title="torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rnn.RNNCellBase</span></code></a></p></td>

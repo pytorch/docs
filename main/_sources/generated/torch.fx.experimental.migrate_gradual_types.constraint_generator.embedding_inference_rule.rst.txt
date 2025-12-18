@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_generator.embedding\_inference\_rule
+==============================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_generator
+
+.. autofunction:: embedding_inference_rule

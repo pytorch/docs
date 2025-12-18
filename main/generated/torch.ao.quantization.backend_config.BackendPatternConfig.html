@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd8f8e6a )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2a397d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3558,6 +3558,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.is_exporting.html">torch.compiler.is_exporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler.keep_portable_guards_unsafe.html">torch.compiler.keep_portable_guards_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe.html">torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
@@ -3718,6 +3719,17 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_original_aten_op.html">torch.fx.experimental.proxy_tensor.set_original_aten_op</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.extract_subgraph.html">torch.fx.experimental.optimization.extract_subgraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.modules_to_mkldnn.html">torch.fx.experimental.optimization.modules_to_mkldnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.optimize_for_inference.html">torch.fx.experimental.optimization.optimize_for_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.remove_dropout.html">torch.fx.experimental.optimization.remove_dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.replace_node_module.html">torch.fx.experimental.optimization.replace_node_module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.reset_modules.html">torch.fx.experimental.optimization.reset_modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.use_mkl_length.html">torch.fx.experimental.optimization.use_mkl_length</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.recording.record_shapeenv_event.html">torch.fx.experimental.recording.record_shapeenv_event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.recording.replay_shape_env_events.html">torch.fx.experimental.recording.replay_shape_env_events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
@@ -3737,6 +3749,68 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_to_z3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.transform_to_z3.evaluate_conditional_with_constraints.html">torch.fx.experimental.migrate_gradual_types.transform_to_z3.evaluate_conditional_with_constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression.html">torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr.html">torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint.is_dim.html">torch.fx.experimental.migrate_gradual_types.constraint.is_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.assert_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.assert_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.batchnorm_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.batchnorm_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.bmm_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.bmm_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.eq_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.eq_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.equality_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.equality_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.full_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.full_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.gt_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.gt_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.lt_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.lt_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.tensor_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.tensor_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_generator.transpose_inference_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_generator.transpose_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.no_broadcast_dim_with_index.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.no_broadcast_dim_with_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_constraint.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_constraint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_index_select.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_index_select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_dim_div_by_target.html">torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_dim_div_by_target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_check.html">torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.all_eq.html">torch.fx.experimental.graph_gradual_typechecker.all_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension.html">torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule.html">torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.conv_rule.html">torch.fx.experimental.graph_gradual_typechecker.conv_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.element_wise_eq.html">torch.fx.experimental.graph_gradual_typechecker.element_wise_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim.html">torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.first_two_eq.html">torch.fx.experimental.graph_gradual_typechecker.first_two_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.register_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule.html">torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule.html">torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.embedding_override.html">torch.fx.experimental.meta_tracer.embedding_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.functional_relu_override.html">torch.fx.experimental.meta_tracer.functional_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.nn_layernorm_override.html">torch.fx.experimental.meta_tracer.nn_layernorm_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.proxys_to_metas.html">torch.fx.experimental.meta_tracer.proxys_to_metas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.symbolic_trace.html">torch.fx.experimental.meta_tracer.symbolic_trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_abs_override.html">torch.fx.experimental.meta_tracer.torch_abs_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_nn_relu_override.html">torch.fx.experimental.meta_tracer.torch_nn_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_relu_override.html">torch.fx.experimental.meta_tracer.torch_relu_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_where_override.html">torch.fx.experimental.meta_tracer.torch_where_override</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
@@ -4605,14 +4679,14 @@ document.write(`
 <h1>BackendPatternConfig<a class="headerlink" href="#backendpatternconfig" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendPatternConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendPatternConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig" title="Link to this definition">#</a></dt>
 <dd><p>Config object that specifies quantization behavior for a given operator pattern.
 For a detailed example usage, see <a class="reference internal" href="torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig" title="torch.ao.quantization.backend_config.BackendConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BackendConfig</span></code></a>.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config">
-<span class="sig-name descname"><span class="pre">add_dtype_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_dtype_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config" title="Link to this definition">#</a></dt>
 <dd><p>Add a set of supported data types passed as arguments to quantize ops in the
 reference model spec.</p>
 <dl class="field-list simple">
@@ -4624,7 +4698,7 @@ reference model spec.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_pattern_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_pattern_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="Link to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">BackendPatternConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“pattern”: the pattern being configured
@@ -4648,7 +4722,7 @@ implementation for this pattern’s root module.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs">
-<span class="sig-name descname"><span class="pre">set_dtype_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_dtype_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs" title="Link to this definition">#</a></dt>
 <dd><p>Set the supported data types passed as arguments to quantize ops in the
 reference model spec, overriding all previously registered data types.</p>
 <dl class="field-list simple">
@@ -4660,7 +4734,7 @@ reference model spec, overriding all previously registered data types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module">
-<span class="sig-name descname"><span class="pre">set_fused_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fused_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L569"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_fused_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fused_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L569"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module" title="Link to this definition">#</a></dt>
 <dd><p>Set the module that represents the fused implementation for this pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4671,7 +4745,7 @@ reference model spec, overriding all previously registered data types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method">
-<span class="sig-name descname"><span class="pre">set_fuser_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuser_method</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L578"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_fuser_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuser_method</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L578"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method" title="Link to this definition">#</a></dt>
 <dd><p>Set the function that specifies how to fuse this BackendPatternConfig’s pattern.</p>
 <p>The first argument of this function should be <cite>is_qat</cite>, and the rest of the arguments
 should be the items in the tuple pattern. The return value of this function should be
@@ -4693,7 +4767,7 @@ the resulting fused module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type">
-<span class="sig-name descname"><span class="pre">set_observation_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_observation_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type" title="Link to this definition">#</a></dt>
 <dd><p>Set how observers should be inserted in the graph for this pattern.</p>
 <p>Observation type here refers to how observers (or quant-dequant ops) will be placed
 in the graph. This is used to produce the desired reference patterns understood by
@@ -4718,7 +4792,7 @@ with observers (and fake quantizes) attached instead of observers themselves.</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern">
-<span class="sig-name descname"><span class="pre">set_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern" title="Link to this definition">#</a></dt>
 <dd><p>Set the pattern to configure.</p>
 <p>The pattern can be a float module, functional operator, pytorch operator, or a tuple
 combination of the above. Tuple patterns are treated as sequential patterns, and
@@ -4732,7 +4806,7 @@ currently only tuples of 2 or 3 elements are supported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module">
-<span class="sig-name descname"><span class="pre">set_qat_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qat_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_qat_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qat_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module" title="Link to this definition">#</a></dt>
 <dd><p>Set the module that represents the QAT implementation for this pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4743,7 +4817,7 @@ currently only tuples of 2 or 3 elements are supported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module">
-<span class="sig-name descname"><span class="pre">set_reference_quantized_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_quantized_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L557"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_reference_quantized_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_quantized_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L557"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module" title="Link to this definition">#</a></dt>
 <dd><p>Set the module that represents the reference quantized implementation for
 this pattern’s root module.</p>
 <p>For more detail, see <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_root_module()</span></code></a>.</p>
@@ -4756,7 +4830,7 @@ this pattern’s root module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module">
-<span class="sig-name descname"><span class="pre">set_root_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_root_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="Link to this definition">#</a></dt>
 <dd><p>Set the module that represents the root for this pattern.</p>
 <p>When we construct the reference quantized model during the convert phase,
 the root modules (e.g. torch.nn.Linear for torch.ao.nn.intrinsic.LinearReLU)
@@ -4775,7 +4849,7 @@ in the same BackendPatternConfig in order for the conversion to take place.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d8f8e6aff8c51e18baacb2b9d61be74ab81abca0/torch/ao/quantization/backend_config/backend_config.py#L708"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.to_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a397d3044f5aae8b542330dea5a691932501c2b/torch/ao/quantization/backend_config/backend_config.py#L708"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.to_dict" title="Link to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">BackendPatternConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="torch.ao.quantization.backend_config.BackendPatternConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">
