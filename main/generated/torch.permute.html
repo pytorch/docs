@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitdc65b85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8447d30 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4065,14 +4065,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_bias.html">node_arg_is_bias</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_weight.html">node_arg_is_weight</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.return_arg_list.html">return_arg_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.export_utils.model_is_exported.html">model_is_exported</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html">lower_pt2e_quantized_to_x86</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.generate_numeric_debug_handle.html">generate_numeric_debug_handle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.CUSTOM_KEY.html">CUSTOM_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.NUMERIC_DEBUG_HANDLE_KEY.html">NUMERIC_DEBUG_HANDLE_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.compare_results.html">compare_results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_channel.html">quantize_per_channel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dequantize.html">dequantize</a></li>
@@ -4674,7 +4666,7 @@ document.write(`
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p></li>
-<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The desired ordering of dimensions</p></li>
+<li><p><strong>dims</strong> (<a class="reference internal" href="../size.html#torch.Size" title="torch.Size"><em>torch.Size</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the desired ordering of dimensions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -5038,7 +5030,7 @@ document.write(`
        "headline": "torch.permute",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.permute.html",
-       "articleBody": "torch.permute# torch.permute(input, dims) \u2192 Tensor# Returns a view of the original tensor input with its dimensions permuted. Parameters: input (Tensor) \u2013 the input tensor. dims (tuple of int) \u2013 The desired ordering of dimensions Example \u003e\u003e\u003e x = torch.randn(2, 3, 5) \u003e\u003e\u003e x.size() torch.Size([2, 3, 5]) \u003e\u003e\u003e torch.permute(x, (2, 0, 1)).size() torch.Size([5, 2, 3])",
+       "articleBody": "torch.permute# torch.permute(input, dims) \u2192 Tensor# Returns a view of the original tensor input with its dimensions permuted. Parameters: input (Tensor) \u2013 the input tensor. dims (torch.Size, tuple of int or list of int) \u2013 the desired ordering of dimensions. Example \u003e\u003e\u003e x = torch.randn(2, 3, 5) \u003e\u003e\u003e x.size() torch.Size([2, 3, 5]) \u003e\u003e\u003e torch.permute(x, (2, 0, 1)).size() torch.Size([5, 2, 3])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

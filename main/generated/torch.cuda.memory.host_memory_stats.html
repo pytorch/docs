@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitdc65b85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8447d30 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4065,14 +4065,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_bias.html">node_arg_is_bias</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_weight.html">node_arg_is_weight</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.return_arg_list.html">return_arg_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.export_utils.model_is_exported.html">model_is_exported</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html">lower_pt2e_quantized_to_x86</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.generate_numeric_debug_handle.html">generate_numeric_debug_handle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.CUSTOM_KEY.html">CUSTOM_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.NUMERIC_DEBUG_HANDLE_KEY.html">NUMERIC_DEBUG_HANDLE_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.compare_results.html">compare_results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_channel.html">quantize_per_channel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dequantize.html">dequantize</a></li>
@@ -4668,57 +4660,41 @@ document.write(`
 <h1>torch.cuda.memory.host_memory_stats<a class="headerlink" href="#torch-cuda-memory-host-memory-stats" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.host_memory_stats">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">host_memory_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc65b85d39149b95ba4ff6de4de3e2bb01f226af/torch/cuda/memory.py#L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.host_memory_stats" title="Link to this definition">#</a></dt>
-<dd><p>Return a dictionary of CUDA memory allocator statistics for a given device.</p>
-<blockquote>
-<div><p>The return value of this function is a dictionary of statistics, each of
-which is a non-negative integer.</p>
-<p>Core statistics:</p>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">host_memory_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8447d3040f21d8d8476b06f5e060f0a88b934355/torch/cuda/memory.py#L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.host_memory_stats" title="Link to this definition">#</a></dt>
+<dd><p>Return a dictionary of pinned (host) allocator statistics.</p>
+<p>Core statistics (host pinned allocator):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;allocated.{current,peak,allocated,freed}&quot;</span></code>:
-number of allocation requests received by the memory allocator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;allocations.{current,peak,allocated,freed}&quot;</span></code>:
+pinned blocks owned by the allocator (active + cached). Grows when a new
+block is created via CUDA and shrinks when cached blocks are returned.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;allocated_bytes.{current,peak,allocated,freed}&quot;</span></code>:
-amount of allocated memory.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;segment.{current,peak,allocated,freed}&quot;</span></code>:
-number of reserved segments from <code class="docutils literal notranslate"><span class="pre">cudaMalloc()</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;reserved_bytes.{current,peak,allocated,freed}&quot;</span></code>:
-amount of reserved memory.</p></li>
+bytes of pinned blocks owned by the allocator (active + cached), using
+the rounded block size requested from CUDA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;active_requests.{current,peak,allocated,freed}&quot;</span></code>:
+blocks currently checked out to callers (increments on handout, decrements
+when the block becomes reusable after stream deps finish).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;active_bytes.{current,peak,allocated,freed}&quot;</span></code>:
+bytes corresponding to active blocks.</p></li>
 </ul>
-<p>For these core statistics, values are broken down as follows.</p>
 <p>Metric type:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: current value of this metric.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">peak</span></code>: maximum value of this metric.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">allocated</span></code>: historical total increase in this metric.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">freed</span></code>: historical total decrease in this metric.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: current value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">peak</span></code>: maximum value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allocated</span></code>: historical total increase.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">freed</span></code>: historical total decrease.</p></li>
 </ul>
-<p>In addition to the core statistics, we also provide some simple event
-counters:</p>
+<p>Event/timing counters:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;num_host_alloc&quot;</span></code>: number of CUDA allocation calls. This includes both
-cudaHostAlloc and cudaHostRegister.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;num_host_free&quot;</span></code>: number of CUDA free calls. This includes both cudaHostFree
-and cudaHostUnregister.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;num_host_alloc&quot;</span></code> / <code class="docutils literal notranslate"><span class="pre">&quot;num_host_free&quot;</span></code>: blocks created to grow the
+pool / cached blocks returned to CUDA (matches allocations allocated/freed).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;host_alloc_time.{total,max,min,count,avg}&quot;</span></code>: time in CUDA alloc calls
+when growing the pool (microseconds).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;host_free_time.{total,max,min,count,avg}&quot;</span></code>: time in CUDA free calls
+when cached blocks are returned (microseconds).</p></li>
 </ul>
-<p>Finally, we also provide some simple timing counters:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;host_alloc_time.{total,max,min,count,avg}&quot;</span></code>:
-timing of allocation requests going through CUDA calls.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;host_free_time.{total,max,min,count,avg}&quot;</span></code>:
-timing of free requests going through CUDA calls.</p></li>
-</ul>
-</div></blockquote>
-<p>For these timing statistics, values are broken down as follows.</p>
-<blockquote>
-<div><p>Metric type:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">total</span></code>: total time spent.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">max</span></code>: maximum value per call.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">min</span></code>: minimum value per call.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code>: number of times it was called.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avg</span></code>: average time per call.</p></li>
-</ul>
-</div></blockquote>
+<p>Block sizes are rounded up to the next power of two before calling CUDA, so
+byte stats reflect the rounded size. Peak values are aggregated per bucket
+and are a best-effort approximation of the true peak.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
@@ -5076,7 +5052,7 @@ timing of free requests going through CUDA calls.</p></li>
        "headline": "torch.cuda.memory.host_memory_stats",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.cuda.memory.host_memory_stats.html",
-       "articleBody": "torch.cuda.memory.host_memory_stats# torch.cuda.memory.host_memory_stats()[source]# Return a dictionary of CUDA memory allocator statistics for a given device. The return value of this function is a dictionary of statistics, each of which is a non-negative integer. Core statistics: \"allocated.{current,peak,allocated,freed}\": number of allocation requests received by the memory allocator. \"allocated_bytes.{current,peak,allocated,freed}\": amount of allocated memory. \"segment.{current,peak,allocated,freed}\": number of reserved segments from cudaMalloc(). \"reserved_bytes.{current,peak,allocated,freed}\": amount of reserved memory. For these core statistics, values are broken down as follows. Metric type: current: current value of this metric. peak: maximum value of this metric. allocated: historical total increase in this metric. freed: historical total decrease in this metric. In addition to the core statistics, we also provide some simple event counters: \"num_host_alloc\": number of CUDA allocation calls. This includes both cudaHostAlloc and cudaHostRegister. \"num_host_free\": number of CUDA free calls. This includes both cudaHostFree and cudaHostUnregister. Finally, we also provide some simple timing counters: \"host_alloc_time.{total,max,min,count,avg}\": timing of allocation requests going through CUDA calls. \"host_free_time.{total,max,min,count,avg}\": timing of free requests going through CUDA calls. For these timing statistics, values are broken down as follows. Metric type: total: total time spent. max: maximum value per call. min: minimum value per call. count: number of times it was called. avg: average time per call. Return type: dict[str, Any]",
+       "articleBody": "torch.cuda.memory.host_memory_stats# torch.cuda.memory.host_memory_stats()[source]# Return a dictionary of pinned (host) allocator statistics. Core statistics (host pinned allocator): \"allocations.{current,peak,allocated,freed}\": pinned blocks owned by the allocator (active + cached). Grows when a new block is created via CUDA and shrinks when cached blocks are returned. \"allocated_bytes.{current,peak,allocated,freed}\": bytes of pinned blocks owned by the allocator (active + cached), using the rounded block size requested from CUDA. \"active_requests.{current,peak,allocated,freed}\": blocks currently checked out to callers (increments on handout, decrements when the block becomes reusable after stream deps finish). \"active_bytes.{current,peak,allocated,freed}\": bytes corresponding to active blocks. Metric type: current: current value. peak: maximum value. allocated: historical total increase. freed: historical total decrease. Event/timing counters: \"num_host_alloc\" / \"num_host_free\": blocks created to grow the pool / cached blocks returned to CUDA (matches allocations allocated/freed). \"host_alloc_time.{total,max,min,count,avg}\": time in CUDA alloc calls when growing the pool (microseconds). \"host_free_time.{total,max,min,count,avg}\": time in CUDA free calls when cached blocks are returned (microseconds). Block sizes are rounded up to the next power of two before calling CUDA, so byte stats reflect the rounded size. Peak values are aggregated per bucket and are a best-effort approximation of the true peak. Return type: dict[str, Any]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

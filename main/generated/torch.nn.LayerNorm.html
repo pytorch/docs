@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitdc65b85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8447d30 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4065,14 +4065,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_bias.html">node_arg_is_bias</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_weight.html">node_arg_is_weight</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.return_arg_list.html">return_arg_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.export_utils.model_is_exported.html">model_is_exported</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html">lower_pt2e_quantized_to_x86</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.generate_numeric_debug_handle.html">generate_numeric_debug_handle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.CUSTOM_KEY.html">CUSTOM_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.NUMERIC_DEBUG_HANDLE_KEY.html">NUMERIC_DEBUG_HANDLE_KEY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.compare_results.html">compare_results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_channel.html">quantize_per_channel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dequantize.html">dequantize</a></li>
@@ -4668,7 +4660,7 @@ document.write(`
 <h1>LayerNorm<a class="headerlink" href="#layernorm" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.LayerNorm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LayerNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementwise_affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc65b85d39149b95ba4ff6de4de3e2bb01f226af/torch/nn/modules/normalization.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LayerNorm" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LayerNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementwise_affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8447d3040f21d8d8476b06f5e060f0a88b934355/torch/nn/modules/normalization.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LayerNorm" title="Link to this definition">#</a></dt>
 <dd><p>Applies Layer Normalization over a mini-batch of inputs.</p>
 <p>This layer implements the operation as described in
 the paper <a class="reference external" href="https://arxiv.org/abs/1607.06450">Layer Normalization</a></p>
