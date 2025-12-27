@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gita50d65a )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git32cb1da )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1639,8 +1639,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -1725,6 +1725,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="autoload.html">Autoload Mechanism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amp.html">Automatic Mixed Precision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiler.html">Profiler Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -1831,7 +1832,7 @@ document.write(`
                   
   <section id="accelerator-integration">
 <h1>Accelerator Integration<a class="headerlink" href="#accelerator-integration" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 02, 2025 | Last Updated On: Dec 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 02, 2025 | Last Updated On: Dec 26, 2025</p>
 <p>Since PyTorch 2.1, the community has made significant progress in streamlining the process of integrating new accelerators into the PyTorch ecosystem. These improvements include, but are not limited to: refinements to the <code class="docutils literal notranslate"><span class="pre">PrivateUse1</span></code> Dispatch Key, the introduction and enhancement of core subsystem extension mechanisms, and the device-agnostic refactoring of key modules (e.g., <code class="docutils literal notranslate"><span class="pre">torch.accelerator</span></code>, <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">management</span></code>). Taken together, these advances provide the foundation for a <strong>robust</strong>, <strong>flexible</strong>, and <strong>developer-friendly</strong> pathway for accelerator integration.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1878,6 +1879,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="autoload.html">Autoload Mechanism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operators.html">Operator Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amp.html">Automatic Mixed Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiler.html">Profiler Integration</a></li>
 </ul>
 </div>
 </section>
@@ -2249,7 +2251,7 @@ document.write(`
        "headline": "Accelerator Integration",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/accelerator/index.html",
-       "articleBody": "Accelerator Integration# Created On: Sep 02, 2025 | Last Updated On: Dec 08, 2025 Since PyTorch 2.1, the community has made significant progress in streamlining the process of integrating new accelerators into the PyTorch ecosystem. These improvements include, but are not limited to: refinements to the PrivateUse1 Dispatch Key, the introduction and enhancement of core subsystem extension mechanisms, and the device-agnostic refactoring of key modules (e.g., torch.accelerator, memory management). Taken together, these advances provide the foundation for a robust, flexible, and developer-friendly pathway for accelerator integration. Note This guide is a work in progress. For more details, please refer to the roadmap. Why Does This Matter?# This integration pathway offers several major benefits: Speed: Extensibility is built into all core PyTorch modules. Developers can integrate new accelerators into their downstream codebases independently\u2014without modifying upstream code and without being limited by community review bandwidth. Future-proofing: This is the default integration path for all future PyTorch features, meaning that as new modules and features are added, they will automatically support scaling to new accelerators if this path is followed. Autonomy: Vendors maintain full control over their accelerator integration timelines, enabling fast iteration cycles and reducing reliance on upstream coordination. Target Audience# This document is intended for: Accelerator Developers who are integrating accelerator into PyTorch; Advanced PyTorch Users interested in the inner workings of key modules; About This Document# This guide aims to provide a comprehensive overview of the modern integration pathway for new accelerator in PyTorch. It walks through the full integration surface, from low-level device primitives to higher-level domain modules like compilation and quantization. The structure follows a modular and scenario-driven approach, where each topic is paired with corresponding code examples from torch_openreg, an official reference implementation, and this series is structured around four major axes: Runtime: Covers core components such as Event, Stream, Memory, Generator, Guard, Hooks, as well as the supporting C++ scaffolding. Operators: Involve the minimum necessary set of operators, forward and backward operators, fallback operators, fallthroughs, STUBs, etc. in both C++ and Python implementations. Python Frontend: Focuses on Python bindings for modules and device-agnostic APIs. High-level Modules: Explores integration with major subsystems such as AMP, Compiler, ONNX, and Distributed and so on. The goal is to help developers: Understand the full scope of accelerator integration; Follow best practices to quickly launch new accelerators; Avoid common pitfalls through clear, targeted examples. Next, we will delve into each chapter of this guide. Each chapter focuses on a key aspect of integration, providing detailed explanations and illustrative examples. Since some chapters build upon previous ones, readers are encouraged to follow the sequence to achieve a more coherent understanding. Device Management Accelerator Hooks Guard Autoload Mechanism Operator Registration Automatic Mixed Precision",
+       "articleBody": "Accelerator Integration# Created On: Sep 02, 2025 | Last Updated On: Dec 26, 2025 Since PyTorch 2.1, the community has made significant progress in streamlining the process of integrating new accelerators into the PyTorch ecosystem. These improvements include, but are not limited to: refinements to the PrivateUse1 Dispatch Key, the introduction and enhancement of core subsystem extension mechanisms, and the device-agnostic refactoring of key modules (e.g., torch.accelerator, memory management). Taken together, these advances provide the foundation for a robust, flexible, and developer-friendly pathway for accelerator integration. Note This guide is a work in progress. For more details, please refer to the roadmap. Why Does This Matter?# This integration pathway offers several major benefits: Speed: Extensibility is built into all core PyTorch modules. Developers can integrate new accelerators into their downstream codebases independently\u2014without modifying upstream code and without being limited by community review bandwidth. Future-proofing: This is the default integration path for all future PyTorch features, meaning that as new modules and features are added, they will automatically support scaling to new accelerators if this path is followed. Autonomy: Vendors maintain full control over their accelerator integration timelines, enabling fast iteration cycles and reducing reliance on upstream coordination. Target Audience# This document is intended for: Accelerator Developers who are integrating accelerator into PyTorch; Advanced PyTorch Users interested in the inner workings of key modules; About This Document# This guide aims to provide a comprehensive overview of the modern integration pathway for new accelerator in PyTorch. It walks through the full integration surface, from low-level device primitives to higher-level domain modules like compilation and quantization. The structure follows a modular and scenario-driven approach, where each topic is paired with corresponding code examples from torch_openreg, an official reference implementation, and this series is structured around four major axes: Runtime: Covers core components such as Event, Stream, Memory, Generator, Guard, Hooks, as well as the supporting C++ scaffolding. Operators: Involve the minimum necessary set of operators, forward and backward operators, fallback operators, fallthroughs, STUBs, etc. in both C++ and Python implementations. Python Frontend: Focuses on Python bindings for modules and device-agnostic APIs. High-level Modules: Explores integration with major subsystems such as AMP, Compiler, ONNX, and Distributed and so on. The goal is to help developers: Understand the full scope of accelerator integration; Follow best practices to quickly launch new accelerators; Avoid common pitfalls through clear, targeted examples. Next, we will delve into each chapter of this guide. Each chapter focuses on a key aspect of integration, providing detailed explanations and illustrative examples. Since some chapters build upon previous ones, readers are encouraged to follow the sequence to achieve a more coherent understanding. Device Management Accelerator Hooks Guard Autoload Mechanism Operator Registration Automatic Mixed Precision Profiler Integration",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -2261,7 +2263,7 @@ document.write(`
          "@id": "/accelerator/index.html"
        },
        "datePublished": "Sep 02, 2025T00:00:00Z",
-       "dateModified": "Dec 08, 2025T00:00:00Z"
+       "dateModified": "Dec 26, 2025T00:00:00Z"
      }
  </script>
   <script>

@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gita50d65a )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git32cb1da )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4761,7 +4761,7 @@ and the <code class="docutils literal notranslate"><span class="pre">output</spa
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.enable_cuda_sanitizer">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a50d65ad2f8c39a19be6ee3d7e0b37b0f3f47189/torch/cuda/_sanitizer.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32cb1dac896fe212d77073a4a53fee840c13442f/torch/cuda/_sanitizer.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
 <dd><p>Enable CUDA Sanitizer.</p>
 <p>The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions
 for synchronization errors. All data races found will be printed to the standard
