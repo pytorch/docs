@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitdf79167 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitb3713dc )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4660,7 +4660,7 @@ document.write(`
 <h1>GreenContext<a class="headerlink" href="#greencontext" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df7916747debf3eb7135670b65489b88e0296e35/torch/cuda/green_contexts.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b3713dc2017e8dd6a2b090acac2447627093cf77/torch/cuda/green_contexts.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA green context.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4668,7 +4668,7 @@ document.write(`
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.create">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_sms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df7916747debf3eb7135670b65489b88e0296e35/torch/cuda/green_contexts.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_sms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b3713dc2017e8dd6a2b090acac2447627093cf77/torch/cuda/green_contexts.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
 <dd><p>Create a CUDA green context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4685,7 +4685,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.pop_context">
-<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df7916747debf3eb7135670b65489b88e0296e35/torch/cuda/green_contexts.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b3713dc2017e8dd6a2b090acac2447627093cf77/torch/cuda/green_contexts.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
 <dd><p>Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.</p>
 <dl class="field-list simple">
@@ -4694,7 +4694,7 @@ context stack and restore the previous context.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.set_context">
-<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df7916747debf3eb7135670b65489b88e0296e35/torch/cuda/green_contexts.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b3713dc2017e8dd6a2b090acac2447627093cf77/torch/cuda/green_contexts.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
 <dd><p>Make the green context the current context.</p>
 <dl class="field-list simple">
 </dl>
