@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git638603a )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4660,7 +4660,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.is_accessor_node<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-is-accessor-node" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.is_accessor_node">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">is_accessor_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/638603aafeb4d9309952250b93a447722e1be248/torch/fx/experimental/symbolic_shapes.py#L679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.is_accessor_node" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">is_accessor_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/fx/experimental/symbolic_shapes.py#L679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.is_accessor_node" title="Link to this definition">#</a></dt>
 <dd><p>Helper function to determine if a node is trying to access
 a symbolic integer such as size, stride, offset or item. Currently
 primarily only used in a DCE pass to figure out purity.</p>
