@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -87,7 +87,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -166,7 +166,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -270,7 +270,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -328,8 +328,7 @@ Result:
                 sym_size_int_1: "Sym(s6)" = torch.ops.aten.sym_size.int(x, 0)
                 
                     gt: "Sym(s6 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
-                
-                    true_graph_0 = self.true_graph_0
+                true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y));  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s6, 2]" = cond[0];  cond = None
@@ -362,7 +361,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -756,7 +755,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 

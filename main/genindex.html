@@ -146,7 +146,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git712bfd1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4080,6 +4080,8 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.Tensor.copysign_.html#torch.Tensor.copysign_">copysign_() (torch.Tensor method)</a>
 </li>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.CORE_COMPLEX">CORE_COMPLEX (torch.numa.binding.AffinityMode attribute)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.transforms.CorrCholeskyTransform">CorrCholeskyTransform (class in torch.distributions.transforms)</a>
 </li>
       <li><a href="generated/torch.corrcoef.html#torch.corrcoef">corrcoef() (in module torch)</a>
@@ -5312,6 +5314,8 @@ document.write(`
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.example_inputs">example_inputs (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.Work.exception">exception() (torch.distributed.Work method)</a>
+</li>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.EXCLUSIVE">EXCLUSIVE (torch.numa.binding.AffinityMode attribute)</a>
 </li>
       <li><a href="generated/torch.autograd.forward_ad.exit_dual_level.html#torch.autograd.forward_ad.exit_dual_level">exit_dual_level() (in module torch.autograd.forward_ad)</a>
 </li>
@@ -7120,6 +7124,8 @@ document.write(`
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_max_tuning_duration">get_max_tuning_duration() (in module torch.cuda.tunable)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_max_tuning_iterations">get_max_tuning_iterations() (in module torch.cuda.tunable)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.get_mem_pool">get_mem_pool() (in module torch.distributed._symmetric_memory)</a>
 </li>
       <li><a href="generated/torch.accelerator.memory.get_memory_info.html#torch.accelerator.memory.get_memory_info">get_memory_info() (in module torch.accelerator.memory)</a>
 </li>
@@ -9805,10 +9811,6 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.maybe_handle_decomp.html#torch.fx.experimental.proxy_tensor.maybe_handle_decomp">maybe_handle_decomp() (in module torch.fx.experimental.proxy_tensor)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.numa.binding.maybe_wrap_command_args_with_numa_binding">maybe_wrap_command_args_with_numa_binding() (in module torch.numa.binding)</a>
-</li>
-      <li><a href="elastic/numa.html#torch.numa.binding.maybe_wrap_with_numa_binding">maybe_wrap_with_numa_binding() (in module torch.numa.binding)</a>
-</li>
       <li><a href="distributions.html#torch.distributions.bernoulli.Bernoulli.mean">mean (torch.distributions.bernoulli.Bernoulli property)</a>
 
       <ul>
@@ -11888,6 +11890,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.functional.multi_margin_loss.html#torch.nn.functional.multi_margin_loss">multi_margin_loss() (in module torch.nn.functional)</a>
 </li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.multi_root_tile_reduce">multi_root_tile_reduce() (in module torch.ops.symm_mem)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.Store.multi_set">multi_set() (torch.distributed.Store method)</a>
 </li>
       <li><a href="special.html#torch.special.multigammaln">multigammaln() (in module torch.special)</a>
@@ -12235,6 +12239,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="fx.html#torch.fx.Node">Node (class in torch.fx)</a>
+</li>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.NODE">NODE (torch.numa.binding.AffinityMode attribute)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.fx.utils.node_arg_is_bias.html#torch.ao.quantization.fx.utils.node_arg_is_bias">node_arg_is_bias (class in torch.ao.quantization.fx.utils)</a>
 </li>
@@ -15146,6 +15152,8 @@ document.write(`
       </ul></li>
       <li><a href="storage.html#torch.ShortStorage">ShortStorage (class in torch)</a>
 </li>
+      <li><a href="elastic/numa.html#torch.numa.binding.NumaOptions.should_fall_back_if_binding_fails">should_fall_back_if_binding_fails (torch.numa.binding.NumaOptions attribute)</a>
+</li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute">should_synchronize_after_execute (torch.distributed.checkpoint.staging.AsyncStager property)</a>
 </li>
       <li><a href="config_mod.html#torch.__config__.show">show() (in module torch.__config__)</a>
@@ -15308,10 +15316,12 @@ document.write(`
 </li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
 </li>
-      <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
+</li>
       <li><a href="generated/torch.nn.SoftMarginLoss.html#torch.nn.SoftMarginLoss">SoftMarginLoss (class in torch.nn)</a>
 
       <ul>
@@ -16310,6 +16320,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.tile.html#torch.Tensor.tile">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.tile_reduce">tile_reduce() (in module torch.ops.symm_mem)</a>
+</li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Timer.timeit">timeit() (torch.utils.benchmark.Timer method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.Store.timeout">timeout (torch.distributed.Store property)</a>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>NUMA Binding Utilities &#8212; PyTorch main documentation</title>
+    <title>NUMA Binding &#8212; PyTorch main documentation</title>
   
   
   
@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git712bfd1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3531,7 +3531,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subprocess_handler.html">Subprocess Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="control_plane.html">Control Plane</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">NUMA Binding Utilities</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">NUMA Binding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="customization.html">Customization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
@@ -4588,7 +4588,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../distributed.elastic.html" class="nav-link">Torch Distributed Elastic</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">NUMA...</li>
+    <li class="breadcrumb-item active" aria-current="page">NUMA Binding</li>
   </ul>
 </nav>
 </div>
@@ -4642,7 +4642,7 @@ document.write(`
       </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="NUMA Binding Utilities">
+        <meta itemprop="name" content="NUMA Binding">
         <meta itemprop="position" content="3">
       </div>
     </div>
@@ -4657,82 +4657,88 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="module-torch.numa">
-<span id="numa-binding-utilities"></span><span id="numa-api"></span><h1>NUMA Binding Utilities<a class="headerlink" href="#module-torch.numa" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025</p>
-<dl class="py class" id="module-torch.numa.binding">
+<span id="numa-binding"></span><span id="numa-api"></span><h1>NUMA Binding<a class="headerlink" href="#module-torch.numa" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Jan 06, 2026</p>
+<p id="module-torch.numa.binding">In NUMA (Non-Uniform Memory Access) systems, accessing memory on remote NUMA
+nodes incurs additional latency. PyTorch provides NUMA binding utilities to
+promote memory locality by binding worker processes to CPUs near their assigned GPUs.</p>
+<p>In practice, NUMA binding typically results in 1-10% overall performance improvements,
+but some workloads may obtain much greater benefits or none at all.</p>
+<p>To enable NUMA binding, use the <code class="docutils literal notranslate"><span class="pre">--numa-binding</span></code> flag with <a class="reference internal" href="run.html#launcher-api"><span class="std std-ref">torchrun</span></a>, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torchrun<span class="w"> </span>--numa-binding<span class="o">=</span>node<span class="w"> </span>--nproc_per_node<span class="o">=</span><span class="m">8</span><span class="w"> </span>train.py
+</pre></div>
+</div>
+<p>Alternatively, pass <a class="reference internal" href="#torch.numa.binding.NumaOptions" title="torch.numa.binding.NumaOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumaOptions</span></code></a> to <code class="docutils literal notranslate"><span class="pre">LaunchConfig</span></code>
+when using <code class="docutils literal notranslate"><span class="pre">elastic_launch</span></code>.</p>
+<p>See <a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffinityMode</span></code></a> for available binding modes.</p>
+<dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/numa/binding.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Link to this definition">#</a></dt>
-<dd><p>See behavior description for each affinity mode
-in torch.distributed.run.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/numa/binding.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Link to this definition">#</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.numa.binding.AffinityMode.NODE">
+<span class="sig-name descname"><span class="pre">NODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'node'</span></em><a class="headerlink" href="#torch.numa.binding.AffinityMode.NODE" title="Link to this definition">#</a></dt>
+<dd><p>Each worker process and its threads will be bound to all the CPUs
+on the NUMA node containing the GPU whose local index equals the worker’s local rank.
+If in doubt, use this option rather than the others.</p>
+<p><strong>Ex.:</strong> If GPU 3 (i.e. <code class="docutils literal notranslate"><span class="pre">torch.device(&quot;cuda:3&quot;)</span></code>) lives on NUMA node 1, then the worker
+whose local rank is 3 will only be able to run on the CPUs of NUMA node 1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.numa.binding.AffinityMode.SOCKET">
+<span class="sig-name descname"><span class="pre">SOCKET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'socket'</span></em><a class="headerlink" href="#torch.numa.binding.AffinityMode.SOCKET" title="Link to this definition">#</a></dt>
+<dd><p>Each worker process and its threads will be bound to all the CPUs on all the NUMA nodes of the
+socket containing the GPU whose local index equals the worker’s local rank.</p>
+<p><strong>Ex.:</strong> If socket 0 contains GPU 3 and NUMA nodes 0-1, then the worker whose
+local rank is 3 will be bound to the CPUs of NUMA nodes 0-1.</p>
+<p>For cases where there is only one NUMA node per socket anyway, this is equivalent to NODE.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.numa.binding.AffinityMode.EXCLUSIVE">
+<span class="sig-name descname"><span class="pre">EXCLUSIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'exclusive'</span></em><a class="headerlink" href="#torch.numa.binding.AffinityMode.EXCLUSIVE" title="Link to this definition">#</a></dt>
+<dd><p>Each worker process and its threads will be bound to an exclusive subset of CPUs
+on the NUMA node containing the GPU whose local index equals the worker’s local rank.
+The CPUs on the NUMA node are divided evenly among all GPUs on that node, so no two
+workers share the same CPU cores.</p>
+<p><strong>Ex.:</strong> If NUMA node 1 has 16 physical cores and GPUs 2 and 3, then the worker whose
+local rank is 2 will be bound to cores 0-7, and the worker whose local rank is 3 will
+be bound to cores 8-15.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.numa.binding.AffinityMode.CORE_COMPLEX">
+<span class="sig-name descname"><span class="pre">CORE_COMPLEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'core-complex'</span></em><a class="headerlink" href="#torch.numa.binding.AffinityMode.CORE_COMPLEX" title="Link to this definition">#</a></dt>
+<dd><p>Each worker process and its threads will be bound to a single core complex (a group of cores
+sharing the same L3 cache) on the NUMA node containing the GPU whose local index equals
+the worker’s local rank. Each worker is bound to a different core complex when possible.</p>
+<p><strong>Ex.:</strong> If NUMA node 1 has two core complexes (cores 0-7 sharing one L3 cache, cores 8-15
+sharing another) and GPUs 2 and 3, then the worker whose local rank is 2 will be bound to
+cores 0-7, and the worker whose local rank is 3 will be bound to cores 8-15.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/numa/binding.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/numa/binding.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions.affinity_mode">
 <span class="sig-name descname"><span class="pre">affinity_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">AffinityMode</span></a></em><a class="headerlink" href="#torch.numa.binding.NumaOptions.affinity_mode" title="Link to this definition">#</a></dt>
-<dd><p>If true, we will fall back to using the original command/entrypoint if we fail to compute
-NUMA bindings.</p>
-<p>You should avoid using this option! It is only intended as a safety mechanism for facilitating
-mass rollouts of numa binding.</p>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.numa.binding.NumaOptions.should_fall_back_if_binding_fails">
+<span class="sig-name descname"><span class="pre">should_fall_back_if_binding_fails</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.numa.binding.NumaOptions.should_fall_back_if_binding_fails" title="Link to this definition">#</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, we will silence any exceptions that occur during NUMA binding itself
+rather than raising them.</p>
+<p>There are no expected exceptions, so avoid using this option. Its purpose is simply
+to mitigate crash risk while conducting mass rollouts of NUMA binding.</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_command_args_with_numa_binding">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_command_args_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/numa/binding.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding" title="Link to this definition">#</a></dt>
-<dd><p>Wraps command arguments with numactl to apply NUMA CPU binding.</p>
-<p>This function prepends numactl with appropriate CPU affinity flags to the
-provided command arguments, binding the process to CPUs associated with
-the specified GPU’s NUMA node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>command_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – The original command arguments to wrap.</p></li>
-<li><p><strong>gpu_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the GPU that will be used by the subprocess.</p></li>
-<li><p><strong>numa_options</strong> (<a class="reference internal" href="#torch.numa.binding.NumaOptions" title="torch.numa.binding.NumaOptions"><em>NumaOptions</em></a><em> | </em><em>None</em>) – Configuration for NUMA binding behavior. If None, returns
-the original command_args unchanged.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple of command arguments, potentially wrapped with numactl for NUMA binding.
-Returns the original command_args if numa_options is None or if binding fails
-and fallback is enabled.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, …]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_with_numa_binding">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/numa/binding.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_with_numa_binding" title="Link to this definition">#</a></dt>
-<dd><p>Wraps a function to apply NUMA CPU binding before execution.</p>
-<p>This decorator applies NUMA CPU affinity to all threads in the current process
-before calling the wrapped function, binding them to CPUs associated with the
-specified GPU’s NUMA node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><em>~_TParams</em><em>]</em><em>, </em><em>_TReturn</em><em>]</em>) – The function to wrap with NUMA binding.</p></li>
-<li><p><strong>gpu_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the GPU that will be used.</p></li>
-<li><p><strong>numa_options</strong> (<a class="reference internal" href="#torch.numa.binding.NumaOptions" title="torch.numa.binding.NumaOptions"><em>NumaOptions</em></a><em> | </em><em>None</em>) – Configuration for NUMA binding behavior. If None, returns
-the original function unchanged.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A wrapped function that applies NUMA binding before execution, or the
-original function if numa_options is None.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[~_TParams], <em>_TReturn</em>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -4854,13 +4860,18 @@ original function if numa_options is None.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode"><code class="docutils literal notranslate"><span class="pre">AffinityMode</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions"><code class="docutils literal notranslate"><span class="pre">NumaOptions</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions.affinity_mode"><code class="docutils literal notranslate"><span class="pre">NumaOptions.affinity_mode</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode"><code class="docutils literal notranslate"><span class="pre">AffinityMode</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode.NODE"><code class="docutils literal notranslate"><span class="pre">AffinityMode.NODE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode.SOCKET"><code class="docutils literal notranslate"><span class="pre">AffinityMode.SOCKET</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode.EXCLUSIVE"><code class="docutils literal notranslate"><span class="pre">AffinityMode.EXCLUSIVE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.AffinityMode.CORE_COMPLEX"><code class="docutils literal notranslate"><span class="pre">AffinityMode.CORE_COMPLEX</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding"><code class="docutils literal notranslate"><span class="pre">maybe_wrap_command_args_with_numa_binding()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_wrap_with_numa_binding"><code class="docutils literal notranslate"><span class="pre">maybe_wrap_with_numa_binding()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions"><code class="docutils literal notranslate"><span class="pre">NumaOptions</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions.affinity_mode"><code class="docutils literal notranslate"><span class="pre">NumaOptions.affinity_mode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions.should_fall_back_if_binding_fails"><code class="docutils literal notranslate"><span class="pre">NumaOptions.should_fall_back_if_binding_fails</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
     
@@ -5103,11 +5114,11 @@ original function if numa_options is None.</p>
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "NUMA Binding Utilities",
-       "headline": "NUMA Binding Utilities",
+       "name": "NUMA Binding",
+       "headline": "NUMA Binding",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/elastic/numa.html",
-       "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025 class torch.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will fall back to using the original command/entrypoint if we fail to compute NUMA bindings. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.numa.binding.maybe_wrap_command_args_with_numa_binding(command_args, *, gpu_index, numa_options)[source]# Wraps command arguments with numactl to apply NUMA CPU binding. This function prepends numactl with appropriate CPU affinity flags to the provided command arguments, binding the process to CPUs associated with the specified GPU\u2019s NUMA node. Parameters: command_args (tuple[str, ...]) \u2013 The original command arguments to wrap. gpu_index (int) \u2013 The index of the GPU that will be used by the subprocess. numa_options (NumaOptions | None) \u2013 Configuration for NUMA binding behavior. If None, returns the original command_args unchanged. Returns: Tuple of command arguments, potentially wrapped with numactl for NUMA binding. Returns the original command_args if numa_options is None or if binding fails and fallback is enabled. Return type: tuple[str, \u2026] torch.numa.binding.maybe_wrap_with_numa_binding(func, *, gpu_index, numa_options)[source]# Wraps a function to apply NUMA CPU binding before execution. This decorator applies NUMA CPU affinity to all threads in the current process before calling the wrapped function, binding them to CPUs associated with the specified GPU\u2019s NUMA node. Parameters: func (Callable[[~_TParams], _TReturn]) \u2013 The function to wrap with NUMA binding. gpu_index (int) \u2013 The index of the GPU that will be used. numa_options (NumaOptions | None) \u2013 Configuration for NUMA binding behavior. If None, returns the original function unchanged. Returns: A wrapped function that applies NUMA binding before execution, or the original function if numa_options is None. Return type: Callable[[~_TParams], _TReturn]",
+       "articleBody": "NUMA Binding# Created On: Jul 25, 2025 | Last Updated On: Jan 06, 2026 In NUMA (Non-Uniform Memory Access) systems, accessing memory on remote NUMA nodes incurs additional latency. PyTorch provides NUMA binding utilities to promote memory locality by binding worker processes to CPUs near their assigned GPUs. In practice, NUMA binding typically results in 1-10% overall performance improvements, but some workloads may obtain much greater benefits or none at all. To enable NUMA binding, use the --numa-binding flag with torchrun, e.g.: torchrun --numa-binding=node --nproc_per_node=8 train.py Alternatively, pass NumaOptions to LaunchConfig when using elastic_launch. See AffinityMode for available binding modes. class torch.numa.binding.AffinityMode(value)[source]# An enumeration. NODE = \u0027node\u0027# Each worker process and its threads will be bound to all the CPUs on the NUMA node containing the GPU whose local index equals the worker\u2019s local rank. If in doubt, use this option rather than the others. Ex.: If GPU 3 (i.e. torch.device(\"cuda:3\")) lives on NUMA node 1, then the worker whose local rank is 3 will only be able to run on the CPUs of NUMA node 1. SOCKET = \u0027socket\u0027# Each worker process and its threads will be bound to all the CPUs on all the NUMA nodes of the socket containing the GPU whose local index equals the worker\u2019s local rank. Ex.: If socket 0 contains GPU 3 and NUMA nodes 0-1, then the worker whose local rank is 3 will be bound to the CPUs of NUMA nodes 0-1. For cases where there is only one NUMA node per socket anyway, this is equivalent to NODE. EXCLUSIVE = \u0027exclusive\u0027# Each worker process and its threads will be bound to an exclusive subset of CPUs on the NUMA node containing the GPU whose local index equals the worker\u2019s local rank. The CPUs on the NUMA node are divided evenly among all GPUs on that node, so no two workers share the same CPU cores. Ex.: If NUMA node 1 has 16 physical cores and GPUs 2 and 3, then the worker whose local rank is 2 will be bound to cores 0-7, and the worker whose local rank is 3 will be bound to cores 8-15. CORE_COMPLEX = \u0027core-complex\u0027# Each worker process and its threads will be bound to a single core complex (a group of cores sharing the same L3 cache) on the NUMA node containing the GPU whose local index equals the worker\u2019s local rank. Each worker is bound to a different core complex when possible. Ex.: If NUMA node 1 has two core complexes (cores 0-7 sharing one L3 cache, cores 8-15 sharing another) and GPUs 2 and 3, then the worker whose local rank is 2 will be bound to cores 0-7, and the worker whose local rank is 3 will be bound to cores 8-15. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# should_fall_back_if_binding_fails: bool = False# If True, we will silence any exceptions that occur during NUMA binding itself rather than raising them. There are no expected exceptions, so avoid using this option. Its purpose is simply to mitigate crash risk while conducting mass rollouts of NUMA binding.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -5119,7 +5130,7 @@ original function if numa_options is None.</p>
          "@id": "/elastic/numa.html"
        },
        "datePublished": "Jul 25, 2025T00:00:00Z",
-       "dateModified": "Aug 12, 2025T00:00:00Z"
+       "dateModified": "Jan 06, 2026T00:00:00Z"
      }
  </script>
   <script>

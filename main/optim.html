@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git712bfd1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3531,7 +3531,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="elastic/events.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/subprocess_handler.html">Subprocess Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/control_plane.html">Control Plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elastic/numa.html">NUMA Binding Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elastic/numa.html">NUMA Binding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/customization.html">Customization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
@@ -4766,7 +4766,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/optim/optimizer.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/optim/optimizer.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5512,13 +5512,13 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/optim/swa_utils.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/optim/swa_utils.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>

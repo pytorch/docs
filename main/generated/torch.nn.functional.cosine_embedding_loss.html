@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git712bfd1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3531,7 +3531,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../elastic/events.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/subprocess_handler.html">Subprocess Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/control_plane.html">Control Plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../elastic/numa.html">NUMA Binding Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastic/numa.html">NUMA Binding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/customization.html">Customization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
@@ -4660,7 +4660,7 @@ document.write(`
 <h1>torch.nn.functional.cosine_embedding_loss<a class="headerlink" href="#torch-nn-functional-cosine-embedding-loss" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.cosine_embedding_loss">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">cosine_embedding_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/nn/functional.py#L4199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.cosine_embedding_loss" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">cosine_embedding_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/nn/functional.py#L4199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.cosine_embedding_loss" title="Link to this definition">#</a></dt>
 <dd><p>Compute the cosine embedding loss.</p>
 <p>See <a class="reference internal" href="torch.nn.CosineEmbeddingLoss.html#torch.nn.CosineEmbeddingLoss" title="torch.nn.CosineEmbeddingLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">CosineEmbeddingLoss</span></code></a> for details.</p>
 <dl class="field-list simple">

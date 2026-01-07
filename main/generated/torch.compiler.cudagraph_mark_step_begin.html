@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitd7f837c )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git712bfd1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3466,8 +3466,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3531,7 +3531,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../elastic/events.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/subprocess_handler.html">Subprocess Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/control_plane.html">Control Plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../elastic/numa.html">NUMA Binding Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastic/numa.html">NUMA Binding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/customization.html">Customization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../elastic/kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
@@ -4677,7 +4677,7 @@ document.write(`
 <h1>torch.compiler.cudagraph_mark_step_begin<a class="headerlink" href="#torch-compiler-cudagraph-mark-step-begin" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.cudagraph_mark_step_begin">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">cudagraph_mark_step_begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7f837cf282ab5fd31644c350b80da481dc076ba/torch/compiler/__init__.py#L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.cudagraph_mark_step_begin" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">cudagraph_mark_step_begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/712bfd126be04e65f5568842f2ad7c83bf2a5340/torch/compiler/__init__.py#L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.cudagraph_mark_step_begin" title="Link to this definition">#</a></dt>
 <dd><p>Indicates that a new iteration of inference or training is about to begin.</p>
 <p>CUDA Graphs will free tensors of a prior iteration. A new iteration is started on each invocation of
 torch.compile, so long as there is not a pending backward that has not been called.</p>
@@ -4692,7 +4692,7 @@ torch.compile, so long as there is not a pending backward that has not been call
     <span class="n">rand_foo</span><span class="p">()</span> <span class="o">+</span> <span class="n">rand_foo</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For more details, see <a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_cudagraph_trees.html">torch.compiler_cudagraph_trees</a></p>
+<p>For more details, see <a class="reference external" href="https://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler_cudagraph_trees.html">torch.compiler_cudagraph_trees</a>  # noqa: B950</p>
 </dd></dl>
 
 </section>
@@ -5045,7 +5045,7 @@ torch.compile, so long as there is not a pending backward that has not been call
        "headline": "torch.compiler.cudagraph_mark_step_begin",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.compiler.cudagraph_mark_step_begin.html",
-       "articleBody": "torch.compiler.cudagraph_mark_step_begin# torch.compiler.cudagraph_mark_step_begin()[source]# Indicates that a new iteration of inference or training is about to begin. CUDA Graphs will free tensors of a prior iteration. A new iteration is started on each invocation of torch.compile, so long as there is not a pending backward that has not been called. If that heuristic is wrong, such as in the following example, manually mark it with this api. @torch.compile(mode=\"reduce-overhead\") def rand_foo(): return torch.rand([4], device=\"cuda\") for _ in range(5): torch.compiler.cudagraph_mark_step_begin() rand_foo() + rand_foo() For more details, see torch.compiler_cudagraph_trees",
+       "articleBody": "torch.compiler.cudagraph_mark_step_begin# torch.compiler.cudagraph_mark_step_begin()[source]# Indicates that a new iteration of inference or training is about to begin. CUDA Graphs will free tensors of a prior iteration. A new iteration is started on each invocation of torch.compile, so long as there is not a pending backward that has not been called. If that heuristic is wrong, such as in the following example, manually mark it with this api. @torch.compile(mode=\"reduce-overhead\") def rand_foo(): return torch.rand([4], device=\"cuda\") for _ in range(5): torch.compiler.cudagraph_mark_step_begin() rand_foo() + rand_foo() For more details, see torch.compiler_cudagraph_trees # noqa: B950",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
