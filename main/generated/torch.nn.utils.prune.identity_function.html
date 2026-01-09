@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2b5da24 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git584db1e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4660,9 +4660,9 @@ document.write(`
 <h1>torch.nn.utils.prune.identity<a class="headerlink" href="#torch-nn-utils-prune-identity" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.identity">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b5da246dced3fc39580335496c02d80fb210f9e/torch/nn/utils/prune.py#L836"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.identity" title="Link to this definition">#</a></dt>
-<dd><p>Apply pruning reparametrization without pruning any units.</p>
-<p>Applies pruning reparametrization to the tensor corresponding to the
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584db1e904df059455fb5889ffcf5e487afe3481/torch/nn/utils/prune.py#L836"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.identity" title="Link to this definition">#</a></dt>
+<dd><p>Apply pruning reparameterization without pruning any units.</p>
+<p>Applies pruning reparameterization to the tensor corresponding to the
 parameter called <code class="docutils literal notranslate"><span class="pre">name</span></code> in <code class="docutils literal notranslate"><span class="pre">module</span></code> without actually pruning any
 units. Modifies module in place (and also return the modified module)
 by:</p>
@@ -5050,7 +5050,7 @@ will act.</p></li>
        "headline": "torch.nn.utils.prune.identity",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.nn.utils.prune.identity_function.html",
-       "articleBody": "torch.nn.utils.prune.identity# torch.nn.utils.prune.identity(module, name)[source]# Apply pruning reparametrization without pruning any units. Applies pruning reparametrization to the tensor corresponding to the parameter called name in module without actually pruning any units. Modifies module in place (and also return the modified module) by: adding a named buffer called name+\u0027_mask\u0027 corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+\u0027_orig\u0027. Note The mask is a tensor of ones. Parameters: module (nn.Module) \u2013 module containing the tensor to prune. name (str) \u2013 parameter name within module on which pruning will act. Returns: modified (i.e. pruned) version of the input module Return type: module (nn.Module) Examples \u003e\u003e\u003e m = prune.identity(nn.Linear(2, 3), \"bias\") \u003e\u003e\u003e print(m.bias_mask) tensor([1., 1., 1.])",
+       "articleBody": "torch.nn.utils.prune.identity# torch.nn.utils.prune.identity(module, name)[source]# Apply pruning reparameterization without pruning any units. Applies pruning reparameterization to the tensor corresponding to the parameter called name in module without actually pruning any units. Modifies module in place (and also return the modified module) by: adding a named buffer called name+\u0027_mask\u0027 corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+\u0027_orig\u0027. Note The mask is a tensor of ones. Parameters: module (nn.Module) \u2013 module containing the tensor to prune. name (str) \u2013 parameter name within module on which pruning will act. Returns: modified (i.e. pruned) version of the input module Return type: module (nn.Module) Examples \u003e\u003e\u003e m = prune.identity(nn.Linear(2, 3), \"bias\") \u003e\u003e\u003e print(m.bias_mask) tensor([1., 1., 1.])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
