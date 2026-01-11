@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8cfe6f1 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git5e30b70 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.mem_get_info.html">torch.xpu.memory.mem_get_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_allocated.html">torch.xpu.memory.memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_reserved.html">torch.xpu.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_snapshot.html">torch.xpu.memory.memory_snapshot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats.html">torch.xpu.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
@@ -4672,7 +4673,7 @@ document.write(`
 <h1>PerRow<a class="headerlink" href="#perrow" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.PerRow">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">PerRow</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8cfe6f12ec63257a6b483279b87086b31a70aac1/torch/ao/quantization/observer.py#L1765"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.PerRow" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">PerRow</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5e30b707cbee157a4863b8146c7946810fcd762e/torch/ao/quantization/observer.py#L1765"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.PerRow" title="Link to this definition">#</a></dt>
 <dd><p>Represents row-wise granularity in quantization.</p>
 <p>This is a special case of per-axis quantization and is unique to Float8 matmuls
 where the input is quantized with a block_size of (1, …, input.shape[-1]). And the weight

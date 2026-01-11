@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8cfe6f1 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git5e30b70 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.mem_get_info.html">torch.xpu.memory.mem_get_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_allocated.html">torch.xpu.memory.memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_reserved.html">torch.xpu.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_snapshot.html">torch.xpu.memory.memory_snapshot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats.html">torch.xpu.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
@@ -4661,7 +4662,7 @@ document.write(`
 <h1>torch.nn.functional.ctc_loss<a class="headerlink" href="#torch-nn-functional-ctc-loss" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.ctc_loss">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">ctc_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_infinity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8cfe6f12ec63257a6b483279b87086b31a70aac1/torch/nn/functional.py#L3042"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.ctc_loss" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">ctc_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_infinity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5e30b707cbee157a4863b8146c7946810fcd762e/torch/nn/functional.py#L3042"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.ctc_loss" title="Link to this definition">#</a></dt>
 <dd><p>Compute the Connectionist Temporal Classification loss.</p>
 <p>See <a class="reference internal" href="torch.nn.CTCLoss.html#torch.nn.CTCLoss" title="torch.nn.CTCLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">CTCLoss</span></code></a> for details.</p>
 <div class="admonition note">
