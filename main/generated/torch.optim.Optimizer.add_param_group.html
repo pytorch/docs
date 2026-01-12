@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git5e30b70 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2c6145a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3467,8 +3467,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>torch.optim.Optimizer.add_param_group<a class="headerlink" href="#torch-optim-optimizer-add-param-group" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Optimizer.add_param_group">
-<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5e30b707cbee157a4863b8146c7946810fcd762e/torch/optim/optimizer.py#L1099"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.add_param_group" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2c6145a1c4f4fc8e8d16eef957c38f4e8a8aff70/torch/optim/optimizer.py#L1099"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.add_param_group" title="Link to this definition">#</a></dt>
 <dd><p>Add a param group to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> s <cite>param_groups</cite>.</p>
 <p>This can be useful when fine tuning a pre-trained network as frozen layers can be made
 trainable and added to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> as training progresses.</p>
