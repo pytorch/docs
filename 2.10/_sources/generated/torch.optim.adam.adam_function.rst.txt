@@ -1,0 +1,6 @@
+﻿torch.optim.adam.adam
+=====================
+
+.. currentmodule:: torch.optim.adam
+
+.. autofunction:: adam

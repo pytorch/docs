@@ -1,0 +1,6 @@
+﻿torch.functional.atleast\_3d
+============================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: atleast_3d

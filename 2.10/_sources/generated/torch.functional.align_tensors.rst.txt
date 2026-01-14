@@ -1,0 +1,6 @@
+﻿torch.functional.align\_tensors
+===============================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: align_tensors

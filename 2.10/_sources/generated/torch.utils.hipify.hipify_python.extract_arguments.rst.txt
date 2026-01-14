@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.extract\_arguments
+====================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: extract_arguments

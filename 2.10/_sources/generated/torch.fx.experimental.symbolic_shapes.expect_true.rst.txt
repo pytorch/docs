@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.expect\_true
+===================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: expect_true

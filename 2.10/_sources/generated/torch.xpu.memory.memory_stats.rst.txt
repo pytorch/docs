@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.memory\_stats
+==============================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: memory_stats

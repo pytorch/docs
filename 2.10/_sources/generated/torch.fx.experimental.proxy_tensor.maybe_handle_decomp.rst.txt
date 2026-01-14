@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.maybe\_handle\_decomp
+=========================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: maybe_handle_decomp

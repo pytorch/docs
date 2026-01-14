@@ -1,0 +1,3234 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IRs &#8212; PyTorch 2.10 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=8998eb7a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=940804e7"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/torch_compiler/torch.compiler_ir';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.10';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/js/runllm-widget.js?v=54a6b3cb"></script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_ir.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Developer Notes" href="../../notes.html" />
+    <link rel="prev" title="AOTInductor Debugging Guide" href="torch.compiler_aot_inductor_debugging_guide.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
+    if (window.location.hostname === 'localhost' ||
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
+
+<link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" crossorigin="anonymous">
+<script type="text/javascript" src="../../_static/js/theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
+<link rel="stylesheet" href="../../_static/webfonts/all.min.css" crossorigin="anonymous">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta name="pytorch_project" content="docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
+</script>
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
+<script>
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
+</script>
+<script>
+  document.documentElement.setAttribute('data-version', '2.10');
+</script>
+<noscript>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
+</noscript>
+<script>
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+</script>
+<!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
+<!-- Script to Fix scrolling -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Fix anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const headerHeight =
+            (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
+            (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
+
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+
+          // Update URL hash without scrolling
+          history.pushState(null, null, '#' + targetId);
+        }
+      });
+    });
+  });
+</script>
+
+<script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+  </head>
+
+<body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
+   <div class="header-container-wrapper">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                <span>Learn</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
+                  <span class=dropdown-title>Get Started</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
+                  <span class="dropdown-title">Webinars</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Community</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
+                  <span class="dropdown-title">Landscape</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
+                  <span class="dropdown-title">Join the Ecosystem</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
+                  <span class="dropdown-title">Community Hub</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
+                  <span class="dropdown-title">Forums</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
+                  <span class="dropdown-title">Contributor Awards</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
+                  <span class="dropdown-title">Community Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
+                  <span class="dropdown-title">PyTorch Ambassadors</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Projects</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
+                  <span class="dropdown-title">PyTorch</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
+                  <span class="dropdown-title">vLLM</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
+                  <span class="dropdown-title">DeepSpeed</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
+                  <span class="dropdown-title">Host Your Project</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span> Docs</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
+                  <span class="dropdown-title">Domains</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Blogs & News</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">Blog</span>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
+                  <span class="dropdown-title">Announcements</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
+                  <span class="dropdown-title">Case Studies</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                </a>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>About</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/members">
+                  <span class="dropdown-title">Members</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
+                  <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown main-menu-button">
+              <a href="https://pytorch.org/join" data-cta="join">
+                JOIN
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
+        <i class="fa-solid fa-ellipsis"></i>
+      </a>
+    </div>
+  </div>
+ </div>
+
+ <!-- Begin Mobile Menu -->
+
+<div class="mobile-main-menu">
+  <div class="container-fluid">
+    <div class="header-container-wrapper">
+      <div class="mobile-main-menu-header-container">
+        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-main-menu-links-container">
+    <div class="main-menu">
+      <ul>
+         <li class="resources-mobile-menu-title">
+           <a>Learn</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/get-started/locally">Get Started</a>
+           </li>
+           <li>
+             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/webinars/">Webinars</a>
+          </li>
+        </ul>
+         <li class="resources-mobile-menu-title">
+           <a>Community</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://landscape.pytorch.org/">Landscape</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/community-hub/">Community Hub</a>
+           </li>
+           <li>
+             <a href="https://discuss.pytorch.org/">Forums</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/resources">Developer Resources</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/community-events/">Community Events</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
+          </li>
+       </ul>
+
+         <li class="resources-mobile-menu-title">
+           <a>Projects</a>
+         </li>
+
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
+           </li>
+
+           <li>
+             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
+           </li>
+         </ul>
+
+         <li class="resources-mobile-menu-title">
+           <a>Docs</a>
+         </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/domains">Domains</a>
+          </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>Blog & News</a>
+        </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/blog/">Blog</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/announcements">Announcements</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/case-studies/">Case Studies</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/events">Events</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/newsletter">Newsletter</a>
+           </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>About</a>
+        </li>
+
+        <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/members">Members</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/governing-board">Governing Board</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+         </li>
+         <li>
+             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/staff">Staff</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/contact">Contact</a>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- End Mobile Menu -->
+  
+  
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Home</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pytorch-api.html">
+    Reference API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pytorch-api.html">
+    Reference API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Pytorch Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/get-started/locally/">Get Started</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pytorch_main_components.html">PyTorch Main Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Torch Compile</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="torch.compiler.html">Torch.compile</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_get_started.html">Getting Started</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="core_concepts.html">Core Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="performance.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="advanced.html">Advanced</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_custom_backends.html">Custom Backends</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api_reference.html">Reference/API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../torch.compiler_api.html">torch.compiler API reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.compile.html">torch.compiler.compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.reset.html">torch.compiler.reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.allow_in_graph.html">torch.compiler.allow_in_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.substitute_in_graph.html">torch.compiler.substitute_in_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_exporting.html">torch.compiler.is_exporting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe.html">torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="export.html">Torch.export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/joint_with_descriptors.html">Joint with descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.assert.html">python.assert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.control-flow.html">python.control-flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.map.html">torch.map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.builtin.html">python.builtin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.object-model.html">python.object-model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.context-manager.html">python.context-manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.operator.html">torch.operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.mutation.html">torch.mutation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">IRs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notes.html">Developer Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/mkldnn.html">MKLDNN backend</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notes/modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/out.html">Out Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Accelerator Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../accelerator/index.html">Accelerator Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/device.html">Device Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/hooks.html">Accelerator Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/guard.html">Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/autoload.html">Autoload Mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/operators.html">Operator Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/amp.html">Automatic Mixed Precision</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="export.html" class="nav-link">torch.export</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">IRs</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+</div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+  
+<div id="searchbox"></div>
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="export.html">
+        <meta itemprop="name" content="torch.export">
+        <meta itemprop="position" content="2">
+      </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <meta itemprop="name" content="IRs">
+        <meta itemprop="position" content="3">
+      </div>
+    </div>
+
+    
+    
+
+    
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="irs">
+<span id="torch-compiler-ir"></span><h1>IRs<a class="headerlink" href="#irs" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 13, 2022 | Last Updated On: Dec 03, 2025</p>
+<p>PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR.</p>
+<section id="core-aten-ir">
+<h2>Core Aten IR<a class="headerlink" href="#core-aten-ir" title="Link to this heading">#</a></h2>
+<p>Core aten ops is the core subset of aten operators that can be used to compose other operators.
+Core aten IR is fully functional, and there is no <code class="docutils literal notranslate"><span class="pre">inplace</span></code> or <code class="docutils literal notranslate"><span class="pre">_out</span></code> variants in this opset.
+In contrast to Prims IR, core aten ops reuses the existing aten ops in “native_functions.yaml”,
+and it doesn’t further decompose ops into explicit type promotion and broadcasting ops.
+This opset is designed to serve as the functional IR to interface with backends.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This opset is still under active development, more ops will be added in the future.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Schema</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._adaptive_avg_pool2d</span></code></p></td>
+<td><p>_adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._adaptive_avg_pool2d_backward</span></code></p></td>
+<td><p>_adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._adaptive_avg_pool3d</span></code></p></td>
+<td><p>_adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._cdist_forward</span></code></p></td>
+<td><p>_cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._embedding_bag</span></code></p></td>
+<td><p>_embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -&gt; (Tensor, Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._fft_r2c</span></code></p></td>
+<td><p>_fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._local_scalar_dense</span></code></p></td>
+<td><p>_local_scalar_dense(Tensor self) -&gt; Scalar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._log_softmax</span></code></p></td>
+<td><p>_log_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._native_batch_norm_legit</span></code></p></td>
+<td><p>_native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._native_batch_norm_legit.no_stats</span></code></p></td>
+<td><p>_native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._native_batch_norm_legit_no_training</span></code></p></td>
+<td><p>_native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._pdist_forward</span></code></p></td>
+<td><p>_pdist_forward(Tensor self, float p=2) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten._softmax</span></code></p></td>
+<td><p>_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten._to_copy</span></code></p></td>
+<td><p>_to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.abs</span></code></p></td>
+<td><p>abs(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.acos</span></code></p></td>
+<td><p>acos(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.acosh</span></code></p></td>
+<td><p>acosh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.adaptive_avg_pool1d</span></code></p></td>
+<td><p>adaptive_avg_pool1d(Tensor self, int[1] output_size) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.add.Scalar</span></code></p></td>
+<td><p>add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.add.Tensor</span></code></p></td>
+<td><p>add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.addmm</span></code></p></td>
+<td><p>addmm(Tensor self, Tensor mat1, Tensor mat2, *, Scalar beta=1, Scalar alpha=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.alias</span></code></p></td>
+<td><p>alias(Tensor(a) self) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.amax</span></code></p></td>
+<td><p>amax(Tensor self, int[1] dim=[], bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.amin</span></code></p></td>
+<td><p>amin(Tensor self, int[1] dim=[], bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.any</span></code></p></td>
+<td><p>any(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.any.dim</span></code></p></td>
+<td><p>any.dim(Tensor self, int dim, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.any.dims</span></code></p></td>
+<td><p>any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.arange.start_step</span></code></p></td>
+<td><p>arange.start_step(Scalar start, Scalar end, Scalar step=1, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.argmax</span></code></p></td>
+<td><p>argmax(Tensor self, int? dim=None, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.argmin</span></code></p></td>
+<td><p>argmin(Tensor self, int? dim=None, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.as_strided</span></code></p></td>
+<td><p>as_strided(Tensor(a) self, SymInt[] size, SymInt[] stride, SymInt? storage_offset=None) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.asin</span></code></p></td>
+<td><p>asin(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.asinh</span></code></p></td>
+<td><p>asinh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.atan</span></code></p></td>
+<td><p>atan(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.atan2</span></code></p></td>
+<td><p>atan2(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.atan2.out</span></code></p></td>
+<td><p>atan2.out(Tensor self, Tensor other, *, Tensor(a!) out) -&gt; Tensor(a!)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.atanh</span></code></p></td>
+<td><p>atanh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.avg_pool1d</span></code></p></td>
+<td><p>avg_pool1d(Tensor self, int[1] kernel_size, int[1] stride=[], int[1] padding=0, bool ceil_mode=False, bool count_include_pad=True) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.avg_pool2d</span></code></p></td>
+<td><p>avg_pool2d(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.avg_pool2d_backward</span></code></p></td>
+<td><p>avg_pool2d_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, bool ceil_mode, bool count_include_pad, int? divisor_override) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.avg_pool3d</span></code></p></td>
+<td><p>avg_pool3d(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_and.Scalar</span></code></p></td>
+<td><p>bitwise_and.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_and.Tensor</span></code></p></td>
+<td><p>bitwise_and.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_not</span></code></p></td>
+<td><p>bitwise_not(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_or.Scalar</span></code></p></td>
+<td><p>bitwise_or.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_or.Tensor</span></code></p></td>
+<td><p>bitwise_or.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_xor.Scalar</span></code></p></td>
+<td><p>bitwise_xor.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bitwise_xor.Tensor</span></code></p></td>
+<td><p>bitwise_xor.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.bmm</span></code></p></td>
+<td><p>bmm(Tensor self, Tensor mat2) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.cat</span></code></p></td>
+<td><p>cat(Tensor[] tensors, int dim=0) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.ceil</span></code></p></td>
+<td><p>ceil(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.clamp</span></code></p></td>
+<td><p>clamp(Tensor self, Scalar? min=None, Scalar? max=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.clamp.Tensor</span></code></p></td>
+<td><p>clamp.Tensor(Tensor self, Tensor? min=None, Tensor? max=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.clone</span></code></p></td>
+<td><p>clone(Tensor self, *, MemoryFormat? memory_format=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.col2im</span></code></p></td>
+<td><p>col2im(Tensor self, SymInt[2] output_size, int[2] kernel_size, int[2] dilation, int[2] padding, int[2] stride) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.constant_pad_nd</span></code></p></td>
+<td><p>constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.convolution</span></code></p></td>
+<td><p>convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.convolution_backward</span></code></p></td>
+<td><p>convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.copy</span></code></p></td>
+<td><p>copy(Tensor self, Tensor src, bool non_blocking=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.cos</span></code></p></td>
+<td><p>cos(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.cosh</span></code></p></td>
+<td><p>cosh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.cumsum</span></code></p></td>
+<td><p>cumsum(Tensor self, int dim, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.diagonal</span></code></p></td>
+<td><p>diagonal(Tensor(a) self, int offset=0, int dim1=0, int dim2=1) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.div.Scalar</span></code></p></td>
+<td><p>div.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.div.Scalar_mode</span></code></p></td>
+<td><p>div.Scalar_mode(Tensor self, Scalar other, *, str? rounding_mode) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.div.Tensor</span></code></p></td>
+<td><p>div.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.div.Tensor_mode</span></code></p></td>
+<td><p>div.Tensor_mode(Tensor self, Tensor other, *, str? rounding_mode) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.elu</span></code></p></td>
+<td><p>elu(Tensor self, Scalar alpha=1, Scalar scale=1, Scalar input_scale=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.embedding</span></code></p></td>
+<td><p>embedding(Tensor weight, Tensor indices, SymInt padding_idx=-1, bool scale_grad_by_freq=False, bool sparse=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.embedding_dense_backward</span></code></p></td>
+<td><p>embedding_dense_backward(Tensor grad_output, Tensor indices, SymInt num_weights, SymInt padding_idx, bool scale_grad_by_freq) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.empty.memory_format</span></code></p></td>
+<td><p>empty.memory_format(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.empty_strided</span></code></p></td>
+<td><p>empty_strided(SymInt[] size, SymInt[] stride, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.eq.Scalar</span></code></p></td>
+<td><p>eq.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.eq.Tensor</span></code></p></td>
+<td><p>eq.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.erf</span></code></p></td>
+<td><p>erf(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.exp</span></code></p></td>
+<td><p>exp(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.expand</span></code></p></td>
+<td><p>expand(Tensor(a) self, SymInt[] size, *, bool implicit=False) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.expm1</span></code></p></td>
+<td><p>expm1(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.fill.Scalar</span></code></p></td>
+<td><p>fill.Scalar(Tensor self, Scalar value) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.flip</span></code></p></td>
+<td><p>flip(Tensor self, int[] dims) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.floor</span></code></p></td>
+<td><p>floor(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.fmod.Scalar</span></code></p></td>
+<td><p>fmod.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.fmod.Tensor</span></code></p></td>
+<td><p>fmod.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.full</span></code></p></td>
+<td><p>full(SymInt[] size, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.full_like</span></code></p></td>
+<td><p>full_like(Tensor self, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.gather</span></code></p></td>
+<td><p>gather(Tensor self, int dim, Tensor index, *, bool sparse_grad=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.ge.Scalar</span></code></p></td>
+<td><p>ge.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.ge.Tensor</span></code></p></td>
+<td><p>ge.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.gelu</span></code></p></td>
+<td><p>gelu(Tensor self, *, str approximate=’none’) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.grid_sampler_2d</span></code></p></td>
+<td><p>grid_sampler_2d(Tensor input, Tensor grid, int interpolation_mode, int padding_mode, bool align_corners) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.gt.Scalar</span></code></p></td>
+<td><p>gt.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.gt.Tensor</span></code></p></td>
+<td><p>gt.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.hardtanh</span></code></p></td>
+<td><p>hardtanh(Tensor self, Scalar min_val=-1, Scalar max_val=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.index.Tensor</span></code></p></td>
+<td><p>index.Tensor(Tensor self, Tensor?[] indices) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.index_put</span></code></p></td>
+<td><p>index_put(Tensor self, Tensor?[] indices, Tensor values, bool accumulate=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.index_select</span></code></p></td>
+<td><p>index_select(Tensor self, int dim, Tensor index) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.isinf</span></code></p></td>
+<td><p>isinf(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.isnan</span></code></p></td>
+<td><p>isnan(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.le.Scalar</span></code></p></td>
+<td><p>le.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.le.Tensor</span></code></p></td>
+<td><p>le.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.leaky_relu</span></code></p></td>
+<td><p>leaky_relu(Tensor self, Scalar negative_slope=0.01) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.log</span></code></p></td>
+<td><p>log(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.log10</span></code></p></td>
+<td><p>log10(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.log1p</span></code></p></td>
+<td><p>log1p(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.log2</span></code></p></td>
+<td><p>log2(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.logical_and</span></code></p></td>
+<td><p>logical_and(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.logical_not</span></code></p></td>
+<td><p>logical_not(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.logical_or</span></code></p></td>
+<td><p>logical_or(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.logical_xor</span></code></p></td>
+<td><p>logical_xor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.lt.Scalar</span></code></p></td>
+<td><p>lt.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.lt.Tensor</span></code></p></td>
+<td><p>lt.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.masked_scatter</span></code></p></td>
+<td><p>masked_scatter(Tensor self, Tensor mask, Tensor source) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.max.dim</span></code></p></td>
+<td><p>max.dim(Tensor self, int dim, bool keepdim=False) -&gt; (Tensor values, Tensor indices)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.max_pool2d_with_indices</span></code></p></td>
+<td><p>max_pool2d_with_indices(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, int[2] dilation=1, bool ceil_mode=False) -&gt; (Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.max_pool2d_with_indices_backward</span></code></p></td>
+<td><p>max_pool2d_with_indices_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, int[2] dilation, bool ceil_mode, Tensor indices) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.max_pool3d_with_indices</span></code></p></td>
+<td><p>max_pool3d_with_indices(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, int[3] dilation=1, bool ceil_mode=False) -&gt; (Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.maximum</span></code></p></td>
+<td><p>maximum(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.mean</span></code></p></td>
+<td><p>mean(Tensor self, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.mean.dim</span></code></p></td>
+<td><p>mean.dim(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.min.dim</span></code></p></td>
+<td><p>min.dim(Tensor self, int dim, bool keepdim=False) -&gt; (Tensor values, Tensor indices)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.minimum</span></code></p></td>
+<td><p>minimum(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.mm</span></code></p></td>
+<td><p>mm(Tensor self, Tensor mat2) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.mul.Scalar</span></code></p></td>
+<td><p>mul.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.mul.Tensor</span></code></p></td>
+<td><p>mul.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.native_dropout</span></code></p></td>
+<td><p>native_dropout(Tensor input, float p, bool? train) -&gt; (Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.native_group_norm</span></code></p></td>
+<td><p>native_group_norm(Tensor input, Tensor? weight, Tensor? bias, SymInt N, SymInt C, SymInt HxW, int group, float eps) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.native_group_norm_backward</span></code></p></td>
+<td><p>native_group_norm_backward(Tensor grad_out, Tensor input, Tensor mean, Tensor rstd, Tensor? weight, SymInt N, SymInt C, SymInt HxW, int group, bool[3] output_mask) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.native_layer_norm</span></code></p></td>
+<td><p>native_layer_norm(Tensor input, SymInt[] normalized_shape, Tensor? weight, Tensor? bias, float eps) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.native_layer_norm_backward</span></code></p></td>
+<td><p>native_layer_norm_backward(Tensor grad_out, Tensor input, SymInt[] normalized_shape, Tensor mean, Tensor rstd, Tensor? weight, Tensor? bias, bool[3] output_mask) -&gt; (Tensor, Tensor, Tensor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.ne.Scalar</span></code></p></td>
+<td><p>ne.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.ne.Tensor</span></code></p></td>
+<td><p>ne.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.neg</span></code></p></td>
+<td><p>neg(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.nonzero</span></code></p></td>
+<td><p>nonzero(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.permute</span></code></p></td>
+<td><p>permute(Tensor(a) self, int[] dims) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.pow.Scalar</span></code></p></td>
+<td><p>pow.Scalar(Scalar self, Tensor exponent) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.pow.Tensor_Scalar</span></code></p></td>
+<td><p>pow.Tensor_Scalar(Tensor self, Scalar exponent) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.pow.Tensor_Tensor</span></code></p></td>
+<td><p>pow.Tensor_Tensor(Tensor self, Tensor exponent) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.prod</span></code></p></td>
+<td><p>prod(Tensor self, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.prod.dim_int</span></code></p></td>
+<td><p>prod.dim_int(Tensor self, int dim, bool keepdim=False, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.rand</span></code></p></td>
+<td><p>rand(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.randn</span></code></p></td>
+<td><p>randn(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.randperm</span></code></p></td>
+<td><p>randperm(SymInt n, *, ScalarType? dtype=long, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.reciprocal</span></code></p></td>
+<td><p>reciprocal(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.reflection_pad1d</span></code></p></td>
+<td><p>reflection_pad1d(Tensor self, SymInt[2] padding) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.reflection_pad2d</span></code></p></td>
+<td><p>reflection_pad2d(Tensor self, SymInt[4] padding) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.reflection_pad3d</span></code></p></td>
+<td><p>reflection_pad3d(Tensor self, SymInt[6] padding) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.relu</span></code></p></td>
+<td><p>relu(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.remainder.Scalar</span></code></p></td>
+<td><p>remainder.Scalar(Tensor self, Scalar other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.remainder.Tensor</span></code></p></td>
+<td><p>remainder.Tensor(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.repeat</span></code></p></td>
+<td><p>repeat(Tensor self, SymInt[] repeats) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.replication_pad2d</span></code></p></td>
+<td><p>replication_pad2d(Tensor self, SymInt[4] padding) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.replication_pad3d</span></code></p></td>
+<td><p>replication_pad3d(Tensor self, SymInt[6] padding) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.resize_</span></code></p></td>
+<td><p>resize_(Tensor(a!) self, SymInt[] size, *, MemoryFormat? memory_format=None) -&gt; Tensor(a!)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.round</span></code></p></td>
+<td><p>round(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.rsqrt</span></code></p></td>
+<td><p>rsqrt(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.scalar_tensor</span></code></p></td>
+<td><p>scalar_tensor(Scalar s, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.scatter.src</span></code></p></td>
+<td><p>scatter.src(Tensor self, int dim, Tensor index, Tensor src) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.scatter.value</span></code></p></td>
+<td><p>scatter.value(Tensor self, int dim, Tensor index, Scalar value) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.scatter_add</span></code></p></td>
+<td><p>scatter_add(Tensor self, int dim, Tensor index, Tensor src) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.scatter_reduce.two</span></code></p></td>
+<td><p>scatter_reduce.two(Tensor self, int dim, Tensor index, Tensor src, str reduce, *, bool include_self=True) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.select.int</span></code></p></td>
+<td><p>select.int(Tensor(a) self, int dim, SymInt index) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.select_scatter</span></code></p></td>
+<td><p>select_scatter(Tensor self, Tensor src, int dim, SymInt index) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sigmoid</span></code></p></td>
+<td><p>sigmoid(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sign</span></code></p></td>
+<td><p>sign(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sin</span></code></p></td>
+<td><p>sin(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sinh</span></code></p></td>
+<td><p>sinh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.slice.Tensor</span></code></p></td>
+<td><p>slice.Tensor(Tensor(a) self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.slice_scatter</span></code></p></td>
+<td><p>slice_scatter(Tensor self, Tensor src, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sort</span></code></p></td>
+<td><p>sort(Tensor self, int dim=-1, bool descending=False) -&gt; (Tensor values, Tensor indices)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.split_with_sizes</span></code></p></td>
+<td><p>split_with_sizes(Tensor(a -&gt; *) self, SymInt[] split_sizes, int dim=0) -&gt; Tensor(a)[]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sqrt</span></code></p></td>
+<td><p>sqrt(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.squeeze.dim</span></code></p></td>
+<td><p>squeeze.dim(Tensor(a) self, int dim) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.squeeze.dims</span></code></p></td>
+<td><p>squeeze.dims(Tensor(a) self, int[] dim) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sub.Scalar</span></code></p></td>
+<td><p>sub.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sub.Tensor</span></code></p></td>
+<td><p>sub.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sum.dim_IntList</span></code></p></td>
+<td><p>sum.dim_IntList(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_is_contiguous</span></code></p></td>
+<td><p>sym_is_contiguous(Tensor self, MemoryFormat memory_format=contiguous_format) -&gt; SymBool</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_numel</span></code></p></td>
+<td><p>sym_numel(Tensor self) -&gt; SymInt</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_size.int</span></code></p></td>
+<td><p>sym_size.int(Tensor self, int dim) -&gt; SymInt</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_storage_offset</span></code></p></td>
+<td><p>sym_storage_offset(Tensor self) -&gt; SymInt</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_stride.int</span></code></p></td>
+<td><p>sym_stride.int(Tensor self, int dim) -&gt; SymInt</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tan</span></code></p></td>
+<td><p>tan(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tanh</span></code></p></td>
+<td><p>tanh(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.topk</span></code></p></td>
+<td><p>topk(Tensor self, SymInt k, int dim=-1, bool largest=True, bool sorted=True) -&gt; (Tensor values, Tensor indices)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.trunc</span></code></p></td>
+<td><p>trunc(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.unsqueeze</span></code></p></td>
+<td><p>unsqueeze(Tensor(a) self, int dim) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_bilinear2d.vec</span></code></p></td>
+<td><p>upsample_bilinear2d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_nearest2d.vec</span></code></p></td>
+<td><p>upsample_nearest2d.vec(Tensor input, SymInt[]? output_size, float[]? scale_factors) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.correction</span></code></p></td>
+<td><p>var.correction(Tensor self, int[1]? dim=None, *, Scalar? correction=None, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.dim</span></code></p></td>
+<td><p>var.dim(Tensor self, int[1]? dim, bool unbiased=True, bool keepdim=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.view</span></code></p></td>
+<td><p>view(Tensor(a) self, SymInt[] size) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.where.self</span></code></p></td>
+<td><p>where.self(Tensor condition, Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="prims-ir">
+<h2>Prims IR<a class="headerlink" href="#prims-ir" title="Link to this heading">#</a></h2>
+<p>Prims IR is a set of primitive operators that can be used to compose other operators.
+Prims IR is a lower level opset than core aten IR, and it further decomposes ops into explicit
+type promotion and broadcasting ops: prims.convert_element_type and prims.broadcast_in_dim.
+This opset is designed to interface with compiler backends.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This opset is still under active development, more ops will be added in the future.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Schema</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.abs</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.acos</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.acosh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.asin</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.asinh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.atan</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.atanh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.cos</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.cosh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_i0</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_i0e</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_i1</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_i1e</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_j0</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bessel_j1</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bitwise_not</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.cbrt</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.ceil</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.conj_physical</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.digamma</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.erf</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.erf_inv</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.erfc</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.erfcx</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.exp</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.expm1</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.exp2</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fill</span></code></p></td>
+<td><p>(Tensor self, Scalar value) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.floor</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.imag</span></code></p></td>
+<td><p>(Tensor(a) self) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.isfinite</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.lgamma</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.log</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.log1p</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.log2</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.log10</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.ndtri</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.neg</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.real</span></code></p></td>
+<td><p>(Tensor(a) self) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.reciprocal</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.round</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sign</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.signbit</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sin</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sinh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.spherical_bessel_j0</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sqrt</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.tan</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.tanh</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.trunc</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.add</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.atan2</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bitwise_and</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bitwise_or</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.bitwise_xor</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.div</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.eq</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fmax</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fmin</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fmod</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.frexp</span></code></p></td>
+<td><p>(Tensor self) -&gt; (Tensor mantissa, Tensor exponent)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.gcd</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.ge</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.gt</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.hypot</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.igamma</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.igammac</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.le</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.lt</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.maximum</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.minimum</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.mul</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.ne</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.nextafter</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.pow</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.remainder</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.rsqrt</span></code></p></td>
+<td><p>(Tensor self) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.shift_left</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.shift_right_arithmetic</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sub</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.zeta</span></code></p></td>
+<td><p>(Tensor self, Tensor other) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.as_strided</span></code></p></td>
+<td><p>(Tensor(a!) a, SymInt[] size, SymInt[] stride, SymInt storage_offset) -&gt; Tensor(a!)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.broadcast_in_dim</span></code></p></td>
+<td><p>(Tensor(a) a, SymInt[] shape, int[] broadcast_dimensions) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.collapse_view</span></code></p></td>
+<td><p>(Tensor(a) a, int start, int end) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.conj</span></code></p></td>
+<td><p>(Tensor(a) a) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.split_dim</span></code></p></td>
+<td><p>(Tensor(a) a, int dim, SymInt outer_length) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.squeeze</span></code></p></td>
+<td><p>(Tensor(a) a, int[] dimensions) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.transpose</span></code></p></td>
+<td><p>(Tensor(a) a, int[] permutation) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.view_of</span></code></p></td>
+<td><p>(Tensor(a) a) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.view_of_dtype</span></code></p></td>
+<td><p>(Tensor(a) a, ScalarType dtype) -&gt; Tensor(a)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.as_strided_scatter</span></code></p></td>
+<td><p>(Tensor self, Tensor src, SymInt[] size, SymInt[] stride, SymInt storage_offset) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.collapse</span></code></p></td>
+<td><p>(Tensor a, int start, int end) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.cat</span></code></p></td>
+<td><p>(Tensor[] tensors, int dim) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.reshape</span></code></p></td>
+<td><p>(Tensor a, SymInt[] shape) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.rev</span></code></p></td>
+<td><p>(Tensor a, int[] dims) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.where</span></code></p></td>
+<td><p>(Tensor pred, Tensor a, Tensor b) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.clone</span></code></p></td>
+<td><p>(Tensor self, *, MemoryFormat? memory_format=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.convert_element_type</span></code></p></td>
+<td><p>(Tensor a, ScalarType dtype) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.device_put</span></code></p></td>
+<td><p>(Tensor a, Device device, bool non_blocking=False) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.item</span></code></p></td>
+<td><p>(Tensor a) -&gt; Scalar</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.maximum_value</span></code></p></td>
+<td><p>(ScalarType dtype) -&gt; Scalar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.minimum_value</span></code></p></td>
+<td><p>(ScalarType dtype) -&gt; Scalar</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.copy_strided</span></code></p></td>
+<td><p>(Tensor a, SymInt[] stride) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.copy_to</span></code></p></td>
+<td><p>(Tensor(a!) a, Tensor b) -&gt; Tensor(a!)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.resize</span></code></p></td>
+<td><p>(Tensor(a!) a, SymInt[] shape) -&gt; Tensor(a!)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.amax</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.amin</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.prod</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.sum</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.xor_sum</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.var</span></code></p></td>
+<td><p>(Tensor inp, int[]? dims, float? correction=1, *, ScalarType? output_dtype=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.empty_strided</span></code></p></td>
+<td><p>(SymInt[] shape, SymInt[] strides, *, ScalarType dtype, Device device, bool requires_grad) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.empty_permuted</span></code></p></td>
+<td><p>(SymInt[] shape, int[] physical_layout, *, ScalarType dtype, Device device, bool requires_grad) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.scalar_tensor</span></code></p></td>
+<td><p>(Scalar s, *, ScalarType? dtype=None, Device? device=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.iota</span></code></p></td>
+<td><p>(SymInt length, *, SymInt start, SymInt step, ScalarType dtype, Device device, bool requires_grad) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.svd</span></code></p></td>
+<td><p>(Tensor A, *, bool full_matrices) -&gt; (Tensor U, Tensor S, Tensor Vh)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.normal</span></code></p></td>
+<td><p>(SymInt[] shape, *, Scalar mean, Scalar std, ScalarType dtype, Device device, bool requires_grad, Generator? generator=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.uniform</span></code></p></td>
+<td><p>(SymInt[] shape, *, Scalar low, Scalar high, ScalarType dtype, Device device, Generator? generator=None) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fft_r2c</span></code></p></td>
+<td><p>(Tensor self, *, int[] dim, bool onesided) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fft_c2c</span></code></p></td>
+<td><p>(Tensor self, *, int[] dim, bool forward) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims.fft_c2r</span></code></p></td>
+<td><p>(Tensor self, *, int[] dim, SymInt last_dim_size) -&gt; Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims._make_token</span></code></p></td>
+<td><p>() -&gt; Tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prims._sink_tokens</span></code></p></td>
+<td><p>(Tensor[] tokens) -&gt; ()</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+  </article>
+  
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="feedback">
+  
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+
+  <div class="feedback-send">
+    <button class="feedback-btn"
+            onclick="openGitHubIssue()"
+            data-bs-title="Create a GitHub Issue"
+            data-bs-placement="bottom"
+            data-bs-toggle="tooltip"
+            data-gtm="feedback-btn-click">Send Feedback
+    </button>
+  </div>
+</div>
+
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="torch.compiler_aot_inductor_debugging_guide.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AOTInductor Debugging Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../notes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Developer Notes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+
+<div class="footer-info">
+  <p class="copyright">
+    
+  </p>
+
+  <p class="theme-version">
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  </p>
+</div>
+</div>
+  
+</div>
+                </footer>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="torch.compiler_aot_inductor_debugging_guide.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AOTInductor Debugging Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../notes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Developer Notes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc">
+<div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-aten-ir">Core Aten IR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prims-ir">Prims IR</a></li>
+</ul>
+  </nav></div>
+    
+       <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/user_guide/torch_compiler/torch.compiler_ir.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+    
+       <div class="sidebar-secondary-item">
+    <div class="tocsection sourcelink">
+      <a href="../../_sources/user_guide/torch_compiler/torch.compiler_ir.md.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+      </a>
+    </div>
+</div>
+    
+
+
+
+
+<div class="sidebar-secondary-item">
+  <div class="sidebar-heading">PyTorch Libraries</div>
+  <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+  
+  </ul>
+</div>
+
+</div>
+</div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer class="site-footer">
+
+  <div class="container footer-container">
+
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+    
+    <div class="privacy-policy">
+      <div class="copyright">
+      
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
+      </div>
+    </div>
+
+
+  </div>
+</footer>
+
+<div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../_static/img/pytorch-x.svg">
+  </div>
+</div>
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright PyTorch Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "IRs",
+       "headline": "IRs",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/user_guide/torch_compiler/torch.compiler_ir.html",
+       "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Dec 03, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in \u201cnative_functions.yaml\u201d, and it doesn\u2019t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -\u003e Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -\u003e Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -\u003e Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -\u003e Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -\u003e (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -\u003e Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -\u003e Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -\u003e Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -\u003e Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -\u003e Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -\u003e Tensor aten.abs abs(Tensor self) -\u003e Tensor aten.acos acos(Tensor self) -\u003e Tensor aten.acosh acosh(Tensor self) -\u003e Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -\u003e Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -\u003e Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -\u003e Tensor aten.addmm addmm(Tensor self, Tensor mat1, Tensor mat2, *, Scalar beta=1, Scalar alpha=1) -\u003e Tensor aten.alias alias(Tensor(a) self) -\u003e Tensor(a) aten.amax amax(Tensor self, int[1] dim=[], bool keepdim=False) -\u003e Tensor aten.amin amin(Tensor self, int[1] dim=[], bool keepdim=False) -\u003e Tensor aten.any any(Tensor self) -\u003e Tensor aten.any.dim any.dim(Tensor self, int dim, bool keepdim=False) -\u003e Tensor aten.any.dims any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -\u003e Tensor aten.arange.start_step arange.start_step(Scalar start, Scalar end, Scalar step=1, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.argmax argmax(Tensor self, int? dim=None, bool keepdim=False) -\u003e Tensor aten.argmin argmin(Tensor self, int? dim=None, bool keepdim=False) -\u003e Tensor aten.as_strided as_strided(Tensor(a) self, SymInt[] size, SymInt[] stride, SymInt? storage_offset=None) -\u003e Tensor(a) aten.asin asin(Tensor self) -\u003e Tensor aten.asinh asinh(Tensor self) -\u003e Tensor aten.atan atan(Tensor self) -\u003e Tensor aten.atan2 atan2(Tensor self, Tensor other) -\u003e Tensor aten.atan2.out atan2.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) aten.atanh atanh(Tensor self) -\u003e Tensor aten.avg_pool1d avg_pool1d(Tensor self, int[1] kernel_size, int[1] stride=[], int[1] padding=0, bool ceil_mode=False, bool count_include_pad=True) -\u003e Tensor aten.avg_pool2d avg_pool2d(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -\u003e Tensor aten.avg_pool2d_backward avg_pool2d_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, bool ceil_mode, bool count_include_pad, int? divisor_override) -\u003e Tensor aten.avg_pool3d avg_pool3d(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -\u003e Tensor aten.bitwise_and.Scalar bitwise_and.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_and.Tensor bitwise_and.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bitwise_not bitwise_not(Tensor self) -\u003e Tensor aten.bitwise_or.Scalar bitwise_or.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_or.Tensor bitwise_or.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bitwise_xor.Scalar bitwise_xor.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_xor.Tensor bitwise_xor.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bmm bmm(Tensor self, Tensor mat2) -\u003e Tensor aten.cat cat(Tensor[] tensors, int dim=0) -\u003e Tensor aten.ceil ceil(Tensor self) -\u003e Tensor aten.clamp clamp(Tensor self, Scalar? min=None, Scalar? max=None) -\u003e Tensor aten.clamp.Tensor clamp.Tensor(Tensor self, Tensor? min=None, Tensor? max=None) -\u003e Tensor aten.clone clone(Tensor self, *, MemoryFormat? memory_format=None) -\u003e Tensor aten.col2im col2im(Tensor self, SymInt[2] output_size, int[2] kernel_size, int[2] dilation, int[2] padding, int[2] stride) -\u003e Tensor aten.constant_pad_nd constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -\u003e Tensor aten.convolution convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -\u003e Tensor aten.convolution_backward convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.copy copy(Tensor self, Tensor src, bool non_blocking=False) -\u003e Tensor aten.cos cos(Tensor self) -\u003e Tensor aten.cosh cosh(Tensor self) -\u003e Tensor aten.cumsum cumsum(Tensor self, int dim, *, ScalarType? dtype=None) -\u003e Tensor aten.diagonal diagonal(Tensor(a) self, int offset=0, int dim1=0, int dim2=1) -\u003e Tensor(a) aten.div.Scalar div.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.div.Scalar_mode div.Scalar_mode(Tensor self, Scalar other, *, str? rounding_mode) -\u003e Tensor aten.div.Tensor div.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.div.Tensor_mode div.Tensor_mode(Tensor self, Tensor other, *, str? rounding_mode) -\u003e Tensor aten.elu elu(Tensor self, Scalar alpha=1, Scalar scale=1, Scalar input_scale=1) -\u003e Tensor aten.embedding embedding(Tensor weight, Tensor indices, SymInt padding_idx=-1, bool scale_grad_by_freq=False, bool sparse=False) -\u003e Tensor aten.embedding_dense_backward embedding_dense_backward(Tensor grad_output, Tensor indices, SymInt num_weights, SymInt padding_idx, bool scale_grad_by_freq) -\u003e Tensor aten.empty.memory_format empty.memory_format(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -\u003e Tensor aten.empty_strided empty_strided(SymInt[] size, SymInt[] stride, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.eq.Scalar eq.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.eq.Tensor eq.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.erf erf(Tensor self) -\u003e Tensor aten.exp exp(Tensor self) -\u003e Tensor aten.expand expand(Tensor(a) self, SymInt[] size, *, bool implicit=False) -\u003e Tensor(a) aten.expm1 expm1(Tensor self) -\u003e Tensor aten.fill.Scalar fill.Scalar(Tensor self, Scalar value) -\u003e Tensor aten.flip flip(Tensor self, int[] dims) -\u003e Tensor aten.floor floor(Tensor self) -\u003e Tensor aten.fmod.Scalar fmod.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.fmod.Tensor fmod.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.full full(SymInt[] size, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.full_like full_like(Tensor self, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -\u003e Tensor aten.gather gather(Tensor self, int dim, Tensor index, *, bool sparse_grad=False) -\u003e Tensor aten.ge.Scalar ge.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.ge.Tensor ge.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.gelu gelu(Tensor self, *, str approximate=\u2019none\u2019) -\u003e Tensor aten.grid_sampler_2d grid_sampler_2d(Tensor input, Tensor grid, int interpolation_mode, int padding_mode, bool align_corners) -\u003e Tensor aten.gt.Scalar gt.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.gt.Tensor gt.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.hardtanh hardtanh(Tensor self, Scalar min_val=-1, Scalar max_val=1) -\u003e Tensor aten.index.Tensor index.Tensor(Tensor self, Tensor?[] indices) -\u003e Tensor aten.index_put index_put(Tensor self, Tensor?[] indices, Tensor values, bool accumulate=False) -\u003e Tensor aten.index_select index_select(Tensor self, int dim, Tensor index) -\u003e Tensor aten.isinf isinf(Tensor self) -\u003e Tensor aten.isnan isnan(Tensor self) -\u003e Tensor aten.le.Scalar le.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.le.Tensor le.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.leaky_relu leaky_relu(Tensor self, Scalar negative_slope=0.01) -\u003e Tensor aten.log log(Tensor self) -\u003e Tensor aten.log10 log10(Tensor self) -\u003e Tensor aten.log1p log1p(Tensor self) -\u003e Tensor aten.log2 log2(Tensor self) -\u003e Tensor aten.logical_and logical_and(Tensor self, Tensor other) -\u003e Tensor aten.logical_not logical_not(Tensor self) -\u003e Tensor aten.logical_or logical_or(Tensor self, Tensor other) -\u003e Tensor aten.logical_xor logical_xor(Tensor self, Tensor other) -\u003e Tensor aten.lt.Scalar lt.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.lt.Tensor lt.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.masked_scatter masked_scatter(Tensor self, Tensor mask, Tensor source) -\u003e Tensor aten.max.dim max.dim(Tensor self, int dim, bool keepdim=False) -\u003e (Tensor values, Tensor indices) aten.max_pool2d_with_indices max_pool2d_with_indices(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, int[2] dilation=1, bool ceil_mode=False) -\u003e (Tensor, Tensor) aten.max_pool2d_with_indices_backward max_pool2d_with_indices_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, int[2] dilation, bool ceil_mode, Tensor indices) -\u003e Tensor aten.max_pool3d_with_indices max_pool3d_with_indices(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, int[3] dilation=1, bool ceil_mode=False) -\u003e (Tensor, Tensor) aten.maximum maximum(Tensor self, Tensor other) -\u003e Tensor aten.mean mean(Tensor self, *, ScalarType? dtype=None) -\u003e Tensor aten.mean.dim mean.dim(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.min.dim min.dim(Tensor self, int dim, bool keepdim=False) -\u003e (Tensor values, Tensor indices) aten.minimum minimum(Tensor self, Tensor other) -\u003e Tensor aten.mm mm(Tensor self, Tensor mat2) -\u003e Tensor aten.mul.Scalar mul.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.mul.Tensor mul.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.native_dropout native_dropout(Tensor input, float p, bool? train) -\u003e (Tensor, Tensor) aten.native_group_norm native_group_norm(Tensor input, Tensor? weight, Tensor? bias, SymInt N, SymInt C, SymInt HxW, int group, float eps) -\u003e (Tensor, Tensor, Tensor) aten.native_group_norm_backward native_group_norm_backward(Tensor grad_out, Tensor input, Tensor mean, Tensor rstd, Tensor? weight, SymInt N, SymInt C, SymInt HxW, int group, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.native_layer_norm native_layer_norm(Tensor input, SymInt[] normalized_shape, Tensor? weight, Tensor? bias, float eps) -\u003e (Tensor, Tensor, Tensor) aten.native_layer_norm_backward native_layer_norm_backward(Tensor grad_out, Tensor input, SymInt[] normalized_shape, Tensor mean, Tensor rstd, Tensor? weight, Tensor? bias, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.ne.Scalar ne.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.ne.Tensor ne.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.neg neg(Tensor self) -\u003e Tensor aten.nonzero nonzero(Tensor self) -\u003e Tensor aten.permute permute(Tensor(a) self, int[] dims) -\u003e Tensor(a) aten.pow.Scalar pow.Scalar(Scalar self, Tensor exponent) -\u003e Tensor aten.pow.Tensor_Scalar pow.Tensor_Scalar(Tensor self, Scalar exponent) -\u003e Tensor aten.pow.Tensor_Tensor pow.Tensor_Tensor(Tensor self, Tensor exponent) -\u003e Tensor aten.prod prod(Tensor self, *, ScalarType? dtype=None) -\u003e Tensor aten.prod.dim_int prod.dim_int(Tensor self, int dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.rand rand(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.randn randn(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.randperm randperm(SymInt n, *, ScalarType? dtype=long, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.reciprocal reciprocal(Tensor self) -\u003e Tensor aten.reflection_pad1d reflection_pad1d(Tensor self, SymInt[2] padding) -\u003e Tensor aten.reflection_pad2d reflection_pad2d(Tensor self, SymInt[4] padding) -\u003e Tensor aten.reflection_pad3d reflection_pad3d(Tensor self, SymInt[6] padding) -\u003e Tensor aten.relu relu(Tensor self) -\u003e Tensor aten.remainder.Scalar remainder.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.remainder.Tensor remainder.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.repeat repeat(Tensor self, SymInt[] repeats) -\u003e Tensor aten.replication_pad2d replication_pad2d(Tensor self, SymInt[4] padding) -\u003e Tensor aten.replication_pad3d replication_pad3d(Tensor self, SymInt[6] padding) -\u003e Tensor aten.resize_ resize_(Tensor(a!) self, SymInt[] size, *, MemoryFormat? memory_format=None) -\u003e Tensor(a!) aten.round round(Tensor self) -\u003e Tensor aten.rsqrt rsqrt(Tensor self) -\u003e Tensor aten.scalar_tensor scalar_tensor(Scalar s, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.scatter.src scatter.src(Tensor self, int dim, Tensor index, Tensor src) -\u003e Tensor aten.scatter.value scatter.value(Tensor self, int dim, Tensor index, Scalar value) -\u003e Tensor aten.scatter_add scatter_add(Tensor self, int dim, Tensor index, Tensor src) -\u003e Tensor aten.scatter_reduce.two scatter_reduce.two(Tensor self, int dim, Tensor index, Tensor src, str reduce, *, bool include_self=True) -\u003e Tensor aten.select.int select.int(Tensor(a) self, int dim, SymInt index) -\u003e Tensor(a) aten.select_scatter select_scatter(Tensor self, Tensor src, int dim, SymInt index) -\u003e Tensor aten.sigmoid sigmoid(Tensor self) -\u003e Tensor aten.sign sign(Tensor self) -\u003e Tensor aten.sin sin(Tensor self) -\u003e Tensor aten.sinh sinh(Tensor self) -\u003e Tensor aten.slice.Tensor slice.Tensor(Tensor(a) self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -\u003e Tensor(a) aten.slice_scatter slice_scatter(Tensor self, Tensor src, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -\u003e Tensor aten.sort sort(Tensor self, int dim=-1, bool descending=False) -\u003e (Tensor values, Tensor indices) aten.split_with_sizes split_with_sizes(Tensor(a -\u003e *) self, SymInt[] split_sizes, int dim=0) -\u003e Tensor(a)[] aten.sqrt sqrt(Tensor self) -\u003e Tensor aten.squeeze.dim squeeze.dim(Tensor(a) self, int dim) -\u003e Tensor(a) aten.squeeze.dims squeeze.dims(Tensor(a) self, int[] dim) -\u003e Tensor(a) aten.sub.Scalar sub.Scalar(Tensor self, Scalar other, Scalar alpha=1) -\u003e Tensor aten.sub.Tensor sub.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -\u003e Tensor aten.sum.dim_IntList sum.dim_IntList(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.sym_is_contiguous sym_is_contiguous(Tensor self, MemoryFormat memory_format=contiguous_format) -\u003e SymBool aten.sym_numel sym_numel(Tensor self) -\u003e SymInt aten.sym_size.int sym_size.int(Tensor self, int dim) -\u003e SymInt aten.sym_storage_offset sym_storage_offset(Tensor self) -\u003e SymInt aten.sym_stride.int sym_stride.int(Tensor self, int dim) -\u003e SymInt aten.tan tan(Tensor self) -\u003e Tensor aten.tanh tanh(Tensor self) -\u003e Tensor aten.topk topk(Tensor self, SymInt k, int dim=-1, bool largest=True, bool sorted=True) -\u003e (Tensor values, Tensor indices) aten.trunc trunc(Tensor self) -\u003e Tensor aten.unsqueeze unsqueeze(Tensor(a) self, int dim) -\u003e Tensor(a) aten.upsample_bilinear2d.vec upsample_bilinear2d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -\u003e Tensor aten.upsample_nearest2d.vec upsample_nearest2d.vec(Tensor input, SymInt[]? output_size, float[]? scale_factors) -\u003e Tensor aten.var.correction var.correction(Tensor self, int[1]? dim=None, *, Scalar? correction=None, bool keepdim=False) -\u003e Tensor aten.var.dim var.dim(Tensor self, int[1]? dim, bool unbiased=True, bool keepdim=False) -\u003e Tensor aten.view view(Tensor(a) self, SymInt[] size) -\u003e Tensor(a) aten.where.self where.self(Tensor condition, Tensor self, Tensor other) -\u003e Tensor Prims IR# Prims IR is a set of primitive operators that can be used to compose other operators. Prims IR is a lower level opset than core aten IR, and it further decomposes ops into explicit type promotion and broadcasting ops: prims.convert_element_type and prims.broadcast_in_dim. This opset is designed to interface with compiler backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema prims.abs (Tensor self) -\u003e Tensor prims.acos (Tensor self) -\u003e Tensor prims.acosh (Tensor self) -\u003e Tensor prims.asin (Tensor self) -\u003e Tensor prims.asinh (Tensor self) -\u003e Tensor prims.atan (Tensor self) -\u003e Tensor prims.atanh (Tensor self) -\u003e Tensor prims.cos (Tensor self) -\u003e Tensor prims.cosh (Tensor self) -\u003e Tensor prims.bessel_i0 (Tensor self) -\u003e Tensor prims.bessel_i0e (Tensor self) -\u003e Tensor prims.bessel_i1 (Tensor self) -\u003e Tensor prims.bessel_i1e (Tensor self) -\u003e Tensor prims.bessel_j0 (Tensor self) -\u003e Tensor prims.bessel_j1 (Tensor self) -\u003e Tensor prims.bitwise_not (Tensor self) -\u003e Tensor prims.cbrt (Tensor self) -\u003e Tensor prims.ceil (Tensor self) -\u003e Tensor prims.conj_physical (Tensor self) -\u003e Tensor prims.digamma (Tensor self) -\u003e Tensor prims.erf (Tensor self) -\u003e Tensor prims.erf_inv (Tensor self) -\u003e Tensor prims.erfc (Tensor self) -\u003e Tensor prims.erfcx (Tensor self) -\u003e Tensor prims.exp (Tensor self) -\u003e Tensor prims.expm1 (Tensor self) -\u003e Tensor prims.exp2 (Tensor self) -\u003e Tensor prims.fill (Tensor self, Scalar value) -\u003e Tensor prims.floor (Tensor self) -\u003e Tensor prims.imag (Tensor(a) self) -\u003e Tensor(a) prims.isfinite (Tensor self) -\u003e Tensor prims.lgamma (Tensor self) -\u003e Tensor prims.log (Tensor self) -\u003e Tensor prims.log1p (Tensor self) -\u003e Tensor prims.log2 (Tensor self) -\u003e Tensor prims.log10 (Tensor self) -\u003e Tensor prims.ndtri (Tensor self) -\u003e Tensor prims.neg (Tensor self) -\u003e Tensor prims.real (Tensor(a) self) -\u003e Tensor(a) prims.reciprocal (Tensor self) -\u003e Tensor prims.round (Tensor self) -\u003e Tensor prims.sign (Tensor self) -\u003e Tensor prims.signbit (Tensor self) -\u003e Tensor prims.sin (Tensor self) -\u003e Tensor prims.sinh (Tensor self) -\u003e Tensor prims.spherical_bessel_j0 (Tensor self) -\u003e Tensor prims.sqrt (Tensor self) -\u003e Tensor prims.tan (Tensor self) -\u003e Tensor prims.tanh (Tensor self) -\u003e Tensor prims.trunc (Tensor self) -\u003e Tensor prims.add (Tensor self, Tensor other) -\u003e Tensor prims.atan2 (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_and (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_or (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_xor (Tensor self, Tensor other) -\u003e Tensor prims.div (Tensor self, Tensor other) -\u003e Tensor prims.eq (Tensor self, Tensor other) -\u003e Tensor prims.fmax (Tensor self, Tensor other) -\u003e Tensor prims.fmin (Tensor self, Tensor other) -\u003e Tensor prims.fmod (Tensor self, Tensor other) -\u003e Tensor prims.frexp (Tensor self) -\u003e (Tensor mantissa, Tensor exponent) prims.gcd (Tensor self, Tensor other) -\u003e Tensor prims.ge (Tensor self, Tensor other) -\u003e Tensor prims.gt (Tensor self, Tensor other) -\u003e Tensor prims.hypot (Tensor self, Tensor other) -\u003e Tensor prims.igamma (Tensor self, Tensor other) -\u003e Tensor prims.igammac (Tensor self, Tensor other) -\u003e Tensor prims.le (Tensor self, Tensor other) -\u003e Tensor prims.lt (Tensor self, Tensor other) -\u003e Tensor prims.maximum (Tensor self, Tensor other) -\u003e Tensor prims.minimum (Tensor self, Tensor other) -\u003e Tensor prims.mul (Tensor self, Tensor other) -\u003e Tensor prims.ne (Tensor self, Tensor other) -\u003e Tensor prims.nextafter (Tensor self, Tensor other) -\u003e Tensor prims.pow (Tensor self, Tensor other) -\u003e Tensor prims.remainder (Tensor self, Tensor other) -\u003e Tensor prims.rsqrt (Tensor self) -\u003e Tensor prims.shift_left (Tensor self, Tensor other) -\u003e Tensor prims.shift_right_arithmetic (Tensor self, Tensor other) -\u003e Tensor prims.sub (Tensor self, Tensor other) -\u003e Tensor prims.zeta (Tensor self, Tensor other) -\u003e Tensor prims.as_strided (Tensor(a!) a, SymInt[] size, SymInt[] stride, SymInt storage_offset) -\u003e Tensor(a!) prims.broadcast_in_dim (Tensor(a) a, SymInt[] shape, int[] broadcast_dimensions) -\u003e Tensor(a) prims.collapse_view (Tensor(a) a, int start, int end) -\u003e Tensor(a) prims.conj (Tensor(a) a) -\u003e Tensor(a) prims.split_dim (Tensor(a) a, int dim, SymInt outer_length) -\u003e Tensor(a) prims.squeeze (Tensor(a) a, int[] dimensions) -\u003e Tensor(a) prims.transpose (Tensor(a) a, int[] permutation) -\u003e Tensor(a) prims.view_of (Tensor(a) a) -\u003e Tensor(a) prims.view_of_dtype (Tensor(a) a, ScalarType dtype) -\u003e Tensor(a) prims.as_strided_scatter (Tensor self, Tensor src, SymInt[] size, SymInt[] stride, SymInt storage_offset) -\u003e Tensor prims.collapse (Tensor a, int start, int end) -\u003e Tensor prims.cat (Tensor[] tensors, int dim) -\u003e Tensor prims.reshape (Tensor a, SymInt[] shape) -\u003e Tensor prims.rev (Tensor a, int[] dims) -\u003e Tensor prims.where (Tensor pred, Tensor a, Tensor b) -\u003e Tensor prims.clone (Tensor self, *, MemoryFormat? memory_format=None) -\u003e Tensor prims.convert_element_type (Tensor a, ScalarType dtype) -\u003e Tensor prims.device_put (Tensor a, Device device, bool non_blocking=False) -\u003e Tensor prims.item (Tensor a) -\u003e Scalar prims.maximum_value (ScalarType dtype) -\u003e Scalar prims.minimum_value (ScalarType dtype) -\u003e Scalar prims.copy_strided (Tensor a, SymInt[] stride) -\u003e Tensor prims.copy_to (Tensor(a!) a, Tensor b) -\u003e Tensor(a!) prims.resize (Tensor(a!) a, SymInt[] shape) -\u003e Tensor(a!) prims.amax (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.amin (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.prod (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.sum (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.xor_sum (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.var (Tensor inp, int[]? dims, float? correction=1, *, ScalarType? output_dtype=None) -\u003e Tensor prims.empty_strided (SymInt[] shape, SymInt[] strides, *, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.empty_permuted (SymInt[] shape, int[] physical_layout, *, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.scalar_tensor (Scalar s, *, ScalarType? dtype=None, Device? device=None) -\u003e Tensor prims.iota (SymInt length, *, SymInt start, SymInt step, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.svd (Tensor A, *, bool full_matrices) -\u003e (Tensor U, Tensor S, Tensor Vh) prims.normal (SymInt[] shape, *, Scalar mean, Scalar std, ScalarType dtype, Device device, bool requires_grad, Generator? generator=None) -\u003e Tensor prims.uniform (SymInt[] shape, *, Scalar low, Scalar high, ScalarType dtype, Device device, Generator? generator=None) -\u003e Tensor prims.fft_r2c (Tensor self, *, int[] dim, bool onesided) -\u003e Tensor prims.fft_c2c (Tensor self, *, int[] dim, bool forward) -\u003e Tensor prims.fft_c2r (Tensor self, *, int[] dim, SymInt last_dim_size) -\u003e Tensor prims._make_token () -\u003e Tensor prims._sink_tokens (Tensor[] tokens) -\u003e ()",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/user_guide/torch_compiler/torch.compiler_ir.html"
+       },
+       "datePublished": "Dec 13, 2022T00:00:00Z",
+       "dateModified": "Dec 03, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
+  </body>
+</html>

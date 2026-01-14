@@ -1,0 +1,6 @@
+﻿torch.nn.utils.convert\_parameters.parameters\_to\_vector
+=========================================================
+
+.. currentmodule:: torch.nn.utils.convert_parameters
+
+.. autofunction:: parameters_to_vector

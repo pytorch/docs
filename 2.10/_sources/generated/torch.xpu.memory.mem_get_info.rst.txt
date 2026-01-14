@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.mem\_get\_info
+===============================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: mem_get_info

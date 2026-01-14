@@ -1,0 +1,6 @@
+﻿torch.nn.utils.parametrize.type\_before\_parametrizations
+=========================================================
+
+.. currentmodule:: torch.nn.utils.parametrize
+
+.. autofunction:: type_before_parametrizations

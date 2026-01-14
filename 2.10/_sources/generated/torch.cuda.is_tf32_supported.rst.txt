@@ -1,0 +1,6 @@
+﻿torch.cuda.is\_tf32\_supported
+==============================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: is_tf32_supported

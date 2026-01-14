@@ -1,0 +1,6 @@
+﻿torch.cuda.check\_error
+=======================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: check_error

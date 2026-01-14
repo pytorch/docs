@@ -1,0 +1,2883 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Frequently Asked Questions &#8212; PyTorch 2.10 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=8998eb7a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=940804e7"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/torch_compiler/torch.compiler_faq';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.10';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/js/runllm-widget.js?v=54a6b3cb"></script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_faq.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reference/API" href="api_reference.html" />
+    <link rel="prev" title="torch.compile Troubleshooting" href="torch.compiler_troubleshooting.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
+    if (window.location.hostname === 'localhost' ||
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
+
+<link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" crossorigin="anonymous">
+<script type="text/javascript" src="../../_static/js/theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
+<link rel="stylesheet" href="../../_static/webfonts/all.min.css" crossorigin="anonymous">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta name="pytorch_project" content="docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
+</script>
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
+<script>
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
+</script>
+<script>
+  document.documentElement.setAttribute('data-version', '2.10');
+</script>
+<noscript>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
+</noscript>
+<script>
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+</script>
+<!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
+<!-- Script to Fix scrolling -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Fix anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const headerHeight =
+            (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
+            (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
+
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+
+          // Update URL hash without scrolling
+          history.pushState(null, null, '#' + targetId);
+        }
+      });
+    });
+  });
+</script>
+
+<script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+  </head>
+
+<body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
+   <div class="header-container-wrapper">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                <span>Learn</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
+                  <span class=dropdown-title>Get Started</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
+                  <span class="dropdown-title">Webinars</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Community</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
+                  <span class="dropdown-title">Landscape</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
+                  <span class="dropdown-title">Join the Ecosystem</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
+                  <span class="dropdown-title">Community Hub</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
+                  <span class="dropdown-title">Forums</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
+                  <span class="dropdown-title">Contributor Awards</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
+                  <span class="dropdown-title">Community Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
+                  <span class="dropdown-title">PyTorch Ambassadors</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Projects</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
+                  <span class="dropdown-title">PyTorch</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
+                  <span class="dropdown-title">vLLM</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
+                  <span class="dropdown-title">DeepSpeed</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
+                  <span class="dropdown-title">Host Your Project</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span> Docs</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
+                  <span class="dropdown-title">Domains</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Blogs & News</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">Blog</span>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
+                  <span class="dropdown-title">Announcements</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
+                  <span class="dropdown-title">Case Studies</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                </a>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>About</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/members">
+                  <span class="dropdown-title">Members</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
+                  <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown main-menu-button">
+              <a href="https://pytorch.org/join" data-cta="join">
+                JOIN
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
+        <i class="fa-solid fa-ellipsis"></i>
+      </a>
+    </div>
+  </div>
+ </div>
+
+ <!-- Begin Mobile Menu -->
+
+<div class="mobile-main-menu">
+  <div class="container-fluid">
+    <div class="header-container-wrapper">
+      <div class="mobile-main-menu-header-container">
+        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-main-menu-links-container">
+    <div class="main-menu">
+      <ul>
+         <li class="resources-mobile-menu-title">
+           <a>Learn</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/get-started/locally">Get Started</a>
+           </li>
+           <li>
+             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/webinars/">Webinars</a>
+          </li>
+        </ul>
+         <li class="resources-mobile-menu-title">
+           <a>Community</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://landscape.pytorch.org/">Landscape</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/community-hub/">Community Hub</a>
+           </li>
+           <li>
+             <a href="https://discuss.pytorch.org/">Forums</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/resources">Developer Resources</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/community-events/">Community Events</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
+          </li>
+       </ul>
+
+         <li class="resources-mobile-menu-title">
+           <a>Projects</a>
+         </li>
+
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
+           </li>
+
+           <li>
+             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
+           </li>
+           <li>
+            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
+           </li>
+         </ul>
+
+         <li class="resources-mobile-menu-title">
+           <a>Docs</a>
+         </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/domains">Domains</a>
+          </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>Blog & News</a>
+        </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/blog/">Blog</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/announcements">Announcements</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/case-studies/">Case Studies</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/events">Events</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/newsletter">Newsletter</a>
+           </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>About</a>
+        </li>
+
+        <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/members">Members</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/governing-board">Governing Board</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+         </li>
+         <li>
+             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/staff">Staff</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/contact">Contact</a>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- End Mobile Menu -->
+  
+  
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Home</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pytorch-api.html">
+    Reference API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pytorch-api.html">
+    Reference API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Pytorch Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/get-started/locally/">Get Started</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pytorch_main_components.html">PyTorch Main Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Torch Compile</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="torch.compiler.html">Torch.compile</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_get_started.html">Getting Started</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="core_concepts.html">Core Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="performance.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="advanced.html">Advanced</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_custom_backends.html">Custom Backends</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Frequently Asked Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api_reference.html">Reference/API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../torch.compiler_api.html">torch.compiler API reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.compile.html">torch.compiler.compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.reset.html">torch.compiler.reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.allow_in_graph.html">torch.compiler.allow_in_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.substitute_in_graph.html">torch.compiler.substitute_in_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.is_exporting.html">torch.compiler.is_exporting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe.html">torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="export.html">Torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/joint_with_descriptors.html">Joint with descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.assert.html">python.assert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.control-flow.html">python.control-flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.map.html">torch.map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.builtin.html">python.builtin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.object-model.html">python.object-model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.context-manager.html">python.context-manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.operator.html">torch.operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.mutation.html">torch.mutation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notes.html">Developer Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/mkldnn.html">MKLDNN backend</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notes/modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/out.html">Out Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Accelerator Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../accelerator/index.html">Accelerator Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/device.html">Device Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/hooks.html">Accelerator Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/guard.html">Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/autoload.html">Autoload Mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/operators.html">Operator Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/amp.html">Automatic Mixed Precision</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="troubleshooting_faqs.html" class="nav-link">Troubleshooting FAQs</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Frequently...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+</div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+  
+<div id="searchbox"></div>
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="torch.compiler.html">
+        <meta itemprop="name" content="torch.compiler">
+        <meta itemprop="position" content="2">
+      </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="troubleshooting_faqs.html">
+        <meta itemprop="name" content="Troubleshooting FAQs">
+        <meta itemprop="position" content="3">
+      </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <meta itemprop="name" content="Frequently Asked Questions">
+        <meta itemprop="position" content="4">
+      </div>
+    </div>
+
+    
+    
+
+    
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 16, 2025 | Last Updated On: Dec 03, 2025</p>
+<p><strong>Author</strong>: <a class="reference external" href="https://github.com/msaroufim">Mark Saroufim</a></p>
+<section id="does-torch-compile-support-training">
+<h2>Does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support training?<a class="headerlink" href="#does-torch-compile-support-training" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> supports training, using AOTAutograd to capture backwards:</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.forward()</span></code> graph and <code class="docutils literal notranslate"><span class="pre">optimizer.step()</span></code> is captured by
+TorchDynamo’s python <code class="docutils literal notranslate"><span class="pre">evalframe</span></code> frontend.</p></li>
+<li><p>For each segment of <code class="docutils literal notranslate"><span class="pre">.forward()</span></code> that torchdynamo captures, it uses
+AOTAutograd to generate a backward graph segment.</p></li>
+<li><p>Each pair of forward and backward graph are (optionally) min-cut
+partitioned to save the minimal state between forward and backward.</p></li>
+<li><p>The forward and backward pairs are wrapped in <code class="docutils literal notranslate"><span class="pre">autograd.function</span></code> modules.</p></li>
+<li><p>User code calling <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> still triggers eager’s autograd engine,
+which runs each <em>compiled backward</em> graph as if it were one op, also running
+any non-compiled eager ops’ <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> functions.</p></li>
+</ol>
+</section>
+<section id="do-you-support-distributed-code">
+<h2>Do you support Distributed code?<a class="headerlink" href="#do-you-support-distributed-code" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> supports <code class="docutils literal notranslate"><span class="pre">DistributedDataParallel</span></code> (DDP).
+Support for other distributed training libraries is being considered.</p>
+<p>The main reason why Distributed code is challenging with dynamo is
+because AOTAutograd unrolls both the forward and backward pass and
+provides 2 graphs for backends to optimize. This is a problem for
+distributed code because we’d like to ideally overlap communication
+operations with computations. Eager pytorch accomplishes this in
+different ways for DDP/FSDP- using autograd hooks, module hooks, and
+modifications/mutations of module states. In a naive application of
+dynamo, hooks that should run directly after an operation during
+backwards may be delayed until after the entire compiled region of
+backwards ops, due to how AOTAutograd compiled functions interact with
+dispatcher hooks.</p>
+<p>The basic strategy for optimizing DDP with Dynamo is outlined in
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/backends/distributed.py">distributed.py</a>
+where the main idea will be to graph break on <a class="reference external" href="https://pytorch.org/docs/stable/notes/ddp.html#internal-design">DDP bucket
+boundaries</a>.</p>
+<p>When each node in DDP needs to synchronize its weights with the other
+nodes it organizes its gradients and parameters into buckets which
+reduces communication times and allows a node to broadcast a fraction of
+its gradients to other waiting nodes.</p>
+<p>Graph breaks in distributed code mean you can expect dynamo and its
+backends to optimize the compute overhead of a distributed program but
+not its communication overhead. Graph-breaks may interfere with
+compilation speedups, if the reduced graph-size robs the compiler of
+fusion opportunities. However, there are diminishing returns with
+increasing graph size since most of the current compute optimizations
+are local fusions. So in practice this approach may be sufficient.</p>
+</section>
+<section id="do-i-still-need-to-export-whole-graphs">
+<h2>Do I still need to export whole graphs?<a class="headerlink" href="#do-i-still-need-to-export-whole-graphs" title="Link to this heading">#</a></h2>
+<p>For the vast majority of models you probably don’t and you can use
+<code class="docutils literal notranslate"><span class="pre">torch.compile()</span></code> as is but there are a few situations where
+full graphs are necessary and you can can ensure a full graph by simply
+running <code class="docutils literal notranslate"><span class="pre">torch.compile(...,</span> <span class="pre">fullgraph=True)</span></code>. These situations include:</p>
+<ul class="simple">
+<li><p>Large scale training runs, such as $250K+ that require pipeline parallelism
+and other advanced sharding strategies.</p></li>
+<li><p>Inference optimizers like <a class="reference external" href="https://github.com/pytorch/TensorRT">TensorRT</a>
+or <a class="reference external" href="https://github.com/facebookincubator/AITemplate">AITemplate</a> that
+rely on fusing much more aggressively than training optimizers.</p></li>
+<li><p>Mobile training or inference.</p></li>
+</ul>
+<p>Future work will include tracing communication operations into graphs,
+coordinating these operations with compute optimizations, and optimizing
+the communication operations.</p>
+</section>
+<section id="why-is-my-code-crashing">
+<h2>Why is my code crashing?<a class="headerlink" href="#why-is-my-code-crashing" title="Link to this heading">#</a></h2>
+<p>If your code ran just fine without <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> and started to
+crash with it is enabled, then the most important first step is figuring
+out which part of the stack your failure occurred. To troubleshoot that,
+follow the steps below and only try the next step if the previous one
+succeeded.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.compile(...,</span> <span class="pre">backend=&quot;eager&quot;)</span></code> which only runs TorchDynamo
+forward graph capture and then runs the captured graph with PyTorch.
+If this fails then there’s an issue with TorchDynamo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.compile(...,</span> <span class="pre">backend=&quot;aot_eager&quot;)</span></code>
+which runs TorchDynamo to capture a forward graph, and then AOTAutograd
+to trace the backward graph without any additional backend compiler
+steps. PyTorch eager will then be used to run the forward and backward
+graphs. If this fails then there’s an issue with AOTAutograd.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.compile(...,</span> <span class="pre">backend=&quot;inductor&quot;)</span></code> which runs TorchDynamo to capture a
+forward graph, and then AOTAutograd to trace the backward graph with the
+TorchInductor compiler. If this fails then there’s an issue with TorchInductor</p></li>
+</ol>
+</section>
+<section id="why-is-compilation-slow">
+<h2>Why is compilation slow?<a class="headerlink" href="#why-is-compilation-slow" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Dynamo Compilation</strong>– TorchDynamo has a builtin stats function for
+collecting and displaying the time spent in each compilation phase.
+These stats can be accessed by calling <code class="docutils literal notranslate"><span class="pre">torch._dynamo.utils.compile_times()</span></code>
+after executing <code class="docutils literal notranslate"><span class="pre">torch._dynamo</span></code>. By default, this returns a string
+representation of the compile times spent in each TorchDynamo function by name.</p></li>
+<li><p><strong>Inductor Compilation</strong>– TorchInductor has a builtin stats and trace function
+for displaying time spent in each compilation phase, output code, output
+graph visualization and IR dump. <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">TORCH_COMPILE_DEBUG=1</span> <span class="pre">python</span> <span class="pre">repro.py</span></code>.
+This is a debugging tool designed to make it easier to debug/understand the
+internals of TorchInductor with an output that will look something like
+<a class="reference external" href="https://gist.github.com/jansel/f4af078791ad681a0d4094adeb844396">this</a>
+Each file in that debug trace can be enabled/disabled via
+<code class="docutils literal notranslate"><span class="pre">torch._inductor.config.trace.*</span></code>. The profile and the diagram are both
+disabled by default since they are expensive to generate. See the
+<a class="reference external" href="https://gist.github.com/jansel/f4af078791ad681a0d4094adeb844396">example debug directory
+output</a>
+for more examples.</p></li>
+<li><p><strong>Excessive Recompilation</strong>
+When TorchDynamo compiles a function (or part of one), it makes certain
+assumptions about locals and globals in order to allow compiler
+optimizations, and expresses these assumptions as guards that check
+particular values at runtime. If any of these guards fail, Dynamo will
+recompile that function (or part) up to
+<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.recompile_limit</span></code> times. If your program is
+hitting the cache limit, you will first need to determine which guard is
+failing and what part of your program is triggering it. The
+Use <code class="docutils literal notranslate"><span class="pre">TORCH_TRACE/tlparse</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=recompiles</span></code> to trace the root of the issue, check <a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">torch.compile Troubleshooting</span></a> for more details.</p></li>
+</ul>
+</section>
+<section id="why-are-you-recompiling-in-production">
+<h2>Why are you recompiling in production?<a class="headerlink" href="#why-are-you-recompiling-in-production" title="Link to this heading">#</a></h2>
+<p>In some cases, you may not want unexpected compiles after a program has
+warmed up. For example, if you are serving production traffic in a
+latency critical application. For this, TorchDynamo provides an
+alternate mode where prior compiled graphs are used, but no new ones are
+generated:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frozen_toy_example</span> <span class="o">=</span> <span class="n">dynamo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">toy_example</span><span class="p">)</span>
+<span class="n">frozen_toy_example</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="how-are-you-speeding-up-my-code">
+<h2>How are you speeding up my code?<a class="headerlink" href="#how-are-you-speeding-up-my-code" title="Link to this heading">#</a></h2>
+<p>There are 3 major ways to accelerate PyTorch code:</p>
+<ol class="arabic simple">
+<li><p>Kernel fusion via vertical fusions which fuse sequential operations to avoid
+excessive read/writes. For example, fuse 2 subsequent cosines means you
+can can do 1 read 1 write instead 2 reads 2 writes 2. Horizontal fusion:
+the simplest example being batching where a single matrix is multiplied
+with a batch of examples but the more general scenario is a grouped GEMM
+where a group of matrix multiplications are scheduled together</p></li>
+<li><p>Out of order execution: A general optimization for compilers, by looking ahead
+at the exact data dependencies within a graph we can decide on the most
+opportune time to execute a node and which buffers can be reused</p></li>
+<li><p>Automatic work placement: Similar of the out of order execution point,
+but by matching nodes of a graph to resources like physical hardware or
+memory we can design an appropriate schedule</p></li>
+</ol>
+<p>The above are general principles for accelerating PyTorch code but
+different backends will each make different tradeoffs on what to
+optimize. For example Inductor first takes care of fusing whatever it
+can and only then generates <a class="reference external" href="https://openai.com/blog/triton/">Triton</a>
+kernels.</p>
+<p>Triton in addition offers speedups because of automatic memory
+coalescing, memory management and scheduling within each Streaming
+Multiprocessor and has been designed to handle tiled computations.</p>
+<p>However, regardless of the backend you use it’s best to use a benchmark
+and see approach so try out the PyTorch profiler, visually inspect the
+generated kernels and try to see what’s going on for yourself.</p>
+</section>
+<section id="why-am-i-not-seeing-speedups">
+<span id="torch-compiler-graph-breaks"></span><h2>Why am I not seeing speedups?<a class="headerlink" href="#why-am-i-not-seeing-speedups" title="Link to this heading">#</a></h2>
+<section id="graph-breaks">
+<h3>Graph Breaks<a class="headerlink" href="#graph-breaks" title="Link to this heading">#</a></h3>
+<p>The main reason you won’t see the speedups you’d like to by using dynamo
+is excessive graph breaks. So what’s a graph break?</p>
+<p>Given a program like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">some_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">some_fun</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Torchdynamo will attempt to compile all of the torch/tensor operations
+within <code class="docutils literal notranslate"><span class="pre">some_fun()</span></code> into a single FX graph, but it may fail to capture
+everything into one graph.</p>
+<p>Some graph break reasons are insurmountable to TorchDynamo like calling
+into a C extension other than PyTorch is invisible to TorchDynamo, and
+could do arbitrary things without TorchDynamo being able to introduce
+necessary guards to ensure that the compiled program would be safe to reuse.</p>
+<blockquote>
+<div><p>To maximize performance, it’s important to have as few graph breaks
+as possible.</p>
+</div></blockquote>
+</section>
+<section id="identifying-the-cause-of-a-graph-break">
+<h3>Identifying the cause of a graph break<a class="headerlink" href="#identifying-the-cause-of-a-graph-break" title="Link to this heading">#</a></h3>
+<p>To identify all graph breaks in a program and the associated reasons for
+the breaks, <code class="docutils literal notranslate"><span class="pre">torch._dynamo.explain</span></code> can be used. This tool runs
+TorchDynamo on the supplied function and aggregates the graph breaks
+that are encountered. Here is an example usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch._dynamo</span> <span class="k">as</span> <span class="nn">dynamo</span>
+<span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;woo&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">explanation</span> <span class="o">=</span> <span class="n">dynamo</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">toy_example</span><span class="p">)(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">explanation</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Graph Count: 3</span>
+<span class="sd">Graph Break Count: 2</span>
+<span class="sd">Op Count: 5</span>
+<span class="sd">Break Reasons:</span>
+<span class="sd">  Break Reason 1:</span>
+<span class="sd">    Reason: builtin: print [&lt;class &#39;torch._dynamo.variables.constant.ConstantVariable&#39;&gt;] False</span>
+<span class="sd">    User Stack:</span>
+<span class="sd">      &lt;FrameSummary file foo.py, line 5 in toy_example&gt;</span>
+<span class="sd">  Break Reason 2:</span>
+<span class="sd">    Reason: generic_jump TensorVariable()</span>
+<span class="sd">    User Stack:</span>
+<span class="sd">      &lt;FrameSummary file foo.py, line 6 in torch_dynamo_resume_in_toy_example_at_5&gt;</span>
+<span class="sd">Ops per Graph:</span>
+<span class="sd">  ...</span>
+<span class="sd">Out Guards:</span>
+<span class="sd">  ...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>To throw an error on the first graph break encountered you can
+disable python fallbacks by using <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code>, this should be
+familiar if you’ve worked with export based compilers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+   <span class="o">...</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">toy_example</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backend</span><span class="o">=&lt;</span><span class="n">compiler</span><span class="o">&gt;</span><span class="p">)(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="why-didnt-my-code-recompile-when-i-changed-it">
+<h3>Why didn’t my code recompile when I changed it?<a class="headerlink" href="#why-didnt-my-code-recompile-when-i-changed-it" title="Link to this heading">#</a></h3>
+<p>If you enabled dynamic shapes by setting
+<code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">TORCHDYNAMO_DYNAMIC_SHAPES=1</span> <span class="pre">python</span> <span class="pre">model.py</span></code> then your code
+won’t recompile on shape changes. We’ve added support for dynamic shapes
+which avoids recompilations in the case when shapes vary by less than a
+factor of 2. This is especially useful in scenarios like varying image
+sizes in CV or variable sequence length in NLP. In inference scenarios
+it’s often not possible to know what a batch size will be beforehand
+because you take what you can get from different client apps.</p>
+<p>In general, TorchDynamo tries very hard not to recompile things
+unnecessarily so if for example TorchDynamo finds 3 graphs and your
+change only modified one graph then only that graph will recompile. So
+another tip to avoid potentially slow compilation times is to warmup a
+model by compiling it once after which subsequent compilations will be
+much faster. Cold start compile times is still a metric we track
+visibly.</p>
+</section>
+</section>
+<section id="why-am-i-getting-incorrect-results">
+<h2>Why am I getting incorrect results?<a class="headerlink" href="#why-am-i-getting-incorrect-results" title="Link to this heading">#</a></h2>
+<p>Accuracy issues can also be minified if you set the environment variable
+<code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_REPRO_LEVEL=4</span></code>, it operates with a similar git bisect
+model and a full repro might be something like
+<code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_REPRO_AFTER=&quot;aot&quot;</span> <span class="pre">TORCHDYNAMO_REPRO_LEVEL=4</span></code> the reason
+we need this is downstream compilers will codegen code whether it’s
+Triton code or the C++ backend, the numerics from those downstream
+compilers can be different in subtle ways yet have dramatic impact on
+your training stability. So the accuracy debugger is very useful for us
+to detect bugs in our codegen or with a backend compiler.</p>
+<p>If you’d like to ensure that random number generation is the same across both torch
+and triton then you can enable <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.fallback_random</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+</section>
+<section id="why-am-i-getting-ooms">
+<h2>Why am I getting OOMs?<a class="headerlink" href="#why-am-i-getting-ooms" title="Link to this heading">#</a></h2>
+<p>Dynamo is still an alpha product so there’s a few sources of OOMs and if
+you’re seeing an OOM try disabling the following configurations in this
+order and then open an issue on GitHub so we can solve the root problem
+1. If you’re using dynamic shapes try disabling them, we’ve disabled
+them by default: <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">TORCHDYNAMO_DYNAMIC_SHAPES=0</span> <span class="pre">python</span> <span class="pre">model.py</span></code> 2.
+CUDA graphs with Triton are enabled by default in inductor but removing
+them may alleviate some OOM issues: <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.triton.cudagraphs</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+</section>
+<section id="does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">
+<h2>Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?<a class="headerlink" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms" title="Link to this heading">#</a></h2>
+<p>Applying a <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform to a function that uses <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
+does work:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="calling-torch-func-transform-inside-of-a-function-handled-with-torch-compile">
+<h3>Calling <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform inside of a function handled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code><a class="headerlink" href="#calling-torch-func-transform-inside-of-a-function-handled-with-torch-compile" title="Link to this heading">#</a></h3>
+</section>
+<section id="compiling-torch-func-grad-with-torch-compile">
+<h3>Compiling <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code><a class="headerlink" href="#compiling-torch-func-grad-with-torch-compile" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">def</span> <span class="nf">wrapper_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">grad_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">wrapper_fn</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compiling-torch-vmap-with-torch-compile">
+<h3>Compiling <code class="docutils literal notranslate"><span class="pre">torch.vmap</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code><a class="headerlink" href="#compiling-torch-vmap-with-torch-compile" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">def</span> <span class="nf">my_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">my_fn</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compiling-functions-besides-the-ones-which-are-supported-escape-hatch">
+<h3>Compiling functions besides the ones which are supported (escape hatch)<a class="headerlink" href="#compiling-functions-besides-the-ones-which-are-supported-escape-hatch" title="Link to this heading">#</a></h3>
+<p>For other transforms, as a workaround, use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.allow_in_graph</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> is an escape hatch. If your code does not work with
+<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, which introspects Python bytecode, but you believe it
+will work via a symbolic tracing approach (like <code class="docutils literal notranslate"><span class="pre">jax.jit</span></code>), then use
+<code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code>.</p>
+<p>By using <code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> to annotate a function, you must make sure
+your code meets the following requirements:</p>
+<ul class="simple">
+<li><p>All outputs in your function only depend on the inputs and
+do not depend on any captured Tensors.</p></li>
+<li><p>Your function is functional. That is, it does not mutate any state. This may
+be relaxed; we actually support functions that appear to be functional from
+the outside: they may have in-place PyTorch operations, but may not mutate
+global state or inputs to the function.</p></li>
+<li><p>Your function does not raise data-dependent errors.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">allow_in_graph</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A common pitfall is using <code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> to annotate a function that
+invokes an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>. This is because the outputs now depend on the
+parameters of the <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>. To get this to work, use
+<code class="docutils literal notranslate"><span class="pre">torch.func.functional_call</span></code> to extract the module state.</p>
+</section>
+</section>
+<section id="does-numpy-work-with-torch-compile">
+<h2>Does NumPy work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?<a class="headerlink" href="#does-numpy-work-with-torch-compile" title="Link to this heading">#</a></h2>
+<p>Starting in 2.1, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> understands native NumPy programs that
+work on NumPy arrays, and mixed PyTorch-NumPy programs that convert from PyTorch
+to NumPy and back via <code class="docutils literal notranslate"><span class="pre">x.numpy()</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.from_numpy</span></code>, and related functions.</p>
+<section id="which-numpy-features-does-torch-compile-support">
+<span id="nonsupported-numpy-feats"></span><h3>Which NumPy features does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support?<a class="headerlink" href="#which-numpy-features-does-torch-compile-support" title="Link to this heading">#</a></h3>
+<p>NumPy within <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> follows NumPy 2.0 pre-release.</p>
+<p>Generally, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is able to trace through most NumPy constructions,
+and when it cannot, it falls back to eager and lets NumPy execute that piece of
+code. Even then, there are a few features where <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> semantics
+slightly deviate from those of NumPy:</p>
+<ul class="simple">
+<li><p>NumPy scalars: We model them as 0-D arrays. That is, <code class="docutils literal notranslate"><span class="pre">np.float32(3)</span></code> returns
+a 0-D array under <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>. To avoid a graph break, it is best to use this 0-D
+array. If this breaks your code, you can workaround this by casting the NumPy scalar
+to the relevant Python scalar type <code class="docutils literal notranslate"><span class="pre">bool/int/float</span></code>.</p></li>
+<li><p>Negative strides: <code class="docutils literal notranslate"><span class="pre">np.flip</span></code> and slicing with a negative step return a copy.</p></li>
+<li><p>Type promotion: NumPy’s type promotion will change in NumPy 2.0. The new rules
+are described in <a class="reference external" href="https://numpy.org/neps/nep-0050-scalar-promotion.html">NEP 50</a>.
+<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> implements NEP 50 rather than the current soon-to-be deprecated rules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{tril,triu}_indices_from/{tril,triu}_indices</span></code> return arrays rather than a tuple of arrays.</p></li>
+</ul>
+<p>There are other features for which we do not support tracing and we gracefully
+fallback to NumPy for their execution:</p>
+<ul class="simple">
+<li><p>Non-numeric dtypes like datetimes, strings, chars, void, structured dtypes and recarrays.</p></li>
+<li><p>Long dtypes <code class="docutils literal notranslate"><span class="pre">np.float128/np.complex256</span></code> and some unsigned dtypes <code class="docutils literal notranslate"><span class="pre">np.uint16/np.uint32/np.uint64</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> subclasses.</p></li>
+<li><p>Masked arrays.</p></li>
+<li><p>Esoteric ufunc machinery like <code class="docutils literal notranslate"><span class="pre">axes=[(n,k),(k,m)-&gt;(n,m)]</span></code> and ufunc methods (e.g., <code class="docutils literal notranslate"><span class="pre">np.add.reduce</span></code>).</p></li>
+<li><p>Sorting / ordering <code class="docutils literal notranslate"><span class="pre">complex64/complex128</span></code> arrays.</p></li>
+<li><p>NumPy <code class="docutils literal notranslate"><span class="pre">np.poly1d</span></code> and <code class="docutils literal notranslate"><span class="pre">np.polynomial</span></code>.</p></li>
+<li><p>Positional <code class="docutils literal notranslate"><span class="pre">out1,</span> <span class="pre">out2</span></code> args in functions with 2 or more returns (<code class="docutils literal notranslate"><span class="pre">out=tuple</span></code> does work).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>, <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ndarray.ctypes</span></code> attribute.</p></li>
+</ul>
+</section>
+<section id="can-i-compile-numpy-code-using-torch-compile">
+<h3>Can I compile NumPy code using <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?<a class="headerlink" href="#can-i-compile-numpy-code-using-torch-compile" title="Link to this heading">#</a></h3>
+<p>Of course you do! <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> understands NumPy code natively, and treats it
+as if it were PyTorch code. To do so, simply wrap NumPy code with the <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
+decorator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
+<span class="k">def</span> <span class="nf">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executing this example with the environment variable <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=output_code</span></code>, we can see
+that <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> was able to fuse the multiplication and the sum into one C++ kernel.
+It was also able to execute them in parallel using OpenMP (native NumPy is single-threaded).
+This can easily make your NumPy code <code class="docutils literal notranslate"><span class="pre">n</span></code> times faster, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of cores
+in your processor!</p>
+<p>Tracing NumPy code this way also supports graph breaks within the compiled code.</p>
+</section>
+<section id="can-i-execute-numpy-code-on-cuda-and-compute-gradients-via-torch-compile">
+<h3>Can I execute NumPy code on CUDA and compute gradients via <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?<a class="headerlink" href="#can-i-execute-numpy-code-on-cuda-and-compute-gradients-via-torch-compile" title="Link to this heading">#</a></h3>
+<p>Yes you can! To do so, you may simply execute your code within a <code class="docutils literal notranslate"><span class="pre">torch.device(&quot;cuda&quot;)</span></code>
+context. Consider the example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
+<span class="k">def</span> <span class="nf">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">numpy_fn</span></code> will be executed in CUDA. For this to be
+possible, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> automatically moves <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code> from CPU
+to CUDA, and then it moves the result <code class="docutils literal notranslate"><span class="pre">Z</span></code> from CUDA to CPU. If we are
+executing this function several times in the same program run, we may want
+to avoid all these rather expensive memory copies. To do so, we just need
+to tweak our <code class="docutils literal notranslate"><span class="pre">numpy_fn</span></code> so that it accepts cuda Tensors and returns tensors.
+We can do so by using <code class="docutils literal notranslate"><span class="pre">torch.compiler.wrap_numpy</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">wrap_numpy</span>
+<span class="k">def</span> <span class="nf">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">Z</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span>
+</pre></div>
+</div>
+<p>Here, we explicitly create the tensors in CUDA memory, and pass them to the
+function, which performs all the computations on the CUDA device.
+<code class="docutils literal notranslate"><span class="pre">wrap_numpy</span></code> is in charge of marking any <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> input as an input
+with <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> semantics at a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> level. Marking tensors
+inside the compiler is a very cheap operation, so no data copy or data movement
+happens during runtime.</p>
+<p>Using this decorator, we can also differentiate through NumPy code!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">wrap_numpy</span>
+<span class="k">def</span> <span class="nf">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<span class="n">Z</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="c1"># X.grad now holds the gradient of the computation</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have been using <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> as graph break are problematic in this context.
+When a graph break occurs, we need to materialize the NumPy arrays. Since NumPy arrays
+do not have a notion of <code class="docutils literal notranslate"><span class="pre">device</span></code> or <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code>, this information is lost during
+a graph break.</p>
+<p>We cannot propagate gradients through a graph break, as the graph break code may execute
+arbitrary code that don’t know how to differentiate. On the other hand, in the case of
+the CUDA execution, we can work around this problem as we did in the first example, by
+using the <code class="docutils literal notranslate"><span class="pre">torch.device(&quot;cuda&quot;)</span></code> context manager:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">wrap_numpy</span>
+<span class="k">def</span> <span class="nf">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">prod</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;oops, a graph break!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">numpy_fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">Z</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span>
+</pre></div>
+</div>
+<p>During the graph break, the intermediary tensors still need to be moved to CPU, but when the
+tracing is resumed after the graph break, the rest of the graph is still traced on CUDA.
+Given this CUDA &lt;&gt; CPU and CPU &lt;&gt; CUDA movement, graph breaks are fairly costly in the NumPy
+context and should be avoided, but at least they allow tracing through complex pieces of code.</p>
+</section>
+<section id="how-do-i-debug-numpy-code-under-torch-compile">
+<h3>How do I debug NumPy code under <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?<a class="headerlink" href="#how-do-i-debug-numpy-code-under-torch-compile" title="Link to this heading">#</a></h3>
+<p>Debugging JIT compiled code is challenging, given the complexity of modern
+compilers and the daunting errors that they raise.
+<a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">The torch.compile troubleshooting doc</span></a>
+contains a few tips and tricks on how to tackle this task.</p>
+<p>If the above is not enough to pinpoint the origin of the issue, there are still
+a few other NumPy-specific tools we can use. We can discern whether the bug
+is entirely in the PyTorch code by disabling tracing through NumPy functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._dynamo</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="n">config</span><span class="o">.</span><span class="n">trace_numpy</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>If the bug lies in the traced NumPy code, we can execute the NumPy code eagerly (without <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>)
+using PyTorch as a backend by importing <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch._numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>.
+This should just be used for <strong>debugging purposes</strong> and is in no way a
+replacement for the PyTorch API, as it is <strong>much less performant</strong> and, as a
+private API, <strong>may change without notice</strong>. At any rate, <code class="docutils literal notranslate"><span class="pre">torch._numpy</span></code> is a
+Python implementation of NumPy in terms of PyTorch and it is used internally by <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to
+transform NumPy code into Pytorch code. It is rather easy to read and modify,
+so if you find any bug in it feel free to submit a PR fixing it or simply open
+an issue.</p>
+<p>If the program does work when importing <code class="docutils literal notranslate"><span class="pre">torch._numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>, chances are
+that the bug is in TorchDynamo. If this is the case, please feel free to open an issue
+with a <a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">minimal reproducer</span></a>.</p>
+</section>
+<section id="i-torch-compile-some-numpy-code-and-i-did-not-see-any-speed-up">
+<h3>I <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> some NumPy code and I did not see any speed-up.<a class="headerlink" href="#i-torch-compile-some-numpy-code-and-i-did-not-see-any-speed-up" title="Link to this heading">#</a></h3>
+<p>The best place to start is the
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_faq.html#why-am-i-not-seeing-speedups">tutorial with general advice for how to debug these sort of torch.compile issues</a>.</p>
+<p>Some graph breaks may happen because of the use of unsupported features. See
+<a class="reference internal" href="#nonsupported-numpy-feats"><span class="std std-ref">Which NumPy features does torch.compile support?</span></a>. More generally, it is useful to keep in mind
+that some widely used NumPy features do not play well with compilers. For
+example, in-place modifications make reasoning difficult within the compiler and
+often yield worse performance than their out-of-place counterparts.As such, it is best to avoid
+them. Same goes for the use of the <code class="docutils literal notranslate"><span class="pre">out=</span></code> parameter. Instead, prefer
+out-of-place ops and let <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> optimize the memory use. Same goes
+for data-dependent ops like masked indexing through boolean masks, or
+data-dependent control flow like <code class="docutils literal notranslate"><span class="pre">if</span></code> or <code class="docutils literal notranslate"><span class="pre">while</span></code> constructions.</p>
+</section>
+</section>
+<section id="which-api-to-use-for-fine-grain-tracing">
+<h2>Which API to use for fine grain tracing?<a class="headerlink" href="#which-api-to-use-for-fine-grain-tracing" title="Link to this heading">#</a></h2>
+<p>In some cases, you might need to exclude small parts of your code from the
+torch.compile compilations. This section provides some of the answers and
+you can find more information in <a class="reference internal" href="torch.compiler_fine_grain_apis.html#torchdynamo-fine-grain-tracing"><span class="std std-ref">TorchDynamo APIs for fine-grained tracing</span></a>.</p>
+<section id="how-do-i-graph-break-on-a-function">
+<h3>How do I graph break on a function?<a class="headerlink" href="#how-do-i-graph-break-on-a-function" title="Link to this heading">#</a></h3>
+<p>Graph break on a function is not enough to sufficiently express what you want
+PyTorch to do. You need to be more specific about your use case. Some of the
+most common use cases you might want to consider:</p>
+<ul class="simple">
+<li><p>If you want to disable compilation on this function frame and the recursively
+invoked frames, use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code>.</p></li>
+<li><p>If you want a particular operator, such as <code class="docutils literal notranslate"><span class="pre">fbgemm</span></code> to use the eager mode,
+use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code>.</p></li>
+</ul>
+<p>Some of the uncommon use cases include:</p>
+<ul class="simple">
+<li><p>If you want to disable TorchDynamo on the function frame but enable it back
+on the recursively invoked frames – use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable(recursive=False)</span></code>.</p></li>
+<li><p>If you want to prevent inlining of a function frame – use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.graph_break</span></code>
+at the beginning of the function you want to prevent inlining.</p></li>
+</ul>
+</section>
+<section id="what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-disallow-in-graph">
+<h3>What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code><a class="headerlink" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-disallow-in-graph" title="Link to this heading">#</a></h3>
+<p>Disallow-in-graph works at the level of operators, or more specifically,
+the operators that you see in the TorchDynamo extracted graphs.</p>
+<p>Disable works at the function frame level and decides if TorchDynamo
+should look into the function frame or not.</p>
+</section>
+<section id="what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-skip">
+<h3>What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo_skip</span></code><a class="headerlink" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-skip" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch._dynamo_skip</span></code> is deprecated.</p>
+</div>
+<p>You most likely need <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code>. But in an unlikely scenario, you
+might need even finer control. Suppose you want to disable the tracing on just
+the <code class="docutils literal notranslate"><span class="pre">a_fn</span></code> function, but want to continue the tracing back in <code class="docutils literal notranslate"><span class="pre">aa_fn</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ab_fn</span></code>. The image below demonstrates this use case:</p>
+<figure class="align-default">
+<img alt="diagram of torch.compile + disable(a_fn, recursive=False)" src="../../_images/call_stack_diagram.png" />
+</figure>
+<p>In this case, you can use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable(recursive=False)</span></code>.
+In previous versions, this functionality was provided by <code class="docutils literal notranslate"><span class="pre">torch._dynamo.skip</span></code>.
+This is now supported by the <code class="docutils literal notranslate"><span class="pre">recursive</span></code> flag inside <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+  </article>
+  
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="feedback">
+  
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+
+  <div class="feedback-send">
+    <button class="feedback-btn"
+            onclick="openGitHubIssue()"
+            data-bs-title="Create a GitHub Issue"
+            data-bs-placement="bottom"
+            data-bs-toggle="tooltip"
+            data-gtm="feedback-btn-click">Send Feedback
+    </button>
+  </div>
+</div>
+
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="torch.compiler_troubleshooting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">torch.compile Troubleshooting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reference/API</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+
+<div class="footer-info">
+  <p class="copyright">
+    
+  </p>
+
+  <p class="theme-version">
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  </p>
+</div>
+</div>
+  
+</div>
+                </footer>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="torch.compiler_troubleshooting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">torch.compile Troubleshooting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reference/API</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc">
+<div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-compile-support-training">Does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support training?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-you-support-distributed-code">Do you support Distributed code?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-i-still-need-to-export-whole-graphs">Do I still need to export whole graphs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-my-code-crashing">Why is my code crashing?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-compilation-slow">Why is compilation slow?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-you-recompiling-in-production">Why are you recompiling in production?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-are-you-speeding-up-my-code">How are you speeding up my code?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-not-seeing-speedups">Why am I not seeing speedups?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-breaks">Graph Breaks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-the-cause-of-a-graph-break">Identifying the cause of a graph break</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-didnt-my-code-recompile-when-i-changed-it">Why didn’t my code recompile when I changed it?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-incorrect-results">Why am I getting incorrect results?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-ooms">Why am I getting OOMs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calling-torch-func-transform-inside-of-a-function-handled-with-torch-compile">Calling <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform inside of a function handled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-func-grad-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-vmap-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.vmap</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-functions-besides-the-ones-which-are-supported-escape-hatch">Compiling functions besides the ones which are supported (escape hatch)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-numpy-work-with-torch-compile">Does NumPy work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-numpy-features-does-torch-compile-support">Which NumPy features does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-compile-numpy-code-using-torch-compile">Can I compile NumPy code using <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-execute-numpy-code-on-cuda-and-compute-gradients-via-torch-compile">Can I execute NumPy code on CUDA and compute gradients via <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-debug-numpy-code-under-torch-compile">How do I debug NumPy code under <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-torch-compile-some-numpy-code-and-i-did-not-see-any-speed-up">I <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> some NumPy code and I did not see any speed-up.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-api-to-use-for-fine-grain-tracing">Which API to use for fine grain tracing?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-graph-break-on-a-function">How do I graph break on a function?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-disallow-in-graph">What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-skip">What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo_skip</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    
+       <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/user_guide/torch_compiler/torch.compiler_faq.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+    
+       <div class="sidebar-secondary-item">
+    <div class="tocsection sourcelink">
+      <a href="../../_sources/user_guide/torch_compiler/torch.compiler_faq.md.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+      </a>
+    </div>
+</div>
+    
+
+
+
+
+<div class="sidebar-secondary-item">
+  <div class="sidebar-heading">PyTorch Libraries</div>
+  <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+  
+  </ul>
+</div>
+
+</div>
+</div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer class="site-footer">
+
+  <div class="container footer-container">
+
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+    
+    <div class="privacy-policy">
+      <div class="copyright">
+      
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
+      </div>
+    </div>
+
+
+  </div>
+</footer>
+
+<div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../_static/img/pytorch-x.svg">
+  </div>
+</div>
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright PyTorch Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Frequently Asked Questions",
+       "headline": "Frequently Asked Questions",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/user_guide/torch_compiler/torch.compiler_faq.html",
+       "articleBody": "Frequently Asked Questions# Created On: Jun 16, 2025 | Last Updated On: Dec 03, 2025 Author: Mark Saroufim Does torch.compile support training?# torch.compile supports training, using AOTAutograd to capture backwards: The .forward() graph and optimizer.step() is captured by TorchDynamo\u2019s python evalframe frontend. For each segment of .forward() that torchdynamo captures, it uses AOTAutograd to generate a backward graph segment. Each pair of forward and backward graph are (optionally) min-cut partitioned to save the minimal state between forward and backward. The forward and backward pairs are wrapped in autograd.function modules. User code calling .backward() still triggers eager\u2019s autograd engine, which runs each compiled backward graph as if it were one op, also running any non-compiled eager ops\u2019 .backward() functions. Do you support Distributed code?# torch.compile supports DistributedDataParallel (DDP). Support for other distributed training libraries is being considered. The main reason why Distributed code is challenging with dynamo is because AOTAutograd unrolls both the forward and backward pass and provides 2 graphs for backends to optimize. This is a problem for distributed code because we\u2019d like to ideally overlap communication operations with computations. Eager pytorch accomplishes this in different ways for DDP/FSDP- using autograd hooks, module hooks, and modifications/mutations of module states. In a naive application of dynamo, hooks that should run directly after an operation during backwards may be delayed until after the entire compiled region of backwards ops, due to how AOTAutograd compiled functions interact with dispatcher hooks. The basic strategy for optimizing DDP with Dynamo is outlined in distributed.py where the main idea will be to graph break on DDP bucket boundaries. When each node in DDP needs to synchronize its weights with the other nodes it organizes its gradients and parameters into buckets which reduces communication times and allows a node to broadcast a fraction of its gradients to other waiting nodes. Graph breaks in distributed code mean you can expect dynamo and its backends to optimize the compute overhead of a distributed program but not its communication overhead. Graph-breaks may interfere with compilation speedups, if the reduced graph-size robs the compiler of fusion opportunities. However, there are diminishing returns with increasing graph size since most of the current compute optimizations are local fusions. So in practice this approach may be sufficient. Do I still need to export whole graphs?# For the vast majority of models you probably don\u2019t and you can use torch.compile() as is but there are a few situations where full graphs are necessary and you can can ensure a full graph by simply running torch.compile(..., fullgraph=True). These situations include: Large scale training runs, such as $250K+ that require pipeline parallelism and other advanced sharding strategies. Inference optimizers like TensorRT or AITemplate that rely on fusing much more aggressively than training optimizers. Mobile training or inference. Future work will include tracing communication operations into graphs, coordinating these operations with compute optimizations, and optimizing the communication operations. Why is my code crashing?# If your code ran just fine without torch.compile and started to crash with it is enabled, then the most important first step is figuring out which part of the stack your failure occurred. To troubleshoot that, follow the steps below and only try the next step if the previous one succeeded. torch.compile(..., backend=\"eager\") which only runs TorchDynamo forward graph capture and then runs the captured graph with PyTorch. If this fails then there\u2019s an issue with TorchDynamo. torch.compile(..., backend=\"aot_eager\") which runs TorchDynamo to capture a forward graph, and then AOTAutograd to trace the backward graph without any additional backend compiler steps. PyTorch eager will then be used to run the forward and backward graphs. If this fails then there\u2019s an issue with AOTAutograd. torch.compile(..., backend=\"inductor\") which runs TorchDynamo to capture a forward graph, and then AOTAutograd to trace the backward graph with the TorchInductor compiler. If this fails then there\u2019s an issue with TorchInductor Why is compilation slow?# Dynamo Compilation\u2013 TorchDynamo has a builtin stats function for collecting and displaying the time spent in each compilation phase. These stats can be accessed by calling torch._dynamo.utils.compile_times() after executing torch._dynamo. By default, this returns a string representation of the compile times spent in each TorchDynamo function by name. Inductor Compilation\u2013 TorchInductor has a builtin stats and trace function for displaying time spent in each compilation phase, output code, output graph visualization and IR dump. env TORCH_COMPILE_DEBUG=1 python repro.py. This is a debugging tool designed to make it easier to debug/understand the internals of TorchInductor with an output that will look something like this Each file in that debug trace can be enabled/disabled via torch._inductor.config.trace.*. The profile and the diagram are both disabled by default since they are expensive to generate. See the example debug directory output for more examples. Excessive Recompilation When TorchDynamo compiles a function (or part of one), it makes certain assumptions about locals and globals in order to allow compiler optimizations, and expresses these assumptions as guards that check particular values at runtime. If any of these guards fail, Dynamo will recompile that function (or part) up to torch._dynamo.config.recompile_limit times. If your program is hitting the cache limit, you will first need to determine which guard is failing and what part of your program is triggering it. The Use TORCH_TRACE/tlparse or TORCH_LOGS=recompiles to trace the root of the issue, check torch.compile Troubleshooting for more details. Why are you recompiling in production?# In some cases, you may not want unexpected compiles after a program has warmed up. For example, if you are serving production traffic in a latency critical application. For this, TorchDynamo provides an alternate mode where prior compiled graphs are used, but no new ones are generated: frozen_toy_example = dynamo.run(toy_example) frozen_toy_example(torch.randn(10), torch.randn(10)) How are you speeding up my code?# There are 3 major ways to accelerate PyTorch code: Kernel fusion via vertical fusions which fuse sequential operations to avoid excessive read/writes. For example, fuse 2 subsequent cosines means you can can do 1 read 1 write instead 2 reads 2 writes 2. Horizontal fusion: the simplest example being batching where a single matrix is multiplied with a batch of examples but the more general scenario is a grouped GEMM where a group of matrix multiplications are scheduled together Out of order execution: A general optimization for compilers, by looking ahead at the exact data dependencies within a graph we can decide on the most opportune time to execute a node and which buffers can be reused Automatic work placement: Similar of the out of order execution point, but by matching nodes of a graph to resources like physical hardware or memory we can design an appropriate schedule The above are general principles for accelerating PyTorch code but different backends will each make different tradeoffs on what to optimize. For example Inductor first takes care of fusing whatever it can and only then generates Triton kernels. Triton in addition offers speedups because of automatic memory coalescing, memory management and scheduling within each Streaming Multiprocessor and has been designed to handle tiled computations. However, regardless of the backend you use it\u2019s best to use a benchmark and see approach so try out the PyTorch profiler, visually inspect the generated kernels and try to see what\u2019s going on for yourself. Why am I not seeing speedups?# Graph Breaks# The main reason you won\u2019t see the speedups you\u2019d like to by using dynamo is excessive graph breaks. So what\u2019s a graph break? Given a program like: def some_fun(x): ... torch.compile(some_fun)(x) ... Torchdynamo will attempt to compile all of the torch/tensor operations within some_fun() into a single FX graph, but it may fail to capture everything into one graph. Some graph break reasons are insurmountable to TorchDynamo like calling into a C extension other than PyTorch is invisible to TorchDynamo, and could do arbitrary things without TorchDynamo being able to introduce necessary guards to ensure that the compiled program would be safe to reuse. To maximize performance, it\u2019s important to have as few graph breaks as possible. Identifying the cause of a graph break# To identify all graph breaks in a program and the associated reasons for the breaks, torch._dynamo.explain can be used. This tool runs TorchDynamo on the supplied function and aggregates the graph breaks that are encountered. Here is an example usage: import torch import torch._dynamo as dynamo def toy_example(a, b): x = a / (torch.abs(a) + 1) print(\"woo\") if b.sum() \u003c 0: b = b * -1 return x * b explanation = dynamo.explain(toy_example)(torch.randn(10), torch.randn(10)) print(explanation) \"\"\" Graph Count: 3 Graph Break Count: 2 Op Count: 5 Break Reasons: Break Reason 1: Reason: builtin: print [\u003cclass \u0027torch._dynamo.variables.constant.ConstantVariable\u0027\u003e] False User Stack: \u003cFrameSummary file foo.py, line 5 in toy_example\u003e Break Reason 2: Reason: generic_jump TensorVariable() User Stack: \u003cFrameSummary file foo.py, line 6 in torch_dynamo_resume_in_toy_example_at_5\u003e Ops per Graph: ... Out Guards: ... \"\"\" To throw an error on the first graph break encountered you can disable python fallbacks by using fullgraph=True, this should be familiar if you\u2019ve worked with export based compilers. def toy_example(a, b): ... torch.compile(toy_example, fullgraph=True, backend=\u003ccompiler\u003e)(a, b) Why didn\u2019t my code recompile when I changed it?# If you enabled dynamic shapes by setting env TORCHDYNAMO_DYNAMIC_SHAPES=1 python model.py then your code won\u2019t recompile on shape changes. We\u2019ve added support for dynamic shapes which avoids recompilations in the case when shapes vary by less than a factor of 2. This is especially useful in scenarios like varying image sizes in CV or variable sequence length in NLP. In inference scenarios it\u2019s often not possible to know what a batch size will be beforehand because you take what you can get from different client apps. In general, TorchDynamo tries very hard not to recompile things unnecessarily so if for example TorchDynamo finds 3 graphs and your change only modified one graph then only that graph will recompile. So another tip to avoid potentially slow compilation times is to warmup a model by compiling it once after which subsequent compilations will be much faster. Cold start compile times is still a metric we track visibly. Why am I getting incorrect results?# Accuracy issues can also be minified if you set the environment variable TORCHDYNAMO_REPRO_LEVEL=4, it operates with a similar git bisect model and a full repro might be something like TORCHDYNAMO_REPRO_AFTER=\"aot\" TORCHDYNAMO_REPRO_LEVEL=4 the reason we need this is downstream compilers will codegen code whether it\u2019s Triton code or the C++ backend, the numerics from those downstream compilers can be different in subtle ways yet have dramatic impact on your training stability. So the accuracy debugger is very useful for us to detect bugs in our codegen or with a backend compiler. If you\u2019d like to ensure that random number generation is the same across both torch and triton then you can enable torch._inductor.config.fallback_random = True Why am I getting OOMs?# Dynamo is still an alpha product so there\u2019s a few sources of OOMs and if you\u2019re seeing an OOM try disabling the following configurations in this order and then open an issue on GitHub so we can solve the root problem 1. If you\u2019re using dynamic shapes try disabling them, we\u2019ve disabled them by default: env TORCHDYNAMO_DYNAMIC_SHAPES=0 python model.py 2. CUDA graphs with Triton are enabled by default in inductor but removing them may alleviate some OOM issues: torch._inductor.config.triton.cudagraphs = False. Does torch.func work with torch.compile (for grad and vmap transforms)?# Applying a torch.func transform to a function that uses torch.compile does work: import torch @torch.compile def f(x): return torch.sin(x) def g(x): return torch.grad(f)(x) x = torch.randn(2, 3) g(x) Calling torch.func transform inside of a function handled with torch.compile# Compiling torch.func.grad with torch.compile# import torch def wrapper_fn(x): return torch.func.grad(lambda x: x.sin().sum())(x) x = torch.randn(3, 3, 3) grad_x = torch.compile(wrapper_fn)(x) Compiling torch.vmap with torch.compile# import torch def my_fn(x): return torch.vmap(lambda x: x.sum(1))(x) x = torch.randn(3, 3, 3) output = torch.compile(my_fn)(x) Compiling functions besides the ones which are supported (escape hatch)# For other transforms, as a workaround, use torch._dynamo.allow_in_graph allow_in_graph is an escape hatch. If your code does not work with torch.compile, which introspects Python bytecode, but you believe it will work via a symbolic tracing approach (like jax.jit), then use allow_in_graph. By using allow_in_graph to annotate a function, you must make sure your code meets the following requirements: All outputs in your function only depend on the inputs and do not depend on any captured Tensors. Your function is functional. That is, it does not mutate any state. This may be relaxed; we actually support functions that appear to be functional from the outside: they may have in-place PyTorch operations, but may not mutate global state or inputs to the function. Your function does not raise data-dependent errors. import torch @torch.compile def f(x): return torch._dynamo.allow_in_graph(torch.vmap(torch.sum))(x) x = torch.randn(2, 3) f(x) A common pitfall is using allow_in_graph to annotate a function that invokes an nn.Module. This is because the outputs now depend on the parameters of the nn.Module. To get this to work, use torch.func.functional_call to extract the module state. Does NumPy work with torch.compile?# Starting in 2.1, torch.compile understands native NumPy programs that work on NumPy arrays, and mixed PyTorch-NumPy programs that convert from PyTorch to NumPy and back via x.numpy(), torch.from_numpy, and related functions. Which NumPy features does torch.compile support?# NumPy within torch.compile follows NumPy 2.0 pre-release. Generally, torch.compile is able to trace through most NumPy constructions, and when it cannot, it falls back to eager and lets NumPy execute that piece of code. Even then, there are a few features where torch.compile semantics slightly deviate from those of NumPy: NumPy scalars: We model them as 0-D arrays. That is, np.float32(3) returns a 0-D array under torch.compile. To avoid a graph break, it is best to use this 0-D array. If this breaks your code, you can workaround this by casting the NumPy scalar to the relevant Python scalar type bool/int/float. Negative strides: np.flip and slicing with a negative step return a copy. Type promotion: NumPy\u2019s type promotion will change in NumPy 2.0. The new rules are described in NEP 50. torch.compile implements NEP 50 rather than the current soon-to-be deprecated rules. {tril,triu}_indices_from/{tril,triu}_indices return arrays rather than a tuple of arrays. There are other features for which we do not support tracing and we gracefully fallback to NumPy for their execution: Non-numeric dtypes like datetimes, strings, chars, void, structured dtypes and recarrays. Long dtypes np.float128/np.complex256 and some unsigned dtypes np.uint16/np.uint32/np.uint64. ndarray subclasses. Masked arrays. Esoteric ufunc machinery like axes=[(n,k),(k,m)-\u003e(n,m)] and ufunc methods (e.g., np.add.reduce). Sorting / ordering complex64/complex128 arrays. NumPy np.poly1d and np.polynomial. Positional out1, out2 args in functions with 2 or more returns (out=tuple does work). __array_function__, __array_interface__ and __array_wrap__. ndarray.ctypes attribute. Can I compile NumPy code using torch.compile?# Of course you do! torch.compile understands NumPy code natively, and treats it as if it were PyTorch code. To do so, simply wrap NumPy code with the torch.compile decorator. import torch import numpy as np @torch.compile def numpy_fn(X: np.ndarray, Y: np.ndarray) -\u003e np.ndarray: return np.sum(X[:, :, None] * Y[:, None, :], axis=(-2, -1)) X = np.random.randn(1024, 64) Y = np.random.randn(1024, 64) Z = numpy_fn(X, Y) assert isinstance(Z, np.ndarray) Executing this example with the environment variable TORCH_LOGS=output_code, we can see that torch.compile was able to fuse the multiplication and the sum into one C++ kernel. It was also able to execute them in parallel using OpenMP (native NumPy is single-threaded). This can easily make your NumPy code n times faster, where n is the number of cores in your processor! Tracing NumPy code this way also supports graph breaks within the compiled code. Can I execute NumPy code on CUDA and compute gradients via torch.compile?# Yes you can! To do so, you may simply execute your code within a torch.device(\"cuda\") context. Consider the example import torch import numpy as np @torch.compile def numpy_fn(X: np.ndarray, Y: np.ndarray) -\u003e np.ndarray: return np.sum(X[:, :, None] * Y[:, None, :], axis=(-2, -1)) X = np.random.randn(1024, 64) Y = np.random.randn(1024, 64) with torch.device(\"cuda\"): Z = numpy_fn(X, Y) assert isinstance(Z, np.ndarray) In this example, numpy_fn will be executed in CUDA. For this to be possible, torch.compile automatically moves X and Y from CPU to CUDA, and then it moves the result Z from CUDA to CPU. If we are executing this function several times in the same program run, we may want to avoid all these rather expensive memory copies. To do so, we just need to tweak our numpy_fn so that it accepts cuda Tensors and returns tensors. We can do so by using torch.compiler.wrap_numpy: @torch.compile(fullgraph=True) @torch.compiler.wrap_numpy def numpy_fn(X, Y): return np.sum(X[:, :, None] * Y[:, None, :], axis=(-2, -1)) X = torch.randn(1024, 64, device=\"cuda\") Y = torch.randn(1024, 64, device=\"cuda\") Z = numpy_fn(X, Y) assert isinstance(Z, torch.Tensor) assert Z.device.type == \"cuda\" Here, we explicitly create the tensors in CUDA memory, and pass them to the function, which performs all the computations on the CUDA device. wrap_numpy is in charge of marking any torch.Tensor input as an input with np.ndarray semantics at a torch.compile level. Marking tensors inside the compiler is a very cheap operation, so no data copy or data movement happens during runtime. Using this decorator, we can also differentiate through NumPy code! @torch.compile(fullgraph=True) @torch.compiler.wrap_numpy def numpy_fn(X, Y): return np.mean(np.sum(X[:, :, None] * Y[:, None, :], axis=(-2, -1))) X = torch.randn(1024, 64, device=\"cuda\", requires_grad=True) Y = torch.randn(1024, 64, device=\"cuda\") Z = numpy_fn(X, Y) assert isinstance(Z, torch.Tensor) Z.backward() # X.grad now holds the gradient of the computation print(X.grad) We have been using fullgraph=True as graph break are problematic in this context. When a graph break occurs, we need to materialize the NumPy arrays. Since NumPy arrays do not have a notion of device or requires_grad, this information is lost during a graph break. We cannot propagate gradients through a graph break, as the graph break code may execute arbitrary code that don\u2019t know how to differentiate. On the other hand, in the case of the CUDA execution, we can work around this problem as we did in the first example, by using the torch.device(\"cuda\") context manager: @torch.compile @torch.compiler.wrap_numpy def numpy_fn(X, Y): prod = X[:, :, None] * Y[:, None, :] print(\"oops, a graph break!\") return np.sum(prod, axis=(-2, -1)) X = torch.randn(1024, 64, device=\"cuda\") Y = torch.randn(1024, 64, device=\"cuda\") with torch.device(\"cuda\"): Z = numpy_fn(X, Y) assert isinstance(Z, torch.Tensor) assert Z.device.type == \"cuda\" During the graph break, the intermediary tensors still need to be moved to CPU, but when the tracing is resumed after the graph break, the rest of the graph is still traced on CUDA. Given this CUDA \u003c\u003e CPU and CPU \u003c\u003e CUDA movement, graph breaks are fairly costly in the NumPy context and should be avoided, but at least they allow tracing through complex pieces of code. How do I debug NumPy code under torch.compile?# Debugging JIT compiled code is challenging, given the complexity of modern compilers and the daunting errors that they raise. The torch.compile troubleshooting doc contains a few tips and tricks on how to tackle this task. If the above is not enough to pinpoint the origin of the issue, there are still a few other NumPy-specific tools we can use. We can discern whether the bug is entirely in the PyTorch code by disabling tracing through NumPy functions: from torch._dynamo import config config.trace_numpy = False If the bug lies in the traced NumPy code, we can execute the NumPy code eagerly (without torch.compile) using PyTorch as a backend by importing import torch._numpy as np. This should just be used for debugging purposes and is in no way a replacement for the PyTorch API, as it is much less performant and, as a private API, may change without notice. At any rate, torch._numpy is a Python implementation of NumPy in terms of PyTorch and it is used internally by torch.compile to transform NumPy code into Pytorch code. It is rather easy to read and modify, so if you find any bug in it feel free to submit a PR fixing it or simply open an issue. If the program does work when importing torch._numpy as np, chances are that the bug is in TorchDynamo. If this is the case, please feel free to open an issue with a minimal reproducer. I torch.compile some NumPy code and I did not see any speed-up.# The best place to start is the tutorial with general advice for how to debug these sort of torch.compile issues. Some graph breaks may happen because of the use of unsupported features. See Which NumPy features does torch.compile support?. More generally, it is useful to keep in mind that some widely used NumPy features do not play well with compilers. For example, in-place modifications make reasoning difficult within the compiler and often yield worse performance than their out-of-place counterparts.As such, it is best to avoid them. Same goes for the use of the out= parameter. Instead, prefer out-of-place ops and let torch.compile optimize the memory use. Same goes for data-dependent ops like masked indexing through boolean masks, or data-dependent control flow like if or while constructions. Which API to use for fine grain tracing?# In some cases, you might need to exclude small parts of your code from the torch.compile compilations. This section provides some of the answers and you can find more information in TorchDynamo APIs for fine-grained tracing. How do I graph break on a function?# Graph break on a function is not enough to sufficiently express what you want PyTorch to do. You need to be more specific about your use case. Some of the most common use cases you might want to consider: If you want to disable compilation on this function frame and the recursively invoked frames, use torch._dynamo.disable. If you want a particular operator, such as fbgemm to use the eager mode, use torch._dynamo.disallow_in_graph. Some of the uncommon use cases include: If you want to disable TorchDynamo on the function frame but enable it back on the recursively invoked frames \u2013 use torch._dynamo.disable(recursive=False). If you want to prevent inlining of a function frame \u2013 use torch._dynamo.graph_break at the beginning of the function you want to prevent inlining. What\u2019s the difference between torch._dynamo.disable and torch._dynamo.disallow_in_graph# Disallow-in-graph works at the level of operators, or more specifically, the operators that you see in the TorchDynamo extracted graphs. Disable works at the function frame level and decides if TorchDynamo should look into the function frame or not. What\u2019s the difference between torch._dynamo.disable and torch._dynamo_skip# Note torch._dynamo_skip is deprecated. You most likely need torch._dynamo.disable. But in an unlikely scenario, you might need even finer control. Suppose you want to disable the tracing on just the a_fn function, but want to continue the tracing back in aa_fn and ab_fn. The image below demonstrates this use case: In this case, you can use torch._dynamo.disable(recursive=False). In previous versions, this functionality was provided by torch._dynamo.skip. This is now supported by the recursive flag inside torch._dynamo.disable.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/user_guide/torch_compiler/torch.compiler_faq.html"
+       },
+       "datePublished": "Jun 16, 2025T00:00:00Z",
+       "dateModified": "Dec 03, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
+  </body>
+</html>

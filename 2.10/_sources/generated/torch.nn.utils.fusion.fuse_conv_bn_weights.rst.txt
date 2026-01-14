@@ -1,0 +1,6 @@
+﻿torch.nn.utils.fusion.fuse\_conv\_bn\_weights
+=============================================
+
+.. currentmodule:: torch.nn.utils.fusion
+
+.. autofunction:: fuse_conv_bn_weights

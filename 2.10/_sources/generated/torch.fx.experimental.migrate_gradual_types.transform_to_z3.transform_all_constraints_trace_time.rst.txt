@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.transform\_to\_z3.transform\_all\_constraints\_trace\_time
+========================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.transform_to_z3
+
+.. autofunction:: transform_all_constraints_trace_time
