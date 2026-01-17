@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git511d331 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitccc09a8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule<a class="headerlink" href="#torch-fx-experimental-migrate-gradual-types-constraint-generator-masked-fill-inference-rule" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.migrate_gradual_types.constraint_generator.</span></span><span class="sig-name descname"><span class="pre">masked_fill_inference_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/511d3316abc6a2d632bb25885646d2e6275f8777/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.migrate_gradual_types.constraint_generator.</span></span><span class="sig-name descname"><span class="pre">masked_fill_inference_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ccc09a827644d3df3c3c489ef77cd6d5d0a6e3d4/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.migrate_gradual_types.constraint_generator.masked_fill_inference_rule" title="Link to this definition">#</a></dt>
 <dd><p>Similar to addition. For now we implement the constraints when
 the argument is a boolean tensor. There is also a case for when
 it is a condition. We will leave this out for now.</p>

@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git511d331 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitccc09a8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-compute-unbacked-bindings" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">compute_unbacked_bindings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_example_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peek</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/511d3316abc6a2d632bb25885646d2e6275f8777/torch/fx/experimental/symbolic_shapes.py#L1351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">compute_unbacked_bindings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_example_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peek</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ccc09a827644d3df3c3c489ef77cd6d5d0a6e3d4/torch/fx/experimental/symbolic_shapes.py#L1352"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings" title="Link to this definition">#</a></dt>
 <dd><p>After having run fake tensor propagation and producing example_value
 result, traverse example_value looking for freshly bound unbacked
 symbols and record their paths for later.  It is an error if
@@ -4672,7 +4672,7 @@ function, you must call this on the tuple of tensor output, you
 cannot wait!)</p>
 <p>The peek parameter lets you check out what the bindings are without
 changing the affected list.  This is primarily useful for ensuring
-real_tensor_prop_unbacked_vals is promptly populated when propagate_real_tensors is on.</p>
+unbacked_var_to_val is promptly populated when propagate_real_tensors is on.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<em>Symbol</em>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>KeyEntry</em>, …]] | None</p>
@@ -5030,7 +5030,7 @@ real_tensor_prop_unbacked_vals is promptly populated when propagate_real_tensors
        "headline": "torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html",
-       "articleBody": "torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings# torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(shape_env, example_value, old_example_value=None, peek=False)[source]# After having run fake tensor propagation and producing example_value result, traverse example_value looking for freshly bound unbacked symbols and record their paths for later. It is an error if we have allocated an unbacked SymInt but it cannot be found in example_value. (NB: this means if you have a multi-output function, you must call this on the tuple of tensor output, you cannot wait!) The peek parameter lets you check out what the bindings are without changing the affected list. This is primarily useful for ensuring real_tensor_prop_unbacked_vals is promptly populated when propagate_real_tensors is on. Return type: dict[Symbol, tuple[KeyEntry, \u2026]] | None",
+       "articleBody": "torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings# torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(shape_env, example_value, old_example_value=None, peek=False)[source]# After having run fake tensor propagation and producing example_value result, traverse example_value looking for freshly bound unbacked symbols and record their paths for later. It is an error if we have allocated an unbacked SymInt but it cannot be found in example_value. (NB: this means if you have a multi-output function, you must call this on the tuple of tensor output, you cannot wait!) The peek parameter lets you check out what the bindings are without changing the affected list. This is primarily useful for ensuring unbacked_var_to_val is promptly populated when propagate_real_tensors is on. Return type: dict[Symbol, tuple[KeyEntry, \u2026]] | None",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
