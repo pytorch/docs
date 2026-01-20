@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git994425e )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git05b0464 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3467,8 +3467,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>ModuleDict<a class="headerlink" href="#moduledict" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ModuleDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ModuleDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict" title="Link to this definition">#</a></dt>
 <dd><p>Holds submodules in a dictionary.</p>
 <p><a class="reference internal" href="#torch.nn.ModuleDict" title="torch.nn.ModuleDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleDict</span></code></a> can be indexed like a regular Python dictionary,
 but modules it contains are properly registered, and will be visible by all
@@ -4702,7 +4702,7 @@ or an iterable of key-value pairs of type (string, module)</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.clear" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.clear" title="Link to this definition">#</a></dt>
 <dd><p>Remove all items from the ModuleDict.</p>
 <dl class="field-list simple">
 </dl>
@@ -4710,7 +4710,7 @@ or an iterable of key-value pairs of type (string, module)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.items">
-<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.items" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.items" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ModuleDict key/value pairs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4721,7 +4721,7 @@ or an iterable of key-value pairs of type (string, module)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.keys" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.keys" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ModuleDict keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4732,7 +4732,7 @@ or an iterable of key-value pairs of type (string, module)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.pop" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.pop" title="Link to this definition">#</a></dt>
 <dd><p>Remove key from the ModuleDict and return its module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4746,7 +4746,7 @@ or an iterable of key-value pairs of type (string, module)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L604"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.update" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L604"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.update" title="Link to this definition">#</a></dt>
 <dd><p>Update the <a class="reference internal" href="#torch.nn.ModuleDict" title="torch.nn.ModuleDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleDict</span></code></a> with key-value pairs from a mapping, overwriting existing keys.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4763,7 +4763,7 @@ or an iterable of key-value pairs of type (string, <a class="reference internal"
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleDict.values">
-<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/994425e8a94d3449ffc972ca8a1aaa45130ef57d/torch/nn/modules/container.py#L599"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.values" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/05b0464ddb1e12c13d5ebe3d008d2c55b036a8bc/torch/nn/modules/container.py#L599"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleDict.values" title="Link to this definition">#</a></dt>
 <dd><p>Return an iterable of the ModuleDict values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
