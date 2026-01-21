@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -70,7 +70,7 @@ Result:
             def forward(self, x: "f32[3]"):
                     sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -87,7 +87,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -149,7 +149,7 @@ Result:
             def forward(self, x: "f32[3]"):
                     add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -166,7 +166,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -245,14 +245,14 @@ Result:
         class GraphModule(torch.nn.Module):
             def forward(self, c_lifted_tensor_0: "f32[]", x: "f32[6]"):
                     add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
-                
+        
                     lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
                 detach_: "f32[]" = torch.ops.aten.detach_.default(lift_fresh_copy);  lift_fresh_copy = None
-                
+        
                     add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
                 add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach_);  add_1 = detach_ = None
                 return (add_2,)
-                
+        
     Graph signature: 
         # inputs
         c_lifted_tensor_0: CONSTANT_TENSOR target='lifted_tensor_0'
@@ -270,7 +270,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -326,24 +326,24 @@ Result:
             def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
                 # No stacktrace found for following nodes
                 sym_size_int_1: "Sym(s6)" = torch.ops.aten.sym_size.int(x, 0)
-                
+        
                     gt: "Sym(s6 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y));  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s6, 2]" = cond[0];  cond = None
                 return (getitem,)
-                
+        
             class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
                             add: "f32[s6, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
-                    
+        
             class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
                             sub: "f32[s6, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
-                    
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -361,7 +361,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -407,7 +407,7 @@ Result:
             def forward(self, x: "f32[6, 4, 3]"):
                     sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -460,7 +460,7 @@ Result:
             def forward(self, x: "f32[3, 2]"):
                     zeros: "f32[6]" = torch.ops.aten.zeros.default([6], device = device(type='cpu'), pin_memory = False)
                 return (zeros,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -517,7 +517,7 @@ Result:
             def forward(self, x: "f32[3, 2, 2]"):
                     cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
                 return (cos,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -576,12 +576,12 @@ Result:
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]);  body_graph_0 = xs = y = None
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
-                
+        
             class body_graph_0(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
-                    
+        
     Graph signature: 
         # inputs
         xs: USER_INPUT
@@ -681,7 +681,7 @@ Result:
                     slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 1);  x = None
                 slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2);  slice_1 = None
                 return (slice_2,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -735,10 +735,10 @@ Result:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[10, 10]"):
                     view: "f32[10, 2, 5]" = torch.ops.aten.view.default(x, [10, 2, 5]);  x = None
-                
+        
                     permute: "f32[10, 5, 2]" = torch.ops.aten.permute.default(view, [0, 2, 1]);  view = None
                 return (permute,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -755,7 +755,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -793,7 +793,7 @@ Result:
             def forward(self, x: "f32[3, 2]"):
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -854,10 +854,10 @@ Result:
             def forward(self, x: "f32[3, s11]"):
                 # No stacktrace found for following nodes
                 sym_size_int_1: "Sym(s11)" = torch.ops.aten.sym_size.int(x, 1);  x = None
-                
+        
                     add: "Sym(s11 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
                 return (add,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT

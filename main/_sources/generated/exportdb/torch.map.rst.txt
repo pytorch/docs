@@ -47,12 +47,12 @@ Result:
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]);  body_graph_0 = xs = y = None
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
-                
+        
             class body_graph_0(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
-                    
+        
     Graph signature: 
         # inputs
         xs: USER_INPUT

@@ -42,10 +42,10 @@ Result:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]", y: "i64[]"):
                     mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, x);  x = None
-                
+        
                     mul_1: "f32[3, 2]" = torch.ops.aten.mul.Tensor(y, mul);  y = mul = None
                 return (mul_1,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -114,16 +114,16 @@ Result:
             def forward(self, pos0: "f32[4]", tuple0_0: "f32[4]", tuple0_1: "f32[4]", myargs_0: "f32[4]", myargs_1: "f32[4]", mykw0: "f32[4]", input0: "f32[4]", input1: "f32[4]"):
                     mul: "f32[4]" = torch.ops.aten.mul.Tensor(pos0, tuple0_0);  pos0 = tuple0_0 = None
                 mul_1: "f32[4]" = torch.ops.aten.mul.Tensor(mul, tuple0_1);  mul = tuple0_1 = None
-                
+        
                     mul_2: "f32[4]" = torch.ops.aten.mul.Tensor(mul_1, myargs_0);  mul_1 = myargs_0 = None
                 mul_3: "f32[4]" = torch.ops.aten.mul.Tensor(mul_2, myargs_1);  mul_2 = myargs_1 = None
-                
+        
                     mul_4: "f32[4]" = torch.ops.aten.mul.Tensor(mul_3, mykw0);  mul_3 = mykw0 = None
-                
+        
                     mul_5: "f32[4]" = torch.ops.aten.mul.Tensor(mul_4, input0);  mul_4 = input0 = None
                 mul_6: "f32[4]" = torch.ops.aten.mul.Tensor(mul_5, input1);  mul_5 = input1 = None
                 return (mul_6,)
-                
+        
     Graph signature: 
         # inputs
         pos0: USER_INPUT
@@ -147,7 +147,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -185,7 +185,7 @@ Result:
             def forward(self, x: "f32[3, 2]"):
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
-                
+        
     Graph signature: 
         # inputs
         x: USER_INPUT
@@ -202,7 +202,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -244,7 +244,7 @@ Result:
             def forward(self, args_0: "f32[3, 2]", args_1: "i64[]", args_2: "i64[]"):
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(args_0, args_1);  args_0 = args_1 = None
                 return (add,)
-                
+        
     Graph signature: 
         # inputs
         args_0: USER_INPUT
