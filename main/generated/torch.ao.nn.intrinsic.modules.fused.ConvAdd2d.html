@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git34ac3ac )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git7cb91b3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4679,12 +4679,12 @@ document.write(`
 <h1>ConvAdd2d<a class="headerlink" href="#convadd2d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.modules.fused.ConvAdd2d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.modules.fused.</span></span><span class="sig-name descname"><span class="pre">ConvAdd2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/34ac3acab36cdabb74e50c5b1df7cd57324cc93b/torch/ao/nn/intrinsic/modules/fused.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.modules.fused.</span></span><span class="sig-name descname"><span class="pre">ConvAdd2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7cb91b3ddd2c0600114f078546da66f229d6b11b/torch/ao/nn/intrinsic/modules/fused.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d" title="Link to this definition">#</a></dt>
 <dd><p>This is a sequential container which calls the Conv2d modules with extra Add.
 During quantization this will be replaced with the corresponding fused module.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/34ac3acab36cdabb74e50c5b1df7cd57324cc93b/torch/ao/nn/intrinsic/modules/fused.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7cb91b3ddd2c0600114f078546da66f229d6b11b/torch/ao/nn/intrinsic/modules/fused.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward" title="Link to this definition">#</a></dt>
 <dd><p>Applies convolution to x1 and adds the result to x2.</p>
 </dd></dl>
 
