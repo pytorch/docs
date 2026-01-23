@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git7cb91b3 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git83fafc1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>torch.nn.attention.activate_flash_attention_impl<a class="headerlink" href="#torch-nn-attention-activate-flash-attention-impl" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.activate_flash_attention_impl">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">activate_flash_attention_impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">impl</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7cb91b3ddd2c0600114f078546da66f229d6b11b/torch/nn/attention/_registry.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.activate_flash_attention_impl" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">activate_flash_attention_impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">impl</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/83fafc13e289a63c387eec5190204502fba5e819/torch/nn/attention/_registry.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.activate_flash_attention_impl" title="Link to this definition">#</a></dt>
 <dd><p>Activate into the dispatcher a previously registered flash attention impl.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4672,7 +4672,7 @@ environment variables to ensure multiple provider libraries can coexist.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>impl</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><em>Literal</em></a><em>[</em><em>'FA4'</em><em>]</em>) – Implementation identifier to activate. See
+<dd class="field-odd"><p><strong>impl</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><em>Literal</em></a><em>[</em><em>'FA3'</em><em>, </em><em>'FA4'</em><em>]</em>) – Implementation identifier to activate. See
 <a class="reference internal" href="torch.nn.attention.list_flash_attention_impls.html#torch.nn.attention.list_flash_attention_impls" title="torch.nn.attention.list_flash_attention_impls"><code class="xref py py-func docutils literal notranslate"><span class="pre">list_flash_attention_impls()</span></code></a> for available
 implementations.
 If the backend’s <a class="reference internal" href="torch.nn.attention.register_flash_attention_impl.html#torch.nn.attention.register_flash_attention_impl" title="torch.nn.attention.register_flash_attention_impl"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_flash_attention_impl()</span></code></a> callable
@@ -5037,7 +5037,7 @@ uninstall support exists).</p>
        "headline": "torch.nn.attention.activate_flash_attention_impl",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.nn.attention.activate_flash_attention_impl.html",
-       "articleBody": "torch.nn.attention.activate_flash_attention_impl# torch.nn.attention.activate_flash_attention_impl(impl)[source]# Activate into the dispatcher a previously registered flash attention impl. Note Backend providers should NOT automatically activate their implementation on import. Users should explicitly opt-in by calling this function or via environment variables to ensure multiple provider libraries can coexist. Parameters: impl (str | Literal[\u0027FA4\u0027]) \u2013 Implementation identifier to activate. See list_flash_attention_impls() for available implementations. If the backend\u2019s register_flash_attention_impl() callable returns a FlashAttentionHandle, the registry keeps that handle alive for the lifetime of the process (until explicit uninstall support exists). Example \u003e\u003e\u003e activate_flash_attention_impl(\"FA4\")",
+       "articleBody": "torch.nn.attention.activate_flash_attention_impl# torch.nn.attention.activate_flash_attention_impl(impl)[source]# Activate into the dispatcher a previously registered flash attention impl. Note Backend providers should NOT automatically activate their implementation on import. Users should explicitly opt-in by calling this function or via environment variables to ensure multiple provider libraries can coexist. Parameters: impl (str | Literal[\u0027FA3\u0027, \u0027FA4\u0027]) \u2013 Implementation identifier to activate. See list_flash_attention_impls() for available implementations. If the backend\u2019s register_flash_attention_impl() callable returns a FlashAttentionHandle, the registry keeps that handle alive for the lifetime of the process (until explicit uninstall support exists). Example \u003e\u003e\u003e activate_flash_attention_impl(\"FA4\")",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

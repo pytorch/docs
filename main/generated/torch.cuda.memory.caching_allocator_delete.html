@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git7cb91b3 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git83fafc1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4662,7 +4662,7 @@ document.write(`
 <h1>torch.cuda.memory.caching_allocator_delete<a class="headerlink" href="#torch-cuda-memory-caching-allocator-delete" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.caching_allocator_delete">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">caching_allocator_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mem_ptr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7cb91b3ddd2c0600114f078546da66f229d6b11b/torch/cuda/memory.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.caching_allocator_delete" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">caching_allocator_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mem_ptr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/83fafc13e289a63c387eec5190204502fba5e819/torch/cuda/memory.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.caching_allocator_delete" title="Link to this definition">#</a></dt>
 <dd><p>Delete memory allocated using the CUDA memory allocator.</p>
 <p>Memory allocated with <code class="xref py py-func docutils literal notranslate"><span class="pre">caching_allocator_alloc()</span></code>.
 is freed here. The associated device and stream are tracked inside
