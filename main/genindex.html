@@ -146,7 +146,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git4ac0624 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git87a13d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2016,11 +2016,9 @@ document.write(`
 </li>
       <li><a href="profiler.html#torch.profiler._KinetoProfile.add_metadata_json">add_metadata_json() (torch.profiler._KinetoProfile method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.add_module">add_module() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.add_module">add_module() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.add_module">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.add_module">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -2231,7 +2229,11 @@ document.write(`
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.allgather_into_tensor_coalesced">allgather_into_tensor_coalesced() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.allocator">allocator (torch.cuda.memory.MemPool property)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool.allocator">(torch.xpu.memory.MemPool property)</a>
 </li>
+      </ul></li>
       <li><a href="backends.html#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction">allow_bf16_reduced_precision_reduction (in module torch.backends.cuda.matmul)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp">allow_fp16_bf16_reduction_math_sdp() (in module torch.backends.cuda)</a>
@@ -2260,6 +2262,8 @@ document.write(`
 </li>
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.alltoall_base">alltoall_base() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.alpha_dropout.html#torch.nn.functional.alpha_dropout">alpha_dropout() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.AlphaDropout.html#torch.nn.AlphaDropout">AlphaDropout (class in torch.nn)</a>
@@ -2268,8 +2272,6 @@ document.write(`
         <li><a href="generated/torch.nn.modules.dropout.AlphaDropout.html#torch.nn.modules.dropout.AlphaDropout">(class in torch.nn.modules.dropout)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.amax.html#torch.amax">amax() (in module torch)</a>
 
       <ul>
@@ -2297,11 +2299,7 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="fx.html#torch.fx.traceback.annotate">annotate() (in module torch.fx.traceback)</a>
-
-      <ul>
-        <li><a href="generated/torch.jit.annotate.html#torch.jit.annotate">(in module torch.jit)</a>
 </li>
-      </ul></li>
       <li><a href="generated/torch.any.html#torch.any">any() (in module torch)</a>
 
       <ul>
@@ -2342,8 +2340,6 @@ document.write(`
 
       <ul>
         <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.apply">(torch.distributed.fsdp.FullyShardedDataParallel method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.apply">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.apply">(torch.nn.Module method)</a>
 </li>
@@ -2698,8 +2694,6 @@ document.write(`
 </li>
       <li><a href="onnx_ops.html#torch.onnx.ops.attention">attention() (in module torch.onnx.ops)</a>
 </li>
-      <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute">Attribute (class in torch.jit)</a>
-</li>
       <li><a href="amp.html#torch.autocast">autocast (class in torch)</a>
 
       <ul>
@@ -2910,11 +2904,9 @@ document.write(`
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_wrapper">bf16_compress_wrapper() (in module torch.distributed.algorithms.ddp_comm_hooks.default_hooks)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.bfloat16">bfloat16() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.bfloat16">bfloat16() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.bfloat16">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.bfloat16">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.bfloat16.html#torch.Tensor.bfloat16">(torch.Tensor method)</a>
@@ -3137,8 +3129,6 @@ document.write(`
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.buffers">buffers() (torch.export.ExportedProgram method)</a>
 
       <ul>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.buffers">(torch.jit.ScriptModule method)</a>
-</li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.buffers">(torch.nn.Module method)</a>
 </li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.buffers">(torch.optim.swa_utils.AveragedModel method)</a>
@@ -3434,11 +3424,9 @@ document.write(`
 </li>
       <li><a href="elastic/errors.html#torch.distributed.elastic.multiprocessing.errors.ChildFailedError">ChildFailedError (class in torch.distributed.elastic.multiprocessing.errors)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.children">children() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.children">children() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.children">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.children">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -3645,12 +3633,6 @@ document.write(`
       <li><a href="generated/torch.Tensor.coalesce.html#torch.Tensor.coalesce">coalesce() (torch.Tensor method)</a>
 </li>
       <li><a href="fx.html#torch.fx.GraphModule.code">code (torch.fx.GraphModule property)</a>
-
-      <ul>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.code">(torch.jit.ScriptModule property)</a>
-</li>
-      </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.code_with_constants">code_with_constants (torch.jit.ScriptModule property)</a>
 </li>
       <li><a href="generated/torch.Tensor.col_indices.html#torch.Tensor.col_indices">col_indices() (torch.Tensor method)</a>
 </li>
@@ -3682,8 +3664,6 @@ document.write(`
 
       <ul>
         <li><a href="generated/torch.compiler.compile.html#torch.compiler.compile">(in module torch.compiler)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.compile">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.compile">(torch.nn.Module method)</a>
 </li>
@@ -3780,10 +3760,10 @@ document.write(`
         <li><a href="generated/torch.Tensor.conj_physical.html#torch.Tensor.conj_physical">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.conj_physical_.html#torch.Tensor.conj_physical_">conj_physical_() (torch.Tensor method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="torch.html#torch.SymFloat.conjugate">conjugate() (torch.SymFloat method)</a>
 </li>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.api.ConsoleMetricHandler">ConsoleMetricHandler (class in torch.distributed.elastic.metrics.api)</a>
@@ -4137,8 +4117,6 @@ document.write(`
       <ul>
         <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.count">(torch.autograd.profiler_util.Kernel method)</a>
 </li>
-        <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.count">(torch.jit.Attribute method)</a>
-</li>
         <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.count">(torch.nn.utils.rnn.PackedSequence method)</a>
 </li>
         <li><a href="size.html#torch.Size.count">(torch.Size method)</a>
@@ -4170,11 +4148,9 @@ document.write(`
       </ul></li>
       <li><a href="cpp_extension.html#torch.utils.cpp_extension.CppExtension">CppExtension() (in module torch.utils.cpp_extension)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.cpu">cpu() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.cpu">cpu() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.cpu">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.cpu">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.cpu.html#torch.Tensor.cpu">(torch.Tensor method)</a>
@@ -4284,11 +4260,9 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.CTCLoss.html#torch.nn.modules.loss.CTCLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.cuda">cuda() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.cuda">cuda() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.cuda">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.cuda">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.cuda.html#torch.Tensor.cuda">(torch.Tensor method)</a>
@@ -4800,11 +4774,9 @@ document.write(`
         <li><a href="generated/torch.Tensor.dot.html#torch.Tensor.dot">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.double">double() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.double">double() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.double">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.double">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.double.html#torch.Tensor.double">(torch.Tensor method)</a>
@@ -5092,8 +5064,6 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.fake_quantize.enable_observer.html#torch.ao.quantization.fake_quantize.enable_observer">enable_observer (class in torch.ao.quantization.fake_quantize)</a>
 </li>
-      <li><a href="generated/torch.jit.enable_onednn_fusion.html#torch.jit.enable_onednn_fusion">enable_onednn_fusion() (in module torch.jit)</a>
-</li>
       <li><a href="backends.html#torch.backends.cudnn.enabled">enabled (in module torch.backends.cudnn)</a>
 
       <ul>
@@ -5263,11 +5233,9 @@ document.write(`
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore">EtcdStore (class in torch.distributed.elastic.rendezvous.etcd_store)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.eval">eval() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.eval">eval() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.eval">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.eval">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -5516,8 +5484,6 @@ document.write(`
       <li><a href="generated/torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize.html#torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize.extra_repr">extra_repr() (torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize method)</a>
 
       <ul>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.extra_repr">(torch.jit.ScriptModule method)</a>
-</li>
         <li><a href="generated/torch.nn.Bilinear.html#torch.nn.Bilinear.extra_repr">(torch.nn.Bilinear method)</a>
 </li>
         <li><a href="generated/torch.nn.CELU.html#torch.nn.CELU.extra_repr">(torch.nn.CELU method)</a>
@@ -5851,11 +5817,9 @@ document.write(`
         <li><a href="generated/torch.Tensor.flipud.html#torch.Tensor.flipud">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.float">float() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.float">float() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.float">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.float">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.float.html#torch.Tensor.float">(torch.Tensor method)</a>
@@ -5958,8 +5922,6 @@ document.write(`
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.FORCE_USE_FLEX_ATTENTION">FORCE_USE_FLEX_ATTENTION (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations">forced_specializations() (torch.fx.experimental.symbolic_shapes.DimConstraints method)</a>
-</li>
-      <li><a href="generated/torch.jit.fork.html#torch.jit.fork">fork() (in module torch.jit)</a>
 </li>
       <li><a href="random.html#torch.random.fork_rng">fork_rng() (in module torch.random)</a>
 </li>
@@ -6471,12 +6433,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.free_unbacked_symbols.html#torch.fx.experimental.symbolic_shapes.free_unbacked_symbols">free_unbacked_symbols() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
-      <li><a href="generated/torch.jit.freeze.html#torch.jit.freeze">freeze() (in module torch.jit)</a>
-
-      <ul>
-        <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze">(torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze">freeze() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
-      </ul></li>
       <li><a href="generated/torch.ao.nn.intrinsic.qat.freeze_bn_stats.html#torch.ao.nn.intrinsic.qat.freeze_bn_stats">freeze_bn_stats (class in torch.ao.nn.intrinsic.qat)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts">freeze_runtime_asserts() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
@@ -6927,11 +6885,9 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.ao.quantization.observer.get_block_size.html#torch.ao.quantization.observer.get_block_size">get_block_size (class in torch.ao.quantization.observer)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.get_buffer">get_buffer() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_buffer">get_buffer() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_buffer">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.get_buffer">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -6950,8 +6906,6 @@ document.write(`
       <li><a href="notes/serialization.html#torch.serialization.get_crc32_options">get_crc32_options() (in module torch.serialization)</a>
 </li>
       <li><a href="library.html#torch.library.get_ctx">get_ctx() (in module torch.library)</a>
-</li>
-      <li><a href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction.get_debug_state">get_debug_state() (torch.jit.ScriptFunction method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.get_default_backend_for_device">get_default_backend_for_device() (in module torch.distributed)</a>
 </li>
@@ -7007,11 +6961,9 @@ document.write(`
 </li>
       <li><a href="elastic/timer.html#torch.distributed.elastic.timer.TimerServer.get_expired_timers">get_expired_timers() (torch.distributed.elastic.timer.TimerServer method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.get_extra_state">get_extra_state() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_extra_state">get_extra_state() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_extra_state">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.get_extra_state">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -7169,11 +7121,9 @@ document.write(`
 </li>
       <li><a href="user_guide/torch_compiler/export/joint_with_descriptors.html#torch._functorch._aot_autograd.fx_utils.get_param_nodes">get_param_nodes() (in module torch._functorch._aot_autograd.fx_utils)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.get_parameter">get_parameter() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_parameter">get_parameter() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_parameter">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.get_parameter">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -7267,11 +7217,9 @@ document.write(`
         <li><a href="generated/torch.xpu.get_stream_from_external.html#torch.xpu.get_stream_from_external">(in module torch.xpu)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.get_submodule">get_submodule() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_submodule">get_submodule() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.get_submodule">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.get_submodule">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -7379,8 +7327,6 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.graph">(torch.export.ExportedProgram property)</a>
 </li>
         <li><a href="fx.html#torch.fx.GraphModule.graph">(torch.fx.GraphModule property)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.graph">(torch.jit.ScriptModule property)</a>
 </li>
       </ul></li>
       <li><a href="fx.html#torch.fx.Graph.graph_copy">graph_copy() (torch.fx.Graph method)</a>
@@ -7503,11 +7449,9 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="tensors.html#torch.Tensor.H">H (torch.Tensor attribute)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.half">half() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.half">half() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.half">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.half">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.half.html#torch.Tensor.half">(torch.Tensor method)</a>
@@ -7832,6 +7776,8 @@ document.write(`
       <ul>
         <li><a href="rpc.html#torch.distributed.rpc.WorkerInfo.id">(torch.distributed.rpc.WorkerInfo property)</a>
 </li>
+        <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool.id">(torch.xpu.memory.MemPool property)</a>
+</li>
       </ul></li>
       <li><a href="package.html#torch.package.PackageImporter.id">id() (torch.package.PackageImporter method)</a>
 </li>
@@ -7868,8 +7814,6 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="generated/torch.Tensor.igammac_.html#torch.Tensor.igammac_">igammac_() (torch.Tensor method)</a>
-</li>
-      <li><a href="generated/torch.jit.ignore.html#torch.jit.ignore">ignore() (in module torch.jit)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols">ignore_fresh_unbacked_symbols() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
@@ -7915,8 +7859,6 @@ document.write(`
         <li><a href="generated/torch.autograd.forward_ad.UnpackedDualTensor.html#torch.autograd.forward_ad.UnpackedDualTensor.index">(torch.autograd.forward_ad.UnpackedDualTensor method)</a>
 </li>
         <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.index">(torch.autograd.profiler_util.Kernel method)</a>
-</li>
-        <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.index">(torch.jit.Attribute method)</a>
 </li>
         <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.index">(torch.nn.utils.rnn.PackedSequence method)</a>
 </li>
@@ -8017,8 +7959,6 @@ document.write(`
         <li><a href="generated/torch.nn.modules.linear.LazyLinear.html#torch.nn.modules.linear.LazyLinear.initialize_parameters">(torch.nn.modules.linear.LazyLinear method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.inlined_graph">inlined_graph (torch.jit.ScriptModule property)</a>
-</li>
       <li><a href="generated/torch.inner.html#torch.inner">inner() (in module torch)</a>
 
       <ul>
@@ -8113,8 +8053,6 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.constraints.integer_interval">integer_interval (in module torch.distributions.constraints)</a>
 </li>
-      <li><a href="generated/torch.jit.interface.html#torch.jit.interface">interface() (in module torch.jit)</a>
-</li>
       <li><a href="user_guide/torch_compiler/export/joint_with_descriptors.html#torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput">IntermediateBaseAOTOutput (class in torch._functorch._aot_autograd.descriptors)</a>
 </li>
       <li><a href="package.html#torch.package.PackageExporter.intern">intern() (torch.package.PackageExporter method)</a>
@@ -8163,11 +8101,9 @@ document.write(`
         <li><a href="generated/torch.cuda.streams.Event.html#torch.cuda.streams.Event.ipc_handle">(torch.cuda.streams.Event method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.ipu">ipu() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.ipu">ipu() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.ipu">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.ipu">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -8183,12 +8119,12 @@ document.write(`
 </li>
       <li><a href="generated/torch.fft.irfftn.html#torch.fft.irfftn">irfftn() (in module torch.fft)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.is_accessor_node.html#torch.fx.experimental.symbolic_shapes.is_accessor_node">is_accessor_node() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression.html#torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression">is_algebraic_expression() (in module torch.fx.experimental.migrate_gradual_types.constraint)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="amp.html#torch.amp.autocast_mode.is_autocast_available">is_autocast_available() (in module torch.amp.autocast_mode)</a>
 </li>
       <li><a href="generated/torch.accelerator.is_available.html#torch.accelerator.is_available">is_available() (in module torch.accelerator)</a>
@@ -8531,8 +8467,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.isinf.html#torch.Tensor.isinf">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.isinstance.html#torch.jit.isinstance">isinstance() (in module torch.jit)</a>
-</li>
       <li><a href="generated/torch.isnan.html#torch.isnan">isnan() (in module torch)</a>
 
       <ul>
@@ -9038,8 +8972,6 @@ document.write(`
 </li>
         <li><a href="hub.html#torch.hub.load">(in module torch.hub)</a>
 </li>
-        <li><a href="generated/torch.jit.load.html#torch.jit.load">(in module torch.jit)</a>
-</li>
         <li><a href="cpp_extension.html#torch.utils.cpp_extension.load">(in module torch.utils.cpp_extension)</a>
 </li>
       </ul></li>
@@ -9065,8 +8997,6 @@ document.write(`
         <li><a href="distributed.optim.html#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict">(torch.distributed.optim.PostLocalSGDOptimizer method)</a>
 </li>
         <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict">(torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.load_state_dict">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.load_state_dict">(torch.nn.Module method)</a>
 </li>
@@ -9165,10 +9095,10 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.SWALR.html#torch.optim.swa_utils.SWALR.load_state_dict">(torch.optim.swa_utils.SWALR method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="hub.html#torch.hub.load_state_dict_from_url">load_state_dict_from_url() (in module torch.hub)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile.load_storage">load_storage() (torch.cuda.gds.GdsFile method)</a>
 </li>
       <li><a href="package.html#torch.package.PackageImporter.load_text">load_text() (torch.package.PackageImporter method)</a>
@@ -9982,7 +9912,11 @@ document.write(`
       <li><a href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage">memory_usage() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool">MemPool (class in torch.cuda.memory)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool">(class in torch.xpu.memory)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.autograd.profiler_util.MemRecordsAcc.html#torch.autograd.profiler_util.MemRecordsAcc">MemRecordsAcc (class in torch.autograd.profiler_util)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.unification.unification_tools.merge.html#torch.fx.experimental.unification.unification_tools.merge">merge() (in module torch.fx.experimental.unification.unification_tools)</a>
@@ -11145,22 +11079,6 @@ document.write(`
 </li>
         <li><a href="hub.html#module-torch.hub">torch.hub</a>
 </li>
-        <li><a href="jit.html#module-torch.jit">torch.jit</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.annotations">torch.jit.annotations</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.frontend">torch.jit.frontend</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.generate_bytecode">torch.jit.generate_bytecode</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.mobile">torch.jit.mobile</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.quantized">torch.jit.quantized</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.supported_ops">torch.jit.supported_ops</a>
-</li>
-        <li><a href="jit.html#module-torch.jit.unsupported_tensor_ops">torch.jit.unsupported_tensor_ops</a>
-</li>
         <li><a href="library.html#module-torch.library">torch.library</a>
 </li>
         <li><a href="linalg.html#module-torch.linalg">torch.linalg</a>
@@ -11834,11 +11752,9 @@ document.write(`
         <li><a href="generated/torch.nn.modules.container.ModuleList.html#torch.nn.modules.container.ModuleList">(class in torch.nn.modules.container)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.modules">modules() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.modules">modules() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.modules">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.modules">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -11896,11 +11812,9 @@ document.write(`
       </ul></li>
       <li><a href="tensors.html#torch.Tensor.mT">mT (torch.Tensor attribute)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.mtia">mtia() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.mtia">mtia() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.mtia">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.mtia">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -12069,26 +11983,20 @@ document.write(`
       <ul>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.named_buffers">(torch.export.ExportedProgram method)</a>
 </li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_buffers">(torch.jit.ScriptModule method)</a>
-</li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_buffers">(torch.nn.Module method)</a>
 </li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.named_buffers">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_children">named_children() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_children">named_children() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_children">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.named_children">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_modules">named_modules() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_modules">named_modules() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_modules">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.named_modules">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -12096,8 +12004,6 @@ document.write(`
 
       <ul>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.named_parameters">(torch.export.ExportedProgram method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_parameters">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.named_parameters">(torch.nn.Module method)</a>
 </li>
@@ -12190,8 +12096,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.neg.html#torch.Tensor.neg">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.neg_.html#torch.Tensor.neg_">neg_() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.negative.html#torch.negative">negative() (in module torch)</a>
@@ -12200,6 +12104,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.negative.html#torch.Tensor.negative">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.negative_.html#torch.Tensor.negative_">negative_() (torch.Tensor method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.negative_binomial.NegativeBinomial">NegativeBinomial (class in torch.distributions.negative_binomial)</a>
@@ -12384,8 +12290,6 @@ document.write(`
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.OneCycleLR.html#torch.optim.lr_scheduler.OneCycleLR">OneCycleLR (class in torch.optim.lr_scheduler)</a>
 </li>
-      <li><a href="generated/torch.jit.onednn_fusion_enabled.html#torch.jit.onednn_fusion_enabled">onednn_fusion_enabled() (in module torch.jit)</a>
-</li>
       <li><a href="distributions.html#torch.distributions.one_hot_categorical.OneHotCategorical">OneHotCategorical (class in torch.distributions.one_hot_categorical)</a>
 </li>
       <li><a href="generated/torch.ones.html#torch.ones">ones() (in module torch)</a>
@@ -12413,15 +12317,11 @@ document.write(`
       <li><a href="onnx_export.html#torch.onnx.ONNXProgram.optimize">optimize() (torch.onnx.ONNXProgram method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.optimization.optimize_for_inference.html#torch.fx.experimental.optimization.optimize_for_inference">optimize_for_inference() (in module torch.fx.experimental.optimization)</a>
-
-      <ul>
-        <li><a href="generated/torch.jit.optimize_for_inference.html#torch.jit.optimize_for_inference">(in module torch.jit)</a>
 </li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
@@ -12566,8 +12466,6 @@ document.write(`
 
       <ul>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.parameters">(torch.export.ExportedProgram method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.parameters">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.parameters">(torch.nn.Module method)</a>
 </li>
@@ -13386,19 +13284,15 @@ document.write(`
         <li><a href="distributed.html#torch.distributed.Backend.register_backend">(torch.distributed.Backend class method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_backward_hook">register_backward_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_backward_hook">register_backward_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_backward_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_backward_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_buffer">register_buffer() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_buffer">register_buffer() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_buffer">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_buffer">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -13422,37 +13316,29 @@ document.write(`
 </li>
       <li><a href="generated/torch.utils.flop_counter.register_flop_formula.html#torch.utils.flop_counter.register_flop_formula">register_flop_formula() (in module torch.utils.flop_counter)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_forward_hook">register_forward_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook">register_forward_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_forward_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_forward_pre_hook">register_forward_pre_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_forward_pre_hook">register_forward_pre_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_forward_pre_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_forward_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.register_fsdp_forward_method">register_fsdp_forward_method() (in module torch.distributed.fsdp)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_full_backward_hook">register_full_backward_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook">register_full_backward_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_full_backward_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_full_backward_pre_hook">register_full_backward_pre_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_pre_hook">register_full_backward_pre_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_pre_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_full_backward_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -13476,11 +13362,9 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.kl.register_kl">register_kl() (in module torch.distributions.kl)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_load_state_dict_post_hook">register_load_state_dict_post_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_load_state_dict_post_hook">register_load_state_dict_post_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_load_state_dict_post_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_load_state_dict_post_hook">(torch.optim.Adadelta method)</a>
 </li>
         <li><a href="generated/torch.optim.adadelta.Adadelta_class.html#torch.optim.adadelta.Adadelta.register_load_state_dict_post_hook">(torch.optim.adadelta.Adadelta method)</a>
@@ -13542,11 +13426,9 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_load_state_dict_post_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_load_state_dict_pre_hook">register_load_state_dict_pre_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_load_state_dict_pre_hook">register_load_state_dict_pre_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_load_state_dict_pre_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_load_state_dict_pre_hook">(torch.optim.Adadelta method)</a>
 </li>
         <li><a href="generated/torch.optim.adadelta.Adadelta_class.html#torch.optim.adadelta.Adadelta.register_load_state_dict_pre_hook">(torch.optim.adadelta.Adadelta method)</a>
@@ -13610,11 +13492,9 @@ document.write(`
       </ul></li>
       <li><a href="package.html#torch.package.PackageExporter.register_mock_hook">register_mock_hook() (torch.package.PackageExporter method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_module">register_module() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_module">register_module() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_module">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_module">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -13638,11 +13518,9 @@ document.write(`
 </li>
       <li><a href="notes/serialization.html#torch.serialization.register_package">register_package() (in module torch.serialization)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_parameter">register_parameter() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_parameter">register_parameter() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_parameter">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_parameter">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -13656,11 +13534,9 @@ document.write(`
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.experimental.register_sharding">register_sharding() (in module torch.distributed.tensor.experimental)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_state_dict_post_hook">register_state_dict_post_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_state_dict_post_hook">register_state_dict_post_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_state_dict_post_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_state_dict_post_hook">(torch.optim.Adadelta method)</a>
 </li>
         <li><a href="generated/torch.optim.adadelta.Adadelta_class.html#torch.optim.adadelta.Adadelta.register_state_dict_post_hook">(torch.optim.adadelta.Adadelta method)</a>
@@ -13722,11 +13598,9 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_state_dict_post_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_state_dict_pre_hook">register_state_dict_pre_hook() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_state_dict_pre_hook">register_state_dict_pre_hook() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_state_dict_pre_hook">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_state_dict_pre_hook">(torch.optim.Adadelta method)</a>
 </li>
         <li><a href="generated/torch.optim.adadelta.Adadelta_class.html#torch.optim.adadelta.Adadelta.register_state_dict_pre_hook">(torch.optim.adadelta.Adadelta method)</a>
@@ -13788,8 +13662,6 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_state_dict_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_post_hook">register_step_post_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
@@ -13850,6 +13722,8 @@ document.write(`
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_post_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_pre_hook">register_step_pre_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
@@ -14120,11 +13994,9 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.Tensor.requires_grad.html#torch.Tensor.requires_grad">requires_grad (torch.Tensor attribute)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.requires_grad_">requires_grad_() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.requires_grad_">requires_grad_() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.requires_grad_">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.requires_grad_">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.requires_grad_.html#torch.Tensor.requires_grad_">(torch.Tensor method)</a>
@@ -14515,12 +14387,6 @@ document.write(`
 </li>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.save">(in module torch.export)</a>
 </li>
-        <li><a href="generated/torch.jit.save.html#torch.jit.save">(in module torch.jit)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction.save">(torch.jit.ScriptFunction method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.save">(torch.jit.ScriptModule method)</a>
-</li>
         <li><a href="onnx_export.html#torch.onnx.ONNXProgram.save">(torch.onnx.ONNXProgram method)</a>
 </li>
       </ul></li>
@@ -14559,8 +14425,6 @@ document.write(`
       <li><a href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile.save_storage">save_storage() (torch.cuda.gds.GdsFile method)</a>
 </li>
       <li><a href="package.html#torch.package.PackageExporter.save_text">save_text() (torch.package.PackageExporter method)</a>
-</li>
-      <li><a href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction.save_to_buffer">save_to_buffer() (torch.jit.ScriptFunction method)</a>
 </li>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.saved_tensors">saved_tensors (torch.autograd.function.NestedIOFunction property)</a>
 </li>
@@ -14651,14 +14515,6 @@ document.write(`
       <li><a href="distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleLoopedBFS">ScheduleLoopedBFS (class in torch.distributed.pipelining.schedules)</a>
 </li>
       <li><a href="distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleZBVZeroBubble">ScheduleZBVZeroBubble (class in torch.distributed.pipelining.schedules)</a>
-</li>
-      <li><a href="generated/torch.jit.script.html#torch.jit.script">script() (in module torch.jit)</a>
-</li>
-      <li><a href="generated/torch.jit.script_if_tracing.html#torch.jit.script_if_tracing">script_if_tracing() (in module torch.jit)</a>
-</li>
-      <li><a href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction">ScriptFunction (class in torch.jit)</a>
-</li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule">ScriptModule (class in torch.jit)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.custom_obj.ScriptObjectMeta">ScriptObjectMeta (class in torch.export.custom_obj)</a>
 </li>
@@ -14842,11 +14698,9 @@ document.write(`
 </li>
       <li><a href="futures.html#torch.futures.Future.set_exception">set_exception() (torch.futures.Future method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.set_extra_state">set_extra_state() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.set_extra_state">set_extra_state() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.set_extra_state">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.set_extra_state">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -14867,8 +14721,6 @@ document.write(`
       <li><a href="generated/torch.ao.quantization.backend_config.BackendPatternConfig.html#torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module">set_fused_module() (torch.ao.quantization.backend_config.BackendPatternConfig method)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendPatternConfig.html#torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method">set_fuser_method() (torch.ao.quantization.backend_config.BackendPatternConfig method)</a>
-</li>
-      <li><a href="generated/torch.jit.set_fusion_strategy.html#torch.jit.set_fusion_strategy">set_fusion_strategy() (in module torch.jit)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig_mapping.QConfigMapping.html#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_global">set_global() (torch.ao.quantization.qconfig_mapping.QConfigMapping method)</a>
 </li>
@@ -15050,11 +14902,9 @@ document.write(`
         <li><a href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.set_submodule">set_submodule() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.set_submodule">set_submodule() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.set_submodule">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.set_submodule">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -15150,11 +15000,9 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.share_comm_ctx">share_comm_ctx() (in module torch.distributed.fsdp)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.share_memory">share_memory() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.share_memory">share_memory() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.share_memory">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.share_memory">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.adagrad.Adagrad_class.html#torch.optim.adagrad.Adagrad.share_memory">(torch.optim.adagrad.Adagrad method)</a>
@@ -15351,6 +15199,8 @@ document.write(`
       <ul>
         <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.snapshot">(torch.cuda.memory.MemPool method)</a>
 </li>
+        <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool.snapshot">(torch.xpu.memory.MemPool method)</a>
+</li>
       </ul></li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html#torch.fx.experimental.proxy_tensor.snapshot_fake">snapshot_fake() (in module torch.fx.experimental.proxy_tensor)</a>
 </li>
@@ -15358,8 +15208,6 @@ document.write(`
 </li>
       <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SoftMarginLoss.html#torch.nn.SoftMarginLoss">SoftMarginLoss (class in torch.nn)</a>
@@ -15374,6 +15222,8 @@ document.write(`
         <li><a href="generated/torch.nn.modules.activation.Softmax.html#torch.nn.modules.activation.Softmax">(class in torch.nn.modules.activation)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.softmax.html#torch.softmax">softmax() (in module torch)</a>
 
       <ul>
@@ -15590,8 +15440,6 @@ document.write(`
         <li><a href="distributed.optim.html#torch.distributed.optim.PostLocalSGDOptimizer.state_dict">(torch.distributed.optim.PostLocalSGDOptimizer method)</a>
 </li>
         <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.state_dict">(torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
-</li>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.state_dict">(torch.jit.ScriptModule method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.state_dict">(torch.nn.Module method)</a>
 </li>
@@ -15916,8 +15764,6 @@ document.write(`
         <li><a href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext">(class in torch.xpu)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.strict_fusion.html#torch.jit.strict_fusion">strict_fusion (class in torch.jit)</a>
-</li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html#torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint">StrictMinMaxConstraint (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="generated/torch.Tensor.stride.html#torch.Tensor.stride">stride() (torch.Tensor method)</a>
@@ -16380,11 +16226,9 @@ document.write(`
 </li>
       <li><a href="monitor.html#torch.monitor.Event.timestamp">timestamp (torch.monitor.Event property)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.to">to() (torch.jit.ScriptModule method)</a>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.to">to() (torch.nn.attention.flex_attention.BlockMask method)</a>
 
       <ul>
-        <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.to">(torch.nn.attention.flex_attention.BlockMask method)</a>
-</li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.to">(torch.nn.Module method)</a>
 </li>
         <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.to">(torch.nn.utils.rnn.PackedSequence method)</a>
@@ -16424,11 +16268,9 @@ document.write(`
       </ul></li>
       <li><a href="dlpack.html#torch.utils.dlpack.to_dlpack">to_dlpack() (in module torch.utils.dlpack)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.to_empty">to_empty() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.to_empty">to_empty() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.to_empty">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.to_empty">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
@@ -19323,6 +19165,8 @@ document.write(`
         <li><a href="futures.html#module-torch.futures">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fx
 
@@ -19358,8 +19202,6 @@ document.write(`
         <li><a href="fx.html#module-torch.fx.experimental.accelerator_partitioner">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fx.experimental.const_fold
 
@@ -19957,62 +19799,6 @@ document.write(`
       </ul></li>
       <li><a href="type_info.html#torch.torch.iinfo">torch.iinfo (class in torch)</a>
 </li>
-      <li>
-    torch.jit
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.annotations
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.annotations">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.frontend
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.frontend">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.generate_bytecode
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.generate_bytecode">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.mobile
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.mobile">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.quantized
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.quantized">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.supported_ops
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.supported_ops">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.jit.unsupported_tensor_ops
-
-      <ul>
-        <li><a href="jit.html#module-torch.jit.unsupported_tensor_ops">module</a>
-</li>
-      </ul></li>
       <li>
     torch.library
 
@@ -22292,15 +22078,11 @@ document.write(`
       <li><a href="generated/torch.trace.html#torch.trace">trace() (in module torch)</a>
 
       <ul>
-        <li><a href="generated/torch.jit.trace.html#torch.jit.trace">(in module torch.jit)</a>
-</li>
         <li><a href="fx.html#torch.fx.Tracer.trace">(torch.fx.Tracer method)</a>
 </li>
         <li><a href="generated/torch.Tensor.trace.html#torch.Tensor.trace">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.trace_module.html#torch.jit.trace_module">trace_module() (in module torch.jit)</a>
-</li>
       <li><a href="fx.html#torch.fx.Tracer">Tracer (class in torch.fx)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.track_tensor.html#torch.fx.experimental.proxy_tensor.track_tensor">track_tensor() (in module torch.fx.experimental.proxy_tensor)</a>
@@ -22310,8 +22092,6 @@ document.write(`
       <li><a href="generated/torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d.html#torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d.train">train() (torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d method)</a>
 
       <ul>
-        <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.train">(torch.jit.ScriptModule method)</a>
-</li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.train">(torch.nn.Module method)</a>
 </li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.train">(torch.optim.swa_utils.AveragedModel method)</a>
@@ -22477,13 +22257,9 @@ document.write(`
 </li>
       <li><a href="symmetric_memory.html#torch.ops.symm_mem.two_shot_all_reduce_">two_shot_all_reduce_() (in module torch.ops.symm_mem)</a>
 </li>
-      <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.type">type (torch.jit.Attribute attribute)</a>
-</li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.type">type() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.type">type() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.type">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.type">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.type.html#torch.Tensor.type">(torch.Tensor method)</a>
@@ -22627,8 +22403,6 @@ document.write(`
 </li>
       <li><a href="storage.html#torch.UntypedStorage">UntypedStorage (class in torch)</a>
 </li>
-      <li><a href="generated/torch.jit.unused.html#torch.jit.unused">unused() (in module torch.jit)</a>
-</li>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.update">update() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
@@ -22688,11 +22462,19 @@ document.write(`
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.use_agent_store">use_agent_store (torch.distributed.elastic.rendezvous.RendezvousHandler property)</a>
 </li>
       <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.use_count">use_count() (torch.cuda.memory.MemPool method)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool.use_count">(torch.xpu.memory.MemPool method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms">use_deterministic_algorithms() (in module torch)</a>
 </li>
       <li><a href="cuda.html#torch.cuda.use_mem_pool">use_mem_pool (class in torch.cuda)</a>
+
+      <ul>
+        <li><a href="xpu.html#torch.xpu.use_mem_pool">(class in torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.fx.experimental.optimization.use_mkl_length.html#torch.fx.experimental.optimization.use_mkl_length">use_mkl_length() (in module torch.fx.experimental.optimization)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.USE_TMA">USE_TMA (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
@@ -22741,8 +22523,6 @@ document.write(`
 
       <ul>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.ConstantArgument.value">(torch.export.graph_signature.ConstantArgument attribute)</a>
-</li>
-        <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.value">(torch.jit.Attribute attribute)</a>
 </li>
       </ul></li>
       <li><a href="futures.html#torch.futures.Future.value">value() (torch.futures.Future method)</a>
@@ -22949,11 +22729,9 @@ document.write(`
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/torch.jit.wait.html#torch.jit.wait">wait() (in module torch.jit)</a>
+      <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.wait">wait() (torch.cuda.Event method)</a>
 
       <ul>
-        <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.wait">(torch.cuda.Event method)</a>
-</li>
         <li><a href="generated/torch.cuda.streams.Event.html#torch.cuda.streams.Event.wait">(torch.cuda.streams.Event method)</a>
 </li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait">(torch.distributed.elastic.rendezvous.etcd_store.EtcdStore method)</a>
@@ -23113,11 +22891,9 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.xlogy_.html#torch.Tensor.xlogy_">xlogy_() (torch.Tensor method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.xpu">xpu() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.xpu">xpu() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.xpu">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.xpu">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
         <li><a href="generated/torch.Tensor.xpu.html#torch.Tensor.xpu">(torch.Tensor method)</a>
@@ -23133,11 +22909,9 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.zero_.html#torch.Tensor.zero_">zero_() (torch.Tensor method)</a>
 </li>
-      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.zero_grad">zero_grad() (torch.jit.ScriptModule method)</a>
+      <li><a href="generated/torch.nn.Module.html#torch.nn.Module.zero_grad">zero_grad() (torch.nn.Module method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.zero_grad">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.zero_grad">(torch.optim.Adadelta method)</a>
 </li>
         <li><a href="generated/torch.optim.adadelta.Adadelta_class.html#torch.optim.adadelta.Adadelta.zero_grad">(torch.optim.adadelta.Adadelta method)</a>

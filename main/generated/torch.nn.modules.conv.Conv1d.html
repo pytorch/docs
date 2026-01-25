@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git4ac0624 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git87a13d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3398,6 +3398,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -3816,36 +3817,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference_v2.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_builtin_functions.html">torch.jit.supported_ops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script.html">torch.jit.script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace.html">torch.jit.trace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace_module.html">torch.jit.trace_module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.fork.html">torch.jit.fork</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.wait.html">torch.jit.wait</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptModule.html">ScriptModule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptFunction.html">ScriptFunction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.freeze.html">torch.jit.freeze</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.optimize_for_inference.html">torch.jit.optimize_for_inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.enable_onednn_fusion.html">torch.jit.enable_onednn_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.onednn_fusion_enabled.html">torch.jit.onednn_fusion_enabled</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.set_fusion_strategy.html">torch.jit.set_fusion_strategy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.strict_fusion.html">strict_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.save.html">torch.jit.save</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.load.html">torch.jit.load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ignore.html">torch.jit.ignore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.unused.html">torch.jit.unused</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.interface.html">torch.jit.interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.isinstance.html">torch.jit.isinstance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.Attribute.html">Attribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.annotate.html">torch.jit.annotate</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.norm.html">torch.linalg.norm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.vector_norm.html">torch.linalg.vector_norm</a></li>
@@ -4673,7 +4644,7 @@ document.write(`
 <h1>Conv1d<a class="headerlink" href="#conv1d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.conv.Conv1d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.conv.</span></span><span class="sig-name descname"><span class="pre">Conv1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/nn/modules/conv.py#L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.conv.Conv1d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.conv.</span></span><span class="sig-name descname"><span class="pre">Conv1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/nn/modules/conv.py#L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.conv.Conv1d" title="Link to this definition">#</a></dt>
 <dd><p>Applies a 1D convolution over an input signal composed of several input
 planes.</p>
 <p>In the simplest case, the output value of the layer with input size

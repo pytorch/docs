@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git4ac0624 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git87a13d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1861,7 +1861,7 @@ document.write(`
 <h1>torch.compiler.allow_in_graph<a class="headerlink" href="#torch-compiler-allow-in-graph" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.allow_in_graph">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/compiler/__init__.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/compiler/__init__.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Link to this definition">#</a></dt>
 <dd><p>Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function
 and instead directly write it to the graph when encountered.</p>
 <p>If you are using <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> (with backend=”inductor” (the default)), or

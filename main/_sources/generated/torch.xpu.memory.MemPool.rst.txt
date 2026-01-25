@@ -1,12 +1,12 @@
 ﻿.. role:: hidden
     :class: hidden-section
-.. currentmodule:: torch.jit
+.. currentmodule:: torch.xpu.memory
 
 
-strict_fusion
-=============
+MemPool
+=======
 
-.. autoclass:: strict_fusion
+.. autoclass:: MemPool
     :inherited-members:
     :members:
 

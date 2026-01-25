@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git4ac0624 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git87a13d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3398,6 +3398,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -3816,36 +3817,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference_v2.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_builtin_functions.html">torch.jit.supported_ops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script.html">torch.jit.script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace.html">torch.jit.trace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace_module.html">torch.jit.trace_module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.fork.html">torch.jit.fork</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.wait.html">torch.jit.wait</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptModule.html">ScriptModule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptFunction.html">ScriptFunction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.freeze.html">torch.jit.freeze</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.optimize_for_inference.html">torch.jit.optimize_for_inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.enable_onednn_fusion.html">torch.jit.enable_onednn_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.onednn_fusion_enabled.html">torch.jit.onednn_fusion_enabled</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.set_fusion_strategy.html">torch.jit.set_fusion_strategy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.strict_fusion.html">strict_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.save.html">torch.jit.save</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.load.html">torch.jit.load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ignore.html">torch.jit.ignore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.unused.html">torch.jit.unused</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.interface.html">torch.jit.interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.isinstance.html">torch.jit.isinstance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.Attribute.html">Attribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.annotate.html">torch.jit.annotate</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.norm.html">torch.linalg.norm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.vector_norm.html">torch.linalg.vector_norm</a></li>
@@ -4662,7 +4633,7 @@ document.write(`
 <h1>CELU<a class="headerlink" href="#celu" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.CELU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CELU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/nn/modules/activation.py#L629"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CELU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/nn/modules/activation.py#L629"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU" title="Link to this definition">#</a></dt>
 <dd><p>Applies the CELU function element-wise.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>CELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>α</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">/</mi><mi>α</mi><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{CELU}(x) = \max(0,x) + \min(0, \alpha * (\exp(x/\alpha) - 1))
@@ -4692,7 +4663,7 @@ document.write(`
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.CELU.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/nn/modules/activation.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU.extra_repr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/nn/modules/activation.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU.extra_repr" title="Link to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4703,7 +4674,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.CELU.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/nn/modules/activation.py#L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/nn/modules/activation.py#L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CELU.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

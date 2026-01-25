@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>torch.jit.interface &#8212; PyTorch main documentation</title>
+    <title>MemPool &#8212; PyTorch main documentation</title>
   
   
   
@@ -50,7 +50,7 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=940804e7"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.jit.interface';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.xpu.memory.MemPool';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
@@ -58,11 +58,11 @@
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
     <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
-    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.jit.interface.html" />
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.MemPool.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.jit.isinstance" href="torch.jit.isinstance.html" />
-    <link rel="prev" title="torch.jit.unused" href="torch.jit.unused.html" />
+    <link rel="next" title="Aliases in torch.xpu" href="../xpu.aliases.html" />
+    <link rel="prev" title="torch.xpu.memory.set_per_process_memory_fraction" href="torch.xpu.memory.set_per_process_memory_fraction.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git4ac0624 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git87a13d3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3349,7 +3349,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mps.event.Event.html">Event</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_device.html">torch.xpu.current_device</a></li>
@@ -3398,6 +3398,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">MemPool</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -3816,36 +3817,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../jit.html">torch.jit</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_language_reference_v2.html">TorchScript Language Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_builtin_functions.html">torch.jit.supported_ops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script.html">torch.jit.script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace.html">torch.jit.trace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.trace_module.html">torch.jit.trace_module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.fork.html">torch.jit.fork</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.wait.html">torch.jit.wait</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptModule.html">ScriptModule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ScriptFunction.html">ScriptFunction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.freeze.html">torch.jit.freeze</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.optimize_for_inference.html">torch.jit.optimize_for_inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.enable_onednn_fusion.html">torch.jit.enable_onednn_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.onednn_fusion_enabled.html">torch.jit.onednn_fusion_enabled</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.set_fusion_strategy.html">torch.jit.set_fusion_strategy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.strict_fusion.html">strict_fusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.save.html">torch.jit.save</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.load.html">torch.jit.load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.ignore.html">torch.jit.ignore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.unused.html">torch.jit.unused</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.jit.interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.isinstance.html">torch.jit.isinstance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.Attribute.html">Attribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.jit.annotate.html">torch.jit.annotate</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.norm.html">torch.linalg.norm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.linalg.vector_norm.html">torch.linalg.vector_norm</a></li>
@@ -4588,9 +4559,9 @@ document.write(`
     <li class="breadcrumb-item"><a href="../pytorch-api.html" class="nav-link">Reference API</a></li>
     
     
-    <li class="breadcrumb-item"><a href="../jit.html" class="nav-link">TorchScript</a></li>
+    <li class="breadcrumb-item"><a href="../xpu.html" class="nav-link">torch.xpu</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">torch.jit.interface</li>
+    <li class="breadcrumb-item active" aria-current="page">MemPool</li>
   </ul>
 </nav>
 </div>
@@ -4638,13 +4609,13 @@ document.write(`
       </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../jit.html">
-        <meta itemprop="name" content="TorchScript">
+        <link itemprop="item" href="../xpu.html">
+        <meta itemprop="name" content="torch.xpu">
         <meta itemprop="position" content="2">
       </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="torch.jit.interface">
+        <meta itemprop="name" content="MemPool">
         <meta itemprop="position" content="3">
       </div>
     </div>
@@ -4658,60 +4629,59 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="torch-jit-interface">
-<h1>torch.jit.interface<a class="headerlink" href="#torch-jit-interface" title="Link to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.jit.interface">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ac0624d209a7b961608e794ebf50896f1adce1e/torch/jit/_script.py#L1588"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.interface" title="Link to this definition">#</a></dt>
-<dd><p>Decorate to annotate classes or modules of different types.</p>
-<p>This decorator can be used to define an interface that can be used to annotate
-classes or modules of different types. This can be used for to annotate a submodule
-or attribute class that could have different types that implement the same
-interface, or which could be swapped at runtime; or to store a list of modules or
-classes of varying types.</p>
-<p>It is sometimes used to implement “Callables” - functions or modules that implement
-an interface but whose implementations differ and which can be swapped out.</p>
-<p>Example:
-.. testcode:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-
-<span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">interface</span>
-<span class="k">class</span> <span class="nc">InterfaceType</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-<span class="c1"># implements InterfaceType</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
-<span class="k">class</span> <span class="nc">Impl1</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
-
-<span class="k">class</span> <span class="nc">Impl2</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(())</span>
-
-    <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
-
-<span class="k">def</span> <span class="nf">user_fn</span><span class="p">(</span><span class="n">impls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">InterfaceType</span><span class="p">],</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">impls</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-
-<span class="n">user_fn_jit</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">user_fn</span><span class="p">)</span>
-
-<span class="n">impls</span> <span class="o">=</span> <span class="p">[</span><span class="n">Impl1</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">Impl2</span><span class="p">())]</span>
-<span class="n">val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">user_fn_jit</span><span class="p">(</span><span class="n">impls</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-<span class="n">user_fn_jit</span><span class="p">(</span><span class="n">impls</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-</pre></div>
-</div>
+  <section id="mempool">
+<h1>MemPool<a class="headerlink" href="#mempool" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.xpu.memory.MemPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.memory.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/xpu/memory.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.memory.MemPool" title="Link to this definition">#</a></dt>
+<dd><p>MemPool represents a pool of memory in a caching allocator. Currently,
+it’s just the ID of the pool object maintained in the XPUCachingAllocator.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>_T</em></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>allocator</strong> (<em>torch._C._xpu_XPUAllocator</em><em>, </em><em>optional</em>) – a
+torch._C._xpu_XPUAllocator object that can be used to
+define how memory gets allocated in the pool. If <a class="reference internal" href="#torch.xpu.memory.MemPool.allocator" title="torch.xpu.memory.MemPool.allocator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">allocator</span></code></a>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), memory allocation follows the default/
+current configuration of the XPUCachingAllocator.</p></li>
+<li><p><strong>use_on_oom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – a bool that indicates if this pool can be used
+as a last resort if a memory allocation outside of the pool fails due
+to Out Of Memory. This is False by default.</p></li>
+</ul>
 </dd>
 </dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.xpu.memory.MemPool.allocator">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">allocator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_xpu_XPUAllocator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.xpu.memory.MemPool.allocator" title="Link to this definition">#</a></dt>
+<dd><p>Returns the allocator this MemPool routes allocations to.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.xpu.memory.MemPool.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.xpu.memory.MemPool.id" title="Link to this definition">#</a></dt>
+<dd><p>Returns the ID of this pool as a tuple of two ints.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.xpu.memory.MemPool.snapshot">
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/xpu/memory.py#L626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.memory.MemPool.snapshot" title="Link to this definition">#</a></dt>
+<dd><p>Return a snapshot of the XPU memory allocator pool state across all
+devices.</p>
+<p>Interpreting the output of this function requires familiarity with the
+memory allocator internals.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.xpu.memory.MemPool.use_count">
+<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/87a13d321e74b9ce08ae0ed66e32f79951103b0d/torch/xpu/memory.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.memory.MemPool.use_count" title="Link to this definition">#</a></dt>
+<dd><p>Returns the reference count of this pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -4759,20 +4729,20 @@ an interface but whose implementations differ and which can be swapped out.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.jit.unused.html"
+       href="torch.xpu.memory.set_per_process_memory_fraction.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.jit.unused</p>
+        <p class="prev-next-title">torch.xpu.memory.set_per_process_memory_fraction</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.jit.isinstance.html"
+       href="../xpu.aliases.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.jit.isinstance</p>
+        <p class="prev-next-title">Aliases in torch.xpu</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4798,20 +4768,20 @@ an interface but whose implementations differ and which can be swapped out.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.jit.unused.html"
+       href="torch.xpu.memory.set_per_process_memory_fraction.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.jit.unused</p>
+        <p class="prev-next-title">torch.xpu.memory.set_per_process_memory_fraction</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.jit.isinstance.html"
+       href="../xpu.aliases.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.jit.isinstance</p>
+        <p class="prev-next-title">Aliases in torch.xpu</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4833,13 +4803,19 @@ an interface but whose implementations differ and which can be swapped out.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.jit.interface"><code class="docutils literal notranslate"><span class="pre">interface()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.memory.MemPool"><code class="docutils literal notranslate"><span class="pre">MemPool</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.memory.MemPool.allocator"><code class="docutils literal notranslate"><span class="pre">MemPool.allocator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.memory.MemPool.id"><code class="docutils literal notranslate"><span class="pre">MemPool.id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.memory.MemPool.snapshot"><code class="docutils literal notranslate"><span class="pre">MemPool.snapshot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.memory.MemPool.use_count"><code class="docutils literal notranslate"><span class="pre">MemPool.use_count()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/generated/torch.jit.interface.rst.txt">
+      <a href="../_sources/generated/torch.xpu.memory.MemPool.rst.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -5060,11 +5036,11 @@ an interface but whose implementations differ and which can be swapped out.</p>
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "torch.jit.interface",
-       "headline": "torch.jit.interface",
+       "name": "MemPool",
+       "headline": "MemPool",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-       "url": "/generated/torch.jit.interface.html",
-       "articleBody": "torch.jit.interface# torch.jit.interface(obj)[source]# Decorate to annotate classes or modules of different types. This decorator can be used to define an interface that can be used to annotate classes or modules of different types. This can be used for to annotate a submodule or attribute class that could have different types that implement the same interface, or which could be swapped at runtime; or to store a list of modules or classes of varying types. It is sometimes used to implement \u201cCallables\u201d - functions or modules that implement an interface but whose implementations differ and which can be swapped out. Example: .. testcode: import torch from typing import List @torch.jit.interface class InterfaceType: def run(self, x: torch.Tensor) -\u003e torch.Tensor: pass # implements InterfaceType @torch.jit.script class Impl1: def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x.relu() class Impl2(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.val = torch.rand(()) @torch.jit.export def run(self, x: torch.Tensor) -\u003e torch.Tensor: return x + self.val def user_fn(impls: List[InterfaceType], idx: int, val: torch.Tensor) -\u003e torch.Tensor: return impls[idx].run(val) user_fn_jit = torch.jit.script(user_fn) impls = [Impl1(), torch.jit.script(Impl2())] val = torch.rand(4, 4) user_fn_jit(impls, 0, val) user_fn_jit(impls, 1, val) Return type: _T",
+       "url": "/generated/torch.xpu.memory.MemPool.html",
+       "articleBody": "MemPool# class torch.xpu.memory.MemPool(*args, **kwargs)[source]# MemPool represents a pool of memory in a caching allocator. Currently, it\u2019s just the ID of the pool object maintained in the XPUCachingAllocator. Parameters: allocator (torch._C._xpu_XPUAllocator, optional) \u2013 a torch._C._xpu_XPUAllocator object that can be used to define how memory gets allocated in the pool. If allocator is None (default), memory allocation follows the default/ current configuration of the XPUCachingAllocator. use_on_oom (bool) \u2013 a bool that indicates if this pool can be used as a last resort if a memory allocation outside of the pool fails due to Out Of Memory. This is False by default. property allocator: _xpu_XPUAllocator | None# Returns the allocator this MemPool routes allocations to. property id: tuple[int, int]# Returns the ID of this pool as a tuple of two ints. snapshot()[source]# Return a snapshot of the XPU memory allocator pool state across all devices. Interpreting the output of this function requires familiarity with the memory allocator internals. use_count()[source]# Returns the reference count of this pool. Return type: int",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -5073,7 +5049,7 @@ an interface but whose implementations differ and which can be swapped out.</p>
        "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "/generated/torch.jit.interface.html"
+         "@id": "/generated/torch.xpu.memory.MemPool.html"
        },
        "datePublished": "2023-01-01T00:00:00Z",
        "dateModified": "2023-01-01T00:00:00Z"
