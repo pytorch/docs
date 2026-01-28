@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfbb4858 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git97ef935 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6308,13 +6308,13 @@ Forward-mode AD is not supported.</p>
 <h2>Symbolic Numbers<a class="headerlink" href="#symbolic-numbers" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymInt">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt" title="Link to this definition">#</a></dt>
 <dd><p>Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymInt.as_integer_ratio">
-<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt.as_integer_ratio" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt.as_integer_ratio" title="Link to this definition">#</a></dt>
 <dd><p>Represent this int as an exact integer ratio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6327,13 +6327,13 @@ in the symbolic shape workflow.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymFloat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat" title="Link to this definition">#</a></dt>
 <dd><p>Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.as_integer_ratio">
-<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.as_integer_ratio" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.as_integer_ratio" title="Link to this definition">#</a></dt>
 <dd><p>Represent this float as an exact integer ratio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6344,7 +6344,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.conjugate">
-<span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.conjugate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.conjugate" title="Link to this definition">#</a></dt>
 <dd><p>Returns the complex conjugate of the float.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6355,7 +6355,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.hex">
-<span class="sig-name descname"><span class="pre">hex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L754"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.hex" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L754"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.hex" title="Link to this definition">#</a></dt>
 <dd><p>Returns the hexadecimal representation of the float.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6366,7 +6366,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.is_integer">
-<span class="sig-name descname"><span class="pre">is_integer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L733"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.is_integer" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_integer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L733"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.is_integer" title="Link to this definition">#</a></dt>
 <dd><p>Return True if the float is an integer.</p>
 </dd></dl>
 
@@ -6374,7 +6374,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymBool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb4858b5aab24fa887ba83b76a9e9c365df920b/torch/__init__.py#L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymBool" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/__init__.py#L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymBool" title="Link to this definition">#</a></dt>
 <dd><p>Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
