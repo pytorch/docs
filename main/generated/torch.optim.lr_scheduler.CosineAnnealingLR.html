@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git97ef935 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gite708d8e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>CosineAnnealingLR<a class="headerlink" href="#cosineannealinglr" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">CosineAnnealingLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L1339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">CosineAnnealingLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L1339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR" title="Link to this definition">#</a></dt>
 <dd><p>Set the learning rate of each parameter group using a cosine annealing schedule.</p>
 <p>The learning rate is updated recursively using:</p>
 <div class="math">
@@ -4681,7 +4681,7 @@ to <a class="reference internal" href="#torch.optim.lr_scheduler.CosineAnnealing
 <img alt="../_images/CosineAnnealingLR.png" src="../_images/CosineAnnealingLR.png" />
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR.get_last_lr">
-<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.get_last_lr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.get_last_lr" title="Link to this definition">#</a></dt>
 <dd><p>Get the most recent learning rates computed by this scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4703,7 +4703,7 @@ the optimizer’s <code class="docutils literal notranslate"><span class="pre">g
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR.get_lr">
-<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L1400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.get_lr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L1400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.get_lr" title="Link to this definition">#</a></dt>
 <dd><p>Compute the next learning rate for each of the optimizer’s
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>.</p>
 <p>Scales the <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s in the optimizer’s
@@ -4738,7 +4738,7 @@ the optimizer’s <code class="docutils literal notranslate"><span class="pre">g
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4750,7 +4750,7 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.Cos
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in <code class="docutils literal notranslate"><span class="pre">self.__dict__</span></code> which
 is not the optimizer.</p>
@@ -4763,7 +4763,7 @@ is not the optimizer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CosineAnnealingLR.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/optim/lr_scheduler.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/optim/lr_scheduler.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CosineAnnealingLR.step" title="Link to this definition">#</a></dt>
 <dd><p>Step the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git97ef935 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gite708d8e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>torch.nn.utils.parametrizations.weight_norm<a class="headerlink" href="#torch-nn-utils-parametrizations-weight-norm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.parametrizations.weight_norm">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrizations.</span></span><span class="sig-name descname"><span class="pre">weight_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/nn/utils/parametrizations.py#L336"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrizations.weight_norm" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrizations.</span></span><span class="sig-name descname"><span class="pre">weight_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/nn/utils/parametrizations.py#L336"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrizations.weight_norm" title="Link to this definition">#</a></dt>
 <dd><p>Apply weight normalization to a parameter in the given module.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="bold">w</mi><mo>=</mo><mi>g</mi><mfrac><mi mathvariant="bold">v</mi><mrow><mi mathvariant="normal">∥</mi><mi mathvariant="bold">v</mi><mi mathvariant="normal">∥</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\mathbf{w} = g \dfrac{\mathbf{v}}{\|\mathbf{v}\|}

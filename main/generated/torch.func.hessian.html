@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git97ef935 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gite708d8e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4644,7 +4644,7 @@ document.write(`
 <h1>torch.func.hessian<a class="headerlink" href="#torch-func-hessian" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.hessian">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">hessian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/97ef93539e98c0d0efc665e6a848564d2846b969/torch/_functorch/eager_transforms.py#L1311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.hessian" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">hessian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/_functorch/eager_transforms.py#L1377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.hessian" title="Link to this definition">#</a></dt>
 <dd><p>Computes the Hessian of <code class="docutils literal notranslate"><span class="pre">func</span></code> with respect to the arg(s) at index
 <code class="docutils literal notranslate"><span class="pre">argnum</span></code> via a forward-over-reverse strategy.</p>
 <p>The forward-over-reverse strategy (composing <code class="docutils literal notranslate"><span class="pre">jacfwd(jacrev(func))</span></code>) is
@@ -4665,6 +4665,9 @@ Default: 0.</p></li>
 <dd class="field-even"><p>Returns a function that takes in the same inputs as <code class="docutils literal notranslate"><span class="pre">func</span></code> and
 returns the Hessian of <code class="docutils literal notranslate"><span class="pre">func</span></code> with respect to the arg(s) at
 <code class="docutils literal notranslate"><span class="pre">argnums</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[…, Any]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -5036,7 +5039,7 @@ operator coverage.</p>
        "headline": "torch.func.hessian",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.func.hessian.html",
-       "articleBody": "torch.func.hessian# torch.func.hessian(func, argnums=0)[source]# Computes the Hessian of func with respect to the arg(s) at index argnum via a forward-over-reverse strategy. The forward-over-reverse strategy (composing jacfwd(jacrev(func))) is a good default for good performance. It is possible to compute Hessians through other compositions of jacfwd() and jacrev() like jacfwd(jacfwd(func)) or jacrev(jacrev(func)). Parameters: func (function) \u2013 A Python function that takes one or more arguments, one of which must be a Tensor, and returns one or more Tensors argnums (int or tuple[int, ...]) \u2013 Optional, integer or tuple of integers, saying which arguments to get the Hessian with respect to. Default: 0. Returns: Returns a function that takes in the same inputs as func and returns the Hessian of func with respect to the arg(s) at argnums. Note You may see this API error out with \u201cforward-mode AD not implemented for operator X\u201d. If so, please file a bug report and we will prioritize it. An alternative is to use jacrev(jacrev(func)), which has better operator coverage. A basic usage with a R^N -\u003e R^1 function gives a N x N Hessian: \u003e\u003e\u003e from torch.func import hessian \u003e\u003e\u003e def f(x): \u003e\u003e\u003e return x.sin().sum() \u003e\u003e\u003e \u003e\u003e\u003e x = torch.randn(5) \u003e\u003e\u003e hess = hessian(f)(x) # equivalent to jacfwd(jacrev(f))(x) \u003e\u003e\u003e assert torch.allclose(hess, torch.diag(-x.sin()))",
+       "articleBody": "torch.func.hessian# torch.func.hessian(func, argnums=0)[source]# Computes the Hessian of func with respect to the arg(s) at index argnum via a forward-over-reverse strategy. The forward-over-reverse strategy (composing jacfwd(jacrev(func))) is a good default for good performance. It is possible to compute Hessians through other compositions of jacfwd() and jacrev() like jacfwd(jacfwd(func)) or jacrev(jacrev(func)). Parameters: func (function) \u2013 A Python function that takes one or more arguments, one of which must be a Tensor, and returns one or more Tensors argnums (int or tuple[int, ...]) \u2013 Optional, integer or tuple of integers, saying which arguments to get the Hessian with respect to. Default: 0. Returns: Returns a function that takes in the same inputs as func and returns the Hessian of func with respect to the arg(s) at argnums. Return type: Callable[\u2026, Any] Note You may see this API error out with \u201cforward-mode AD not implemented for operator X\u201d. If so, please file a bug report and we will prioritize it. An alternative is to use jacrev(jacrev(func)), which has better operator coverage. A basic usage with a R^N -\u003e R^1 function gives a N x N Hessian: \u003e\u003e\u003e from torch.func import hessian \u003e\u003e\u003e def f(x): \u003e\u003e\u003e return x.sin().sum() \u003e\u003e\u003e \u003e\u003e\u003e x = torch.randn(5) \u003e\u003e\u003e hess = hessian(f)(x) # equivalent to jacfwd(jacrev(f))(x) \u003e\u003e\u003e assert torch.allclose(hess, torch.diag(-x.sin()))",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
