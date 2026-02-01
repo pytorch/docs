@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gite708d8e )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gita322366 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,10 +4633,20 @@ document.write(`
 <h1>torch.cuda.memory.memory_snapshot<a class="headerlink" href="#torch-cuda-memory-memory-snapshot" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.memory_snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">memory_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mempool_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/cuda/memory.py#L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.memory_snapshot" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">memory_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mempool_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_traces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a32236658f9a58797106229c38d0ca25f67a5597/torch/cuda/memory.py#L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.memory_snapshot" title="Link to this definition">#</a></dt>
 <dd><p>Return a snapshot of the CUDA memory allocator state across all devices.</p>
 <p>Interpreting the output of this function requires familiarity with the
 memory allocator internals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mempool_id</strong> – Optional memory pool ID to get snapshot for a specific pool</p></li>
+<li><p><strong>include_traces</strong> – Whether to include trace entries in the snapshot.
+If True (default), all trace entries are included.
+If False, no trace entries are included (lightweight/fast snapshot).</p></li>
+</ul>
+</dd>
+</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../notes/cuda.html#cuda-memory-management"><span class="std std-ref">Memory management</span></a> for more details about GPU memory
@@ -4994,7 +5004,7 @@ management.</p>
        "headline": "torch.cuda.memory.memory_snapshot",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.cuda.memory.memory_snapshot.html",
-       "articleBody": "torch.cuda.memory.memory_snapshot# torch.cuda.memory.memory_snapshot(mempool_id=None)[source]# Return a snapshot of the CUDA memory allocator state across all devices. Interpreting the output of this function requires familiarity with the memory allocator internals. Note See Memory management for more details about GPU memory management.",
+       "articleBody": "torch.cuda.memory.memory_snapshot# torch.cuda.memory.memory_snapshot(mempool_id=None, include_traces=True)[source]# Return a snapshot of the CUDA memory allocator state across all devices. Interpreting the output of this function requires familiarity with the memory allocator internals. Parameters: mempool_id \u2013 Optional memory pool ID to get snapshot for a specific pool include_traces \u2013 Whether to include trace entries in the snapshot. If True (default), all trace entries are included. If False, no trace entries are included (lightweight/fast snapshot). Note See Memory management for more details about GPU memory management.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

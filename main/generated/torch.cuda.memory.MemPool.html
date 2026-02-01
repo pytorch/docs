@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gite708d8e )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gita322366 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>MemPool<a class="headerlink" href="#mempool" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/cuda/memory.py#L1225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a32236658f9a58797106229c38d0ca25f67a5597/torch/cuda/memory.py#L1236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool" title="Link to this definition">#</a></dt>
 <dd><p>MemPool represents a pool of memory in a caching allocator. Currently,
 it’s just the ID of the pool object maintained in the CUDACachingAllocator.</p>
 <dl class="field-list simple">
@@ -4666,11 +4666,18 @@ This is False by default.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool.snapshot">
-<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/cuda/memory.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.snapshot" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_traces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a32236658f9a58797106229c38d0ca25f67a5597/torch/cuda/memory.py#L1276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.snapshot" title="Link to this definition">#</a></dt>
 <dd><p>Return a snapshot of the CUDA memory allocator pool state across all
 devices.</p>
 <p>Interpreting the output of this function requires familiarity with the
 memory allocator internals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>include_traces</strong> – Whether to include trace entries in the snapshot.
+If True (default), all trace entries are included.
+If False, no trace entries are included (lightweight/fast snapshot).</p>
+</dd>
+</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../notes/cuda.html#cuda-memory-management"><span class="std std-ref">Memory management</span></a> for more details about GPU memory
@@ -4680,7 +4687,7 @@ management.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool.use_count">
-<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708d8ef2063be12dd0c7e9d0c796266c2c5d34c/torch/cuda/memory.py#L1261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.use_count" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a32236658f9a58797106229c38d0ca25f67a5597/torch/cuda/memory.py#L1272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.use_count" title="Link to this definition">#</a></dt>
 <dd><p>Returns the reference count of this pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -5047,7 +5054,7 @@ management.</p>
        "headline": "MemPool",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.cuda.memory.MemPool.html",
-       "articleBody": "MemPool# class torch.cuda.memory.MemPool(*args, **kwargs)[source]# MemPool represents a pool of memory in a caching allocator. Currently, it\u2019s just the ID of the pool object maintained in the CUDACachingAllocator. Parameters: allocator (torch._C._cuda_CUDAAllocator, optional) \u2013 a torch._C._cuda_CUDAAllocator object that can be used to define how memory gets allocated in the pool. If allocator is None (default), memory allocation follows the default/ current configuration of the CUDACachingAllocator. use_on_oom (bool) \u2013 a bool that indicates if this pool can be used as a last resort if a memory allocation outside of the pool fails due to Out Of Memory. This is False by default. no_split (bool) \u2013 a bool that indicates if this pool should not split a segment. This is False by default. property allocator: _cuda_CUDAAllocator | None# Returns the allocator this MemPool routes allocations to. property id: tuple[int, int]# Returns the ID of this pool as a tuple of two ints. snapshot()[source]# Return a snapshot of the CUDA memory allocator pool state across all devices. Interpreting the output of this function requires familiarity with the memory allocator internals. Note See Memory management for more details about GPU memory management. use_count()[source]# Returns the reference count of this pool. Return type: int",
+       "articleBody": "MemPool# class torch.cuda.memory.MemPool(*args, **kwargs)[source]# MemPool represents a pool of memory in a caching allocator. Currently, it\u2019s just the ID of the pool object maintained in the CUDACachingAllocator. Parameters: allocator (torch._C._cuda_CUDAAllocator, optional) \u2013 a torch._C._cuda_CUDAAllocator object that can be used to define how memory gets allocated in the pool. If allocator is None (default), memory allocation follows the default/ current configuration of the CUDACachingAllocator. use_on_oom (bool) \u2013 a bool that indicates if this pool can be used as a last resort if a memory allocation outside of the pool fails due to Out Of Memory. This is False by default. no_split (bool) \u2013 a bool that indicates if this pool should not split a segment. This is False by default. property allocator: _cuda_CUDAAllocator | None# Returns the allocator this MemPool routes allocations to. property id: tuple[int, int]# Returns the ID of this pool as a tuple of two ints. snapshot(include_traces=True)[source]# Return a snapshot of the CUDA memory allocator pool state across all devices. Interpreting the output of this function requires familiarity with the memory allocator internals. Parameters: include_traces \u2013 Whether to include trace entries in the snapshot. If True (default), all trace entries are included. If False, no trace entries are included (lightweight/fast snapshot). Note See Memory management for more details about GPU memory management. use_count()[source]# Returns the reference count of this pool. Return type: int",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
