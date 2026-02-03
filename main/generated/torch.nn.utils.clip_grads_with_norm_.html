@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git1c87ec4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitbbc4e47 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>torch.nn.utils.clip_grads_with_norm_<a class="headerlink" href="#torch-nn-utils-clip-grads-with-norm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.clip_grads_with_norm_">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grads_with_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1c87ec4c50f3699d4dec800b7c497fb1e6b36f1d/torch/nn/utils/clip_grad.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grads_with_norm_" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grads_with_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bbc4e473e7dafb532b05202e912b3bc8c5df641e/torch/nn/utils/clip_grad.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grads_with_norm_" title="Link to this definition">#</a></dt>
 <dd><p>Scale the gradients of an iterable of parameters given a pre-calculated total norm and desired max norm.</p>
 <p>The gradients will be scaled by the following calculation</p>
 <div class="math">
