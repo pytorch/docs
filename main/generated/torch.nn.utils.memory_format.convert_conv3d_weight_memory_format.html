@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitbbc4e47 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git46a5e12 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4644,7 +4644,7 @@ document.write(`
 <h1>torch.nn.utils.memory_format.convert_conv3d_weight_memory_format<a class="headerlink" href="#torch-nn-utils-memory-format-convert-conv3d-weight-memory-format" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.memory_format.convert_conv3d_weight_memory_format">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.memory_format.</span></span><span class="sig-name descname"><span class="pre">convert_conv3d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bbc4e473e7dafb532b05202e912b3bc8c5df641e/torch/nn/utils/memory_format.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.memory_format.convert_conv3d_weight_memory_format" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.memory_format.</span></span><span class="sig-name descname"><span class="pre">convert_conv3d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/46a5e120e7441febc9535a939772564fe0f3ea60/torch/nn/utils/memory_format.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.memory_format.convert_conv3d_weight_memory_format" title="Link to this definition">#</a></dt>
 <dd><p>Convert <code class="docutils literal notranslate"><span class="pre">memory_format</span></code> of <code class="docutils literal notranslate"><span class="pre">nn.Conv3d.weight</span></code> to <code class="docutils literal notranslate"><span class="pre">memory_format</span></code>
 The conversion recursively applies to nested <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, including <code class="docutils literal notranslate"><span class="pre">module</span></code>.
 Note that it only changes the memory_format, but not the semantics of each dimensions.

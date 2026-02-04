@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitbbc4e47 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git46a5e12 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-cast-symbool-to-symint-guardless" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">cast_symbool_to_symint_guardless</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbool</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bbc4e473e7dafb532b05202e912b3bc8c5df641e/torch/fx/experimental/symbolic_shapes.py#L2596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">cast_symbool_to_symint_guardless</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbool</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/46a5e120e7441febc9535a939772564fe0f3ea60/torch/fx/experimental/symbolic_shapes.py#L2596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless" title="Link to this definition">#</a></dt>
 <dd><p>Converts a SymBool or bool to a SymInt or int without introducing guards.</p>
 <p>This function maps True to 1 and False to 0, preserving the symbolic nature
 of the input when it’s a SymBool. Unlike regular casting which might introduce

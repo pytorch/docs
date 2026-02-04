@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitbbc4e47 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git46a5e12 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>torch.fx.experimental.unification.unification_tools.assoc<a class="headerlink" href="#torch-fx-experimental-unification-unification-tools-assoc" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.unification.unification_tools.assoc">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.unification_tools.</span></span><span class="sig-name descname"><span class="pre">assoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bbc4e473e7dafb532b05202e912b3bc8c5df641e/torch/fx/experimental/unification/unification_tools.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.unification_tools.assoc" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.unification_tools.</span></span><span class="sig-name descname"><span class="pre">assoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/46a5e120e7441febc9535a939772564fe0f3ea60/torch/fx/experimental/unification/unification_tools.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.unification_tools.assoc" title="Link to this definition">#</a></dt>
 <dd><p>Return a new dict with new key value pair</p>
 <p>New dict has d[key] set to value. Does not modify the initial dictionary.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assoc</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
