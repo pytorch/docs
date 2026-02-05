@@ -23,9 +23,9 @@ Original source code:
     
         def forward(self, x):
             # assertion with error message
-            assert x.shape[0] > 2, f"{x.shape[0]} is greater than 2"
+            assert x.shape[0] > 2, f"{x.shape[0]} is greater than 2"  # noqa: S101
             # assertion without error message
-            assert x.shape[0] > 1
+            assert x.shape[0] > 1  # noqa: S101
             return x
     
     example_args = (torch.randn(3, 2),)
@@ -60,7 +60,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -77,9 +77,9 @@ Original source code:
         """
     
         def forward(self, x):
-            assert x.size(-1) in [6, 2]
-            assert x.size(0) not in [4, 5, 6]
-            assert "monkey" not in ["cow", "pig"]
+            assert x.size(-1) in [6, 2]  # noqa: S101
+            assert x.size(0) not in [4, 5, 6]  # noqa: S101
+            assert "monkey" not in ["cow", "pig"]  # noqa: S101
             return x + x
     
     example_args = (torch.randn(3, 2),)
