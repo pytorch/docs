@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitf365425 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfb72fee )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4633,7 +4633,7 @@ document.write(`
 <h1>torch.Tensor.module_load<a class="headerlink" href="#torch-tensor-module-load" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.module_load">
-<span class="sig-prename descclassname"><span class="pre">Tensor.</span></span><span class="sig-name descname"><span class="pre">module_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f3654253992bd572bd8290e549f5acfb15a49f9c/torch/_tensor.py#L857"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.module_load" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Tensor.</span></span><span class="sig-name descname"><span class="pre">module_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/_tensor.py#L857"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.module_load" title="Link to this definition">#</a></dt>
 <dd><p>Defines how to transform <code class="docutils literal notranslate"><span class="pre">other</span></code> when loading it into <code class="docutils literal notranslate"><span class="pre">self</span></code> in <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.load_state_dict" title="torch.nn.Module.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a>.</p>
 <p>Used when <a class="reference internal" href="../future_mod.html#torch.__future__.get_swap_module_params_on_conversion" title="torch.__future__.get_swap_module_params_on_conversion"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_swap_module_params_on_conversion()</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>It is expected that <code class="docutils literal notranslate"><span class="pre">self</span></code> is a parameter or buffer in an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> and <code class="docutils literal notranslate"><span class="pre">other</span></code> is the
