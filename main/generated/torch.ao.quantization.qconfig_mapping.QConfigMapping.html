@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfb72fee )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2e28b85 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_current_stream_capturing.html">torch.xpu.is_current_stream_capturing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph_pool_handle.html">torch.xpu.graph_pool_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.make_graphed_callables.html">torch.xpu.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.XPUPluggableAllocator.html">XPUPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
@@ -3409,6 +3414,11 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.seed_all.html">torch.xpu.random.seed_all</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state.html">torch.xpu.random.set_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state_all.html">torch.xpu.random.set_rng_state_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.is_current_stream_capturing.html">torch.xpu.graphs.is_current_stream_capturing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph_pool_handle.html">torch.xpu.graphs.graph_pool_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph.html">graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.make_graphed_callables.html">torch.xpu.graphs.make_graphed_callables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Event.html">Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Stream.html">Stream</a></li>
 </ul>
@@ -4644,7 +4654,7 @@ document.write(`
 <h1>QConfigMapping<a class="headerlink" href="#qconfigmapping" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig_mapping.</span></span><span class="sig-name descname"><span class="pre">QConfigMapping</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig_mapping.</span></span><span class="sig-name descname"><span class="pre">QConfigMapping</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping" title="Link to this definition">#</a></dt>
 <dd><p>Mapping from model ops to <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.ao.quantization.QConfig</span></code> s.</p>
 <p>The user can specify QConfigs using the following methods (in increasing match priority):</p>
 <blockquote>
@@ -4671,7 +4681,7 @@ of the given module name, object type, and the index at which the module appears
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qconfig_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.from_dict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qconfig_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.from_dict" title="Link to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">QConfigMapping</span></code> from a dictionary with the following keys (all optional):</p>
 <blockquote>
 <div><p>“” (for global QConfig)</p>
@@ -4690,7 +4700,7 @@ of the given module name, object type, and the index at which the module appears
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.set_global">
-<span class="sig-name descname"><span class="pre">set_global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">global_qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L248"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_global" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">global_qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L248"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_global" title="Link to this definition">#</a></dt>
 <dd><p>Set the global (default) QConfig.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4701,7 +4711,7 @@ of the given module name, object type, and the index at which the module appears
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name">
-<span class="sig-name descname"><span class="pre">set_module_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_module_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name" title="Link to this definition">#</a></dt>
 <dd><p>Set the QConfig for modules matching the given module name.
 If the QConfig for an existing module name was already set, the new QConfig will override the old one.</p>
 <dl class="field-list simple">
@@ -4713,7 +4723,7 @@ If the QConfig for an existing module name was already set, the new QConfig will
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_object_type_order">
-<span class="sig-name descname"><span class="pre">set_module_name_object_type_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_object_type_order" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_module_name_object_type_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_object_type_order" title="Link to this definition">#</a></dt>
 <dd><p>Set the QConfig for modules matching a combination of the given module name, object type,
 and the index at which the module appears.</p>
 <p>If the QConfig for an existing (module name, object type, index)  was already set, the new QConfig
@@ -4727,7 +4737,7 @@ will override the old one.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_regex">
-<span class="sig-name descname"><span class="pre">set_module_name_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_regex" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_module_name_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_regex" title="Link to this definition">#</a></dt>
 <dd><p>Set the QConfig for modules matching the given regex string.</p>
 <p>Regexes will be matched in the order in which they are registered through this method.
 Thus, the caller should register more specific patterns first, e.g.:</p>
@@ -4750,7 +4760,7 @@ old one while preserving the order in which the regexes were originally register
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.set_object_type">
-<span class="sig-name descname"><span class="pre">set_object_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_object_type" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_object_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_object_type" title="Link to this definition">#</a></dt>
 <dd><p>Set the QConfig for a given module type, function, or method name.
 If the QConfig for an existing object type was already set, the new QConfig will override the old one.</p>
 <dl class="field-list simple">
@@ -4762,7 +4772,7 @@ If the QConfig for an existing object type was already set, the new QConfig will
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig_mapping.QConfigMapping.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/ao/quantization/qconfig_mapping.py#L324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.to_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/ao/quantization/qconfig_mapping.py#L324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig_mapping.QConfigMapping.to_dict" title="Link to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">QConfigMapping</span></code> to a dictionary with the following keys:</p>
 <blockquote>
 <div><p>“” (for global QConfig)</p>

@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfb72fee )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2e28b85 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_current_stream_capturing.html">torch.xpu.is_current_stream_capturing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph_pool_handle.html">torch.xpu.graph_pool_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.make_graphed_callables.html">torch.xpu.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.XPUPluggableAllocator.html">XPUPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
@@ -3409,6 +3414,11 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.seed_all.html">torch.xpu.random.seed_all</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state.html">torch.xpu.random.set_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state_all.html">torch.xpu.random.set_rng_state_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.is_current_stream_capturing.html">torch.xpu.graphs.is_current_stream_capturing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph_pool_handle.html">torch.xpu.graphs.graph_pool_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph.html">graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.make_graphed_callables.html">torch.xpu.graphs.make_graphed_callables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Event.html">Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Stream.html">Stream</a></li>
 </ul>
@@ -4633,7 +4643,7 @@ document.write(`
 <h1>GLU<a class="headerlink" href="#glu" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.GLU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">GLU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/nn/modules/activation.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">GLU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/nn/modules/activation.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU" title="Link to this definition">#</a></dt>
 <dd><p>Applies the gated linear unit function.</p>
 <p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>G</mi><mi>L</mi><mi>U</mi></mrow><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo><mo>=</mo><mi>a</mi><mo>⊗</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">{GLU}(a, b)= a \otimes \sigma(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="mord mathnormal" style="margin-right:0.10903em;">LU</span></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⊗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span></span> where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span> is the first half
 of the input matrices and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span> is the second half.</p>
@@ -4658,7 +4668,7 @@ dimensions</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.GLU.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/nn/modules/activation.py#L770"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU.extra_repr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/nn/modules/activation.py#L770"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU.extra_repr" title="Link to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4669,7 +4679,7 @@ dimensions</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.GLU.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/nn/modules/activation.py#L764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/nn/modules/activation.py#L764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.GLU.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

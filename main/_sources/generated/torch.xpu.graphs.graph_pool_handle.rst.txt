@@ -1,0 +1,6 @@
+﻿torch.xpu.graphs.graph\_pool\_handle
+====================================
+
+.. currentmodule:: torch.xpu.graphs
+
+.. autofunction:: graph_pool_handle

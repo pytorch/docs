@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfb72fee )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2e28b85 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_current_stream_capturing.html">torch.xpu.is_current_stream_capturing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph_pool_handle.html">torch.xpu.graph_pool_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.make_graphed_callables.html">torch.xpu.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.XPUPluggableAllocator.html">XPUPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
@@ -3409,6 +3414,11 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.seed_all.html">torch.xpu.random.seed_all</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state.html">torch.xpu.random.set_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.set_rng_state_all.html">torch.xpu.random.set_rng_state_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.is_current_stream_capturing.html">torch.xpu.graphs.is_current_stream_capturing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph_pool_handle.html">torch.xpu.graphs.graph_pool_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.graph.html">graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.xpu.graphs.make_graphed_callables.html">torch.xpu.graphs.make_graphed_callables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Event.html">Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.streams.Stream.html">Stream</a></li>
 </ul>
@@ -4633,7 +4643,7 @@ document.write(`
 <h1>torch.fx.experimental.graph_gradual_typechecker.element_wise_eq<a class="headerlink" href="#torch-fx-experimental-graph-gradual-typechecker-element-wise-eq" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.graph_gradual_typechecker.element_wise_eq">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.graph_gradual_typechecker.</span></span><span class="sig-name descname"><span class="pre">element_wise_eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/fx/experimental/graph_gradual_typechecker.py#L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.graph_gradual_typechecker.element_wise_eq" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.graph_gradual_typechecker.</span></span><span class="sig-name descname"><span class="pre">element_wise_eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/fx/experimental/graph_gradual_typechecker.py#L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.graph_gradual_typechecker.element_wise_eq" title="Link to this definition">#</a></dt>
 <dd><p>For element-wise operations and handles broadcasting.
 Note that after applying broadcasting to the arguments
 we are able to determine if certain dimensions have not been broadcast

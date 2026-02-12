@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+gitfb72fee )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git2e28b85 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_current_stream_capturing.html">torch.xpu.is_current_stream_capturing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.graph_pool_handle.html">torch.xpu.graph_pool_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.make_graphed_callables.html">torch.xpu.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.XPUPluggableAllocator.html">XPUPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
@@ -3409,6 +3414,11 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.seed_all.html">torch.xpu.random.seed_all</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.set_rng_state.html">torch.xpu.random.set_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.set_rng_state_all.html">torch.xpu.random.set_rng_state_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.graphs.is_current_stream_capturing.html">torch.xpu.graphs.is_current_stream_capturing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.graphs.graph_pool_handle.html">torch.xpu.graphs.graph_pool_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.graphs.XPUGraph.html">XPUGraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.graphs.graph.html">graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.graphs.make_graphed_callables.html">torch.xpu.graphs.make_graphed_callables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.streams.Event.html">Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.streams.Stream.html">Stream</a></li>
 </ul>
@@ -4622,7 +4632,7 @@ document.write(`
                   
   <section id="module-torch.xpu">
 <span id="torch-xpu"></span><h1>torch.xpu<a class="headerlink" href="#module-torch.xpu" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 01, 2024 | Last Updated On: Jan 24, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 01, 2024 | Last Updated On: Feb 11, 2026</p>
 <p>This package introduces support for the XPU backend, specifically tailored for
 Intel GPU optimization.</p>
 <p>This package is lazily initialized, so you can always import it, and use
@@ -4747,6 +4757,29 @@ Intel GPU optimization.</p>
 </table>
 </div>
 </section>
+<section id="graphs">
+<h2>Graphs<a class="headerlink" href="#graphs" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.xpu.is_current_stream_capturing"/><p id="torch.xpu.is_current_stream_capturing"/><a class="reference internal" href="generated/torch.xpu.is_current_stream_capturing.html#torch.xpu.is_current_stream_capturing" title="torch.xpu.is_current_stream_capturing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_current_stream_capturing</span></code></a></p></td>
+<td><p>Return True if XPU graph capture is underway on the current XPU stream, False otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.xpu.graph_pool_handle"/><p id="torch.xpu.graph_pool_handle"/><a class="reference internal" href="generated/torch.xpu.graph_pool_handle.html#torch.xpu.graph_pool_handle" title="torch.xpu.graph_pool_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_pool_handle</span></code></a></p></td>
+<td><p>Return an opaque token representing the id of a graph memory pool.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.xpu.XPUGraph"/><p id="torch.xpu.XPUGraph"/><a class="reference internal" href="generated/torch.xpu.XPUGraph.html#torch.xpu.XPUGraph" title="torch.xpu.XPUGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">XPUGraph</span></code></a></p></td>
+<td><p>Wrapper around a XPU graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.xpu.graph"/><p id="torch.xpu.graph"/><a class="reference internal" href="generated/torch.xpu.graph.html#torch.xpu.graph" title="torch.xpu.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
+<td><p>Context-manager that captures XPU work into a <a class="reference internal" href="generated/torch.xpu.XPUGraph.html#torch.xpu.XPUGraph" title="torch.xpu.XPUGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.xpu.XPUGraph</span></code></a> object for later replay.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.xpu.make_graphed_callables"/><p id="torch.xpu.make_graphed_callables"/><a class="reference internal" href="generated/torch.xpu.make_graphed_callables.html#torch.xpu.make_graphed_callables" title="torch.xpu.make_graphed_callables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_graphed_callables</span></code></a></p></td>
+<td><p>Accept callables (functions or <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">nn.Module</span></code></a>s) and returns graphed versions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="memory-management">
 <span id="module-torch.xpu.memory"></span><h2>Memory management<a class="headerlink" href="#memory-management" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -4806,7 +4839,7 @@ Intel GPU optimization.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.use_mem_pool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fb72fee86eb35f5aa62c02ed7dee5ad7471172b6/torch/xpu/memory.py#L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.use_mem_pool" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e28b85770e6bdbc19493b4eb995147acc3f81ae/torch/xpu/memory.py#L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.use_mem_pool" title="Link to this definition">#</a></dt>
 <dd><p>A context manager that routes allocations to a given pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4950,6 +4983,7 @@ route to the given pool.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-number-generator">Random Number Generator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streams-and-events">Streams and events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs">Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.use_mem_pool"><code class="docutils literal notranslate"><span class="pre">use_mem_pool</span></code></a></li>
 </ul>
@@ -5200,7 +5234,7 @@ route to the given pool.</p>
        "headline": "torch.xpu",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/xpu.html",
-       "articleBody": "torch.xpu# Created On: Feb 01, 2024 | Last Updated On: Jan 24, 2026 This package introduces support for the XPU backend, specifically tailored for Intel GPU optimization. This package is lazily initialized, so you can always import it, and use is_available() to determine if your system supports XPU. StreamContext Context-manager that selects a given stream. can_device_access_peer Query whether a device can access a peer device\u0027s memory. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of XPU device available. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list XPU architectures this library was compiled for. get_device_capability Get the xpu capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return XPU AOT(ahead-of-time) build flags this library was compiled with. get_stream_from_external Return a Stream from an external SYCL queue. init Initialize PyTorch\u0027s XPU state. is_available Return a bool indicating if XPU is currently available. is_bf16_supported Return a bool indicating if the current XPU device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s XPU state has been initialized. is_tf32_supported Return a bool indicating if the current XPU device supports dtype tf32. set_device Set the current device. set_stream Set the current stream. This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a XPU device to complete. Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. initial_seed Return the current random seed of the current GPU. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. Streams and events# Event Wrapper around a XPU event. Stream Wrapper around a XPU stream. Memory management# XPUPluggableAllocator XPU memory allocator loaded dynamically from a shared library. change_current_allocator Change the currently used memory allocator to be the one provided. empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. get_per_process_memory_fraction Retrieve the memory fraction currently set for a process on a given XPU device. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. mem_get_info Return the global free and total GPU memory for a given device. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in bytes for a given device. memory_snapshot Return a snapshot of the XPU memory allocator state across all devices. memory_stats Return a dictionary of XPU memory allocator statistics for a given device. memory_stats_as_nested_dict Return the result of memory_stats() as a nested dictionary. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the XPU memory allocator. reset_peak_memory_stats Reset the \"peak\" stats tracked by the XPU memory allocator. set_per_process_memory_fraction Set the memory fraction for a single process on XPU device. MemPool MemPool represents a pool of memory in a caching allocator. class torch.xpu.use_mem_pool(pool, device=None)[source]# A context manager that routes allocations to a given pool. Parameters: pool (torch.xpu.MemPool) \u2013 a MemPool object to be made active so that allocations route to this pool. device (torch.device or int, optional) \u2013 selected device. Uses MemPool on the current device, given by :func:`~torch.xpu.current_device, if device is None (default). Note This context manager makes only current thread\u2019s allocations route to the given pool. If a new thread is spawned inside the context manager (e.g. by calling backward) the allocations in that thread will not route to the given pool.",
+       "articleBody": "torch.xpu# Created On: Feb 01, 2024 | Last Updated On: Feb 11, 2026 This package introduces support for the XPU backend, specifically tailored for Intel GPU optimization. This package is lazily initialized, so you can always import it, and use is_available() to determine if your system supports XPU. StreamContext Context-manager that selects a given stream. can_device_access_peer Query whether a device can access a peer device\u0027s memory. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of XPU device available. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list XPU architectures this library was compiled for. get_device_capability Get the xpu capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return XPU AOT(ahead-of-time) build flags this library was compiled with. get_stream_from_external Return a Stream from an external SYCL queue. init Initialize PyTorch\u0027s XPU state. is_available Return a bool indicating if XPU is currently available. is_bf16_supported Return a bool indicating if the current XPU device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s XPU state has been initialized. is_tf32_supported Return a bool indicating if the current XPU device supports dtype tf32. set_device Set the current device. set_stream Set the current stream. This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a XPU device to complete. Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. initial_seed Return the current random seed of the current GPU. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. Streams and events# Event Wrapper around a XPU event. Stream Wrapper around a XPU stream. Graphs# is_current_stream_capturing Return True if XPU graph capture is underway on the current XPU stream, False otherwise. graph_pool_handle Return an opaque token representing the id of a graph memory pool. XPUGraph Wrapper around a XPU graph. graph Context-manager that captures XPU work into a torch.xpu.XPUGraph object for later replay. make_graphed_callables Accept callables (functions or nn.Modules) and returns graphed versions. Memory management# XPUPluggableAllocator XPU memory allocator loaded dynamically from a shared library. change_current_allocator Change the currently used memory allocator to be the one provided. empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. get_per_process_memory_fraction Retrieve the memory fraction currently set for a process on a given XPU device. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. mem_get_info Return the global free and total GPU memory for a given device. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in bytes for a given device. memory_snapshot Return a snapshot of the XPU memory allocator state across all devices. memory_stats Return a dictionary of XPU memory allocator statistics for a given device. memory_stats_as_nested_dict Return the result of memory_stats() as a nested dictionary. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the XPU memory allocator. reset_peak_memory_stats Reset the \"peak\" stats tracked by the XPU memory allocator. set_per_process_memory_fraction Set the memory fraction for a single process on XPU device. MemPool MemPool represents a pool of memory in a caching allocator. class torch.xpu.use_mem_pool(pool, device=None)[source]# A context manager that routes allocations to a given pool. Parameters: pool (torch.xpu.MemPool) \u2013 a MemPool object to be made active so that allocations route to this pool. device (torch.device or int, optional) \u2013 selected device. Uses MemPool on the current device, given by :func:`~torch.xpu.current_device, if device is None (default). Note This context manager makes only current thread\u2019s allocations route to the given pool. If a new thread is spawned inside the context manager (e.g. by calling backward) the allocations in that thread will not route to the given pool.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -5212,7 +5246,7 @@ route to the given pool.</p>
          "@id": "/xpu.html"
        },
        "datePublished": "Feb 01, 2024T00:00:00Z",
-       "dateModified": "Jan 24, 2026T00:00:00Z"
+       "dateModified": "Feb 11, 2026T00:00:00Z"
      }
  </script>
   <script>
