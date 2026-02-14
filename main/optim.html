@@ -29,14 +29,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=b417fedc" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,7 +56,6 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/optim.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,6 +64,25 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.optim - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.11.0a0+git8027bc9 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -93,6 +110,32 @@
   });
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
 
 
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
@@ -141,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git31e65e5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8027bc9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,25 +197,112 @@
 <!-- End Facebook Pixel Code -->
 <!-- Repository configuration for tutorials -->
 
-<!-- Script to Fix scrolling -->
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fix anchor scrolling
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
           const headerHeight =
             (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
             (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
 
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
           });
 
           // Update URL hash without scrolling
@@ -184,6 +314,18 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="_static/js/runllm-widget.js"></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,350 +333,6 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-  
-    <div class="container-fluid header-holder tutorials-header" id="header-holder">
-   <div class="header-container-wrapper">
-    <div class="header-container">
-      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-
-      <div class="main-menu">
-        <ul>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                <span>Learn</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
-                  <span class=dropdown-title>Get Started</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
-                  <span class="dropdown-title">Tutorials</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
-                  <span class="dropdown-title">Learn the Basics</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
-                  <span class="dropdown-title">PyTorch Recipes</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
-                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
-                  <span class="dropdown-title">Webinars</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Community</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
-                  <span class="dropdown-title">Landscape</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
-                  <span class="dropdown-title">Join the Ecosystem</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
-                  <span class="dropdown-title">Community Hub</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
-                  <span class="dropdown-title">Forums</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
-                  <span class=dropdown-title>Developer Resources</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
-                  <span class="dropdown-title">Contributor Awards</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
-                  <span class="dropdown-title">Community Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
-                  <span class="dropdown-title">PyTorch Ambassadors</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Projects</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
-                  <span class="dropdown-title">vLLM</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
-                  <span class="dropdown-title">DeepSpeed</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
-                  <span class="dropdown-title">Host Your Project</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
-                  <span class="dropdown-title">RAY</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span> Docs</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
-                  <span class="dropdown-title">Domains</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Blogs & News</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">Blog</span>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
-                  <span class="dropdown-title">Announcements</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
-                  <span class="dropdown-title">Case Studies</span>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                </a>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>About</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/members">
-                  <span class="dropdown-title">Members</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
-                  <span class="dropdown-title">Contact</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
-                  <span class="dropdown-title">Brand Guidelines</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div class="no-dropdown main-menu-button">
-              <a href="https://pytorch.org/join" data-cta="join">
-                JOIN
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
-        <i class="fa-solid fa-ellipsis"></i>
-      </a>
-    </div>
-  </div>
- </div>
-
- <!-- Begin Mobile Menu -->
-
-<div class="mobile-main-menu">
-  <div class="container-fluid">
-    <div class="header-container-wrapper">
-      <div class="mobile-main-menu-header-container">
-        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mobile-main-menu-links-container">
-    <div class="main-menu">
-      <ul>
-         <li class="resources-mobile-menu-title">
-           <a>Learn</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/get-started/locally">Get Started</a>
-           </li>
-           <li>
-             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/webinars/">Webinars</a>
-          </li>
-        </ul>
-         <li class="resources-mobile-menu-title">
-           <a>Community</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://landscape.pytorch.org/">Landscape</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/community-hub/">Community Hub</a>
-           </li>
-           <li>
-             <a href="https://discuss.pytorch.org/">Forums</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/resources">Developer Resources</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/community-events/">Community Events</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
-          </li>
-       </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Projects</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
-           </li>
-
-           <li>
-             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
-           </li>
-         </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Docs</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/domains">Domains</a>
-          </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>Blog & News</a>
-        </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/announcements">Announcements</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/case-studies/">Case Studies</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/events">Events</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/newsletter">Newsletter</a>
-           </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>About</a>
-        </li>
-
-        <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/members">Members</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/governing-board">Governing Board</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-         </li>
-         <li>
-             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/staff">Staff</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/contact">Contact</a>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- End Mobile Menu -->
   
   
   
@@ -544,7 +342,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -589,15 +387,79 @@
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+    
+    <img src="_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
   
   
   <div class=" navbar-header-items__start">
     
-      <div class="navbar-item">
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+    
+    <img src="_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
@@ -619,24 +481,9 @@ document.write(`
     </div>
   </div>
 `);
-</script></div>
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Home</p>
-  
-</a></div>
+</script>
+        </div>
+      
     
   </div>
   
@@ -645,57 +492,822 @@ document.write(`
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
       
     </div>
     
     
     <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
       
       
         <div class="navbar-item">
@@ -1095,8 +1707,42 @@ document.write(`
       <div class="bd-sidebar-primary bd-sidebar">
         
 
+
+
+
   
   <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
     
     
       <div class="sidebar-header-items__center">
@@ -1104,52 +1750,806 @@ document.write(`
           
           
             <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
           
         
       </div>
@@ -1157,6 +2557,17 @@ document.write(`
     
     
       <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
         
           <div class="navbar-item">
 <div class="search-container-wrapper">
@@ -3475,11 +4886,18 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/draft_export.html">Draft Export</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/scan.html">Control Flow - Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/map.html">Control Flow - Map</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4536,10 +5954,10 @@ document.write(`
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
+
+<div id="rtd-footer-container"></div>
       </div>
       
       <main id="main-content" class="bd-main" role="main">
@@ -4603,28 +6021,28 @@ document.write(`
 </div>
               
               
-  
+
 <div id="searchbox"></div>
-  <article class="bd-article" id="pytorch-article">
-    <!-- Hidden breadcrumb schema for SEO only -->
-    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="pytorch-api.html">
-        <meta itemprop="name" content="Reference API">
-        <meta itemprop="position" content="1">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="torch.optim">
-        <meta itemprop="position" content="2">
-      </div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="pytorch-api.html">
+      <meta itemprop="name" content="Reference API">
+      <meta itemprop="position" content="1">
     </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="torch.optim">
+      <meta itemprop="position" content="2">
+    </div>
+  </div>
 
-    
-    
+  
+  
 
-    
+  
               
                 
 <div id="searchbox"></div>
@@ -4749,7 +6167,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/optim/optimizer.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/optim/optimizer.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5496,7 +6914,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 <p>The EMA is computed as:</p>
 <div class="math">
@@ -5523,7 +6941,7 @@ and <span class="math"><span class="katex"><span class="katex-mathml"><math xmln
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/optim/swa_utils.py#L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/optim/swa_utils.py#L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>
@@ -5566,8 +6984,8 @@ for tracking purposes -->
 
                 </article>
               
-  </article>
-  
+</div>
+
               
               
                 <footer class="bd-footer-article">
@@ -5745,17 +7163,23 @@ for tracking purposes -->
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
@@ -5954,7 +7378,7 @@ for tracking purposes -->
        "@type": "Article",
        "name": "torch.optim",
        "headline": "torch.optim",
-       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/optim.html",
        "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Jan 26, 2026 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(\u0027layer0\u0027, var1), (\u0027layer1\u0027, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {\u0027params\u0027: model.base.parameters(), \u0027lr\u0027: 1e-2}, {\u0027params\u0027: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {\u0027params\u0027: model.base.named_parameters(), \u0027lr\u0027: 1e-2}, {\u0027params\u0027: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base\u2019s parameters will use a learning rate of 1e-2, whereas model.classifier\u2019s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn\u2019t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if \u0027bias\u0027 in name] others = [p for name, p in self.named_parameters() if \u0027bias\u0027 not in name] optim.SGD([ {\u0027params\u0027: others}, {\u0027params\u0027: bias_params, \u0027weight_decay\u0027: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_decay of 0 is set specifically for the bias terms, as to avoid any penalization for this group. Taking an optimization step# All optimizers implement a step() method, that updates the parameters. It can be used in two ways: optimizer.step()# This is a simplified version supported by most optimizers. The function can be called once the gradients are computed using e.g. backward(). Example: for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() optimizer.step(closure)# Some optimization algorithms such as Conjugate Gradient and LBFGS need to reevaluate the function multiple times, so you have to pass in a closure that allows them to recompute your model. The closure should clear the gradients, compute the loss, and return it. Example: for input, target in dataset: def closure(): optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() return loss optimizer.step(closure) Base class# class torch.optim.Optimizer(params, defaults)[source]# Base class for all optimizers. Warning Parameters need to be specified as collections that have a deterministic ordering that is consistent between runs. Examples of objects that don\u2019t satisfy those properties are sets and iterators over values of dictionaries. Parameters: params (iterable) \u2013 an iterable of torch.Tensor s or dict s. Specifies what Tensors should be optimized. defaults (dict[str, Any]) \u2013 (dict): a dict containing default values of optimization options (used when a parameter group doesn\u2019t specify them). Optimizer.add_param_group Add a param group to the Optimizer s param_groups. Optimizer.load_state_dict Load the optimizer state. Optimizer.register_load_state_dict_pre_hook Register a load_state_dict pre-hook which will be called before load_state_dict() is called. It should have the following signature::. Optimizer.register_load_state_dict_post_hook Register a load_state_dict post-hook which will be called after load_state_dict() is called. It should have the following signature::. Optimizer.state_dict Return the state of the optimizer as a dict. Optimizer.register_state_dict_pre_hook Register a state dict pre-hook which will be called before state_dict() is called. Optimizer.register_state_dict_post_hook Register a state dict post-hook which will be called after state_dict() is called. Optimizer.step Perform a single optimization step to update parameter. Optimizer.register_step_pre_hook Register an optimizer step pre hook which will be called before optimizer step. Optimizer.register_step_post_hook Register an optimizer step post hook which will be called after optimizer step. Optimizer.zero_grad Reset the gradients of all optimized torch.Tensor s. Algorithms# Adadelta Implements Adadelta algorithm. Adafactor Implements Adafactor algorithm. Adagrad Implements Adagrad algorithm. Adam Implements Adam algorithm. AdamW Implements AdamW algorithm, where weight decay does not accumulate in the momentum nor variance. SparseAdam SparseAdam implements a masked version of the Adam algorithm suitable for sparse gradients. Adamax Implements Adamax algorithm (a variant of Adam based on infinity norm). ASGD Implements Averaged Stochastic Gradient Descent. LBFGS Implements L-BFGS algorithm. Muon Implements Muon algorithm. NAdam Implements NAdam algorithm. RAdam Implements RAdam algorithm. RMSprop Implements RMSprop algorithm. Rprop Implements the resilient backpropagation algorithm. SGD Implements stochastic gradient descent (optionally with momentum). Many of our algorithms have various implementations optimized for performance, readability and/or generality, so we attempt to default to the generally fastest implementation for the current device if no particular implementation has been specified by the user. We have 3 major categories of implementations: for-loop, foreach (multi-tensor), and fused. The most straightforward implementations are for-loops over the parameters with big chunks of computation. For-looping is usually slower than our foreach implementations, which combine parameters into a multi-tensor and run the big chunks of computation all at once, thereby saving many sequential kernel calls. A few of our optimizers have even faster fused implementations, which fuse the big chunks of computation into one kernel. We can think of foreach implementations as fusing horizontally and fused implementations as fusing vertically on top of that. In general, the performance ordering of the 3 implementations is fused \u003e foreach \u003e for-loop. So when applicable, we default to foreach over for-loop. Applicable means the foreach implementation is available, the user has not specified any implementation-specific kwargs (e.g., fused, foreach, differentiable), and all tensors are native. Note that while fused should be even faster than foreach, the implementations are newer and we would like to give them more bake-in time before flipping the switch everywhere. We summarize the stability status for each implementation on the second table below, you are welcome to try them out though! Below is a table showing the available and default implementations of each algorithm: Algorithm Default Has foreach? Has fused? Adadelta foreach yes no Adafactor for-loop no no Adagrad foreach yes yes (cpu only) Adam foreach yes yes AdamW foreach yes yes SparseAdam for-loop no no Adamax foreach yes no ASGD foreach yes no LBFGS for-loop no no Muon for-loop no no NAdam foreach yes no RAdam foreach yes no RMSprop foreach yes no Rprop foreach yes no SGD foreach yes yes Below table is showing the stability status for fused implementations: Algorithm CPU CUDA MPS Adadelta unsupported unsupported unsupported Adafactor unsupported unsupported unsupported Adagrad beta unsupported unsupported Adam beta stable beta AdamW beta stable beta SparseAdam unsupported unsupported unsupported Adamax unsupported unsupported unsupported ASGD unsupported unsupported unsupported LBFGS unsupported unsupported unsupported Muon unsupported unsupported unsupported NAdam unsupported unsupported unsupported RAdam unsupported unsupported unsupported RMSprop unsupported unsupported unsupported Rprop unsupported unsupported unsupported SGD beta beta beta How to adjust learning rate# torch.optim.lr_scheduler.LRScheduler provides several methods to adjust the learning rate based on the number of epochs. torch.optim.lr_scheduler.ReduceLROnPlateau allows dynamic learning rate reducing based on some validation measurements. Learning rate scheduling should be applied after optimizer\u2019s update; e.g., you should write your code this way: Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) scheduler = ExponentialLR(optimizer, gamma=0.9) for epoch in range(20): for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() scheduler.step() Most learning rate schedulers can be called back-to-back (also referred to as chaining schedulers). The result is that each scheduler is applied one after the other on the learning rate obtained by the one preceding it. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) scheduler1 = ExponentialLR(optimizer, gamma=0.9) scheduler2 = MultiStepLR(optimizer, milestones=[30,80], gamma=0.1) for epoch in range(20): for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() scheduler1.step() scheduler2.step() In many places in the documentation, we will use the following template to refer to schedulers algorithms. \u003e\u003e\u003e scheduler = ... \u003e\u003e\u003e for epoch in range(100): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() Warning Prior to PyTorch 1.1.0, the learning rate scheduler was expected to be called before the optimizer\u2019s update; 1.1.0 changed this behavior in a BC-breaking way. If you use the learning rate scheduler (calling scheduler.step()) before the optimizer\u2019s update (calling optimizer.step()), this will skip the first value of the learning rate schedule. If you are unable to reproduce results after upgrading to PyTorch 1.1.0, please check if you are calling scheduler.step() at the wrong time. lr_scheduler.LRScheduler Base class for all learning rate schedulers. lr_scheduler.LambdaLR Sets the initial learning rate. lr_scheduler.MultiplicativeLR Multiply the learning rate of each parameter group by the factor given in the specified function. lr_scheduler.StepLR Decays the learning rate of each parameter group by gamma every step_size epochs. lr_scheduler.MultiStepLR Decays the learning rate of each parameter group by gamma once the number of epoch reaches one of the milestones. lr_scheduler.ConstantLR Multiply the learning rate of each parameter group by a small constant factor. lr_scheduler.LinearLR Decays the learning rate of each parameter group by linearly changing small multiplicative factor. lr_scheduler.ExponentialLR Decays the learning rate of each parameter group by gamma every epoch. lr_scheduler.PolynomialLR Decays the learning rate of each parameter group using a polynomial function in the given total_iters. lr_scheduler.CosineAnnealingLR Set the learning rate of each parameter group using a cosine annealing schedule. lr_scheduler.ChainedScheduler Chains a list of learning rate schedulers. lr_scheduler.SequentialLR Contains a list of schedulers expected to be called sequentially during the optimization process. lr_scheduler.ReduceLROnPlateau Reduce learning rate when a metric has stopped improving. lr_scheduler.CyclicLR Sets the learning rate of each parameter group according to cyclical learning rate policy (CLR). lr_scheduler.OneCycleLR Sets the learning rate of each parameter group according to the 1cycle learning rate policy. lr_scheduler.CosineAnnealingWarmRestarts Set the learning rate of each parameter group using a cosine annealing schedule. How to utilize named parameters to load optimizer state dict# The function load_state_dict() stores the optional param_names content from the loaded state dict if present. However, the process of loading the optimizer state is not affected, as the order of the parameters matters to maintain compatibility (in case of different ordering). To utilize the loaded parameters names from the loaded state dict, a custom register_load_state_dict_pre_hook needs to be implemented according to the desired behavior. This can be useful, for instance, when the model architecture changes, but the weights and optimizer states need to remain unchanged. The following example demonstrates how to implement this customization. Example: class OneLayerModel(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(3, 4) def forward(self, x): return self.fc(x) model = OneLayerModel() optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) # training.. torch.save(optimizer.state_dict(), PATH) Let\u2019s say that model implements an expert (MoE), and we want to duplicate it and resume training for two experts, both initialized the same way as the fc layer. For the following model2 we create two layers identical to fc and resume training by loading the model weights and optimizer states from model into both fc1 and fc2 of model2 (and adjust them accordingly): class TwoLayerModel(nn.Module): def __init__(self): super().__init__() self.fc1 = nn.Linear(3, 4) self.fc2 = nn.Linear(3, 4) def forward(self, x): return (self.fc1(x) + self.fc2(x)) / 2 model2 = TwoLayerModel() # adapt and load model weights.. optimizer2 = optim.SGD(model2.named_parameters(), lr=0.01, momentum=0.9) To load the state dict for optimizer2 with the state dict of the previous optimizer such that both fc1 and fc2 will be initialized with a copy of fc optimizer states (to resume training for each layer from fc), we can use the following hook: def adapt_state_dict_ids(optimizer, state_dict): adapted_state_dict = deepcopy(optimizer.state_dict()) # Copy setup parameters (lr, weight_decay, etc.), in case they differ in the loaded state dict. for k, v in state_dict[\u0027param_groups\u0027][0].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][0][k] = v lookup_dict = { \u0027fc1.weight\u0027: \u0027fc.weight\u0027, \u0027fc1.bias\u0027: \u0027fc.bias\u0027, \u0027fc2.weight\u0027: \u0027fc.weight\u0027, \u0027fc2.bias\u0027: \u0027fc.bias\u0027 } clone_deepcopy = lambda d: {k: (v.clone() if isinstance(v, torch.Tensor) else deepcopy(v)) for k, v in d.items()} for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027param_names\u0027]): name_in_loaded = lookup_dict[param_name] index_in_loaded_list = state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027].index(name_in_loaded) id_in_loaded = state_dict[\u0027param_groups\u0027][0][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = clone_deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict optimizer2.register_load_state_dict_pre_hook(adapt_state_dict_ids) optimizer2.load_state_dict(torch.load(PATH)) # The previous optimizer saved state_dict This ensures that the adapted state_dict with the correct states for the layers of model2 will be used during model loading. Note that this code is designed specifically for this example (e.g., assuming a single parameter group), and other cases might require different adaptations. The following example shows how to handle missing parameters in a loaded state dict when the model structure changes. The Model_bypass adds a new bypass layer, which is not present in the original Model1. To resume training, a custom adapt_state_dict_missing_param hook is used to adapt the optimizer\u2019s state_dict, ensuring existing parameters are mapped correctly, while missing ones (like the bypass layer) remain unchanged (as initialized in this example). This approach enables smooth loading and resuming of the optimizer state despite model changes. The new bypass layer will be trained from scratch: class Model1(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(5, 5) def forward(self, x): return self.fc(x) + x model = Model1() optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) # training.. torch.save(optimizer.state_dict(), PATH) class Model_bypass(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(5, 5) self.bypass = nn.Linear(5, 5, bias=False) torch.nn.init.eye_(self.bypass.weight) def forward(self, x): return self.fc(x) + self.bypass(x) model2 = Model_bypass() optimizer2 = optim.SGD(model2.named_parameters(), lr=0.01, momentum=0.9) def adapt_state_dict_missing_param(optimizer, state_dict): adapted_state_dict = deepcopy(optimizer.state_dict()) # Copy setup parameters (lr, weight_decay, etc.), in case they differ in the loaded state dict. for k, v in state_dict[\u0027param_groups\u0027][0].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][0][k] = v lookup_dict = { \u0027fc.weight\u0027: \u0027fc.weight\u0027, \u0027fc.bias\u0027: \u0027fc.bias\u0027, \u0027bypass.weight\u0027: None, } clone_deepcopy = lambda d: {k: (v.clone() if isinstance(v, torch.Tensor) else deepcopy(v)) for k, v in d.items()} for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027param_names\u0027]): name_in_loaded = lookup_dict[param_name] if name_in_loaded in state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027]: index_in_loaded_list = state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027].index(name_in_loaded) id_in_loaded = state_dict[\u0027param_groups\u0027][0][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = clone_deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict optimizer2.register_load_state_dict_pre_hook(adapt_state_dict_ids) optimizer2.load_state_dict(torch.load(PATH)) # The previous optimizer saved state_dict As a third example, instead of loading a state according to the order of parameters (the default approach), this hook can be used to load according to the parameters\u2019 names: def names_matching(optimizer, state_dict): assert len(state_dict[\u0027param_groups\u0027]) == len(optimizer.state_dict()[\u0027param_groups\u0027]) adapted_state_dict = deepcopy(optimizer.state_dict()) for g_ind in range(len(state_dict[\u0027param_groups\u0027])): assert len(state_dict[\u0027param_groups\u0027][g_ind][\u0027params\u0027]) == len( optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027params\u0027]) for k, v in state_dict[\u0027param_groups\u0027][g_ind].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][g_ind][k] = v for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027param_names\u0027]): index_in_loaded_list = state_dict[\u0027param_groups\u0027][g_ind][\u0027param_names\u0027].index(param_name) id_in_loaded = state_dict[\u0027param_groups\u0027][g_ind][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict Weight Averaging (SWA and EMA)# torch.optim.swa_utils.AveragedModel implements Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA), torch.optim.swa_utils.SWALR implements the SWA learning rate scheduler and torch.optim.swa_utils.update_bn() is a utility function used to update SWA/EMA batch normalization statistics at the end of training. SWA has been proposed in Averaging Weights Leads to Wider Optima and Better Generalization. EMA is a widely known technique to reduce the training time by reducing the number of weight updates needed. It is a variation of Polyak averaging, but using exponential weights instead of equal weights across iterations. Constructing averaged models# The AveragedModel class serves to compute the weights of the SWA or EMA model. You can create an SWA averaged model by running: \u003e\u003e\u003e averaged_model = AveragedModel(model) EMA models are constructed by specifying the multi_avg_fn argument as follows: \u003e\u003e\u003e decay = 0.999 \u003e\u003e\u003e averaged_model = AveragedModel(model, multi_avg_fn=get_ema_multi_avg_fn(decay)) Decay is a parameter between 0 and 1 that controls how fast the averaged parameters are decayed. If not provided to torch.optim.swa_utils.get_ema_multi_avg_fn(), the default is 0.999. Decay value should be close to 1.0, as smaller values can cause optimization convergence issues. torch.optim.swa_utils.get_ema_multi_avg_fn() returns a function that applies the following EMA equation to the weights: W0EMA=W0modelW_0^{\\text{EMA}} = W_0^{\\text{model}}W0EMA\u200b=W0model\u200b Wt+1EMA=decay\u00d7WtEMA+(1\u2212decay)\u00d7Wt+1modelW_{t+1}^{\\text{EMA}} = \\text{decay} \\times W_t^{\\text{EMA}} + (1 - \\text{decay}) \\times W_{t+1}^{\\text{model}}Wt+1EMA\u200b=decay\u00d7WtEMA\u200b+(1\u2212decay)\u00d7Wt+1model\u200bwhere W_t^{\\text{EMA}} is the EMA parameter at step t, W_t^{\\text{model}} is the model parameter at step t, and decay is the EMA decay rate (default: 0.999). Here the model model can be an arbitrary torch.nn.Module object. averaged_model will keep track of the running averages of the parameters of the model. To update these averages, you should use the update_parameters() function after the optimizer.step(): \u003e\u003e\u003e averaged_model.update_parameters(model) For SWA and EMA, this call is usually done right after the optimizer step(). In the case of SWA, this is usually skipped for some numbers of steps at the beginning of the training. Custom averaging strategies# By default, torch.optim.swa_utils.AveragedModel computes a running equal average of the parameters that you provide, but you can also use custom averaging functions with the avg_fn or multi_avg_fn parameters: avg_fn allows defining a function operating on each parameter tuple (averaged parameter, model parameter) and should return the new averaged parameter. multi_avg_fn allows defining more efficient operations acting on a tuple of parameter lists, (averaged parameter list, model parameter list), at the same time, for example using the torch._foreach* functions. This function must update the averaged parameters in-place. In the following example ema_model computes an exponential moving average using the avg_fn parameter: \u003e\u003e\u003e ema_avg = lambda averaged_model_parameter, model_parameter, num_averaged:\\ \u003e\u003e\u003e 0.9 * averaged_model_parameter + 0.1 * model_parameter \u003e\u003e\u003e ema_model = torch.optim.swa_utils.AveragedModel(model, avg_fn=ema_avg) In the following example ema_model computes an exponential moving average using the more efficient multi_avg_fn parameter: \u003e\u003e\u003e ema_model = AveragedModel(model, multi_avg_fn=get_ema_multi_avg_fn(0.9)) SWA learning rate schedules# Typically, in SWA the learning rate is set to a high constant value. SWALR is a learning rate scheduler that anneals the learning rate to a fixed value, and then keeps it constant. For example, the following code creates a scheduler that linearly anneals the learning rate from its initial value to 0.05 in 5 epochs within each parameter group: \u003e\u003e\u003e swa_scheduler = torch.optim.swa_utils.SWALR(optimizer, \\ \u003e\u003e\u003e anneal_strategy=\"linear\", anneal_epochs=5, swa_lr=0.05) You can also use cosine annealing to a fixed value instead of linear annealing by setting anneal_strategy=\"cos\". Taking care of batch normalization# update_bn() is a utility function that allows to compute the batchnorm statistics for the SWA model on a given dataloader loader at the end of training: \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, swa_model) update_bn() applies the swa_model to every element in the dataloader and computes the activation statistics for each batch normalization layer in the model. Warning update_bn() assumes that each batch in the dataloader loader is either a tensors or a list of tensors where the first element is the tensor that the network swa_model should be applied to. If your dataloader has a different structure, you can update the batch normalization statistics of the swa_model by doing a forward pass with the swa_model on each element of the dataset. Putting it all together: SWA# In the example below, swa_model is the SWA model that accumulates the averages of the weights. We train the model for a total of 300 epochs and we switch to the SWA learning rate schedule and start to collect SWA averages of the parameters at epoch 160: \u003e\u003e\u003e loader, optimizer, model, loss_fn = ... \u003e\u003e\u003e swa_model = torch.optim.swa_utils.AveragedModel(model) \u003e\u003e\u003e scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=300) \u003e\u003e\u003e swa_start = 160 \u003e\u003e\u003e swa_scheduler = SWALR(optimizer, swa_lr=0.05) \u003e\u003e\u003e \u003e\u003e\u003e for epoch in range(300): \u003e\u003e\u003e for input, target in loader: \u003e\u003e\u003e optimizer.zero_grad() \u003e\u003e\u003e loss_fn(model(input), target).backward() \u003e\u003e\u003e optimizer.step() \u003e\u003e\u003e if epoch \u003e swa_start: \u003e\u003e\u003e swa_model.update_parameters(model) \u003e\u003e\u003e swa_scheduler.step() \u003e\u003e\u003e else: \u003e\u003e\u003e scheduler.step() \u003e\u003e\u003e \u003e\u003e\u003e # Update bn statistics for the swa_model at the end \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, swa_model) \u003e\u003e\u003e # Use swa_model to make predictions on test data \u003e\u003e\u003e preds = swa_model(test_input) Putting it all together: EMA# In the example below, ema_model is the EMA model that accumulates the exponentially-decayed averages of the weights with a decay rate of 0.999. We train the model for a total of 300 epochs and start to collect EMA averages immediately. \u003e\u003e\u003e loader, optimizer, model, loss_fn = ... \u003e\u003e\u003e ema_model = torch.optim.swa_utils.AveragedModel(model, \\ \u003e\u003e\u003e multi_avg_fn=torch.optim.swa_utils.get_ema_multi_avg_fn(0.999)) \u003e\u003e\u003e \u003e\u003e\u003e for epoch in range(300): \u003e\u003e\u003e for input, target in loader: \u003e\u003e\u003e optimizer.zero_grad() \u003e\u003e\u003e loss_fn(model(input), target).backward() \u003e\u003e\u003e optimizer.step() \u003e\u003e\u003e ema_model.update_parameters(model) \u003e\u003e\u003e \u003e\u003e\u003e # Update bn statistics for the ema_model at the end \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, ema_model) \u003e\u003e\u003e # Use ema_model to make predictions on test data \u003e\u003e\u003e preds = ema_model(test_input) swa_utils.AveragedModel Implements averaged model for Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA). swa_utils.SWALR Anneals the learning rate in each parameter group to a fixed value. torch.optim.swa_utils.get_ema_multi_avg_fn(decay=0.999)[source]# Get the function applying exponential moving average (EMA) across multiple params. The EMA is computed as: W0EMA=W0modelW_0^{\\text{EMA}} = W_0^{\\text{model}} W0EMA\u200b=W0model\u200b Wt+1EMA=decay\u00d7WtEMA+(1\u2212decay)\u00d7Wt+1modelW_{t+1}^{\\text{EMA}} = \\text{decay} \\times W_t^{\\text{EMA}} + (1 - \\text{decay}) \\times W_{t+1}^{\\text{model}} Wt+1EMA\u200b=decay\u00d7WtEMA\u200b+(1\u2212decay)\u00d7Wt+1model\u200bwhere WtEMAW_t^{\\text{EMA}}WtEMA\u200b is the EMA parameter at step ttt, WtmodelW_t^{\\text{model}}Wtmodel\u200b is the model parameter at step ttt, and decay\\text{decay}decay is the decay rate (default: 0.999). Parameters: decay (float) \u2013 Decay rate for EMA. Must be in the range [0, 1]. Default: 0.999 Returns: A function that updates EMA parameters given current model parameters Return type: Callable torch.optim.swa_utils.update_bn(loader, model, device=None)[source]# Update BatchNorm running_mean, running_var buffers in the model. It performs one pass over data in loader to estimate the activation statistics for BatchNorm layers in the model. Parameters: loader (torch.utils.data.DataLoader) \u2013 dataset loader to compute the activation statistics on. Each data batch should be either a tensor, or a list/tuple whose first element is a tensor containing data. model (torch.nn.Module) \u2013 model for which we seek to update BatchNorm statistics. device (torch.device, optional) \u2013 If set, data will be transferred to device before being passed into model. Example \u003e\u003e\u003e loader, model = ... \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, model) Note The update_bn utility assumes that each data batch in loader is either a tensor or a list or tuple of tensors; in the latter case it is assumed that model.forward() should be called on the first element of the list or tuple corresponding to the data batch.",
        "author": {

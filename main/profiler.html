@@ -29,14 +29,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=b417fedc" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,7 +56,6 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/profiler.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,6 +64,25 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.profiler - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.11.0a0+git8027bc9 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -93,6 +110,32 @@
   });
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
 
 
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
@@ -141,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git31e65e5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8027bc9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,25 +197,112 @@
 <!-- End Facebook Pixel Code -->
 <!-- Repository configuration for tutorials -->
 
-<!-- Script to Fix scrolling -->
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fix anchor scrolling
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
           const headerHeight =
             (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
             (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
 
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
           });
 
           // Update URL hash without scrolling
@@ -184,6 +314,18 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="_static/js/runllm-widget.js"></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,350 +333,6 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-  
-    <div class="container-fluid header-holder tutorials-header" id="header-holder">
-   <div class="header-container-wrapper">
-    <div class="header-container">
-      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-
-      <div class="main-menu">
-        <ul>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                <span>Learn</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
-                  <span class=dropdown-title>Get Started</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
-                  <span class="dropdown-title">Tutorials</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
-                  <span class="dropdown-title">Learn the Basics</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
-                  <span class="dropdown-title">PyTorch Recipes</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
-                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
-                  <span class="dropdown-title">Webinars</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Community</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
-                  <span class="dropdown-title">Landscape</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
-                  <span class="dropdown-title">Join the Ecosystem</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
-                  <span class="dropdown-title">Community Hub</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
-                  <span class="dropdown-title">Forums</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
-                  <span class=dropdown-title>Developer Resources</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
-                  <span class="dropdown-title">Contributor Awards</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
-                  <span class="dropdown-title">Community Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
-                  <span class="dropdown-title">PyTorch Ambassadors</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Projects</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
-                  <span class="dropdown-title">vLLM</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
-                  <span class="dropdown-title">DeepSpeed</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
-                  <span class="dropdown-title">Host Your Project</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
-                  <span class="dropdown-title">RAY</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span> Docs</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
-                  <span class="dropdown-title">Domains</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Blogs & News</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">Blog</span>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
-                  <span class="dropdown-title">Announcements</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
-                  <span class="dropdown-title">Case Studies</span>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                </a>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>About</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/members">
-                  <span class="dropdown-title">Members</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
-                  <span class="dropdown-title">Contact</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
-                  <span class="dropdown-title">Brand Guidelines</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div class="no-dropdown main-menu-button">
-              <a href="https://pytorch.org/join" data-cta="join">
-                JOIN
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
-        <i class="fa-solid fa-ellipsis"></i>
-      </a>
-    </div>
-  </div>
- </div>
-
- <!-- Begin Mobile Menu -->
-
-<div class="mobile-main-menu">
-  <div class="container-fluid">
-    <div class="header-container-wrapper">
-      <div class="mobile-main-menu-header-container">
-        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mobile-main-menu-links-container">
-    <div class="main-menu">
-      <ul>
-         <li class="resources-mobile-menu-title">
-           <a>Learn</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/get-started/locally">Get Started</a>
-           </li>
-           <li>
-             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/webinars/">Webinars</a>
-          </li>
-        </ul>
-         <li class="resources-mobile-menu-title">
-           <a>Community</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://landscape.pytorch.org/">Landscape</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/community-hub/">Community Hub</a>
-           </li>
-           <li>
-             <a href="https://discuss.pytorch.org/">Forums</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/resources">Developer Resources</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/community-events/">Community Events</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
-          </li>
-       </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Projects</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
-           </li>
-
-           <li>
-             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
-           </li>
-         </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Docs</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/domains">Domains</a>
-          </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>Blog & News</a>
-        </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/announcements">Announcements</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/case-studies/">Case Studies</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/events">Events</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/newsletter">Newsletter</a>
-           </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>About</a>
-        </li>
-
-        <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/members">Members</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/governing-board">Governing Board</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-         </li>
-         <li>
-             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/staff">Staff</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/contact">Contact</a>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- End Mobile Menu -->
   
   
   
@@ -544,7 +342,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -589,15 +387,79 @@
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+    
+    <img src="_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
   
   
   <div class=" navbar-header-items__start">
     
-      <div class="navbar-item">
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+    
+    <img src="_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
@@ -619,24 +481,9 @@ document.write(`
     </div>
   </div>
 `);
-</script></div>
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Home</p>
-  
-</a></div>
+</script>
+        </div>
+      
     
   </div>
   
@@ -645,57 +492,822 @@ document.write(`
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
       
     </div>
     
     
     <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
       
       
         <div class="navbar-item">
@@ -1095,8 +1707,42 @@ document.write(`
       <div class="bd-sidebar-primary bd-sidebar">
         
 
+
+
+
   
   <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
     
     
       <div class="sidebar-header-items__center">
@@ -1104,52 +1750,806 @@ document.write(`
           
           
             <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
           
         
       </div>
@@ -1157,6 +2557,17 @@ document.write(`
     
     
       <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
         
           <div class="navbar-item">
 <div class="search-container-wrapper">
@@ -3475,11 +4886,18 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/draft_export.html">Draft Export</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/scan.html">Control Flow - Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/map.html">Control Flow - Map</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4536,10 +5954,10 @@ document.write(`
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
+
+<div id="rtd-footer-container"></div>
       </div>
       
       <main id="main-content" class="bd-main" role="main">
@@ -4603,28 +6021,28 @@ document.write(`
 </div>
               
               
-  
+
 <div id="searchbox"></div>
-  <article class="bd-article" id="pytorch-article">
-    <!-- Hidden breadcrumb schema for SEO only -->
-    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="pytorch-api.html">
-        <meta itemprop="name" content="Reference API">
-        <meta itemprop="position" content="1">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="torch.profiler">
-        <meta itemprop="position" content="2">
-      </div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="pytorch-api.html">
+      <meta itemprop="name" content="Reference API">
+      <meta itemprop="position" content="1">
     </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="torch.profiler">
+      <meta itemprop="position" content="2">
+    </div>
+  </div>
 
-    
-    
+  
+  
 
-    
+  
               
                 
 <div id="searchbox"></div>
@@ -4647,7 +6065,7 @@ examine their input shapes and stack traces, study device kernel activity and vi
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">_KinetoProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">_KinetoProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile" title="Link to this definition">#</a></dt>
 <dd><p>Low-level profiler wrap the autograd profile</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4694,7 +6112,7 @@ extra tensor copies.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.add_metadata">
-<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a string value
 into the trace file</p>
 <dl class="field-list simple">
@@ -4703,7 +6121,7 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.add_metadata_json">
-<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a valid json value
 into the trace file</p>
 <dl class="field-list simple">
@@ -4712,14 +6130,14 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.events">
-<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.events" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.events" title="Link to this definition">#</a></dt>
 <dd><p>Returns the list of unaggregated profiler events,
 to be used in the trace callback or after the profiling is finished</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_chrome_trace">
-<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_chrome_trace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_chrome_trace" title="Link to this definition">#</a></dt>
 <dd><p>Exports the collected trace in Chrome JSON format. If kineto is enabled, only
 last cycle in schedule is exported.</p>
 <dl class="field-list simple">
@@ -4728,7 +6146,7 @@ last cycle in schedule is exported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_memory_timeline">
-<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_memory_timeline" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_memory_timeline" title="Link to this definition">#</a></dt>
 <dd><p>Export memory event information from the profiler collected
 tree for a given device, and export a timeline plot. There are 3
 exportable files using <code class="docutils literal notranslate"><span class="pre">export_memory_timeline</span></code>, each controlled by the
@@ -4758,7 +6176,7 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_stacks">
-<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_stacks" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_stacks" title="Link to this definition">#</a></dt>
 <dd><p>Save stack traces to a file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4772,7 +6190,7 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.key_averages">
-<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L347"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.key_averages" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L347"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.key_averages" title="Link to this definition">#</a></dt>
 <dd><p>Averages events, grouping them by operator name and (optionally) input shapes, stack
 and overload name.</p>
 <div class="admonition note">
@@ -4786,7 +6204,7 @@ when creating profiler context manager.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.preset_metadata_json">
-<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.preset_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.preset_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Preset a user defined metadata when the profiler is not started
 and added into the trace file later.
 Metadata is in the format of a string key and a valid json value</p>
@@ -4796,7 +6214,7 @@ Metadata is in the format of a string key and a valid json value</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.toggle_collection_dynamic">
-<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L314"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L314"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
 <dd><p>Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops
 (CPU) and CUDA activity supported in Kineto</p>
 <dl class="field-list simple">
@@ -4829,7 +6247,7 @@ Metadata is in the format of a string key and a valid json value</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.profile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
 <dd><p>Profiler context manager.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4959,13 +6377,13 @@ extra tensor copies.</p>
 Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.get_trace_id">
-<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current trace ID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.set_custom_trace_id_callback">
-<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
 <dd><p>Sets a callback to be called when a new trace ID is generated.</p>
 <dl class="field-list simple">
 </dl>
@@ -4973,7 +6391,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L884"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L884"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
 <dd><p>Signals the profiler that the next profiling step has started.</p>
 <dl class="field-list simple">
 </dl>
@@ -4983,7 +6401,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.ProfilerAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L490"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L490"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
 <dd><p>Profiler actions that can be taken at the specified intervals</p>
 </dd></dl>
 
@@ -5006,7 +6424,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.schedule">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.schedule" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.schedule" title="Link to this definition">#</a></dt>
 <dd><p>Returns a callable that can be used as profiler <code class="docutils literal notranslate"><span class="pre">schedule</span></code> argument. The profiler will skip
 the first <code class="docutils literal notranslate"><span class="pre">skip_first</span></code> steps, then wait for <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps, then do the warmup for the next <code class="docutils literal notranslate"><span class="pre">warmup</span></code> steps,
 then do the active recording for the next <code class="docutils literal notranslate"><span class="pre">active</span></code> steps and then repeat the cycle starting with <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps.
@@ -5027,7 +6445,7 @@ last active and warmup.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.tensorboard_trace_handler">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/profiler.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/profiler.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
 <dd><p>Outputs tracing files to directory of <code class="docutils literal notranslate"><span class="pre">dir_name</span></code>, then that directory can be
 directly delivered to tensorboard as logdir.
 <code class="docutils literal notranslate"><span class="pre">worker_name</span></code> should be unique for each worker in distributed scenario,
@@ -5041,13 +6459,13 @@ it will be set to ‘[hostname]_[pid]’ by default.</p>
 <h2>Intel Instrumentation and Tracing Technology APIs<a class="headerlink" href="#intel-instrumentation-and-tracing-technology-apis" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Check if ITT feature is available or not</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.mark">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
 <dd><p>Describe an instantaneous event that occurred at some point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -5058,7 +6476,7 @@ it will be set to ‘[hostname]_[pid]’ by default.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_push">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
 <dd><p>Pushes a range onto a stack of nested range span.  Returns zero-based
 depth of the range that is started.</p>
 <dl class="field-list simple">
@@ -5070,7 +6488,7 @@ depth of the range that is started.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_pop">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
 <dd><p>Pops a range off of a stack of nested range spans. Returns the
 zero-based depth of the range that is ended.</p>
 </dd></dl>
@@ -5083,8 +6501,8 @@ for tracking purposes -->
 
                 </article>
               
-  </article>
-  
+</div>
+
               
               
                 <footer class="bd-footer-article">
@@ -5268,17 +6686,23 @@ for tracking purposes -->
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
@@ -5477,7 +6901,7 @@ for tracking purposes -->
        "@type": "Article",
        "name": "torch.profiler",
        "headline": "torch.profiler",
-       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/profiler.html",
        "articleBody": "torch.profiler# Created On: Dec 18, 2020 | Last Updated On: Jun 13, 2025 Overview# PyTorch Profiler is a tool that allows the collection of performance metrics during training and inference. Profiler\u2019s context manager API can be used to better understand what model operators are the most expensive, examine their input shapes and stack traces, study device kernel activity and visualize the execution trace. Note An earlier version of the API in torch.autograd module is considered legacy and will be deprecated. API Reference# class torch.profiler._KinetoProfile(*, activities=None, record_shapes=False, profile_memory=False, with_stack=False, with_flops=False, with_modules=False, experimental_config=None, execution_trace_observer=None, acc_events=False, custom_trace_id_callback=None, post_processing_timeout_s=None)[source]# Low-level profiler wrap the autograd profile Parameters: activities (iterable) \u2013 list of activity groups (CPU, CUDA) to use in profiling, supported values: torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA, torch.profiler.ProfilerActivity.XPU. Default value: ProfilerActivity.CPU and (when available) ProfilerActivity.CUDA or (when available) ProfilerActivity.XPU. record_shapes (bool) \u2013 save information about operator\u2019s input shapes. profile_memory (bool) \u2013 track tensor memory allocation/deallocation (see export_memory_timeline for more details). with_stack (bool) \u2013 record source information (file and line number) for the ops. with_flops (bool) \u2013 use formula to estimate the FLOPS of specific operators (matrix multiplication and 2D convolution). with_modules (bool) \u2013 record module hierarchy (including function names) corresponding to the callstack of the op. e.g. If module A\u2019s forward call\u2019s module B\u2019s forward which contains an aten::add op, then aten::add\u2019s module hierarchy is A.B Note that this support exist, at the moment, only for TorchScript models and not eager mode models. experimental_config (_ExperimentalConfig) \u2013 A set of experimental options used by profiler libraries like Kineto. Note, backward compatibility is not guaranteed. execution_trace_observer (ExecutionTraceObserver) \u2013 A PyTorch Execution Trace Observer object. PyTorch Execution Traces offer a graph based representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators. When this argument is included the observer start() and stop() will be called for the same time window as PyTorch profiler. acc_events (bool) \u2013 Enable the accumulation of FunctionEvents across multiple profiling cycles post_processing_timeout_s (float) \u2013 Optional timeout in seconds for post-processing profiler results. In this context, post-processing happens after the profiling itself has finished. If specified, event parsing will stop after this duration and return partial results. Useful for handling large traces that may take too long to process. Note This API is experimental and subject to change in the future. Enabling shape and stack tracing results in additional overhead. When record_shapes=True is specified, profiler will temporarily hold references to the tensors; that may further prevent certain optimizations that depend on the reference count and introduce extra tensor copies. add_metadata(key, value)[source]# Adds a user defined metadata with a string key and a string value into the trace file add_metadata_json(key, value)[source]# Adds a user defined metadata with a string key and a valid json value into the trace file events()[source]# Returns the list of unaggregated profiler events, to be used in the trace callback or after the profiling is finished export_chrome_trace(path)[source]# Exports the collected trace in Chrome JSON format. If kineto is enabled, only last cycle in schedule is exported. export_memory_timeline(path, device=None)[source]# Export memory event information from the profiler collected tree for a given device, and export a timeline plot. There are 3 exportable files using export_memory_timeline, each controlled by the path\u2019s suffix. For an HTML compatible plot, use the suffix .html, and a memory timeline plot will be embedded as a PNG file in the HTML file. For plot points consisting of [times, [sizes by category]], where times are timestamps and sizes are memory usage for each category. The memory timeline plot will be saved a JSON (.json) or gzipped JSON (.json.gz) depending on the suffix. For raw memory points, use the suffix .raw.json.gz. Each raw memory event will consist of (timestamp, action, numbytes, category), where action is one of [PREEXISTING, CREATE, INCREMENT_VERSION, DESTROY], and category is one of the enums from torch.profiler._memory_profiler.Category. Output: Memory timeline written as gzipped JSON, JSON, or HTML. Deprecated since version ``export_memory_timeline``: is deprecated and will be removed in a future version. Please use torch.cuda.memory._record_memory_history and torch.cuda.memory._export_memory_snapshot instead. export_stacks(path, metric=\u0027self_cpu_time_total\u0027)[source]# Save stack traces to a file Parameters: path (str) \u2013 save stacks file to this location; metric (str) \u2013 metric to use: \u201cself_cpu_time_total\u201d or \u201cself_cuda_time_total\u201d key_averages(group_by_input_shape=False, group_by_stack_n=0, group_by_overload_name=False)[source]# Averages events, grouping them by operator name and (optionally) input shapes, stack and overload name. Note To use shape/stack functionality make sure to set record_shapes/with_stack when creating profiler context manager. preset_metadata_json(key, value)[source]# Preset a user defined metadata when the profiler is not started and added into the trace file later. Metadata is in the format of a string key and a valid json value toggle_collection_dynamic(enable, activities)[source]# Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops (CPU) and CUDA activity supported in Kineto Parameters: activities (iterable) \u2013 list of activity groups to use in profiling, supported values: torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA Examples: with torch.profiler.profile( activities=[ torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA, ] ) as p: code_to_profile_0() // turn off collection of all CUDA activity p.toggle_collection_dynamic(False, [torch.profiler.ProfilerActivity.CUDA]) code_to_profile_1() // turn on collection of all CUDA activity p.toggle_collection_dynamic(True, [torch.profiler.ProfilerActivity.CUDA]) code_to_profile_2() print(p.key_averages().table( sort_by=\"self_cuda_time_total\", row_limit=-1)) class torch.profiler.profile(*, activities=None, schedule=None, on_trace_ready=None, record_shapes=False, profile_memory=False, with_stack=False, with_flops=False, with_modules=False, experimental_config=None, execution_trace_observer=None, acc_events=False, use_cuda=None, custom_trace_id_callback=None, post_processing_timeout_s=None)[source]# Profiler context manager. Parameters: activities (iterable) \u2013 list of activity groups (CPU, CUDA) to use in profiling, supported values: torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA, torch.profiler.ProfilerActivity.XPU. Default value: ProfilerActivity.CPU and (when available) ProfilerActivity.CUDA or (when available) ProfilerActivity.XPU. schedule (Callable) \u2013 callable that takes step (int) as a single parameter and returns ProfilerAction value that specifies the profiler action to perform at each step. on_trace_ready (Callable) \u2013 callable that is called at each step when schedule returns ProfilerAction.RECORD_AND_SAVE during the profiling. record_shapes (bool) \u2013 save information about operator\u2019s input shapes. profile_memory (bool) \u2013 track tensor memory allocation/deallocation. with_stack (bool) \u2013 record source information (file and line number) for the ops. with_flops (bool) \u2013 use formula to estimate the FLOPs (floating point operations) of specific operators (matrix multiplication and 2D convolution). with_modules (bool) \u2013 record module hierarchy (including function names) corresponding to the callstack of the op. e.g. If module A\u2019s forward call\u2019s module B\u2019s forward which contains an aten::add op, then aten::add\u2019s module hierarchy is A.B Note that this support exist, at the moment, only for TorchScript models and not eager mode models. experimental_config (_ExperimentalConfig) \u2013 A set of experimental options used for Kineto library features. Note, backward compatibility is not guaranteed. execution_trace_observer (ExecutionTraceObserver) \u2013 A PyTorch Execution Trace Observer object. PyTorch Execution Traces offer a graph based representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators. When this argument is included the observer start() and stop() will be called for the same time window as PyTorch profiler. See the examples section below for a code sample. acc_events (bool) \u2013 Enable the accumulation of FunctionEvents across multiple profiling cycles post_processing_timeout_s (float) \u2013 Optional timeout in seconds for post-processing profiler results. If specified, event parsing will stop after this duration and return partial results. Useful for handling large traces that may take too long to process. use_cuda (bool) \u2013 Deprecated since version 1.8.1: use activities instead. Note Use schedule() to generate the callable schedule. Non-default schedules are useful when profiling long training jobs and allow the user to obtain multiple traces at the different iterations of the training process. The default schedule simply records all the events continuously for the duration of the context manager. Note Use tensorboard_trace_handler() to generate result files for TensorBoard: on_trace_ready=torch.profiler.tensorboard_trace_handler(dir_name) After profiling, result files can be found in the specified directory. Use the command: tensorboard --logdir dir_name to see the results in TensorBoard. For more information, see PyTorch Profiler TensorBoard Plugin Note Enabling shape and stack tracing results in additional overhead. When record_shapes=True is specified, profiler will temporarily hold references to the tensors; that may further prevent certain optimizations that depend on the reference count and introduce extra tensor copies. Examples: with torch.profiler.profile( activities=[ torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA, ] ) as p: code_to_profile() print(p.key_averages().table(sort_by=\"self_cuda_time_total\", row_limit=-1)) Using the profiler\u2019s schedule, on_trace_ready and step functions: # Non-default profiler schedule allows user to turn profiler on and off # on different iterations of the training loop; # trace_handler is called every time a new trace becomes available def trace_handler(prof): print( prof.key_averages().table(sort_by=\"self_cuda_time_total\", row_limit=-1) ) # prof.export_chrome_trace(\"/tmp/test_trace_\" + str(prof.step_num) + \".json\") with torch.profiler.profile( activities=[ torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA, ], # In this example with wait=1, warmup=1, active=2, repeat=1, # profiler will skip the first step/iteration, # start warming up on the second, record # the third and the forth iterations, # after which the trace will become available # and on_trace_ready (when set) is called; # the cycle repeats starting with the next step schedule=torch.profiler.schedule(wait=1, warmup=1, active=2, repeat=1), on_trace_ready=trace_handler, # on_trace_ready=torch.profiler.tensorboard_trace_handler(\u0027./log\u0027) # used when outputting for tensorboard ) as p: for iter in range(N): code_iteration_to_profile(iter) # send a signal to the profiler that the next iteration has started p.step() The following sample shows how to setup up an Execution Trace Observer (execution_trace_observer) with torch.profiler.profile( ... execution_trace_observer=( ExecutionTraceObserver().register_callback(\"./execution_trace.json\") ), ) as p: for iter in range(N): code_iteration_to_profile(iter) p.step() You can also refer to test_execution_trace_with_kineto() in tests/profiler/test_profiler.py. Note: One can also pass any object satisfying the _ITraceObserver interface. get_trace_id()[source]# Returns the current trace ID. set_custom_trace_id_callback(callback)[source]# Sets a callback to be called when a new trace ID is generated. step()[source]# Signals the profiler that the next profiling step has started. class torch.profiler.ProfilerAction(value)[source]# Profiler actions that can be taken at the specified intervals class torch.profiler.ProfilerActivity# Members: CPU XPU MTIA CUDA HPU PrivateUse1 property name# torch.profiler.schedule(*, wait, warmup, active, repeat=0, skip_first=0, skip_first_wait=0)[source]# Returns a callable that can be used as profiler schedule argument. The profiler will skip the first skip_first steps, then wait for wait steps, then do the warmup for the next warmup steps, then do the active recording for the next active steps and then repeat the cycle starting with wait steps. The optional number of cycles is specified with the repeat parameter, the zero value means that the cycles will continue until the profiling is finished. The skip_first_wait parameter controls whether the first wait stage should be skipped. This can be useful if a user wants to wait longer than skip_first between cycles, but not for the first profile. For example, if skip_first is 10 and wait is 20, the first cycle will wait 10 + 20 = 30 steps before warmup if skip_first_wait is zero, but will wait only 10 steps if skip_first_wait is non-zero. All subsequent cycles will then wait 20 steps between the last active and warmup. Return type: Callable torch.profiler.tensorboard_trace_handler(dir_name, worker_name=None, use_gzip=False)[source]# Outputs tracing files to directory of dir_name, then that directory can be directly delivered to tensorboard as logdir. worker_name should be unique for each worker in distributed scenario, it will be set to \u2018[hostname]_[pid]\u2019 by default. Intel Instrumentation and Tracing Technology APIs# torch.profiler.itt.is_available()[source]# Check if ITT feature is available or not torch.profiler.itt.mark(msg)[source]# Describe an instantaneous event that occurred at some point. Parameters: msg (str) \u2013 ASCII message to associate with the event. torch.profiler.itt.range_push(msg)[source]# Pushes a range onto a stack of nested range span. Returns zero-based depth of the range that is started. Parameters: msg (str) \u2013 ASCII message to associate with range torch.profiler.itt.range_pop()[source]# Pops a range off of a stack of nested range spans. Returns the zero-based depth of the range that is ended.",
        "author": {

@@ -29,14 +29,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=b417fedc" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,15 +56,33 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../../../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/export/joint_with_descriptors.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Control Flow - Cond" href="../../../cond.html" />
+    <link rel="next" title="Control Flow Operators" href="../../../higher_order_ops/index.html" />
     <link rel="prev" title="Draft Export" href="draft_export.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Joint with descriptors - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.11.0a0+git8027bc9 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -93,6 +110,32 @@
   });
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
 
 
 <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" crossorigin="anonymous">
@@ -141,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git31e65e5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8027bc9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,25 +197,112 @@
 <!-- End Facebook Pixel Code -->
 <!-- Repository configuration for tutorials -->
 
-<!-- Script to Fix scrolling -->
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fix anchor scrolling
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
           const headerHeight =
             (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
             (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
 
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
           });
 
           // Update URL hash without scrolling
@@ -184,6 +314,18 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="../../../_static/js/runllm-widget.js"></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,350 +333,6 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-  
-    <div class="container-fluid header-holder tutorials-header" id="header-holder">
-   <div class="header-container-wrapper">
-    <div class="header-container">
-      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-
-      <div class="main-menu">
-        <ul>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                <span>Learn</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
-                  <span class=dropdown-title>Get Started</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
-                  <span class="dropdown-title">Tutorials</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
-                  <span class="dropdown-title">Learn the Basics</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
-                  <span class="dropdown-title">PyTorch Recipes</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
-                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
-                  <span class="dropdown-title">Webinars</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Community</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
-                  <span class="dropdown-title">Landscape</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
-                  <span class="dropdown-title">Join the Ecosystem</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
-                  <span class="dropdown-title">Community Hub</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
-                  <span class="dropdown-title">Forums</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
-                  <span class=dropdown-title>Developer Resources</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
-                  <span class="dropdown-title">Contributor Awards</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
-                  <span class="dropdown-title">Community Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
-                  <span class="dropdown-title">PyTorch Ambassadors</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Projects</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
-                  <span class="dropdown-title">vLLM</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
-                  <span class="dropdown-title">DeepSpeed</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
-                  <span class="dropdown-title">Host Your Project</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
-                  <span class="dropdown-title">RAY</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span> Docs</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
-                  <span class="dropdown-title">Domains</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Blogs & News</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">Blog</span>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
-                  <span class="dropdown-title">Announcements</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
-                  <span class="dropdown-title">Case Studies</span>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                </a>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>About</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/members">
-                  <span class="dropdown-title">Members</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
-                  <span class="dropdown-title">Contact</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
-                  <span class="dropdown-title">Brand Guidelines</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div class="no-dropdown main-menu-button">
-              <a href="https://pytorch.org/join" data-cta="join">
-                JOIN
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
-        <i class="fa-solid fa-ellipsis"></i>
-      </a>
-    </div>
-  </div>
- </div>
-
- <!-- Begin Mobile Menu -->
-
-<div class="mobile-main-menu">
-  <div class="container-fluid">
-    <div class="header-container-wrapper">
-      <div class="mobile-main-menu-header-container">
-        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mobile-main-menu-links-container">
-    <div class="main-menu">
-      <ul>
-         <li class="resources-mobile-menu-title">
-           <a>Learn</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/get-started/locally">Get Started</a>
-           </li>
-           <li>
-             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/webinars/">Webinars</a>
-          </li>
-        </ul>
-         <li class="resources-mobile-menu-title">
-           <a>Community</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://landscape.pytorch.org/">Landscape</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/community-hub/">Community Hub</a>
-           </li>
-           <li>
-             <a href="https://discuss.pytorch.org/">Forums</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/resources">Developer Resources</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/community-events/">Community Events</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
-          </li>
-       </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Projects</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
-           </li>
-
-           <li>
-             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
-           </li>
-         </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Docs</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/domains">Domains</a>
-          </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>Blog & News</a>
-        </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/announcements">Announcements</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/case-studies/">Case Studies</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/events">Events</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/newsletter">Newsletter</a>
-           </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>About</a>
-        </li>
-
-        <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/members">Members</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/governing-board">Governing Board</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-         </li>
-         <li>
-             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/staff">Staff</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/contact">Contact</a>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- End Mobile Menu -->
   
   
   
@@ -544,7 +342,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -589,15 +387,79 @@
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+    
+    <img src="../../../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../../../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
   
   
   <div class=" navbar-header-items__start">
     
-      <div class="navbar-item">
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+    
+    <img src="../../../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../../../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
@@ -619,24 +481,9 @@ document.write(`
     </div>
   </div>
 `);
-</script></div>
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../../../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Home</p>
-  
-</a></div>
+</script>
+        </div>
+      
     
   </div>
   
@@ -645,57 +492,822 @@ document.write(`
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="../../index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../../index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
       
     </div>
     
     
     <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
       
       
         <div class="navbar-item">
@@ -1095,8 +1707,42 @@ document.write(`
       <div class="bd-sidebar-primary bd-sidebar">
         
 
+
+
+
   
   <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
     
     
       <div class="sidebar-header-items__center">
@@ -1104,52 +1750,806 @@ document.write(`
           
           
             <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="../../index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../../index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
           
         
       </div>
@@ -1157,6 +2557,17 @@ document.write(`
     
     
       <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
         
           <div class="navbar-item">
 <div class="search-container-wrapper">
@@ -1636,11 +3047,18 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="draft_export.html">Draft Export</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Joint with descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../higher_order_ops/scan.html">Control Flow - Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../higher_order_ops/map.html">Control Flow - Map</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -1737,10 +3155,10 @@ document.write(`
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
+
+<div id="rtd-footer-container"></div>
       </div>
       
       <main id="main-content" class="bd-main" role="main">
@@ -1807,34 +3225,34 @@ document.write(`
 </div>
               
               
-  
+
 <div id="searchbox"></div>
-  <article class="bd-article" id="pytorch-article">
-    <!-- Hidden breadcrumb schema for SEO only -->
-    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../../index.html">
-        <meta itemprop="name" content="User Guide">
-        <meta itemprop="position" content="1">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../export.html">
-        <meta itemprop="name" content="torch.export">
-        <meta itemprop="position" content="2">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="Joint with descriptors">
-        <meta itemprop="position" content="3">
-      </div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="../../index.html">
+      <meta itemprop="name" content="User Guide">
+      <meta itemprop="position" content="1">
     </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="../export.html">
+      <meta itemprop="name" content="torch.export">
+      <meta itemprop="position" content="2">
+    </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="Joint with descriptors">
+      <meta itemprop="position" content="3">
+    </div>
+  </div>
 
-    
-    
+  
+  
 
-    
+  
               
                 
 <div id="searchbox"></div>
@@ -1851,7 +3269,7 @@ a system that takes a model and reshards inputs and parameters to make it
 a distributed SPMD program.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch.aot_autograd.aot_export_joint_with_descriptors">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch.aot_autograd.</span></span><span class="sig-name descname"><span class="pre">aot_export_joint_with_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompositions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_inference_input_mutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_shape_env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_functionalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_record_nn_module_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_disable_torch_fn_metadata_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/aot_autograd.py#L1231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch.aot_autograd.aot_export_joint_with_descriptors" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch.aot_autograd.</span></span><span class="sig-name descname"><span class="pre">aot_export_joint_with_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompositions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_inference_input_mutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_shape_env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_functionalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_record_nn_module_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_disable_torch_fn_metadata_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/aot_autograd.py#L1231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch.aot_autograd.aot_export_joint_with_descriptors" title="Link to this definition">#</a></dt>
 <dd><p>This API captures the joint graph for an nn.Module.  However, unlike
 aot_export_joint_simple or aot_export_module(trace_joint=True), the
 calling convention of the produced joint graph follows no fixed positional
@@ -1913,7 +3331,7 @@ of the inputs to determine if inputs are parameters and their FQNs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch.aot_autograd.aot_compile_joint_with_descriptors">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch.aot_autograd.</span></span><span class="sig-name descname"><span class="pre">aot_compile_joint_with_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_fn=&lt;function</span> <span class="pre">default_partition&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fw_compiler=&lt;function</span> <span class="pre">boxed_nop_preserve_node_meta&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_compiler=&lt;function</span> <span class="pre">boxed_nop_preserve_node_meta&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializable=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/aot_autograd.py#L1368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch.aot_autograd.aot_compile_joint_with_descriptors" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch.aot_autograd.</span></span><span class="sig-name descname"><span class="pre">aot_compile_joint_with_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_fn=&lt;function</span> <span class="pre">default_partition&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fw_compiler=&lt;function</span> <span class="pre">boxed_nop_preserve_node_meta&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_compiler=&lt;function</span> <span class="pre">boxed_nop_preserve_node_meta&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializable=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/aot_autograd.py#L1368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch.aot_autograd.aot_compile_joint_with_descriptors" title="Link to this definition">#</a></dt>
 <dd><p>Companion function for aot_export_joint_with_descriptors which compiles the joint
 graph into a callable function that follows a standard calling convention.
 params_flat all are arguments.</p>
@@ -1936,13 +3354,13 @@ When True, this function will always return a BundledAOTAutogradSerializableCall
 <h2>Descriptors<a class="headerlink" href="#descriptors" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">AOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">AOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput" title="Link to this definition">#</a></dt>
 <dd><p>Describes where an input from an AOTAutograd produced FX graph comes from</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTInput.is_buffer">
-<span class="sig-name descname"><span class="pre">is_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_buffer" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_buffer" title="Link to this definition">#</a></dt>
 <dd><p>True if this input is a buffer or derived from a buffer (e.g., subclass attr)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1953,7 +3371,7 @@ When True, this function will always return a BundledAOTAutogradSerializableCall
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTInput.is_param">
-<span class="sig-name descname"><span class="pre">is_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_param" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_param" title="Link to this definition">#</a></dt>
 <dd><p>True if this input is a parameter or derived from a parameter (e.g., subclass attr)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1964,7 +3382,7 @@ When True, this function will always return a BundledAOTAutogradSerializableCall
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTInput.is_tangent">
-<span class="sig-name descname"><span class="pre">is_tangent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_tangent" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_tangent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTInput.is_tangent" title="Link to this definition">#</a></dt>
 <dd><p>True if this input is a tangent or derived from a tangent (e.g., subclass attr)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1977,14 +3395,14 @@ When True, this function will always return a BundledAOTAutogradSerializableCall
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">AOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">AOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>Describes where an output from an AOTAutograd produced FX graph will
 eventually be bundled into the final output</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.AOTOutput.is_grad">
-<span class="sig-name descname"><span class="pre">is_grad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTOutput.is_grad" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_grad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.AOTOutput.is_grad" title="Link to this definition">#</a></dt>
 <dd><p>True if this output is a grad or derived from a grad (e.g., subclass attr)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1997,7 +3415,7 @@ eventually be bundled into the final output</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BackwardTokenAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BackwardTokenAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The world token which is threaded through side-effectful operations, for backwards</p>
 <dl class="field-list simple">
 </dl>
@@ -2005,7 +3423,7 @@ eventually be bundled into the final output</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BackwardTokenAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L689"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BackwardTokenAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L689"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>The world token output for side-effectful calls, returned so we cannot DCE it, backward only</p>
 <dl class="field-list simple">
 </dl>
@@ -2013,7 +3431,7 @@ eventually be bundled into the final output</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.BufferAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BufferAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BufferAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">BufferAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.BufferAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The input is a buffer, whose FQN is target</p>
 <dl class="field-list simple">
 </dl>
@@ -2021,7 +3439,7 @@ eventually be bundled into the final output</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.DummyAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">DummyAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.DummyAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">DummyAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.DummyAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>In some circumstances, we want to call into a function that expects AOTInput, but
 we don’t actually care about that logic (most typically, because some code is being used
 for both compile-time and run-time; AOTInput processing is not needed in this situation.
@@ -2033,7 +3451,7 @@ that doesn’t have this at all.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.DummyAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">DummyAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L739"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.DummyAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">DummyAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L739"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.DummyAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>For cases when you don’t actually care about descriptor propagation, do not use under normal
 circumstances.</p>
 <dl class="field-list simple">
@@ -2042,7 +3460,7 @@ circumstances.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.GradAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">GradAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.GradAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">GradAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.GradAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>An output representing the computed gradient for a differentiable input, in the joint graph</p>
 <dl class="field-list simple">
 </dl>
@@ -2050,7 +3468,7 @@ circumstances.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">InputMutationAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutated_input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L610"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">InputMutationAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutated_input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L610"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>The mutated value of an input tensor, returned so we can appropriately propagate autograd.</p>
 <dl class="field-list simple">
 </dl>
@@ -2058,7 +3476,7 @@ circumstances.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">IntermediateBaseAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L620"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">IntermediateBaseAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L620"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>An intermediate base of multiple outputs which alias each other.  We only report ONE of
 the outputs that contributed to this base</p>
 <dl class="field-list simple">
@@ -2067,7 +3485,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.ParamAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">ParamAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.ParamAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">ParamAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.ParamAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The input is a parameter, whose FQN is target</p>
 <dl class="field-list simple">
 </dl>
@@ -2075,7 +3493,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxBackwardBaseOffsetAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L541"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxBackwardBaseOffsetAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L541"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The offset for functionalized Philox RNG calls, specifically for backward graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -2083,7 +3501,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxBackwardSeedAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxBackwardSeedAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The seed for functionalized Philox RNG calls, specifically for backward graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -2091,7 +3509,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxForwardBaseOffsetAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxForwardBaseOffsetAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The offset for functionalized Philox RNG calls, specifically for forward graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -2099,7 +3517,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxForwardSeedAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L517"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxForwardSeedAOTInput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L517"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The seed for functionalized Philox RNG calls, specifically for forward graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -2107,7 +3525,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxUpdatedBackwardOffsetAOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxUpdatedBackwardOffsetAOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>The final offset from the functionalized RNG calls, backward only</p>
 <dl class="field-list simple">
 </dl>
@@ -2115,7 +3533,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxUpdatedForwardOffsetAOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L663"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PhiloxUpdatedForwardOffsetAOTOutput</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L663"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>The final offset from the functionalized RNG calls, forward only</p>
 <dl class="field-list simple">
 </dl>
@@ -2123,7 +3541,7 @@ the outputs that contributed to this base</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PlainAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PlainAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PlainAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PlainAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PlainAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>The input is a plain input, corresponding to a particular positional index.</p>
 <p>Note that AOTInput is always relative to a function with a <em>flat</em> calling convention,
 e.g., as accepted by <cite>aot_module_simplified</cite>.  There are some AOTAutograd APIs that
@@ -2135,7 +3553,7 @@ could and should!)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.PlainAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PlainAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PlainAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">PlainAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.PlainAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>A plain tensor output at position idx of the output tuple</p>
 <dl class="field-list simple">
 </dl>
@@ -2143,14 +3561,14 @@ could and should!)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SavedForBackwardsAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SavedForBackwardsAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassGetAttrAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassGetAttrAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>Subclass inputs get unpacked into their constituent pieces before going into an FX
 graph.  This tells you which particular attribute of the subclass this particular
 input corresponds to (of the ‘base’ originally subclass argument.)</p>
@@ -2160,7 +3578,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassGetAttrAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassGetAttrAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>This output will be bundled into a subclass at this location</p>
 <dl class="field-list simple">
 </dl>
@@ -2168,7 +3586,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassSizeAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassSizeAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>Which subclass this particular outer size SymInt input (at dim idx) came from.</p>
 <dl class="field-list simple">
 </dl>
@@ -2176,7 +3594,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassSizeAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassSizeAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>This output size will be bundled into a subclass at this location</p>
 <dl class="field-list simple">
 </dl>
@@ -2184,7 +3602,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassStrideAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassStrideAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>Which subclass this particular outer stride SymInt input (at dim idx) came from.</p>
 <dl class="field-list simple">
 </dl>
@@ -2192,7 +3610,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassStrideAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L728"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SubclassStrideAOTOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L728"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput" title="Link to this definition">#</a></dt>
 <dd><p>This output stride will be bundled into a subclass at this location</p>
 <dl class="field-list simple">
 </dl>
@@ -2200,7 +3618,7 @@ input corresponds to (of the ‘base’ originally subclass argument.)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SyntheticBaseAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">SyntheticBaseAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>This is similar to ViewBaseAOTInput, but this happens when none of the views were differentiable, so
 we weren’t able to get our hands on the true original view and constructed a synthetic one instead
 for the sake of autograd.</p>
@@ -2210,7 +3628,7 @@ for the sake of autograd.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">ViewBaseAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/descriptors.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.descriptors.</span></span><span class="sig-name descname"><span class="pre">ViewBaseAOTInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_of</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/descriptors.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput" title="Link to this definition">#</a></dt>
 <dd><p>When multiple differentiable inputs are views of the same input, AOTAutograd will replace all of these
 views with a single input representing the base.  If this is undesirable, you can clone the views
 example inputs before passing them into AOTAutograd.</p>
@@ -2228,7 +3646,7 @@ that are produced by AOTAutograd.  They will NOT work on generic FX graphs.  See
 recommend reading :mod:torch._functorch._aot_autograd.descriptors`.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_input_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_input_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Given a joint graph with descriptors (meta[‘desc’] on placeholders and
 output), returns the node for every input and its corresponding grad
 output node if it exists.  These tuples are in a dict that is indexed by
@@ -2262,7 +3680,7 @@ containing:
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_output_and_tangent_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_output_and_tangent_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get all output nodes and their corresponding tangent nodes from a joint graph.</p>
 <p>Similar to get_all_input_and_grad_nodes, but returns output nodes paired with
 their tangent nodes (if they exist). This function traverses the graph to find
@@ -2295,7 +3713,7 @@ containing:
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_buffer_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_buffer_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_buffer_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_buffer_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_buffer_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get all buffer nodes from a graph as a list.</p>
 <p>You can rely on this providing the correct order of buffers you need
 to feed into the joint graph (after parameters).</p>
@@ -2321,7 +3739,7 @@ to feed into the joint graph (after parameters).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_named_buffer_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_named_buffer_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get buffer nodes mapped by their fully qualified names.</p>
 <p>This function traverses the graph to find all buffer input nodes and
 returns them in a dictionary where keys are the buffer names (FQNs)
@@ -2347,7 +3765,7 @@ and values are the corresponding FX nodes.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_named_param_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_named_param_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_named_param_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_named_param_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_named_param_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get parameter nodes mapped by their fully qualified names.</p>
 <p>This function traverses the graph to find all parameter input nodes and
 returns them in a dictionary where keys are the parameter names (FQNs)
@@ -2373,7 +3791,7 @@ and values are the corresponding FX nodes.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_param_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_param_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get parameter nodes and their corresponding gradient nodes from a joint graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2394,7 +3812,7 @@ and values are the corresponding FX nodes.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_param_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_param_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_param_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_param_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_param_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get all parameter nodes from a graph as a list.</p>
 <p>You can rely on this providing the correct order of parameters you need
 to feed into the joint graph (at the very beginning of the argument list,
@@ -2421,7 +3839,7 @@ before buffers).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_plain_input_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_plain_input_and_grad_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get plain input nodes and their corresponding gradient nodes from a joint graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2442,7 +3860,7 @@ before buffers).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes">
-<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_plain_output_and_tangent_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31e65e59790dcd0947a34f22c264695745247842/torch/_functorch/_aot_autograd/fx_utils.py#L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._functorch._aot_autograd.fx_utils.</span></span><span class="sig-name descname"><span class="pre">get_plain_output_and_tangent_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8027bc9387f8f06e13bbc50219df868b26d38aef/torch/_functorch/_aot_autograd/fx_utils.py#L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes" title="Link to this definition">#</a></dt>
 <dd><p>Get plain output nodes and their corresponding tangent nodes from a joint graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2467,8 +3885,8 @@ before buffers).</p>
 
                 </article>
               
-  </article>
-  
+</div>
+
               
               
                 <footer class="bd-footer-article">
@@ -2516,11 +3934,11 @@ before buffers).</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../../cond.html"
+       href="../../../higher_order_ops/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Control Flow - Cond</p>
+        <p class="prev-next-title">Control Flow Operators</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2555,11 +3973,11 @@ before buffers).</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../../cond.html"
+       href="../../../higher_order_ops/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Control Flow - Cond</p>
+        <p class="prev-next-title">Control Flow Operators</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2669,17 +4087,23 @@ before buffers).</p>
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
@@ -2878,7 +4302,7 @@ before buffers).</p>
        "@type": "Article",
        "name": "Joint with descriptors",
        "headline": "Joint with descriptors",
-       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/export/joint_with_descriptors.html",
        "articleBody": "Joint with descriptors# Created On: Aug 11, 2025 | Last Updated On: Dec 03, 2025 Joint with descriptors is an experimental API for exporting a traced joint graph that supports all of torch.compile\u2019s features in full generality and, after processing, can be converted back into a differentiable callable that can be executed as normal. For example, it is used to implement autoparallel, a system that takes a model and reshards inputs and parameters to make it a distributed SPMD program. torch._functorch.aot_autograd.aot_export_joint_with_descriptors(stack, mod, args, kwargs=None, *, decompositions=None, keep_inference_input_mutations=False, ignore_shape_env=False, disable_functionalization=False, _record_nn_module_stack=False, _disable_torch_fn_metadata_mode=False)[source]# This API captures the joint graph for an nn.Module. However, unlike aot_export_joint_simple or aot_export_module(trace_joint=True), the calling convention of the produced joint graph follows no fixed positional schema; for example, you cannot rely on the second argument of the traced joint graph to correspond to the second argument of the module you traced. However, the inputs and outputs of the traced graph are schematized with descriptors, annotated on meta[\u2018desc\u2019] on the placeholder and return FX nodes, which you can use to determine the meaning of arguments. The major benefit of using this export rather than aot_export_joint_simple is that we have feature parity with all situations that torch.compile supports (via aot_module_simplified), including handling for more complicated cases such as multiple differentiable outputs, input mutations that must be handled outside of the graph, tensor subclasses, etc. What can you do with one of these joint graphs with descriptors? The motivating use case (autoparallel) involves taking the joint graph, doing optimizations on it, and then turning it back into a callable so it can be torch.compile\u2019d at a later point in time. This cannot be done as a traditional torch.compile joint graph pass for two reasons: The sharding of parameters must be decided before parameter initialization / checkpoint load, far before torch.compile would ordinarily run. We need to change the meaning of parameters (e.g., we might replace a replicated parameter with a sharded version of it, changing its input size). torch.compile is ordinarily semantics preserving, and not allowed to change the meaning of inputs. Some descriptors can be quite exotic, so we recommend thinking carefully if there is a safe fallback you can apply to descriptors you don\u2019t understand. For example, you should have some way to handle not finding a particular input exactly as is in the final FX graph inputs. Note: When using this API, you must create and enter an ExitStack context manager, which will be passed into this function. This context manager must remain active if you call the compile function to finish compilation. (TODO: We may relax this requirement by having AOTAutograd keep track of how to reconstruct all the context managers at a later point in time.) NB: You\u2019re not obligated to do a /full/ compile in stage2; instead you can leave the forward/backward compilers unspecified in which case the partitioned FX graphs will directly run. The overall autograd Function can be allowed in graph so you can reprocess it in the context of a (potentially larger) compiled region later. NB: These APIs do NOT hit cache, as we only ever cache the final compile results, not the intermediate export result. NB: If the passed nn.Module has parameters and buffers on it, we will generate extra implicit parameter/buffer arguments and assign ParamAOTInput and BufferAOTInput descriptors to them. However, if you generate the input nn.Module from a mechanism like Dynamo, you will NOT get these descriptors (because Dynamo will already have taken care of lifting the parameters/buffers into arguments!) In that case, it would be necessary to analyze the Sources of the inputs to determine if inputs are parameters and their FQNs. Return type: JointWithDescriptors torch._functorch.aot_autograd.aot_compile_joint_with_descriptors(jd, *, partition_fn=\u003cfunction default_partition\u003e, fw_compiler=\u003cfunction boxed_nop_preserve_node_meta\u003e, bw_compiler=\u003cfunction boxed_nop_preserve_node_meta\u003e, serializable=False)[source]# Companion function for aot_export_joint_with_descriptors which compiles the joint graph into a callable function that follows a standard calling convention. params_flat all are arguments. Note: We do NOT instantiate the module; this gives you the flexibility to subclass it and customize its behavior without having to worry about FQN rebinding. Parameters: serializable (bool) \u2013 If True, configures the compilation to produce a serializable callable by leveraging AOTAutogradCache machinery. This sets up the necessary cache_info and patches config options required for serialization. When True, this function will always return a BundledAOTAutogradSerializableCallable. Return type: Callable[\u2026, Any] Descriptors# class torch._functorch._aot_autograd.descriptors.AOTInput[source]# Describes where an input from an AOTAutograd produced FX graph comes from is_buffer()[source]# True if this input is a buffer or derived from a buffer (e.g., subclass attr) Return type: bool is_param()[source]# True if this input is a parameter or derived from a parameter (e.g., subclass attr) Return type: bool is_tangent()[source]# True if this input is a tangent or derived from a tangent (e.g., subclass attr) Return type: bool class torch._functorch._aot_autograd.descriptors.AOTOutput[source]# Describes where an output from an AOTAutograd produced FX graph will eventually be bundled into the final output is_grad()[source]# True if this output is a grad or derived from a grad (e.g., subclass attr) Return type: bool class torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput(idx)[source]# The world token which is threaded through side-effectful operations, for backwards class torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput(idx)[source]# The world token output for side-effectful calls, returned so we cannot DCE it, backward only class torch._functorch._aot_autograd.descriptors.BufferAOTInput(target)[source]# The input is a buffer, whose FQN is target class torch._functorch._aot_autograd.descriptors.DummyAOTInput(idx)[source]# In some circumstances, we want to call into a function that expects AOTInput, but we don\u2019t actually care about that logic (most typically, because some code is being used for both compile-time and run-time; AOTInput processing is not needed in this situation. Pass a dummy in this situation; but it is better to just have a version of the function that doesn\u2019t have this at all. class torch._functorch._aot_autograd.descriptors.DummyAOTOutput(idx)[source]# For cases when you don\u2019t actually care about descriptor propagation, do not use under normal circumstances. class torch._functorch._aot_autograd.descriptors.GradAOTOutput(grad_of)[source]# An output representing the computed gradient for a differentiable input, in the joint graph class torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput(mutated_input)[source]# The mutated value of an input tensor, returned so we can appropriately propagate autograd. class torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput(base_of)[source]# An intermediate base of multiple outputs which alias each other. We only report ONE of the outputs that contributed to this base class torch._functorch._aot_autograd.descriptors.ParamAOTInput(target)[source]# The input is a parameter, whose FQN is target class torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput[source]# The offset for functionalized Philox RNG calls, specifically for backward graph. class torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput[source]# The seed for functionalized Philox RNG calls, specifically for backward graph. class torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput[source]# The offset for functionalized Philox RNG calls, specifically for forward graph. class torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput[source]# The seed for functionalized Philox RNG calls, specifically for forward graph. class torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput[source]# The final offset from the functionalized RNG calls, backward only class torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput[source]# The final offset from the functionalized RNG calls, forward only class torch._functorch._aot_autograd.descriptors.PlainAOTInput(idx)[source]# The input is a plain input, corresponding to a particular positional index. Note that AOTInput is always relative to a function with a flat calling convention, e.g., as accepted by aot_module_simplified. There are some AOTAutograd APIs that flatten pytrees, and we don\u2019t record PyTree key paths from the flattening (but we could and should!) class torch._functorch._aot_autograd.descriptors.PlainAOTOutput(idx)[source]# A plain tensor output at position idx of the output tuple class torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput(idx: int)[source]# class torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput(base, attr)[source]# Subclass inputs get unpacked into their constituent pieces before going into an FX graph. This tells you which particular attribute of the subclass this particular input corresponds to (of the \u2018base\u2019 originally subclass argument.) class torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput(base, attr)[source]# This output will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput(base, idx)[source]# Which subclass this particular outer size SymInt input (at dim idx) came from. class torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput(base, idx)[source]# This output size will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput(base, idx)[source]# Which subclass this particular outer stride SymInt input (at dim idx) came from. class torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput(base, idx)[source]# This output stride will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput(base_of)[source]# This is similar to ViewBaseAOTInput, but this happens when none of the views were differentiable, so we weren\u2019t able to get our hands on the true original view and constructed a synthetic one instead for the sake of autograd. class torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput(base_of)[source]# When multiple differentiable inputs are views of the same input, AOTAutograd will replace all of these views with a single input representing the base. If this is undesirable, you can clone the views example inputs before passing them into AOTAutograd. TODO: In principle we could report ALL of the inputs who this is a base of. FX utilities# This module contains utility functions for working with joint FX graphs with descriptors that are produced by AOTAutograd. They will NOT work on generic FX graphs. See also torch._functorch.aot_autograd.aot_export_joint_with_descriptors(). We also recommend reading :mod:torch._functorch._aot_autograd.descriptors`. torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes(g)[source]# Given a joint graph with descriptors (meta[\u2018desc\u2019] on placeholders and output), returns the node for every input and its corresponding grad output node if it exists. These tuples are in a dict that is indexed by the AOTInput descriptor that describes the input. NB: all forward tensor inputs are returned, including non-differentiable inputs (which simply have a None grad), so it is safe to use this function to perform operations on all inputs. (Non-tensor inputs like symbolic integers, tokens or RNG state are NOT traversed by this function.) Parameters: g (Graph) \u2013 The FX joint graph with descriptors Returns: A dictionary mapping each DifferentiableAOTInput descriptor to a tuple containing: - The input node itself - The grad (output) node if it exists, None otherwise Raises: RuntimeError \u2013 If the joint graph has subclass tensor inputs/outputs; this is not supported by API as there is not necessarily a 1-1 correspondence \u2013 between inputs and grads when subclasses are involved. \u2013 Return type: dict[DifferentiableAOTInput, tuple[Node, Node | None]] torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes(g)[source]# Get all output nodes and their corresponding tangent nodes from a joint graph. Similar to get_all_input_and_grad_nodes, but returns output nodes paired with their tangent nodes (if they exist). This function traverses the graph to find all differentiable outputs and matches them with their corresponding tangent inputs used in forward-mode autodiff. NB: all forward tensor output sare turned, including non-differentiable outputs, so you can use this function to perform operations on all outputs. Parameters: g (Graph) \u2013 The FX joint graph with descriptors Returns: A dictionary mapping each DifferentiableAOTOutput descriptor to a tuple containing: - The output node itself - The tangent (input) node if it exists, None otherwise Raises: RuntimeError \u2013 If the joint graph has subclass tensor inputs/outputs; this is not supported by API as there is not necessarily a 1-1 correspondence \u2013 between outputs and tangents when subclasses are involved. \u2013 Return type: dict[DifferentiableAOTOutput, tuple[Node, Node | None]] torch._functorch._aot_autograd.fx_utils.get_buffer_nodes(graph)[source]# Get all buffer nodes from a graph as a list. You can rely on this providing the correct order of buffers you need to feed into the joint graph (after parameters). Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: A list of FX nodes representing all buffers in the graph. Raises: RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as it is not clear if you wanted each individual constituent piece of the \u2013 subclasses, or have them grouped up in some way. \u2013 Return type: list[Node] torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes(graph)[source]# Get buffer nodes mapped by their fully qualified names. This function traverses the graph to find all buffer input nodes and returns them in a dictionary where keys are the buffer names (FQNs) and values are the corresponding FX nodes. Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: A dictionary mapping buffer names (str) to their corresponding FX nodes. Raises: RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as with subclasses a FQN does not necessarily map to a single plain tensor. \u2013 Return type: dict[str, Node] torch._functorch._aot_autograd.fx_utils.get_named_param_nodes(graph)[source]# Get parameter nodes mapped by their fully qualified names. This function traverses the graph to find all parameter input nodes and returns them in a dictionary where keys are the parameter names (FQNs) and values are the corresponding FX nodes. Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: A dictionary mapping parameter names (str) to their corresponding FX nodes. Raises: RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as with subclasses a FQN does not necessarily map to a single plain tensor. \u2013 Return type: dict[str, Node] torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes(graph)[source]# Get parameter nodes and their corresponding gradient nodes from a joint graph. Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: The parameter input node The gradient (output) node if it exists, None otherwise Return type: A dictionary mapping each ParamAOTInput descriptor to a tuple containing torch._functorch._aot_autograd.fx_utils.get_param_nodes(graph)[source]# Get all parameter nodes from a graph as a list. You can rely on this providing the correct order of parameters you need to feed into the joint graph (at the very beginning of the argument list, before buffers). Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: A list of FX nodes representing all parameters in the graph. Raises: RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as it is not clear if you wanted each individual constituent piece of the \u2013 subclasses, or have them grouped up in some way. \u2013 Return type: list[Node] torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes(graph)[source]# Get plain input nodes and their corresponding gradient nodes from a joint graph. Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: The plain input node The gradient (output) node if it exists, None otherwise Return type: A dictionary mapping each PlainAOTInput descriptor to a tuple containing torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes(graph)[source]# Get plain output nodes and their corresponding tangent nodes from a joint graph. Parameters: graph (Graph) \u2013 The FX joint graph with descriptors Returns: The plain output node The tangent (input) node if it exists, None otherwise Return type: A dictionary mapping each PlainAOTOutput descriptor to a tuple containing",
        "author": {

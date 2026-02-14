@@ -29,14 +29,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=b417fedc" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,7 +56,6 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/export.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -66,6 +64,25 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.export - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.11.0a0+git8027bc9 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -93,6 +110,32 @@
   });
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
 
 
 <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" crossorigin="anonymous">
@@ -141,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git31e65e5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8027bc9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,25 +197,112 @@
 <!-- End Facebook Pixel Code -->
 <!-- Repository configuration for tutorials -->
 
-<!-- Script to Fix scrolling -->
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fix anchor scrolling
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
           const headerHeight =
             (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
             (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
 
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
           });
 
           // Update URL hash without scrolling
@@ -184,6 +314,18 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="../../_static/js/runllm-widget.js"></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,350 +333,6 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-  
-    <div class="container-fluid header-holder tutorials-header" id="header-holder">
-   <div class="header-container-wrapper">
-    <div class="header-container">
-      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-
-      <div class="main-menu">
-        <ul>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                <span>Learn</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
-                  <span class=dropdown-title>Get Started</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
-                  <span class="dropdown-title">Tutorials</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
-                  <span class="dropdown-title">Learn the Basics</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
-                  <span class="dropdown-title">PyTorch Recipes</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
-                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
-                  <span class="dropdown-title">Webinars</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Community</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
-                  <span class="dropdown-title">Landscape</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
-                  <span class="dropdown-title">Join the Ecosystem</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
-                  <span class="dropdown-title">Community Hub</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
-                  <span class="dropdown-title">Forums</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
-                  <span class=dropdown-title>Developer Resources</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
-                  <span class="dropdown-title">Contributor Awards</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
-                  <span class="dropdown-title">Community Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
-                  <span class="dropdown-title">PyTorch Ambassadors</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Projects</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
-                  <span class="dropdown-title">vLLM</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
-                  <span class="dropdown-title">DeepSpeed</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
-                  <span class="dropdown-title">Host Your Project</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
-                  <span class="dropdown-title">RAY</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span> Docs</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
-                  <span class="dropdown-title">Domains</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Blogs & News</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">Blog</span>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
-                  <span class="dropdown-title">Announcements</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
-                  <span class="dropdown-title">Case Studies</span>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                </a>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>About</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/members">
-                  <span class="dropdown-title">Members</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
-                  <span class="dropdown-title">Contact</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
-                  <span class="dropdown-title">Brand Guidelines</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div class="no-dropdown main-menu-button">
-              <a href="https://pytorch.org/join" data-cta="join">
-                JOIN
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
-        <i class="fa-solid fa-ellipsis"></i>
-      </a>
-    </div>
-  </div>
- </div>
-
- <!-- Begin Mobile Menu -->
-
-<div class="mobile-main-menu">
-  <div class="container-fluid">
-    <div class="header-container-wrapper">
-      <div class="mobile-main-menu-header-container">
-        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mobile-main-menu-links-container">
-    <div class="main-menu">
-      <ul>
-         <li class="resources-mobile-menu-title">
-           <a>Learn</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/get-started/locally">Get Started</a>
-           </li>
-           <li>
-             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/webinars/">Webinars</a>
-          </li>
-        </ul>
-         <li class="resources-mobile-menu-title">
-           <a>Community</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://landscape.pytorch.org/">Landscape</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/community-hub/">Community Hub</a>
-           </li>
-           <li>
-             <a href="https://discuss.pytorch.org/">Forums</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/resources">Developer Resources</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/community-events/">Community Events</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
-          </li>
-       </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Projects</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
-           </li>
-
-           <li>
-             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
-           </li>
-         </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Docs</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/domains">Domains</a>
-          </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>Blog & News</a>
-        </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/announcements">Announcements</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/case-studies/">Case Studies</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/events">Events</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/newsletter">Newsletter</a>
-           </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>About</a>
-        </li>
-
-        <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/members">Members</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/governing-board">Governing Board</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-         </li>
-         <li>
-             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/staff">Staff</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/contact">Contact</a>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- End Mobile Menu -->
   
   
   
@@ -544,7 +342,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -589,15 +387,79 @@
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+    
+    <img src="../../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
   
   
   <div class=" navbar-header-items__start">
     
-      <div class="navbar-item">
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+    
+    <img src="../../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
@@ -619,24 +481,9 @@ document.write(`
     </div>
   </div>
 `);
-</script></div>
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Home</p>
-  
-</a></div>
+</script>
+        </div>
+      
     
   </div>
   
@@ -645,57 +492,822 @@ document.write(`
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="../index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
       
     </div>
     
     
     <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
       
       
         <div class="navbar-item">
@@ -1095,8 +1707,42 @@ document.write(`
       <div class="bd-sidebar-primary bd-sidebar">
         
 
+
+
+
   
   <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
     
     
       <div class="sidebar-header-items__center">
@@ -1104,52 +1750,806 @@ document.write(`
           
           
             <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="../index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
           
         
       </div>
@@ -1157,6 +2557,17 @@ document.write(`
     
     
       <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
         
           <div class="navbar-item">
 <div class="search-container-wrapper">
@@ -1636,11 +3047,18 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/joint_with_descriptors.html">Joint with descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../higher_order_ops/scan.html">Control Flow - Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../higher_order_ops/map.html">Control Flow - Map</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -1737,10 +3155,10 @@ document.write(`
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
+
+<div id="rtd-footer-container"></div>
       </div>
       
       <main id="main-content" class="bd-main" role="main">
@@ -1804,28 +3222,28 @@ document.write(`
 </div>
               
               
-  
+
 <div id="searchbox"></div>
-  <article class="bd-article" id="pytorch-article">
-    <!-- Hidden breadcrumb schema for SEO only -->
-    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../index.html">
-        <meta itemprop="name" content="User Guide">
-        <meta itemprop="position" content="1">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="torch.export">
-        <meta itemprop="position" content="2">
-      </div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="../index.html">
+      <meta itemprop="name" content="User Guide">
+      <meta itemprop="position" content="1">
     </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="torch.export">
+      <meta itemprop="position" content="2">
+    </div>
+  </div>
 
-    
-    
+  
+  
 
-    
+  
               
                 
 <div id="searchbox"></div>
@@ -1833,7 +3251,7 @@ document.write(`
                   
   <section id="torch-export">
 <span id="id1"></span><h1>torch.export<a class="headerlink" href="#torch-export" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 12, 2025 | Last Updated On: Jan 27, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 12, 2025 | Last Updated On: Feb 14, 2026</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="export/api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> takes a <a class="reference internal" href="../../generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a> and produces a traced graph
@@ -1862,13 +3280,13 @@ serialized.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;f32[10, 10]&quot;, y: &quot;f32[10, 10]&quot;):
-            # File: /tmp/ipykernel_168/2550508656.py:6 in forward, code: a = torch.sin(x)
+            # File: /tmp/ipykernel_382/2550508656.py:6 in forward, code: a = torch.sin(x)
             sin: &quot;f32[10, 10]&quot; = torch.ops.aten.sin.default(x);  x = None
     
-            # File: /tmp/ipykernel_168/2550508656.py:7 in forward, code: b = torch.cos(y)
+            # File: /tmp/ipykernel_382/2550508656.py:7 in forward, code: b = torch.cos(y)
             cos: &quot;f32[10, 10]&quot; = torch.ops.aten.cos.default(y);  y = None
     
-            # File: /tmp/ipykernel_168/2550508656.py:8 in forward, code: return a + b
+            # File: /tmp/ipykernel_382/2550508656.py:8 in forward, code: return a + b
             add: &quot;f32[10, 10]&quot; = torch.ops.aten.add.Tensor(sin, cos);  sin = cos = None
             return (add,)
     
@@ -1941,7 +3359,7 @@ programs, and produce lower-level graphs (at the <code class="docutils literal n
 level). Note that users can still use <a class="reference internal" href="../../fx.html#torch.fx.symbolic_trace" title="torch.fx.symbolic_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.fx.symbolic_trace()</span></code></a> as a
 preprocessing step before <code class="docutils literal notranslate"><span class="pre">torch.export</span></code>.</p>
 <p>Compared to <code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.script()</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> does not capture Python
-control flow or data structures, unless using explicit <a class="reference internal" href="../../cond.html#cond"><span class="std std-ref">control flow operators</span></a>,
+control flow or data structures, unless using explicit <a class="reference internal" href="../../higher_order_ops/index.html#higher-order-ops"><span class="std std-ref">control flow operators</span></a>,
 but it supports more Python language features due to its comprehensive coverage
 over Python bytecodes. The resulting graphs are simpler and only have straight
 line control flow, except for explicit control flow operators.</p>
@@ -1997,7 +3415,7 @@ example:</p>
             # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias)
             conv2d: &quot;f32[1, 16, 256, 256]&quot; = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias, [1, 1], [1, 1]);  x = p_conv_weight = p_conv_bias = None
     
-            # File: /tmp/ipykernel_168/2848084713.py:16 in forward, code: a.add_(constant)
+            # File: /tmp/ipykernel_382/2848084713.py:16 in forward, code: a.add_(constant)
             add_: &quot;f32[1, 16, 256, 256]&quot; = torch.ops.aten.add_.Tensor(conv2d, constant);  conv2d = constant = None
     
             # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace)
@@ -2018,55 +3436,56 @@ Graph signature:
     max_pool2d: USER_OUTPUT
     
 Range constraints: {}
-tensor([[[[1.5214, 2.4704, 3.0651,  ..., 2.4336, 1.1375, 1.5987],
-          [1.5774, 2.3304, 1.4743,  ..., 2.0051, 2.7075, 1.6982],
-          [1.8746, 2.2816, 1.7579,  ..., 2.1190, 2.7807, 1.6911],
-          ...,
-          [1.5314, 2.5449, 1.9427,  ..., 2.0198, 1.8797, 1.4700],
-          [2.0720, 1.9610, 1.5063,  ..., 2.6871, 1.8576, 1.8283],
-          [2.1531, 2.7090, 1.5119,  ..., 1.7009, 2.0886, 2.1587]],
 
-         [[2.0388, 1.8091, 1.9024,  ..., 1.4301, 1.3690, 1.9619],
-          [1.2090, 1.8456, 1.7492,  ..., 1.5286, 1.7761, 1.6114],
-          [1.8149, 2.1055, 1.7244,  ..., 2.0363, 1.7426, 2.0407],
+tensor([[[[1.8476, 1.6724, 2.0400,  ..., 1.7941, 2.4250, 1.8715],
+          [1.8635, 2.1906, 2.2552,  ..., 2.5133, 1.5940, 1.7306],
+          [2.3456, 2.2290, 2.1059,  ..., 1.8290, 1.6349, 2.3689],
           ...,
-          [1.4651, 1.2163, 1.4880,  ..., 1.2584, 1.5940, 1.4945],
-          [1.6560, 1.7639, 1.1559,  ..., 1.5403, 1.4050, 1.7280],
-          [1.3146, 1.4802, 1.7597,  ..., 1.9665, 1.7980, 1.8317]],
+          [1.8109, 2.1292, 2.1616,  ..., 1.8869, 2.1555, 1.9086],
+          [2.0623, 2.9267, 2.2300,  ..., 2.2534, 1.5607, 2.4848],
+          [1.6444, 2.4618, 1.6561,  ..., 2.0189, 1.8950, 1.4311]],
 
-         [[1.7750, 1.4127, 1.3903,  ..., 1.9094, 2.1148, 1.6555],
-          [1.6646, 2.3563, 1.8304,  ..., 1.6229, 1.8039, 1.8609],
-          [2.2619, 1.5969, 1.7405,  ..., 1.9224, 2.1694, 1.7937],
+         [[1.7487, 1.2610, 1.7098,  ..., 2.0231, 1.7927, 1.5670],
+          [1.5336, 1.7418, 1.9981,  ..., 1.6270, 1.1929, 1.5114],
+          [1.1286, 1.7417, 1.5203,  ..., 2.0047, 1.7287, 1.5769],
           ...,
-          [1.3845, 2.3360, 1.9368,  ..., 1.6987, 2.1436, 1.6697],
-          [1.4223, 1.1496, 1.5986,  ..., 1.6852, 1.8757, 1.7193],
-          [1.6230, 1.4506, 1.9478,  ..., 1.7766, 1.6990, 1.5760]],
+          [1.8781, 1.7710, 1.6939,  ..., 1.1900, 1.9274, 2.2686],
+          [2.1204, 1.9264, 1.5634,  ..., 1.3083, 1.5812, 2.0849],
+          [2.4958, 1.2730, 1.6931,  ..., 1.7311, 1.7288, 1.9451]],
+
+         [[2.6038, 1.6690, 2.2435,  ..., 2.5876, 1.6443, 1.4293],
+          [2.1848, 2.6104, 2.0153,  ..., 1.7290, 1.3719, 2.2236],
+          [1.6998, 1.5393, 2.3742,  ..., 2.3567, 2.3146, 2.6780],
+          ...,
+          [1.7396, 2.4331, 1.7124,  ..., 1.8129, 1.6370, 1.7938],
+          [2.1851, 1.7039, 1.6274,  ..., 1.5634, 2.4583, 2.0399],
+          [1.7395, 1.9446, 1.6931,  ..., 1.5487, 1.8966, 2.0654]],
 
          ...,
 
-         [[1.5195, 2.4857, 2.1466,  ..., 1.6649, 1.6881, 2.1260],
-          [2.0265, 2.0575, 1.8554,  ..., 2.6367, 2.3456, 1.6049],
-          [1.8761, 1.7578, 1.5513,  ..., 2.1893, 2.0179, 1.8543],
+         [[1.5345, 1.5118, 1.6969,  ..., 1.6129, 1.9739, 1.7388],
+          [2.2755, 1.6648, 2.7188,  ..., 1.6511, 2.1183, 1.5761],
+          [1.5275, 1.7225, 1.6437,  ..., 1.4331, 1.7401, 1.8166],
           ...,
-          [1.7317, 1.9345, 2.1777,  ..., 1.7670, 1.7060, 1.7281],
-          [1.4336, 1.9568, 1.8840,  ..., 1.7177, 2.0281, 1.9555],
-          [2.0850, 2.2718, 1.6366,  ..., 1.7244, 2.3989, 2.6314]],
+          [2.0690, 2.0172, 2.6924,  ..., 1.6974, 1.7837, 2.4529],
+          [2.2959, 3.0708, 2.0607,  ..., 1.7842, 1.9866, 2.1783],
+          [2.1900, 2.0388, 2.2396,  ..., 2.0199, 1.6705, 1.5710]],
 
-         [[1.7583, 1.3626, 1.6406,  ..., 1.9995, 2.3090, 1.8839],
-          [1.8282, 1.7582, 2.2850,  ..., 1.3327, 1.5116, 2.3344],
-          [2.6153, 1.8231, 1.3937,  ..., 1.2893, 1.5246, 2.0138],
+         [[1.5320, 1.4326, 1.7718,  ..., 1.7815, 1.2787, 1.4304],
+          [1.9462, 1.7420, 2.1512,  ..., 1.5221, 1.6167, 1.8768],
+          [1.4214, 1.2611, 1.5462,  ..., 1.4588, 1.8179, 1.4435],
           ...,
-          [1.5282, 2.0583, 1.5680,  ..., 1.3764, 1.2514, 1.1785],
-          [1.6094, 1.9828, 1.5137,  ..., 1.0600, 1.9326, 1.4590],
-          [1.0695, 0.8620, 2.1414,  ..., 1.6845, 1.6375, 2.0115]],
+          [1.6943, 1.6128, 1.1245,  ..., 1.5078, 1.5833, 1.8548],
+          [1.8401, 2.0551, 1.0620,  ..., 1.9039, 1.7790, 1.1682],
+          [1.7666, 1.7749, 1.5955,  ..., 1.5547, 1.3571, 1.5880]],
 
-         [[1.7436, 1.4987, 1.8319,  ..., 1.8626, 1.2347, 1.0678],
-          [1.3970, 2.0825, 1.5543,  ..., 2.0148, 1.6950, 1.8913],
-          [1.5687, 1.5721, 1.4715,  ..., 2.0134, 2.1791, 1.3405],
+         [[2.5584, 1.6137, 2.1040,  ..., 1.8100, 2.1382, 1.7882],
+          [1.7606, 1.7212, 2.7464,  ..., 2.1748, 2.0962, 2.3028],
+          [2.0186, 3.1110, 2.2159,  ..., 2.0867, 2.4989, 1.5927],
           ...,
-          [1.3463, 1.8281, 1.4332,  ..., 1.6819, 1.8274, 2.1380],
-          [1.5616, 1.3668, 1.9864,  ..., 1.9220, 1.5995, 1.8035],
-          [1.4774, 1.7821, 1.8321,  ..., 1.4198, 1.6973, 2.1220]]]],
+          [1.9817, 2.3215, 2.2981,  ..., 1.9586, 1.5960, 1.7513],
+          [2.5069, 2.0265, 2.1902,  ..., 1.8778, 1.6572, 2.4622],
+          [1.8954, 1.3782, 1.8196,  ..., 1.7040, 1.5033, 2.5739]]]],
        grad_fn=&lt;MaxPool2DWithIndicesBackward0&gt;)
 </pre></div>
 </div>
@@ -2146,7 +3565,7 @@ different shapes, even if they’re valid in eager mode.</p>
             # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace)
             relu_1: &quot;f32[32, 64]&quot; = torch.ops.aten.relu.default(linear_1);  linear_1 = None
     
-            # File: /tmp/ipykernel_168/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2)
+            # File: /tmp/ipykernel_382/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2)
             add: &quot;f32[32, 32]&quot; = torch.ops.aten.add.Tensor(relu, c_buffer);  relu = c_buffer = None
             return (add, relu_1)
     
@@ -2168,7 +3587,7 @@ Range constraints: {}
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
-  File &quot;/tmp/ipykernel_168/1522925308.py&quot;, line 28, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_382/1522925308.py&quot;, line 28, in &lt;module&gt;
     ep.module()(*example_args2)  # fails
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py&quot;, line 949, in call_wrapped
     return self._wrapped_call(self, *args, **kwargs)
@@ -2256,7 +3675,7 @@ from run to run. Such dimensions must be specified by using the
             # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace)
             relu_1: &quot;f32[s24, 64]&quot; = torch.ops.aten.relu.default(linear_1);  linear_1 = None
     
-            # File: /tmp/ipykernel_168/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2)
+            # File: /tmp/ipykernel_382/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2)
             add: &quot;f32[s24, 32]&quot; = torch.ops.aten.add.Tensor(relu, c_buffer);  relu = c_buffer = None
             return (add, relu_1)
     
@@ -2277,21 +3696,21 @@ Graph signature:
 Range constraints: {s24: VR[0, int_oo]}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.7658, 1.0000, 1.0000,  ..., 1.0000, 1.8394, 1.0000],
-         [1.9098, 1.5695, 2.1666,  ..., 1.0000, 1.0000, 1.0000],
-         [1.3230, 1.0000, 1.0000,  ..., 1.0000, 1.0000, 1.0000],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.1535, 1.0000, 1.1727,  ..., 1.1442, 1.0366, 1.0571],
+         [1.1045, 1.0000, 1.7897,  ..., 1.0000, 1.0869, 1.0000],
+         [2.1675, 1.0000, 1.0299,  ..., 1.0000, 1.3472, 1.2423],
          ...,
-         [1.2677, 1.0000, 1.5019,  ..., 1.0000, 1.1178, 1.0000],
-         [1.7279, 1.0000, 1.0000,  ..., 1.0000, 1.0000, 1.0000],
-         [1.0000, 1.0000, 1.0000,  ..., 1.0000, 2.0173, 1.0000]],
+         [1.1388, 1.0000, 1.9607,  ..., 1.0000, 1.7077, 1.7325],
+         [1.5652, 1.0000, 2.6345,  ..., 1.0000, 1.0000, 1.3853],
+         [1.0000, 1.0000, 1.0000,  ..., 1.0000, 1.1322, 1.0000]],
         grad_fn=&lt;AddBackward0&gt;),
- tensor([[0.0000, 0.2104, 0.0000,  ..., 0.0000, 0.5286, 0.0000],
-         [0.6329, 0.0000, 0.1123,  ..., 0.0112, 0.4633, 0.4805],
-         [0.0000, 0.0000, 0.0000,  ..., 0.4599, 0.0000, 0.1813],
+ tensor([[0.6449, 0.0000, 0.0000,  ..., 0.8349, 0.1835, 0.5040],
+         [0.3373, 0.0000, 0.8245,  ..., 0.4142, 0.3792, 0.0000],
+         [0.0000, 0.0000, 0.7108,  ..., 0.0000, 0.0381, 0.8433],
          ...,
-         [0.3370, 0.4292, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-         [0.0000, 0.0000, 0.4011,  ..., 0.0000, 0.8117, 0.0000],
-         [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
+         [0.5878, 0.0317, 0.4864,  ..., 0.3502, 0.0775, 0.0000],
+         [0.4253, 0.0000, 0.4467,  ..., 0.9697, 0.5278, 0.1932],
+         [0.5496, 0.3942, 0.3587,  ..., 0.0000, 0.4114, 0.4458]],
         grad_fn=&lt;ReluBackward0&gt;))
 </pre></div>
 </div>
@@ -2430,13 +3849,13 @@ dimensions are dynamic.</p>
 ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, inp_x: &quot;f32[s96, s96 + 1, 8]&quot;, inp_others_0: &quot;f32[2*s96]&quot;, inp_others_1: &quot;f32[6]&quot;):
-            # File: /tmp/ipykernel_168/1070110726.py:5 in forward, code: x = inp[&quot;x&quot;] * 1
+            # File: /tmp/ipykernel_382/1070110726.py:5 in forward, code: x = inp[&quot;x&quot;] * 1
             mul: &quot;f32[s96, s96 + 1, 8]&quot; = torch.ops.aten.mul.Tensor(inp_x, 1);  inp_x = None
     
-            # File: /tmp/ipykernel_168/1070110726.py:6 in forward, code: y = inp[&quot;others&quot;][0] * 2
+            # File: /tmp/ipykernel_382/1070110726.py:6 in forward, code: y = inp[&quot;others&quot;][0] * 2
             mul_1: &quot;f32[2*s96]&quot; = torch.ops.aten.mul.Tensor(inp_others_0, 2);  inp_others_0 = None
     
-            # File: /tmp/ipykernel_168/1070110726.py:7 in forward, code: z = inp[&quot;others&quot;][1] * 3
+            # File: /tmp/ipykernel_382/1070110726.py:7 in forward, code: z = inp[&quot;others&quot;][1] * 3
             mul_2: &quot;f32[6]&quot; = torch.ops.aten.mul.Tensor(inp_others_1, 3);  inp_others_1 = None
             return (mul, mul_1, mul_2)
     
@@ -2503,7 +3922,7 @@ shapes are changing.</p>
 ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, d_b, d_i: &quot;Sym(s37)&quot;, d_f, d_t: &quot;f32[s99]&quot;):
-            # File: /tmp/ipykernel_168/829931439.py:16 in forward, code: return d.i + d.f + d.t
+            # File: /tmp/ipykernel_382/829931439.py:16 in forward, code: return d.i + d.f + d.t
             sym_float: &quot;Sym(ToFloat(s37))&quot; = torch.sym_float(d_i);  d_i = None
             add: &quot;Sym(ToFloat(s37) + 3.0)&quot; = sym_float + 3.0;  sym_float = None
             add_1: &quot;f32[s99]&quot; = torch.ops.aten.add.Tensor(d_t, add);  d_t = add = None
@@ -2837,8 +4256,8 @@ to <code class="docutils literal notranslate"><span class="pre">strict=False</sp
 <p>Graph breaks can also be encountered on data-dependent control flow (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">x.shape[0]</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>) when shapes are not being specialized, as a tracing compiler cannot
 possibly deal with without generating code for a combinatorially exploding
 number of paths. In such cases, users will need to rewrite their code using
-special control flow operators. Currently, we support <a class="reference internal" href="../../cond.html#cond"><span class="std std-ref">torch.cond</span></a>
-to express if-else like control flow (more coming soon!).</p>
+special control flow operators. Currently, we support <a class="reference internal" href="../../higher_order_ops/index.html#higher-order-ops"><span class="std std-ref">higher order operators</span></a>
+to express control flow patterns like conditionals, mapping, scanning, and looping.</p>
 <p>You can also refer to this
 <a class="reference external" href="https://docs.pytorch.org/tutorials/intermediate/torch_export_tutorial.html#data-dependent-errors">tutorial</a>
 for more ways of addressing data-dependent errors.</p>
@@ -2865,7 +4284,7 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
 <li class="toctree-l1"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export/joint_with_descriptors.html">Joint with descriptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../higher_order_ops/index.html">Control Flow Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
@@ -2885,8 +4304,8 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
 
                 </article>
               
-  </article>
-  
+</div>
+
               
               
                 <footer class="bd-footer-article">
@@ -3062,17 +4481,23 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
@@ -3271,9 +4696,9 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
        "@type": "Article",
        "name": "torch.export",
        "headline": "torch.export",
-       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/export.html",
-       "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Jan 27, 2026 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different inputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -\u003e torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\", y: \"f32[10, 10]\"): # File: /tmp/ipykernel_168/2550508656.py:6 in forward, code: a = torch.sin(x) sin: \"f32[10, 10]\" = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_168/2550508656.py:7 in forward, code: b = torch.cos(y) cos: \"f32[10, 10]\" = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_168/2550508656.py:8 in forward, code: return a + b add: \"f32[10, 10]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: By default, the graph may contain both functional and non-functional operators (including mutations). To obtain a purely functional graph, use run_decompositions() which removes mutations and aliasing. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user\u2019s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd ensures the graph is decomposed/lowered to the ATen operator set. When using run_decompositions(), it can also provide functionalization. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into an untraceable part of a model, it will \u201cgraph break\u201d and fall back to running the program in the eager Python runtime. In comparison, torch.export aims to get a full graph representation of a PyTorch model, so it will error out when something untraceable is reached. Since torch.export produces a full graph disjoint from any Python features or runtime, this graph can then be saved, loaded, and run in different environments and languages. Usability tradeoff: Since torch.compile() is able to fallback to the Python runtime whenever it reaches something untraceable, it is a lot more flexible. torch.export will instead require users to provide more information or rewrite their code to make it traceable. Compared to torch.fx.symbolic_trace(), torch.export traces using TorchDynamo which operates at the Python bytecode level, giving it the ability to trace arbitrary Python constructs not limited by what Python operator overloading supports. Additionally, torch.export keeps fine-grained track of tensor metadata, so that conditionals on things like tensor shapes do not fail tracing. In general, torch.export is expected to work on more user programs, and produce lower-level graphs (at the torch.ops.aten operator level). Note that users can still use torch.fx.symbolic_trace() as a preprocessing step before torch.export. Compared to torch.jit.script(), torch.export does not capture Python control flow or data structures, unless using explicit control flow operators, but it supports more Python language features due to its comprehensive coverage over Python bytecodes. The resulting graphs are simpler and only have straight line control flow, except for explicit control flow operators. Compared to torch.jit.trace(), torch.export is sound: it can trace code that performs integer computation on sizes and records all of the side-conditions necessary to ensure that a particular trace is valid for other inputs. Exporting a PyTorch Model# The main entrypoint is through torch.export.export(), which takes a torch.nn.Module and sample inputs, and captures the computation graph into an torch.export.ExportedProgram. An example: import torch from torch.export import export, ExportedProgram # Simple module for demonstration class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d( in_channels=3, out_channels=16, kernel_size=3, padding=1 ) self.relu = torch.nn.ReLU() self.maxpool = torch.nn.MaxPool2d(kernel_size=3) def forward(self, x: torch.Tensor, *, constant=None) -\u003e torch.Tensor: a = self.conv(x) a.add_(constant) return self.maxpool(self.relu(a)) example_args = (torch.randn(1, 3, 256, 256),) example_kwargs = {\"constant\": torch.ones(1, 16, 256, 256)} exported_program: ExportedProgram = export( M(), args=example_args, kwargs=example_kwargs ) print(exported_program) # To run the exported program, we can use the `module()` method print(exported_program.module()(torch.randn(1, 3, 256, 256), constant=torch.ones(1, 16, 256, 256))) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[16, 3, 3, 3]\", p_conv_bias: \"f32[16]\", x: \"f32[1, 3, 256, 256]\", constant: \"f32[1, 16, 256, 256]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 16, 256, 256]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias, [1, 1], [1, 1]); x = p_conv_weight = p_conv_bias = None # File: /tmp/ipykernel_168/2848084713.py:16 in forward, code: a.add_(constant) add_: \"f32[1, 16, 256, 256]\" = torch.ops.aten.add_.Tensor(conv2d, constant); conv2d = constant = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[1, 16, 256, 256]\" = torch.ops.aten.relu.default(add_); add_ = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/pooling.py:224 in forward, code: return F.max_pool2d( max_pool2d: \"f32[1, 16, 85, 85]\" = torch.ops.aten.max_pool2d.default(relu, [3, 3], [3, 3]); relu = None return (max_pool2d,) Graph signature: # inputs p_conv_weight: PARAMETER target=\u0027conv.weight\u0027 p_conv_bias: PARAMETER target=\u0027conv.bias\u0027 x: USER_INPUT constant: USER_INPUT # outputs max_pool2d: USER_OUTPUT Range constraints: {} tensor([[[[1.5214, 2.4704, 3.0651, ..., 2.4336, 1.1375, 1.5987], [1.5774, 2.3304, 1.4743, ..., 2.0051, 2.7075, 1.6982], [1.8746, 2.2816, 1.7579, ..., 2.1190, 2.7807, 1.6911], ..., [1.5314, 2.5449, 1.9427, ..., 2.0198, 1.8797, 1.4700], [2.0720, 1.9610, 1.5063, ..., 2.6871, 1.8576, 1.8283], [2.1531, 2.7090, 1.5119, ..., 1.7009, 2.0886, 2.1587]], [[2.0388, 1.8091, 1.9024, ..., 1.4301, 1.3690, 1.9619], [1.2090, 1.8456, 1.7492, ..., 1.5286, 1.7761, 1.6114], [1.8149, 2.1055, 1.7244, ..., 2.0363, 1.7426, 2.0407], ..., [1.4651, 1.2163, 1.4880, ..., 1.2584, 1.5940, 1.4945], [1.6560, 1.7639, 1.1559, ..., 1.5403, 1.4050, 1.7280], [1.3146, 1.4802, 1.7597, ..., 1.9665, 1.7980, 1.8317]], [[1.7750, 1.4127, 1.3903, ..., 1.9094, 2.1148, 1.6555], [1.6646, 2.3563, 1.8304, ..., 1.6229, 1.8039, 1.8609], [2.2619, 1.5969, 1.7405, ..., 1.9224, 2.1694, 1.7937], ..., [1.3845, 2.3360, 1.9368, ..., 1.6987, 2.1436, 1.6697], [1.4223, 1.1496, 1.5986, ..., 1.6852, 1.8757, 1.7193], [1.6230, 1.4506, 1.9478, ..., 1.7766, 1.6990, 1.5760]], ..., [[1.5195, 2.4857, 2.1466, ..., 1.6649, 1.6881, 2.1260], [2.0265, 2.0575, 1.8554, ..., 2.6367, 2.3456, 1.6049], [1.8761, 1.7578, 1.5513, ..., 2.1893, 2.0179, 1.8543], ..., [1.7317, 1.9345, 2.1777, ..., 1.7670, 1.7060, 1.7281], [1.4336, 1.9568, 1.8840, ..., 1.7177, 2.0281, 1.9555], [2.0850, 2.2718, 1.6366, ..., 1.7244, 2.3989, 2.6314]], [[1.7583, 1.3626, 1.6406, ..., 1.9995, 2.3090, 1.8839], [1.8282, 1.7582, 2.2850, ..., 1.3327, 1.5116, 2.3344], [2.6153, 1.8231, 1.3937, ..., 1.2893, 1.5246, 2.0138], ..., [1.5282, 2.0583, 1.5680, ..., 1.3764, 1.2514, 1.1785], [1.6094, 1.9828, 1.5137, ..., 1.0600, 1.9326, 1.4590], [1.0695, 0.8620, 2.1414, ..., 1.6845, 1.6375, 2.0115]], [[1.7436, 1.4987, 1.8319, ..., 1.8626, 1.2347, 1.0678], [1.3970, 2.0825, 1.5543, ..., 2.0148, 1.6950, 1.8913], [1.5687, 1.5721, 1.4715, ..., 2.0134, 2.1791, 1.3405], ..., [1.3463, 1.8281, 1.4332, ..., 1.6819, 1.8274, 2.1380], [1.5616, 1.3668, 1.9864, ..., 1.9220, 1.5995, 1.8035], [1.4774, 1.7821, 1.8321, ..., 1.4198, 1.6973, 2.1220]]]], grad_fn=\u003cMaxPool2DWithIndicesBackward0\u003e) Inspecting the ExportedProgram, we can note the following: The torch.fx.Graph contains the computation graph of the original program, along with records of the original code for easy debugging. The graph contains only torch.ops.aten operators found here and custom operators. The parameters (weight and bias to conv) are lifted as inputs to the graph, resulting in no get_attr nodes in the graph, which previously existed in the result of torch.fx.symbolic_trace(). The torch.export.ExportGraphSignature models the input and output signature, along with specifying which inputs are parameters. The resulting shape and dtype of tensors produced by each node in the graph is noted. For example, the conv2d node will result in a tensor of dtype torch.float32 and shape (1, 16, 256, 256). Expressing Dynamism# By default torch.export will trace the program assuming all input shapes are static, and specializing the exported program to those dimensions. One consequence of this is that at runtime, the program won\u2019t work on inputs with different shapes, even if they\u2019re valid in eager mode. An example: import torch import traceback as tb class M(torch.nn.Module): def __init__(self): super().__init__() self.branch1 = torch.nn.Sequential( torch.nn.Linear(64, 32), torch.nn.ReLU() ) self.branch2 = torch.nn.Sequential( torch.nn.Linear(128, 64), torch.nn.ReLU() ) self.buffer = torch.ones(32) def forward(self, x1, x2): out1 = self.branch1(x1) out2 = self.branch2(x2) return (out1 + self.buffer, out2) example_args = (torch.randn(32, 64), torch.randn(32, 128)) ep = torch.export.export(M(), example_args) print(ep) example_args2 = (torch.randn(64, 64), torch.randn(64, 128)) try: ep.module()(*example_args2) # fails except Exception: tb.print_exc() ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_branch1_0_weight: \"f32[32, 64]\", p_branch1_0_bias: \"f32[32]\", p_branch2_0_weight: \"f32[64, 128]\", p_branch2_0_bias: \"f32[64]\", c_buffer: \"f32[32]\", x1: \"f32[32, 64]\", x2: \"f32[32, 128]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear: \"f32[32, 32]\" = torch.ops.aten.linear.default(x1, p_branch1_0_weight, p_branch1_0_bias); x1 = p_branch1_0_weight = p_branch1_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[32, 32]\" = torch.ops.aten.relu.default(linear); linear = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear_1: \"f32[32, 64]\" = torch.ops.aten.linear.default(x2, p_branch2_0_weight, p_branch2_0_bias); x2 = p_branch2_0_weight = p_branch2_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu_1: \"f32[32, 64]\" = torch.ops.aten.relu.default(linear_1); linear_1 = None # File: /tmp/ipykernel_168/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2) add: \"f32[32, 32]\" = torch.ops.aten.add.Tensor(relu, c_buffer); relu = c_buffer = None return (add, relu_1) Graph signature: # inputs p_branch1_0_weight: PARAMETER target=\u0027branch1.0.weight\u0027 p_branch1_0_bias: PARAMETER target=\u0027branch1.0.bias\u0027 p_branch2_0_weight: PARAMETER target=\u0027branch2.0.weight\u0027 p_branch2_0_bias: PARAMETER target=\u0027branch2.0.bias\u0027 c_buffer: CONSTANT_TENSOR target=\u0027buffer\u0027 x1: USER_INPUT x2: USER_INPUT # outputs add: USER_OUTPUT relu_1: USER_OUTPUT Range constraints: {} Traceback (most recent call last): File \"/tmp/ipykernel_168/1522925308.py\", line 28, in \u003cmodule\u003e ep.module()(*example_args2) # fails File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 949, in call_wrapped return self._wrapped_call(self, *args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 461, in __call__ raise e File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 447, in __call__ return super(self.cls, obj).__call__(*args, **kwargs) # type: ignore[misc] File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl return self._call_impl(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1885, in _call_impl return inner() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1833, in inner result = forward_call(*args, **kwargs) File \"\u003ceval_with_key\u003e.25\", line 11, in forward _guards_fn = self._guards_fn(x1, x2); _guards_fn = None File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl return self._call_impl(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl return forward_call(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py\", line 240, in inner return func(*args, **kwargs) File \"\u003cstring\u003e\", line 3, in _ File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py\", line 2254, in _assert raise AssertionError(message) AssertionError: Guard failed: x1.size()[0] == 32 However, some dimensions, such as a batch dimension, can be dynamic and vary from run to run. Such dimensions must be specified by using the torch.export.Dim() API to create them and by passing them into torch.export.export() through the dynamic_shapes argument. import torch class M(torch.nn.Module): def __init__(self): super().__init__() self.branch1 = torch.nn.Sequential( torch.nn.Linear(64, 32), torch.nn.ReLU() ) self.branch2 = torch.nn.Sequential( torch.nn.Linear(128, 64), torch.nn.ReLU() ) self.buffer = torch.ones(32) def forward(self, x1, x2): out1 = self.branch1(x1) out2 = self.branch2(x2) return (out1 + self.buffer, out2) example_args = (torch.randn(32, 64), torch.randn(32, 128)) # Create a dynamic batch size batch = torch.export.Dim(\"batch\") # Specify that the first dimension of each input is that batch size dynamic_shapes = {\"x1\": {0: batch}, \"x2\": {0: batch}} ep = torch.export.export( M(), args=example_args, dynamic_shapes=dynamic_shapes ) print(ep) example_args2 = (torch.randn(64, 64), torch.randn(64, 128)) ep.module()(*example_args2) # success ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_branch1_0_weight: \"f32[32, 64]\", p_branch1_0_bias: \"f32[32]\", p_branch2_0_weight: \"f32[64, 128]\", p_branch2_0_bias: \"f32[64]\", c_buffer: \"f32[32]\", x1: \"f32[s24, 64]\", x2: \"f32[s24, 128]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear: \"f32[s24, 32]\" = torch.ops.aten.linear.default(x1, p_branch1_0_weight, p_branch1_0_bias); x1 = p_branch1_0_weight = p_branch1_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[s24, 32]\" = torch.ops.aten.relu.default(linear); linear = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear_1: \"f32[s24, 64]\" = torch.ops.aten.linear.default(x2, p_branch2_0_weight, p_branch2_0_bias); x2 = p_branch2_0_weight = p_branch2_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu_1: \"f32[s24, 64]\" = torch.ops.aten.relu.default(linear_1); linear_1 = None # File: /tmp/ipykernel_168/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2) add: \"f32[s24, 32]\" = torch.ops.aten.add.Tensor(relu, c_buffer); relu = c_buffer = None return (add, relu_1) Graph signature: # inputs p_branch1_0_weight: PARAMETER target=\u0027branch1.0.weight\u0027 p_branch1_0_bias: PARAMETER target=\u0027branch1.0.bias\u0027 p_branch2_0_weight: PARAMETER target=\u0027branch2.0.weight\u0027 p_branch2_0_bias: PARAMETER target=\u0027branch2.0.bias\u0027 c_buffer: CONSTANT_TENSOR target=\u0027buffer\u0027 x1: USER_INPUT x2: USER_INPUT # outputs add: USER_OUTPUT relu_1: USER_OUTPUT Range constraints: {s24: VR[0, int_oo]} (tensor([[1.7658, 1.0000, 1.0000, ..., 1.0000, 1.8394, 1.0000], [1.9098, 1.5695, 2.1666, ..., 1.0000, 1.0000, 1.0000], [1.3230, 1.0000, 1.0000, ..., 1.0000, 1.0000, 1.0000], ..., [1.2677, 1.0000, 1.5019, ..., 1.0000, 1.1178, 1.0000], [1.7279, 1.0000, 1.0000, ..., 1.0000, 1.0000, 1.0000], [1.0000, 1.0000, 1.0000, ..., 1.0000, 2.0173, 1.0000]], grad_fn=\u003cAddBackward0\u003e), tensor([[0.0000, 0.2104, 0.0000, ..., 0.0000, 0.5286, 0.0000], [0.6329, 0.0000, 0.1123, ..., 0.0112, 0.4633, 0.4805], [0.0000, 0.0000, 0.0000, ..., 0.4599, 0.0000, 0.1813], ..., [0.3370, 0.4292, 0.0000, ..., 0.0000, 0.0000, 0.0000], [0.0000, 0.0000, 0.4011, ..., 0.0000, 0.8117, 0.0000], [0.0000, 0.0000, 0.0000, ..., 0.0000, 0.0000, 0.0000]], grad_fn=\u003cReluBackward0\u003e)) Some additional things to note: Through the torch.export.Dim() API and the dynamic_shapes argument, we specified the first dimension of each input to be dynamic. Looking at the inputs x1 and x2, they have a symbolic shape of (s0, 64) and (s0, 128), instead of the (32, 64) and (32, 128) shaped tensors that we passed in as example inputs. s0 is a symbol representing that this dimension can be a range of values. exported_program.range_constraints describes the ranges of each symbol appearing in the graph. In this case, we see that s0 has the range [0, int_oo]. For technical reasons that are difficult to explain here, they are assumed to be not 0 or 1. This is not a bug, and does not necessarily mean that the exported program will not work for dimensions 0 or 1. See The 0/1 Specialization Problem for an in-depth discussion of this topic. In the example, we used Dim(\"batch\") to create a dynamic dimension. This is the most explicit way to specify dynamism. We can also use Dim.DYNAMIC and Dim.AUTO to specify dynamism. We will go over both methods in the next section. Named Dims# For every dimension specified with Dim(\"name\"), we will allocate a symbolic shape. Specifying a Dim with the same name will result in the same symbol to be generated. This allows users to specify what symbols are allocated for each input dimension. batch = Dim(\"batch\") dynamic_shapes = {\"x1\": {0: dim}, \"x2\": {0: batch}} For each Dim, we can specify minimum and maximum values. We also allow specifying relations between Dims in univariate linear expressions: A * dim + B. This allows users to specify more complex constraints like integer divisibility for dynamic dimensions. These features allow for users to place explicit restrictions on the dynamic behavior of the ExportedProgram produced. dx = Dim(\"dx\", min=4, max=256) dh = Dim(\"dh\", max=512) dynamic_shapes = { \"x\": (dx, None), \"y\": (2 * dx, dh), } However, ConstraintViolationErrors will be raised if the while tracing, we emit guards that conflict with the relations or static/dynamic specifications given. For example, in the above specification, the following is asserted: x.shape[0] is to have range [4, 256], and related to y.shape[0] by y.shape[0] == 2 * x.shape[0]. x.shape[1] is static. y.shape[1] has range [0, 512], and is unrelated to any other dimension. If any of these assertions are found to be incorrect while tracing (ex. x.shape[0] is static, or y.shape[1] has a smaller range, or y.shape[0] != 2 * x.shape[0]), then a ConstraintViolationError will be raised, and the user will need to change their dynamic_shapes specification. Dim Hints# Instead of explicitly specifying dynamism using Dim(\"name\"), we can let torch.export infer the ranges and relationships of the dynamic values using Dim.DYNAMIC. This is also a more convenient way to specify dynamism when you don\u2019t know specifically how dynamic your dynamic values are. dynamic_shapes = { \"x\": (Dim.DYNAMIC, None), \"y\": (Dim.DYNAMIC, Dim.DYNAMIC), } We can also specify min/max values for Dim.DYNAMIC, which will serve as hints to export. But if while tracing export found the range to be different, it will automatically update the range without raising an error. We also cannot specify relationships between dynamic values. Instead, this will be inferred by export, and exposed to users through an inspection of assertions within the graph. In this method of specifying dynamism, ConstraintViolationErrors will only be raised if the specified value is inferred to be static. An even more convenient way to specify dynamism is to use Dim.AUTO, which will behave like Dim.DYNAMIC, but will not raise an error if the dimension is inferred to be static. This is useful for when you have no idea what the dynamic values are, and want to export the program with a \u201cbest effort\u201d dynamic approach. ShapesCollection# When specifying which inputs are dynamic via dynamic_shapes, we must specify the dynamism of every input. For example, given the following inputs: args = {\"x\": tensor_x, \"others\": [tensor_y, tensor_z]} we would need to specify the dynamism of tensor_x, tensor_y, and tensor_z along with the dynamic shapes: # With named-Dims dim = torch.export.Dim(...) dynamic_shapes = {\"x\": {0: dim, 1: dim + 1}, \"others\": [{0: dim * 2}, None]} torch.export(..., args, dynamic_shapes=dynamic_shapes) However, this is particularly complicated as we need to specify the dynamic_shapes specification in the same nested input structure as the input arguments. Instead, an easier way to specify dynamic shapes is with the helper utility torch.export.ShapesCollection, where instead of specifying the dynamism of every single input, we can just assign directly which input dimensions are dynamic. import torch class M(torch.nn.Module): def forward(self, inp): x = inp[\"x\"] * 1 y = inp[\"others\"][0] * 2 z = inp[\"others\"][1] * 3 return x, y, z tensor_x = torch.randn(3, 4, 8) tensor_y = torch.randn(6) tensor_z = torch.randn(6) args = {\"x\": tensor_x, \"others\": [tensor_y, tensor_z]} dim = torch.export.Dim(\"dim\") sc = torch.export.ShapesCollection() sc[tensor_x] = (dim, dim + 1, 8) sc[tensor_y] = {0: dim * 2} print(sc.dynamic_shapes(M(), (args,))) ep = torch.export.export(M(), (args,), dynamic_shapes=sc) print(ep) {\u0027inp\u0027: {\u0027x\u0027: (Dim(\u0027dim\u0027, min=0), dim + 1, 8), \u0027others\u0027: [{0: 2*dim}, None]}} ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, inp_x: \"f32[s96, s96 + 1, 8]\", inp_others_0: \"f32[2*s96]\", inp_others_1: \"f32[6]\"): # File: /tmp/ipykernel_168/1070110726.py:5 in forward, code: x = inp[\"x\"] * 1 mul: \"f32[s96, s96 + 1, 8]\" = torch.ops.aten.mul.Tensor(inp_x, 1); inp_x = None # File: /tmp/ipykernel_168/1070110726.py:6 in forward, code: y = inp[\"others\"][0] * 2 mul_1: \"f32[2*s96]\" = torch.ops.aten.mul.Tensor(inp_others_0, 2); inp_others_0 = None # File: /tmp/ipykernel_168/1070110726.py:7 in forward, code: z = inp[\"others\"][1] * 3 mul_2: \"f32[6]\" = torch.ops.aten.mul.Tensor(inp_others_1, 3); inp_others_1 = None return (mul, mul_1, mul_2) Graph signature: # inputs inp_x: USER_INPUT inp_others_0: USER_INPUT inp_others_1: USER_INPUT # outputs mul: USER_OUTPUT mul_1: USER_OUTPUT mul_2: USER_OUTPUT Range constraints: {s96: VR[0, int_oo], s96 + 1: VR[1, int_oo], 2*s96: VR[0, int_oo]} AdditionalInputs# In the case where you don\u2019t know how dynamic your inputs are, but you have an ample set of testing or profiling data that can provide a fair sense of representative inputs for a model, you can use torch.export.AdditionalInputs in place of dynamic_shapes. You can specify all the possible inputs used to trace the program, and AdditionalInputs will infer which inputs are dynamic based on which input shapes are changing. Example: import dataclasses import torch import torch.utils._pytree as pytree @dataclasses.dataclass class D: b: bool i: int f: float t: torch.Tensor pytree.register_dataclass(D) class M(torch.nn.Module): def forward(self, d: D): return d.i + d.f + d.t input1 = (D(True, 3, 3.0, torch.ones(3)),) input2 = (D(True, 4, 3.0, torch.ones(4)),) ai = torch.export.AdditionalInputs() ai.add(input1) ai.add(input2) print(ai.dynamic_shapes(M(), input1)) ep = torch.export.export(M(), input1, dynamic_shapes=ai) print(ep) {\u0027d\u0027: [None, DimHint(DYNAMIC), None, (DimHint(DYNAMIC),)]} ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, d_b, d_i: \"Sym(s37)\", d_f, d_t: \"f32[s99]\"): # File: /tmp/ipykernel_168/829931439.py:16 in forward, code: return d.i + d.f + d.t sym_float: \"Sym(ToFloat(s37))\" = torch.sym_float(d_i); d_i = None add: \"Sym(ToFloat(s37) + 3.0)\" = sym_float + 3.0; sym_float = None add_1: \"f32[s99]\" = torch.ops.aten.add.Tensor(d_t, add); d_t = add = None return (add_1,) Graph signature: # inputs d_b: USER_INPUT d_i: USER_INPUT d_f: USER_INPUT d_t: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {s37: VR[0, int_oo], s99: VR[2, int_oo]} Serialization# To save the ExportedProgram, users can use the torch.export.save() and torch.export.load() APIs. The resulting file is a zipfile with a specific structure. The details of the structure are defined in the PT2 Archive Spec. An example: import torch class MyModule(torch.nn.Module): def forward(self, x): return x + 10 exported_program = torch.export.export(MyModule(), (torch.randn(5),)) torch.export.save(exported_program, \u0027exported_program.pt2\u0027) saved_exported_program = torch.export.load(\u0027exported_program.pt2\u0027) Export IR: Training vs Inference# The graph produced by torch.export returns a graph containing only ATen operators, which are the basic unit of computation in PyTorch. Export provides different IR levels based on your use case: IR Type How to Obtain Properties Operator Count Use Case Training IR torch.export.export() (default) May contain mutations ~3000 Training with autograd Inference IR ep.run_decompositions(decomp_table={}) Purely functional ~2000 Inference deployment Core ATen IR ep.run_decompositions(decomp_table=None) Purely functional, highly decomposed ~180 Minimal backend support Training IR (Default)# By default, export produces a Training IR which contains all ATen operators, including both functional and non-functional (mutating) operators. A functional operator is one that does not contain any mutations or aliasing of the inputs, while non-functional operators may modify their inputs in-place. You can find a list of all ATen operators here and you can inspect if an operator is functional by checking op._schema.is_mutable. This Training IR, which may contain mutations, is designed for training use cases and can be used with eager PyTorch Autograd. import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) print(ep_for_training.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 3, 3, 3]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add_: \"i64[]\" = torch.ops.aten.add_.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = add_ = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( batch_norm: \"f32[1, 3, 3, 3]\" = torch.ops.aten.batch_norm.default(conv2d, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05, False); conv2d = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None return (batch_norm,) Inference IR (via run_decompositions)# To obtain an Inference IR suitable for deployment, use the ExportedProgram.run_decompositions() API. This method automatically: Functionalizes the graph (removes all mutations and converts them to functional equivalents) Optionally decomposes ATen operators based on the provided decomposition table This produces a purely functional graph ideal for inference scenarios. By specifying an empty decomposition table (decomp_table={}), you get just the functionalization without additional decompositions. This produces an Inference IR with ~2000 functional operators (compared to 3000+ in Training IR). import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) with torch.no_grad(): ep_for_inference = ep_for_training.run_decompositions(decomp_table={}) print(ep_for_inference.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 3, 3, 3]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(conv2d, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); conv2d = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) As we can see, the previously in-place operator, torch.ops.aten.add_.default has now been replaced with torch.ops.aten.add.default, a functional operator. Core ATen IR# We can further lower the Inference IR to the Core ATen Operator Set \u003chttps://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler_ir.html#core-aten-ir\u003e__, which contains only ~180 operators. This is achieved by passing decomp_table=None (which uses the default decomposition table) to run_decompositions(). This IR is optimal for backends who want to minimize the number of operators they need to implement. import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) with torch.no_grad(): core_aten_ir = ep_for_training.run_decompositions(decomp_table=None) print(core_aten_ir.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) convolution: \"f32[1, 3, 3, 3]\" = torch.ops.aten.convolution.default(x, p_conv_weight, p_conv_bias, [1, 1], [0, 0], [1, 1], False, [0, 0], 1); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(convolution, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); convolution = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) We now see that torch.ops.aten.conv2d.default has been decomposed into torch.ops.aten.convolution.default. This is because convolution is a more \u201ccore\u201d operator, as operations like conv1d and conv2d can be implemented using the same op. We can also specify our own decomposition behaviors: class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) my_decomp_table = torch.export.default_decompositions() def my_awesome_custom_conv2d_function(x, weight, bias, stride=[1, 1], padding=[0, 0], dilation=[1, 1], groups=1): return 2 * torch.ops.aten.convolution(x, weight, bias, stride, padding, dilation, False, [0, 0], groups) my_decomp_table[torch.ops.aten.conv2d.default] = my_awesome_custom_conv2d_function my_ep = ep_for_training.run_decompositions(my_decomp_table) print(my_ep.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) convolution: \"f32[1, 3, 3, 3]\" = torch.ops.aten.convolution.default(x, p_conv_weight, p_conv_bias, [1, 1], [0, 0], [1, 1], False, [0, 0], 1); x = p_conv_weight = p_conv_bias = None mul: \"f32[1, 3, 3, 3]\" = torch.ops.aten.mul.Tensor(convolution, 2); convolution = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(mul, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); mul = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) Notice that instead of torch.ops.aten.conv2d.default being decomposed into torch.ops.aten.convolution.default, it is now decomposed into torch.ops.aten.convolution.default and torch.ops.aten.mul.Tensor, which matches our custom decomposition rule. Limitations of torch.export# As torch.export is a one-shot process for capturing a computation graph from a PyTorch program, it might ultimately run into untraceable parts of programs as it is nearly impossible to support tracing all PyTorch and Python features. In the case of torch.compile, an unsupported operation will cause a \u201cgraph break\u201d and the unsupported operation will be run with default Python evaluation. In contrast, torch.export will require users to provide additional information or rewrite parts of their code to make it traceable. Draft-export is a great resource for listing out graphs breaks that will be encountered when tracing the program, along with additional debug information to solve those errors. ExportDB is also great resource for learning about the kinds of programs that are supported and unsupported, along with ways to rewrite programs to make them traceable. TorchDynamo unsupported# When using torch.export with strict=True, this will use TorchDynamo to evaluate the program at the Python bytecode level to trace the program into a graph. Compared to previous tracing frameworks, there will be significantly fewer rewrites required to make a program traceable, but there will still be some Python features that are unsupported. An option to get past dealing with this graph breaks is by using non-strict export through changing the strict flag to strict=False. Data/Shape-Dependent Control Flow# Graph breaks can also be encountered on data-dependent control flow (if x.shape[0] \u003e 2) when shapes are not being specialized, as a tracing compiler cannot possibly deal with without generating code for a combinatorially exploding number of paths. In such cases, users will need to rewrite their code using special control flow operators. Currently, we support torch.cond to express if-else like control flow (more coming soon!). You can also refer to this tutorial for more ways of addressing data-dependent errors. Missing Fake/Meta Kernels for Operators# When tracing, a FakeTensor kernel (aka meta kernel) is required for all operators. This is used to reason about the input/output shapes for this operator. Please see this tutorial for more details. In the unfortunate case where your model uses an ATen operator that is does not have a FakeTensor kernel implementation yet, please file an issue. Read More# Additional Links for Export Users torch.export API Reference torch.export Programming Model torch.export IR Specification PT2 Archive Spec Draft Export Joint with descriptors Control Flow - Cond ExportDB AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models IRs Deep Dive for PyTorch Developers Dynamic Shapes Fake tensor Writing Graph Transformations on ATen IR",
+       "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Feb 14, 2026 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different inputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -\u003e torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\", y: \"f32[10, 10]\"): # File: /tmp/ipykernel_382/2550508656.py:6 in forward, code: a = torch.sin(x) sin: \"f32[10, 10]\" = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_382/2550508656.py:7 in forward, code: b = torch.cos(y) cos: \"f32[10, 10]\" = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_382/2550508656.py:8 in forward, code: return a + b add: \"f32[10, 10]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: By default, the graph may contain both functional and non-functional operators (including mutations). To obtain a purely functional graph, use run_decompositions() which removes mutations and aliasing. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user\u2019s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd ensures the graph is decomposed/lowered to the ATen operator set. When using run_decompositions(), it can also provide functionalization. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into an untraceable part of a model, it will \u201cgraph break\u201d and fall back to running the program in the eager Python runtime. In comparison, torch.export aims to get a full graph representation of a PyTorch model, so it will error out when something untraceable is reached. Since torch.export produces a full graph disjoint from any Python features or runtime, this graph can then be saved, loaded, and run in different environments and languages. Usability tradeoff: Since torch.compile() is able to fallback to the Python runtime whenever it reaches something untraceable, it is a lot more flexible. torch.export will instead require users to provide more information or rewrite their code to make it traceable. Compared to torch.fx.symbolic_trace(), torch.export traces using TorchDynamo which operates at the Python bytecode level, giving it the ability to trace arbitrary Python constructs not limited by what Python operator overloading supports. Additionally, torch.export keeps fine-grained track of tensor metadata, so that conditionals on things like tensor shapes do not fail tracing. In general, torch.export is expected to work on more user programs, and produce lower-level graphs (at the torch.ops.aten operator level). Note that users can still use torch.fx.symbolic_trace() as a preprocessing step before torch.export. Compared to torch.jit.script(), torch.export does not capture Python control flow or data structures, unless using explicit control flow operators, but it supports more Python language features due to its comprehensive coverage over Python bytecodes. The resulting graphs are simpler and only have straight line control flow, except for explicit control flow operators. Compared to torch.jit.trace(), torch.export is sound: it can trace code that performs integer computation on sizes and records all of the side-conditions necessary to ensure that a particular trace is valid for other inputs. Exporting a PyTorch Model# The main entrypoint is through torch.export.export(), which takes a torch.nn.Module and sample inputs, and captures the computation graph into an torch.export.ExportedProgram. An example: import torch from torch.export import export, ExportedProgram # Simple module for demonstration class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d( in_channels=3, out_channels=16, kernel_size=3, padding=1 ) self.relu = torch.nn.ReLU() self.maxpool = torch.nn.MaxPool2d(kernel_size=3) def forward(self, x: torch.Tensor, *, constant=None) -\u003e torch.Tensor: a = self.conv(x) a.add_(constant) return self.maxpool(self.relu(a)) example_args = (torch.randn(1, 3, 256, 256),) example_kwargs = {\"constant\": torch.ones(1, 16, 256, 256)} exported_program: ExportedProgram = export( M(), args=example_args, kwargs=example_kwargs ) print(exported_program) # To run the exported program, we can use the `module()` method print(exported_program.module()(torch.randn(1, 3, 256, 256), constant=torch.ones(1, 16, 256, 256))) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[16, 3, 3, 3]\", p_conv_bias: \"f32[16]\", x: \"f32[1, 3, 256, 256]\", constant: \"f32[1, 16, 256, 256]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 16, 256, 256]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias, [1, 1], [1, 1]); x = p_conv_weight = p_conv_bias = None # File: /tmp/ipykernel_382/2848084713.py:16 in forward, code: a.add_(constant) add_: \"f32[1, 16, 256, 256]\" = torch.ops.aten.add_.Tensor(conv2d, constant); conv2d = constant = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[1, 16, 256, 256]\" = torch.ops.aten.relu.default(add_); add_ = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/pooling.py:224 in forward, code: return F.max_pool2d( max_pool2d: \"f32[1, 16, 85, 85]\" = torch.ops.aten.max_pool2d.default(relu, [3, 3], [3, 3]); relu = None return (max_pool2d,) Graph signature: # inputs p_conv_weight: PARAMETER target=\u0027conv.weight\u0027 p_conv_bias: PARAMETER target=\u0027conv.bias\u0027 x: USER_INPUT constant: USER_INPUT # outputs max_pool2d: USER_OUTPUT Range constraints: {} tensor([[[[1.8476, 1.6724, 2.0400, ..., 1.7941, 2.4250, 1.8715], [1.8635, 2.1906, 2.2552, ..., 2.5133, 1.5940, 1.7306], [2.3456, 2.2290, 2.1059, ..., 1.8290, 1.6349, 2.3689], ..., [1.8109, 2.1292, 2.1616, ..., 1.8869, 2.1555, 1.9086], [2.0623, 2.9267, 2.2300, ..., 2.2534, 1.5607, 2.4848], [1.6444, 2.4618, 1.6561, ..., 2.0189, 1.8950, 1.4311]], [[1.7487, 1.2610, 1.7098, ..., 2.0231, 1.7927, 1.5670], [1.5336, 1.7418, 1.9981, ..., 1.6270, 1.1929, 1.5114], [1.1286, 1.7417, 1.5203, ..., 2.0047, 1.7287, 1.5769], ..., [1.8781, 1.7710, 1.6939, ..., 1.1900, 1.9274, 2.2686], [2.1204, 1.9264, 1.5634, ..., 1.3083, 1.5812, 2.0849], [2.4958, 1.2730, 1.6931, ..., 1.7311, 1.7288, 1.9451]], [[2.6038, 1.6690, 2.2435, ..., 2.5876, 1.6443, 1.4293], [2.1848, 2.6104, 2.0153, ..., 1.7290, 1.3719, 2.2236], [1.6998, 1.5393, 2.3742, ..., 2.3567, 2.3146, 2.6780], ..., [1.7396, 2.4331, 1.7124, ..., 1.8129, 1.6370, 1.7938], [2.1851, 1.7039, 1.6274, ..., 1.5634, 2.4583, 2.0399], [1.7395, 1.9446, 1.6931, ..., 1.5487, 1.8966, 2.0654]], ..., [[1.5345, 1.5118, 1.6969, ..., 1.6129, 1.9739, 1.7388], [2.2755, 1.6648, 2.7188, ..., 1.6511, 2.1183, 1.5761], [1.5275, 1.7225, 1.6437, ..., 1.4331, 1.7401, 1.8166], ..., [2.0690, 2.0172, 2.6924, ..., 1.6974, 1.7837, 2.4529], [2.2959, 3.0708, 2.0607, ..., 1.7842, 1.9866, 2.1783], [2.1900, 2.0388, 2.2396, ..., 2.0199, 1.6705, 1.5710]], [[1.5320, 1.4326, 1.7718, ..., 1.7815, 1.2787, 1.4304], [1.9462, 1.7420, 2.1512, ..., 1.5221, 1.6167, 1.8768], [1.4214, 1.2611, 1.5462, ..., 1.4588, 1.8179, 1.4435], ..., [1.6943, 1.6128, 1.1245, ..., 1.5078, 1.5833, 1.8548], [1.8401, 2.0551, 1.0620, ..., 1.9039, 1.7790, 1.1682], [1.7666, 1.7749, 1.5955, ..., 1.5547, 1.3571, 1.5880]], [[2.5584, 1.6137, 2.1040, ..., 1.8100, 2.1382, 1.7882], [1.7606, 1.7212, 2.7464, ..., 2.1748, 2.0962, 2.3028], [2.0186, 3.1110, 2.2159, ..., 2.0867, 2.4989, 1.5927], ..., [1.9817, 2.3215, 2.2981, ..., 1.9586, 1.5960, 1.7513], [2.5069, 2.0265, 2.1902, ..., 1.8778, 1.6572, 2.4622], [1.8954, 1.3782, 1.8196, ..., 1.7040, 1.5033, 2.5739]]]], grad_fn=\u003cMaxPool2DWithIndicesBackward0\u003e) Inspecting the ExportedProgram, we can note the following: The torch.fx.Graph contains the computation graph of the original program, along with records of the original code for easy debugging. The graph contains only torch.ops.aten operators found here and custom operators. The parameters (weight and bias to conv) are lifted as inputs to the graph, resulting in no get_attr nodes in the graph, which previously existed in the result of torch.fx.symbolic_trace(). The torch.export.ExportGraphSignature models the input and output signature, along with specifying which inputs are parameters. The resulting shape and dtype of tensors produced by each node in the graph is noted. For example, the conv2d node will result in a tensor of dtype torch.float32 and shape (1, 16, 256, 256). Expressing Dynamism# By default torch.export will trace the program assuming all input shapes are static, and specializing the exported program to those dimensions. One consequence of this is that at runtime, the program won\u2019t work on inputs with different shapes, even if they\u2019re valid in eager mode. An example: import torch import traceback as tb class M(torch.nn.Module): def __init__(self): super().__init__() self.branch1 = torch.nn.Sequential( torch.nn.Linear(64, 32), torch.nn.ReLU() ) self.branch2 = torch.nn.Sequential( torch.nn.Linear(128, 64), torch.nn.ReLU() ) self.buffer = torch.ones(32) def forward(self, x1, x2): out1 = self.branch1(x1) out2 = self.branch2(x2) return (out1 + self.buffer, out2) example_args = (torch.randn(32, 64), torch.randn(32, 128)) ep = torch.export.export(M(), example_args) print(ep) example_args2 = (torch.randn(64, 64), torch.randn(64, 128)) try: ep.module()(*example_args2) # fails except Exception: tb.print_exc() ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_branch1_0_weight: \"f32[32, 64]\", p_branch1_0_bias: \"f32[32]\", p_branch2_0_weight: \"f32[64, 128]\", p_branch2_0_bias: \"f32[64]\", c_buffer: \"f32[32]\", x1: \"f32[32, 64]\", x2: \"f32[32, 128]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear: \"f32[32, 32]\" = torch.ops.aten.linear.default(x1, p_branch1_0_weight, p_branch1_0_bias); x1 = p_branch1_0_weight = p_branch1_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[32, 32]\" = torch.ops.aten.relu.default(linear); linear = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear_1: \"f32[32, 64]\" = torch.ops.aten.linear.default(x2, p_branch2_0_weight, p_branch2_0_bias); x2 = p_branch2_0_weight = p_branch2_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu_1: \"f32[32, 64]\" = torch.ops.aten.relu.default(linear_1); linear_1 = None # File: /tmp/ipykernel_382/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2) add: \"f32[32, 32]\" = torch.ops.aten.add.Tensor(relu, c_buffer); relu = c_buffer = None return (add, relu_1) Graph signature: # inputs p_branch1_0_weight: PARAMETER target=\u0027branch1.0.weight\u0027 p_branch1_0_bias: PARAMETER target=\u0027branch1.0.bias\u0027 p_branch2_0_weight: PARAMETER target=\u0027branch2.0.weight\u0027 p_branch2_0_bias: PARAMETER target=\u0027branch2.0.bias\u0027 c_buffer: CONSTANT_TENSOR target=\u0027buffer\u0027 x1: USER_INPUT x2: USER_INPUT # outputs add: USER_OUTPUT relu_1: USER_OUTPUT Range constraints: {} Traceback (most recent call last): File \"/tmp/ipykernel_382/1522925308.py\", line 28, in \u003cmodule\u003e ep.module()(*example_args2) # fails File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 949, in call_wrapped return self._wrapped_call(self, *args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 461, in __call__ raise e File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py\", line 447, in __call__ return super(self.cls, obj).__call__(*args, **kwargs) # type: ignore[misc] File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl return self._call_impl(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1885, in _call_impl return inner() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1833, in inner result = forward_call(*args, **kwargs) File \"\u003ceval_with_key\u003e.25\", line 11, in forward _guards_fn = self._guards_fn(x1, x2); _guards_fn = None File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl return self._call_impl(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl return forward_call(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py\", line 240, in inner return func(*args, **kwargs) File \"\u003cstring\u003e\", line 3, in _ File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py\", line 2254, in _assert raise AssertionError(message) AssertionError: Guard failed: x1.size()[0] == 32 However, some dimensions, such as a batch dimension, can be dynamic and vary from run to run. Such dimensions must be specified by using the torch.export.Dim() API to create them and by passing them into torch.export.export() through the dynamic_shapes argument. import torch class M(torch.nn.Module): def __init__(self): super().__init__() self.branch1 = torch.nn.Sequential( torch.nn.Linear(64, 32), torch.nn.ReLU() ) self.branch2 = torch.nn.Sequential( torch.nn.Linear(128, 64), torch.nn.ReLU() ) self.buffer = torch.ones(32) def forward(self, x1, x2): out1 = self.branch1(x1) out2 = self.branch2(x2) return (out1 + self.buffer, out2) example_args = (torch.randn(32, 64), torch.randn(32, 128)) # Create a dynamic batch size batch = torch.export.Dim(\"batch\") # Specify that the first dimension of each input is that batch size dynamic_shapes = {\"x1\": {0: batch}, \"x2\": {0: batch}} ep = torch.export.export( M(), args=example_args, dynamic_shapes=dynamic_shapes ) print(ep) example_args2 = (torch.randn(64, 64), torch.randn(64, 128)) ep.module()(*example_args2) # success ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_branch1_0_weight: \"f32[32, 64]\", p_branch1_0_bias: \"f32[32]\", p_branch2_0_weight: \"f32[64, 128]\", p_branch2_0_bias: \"f32[64]\", c_buffer: \"f32[32]\", x1: \"f32[s24, 64]\", x2: \"f32[s24, 128]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear: \"f32[s24, 32]\" = torch.ops.aten.linear.default(x1, p_branch1_0_weight, p_branch1_0_bias); x1 = p_branch1_0_weight = p_branch1_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu: \"f32[s24, 32]\" = torch.ops.aten.relu.default(linear); linear = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/linear.py:134 in forward, code: return F.linear(input, self.weight, self.bias) linear_1: \"f32[s24, 64]\" = torch.ops.aten.linear.default(x2, p_branch2_0_weight, p_branch2_0_bias); x2 = p_branch2_0_weight = p_branch2_0_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/activation.py:143 in forward, code: return F.relu(input, inplace=self.inplace) relu_1: \"f32[s24, 64]\" = torch.ops.aten.relu.default(linear_1); linear_1 = None # File: /tmp/ipykernel_382/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2) add: \"f32[s24, 32]\" = torch.ops.aten.add.Tensor(relu, c_buffer); relu = c_buffer = None return (add, relu_1) Graph signature: # inputs p_branch1_0_weight: PARAMETER target=\u0027branch1.0.weight\u0027 p_branch1_0_bias: PARAMETER target=\u0027branch1.0.bias\u0027 p_branch2_0_weight: PARAMETER target=\u0027branch2.0.weight\u0027 p_branch2_0_bias: PARAMETER target=\u0027branch2.0.bias\u0027 c_buffer: CONSTANT_TENSOR target=\u0027buffer\u0027 x1: USER_INPUT x2: USER_INPUT # outputs add: USER_OUTPUT relu_1: USER_OUTPUT Range constraints: {s24: VR[0, int_oo]} (tensor([[1.1535, 1.0000, 1.1727, ..., 1.1442, 1.0366, 1.0571], [1.1045, 1.0000, 1.7897, ..., 1.0000, 1.0869, 1.0000], [2.1675, 1.0000, 1.0299, ..., 1.0000, 1.3472, 1.2423], ..., [1.1388, 1.0000, 1.9607, ..., 1.0000, 1.7077, 1.7325], [1.5652, 1.0000, 2.6345, ..., 1.0000, 1.0000, 1.3853], [1.0000, 1.0000, 1.0000, ..., 1.0000, 1.1322, 1.0000]], grad_fn=\u003cAddBackward0\u003e), tensor([[0.6449, 0.0000, 0.0000, ..., 0.8349, 0.1835, 0.5040], [0.3373, 0.0000, 0.8245, ..., 0.4142, 0.3792, 0.0000], [0.0000, 0.0000, 0.7108, ..., 0.0000, 0.0381, 0.8433], ..., [0.5878, 0.0317, 0.4864, ..., 0.3502, 0.0775, 0.0000], [0.4253, 0.0000, 0.4467, ..., 0.9697, 0.5278, 0.1932], [0.5496, 0.3942, 0.3587, ..., 0.0000, 0.4114, 0.4458]], grad_fn=\u003cReluBackward0\u003e)) Some additional things to note: Through the torch.export.Dim() API and the dynamic_shapes argument, we specified the first dimension of each input to be dynamic. Looking at the inputs x1 and x2, they have a symbolic shape of (s0, 64) and (s0, 128), instead of the (32, 64) and (32, 128) shaped tensors that we passed in as example inputs. s0 is a symbol representing that this dimension can be a range of values. exported_program.range_constraints describes the ranges of each symbol appearing in the graph. In this case, we see that s0 has the range [0, int_oo]. For technical reasons that are difficult to explain here, they are assumed to be not 0 or 1. This is not a bug, and does not necessarily mean that the exported program will not work for dimensions 0 or 1. See The 0/1 Specialization Problem for an in-depth discussion of this topic. In the example, we used Dim(\"batch\") to create a dynamic dimension. This is the most explicit way to specify dynamism. We can also use Dim.DYNAMIC and Dim.AUTO to specify dynamism. We will go over both methods in the next section. Named Dims# For every dimension specified with Dim(\"name\"), we will allocate a symbolic shape. Specifying a Dim with the same name will result in the same symbol to be generated. This allows users to specify what symbols are allocated for each input dimension. batch = Dim(\"batch\") dynamic_shapes = {\"x1\": {0: dim}, \"x2\": {0: batch}} For each Dim, we can specify minimum and maximum values. We also allow specifying relations between Dims in univariate linear expressions: A * dim + B. This allows users to specify more complex constraints like integer divisibility for dynamic dimensions. These features allow for users to place explicit restrictions on the dynamic behavior of the ExportedProgram produced. dx = Dim(\"dx\", min=4, max=256) dh = Dim(\"dh\", max=512) dynamic_shapes = { \"x\": (dx, None), \"y\": (2 * dx, dh), } However, ConstraintViolationErrors will be raised if the while tracing, we emit guards that conflict with the relations or static/dynamic specifications given. For example, in the above specification, the following is asserted: x.shape[0] is to have range [4, 256], and related to y.shape[0] by y.shape[0] == 2 * x.shape[0]. x.shape[1] is static. y.shape[1] has range [0, 512], and is unrelated to any other dimension. If any of these assertions are found to be incorrect while tracing (ex. x.shape[0] is static, or y.shape[1] has a smaller range, or y.shape[0] != 2 * x.shape[0]), then a ConstraintViolationError will be raised, and the user will need to change their dynamic_shapes specification. Dim Hints# Instead of explicitly specifying dynamism using Dim(\"name\"), we can let torch.export infer the ranges and relationships of the dynamic values using Dim.DYNAMIC. This is also a more convenient way to specify dynamism when you don\u2019t know specifically how dynamic your dynamic values are. dynamic_shapes = { \"x\": (Dim.DYNAMIC, None), \"y\": (Dim.DYNAMIC, Dim.DYNAMIC), } We can also specify min/max values for Dim.DYNAMIC, which will serve as hints to export. But if while tracing export found the range to be different, it will automatically update the range without raising an error. We also cannot specify relationships between dynamic values. Instead, this will be inferred by export, and exposed to users through an inspection of assertions within the graph. In this method of specifying dynamism, ConstraintViolationErrors will only be raised if the specified value is inferred to be static. An even more convenient way to specify dynamism is to use Dim.AUTO, which will behave like Dim.DYNAMIC, but will not raise an error if the dimension is inferred to be static. This is useful for when you have no idea what the dynamic values are, and want to export the program with a \u201cbest effort\u201d dynamic approach. ShapesCollection# When specifying which inputs are dynamic via dynamic_shapes, we must specify the dynamism of every input. For example, given the following inputs: args = {\"x\": tensor_x, \"others\": [tensor_y, tensor_z]} we would need to specify the dynamism of tensor_x, tensor_y, and tensor_z along with the dynamic shapes: # With named-Dims dim = torch.export.Dim(...) dynamic_shapes = {\"x\": {0: dim, 1: dim + 1}, \"others\": [{0: dim * 2}, None]} torch.export(..., args, dynamic_shapes=dynamic_shapes) However, this is particularly complicated as we need to specify the dynamic_shapes specification in the same nested input structure as the input arguments. Instead, an easier way to specify dynamic shapes is with the helper utility torch.export.ShapesCollection, where instead of specifying the dynamism of every single input, we can just assign directly which input dimensions are dynamic. import torch class M(torch.nn.Module): def forward(self, inp): x = inp[\"x\"] * 1 y = inp[\"others\"][0] * 2 z = inp[\"others\"][1] * 3 return x, y, z tensor_x = torch.randn(3, 4, 8) tensor_y = torch.randn(6) tensor_z = torch.randn(6) args = {\"x\": tensor_x, \"others\": [tensor_y, tensor_z]} dim = torch.export.Dim(\"dim\") sc = torch.export.ShapesCollection() sc[tensor_x] = (dim, dim + 1, 8) sc[tensor_y] = {0: dim * 2} print(sc.dynamic_shapes(M(), (args,))) ep = torch.export.export(M(), (args,), dynamic_shapes=sc) print(ep) {\u0027inp\u0027: {\u0027x\u0027: (Dim(\u0027dim\u0027, min=0), dim + 1, 8), \u0027others\u0027: [{0: 2*dim}, None]}} ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, inp_x: \"f32[s96, s96 + 1, 8]\", inp_others_0: \"f32[2*s96]\", inp_others_1: \"f32[6]\"): # File: /tmp/ipykernel_382/1070110726.py:5 in forward, code: x = inp[\"x\"] * 1 mul: \"f32[s96, s96 + 1, 8]\" = torch.ops.aten.mul.Tensor(inp_x, 1); inp_x = None # File: /tmp/ipykernel_382/1070110726.py:6 in forward, code: y = inp[\"others\"][0] * 2 mul_1: \"f32[2*s96]\" = torch.ops.aten.mul.Tensor(inp_others_0, 2); inp_others_0 = None # File: /tmp/ipykernel_382/1070110726.py:7 in forward, code: z = inp[\"others\"][1] * 3 mul_2: \"f32[6]\" = torch.ops.aten.mul.Tensor(inp_others_1, 3); inp_others_1 = None return (mul, mul_1, mul_2) Graph signature: # inputs inp_x: USER_INPUT inp_others_0: USER_INPUT inp_others_1: USER_INPUT # outputs mul: USER_OUTPUT mul_1: USER_OUTPUT mul_2: USER_OUTPUT Range constraints: {s96: VR[0, int_oo], s96 + 1: VR[1, int_oo], 2*s96: VR[0, int_oo]} AdditionalInputs# In the case where you don\u2019t know how dynamic your inputs are, but you have an ample set of testing or profiling data that can provide a fair sense of representative inputs for a model, you can use torch.export.AdditionalInputs in place of dynamic_shapes. You can specify all the possible inputs used to trace the program, and AdditionalInputs will infer which inputs are dynamic based on which input shapes are changing. Example: import dataclasses import torch import torch.utils._pytree as pytree @dataclasses.dataclass class D: b: bool i: int f: float t: torch.Tensor pytree.register_dataclass(D) class M(torch.nn.Module): def forward(self, d: D): return d.i + d.f + d.t input1 = (D(True, 3, 3.0, torch.ones(3)),) input2 = (D(True, 4, 3.0, torch.ones(4)),) ai = torch.export.AdditionalInputs() ai.add(input1) ai.add(input2) print(ai.dynamic_shapes(M(), input1)) ep = torch.export.export(M(), input1, dynamic_shapes=ai) print(ep) {\u0027d\u0027: [None, DimHint(DYNAMIC), None, (DimHint(DYNAMIC),)]} ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, d_b, d_i: \"Sym(s37)\", d_f, d_t: \"f32[s99]\"): # File: /tmp/ipykernel_382/829931439.py:16 in forward, code: return d.i + d.f + d.t sym_float: \"Sym(ToFloat(s37))\" = torch.sym_float(d_i); d_i = None add: \"Sym(ToFloat(s37) + 3.0)\" = sym_float + 3.0; sym_float = None add_1: \"f32[s99]\" = torch.ops.aten.add.Tensor(d_t, add); d_t = add = None return (add_1,) Graph signature: # inputs d_b: USER_INPUT d_i: USER_INPUT d_f: USER_INPUT d_t: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {s37: VR[0, int_oo], s99: VR[2, int_oo]} Serialization# To save the ExportedProgram, users can use the torch.export.save() and torch.export.load() APIs. The resulting file is a zipfile with a specific structure. The details of the structure are defined in the PT2 Archive Spec. An example: import torch class MyModule(torch.nn.Module): def forward(self, x): return x + 10 exported_program = torch.export.export(MyModule(), (torch.randn(5),)) torch.export.save(exported_program, \u0027exported_program.pt2\u0027) saved_exported_program = torch.export.load(\u0027exported_program.pt2\u0027) Export IR: Training vs Inference# The graph produced by torch.export returns a graph containing only ATen operators, which are the basic unit of computation in PyTorch. Export provides different IR levels based on your use case: IR Type How to Obtain Properties Operator Count Use Case Training IR torch.export.export() (default) May contain mutations ~3000 Training with autograd Inference IR ep.run_decompositions(decomp_table={}) Purely functional ~2000 Inference deployment Core ATen IR ep.run_decompositions(decomp_table=None) Purely functional, highly decomposed ~180 Minimal backend support Training IR (Default)# By default, export produces a Training IR which contains all ATen operators, including both functional and non-functional (mutating) operators. A functional operator is one that does not contain any mutations or aliasing of the inputs, while non-functional operators may modify their inputs in-place. You can find a list of all ATen operators here and you can inspect if an operator is functional by checking op._schema.is_mutable. This Training IR, which may contain mutations, is designed for training use cases and can be used with eager PyTorch Autograd. import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) print(ep_for_training.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 3, 3, 3]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add_: \"i64[]\" = torch.ops.aten.add_.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = add_ = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( batch_norm: \"f32[1, 3, 3, 3]\" = torch.ops.aten.batch_norm.default(conv2d, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05, False); conv2d = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None return (batch_norm,) Inference IR (via run_decompositions)# To obtain an Inference IR suitable for deployment, use the ExportedProgram.run_decompositions() API. This method automatically: Functionalizes the graph (removes all mutations and converts them to functional equivalents) Optionally decomposes ATen operators based on the provided decomposition table This produces a purely functional graph ideal for inference scenarios. By specifying an empty decomposition table (decomp_table={}), you get just the functionalization without additional decompositions. This produces an Inference IR with ~2000 functional operators (compared to 3000+ in Training IR). import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) with torch.no_grad(): ep_for_inference = ep_for_training.run_decompositions(decomp_table={}) print(ep_for_inference.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) conv2d: \"f32[1, 3, 3, 3]\" = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(conv2d, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); conv2d = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) As we can see, the previously in-place operator, torch.ops.aten.add_.default has now been replaced with torch.ops.aten.add.default, a functional operator. Core ATen IR# We can further lower the Inference IR to the Core ATen Operator Set \u003chttps://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler_ir.html#core-aten-ir\u003e__, which contains only ~180 operators. This is achieved by passing decomp_table=None (which uses the default decomposition table) to run_decompositions(). This IR is optimal for backends who want to minimize the number of operators they need to implement. import torch class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) with torch.no_grad(): core_aten_ir = ep_for_training.run_decompositions(decomp_table=None) print(core_aten_ir.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) convolution: \"f32[1, 3, 3, 3]\" = torch.ops.aten.convolution.default(x, p_conv_weight, p_conv_bias, [1, 1], [0, 0], [1, 1], False, [0, 0], 1); x = p_conv_weight = p_conv_bias = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(convolution, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); convolution = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) We now see that torch.ops.aten.conv2d.default has been decomposed into torch.ops.aten.convolution.default. This is because convolution is a more \u201ccore\u201d operator, as operations like conv1d and conv2d can be implemented using the same op. We can also specify our own decomposition behaviors: class M(torch.nn.Module): def __init__(self) -\u003e None: super().__init__() self.conv = torch.nn.Conv2d(1, 3, 1, 1) self.bn = torch.nn.BatchNorm2d(3) def forward(self, x): x = self.conv(x) x = self.bn(x) return (x,) ep_for_training = torch.export.export(M(), (torch.randn(1, 1, 3, 3),)) my_decomp_table = torch.export.default_decompositions() def my_awesome_custom_conv2d_function(x, weight, bias, stride=[1, 1], padding=[0, 0], dilation=[1, 1], groups=1): return 2 * torch.ops.aten.convolution(x, weight, bias, stride, padding, dilation, False, [0, 0], groups) my_decomp_table[torch.ops.aten.conv2d.default] = my_awesome_custom_conv2d_function my_ep = ep_for_training.run_decompositions(my_decomp_table) print(my_ep.graph_module.print_readable(print_output=False)) class GraphModule(torch.nn.Module): def forward(self, p_conv_weight: \"f32[3, 1, 1, 1]\", p_conv_bias: \"f32[3]\", p_bn_weight: \"f32[3]\", p_bn_bias: \"f32[3]\", b_bn_running_mean: \"f32[3]\", b_bn_running_var: \"f32[3]\", b_bn_num_batches_tracked: \"i64[]\", x: \"f32[1, 1, 3, 3]\"): # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/conv.py:553 in forward, code: return self._conv_forward(input, self.weight, self.bias) convolution: \"f32[1, 3, 3, 3]\" = torch.ops.aten.convolution.default(x, p_conv_weight, p_conv_bias, [1, 1], [0, 0], [1, 1], False, [0, 0], 1); x = p_conv_weight = p_conv_bias = None mul: \"f32[1, 3, 3, 3]\" = torch.ops.aten.mul.Tensor(convolution, 2); convolution = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:174 in forward, code: self.num_batches_tracked.add_(1) # type: ignore[has-type] add: \"i64[]\" = torch.ops.aten.add.Tensor(b_bn_num_batches_tracked, 1); b_bn_num_batches_tracked = None # File: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py:194 in forward, code: return F.batch_norm( _native_batch_norm_legit_functional = torch.ops.aten._native_batch_norm_legit_functional.default(mul, p_bn_weight, p_bn_bias, b_bn_running_mean, b_bn_running_var, True, 0.1, 1e-05); mul = p_bn_weight = p_bn_bias = b_bn_running_mean = b_bn_running_var = None getitem: \"f32[1, 3, 3, 3]\" = _native_batch_norm_legit_functional[0] getitem_3: \"f32[3]\" = _native_batch_norm_legit_functional[3] getitem_4: \"f32[3]\" = _native_batch_norm_legit_functional[4]; _native_batch_norm_legit_functional = None return (getitem_3, getitem_4, add, getitem) /opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead. return cls.__new__(cls, *args) Notice that instead of torch.ops.aten.conv2d.default being decomposed into torch.ops.aten.convolution.default, it is now decomposed into torch.ops.aten.convolution.default and torch.ops.aten.mul.Tensor, which matches our custom decomposition rule. Limitations of torch.export# As torch.export is a one-shot process for capturing a computation graph from a PyTorch program, it might ultimately run into untraceable parts of programs as it is nearly impossible to support tracing all PyTorch and Python features. In the case of torch.compile, an unsupported operation will cause a \u201cgraph break\u201d and the unsupported operation will be run with default Python evaluation. In contrast, torch.export will require users to provide additional information or rewrite parts of their code to make it traceable. Draft-export is a great resource for listing out graphs breaks that will be encountered when tracing the program, along with additional debug information to solve those errors. ExportDB is also great resource for learning about the kinds of programs that are supported and unsupported, along with ways to rewrite programs to make them traceable. TorchDynamo unsupported# When using torch.export with strict=True, this will use TorchDynamo to evaluate the program at the Python bytecode level to trace the program into a graph. Compared to previous tracing frameworks, there will be significantly fewer rewrites required to make a program traceable, but there will still be some Python features that are unsupported. An option to get past dealing with this graph breaks is by using non-strict export through changing the strict flag to strict=False. Data/Shape-Dependent Control Flow# Graph breaks can also be encountered on data-dependent control flow (if x.shape[0] \u003e 2) when shapes are not being specialized, as a tracing compiler cannot possibly deal with without generating code for a combinatorially exploding number of paths. In such cases, users will need to rewrite their code using special control flow operators. Currently, we support higher order operators to express control flow patterns like conditionals, mapping, scanning, and looping. You can also refer to this tutorial for more ways of addressing data-dependent errors. Missing Fake/Meta Kernels for Operators# When tracing, a FakeTensor kernel (aka meta kernel) is required for all operators. This is used to reason about the input/output shapes for this operator. Please see this tutorial for more details. In the unfortunate case where your model uses an ATen operator that is does not have a FakeTensor kernel implementation yet, please file an issue. Read More# Additional Links for Export Users torch.export API Reference torch.export Programming Model torch.export IR Specification PT2 Archive Spec Draft Export Joint with descriptors Control Flow Operators ExportDB AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models IRs Deep Dive for PyTorch Developers Dynamic Shapes Fake tensor Writing Graph Transformations on ATen IR",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -3285,7 +4710,7 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
          "@id": "/user_guide/torch_compiler/export.html"
        },
        "datePublished": "Jun 12, 2025T00:00:00Z",
-       "dateModified": "Jan 27, 2026T00:00:00Z"
+       "dateModified": "Feb 14, 2026T00:00:00Z"
      }
  </script>
   <script>

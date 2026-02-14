@@ -29,14 +29,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=b417fedc" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,7 +56,6 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/autograd.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,6 +64,25 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Autograd mechanics - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.11.0a0+git8027bc9 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -93,6 +110,32 @@
   });
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
 
 
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
@@ -141,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git31e65e5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.11.0a0+git8027bc9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,25 +197,112 @@
 <!-- End Facebook Pixel Code -->
 <!-- Repository configuration for tutorials -->
 
-<!-- Script to Fix scrolling -->
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fix anchor scrolling
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
           const headerHeight =
             (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
             (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
 
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
           });
 
           // Update URL hash without scrolling
@@ -184,6 +314,18 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="../_static/js/runllm-widget.js"></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,350 +333,6 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-  
-    <div class="container-fluid header-holder tutorials-header" id="header-holder">
-   <div class="header-container-wrapper">
-    <div class="header-container">
-      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-
-      <div class="main-menu">
-        <ul>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                <span>Learn</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
-                  <span class=dropdown-title>Get Started</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
-                  <span class="dropdown-title">Tutorials</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
-                  <span class="dropdown-title">Learn the Basics</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
-                  <span class="dropdown-title">PyTorch Recipes</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
-                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
-                  <span class="dropdown-title">Webinars</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Community</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
-                  <span class="dropdown-title">Landscape</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
-                  <span class="dropdown-title">Join the Ecosystem</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
-                  <span class="dropdown-title">Community Hub</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
-                  <span class="dropdown-title">Forums</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
-                  <span class=dropdown-title>Developer Resources</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
-                  <span class="dropdown-title">Contributor Awards</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
-                  <span class="dropdown-title">Community Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
-                  <span class="dropdown-title">PyTorch Ambassadors</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Projects</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
-                  <span class="dropdown-title">vLLM</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
-                  <span class="dropdown-title">DeepSpeed</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
-                  <span class="dropdown-title">Host Your Project</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
-                  <span class="dropdown-title">RAY</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span> Docs</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
-                  <span class="dropdown-title">PyTorch</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
-                  <span class="dropdown-title">Domains</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>Blogs & News</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">Blog</span>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
-                  <span class="dropdown-title">Announcements</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
-                  <span class="dropdown-title">Case Studies</span>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                </a>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-              <span>About</span>
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/members">
-                  <span class="dropdown-title">Members</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
-                  <span class="dropdown-title">Contact</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
-                  <span class="dropdown-title">Brand Guidelines</span>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li class="main-menu-item">
-            <div class="no-dropdown main-menu-button">
-              <a href="https://pytorch.org/join" data-cta="join">
-                JOIN
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
-        <i class="fa-solid fa-ellipsis"></i>
-      </a>
-    </div>
-  </div>
- </div>
-
- <!-- Begin Mobile Menu -->
-
-<div class="mobile-main-menu">
-  <div class="container-fluid">
-    <div class="header-container-wrapper">
-      <div class="mobile-main-menu-header-container">
-        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mobile-main-menu-links-container">
-    <div class="main-menu">
-      <ul>
-         <li class="resources-mobile-menu-title">
-           <a>Learn</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/get-started/locally">Get Started</a>
-           </li>
-           <li>
-             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/webinars/">Webinars</a>
-          </li>
-        </ul>
-         <li class="resources-mobile-menu-title">
-           <a>Community</a>
-         </li>
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://landscape.pytorch.org/">Landscape</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/community-hub/">Community Hub</a>
-           </li>
-           <li>
-             <a href="https://discuss.pytorch.org/">Forums</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/resources">Developer Resources</a>
-           </li>
-           <li>
-             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/community-events/">Community Events</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
-          </li>
-       </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Projects</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
-           </li>
-
-           <li>
-             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
-           </li>
-           <li>
-            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
-           </li>
-         </ul>
-
-         <li class="resources-mobile-menu-title">
-           <a>Docs</a>
-         </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/domains">Domains</a>
-          </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>Blog & News</a>
-        </li>
-
-         <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/announcements">Announcements</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/case-studies/">Case Studies</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/events">Events</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/newsletter">Newsletter</a>
-           </li>
-        </ul>
-
-        <li class="resources-mobile-menu-title">
-          <a>About</a>
-        </li>
-
-        <ul class="resources-mobile-menu-items">
-          <li>
-            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/members">Members</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/governing-board">Governing Board</a>
-          </li>
-          <li>
-            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-         </li>
-         <li>
-             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/staff">Staff</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/contact">Contact</a>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- End Mobile Menu -->
   
   
   
@@ -544,7 +342,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -589,15 +387,79 @@
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+  
+    
+    <img src="../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
   
   
   <div class=" navbar-header-items__start">
     
-      <div class="navbar-item">
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+  
+    
+    <img src="../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
@@ -619,24 +481,9 @@ document.write(`
     </div>
   </div>
 `);
-</script></div>
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Home</p>
-  
-</a></div>
+</script>
+        </div>
+      
     
   </div>
   
@@ -645,57 +492,822 @@ document.write(`
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
       
     </div>
     
     
     <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
       
       
         <div class="navbar-item">
@@ -1095,8 +1707,42 @@ document.write(`
       <div class="bd-sidebar-primary bd-sidebar">
         
 
+
+
+
   
   <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
     
     
       <div class="sidebar-header-items__center">
@@ -1104,52 +1750,806 @@ document.write(`
           
           
             <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
-    Install PyTorch
-  </a>
-</li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../community/index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/persons_of_interest.html">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
 
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../user_guide/index.html">
-    User Guide
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../pytorch-api.html">
-    Reference API
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../notes.html">
-    Developer Notes
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../community/index.html">
-    Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
-    Tutorials
-  </a>
-</li>
-
+    
+    
   </ul>
-</nav></div>
+</nav>
+</div>
           
         
       </div>
@@ -1157,6 +2557,17 @@ document.write(`
     
     
       <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
         
           <div class="navbar-item">
 <div class="search-container-wrapper">
@@ -1636,11 +3047,18 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/torch_compiler/export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/torch_compiler/export/draft_export.html">Draft Export</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../higher_order_ops/scan.html">Control Flow - Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../higher_order_ops/map.html">Control Flow - Map</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -1737,10 +3155,10 @@ document.write(`
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
+
+<div id="rtd-footer-container"></div>
       </div>
       
       <main id="main-content" class="bd-main" role="main">
@@ -1807,34 +3225,34 @@ document.write(`
 </div>
               
               
-  
+
 <div id="searchbox"></div>
-  <article class="bd-article" id="pytorch-article">
-    <!-- Hidden breadcrumb schema for SEO only -->
-    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../user_guide/index.html">
-        <meta itemprop="name" content="User Guide">
-        <meta itemprop="position" content="1">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <link itemprop="item" href="../notes.html">
-        <meta itemprop="name" content="Developer Notes">
-        <meta itemprop="position" content="2">
-      </div>
-      
-      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="Autograd mechanics">
-        <meta itemprop="position" content="3">
-      </div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="../user_guide/index.html">
+      <meta itemprop="name" content="User Guide">
+      <meta itemprop="position" content="1">
     </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="../notes.html">
+      <meta itemprop="name" content="Developer Notes">
+      <meta itemprop="position" content="2">
+    </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="Autograd mechanics">
+      <meta itemprop="position" content="3">
+    </div>
+  </div>
 
-    
-    
+  
+  
 
-    
+  
               
                 
 <div id="searchbox"></div>
@@ -2757,8 +4175,8 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 
                 </article>
               
-  </article>
-  
+</div>
+
               
               
                 <footer class="bd-footer-article">
@@ -2956,17 +4374,23 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
@@ -3165,7 +4589,7 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
        "@type": "Article",
        "name": "Autograd mechanics",
        "headline": "Autograd mechanics",
-       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/autograd.html",
        "articleBody": "Autograd mechanics# Created On: Jan 16, 2017 | Last Updated On: Jan 06, 2026 This note will present an overview of how autograd works and records the operations. It\u2019s not strictly necessary to understand all this, but we recommend getting familiar with it, as it will help you write more efficient, cleaner programs, and can aid you in debugging. How autograd encodes the history# Autograd is a reverse automatic differentiation system. Conceptually, autograd records a graph recording all of the operations that created the data as you execute operations, giving you a directed acyclic graph whose leaves are the input tensors and roots are the output tensors. By tracing this graph from roots to leaves, you can automatically compute the gradients using the chain rule. Internally, autograd represents this graph as a graph of Function objects (really expressions), which can be apply() ed to compute the result of evaluating the graph. When computing the forward pass, autograd simultaneously performs the requested computations and builds up a graph representing the function that computes the gradient (the .grad_fn attribute of each torch.Tensor is an entry point into this graph). When the forward pass is completed, we evaluate this graph in the backwards pass to compute the gradients. An important thing to note is that the graph is recreated from scratch at every iteration, and this is exactly what allows for using arbitrary Python control flow statements, that can change the overall shape and size of the graph at every iteration. You don\u2019t have to encode all possible paths before you launch the training - what you run is what you differentiate. Saved tensors# Some operations need intermediary results to be saved during the forward pass in order to execute the backward pass. For example, the function x\u21a6x2x\\mapsto x^2x\u21a6x2 saves the input xxx to compute the gradient. When defining a custom Python Function, you can use save_for_backward() to save tensors during the forward pass and saved_tensors to retrieve them during the backward pass. See Extending PyTorch for more information. For operations that PyTorch defines (e.g. torch.pow()), tensors are automatically saved as needed. You can explore (for educational or debugging purposes) which tensors are saved by a certain grad_fn by looking for its attributes starting with the prefix _saved. x = torch.randn(5, requires_grad=True) y = x.pow(2) print(x.equal(y.grad_fn._saved_self)) # True print(x is y.grad_fn._saved_self) # True In the previous code, y.grad_fn._saved_self refers to the same Tensor object as x. But that may not always be the case. For instance: x = torch.randn(5, requires_grad=True) y = x.exp() print(y.equal(y.grad_fn._saved_result)) # True print(y is y.grad_fn._saved_result) # False Under the hood, to prevent reference cycles, PyTorch has packed the tensor upon saving and unpacked it into a different tensor for reading. Here, the tensor you get from accessing y.grad_fn._saved_result is a different tensor object than y (but they still share the same storage). Whether a tensor will be packed into a different tensor object depends on whether it is an output of its own grad_fn, which is an implementation detail subject to change and that users should not rely on. You can control how PyTorch does packing / unpacking with Hooks for saved tensors. Gradients for non-differentiable functions# The gradient computation using Automatic Differentiation is only valid when each elementary function being used is differentiable. Unfortunately many of the functions we use in practice do not have this property (relu or sqrt at 0, for example). To try and reduce the impact of functions that are non-differentiable, we define the gradients of the elementary operations by applying the following rules in order: If the function is differentiable and thus a gradient exists at the current point, use it. If the function is convex (at least locally), use the sub-gradient of minimum norm. If the function is concave (at least locally), use the super-gradient of minimum norm (consider -f(x) and apply the previous point). If the function is defined, define the gradient at the current point by continuity (note that inf is possible here, for example for sqrt(0)). If multiple values are possible, pick one arbitrarily. If the function is not defined (sqrt(-1), log(-1) or most functions when the input is NaN, for example) then the value used as the gradient is arbitrary (we might also raise an error but that is not guaranteed). Most functions will use NaN as the gradient, but for performance reasons, some functions will use other values (log(-1), for example). If the function is not a deterministic mapping (i.e. it is not a mathematical function), it will be marked as non-differentiable. This will make it error out in the backward if used on tensors that require grad outside of a no_grad environment. Division by Zero in Autograd# When performing division by zero in PyTorch (e.g., x / 0), the forward pass will produce inf values following IEEE-754 floating point arithmetic. While these inf values can be masked out before computing the final loss (e.g., via indexing or masking), the autograd system still tracks and differentiates through the full computation graph, including the division by zero operation. During backpropagation, this can lead to problematic gradient expressions. For example: x = torch.tensor([1., 1.], requires_grad=True) div = torch.tensor([0., 1.]) y = x / div # Results in [inf, 1] mask = div != 0 # [False, True] loss = y[mask].sum() loss.backward() print(x.grad) # [nan, 1], not [0, 1] In this example, even though we only use the masked output (which excludes the division by zero), autograd still computes gradients through the full computation graph, including the division by zero operation. This results in nan gradients for the masked elements, which can cause training instability. To avoid this issue, there are several recommended approaches: Mask before division: x = torch.tensor([1., 1.], requires_grad=True) div = torch.tensor([0., 1.]) mask = div != 0 safe = torch.zeros_like(x) safe[mask] = x[mask] / div[mask] loss = safe.sum() loss.backward() # Produces safe gradients [0, 1] Use MaskedTensor (experimental API): from torch.masked import as_masked_tensor x = torch.tensor([1., 1.], requires_grad=True) div = torch.tensor([0., 1.]) y = x / div mask = div != 0 loss = as_masked_tensor(y, mask).sum() loss.backward() # Cleanly handles \"undefined\" vs \"zero\" gradients The key principle is to prevent the division by zero operation from being recorded in the computation graph, rather than masking its results after the fact. This ensures that autograd only computes gradients through valid operations. This behavior is important to keep in mind when working with operations that might produce inf or nan values, as masking the outputs does not prevent the problematic gradients from being computed. Locally disabling gradient computation# There are several mechanisms available from Python to locally disable gradient computation: To disable gradients across entire blocks of code, there are context managers like no-grad mode and inference mode. For more fine-grained exclusion of subgraphs from gradient computation, there is setting the requires_grad field of a tensor. Below, in addition to discussing the mechanisms above, we also describe evaluation mode (nn.Module.eval()), a method that is not used to disable gradient computation but, because of its name, is often mixed up with the three. Setting requires_grad# requires_grad is a flag, defaulting to false unless wrapped in a nn.Parameter, that allows for fine-grained exclusion of subgraphs from gradient computation. It takes effect in both the forward and backward passes: During the forward pass, an operation is only recorded in the backward graph if at least one of its input tensors require grad. During the backward pass (.backward()), only leaf tensors with requires_grad=True will have gradients accumulated into their .grad fields. It is important to note that even though every tensor has this flag, setting it only makes sense for leaf tensors (tensors that do not have a grad_fn, e.g., a nn.Module\u2019s parameters). Non-leaf tensors (tensors that do have grad_fn) are tensors that have a backward graph associated with them. Thus their gradients will be needed as an intermediary result to compute the gradient for a leaf tensor that requires grad. From this definition, it is clear that all non-leaf tensors will automatically have require_grad=True. Setting requires_grad should be the main way you control which parts of the model are part of the gradient computation, for example, if you need to freeze parts of your pretrained model during model fine-tuning. To freeze parts of your model, simply apply .requires_grad_(False) to the parameters that you don\u2019t want updated. And as described above, since computations that use these parameters as inputs would not be recorded in the forward pass, they won\u2019t have their .grad fields updated in the backward pass because they won\u2019t be part of the backward graph in the first place, as desired. Because this is such a common pattern, requires_grad can also be set at the module level with nn.Module.requires_grad_(). When applied to a module, .requires_grad_() takes effect on all of the module\u2019s parameters (which have requires_grad=True by default). Grad Modes# Apart from setting requires_grad there are also three grad modes that can be selected from Python that can affect how computations in PyTorch are processed by autograd internally: default mode (grad mode), no-grad mode, and inference mode, all of which can be toggleable via context managers and decorators. Mode Excludes operations from being recorded in backward graph Skips additional autograd tracking overhead Tensors created while the mode is enabled can be used in grad-mode later Examples default \u2713 Forward pass no-grad \u2713 \u2713 Optimizer updates inference \u2713 \u2713 Data processing, model evaluation Default Mode (Grad Mode)# The \u201cdefault mode\u201d is the mode we are implicitly in when no other modes like no-grad and inference mode are enabled. To be contrasted with \u201cno-grad mode\u201d the default mode is also sometimes called \u201cgrad mode\u201d. The most important thing to know about the default mode is that it is the only mode in which requires_grad takes effect. requires_grad is always overridden to be False in both the two other modes. No-grad Mode# Computations in no-grad mode behave as if none of the inputs require grad. In other words, computations in no-grad mode are never recorded in the backward graph even if there are inputs that have require_grad=True. Enable no-grad mode when you need to perform operations that should not be recorded by autograd, but you\u2019d still like to use the outputs of these computations in grad mode later. This context manager makes it convenient to disable gradients for a block of code or function without having to temporarily set tensors to have requires_grad=False, and then back to True. For example, no-grad mode might be useful when writing an optimizer: when performing the training update you\u2019d like to update parameters in-place without the update being recorded by autograd. You also intend to use the updated parameters for computations in grad mode in the next forward pass. The implementations in torch.nn.init also rely on no-grad mode when initializing the parameters as to avoid autograd tracking when updating the initialized parameters in-place. Inference Mode# Inference mode is the extreme version of no-grad mode. Just like in no-grad mode, computations in inference mode are not recorded in the backward graph, but enabling inference mode will allow PyTorch to speed up your model even more. This better runtime comes with a drawback: tensors created in inference mode will not be able to be used in computations to be recorded by autograd after exiting inference mode. Enable inference mode when you are performing computations that do not have interactions with autograd, AND you don\u2019t plan on using the tensors created in inference mode in any computation that is to be recorded by autograd later. It is recommended that you try out inference mode in the parts of your code that do not require autograd tracking (e.g., data processing and model evaluation). If it works out of the box for your use case it\u2019s a free performance win. If you run into errors after enabling inference mode, check that you are not using tensors created in inference mode in computations that are recorded by autograd after exiting inference mode. If you cannot avoid such use in your case, you can always switch back to no-grad mode. For details on inference mode please see Inference Mode. For implementation details of inference mode see RFC-0011-InferenceMode. Evaluation Mode (nn.Module.eval())# Evaluation mode is not a mechanism to locally disable gradient computation. It is included here anyway because it is sometimes confused to be such a mechanism. Functionally, module.eval() (or equivalently module.train(False)) are completely orthogonal to no-grad mode and inference mode. How model.eval() affects your model depends entirely on the specific modules used in your model and whether they define any training-mode specific behavior. You are responsible for calling model.eval() and model.train() if your model relies on modules such as torch.nn.Dropout and torch.nn.BatchNorm2d that may behave differently depending on training mode, for example, to avoid updating your BatchNorm running statistics on validation data. It is recommended that you always use model.train() when training and model.eval() when evaluating your model (validation/testing) even if you aren\u2019t sure your model has training-mode specific behavior, because a module you are using might be updated to behave differently in training and eval modes. In-place operations with autograd# Supporting in-place operations in autograd is a hard matter, and we discourage their use in most cases. Autograd\u2019s aggressive buffer freeing and reuse makes it very efficient and there are very few occasions when in-place operations lower memory usage by any significant amount. Unless you\u2019re operating under heavy memory pressure, you might never need to use them. There are two main reasons that limit the applicability of in-place operations: In-place operations can potentially overwrite values required to compute gradients. Every in-place operation requires the implementation to rewrite the computational graph. Out-of-place versions simply allocate new objects and keep references to the old graph, while in-place operations, require changing the creator of all inputs to the Function representing this operation. This can be tricky, especially if there are many Tensors that reference the same storage (e.g. created by indexing or transposing), and in-place functions will raise an error if the storage of modified inputs is referenced by any other Tensor. In-place correctness checks# Every tensor keeps a version counter, that is incremented every time it is marked dirty in any operation. When a Function saves any tensors for backward, a version counter of their containing Tensor is saved as well. Once you access self.saved_tensors it is checked, and if it is greater than the saved value an error is raised. This ensures that if you\u2019re using in-place functions and not seeing any errors, you can be sure that the computed gradients are correct. Multithreaded Autograd# The autograd engine is responsible for running all the backward operations necessary to compute the backward pass. This section will describe all the details that can help you make the best use of it in a multithreaded environment. (This is relevant only for PyTorch 1.6+ as the behavior in previous version was different.) User could train their model with multithreading code (e.g. Hogwild training), and does not block on the concurrent backward computations, example code could be: # Define a train function to be used in different threads def train_fn(): x = torch.ones(5, 5, requires_grad=True) # forward y = (x + 3) * (x + 4) * 0.5 # backward y.sum().backward() # potential optimizer update # User write their own threading code to drive the train_fn threads = [] for _ in range(10): p = threading.Thread(target=train_fn, args=()) p.start() threads.append(p) for p in threads: p.join() Note that some behaviors that user should be aware of: Concurrency on CPU# When you run backward() or grad() via python or C++ API in multiple threads on CPU, you are expecting to see extra concurrency instead of serializing all the backward calls in a specific order during execution (behavior before PyTorch 1.6). Non-determinism# If you are calling backward() from multiple threads concurrently and have shared inputs (i.e. Hogwild CPU training), then non-determinism should be expected. This can occur because parameters are automatically shared across threads, as such, multiple threads may access and try to accumulate the same .grad attribute during gradient accumulation. This is technically not safe, and it might result in race condition and the result might be invalid to use. Users developing multithreaded models featuring shared parameters should have the threading model in mind and should understand the issues described above. The functional API torch.autograd.grad() may be used to calculate the gradients instead of backward() to avoid non-determinism. Graph retaining# If part of the autograd graph is shared between threads, i.e. run first part of forward single thread, then run second part in multiple threads, then the first part of graph is shared. In this case different threads execute grad() or backward() on the same graph might have issue of destroying the graph on the fly of one thread, and the other thread will crash in this case. Autograd will error out to the user similar to what call backward() twice with out retain_graph=True, and let the user know they should use retain_graph=True. Thread Safety on Autograd Node# Since Autograd allows the caller thread to drive its backward execution for potential parallelism, it\u2019s important that we ensure thread safety on CPU with parallel backward() calls that share part/whole of the GraphTask. Custom Python autograd.Functions are automatically thread safe because of GIL. For built-in C++ Autograd Nodes (e.g. AccumulateGrad, CopySlices) and custom autograd::Functions, the Autograd Engine uses thread mutex locking to ensure thread safety on autograd Nodes that might have state write/read. No thread safety on C++ hooks# Autograd relies on the user to write thread safe C++ hooks. If you want the hook to be correctly applied in multithreading environment, you will need to write proper thread locking code to ensure the hooks are thread safe. Autograd for Complex Numbers# The short version: When you use PyTorch to differentiate any function f(z)f(z)f(z) with complex domain and/or codomain, the gradients are computed under the assumption that the function is a part of a larger real-valued loss function g(input)=Lg(input)=Lg(input)=L. The gradient computed is \u2202L\u2202z\u2217\\frac{\\partial L}{\\partial z^*}\u2202z\u2217\u2202L\u200b (note the conjugation of z), the negative of which is precisely the direction of steepest descent used in Gradient Descent algorithm. Thus, there is a viable path in making the existing optimizers work out of the box with complex parameters. This convention matches TensorFlow\u2019s convention for complex differentiation, but is different from JAX (which computes \u2202L\u2202z\\frac{\\partial L}{\\partial z}\u2202z\u2202L\u200b). If you have a real-to-real function which internally uses complex operations, the convention here doesn\u2019t matter: you will always get the same result that you would have gotten if it had been implemented with only real operations. If you are curious about the mathematical details, or want to know how to define complex derivatives in PyTorch, read on. What are complex derivatives?# The mathematical definition of complex-differentiability takes the limit definition of a derivative and generalizes it to operate on complex numbers. Consider a function f:C\u2192Cf: \u2102 \u2192 \u2102f:C\u2192C, f(z=x+yj)=u(x,y)+v(x,y)jf(z=x+yj) = u(x, y) + v(x, y)j f(z=x+yj)=u(x,y)+v(x,y)j where uuu and vvv are two variable real valued functions and jjj is the imaginary unit. Using the derivative definition, we can write: f\u2032(z)=lim\u2061h\u21920,h\u2208Cf(z+h)\u2212f(z)hf\u0027(z) = \\lim_{h \\to 0, h \\in C} \\frac{f(z+h) - f(z)}{h} f\u2032(z)=h\u21920,h\u2208Clim\u200bhf(z+h)\u2212f(z)\u200b In order for this limit to exist, not only must uuu and vvv must be real differentiable, but fff must also satisfy the Cauchy-Riemann equations. In other words: the limit computed for real and imaginary steps (hhh) must be equal. This is a more restrictive condition. The complex differentiable functions are commonly known as holomorphic functions. They are well behaved, have all the nice properties that you\u2019ve seen from real differentiable functions, but are practically of no use in the optimization world. For optimization problems, only real valued objective functions are used in the research community since complex numbers are not part of any ordered field and so having complex valued loss does not make much sense. It also turns out that no interesting real-valued objective fulfill the Cauchy-Riemann equations. So the theory with holomorphic function cannot be used for optimization and most people therefore use the Wirtinger calculus. Wirtinger Calculus comes into the picture \u2026# So, we have this great theory of complex differentiability and holomorphic functions, and we can\u2019t use any of it at all, because many of the commonly used functions are not holomorphic. What\u2019s a poor mathematician to do? Well, Wirtinger observed that even if f(z)f(z)f(z) isn\u2019t holomorphic, one could rewrite it as a two variable function f(z,z\u2217)f(z, z*)f(z,z\u2217) which is always holomorphic. This is because real and imaginary of the components of zzz can be expressed in terms of zzz and z\u2217z^*z\u2217 as: Re(z)=z+z\u22172Im(z)=z\u2212z\u22172j\\begin{aligned} \\mathrm{Re}(z) \u0026= \\frac {z + z^*}{2} \\\\ \\mathrm{Im}(z) \u0026= \\frac {z - z^*}{2j} \\end{aligned} Re(z)Im(z)\u200b=2z+z\u2217\u200b=2jz\u2212z\u2217\u200b\u200b Wirtinger calculus suggests to study f(z,z\u2217)f(z, z^*)f(z,z\u2217) instead, which is guaranteed to be holomorphic if fff was real differentiable (another way to think of it is as a change of coordinate system, from f(x,y)f(x, y)f(x,y) to f(z,z\u2217)f(z, z^*)f(z,z\u2217).) This function has partial derivatives \u2202\u2202z\\frac{\\partial }{\\partial z}\u2202z\u2202\u200b and \u2202\u2202z\u2217\\frac{\\partial}{\\partial z^{*}}\u2202z\u2217\u2202\u200b. We can use the chain rule to establish a relationship between these partial derivatives and the partial derivatives w.r.t., the real and imaginary components of zzz. \u2202\u2202x=\u2202z\u2202x\u2217\u2202\u2202z+\u2202z\u2217\u2202x\u2217\u2202\u2202z\u2217=\u2202\u2202z+\u2202\u2202z\u2217\u2202\u2202y=\u2202z\u2202y\u2217\u2202\u2202z+\u2202z\u2217\u2202y\u2217\u2202\u2202z\u2217=1j\u2217(\u2202\u2202z\u2212\u2202\u2202z\u2217)\\begin{aligned} \\frac{\\partial }{\\partial x} \u0026= \\frac{\\partial z}{\\partial x} * \\frac{\\partial }{\\partial z} + \\frac{\\partial z^*}{\\partial x} * \\frac{\\partial }{\\partial z^*} \\\\ \u0026= \\frac{\\partial }{\\partial z} + \\frac{\\partial }{\\partial z^*} \\\\ \\\\ \\frac{\\partial }{\\partial y} \u0026= \\frac{\\partial z}{\\partial y} * \\frac{\\partial }{\\partial z} + \\frac{\\partial z^*}{\\partial y} * \\frac{\\partial }{\\partial z^*} \\\\ \u0026= 1j * \\left(\\frac{\\partial }{\\partial z} - \\frac{\\partial }{\\partial z^*}\\right) \\end{aligned} \u2202x\u2202\u200b\u2202y\u2202\u200b\u200b=\u2202x\u2202z\u200b\u2217\u2202z\u2202\u200b+\u2202x\u2202z\u2217\u200b\u2217\u2202z\u2217\u2202\u200b=\u2202z\u2202\u200b+\u2202z\u2217\u2202\u200b=\u2202y\u2202z\u200b\u2217\u2202z\u2202\u200b+\u2202y\u2202z\u2217\u200b\u2217\u2202z\u2217\u2202\u200b=1j\u2217(\u2202z\u2202\u200b\u2212\u2202z\u2217\u2202\u200b)\u200b From the above equations, we get: \u2202\u2202z=1/2\u2217(\u2202\u2202x\u22121j\u2217\u2202\u2202y)\u2202\u2202z\u2217=1/2\u2217(\u2202\u2202x+1j\u2217\u2202\u2202y)\\begin{aligned} \\frac{\\partial }{\\partial z} \u0026= 1/2 * \\left(\\frac{\\partial }{\\partial x} - 1j * \\frac{\\partial }{\\partial y}\\right) \\\\ \\frac{\\partial }{\\partial z^*} \u0026= 1/2 * \\left(\\frac{\\partial }{\\partial x} + 1j * \\frac{\\partial }{\\partial y}\\right) \\end{aligned} \u2202z\u2202\u200b\u2202z\u2217\u2202\u200b\u200b=1/2\u2217(\u2202x\u2202\u200b\u22121j\u2217\u2202y\u2202\u200b)=1/2\u2217(\u2202x\u2202\u200b+1j\u2217\u2202y\u2202\u200b)\u200b which is the classic definition of Wirtinger calculus that you would find on Wikipedia. There are a lot of beautiful consequences of this change. For one, the Cauchy-Riemann equations translate into simply saying that \u2202f\u2202z\u2217=0\\frac{\\partial f}{\\partial z^*} = 0\u2202z\u2217\u2202f\u200b=0 (that is to say, the function fff can be written entirely in terms of zzz, without making reference to z\u2217z^*z\u2217). Another important (and somewhat counterintuitive) result, as we\u2019ll see later, is that when we do optimization on a real-valued loss, the step we should take while making variable update is given by \u2202Loss\u2202z\u2217\\frac{\\partial Loss}{\\partial z^*}\u2202z\u2217\u2202Loss\u200b (not \u2202Loss\u2202z\\frac{\\partial Loss}{\\partial z}\u2202z\u2202Loss\u200b). For more reading, check out: https://arxiv.org/pdf/0906.4835.pdf How is Wirtinger Calculus useful in optimization?# Researchers in audio and other fields, more commonly, use gradient descent to optimize real valued loss functions with complex variables. Typically, these people treat the real and imaginary values as separate channels that can be updated. For a step size \u03b1/2\\alpha/2\u03b1/2 and loss LLL, we can write the following equations in R2\u211d^2R2: xn+1=xn\u2212(\u03b1/2)\u2217\u2202L\u2202xyn+1=yn\u2212(\u03b1/2)\u2217\u2202L\u2202y\\begin{aligned} x_{n+1} \u0026= x_n - (\\alpha/2) * \\frac{\\partial L}{\\partial x} \\\\ y_{n+1} \u0026= y_n - (\\alpha/2) * \\frac{\\partial L}{\\partial y} \\end{aligned} xn+1\u200byn+1\u200b\u200b=xn\u200b\u2212(\u03b1/2)\u2217\u2202x\u2202L\u200b=yn\u200b\u2212(\u03b1/2)\u2217\u2202y\u2202L\u200b\u200b How do these equations translate into complex space C\u2102C? zn+1=xn\u2212(\u03b1/2)\u2217\u2202L\u2202x+1j\u2217(yn\u2212(\u03b1/2)\u2217\u2202L\u2202y)=zn\u2212\u03b1\u22171/2\u2217(\u2202L\u2202x+j\u2202L\u2202y)=zn\u2212\u03b1\u2217\u2202L\u2202z\u2217\\begin{aligned} z_{n+1} \u0026= x_n - (\\alpha/2) * \\frac{\\partial L}{\\partial x} + 1j * (y_n - (\\alpha/2) * \\frac{\\partial L}{\\partial y}) \\\\ \u0026= z_n - \\alpha * 1/2 * \\left(\\frac{\\partial L}{\\partial x} + j \\frac{\\partial L}{\\partial y}\\right) \\\\ \u0026= z_n - \\alpha * \\frac{\\partial L}{\\partial z^*} \\end{aligned} zn+1\u200b\u200b=xn\u200b\u2212(\u03b1/2)\u2217\u2202x\u2202L\u200b+1j\u2217(yn\u200b\u2212(\u03b1/2)\u2217\u2202y\u2202L\u200b)=zn\u200b\u2212\u03b1\u22171/2\u2217(\u2202x\u2202L\u200b+j\u2202y\u2202L\u200b)=zn\u200b\u2212\u03b1\u2217\u2202z\u2217\u2202L\u200b\u200b Something very interesting has happened: Wirtinger calculus tells us that we can simplify the complex variable update formula above to only refer to the conjugate Wirtinger derivative \u2202L\u2202z\u2217\\frac{\\partial L}{\\partial z^*}\u2202z\u2217\u2202L\u200b, giving us exactly the step we take in optimization. Because the conjugate Wirtinger derivative gives us exactly the correct step for a real valued loss function, PyTorch gives you this derivative when you differentiate a function with a real valued loss. How does PyTorch compute the conjugate Wirtinger derivative?# Typically, our derivative formulas take in grad_output as an input, representing the incoming Vector-Jacobian product that we\u2019ve already computed, aka, \u2202L\u2202s\u2217\\frac{\\partial L}{\\partial s^*}\u2202s\u2217\u2202L\u200b, where LLL is the loss of the entire computation (producing a real loss) and sss is the output of our function. The goal here is to compute \u2202L\u2202z\u2217\\frac{\\partial L}{\\partial z^*}\u2202z\u2217\u2202L\u200b, where zzz is the input of the function. It turns out that in the case of real loss, we can get away with only calculating \u2202L\u2202s\u2217\\frac{\\partial L}{\\partial s^*}\u2202s\u2217\u2202L\u200b, even though the chain rule implies that we also need to have access to \u2202L\u2202s\\frac{\\partial L}{\\partial s}\u2202s\u2202L\u200b. If you want to skip this derivation, look at the last equation in this section and then skip to the next section. Let\u2019s continue working with f:C\u2192Cf: \u2102 \u2192 \u2102f:C\u2192C defined as f(z)=f(x+yj)=u(x,y)+v(x,y)jf(z) = f(x+yj) = u(x, y) + v(x, y)jf(z)=f(x+yj)=u(x,y)+v(x,y)j. As discussed above, autograd\u2019s gradient convention is centered around optimization for real valued loss functions, so let\u2019s assume fff is a part of larger real valued loss function ggg. Using chain rule, we can write: (1)#\u2202L\u2202z\u2217=\u2202L\u2202u\u2217\u2202u\u2202z\u2217+\u2202L\u2202v\u2217\u2202v\u2202z\u2217\\frac{\\partial L}{\\partial z^*} = \\frac{\\partial L}{\\partial u} * \\frac{\\partial u}{\\partial z^*} + \\frac{\\partial L}{\\partial v} * \\frac{\\partial v}{\\partial z^*} \u2202z\u2217\u2202L\u200b=\u2202u\u2202L\u200b\u2217\u2202z\u2217\u2202u\u200b+\u2202v\u2202L\u200b\u2217\u2202z\u2217\u2202v\u200b Now using Wirtinger derivative definition, we can write: \u2202L\u2202s=1/2\u2217(\u2202L\u2202u\u2212\u2202L\u2202vj)\u2202L\u2202s\u2217=1/2\u2217(\u2202L\u2202u+\u2202L\u2202vj)\\begin{aligned} \\frac{\\partial L}{\\partial s} = 1/2 * \\left(\\frac{\\partial L}{\\partial u} - \\frac{\\partial L}{\\partial v} j\\right) \\\\ \\frac{\\partial L}{\\partial s^*} = 1/2 * \\left(\\frac{\\partial L}{\\partial u} + \\frac{\\partial L}{\\partial v} j\\right) \\end{aligned} \u2202s\u2202L\u200b=1/2\u2217(\u2202u\u2202L\u200b\u2212\u2202v\u2202L\u200bj)\u2202s\u2217\u2202L\u200b=1/2\u2217(\u2202u\u2202L\u200b+\u2202v\u2202L\u200bj)\u200b It should be noted here that since uuu and vvv are real functions, and LLL is real by our assumption that fff is a part of a real valued function, we have: (2)#(\u2202L\u2202s)\u2217=\u2202L\u2202s\u2217\\left( \\frac{\\partial L}{\\partial s} \\right)^* = \\frac{\\partial L}{\\partial s^*} (\u2202s\u2202L\u200b)\u2217=\u2202s\u2217\u2202L\u200b i.e., \u2202L\u2202s\\frac{\\partial L}{\\partial s}\u2202s\u2202L\u200b equals to grad_output\u2217grad\\_output^*grad_output\u2217. Solving the above equations for \u2202L\u2202u\\frac{\\partial L}{\\partial u}\u2202u\u2202L\u200b and \u2202L\u2202v\\frac{\\partial L}{\\partial v}\u2202v\u2202L\u200b, we get: (3)#\u2202L\u2202u=\u2202L\u2202s+\u2202L\u2202s\u2217\u2202L\u2202v=1j\u2217(\u2202L\u2202s\u2212\u2202L\u2202s\u2217)\\begin{aligned} \\frac{\\partial L}{\\partial u} = \\frac{\\partial L}{\\partial s} + \\frac{\\partial L}{\\partial s^*} \\\\ \\frac{\\partial L}{\\partial v} = 1j * \\left(\\frac{\\partial L}{\\partial s} - \\frac{\\partial L}{\\partial s^*}\\right) \\end{aligned} \u2202u\u2202L\u200b=\u2202s\u2202L\u200b+\u2202s\u2217\u2202L\u200b\u2202v\u2202L\u200b=1j\u2217(\u2202s\u2202L\u200b\u2212\u2202s\u2217\u2202L\u200b)\u200b Substituting (3) in (1), we get: \u2202L\u2202z\u2217=(\u2202L\u2202s+\u2202L\u2202s\u2217)\u2217\u2202u\u2202z\u2217+1j\u2217(\u2202L\u2202s\u2212\u2202L\u2202s\u2217)\u2217\u2202v\u2202z\u2217=\u2202L\u2202s\u2217(\u2202u\u2202z\u2217+\u2202v\u2202z\u2217j)+\u2202L\u2202s\u2217\u2217(\u2202u\u2202z\u2217\u2212\u2202v\u2202z\u2217j)=\u2202L\u2202s\u2217\u2202(u+vj)\u2202z\u2217+\u2202L\u2202s\u2217\u2217\u2202(u+vj)\u2217\u2202z\u2217=\u2202L\u2202s\u2217\u2202s\u2202z\u2217+\u2202L\u2202s\u2217\u2217\u2202s\u2217\u2202z\u2217\\begin{aligned} \\frac{\\partial L}{\\partial z^*} \u0026= \\left(\\frac{\\partial L}{\\partial s} + \\frac{\\partial L}{\\partial s^*}\\right) * \\frac{\\partial u}{\\partial z^*} + 1j * \\left(\\frac{\\partial L}{\\partial s} - \\frac{\\partial L}{\\partial s^*}\\right) * \\frac{\\partial v}{\\partial z^*} \\\\ \u0026= \\frac{\\partial L}{\\partial s} * \\left(\\frac{\\partial u}{\\partial z^*} + \\frac{\\partial v}{\\partial z^*} j\\right) + \\frac{\\partial L}{\\partial s^*} * \\left(\\frac{\\partial u}{\\partial z^*} - \\frac{\\partial v}{\\partial z^*} j\\right) \\\\ \u0026= \\frac{\\partial L}{\\partial s} * \\frac{\\partial (u + vj)}{\\partial z^*} + \\frac{\\partial L}{\\partial s^*} * \\frac{\\partial (u + vj)^*}{\\partial z^*} \\\\ \u0026= \\frac{\\partial L}{\\partial s} * \\frac{\\partial s}{\\partial z^*} + \\frac{\\partial L}{\\partial s^*} * \\frac{\\partial s^*}{\\partial z^*} \\\\ \\end{aligned} \u2202z\u2217\u2202L\u200b\u200b=(\u2202s\u2202L\u200b+\u2202s\u2217\u2202L\u200b)\u2217\u2202z\u2217\u2202u\u200b+1j\u2217(\u2202s\u2202L\u200b\u2212\u2202s\u2217\u2202L\u200b)\u2217\u2202z\u2217\u2202v\u200b=\u2202s\u2202L\u200b\u2217(\u2202z\u2217\u2202u\u200b+\u2202z\u2217\u2202v\u200bj)+\u2202s\u2217\u2202L\u200b\u2217(\u2202z\u2217\u2202u\u200b\u2212\u2202z\u2217\u2202v\u200bj)=\u2202s\u2202L\u200b\u2217\u2202z\u2217\u2202(u+vj)\u200b+\u2202s\u2217\u2202L\u200b\u2217\u2202z\u2217\u2202(u+vj)\u2217\u200b=\u2202s\u2202L\u200b\u2217\u2202z\u2217\u2202s\u200b+\u2202s\u2217\u2202L\u200b\u2217\u2202z\u2217\u2202s\u2217\u200b\u200b Using (2), we get: (4)#\u2202L\u2202z\u2217=(\u2202L\u2202s\u2217)\u2217\u2217\u2202s\u2202z\u2217+\u2202L\u2202s\u2217\u2217(\u2202s\u2202z)\u2217=(grad_output)\u2217\u2217\u2202s\u2202z\u2217+grad_output\u2217(\u2202s\u2202z)\u2217\\begin{aligned} \\frac{\\partial L}{\\partial z^*} \u0026= \\left(\\frac{\\partial L}{\\partial s^*}\\right)^* * \\frac{\\partial s}{\\partial z^*} + \\frac{\\partial L}{\\partial s^*} * \\left(\\frac{\\partial s}{\\partial z}\\right)^* \\\\ \u0026= \\boxed{ (grad\\_output)^* * \\frac{\\partial s}{\\partial z^*} + grad\\_output * \\left(\\frac{\\partial s}{\\partial z}\\right)^* } \\\\ \\end{aligned} \u2202z\u2217\u2202L\u200b\u200b=(\u2202s\u2217\u2202L\u200b)\u2217\u2217\u2202z\u2217\u2202s\u200b+\u2202s\u2217\u2202L\u200b\u2217(\u2202z\u2202s\u200b)\u2217=(grad_output)\u2217\u2217\u2202z\u2217\u2202s\u200b+grad_output\u2217(\u2202z\u2202s\u200b)\u2217\u200b\u200b This last equation is the important one for writing your own gradients, as it decomposes our derivative formula into a simpler one that is easy to compute by hand. How can I write my own derivative formula for a complex function?# The above boxed equation gives us the general formula for all derivatives on complex functions. However, we still need to compute \u2202s\u2202z\\frac{\\partial s}{\\partial z}\u2202z\u2202s\u200b and \u2202s\u2202z\u2217\\frac{\\partial s}{\\partial z^*}\u2202z\u2217\u2202s\u200b. There are two ways you could do this: The first way is to just use the definition of Wirtinger derivatives directly and calculate \u2202s\u2202z\\frac{\\partial s}{\\partial z}\u2202z\u2202s\u200b and \u2202s\u2202z\u2217\\frac{\\partial s}{\\partial z^*}\u2202z\u2217\u2202s\u200b by using \u2202s\u2202x\\frac{\\partial s}{\\partial x}\u2202x\u2202s\u200b and \u2202s\u2202y\\frac{\\partial s}{\\partial y}\u2202y\u2202s\u200b (which you can compute in the normal way). The second way is to use the change of variables trick and rewrite f(z)f(z)f(z) as a two variable function f(z,z\u2217)f(z, z^*)f(z,z\u2217), and compute the conjugate Wirtinger derivatives by treating zzz and z\u2217z^*z\u2217 as independent variables. This is often easier; for example, if the function in question is holomorphic, only zzz will be used (and \u2202s\u2202z\u2217\\frac{\\partial s}{\\partial z^*}\u2202z\u2217\u2202s\u200b will be zero). Let\u2019s consider the function f(z=x+yj)=c\u2217z=c\u2217(x+yj)f(z = x + yj) = c * z = c * (x+yj)f(z=x+yj)=c\u2217z=c\u2217(x+yj) as an example, where c\u2208Rc \\in \u211dc\u2208R. Using the first way to compute the Wirtinger derivatives, we have. \u2202s\u2202z=1/2\u2217(\u2202s\u2202x\u2212\u2202s\u2202yj)=1/2\u2217(c\u2212(c\u22171j)\u22171j)=c\u2202s\u2202z\u2217=1/2\u2217(\u2202s\u2202x+\u2202s\u2202yj)=1/2\u2217(c+(c\u22171j)\u22171j)=0\\begin{aligned} \\frac{\\partial s}{\\partial z} \u0026= 1/2 * \\left(\\frac{\\partial s}{\\partial x} - \\frac{\\partial s}{\\partial y} j\\right) \\\\ \u0026= 1/2 * (c - (c * 1j) * 1j) \\\\ \u0026= c \\\\ \\\\ \\\\ \\frac{\\partial s}{\\partial z^*} \u0026= 1/2 * \\left(\\frac{\\partial s}{\\partial x} + \\frac{\\partial s}{\\partial y} j\\right) \\\\ \u0026= 1/2 * (c + (c * 1j) * 1j) \\\\ \u0026= 0 \\\\ \\end{aligned} \u2202z\u2202s\u200b\u2202z\u2217\u2202s\u200b\u200b=1/2\u2217(\u2202x\u2202s\u200b\u2212\u2202y\u2202s\u200bj)=1/2\u2217(c\u2212(c\u22171j)\u22171j)=c=1/2\u2217(\u2202x\u2202s\u200b+\u2202y\u2202s\u200bj)=1/2\u2217(c+(c\u22171j)\u22171j)=0\u200bUsing (4), and grad_output = 1.0 (which is the default grad output value used when backward() is called on a scalar output in PyTorch), we get: \u2202L\u2202z\u2217=1\u22170+1\u2217c=c\\frac{\\partial L}{\\partial z^*} = 1 * 0 + 1 * c = c \u2202z\u2217\u2202L\u200b=1\u22170+1\u2217c=c Using the second way to compute Wirtinger derivatives, we directly get: \u2202s\u2202z=\u2202(c\u2217z)\u2202z=c\u2202s\u2202z\u2217=\u2202(c\u2217z)\u2202z\u2217=0\\begin{aligned} \\frac{\\partial s}{\\partial z} \u0026= \\frac{\\partial (c*z)}{\\partial z} \\\\ \u0026= c \\\\ \\frac{\\partial s}{\\partial z^*} \u0026= \\frac{\\partial (c*z)}{\\partial z^*} \\\\ \u0026= 0 \\end{aligned} \u2202z\u2202s\u200b\u2202z\u2217\u2202s\u200b\u200b=\u2202z\u2202(c\u2217z)\u200b=c=\u2202z\u2217\u2202(c\u2217z)\u200b=0\u200b And using (4) again, we get \u2202L\u2202z\u2217=c\\frac{\\partial L}{\\partial z^*} = c\u2202z\u2217\u2202L\u200b=c. As you can see, the second way involves lesser calculations, and comes in more handy for faster calculations. What about cross-domain functions?# Some functions map from complex inputs to real outputs, or vice versa. These functions form a special case of (4), which we can derive using the chain rule: For f:C\u2192Rf: \u2102 \u2192 \u211df:C\u2192R, we get: \u2202L\u2202z\u2217=2\u2217grad_output\u2217\u2202s\u2202z\u2217\\frac{\\partial L}{\\partial z^*} = 2 * grad\\_output * \\frac{\\partial s}{\\partial z^{*}} \u2202z\u2217\u2202L\u200b=2\u2217grad_output\u2217\u2202z\u2217\u2202s\u200b For f:R\u2192Cf: \u211d \u2192 \u2102f:R\u2192C, we get: \u2202L\u2202z\u2217=2\u2217Re(grad_output\u2217\u2217\u2202s\u2202z\u2217)\\frac{\\partial L}{\\partial z^*} = 2 * \\mathrm{Re}(grad\\_output^* * \\frac{\\partial s}{\\partial z^{*}}) \u2202z\u2217\u2202L\u200b=2\u2217Re(grad_output\u2217\u2217\u2202z\u2217\u2202s\u200b) Hooks for saved tensors# You can control how saved tensors are packed / unpacked by defining a pair of pack_hook / unpack_hook hooks. The pack_hook function should take a tensor as its single argument but can return any python object (e.g. another tensor, a tuple, or even a string containing a filename). The unpack_hook function takes as its single argument the output of pack_hook and should return a tensor to be used in the backward pass. The tensor returned by unpack_hook only needs to have the same content as the tensor passed as input to pack_hook. In particular, any autograd-related metadata can be ignored as they will be overwritten during unpacking. An example of such pair is: class SelfDeletingTempFile(): def __init__(self): self.name = os.path.join(tmp_dir, str(uuid.uuid4())) def __del__(self): os.remove(self.name) def pack_hook(tensor): temp_file = SelfDeletingTempFile() torch.save(tensor, temp_file.name) return temp_file def unpack_hook(temp_file): return torch.load(temp_file.name) Notice that the unpack_hook should not delete the temporary file because it might be called multiple times: the temporary file should be alive for as long as the returned SelfDeletingTempFile object is alive. In the above example, we prevent leaking the temporary file by closing it when it is no longer needed (on deletion of the SelfDeletingTempFile object). Note We guarantee that pack_hook will only be called once but unpack_hook can be called as many times as the backward pass requires it and we expect it to return the same data each time. Warning Performing inplace operations on the input of any of the functions is forbidden as they may lead to unexpected side-effects. PyTorch will throw an error if the input to a pack hook is modified inplace but does not catch the case where the input to an unpack hook is modified inplace. Registering hooks for a saved tensor# You can register a pair of hooks on a saved tensor by calling the register_hooks() method on a SavedTensor object. Those objects are exposed as attributes of a grad_fn and start with the _raw_saved_ prefix. x = torch.randn(5, requires_grad=True) y = x.pow(2) y.grad_fn._raw_saved_self.register_hooks(pack_hook, unpack_hook) The pack_hook method is called as soon as the pair is registered. The unpack_hook method is called each time the saved tensor needs to be accessed, either by means of y.grad_fn._saved_self or during the backward pass. Warning If you maintain a reference to a SavedTensor after the saved tensors have been released (i.e. after backward has been called), calling its register_hooks() is forbidden. PyTorch will throw an error most of the time but it may fail to do so in some cases and undefined behavior may arise. Registering default hooks for saved tensors# Alternatively, you can use the context-manager saved_tensors_hooks to register a pair of hooks which will be applied to all saved tensors that are created in that context. Example: # Only save on disk tensors that have size \u003e= 1000 SAVE_ON_DISK_THRESHOLD = 1000 def pack_hook(x): if x.numel() \u003c SAVE_ON_DISK_THRESHOLD: return x.detach() temp_file = SelfDeletingTempFile() torch.save(tensor, temp_file.name) return temp_file def unpack_hook(tensor_or_sctf): if isinstance(tensor_or_sctf, torch.Tensor): return tensor_or_sctf return torch.load(tensor_or_sctf.name) class Model(nn.Module): def forward(self, x): with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook): # ... compute output output = x return output model = Model() net = nn.DataParallel(model) The hooks defined with this context manager are thread-local. Hence, the following code will not produce the desired effects because the hooks do not go through DataParallel. # Example what NOT to do net = nn.DataParallel(model) with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook): output = net(input) Note that using those hooks disables all the optimization in place to reduce Tensor object creation. For example: with torch.autograd.graph.saved_tensors_hooks(lambda x: x.detach(), lambda x: x): x = torch.randn(5, requires_grad=True) y = x * x Without the hooks, x, y.grad_fn._saved_self and y.grad_fn._saved_other all refer to the same tensor object. With the hooks, PyTorch will pack and unpack x into two new tensor objects that share the same storage with the original x (no copy performed). Backward Hooks execution# This section will discuss when different hooks fire or don\u2019t fire. Then it will discuss the order in which they are fired. The hooks that will be covered are: backward hooks registered to Tensor via torch.Tensor.register_hook(), post-accumulate-grad hooks registered to Tensor via torch.Tensor.register_post_accumulate_grad_hook(), post-hooks registered to Node via torch.autograd.graph.Node.register_hook(), and pre-hooks registered to Node via torch.autograd.graph.Node.register_prehook(). Whether a particular hook will be fired# Hooks registered to a Tensor via torch.Tensor.register_hook() are executed when gradients are being computed for that Tensor. (Note that this does not require the Tensor\u2019s grad_fn to be executed. For example, if the Tensor is passed as part of the inputs argument to torch.autograd.grad(), the Tensor\u2019s grad_fn may not be executed, but the hook register to that Tensor will always be executed.) Hooks registered to a Tensor via torch.Tensor.register_post_accumulate_grad_hook() are executed after the gradients have been accumulated for that Tensor, meaning the Tensor\u2019s grad field has been set. Whereas hooks registered via torch.Tensor.register_hook() are run as gradients are being computed, hooks registered via torch.Tensor.register_post_accumulate_grad_hook() are only triggered once the Tensor\u2019s grad field is updated by autograd at the end of the backward pass. Thus, post-accumulate-grad hooks can only be registered for leaf Tensors. Registering a hook via torch.Tensor.register_post_accumulate_grad_hook() on a non-leaf Tensor will error, even if you call backward(retain_graph=True). Hooks registered to torch.autograd.graph.Node using torch.autograd.graph.Node.register_hook() or torch.autograd.graph.Node.register_prehook() are only fired if the Node it was registered to is executed. Whether a particular Node is executed may depend on whether the backward pass was called with torch.autograd.grad() or torch.autograd.backward(). Specifically, you should be aware of these differences when you register a hook on a Node corresponding to a Tensor that you are passing to torch.autograd.grad() or torch.autograd.backward() as part of the inputs argument. If you are using torch.autograd.backward(), all of the above mentioned hooks will be executed, whether or not you specified the inputs argument. This is because .backward() executes all Nodes, even if they correspond to a Tensor specified as an input. (Note that the execution of this additional Node corresponding to Tensors passed as inputs is usually unnecessary, but done anyway. This behavior is subject to change; you should not depend on it.) On the other hand, if you are using torch.autograd.grad(), the backward hooks registered to Nodes that correspond to the Tensors passed to input may not be executed, because those Nodes will not be executed unless there is another input that depends on the gradient result of this Node. The order in which the different hooks are fired# The order in which things happen are: hooks registered to Tensor are executed pre-hooks registered to Node are executed (if Node is executed). the .grad field is updated for Tensors that retain_grad Node is executed (subject to rules above) for leaf Tensors that have .grad accumulated, post-accumulate-grad hooks are executed post-hooks registered to Node are executed (if Node is executed) If multiple hooks of the same type are registered on the same Tensor or Node they are executed in the order in which they are registered. Hooks that are executed later can observe the modifications to the gradient made by earlier hooks. Special hooks# torch.autograd.graph.register_multi_grad_hook() is implemented using hooks registered to Tensors. Each individual Tensor hook is fired following the Tensor hook ordering defined above and the registered multi-grad hook is called when the last Tensor gradient is computed. torch.nn.modules.module.register_module_full_backward_hook() is implemented using hooks registered to Node. As the forward is computed, hooks are registered to grad_fn corresponding to the inputs and outputs of the module. Because a module may take multiple inputs and return multiple outputs, a dummy custom autograd Function is first applied to the inputs of the module before forward and the outputs of the module before the output of forward is returned to ensure that those Tensors share a single grad_fn, which we can then attach our hooks to. Behavior of Tensor hooks when Tensor is modified in-place# Usually hooks registered to a Tensor receive the gradient of the outputs with respect to that Tensor, where the value of the Tensor is taken to be its value at the time backward is computed. However, if you register hooks to a Tensor, and then modify that Tensor in-place, hooks registered before in-place modification similarly receive gradients of the outputs with respect to the Tensor, but the value of the Tensor is taken to be its value before in-place modification. If you prefer the behavior in the former case, you should register them to the Tensor after all in-place modifications to it have been made. For example: t = torch.tensor(1., requires_grad=True).sin() t.cos_() t.register_hook(fn) t.backward() Furthermore, it can be helpful to know that under the hood, when hooks are registered to a Tensor, they actually become permanently bound to the grad_fn of that Tensor, so if that Tensor is then modified in-place, even though the Tensor now has a new grad_fn, hooks registered before it was modified in-place will continue to be associated with the old grad_fn, e.g. they will fire when that Tensor\u2019s old grad_fn is reached in the graph by the autograd engine.",
        "author": {
