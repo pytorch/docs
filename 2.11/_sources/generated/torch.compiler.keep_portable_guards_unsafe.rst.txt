@@ -1,0 +1,6 @@
+﻿torch.compiler.keep\_portable\_guards\_unsafe
+=============================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: keep_portable_guards_unsafe

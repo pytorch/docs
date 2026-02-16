@@ -1,0 +1,6 @@
+﻿torch.nn.attention.register\_flash\_attention\_impl
+===================================================
+
+.. currentmodule:: torch.nn.attention
+
+.. autofunction:: register_flash_attention_impl

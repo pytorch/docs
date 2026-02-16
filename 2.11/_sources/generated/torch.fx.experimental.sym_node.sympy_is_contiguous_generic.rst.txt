@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.sym\_node.sympy\_is\_contiguous\_generic
+==============================================================
+
+.. currentmodule:: torch.fx.experimental.sym_node
+
+.. autofunction:: sympy_is_contiguous_generic

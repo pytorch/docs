@@ -1,0 +1,6 @@
+﻿torch.mtia.initial\_seed
+========================
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: initial_seed

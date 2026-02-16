@@ -1,0 +1,6 @@
+﻿torch.nn.utils.clip\_grad.clip\_grad\_value\_
+=============================================
+
+.. currentmodule:: torch.nn.utils.clip_grad
+
+.. autofunction:: clip_grad_value_

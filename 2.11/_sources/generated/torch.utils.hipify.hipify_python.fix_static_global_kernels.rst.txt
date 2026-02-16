@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.fix\_static\_global\_kernels
+==============================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: fix_static_global_kernels

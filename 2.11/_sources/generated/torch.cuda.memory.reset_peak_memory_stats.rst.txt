@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.reset\_peak\_memory\_stats
+============================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: reset_peak_memory_stats

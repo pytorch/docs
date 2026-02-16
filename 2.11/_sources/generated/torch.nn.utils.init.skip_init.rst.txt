@@ -1,0 +1,6 @@
+﻿torch.nn.utils.init.skip\_init
+==============================
+
+.. currentmodule:: torch.nn.utils.init
+
+.. autofunction:: skip_init

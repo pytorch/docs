@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.memory\_snapshot
+=================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: memory_snapshot

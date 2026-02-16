@@ -1,0 +1,6 @@
+﻿torch.nn.functional.grouped\_mm
+===============================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: grouped_mm

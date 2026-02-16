@@ -1,0 +1,6 @@
+﻿torch.mtia.seed
+===============
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: seed

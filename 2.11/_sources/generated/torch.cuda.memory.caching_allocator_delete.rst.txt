@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.caching\_allocator\_delete
+============================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: caching_allocator_delete

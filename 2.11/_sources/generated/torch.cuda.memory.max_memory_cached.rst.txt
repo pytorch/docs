@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.max\_memory\_cached
+=====================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: max_memory_cached

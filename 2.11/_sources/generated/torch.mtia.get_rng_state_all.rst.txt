@@ -1,0 +1,6 @@
+﻿torch.mtia.get\_rng\_state\_all
+===============================
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: get_rng_state_all

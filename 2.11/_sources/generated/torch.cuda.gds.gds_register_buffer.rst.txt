@@ -1,0 +1,6 @@
+﻿torch.cuda.gds.gds\_register\_buffer
+====================================
+
+.. currentmodule:: torch.cuda.gds
+
+.. autofunction:: gds_register_buffer

@@ -1,0 +1,4024 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyTorch Governance | Maintainers &#8212; PyTorch 2.11 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=2de06f63"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'community/persons_of_interest';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.11';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/community/persons_of_interest.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="PyTorch Governance | Mechanics" href="governance.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="PyTorch Governance | Maintainers - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="2.11">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
+    if (window.location.hostname === 'localhost' ||
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
+<style>
+  :root {
+    --header-height: 0px !important;
+    --header-height-desktop: 0px !important;
+  }
+  /* Ensure proper mobile layout when LF header is hidden */
+  @media (max-width: 960px) {
+    .bd-header {
+      top: 0 !important;
+      position: sticky !important;
+      z-index: 1020 !important;
+    }
+    .bd-main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    .bd-article-container {
+      padding-top: 0 !important;
+    }
+    .header-article__inner {
+      padding-top: 1rem !important;
+    }
+
+  }
+</style>
+
+
+<link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
+<script type="text/javascript" src="../_static/js/theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
+<link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta name="pytorch_project" content="docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
+</script>
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
+<script>
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
+</script>
+<script>
+  document.documentElement.setAttribute('data-version', '2.11');
+</script>
+<noscript>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
+</noscript>
+<script>
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+</script>
+<!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
+
+<!-- Script to Fix scrolling with fast fixed-duration animation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const SCROLL_DURATION = 150; // Fixed duration in ms regardless of distance
+    let lockedTargetId = null; // Lock the TOC to this target until user scrolls manually
+    let isUpdatingToc = false; // Guard against infinite loops
+
+    function smoothScrollTo(targetY, duration, onComplete) {
+      const startY = window.pageYOffset;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, startY + difference * easeOut);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateTocHighlight(targetId) {
+      if (isUpdatingToc) return; // Prevent infinite loop
+      isUpdatingToc = true;
+
+      // Find the TOC link that points to this target
+      const tocNav = document.querySelector('.bd-toc-nav');
+      if (!tocNav) {
+        isUpdatingToc = false;
+        return;
+      }
+
+      // Remove active class from all TOC items
+      tocNav.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        link.parentElement.classList.remove('active');
+      });
+
+      // Add active class to the matching link
+      const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+        matchingLink.parentElement.classList.add('active');
+      }
+
+      // Use setTimeout to reset the guard after the current call stack
+      setTimeout(function() {
+        isUpdatingToc = false;
+      }, 0);
+    }
+
+    // Watch for ScrollSpy trying to change the active state and override it
+    const tocNav = document.querySelector('.bd-toc-nav');
+    if (tocNav) {
+      const observer = new MutationObserver(function(mutations) {
+        if (lockedTargetId && !isUpdatingToc) {
+          // Force our target to stay highlighted
+          updateTocHighlight(lockedTargetId);
+        }
+      });
+      observer.observe(tocNav, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    }
+
+    // Release the lock when user scrolls manually (not programmatically)
+    window.addEventListener('wheel', function() {
+      lockedTargetId = null;
+    });
+    window.addEventListener('touchmove', function() {
+      lockedTargetId = null;
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href').substring(1);
+        if (!targetId) return; // Skip empty hash links
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          e.preventDefault();
+
+          // Lock the TOC to this target
+          lockedTargetId = targetId;
+
+          const headerHeight =
+            (document.querySelector('.header-holder') ? document.querySelector('.header-holder').offsetHeight : 0) +
+            (document.querySelector('.bd-header') ? document.querySelector('.bd-header').offsetHeight : 0) + 20;
+
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+          // Update TOC highlight immediately
+          updateTocHighlight(targetId);
+
+          smoothScrollTo(targetPosition, SCROLL_DURATION, function() {
+            // Keep it highlighted after scroll
+            updateTocHighlight(targetId);
+          });
+
+          // Update URL hash without scrolling
+          history.pushState(null, null, '#' + targetId);
+        }
+      });
+    });
+  });
+</script>
+
+<script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+<!-- RunLLM Widget Configuration -->
+
+<script>
+  window.runllmConfig = {
+    assistant_id: "834",
+    name: "PyTorch Assistant",
+    position: "BOTTOM_RIGHT",
+    keyboard_shortcut: ""
+  };
+</script>
+<script type="text/javascript" src="../_static/js/runllm-widget.js"></script>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+  </head>
+
+<body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+  
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+
+  
+  <div class="navbar-header-items__mobile-logo">
+    
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+  
+    
+    <img src="../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+  </div>
+
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      
+      
+        <div class="navbar-item">
+          
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+  
+    
+    <img src="../_static/img/logo-dark.svg" class="logo__image only-light" alt="PyTorch - Home"/>
+    
+    
+    <script>document.write(`<img src="../_static/img/logo-white.svg" class="logo__image only-dark" alt="PyTorch - Home"/>`);</script>
+    
+  
+</a>
+        </div>
+      
+    
+      
+      
+        
+        <div class="navbar-item desktop-only-version">
+          
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+        </div>
+      
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+
+    
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+      
+        <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+      
+      
+        <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    <div class="sidebar-header-items__start">
+      <div class="navbar-item">
+        
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script>
+      </div>
+    </div>
+    
+
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener noreferrer">
+            Install PyTorch&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../user_guide/index.html">
+              User Guide
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-2">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/pytorch_main_components.html">
+                  PyTorch Main Components
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/torch.compiler.html">
+                  torch.compiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes.html">
+                  Developer Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator/index.html">
+                  Accelerator Integration
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../pytorch-api.html">
+              Reference API
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-3">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.html">
+                  torch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.html">
+                  torch.nn
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.functional.html">
+                  torch.nn.functional
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensors.html">
+                  torch.Tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_attributes.html">
+                  Tensor Attributes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensor_view.html">
+                  Tensor Views
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../amp.html">
+                  Automatic Mixed Precision package - torch.amp
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../autograd.html">
+                  Automatic differentiation package - torch.autograd
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../library.html">
+                  torch.library
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../accelerator.html">
+                  torch.accelerator
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpu.html">
+                  torch.cpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cuda.html">
+                  torch.cuda
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_cuda_memory.html">
+                  Understanding CUDA Memory Usage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mps.html">
+                  torch.mps
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../xpu.html">
+                  torch.xpu
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.html">
+                  torch.mtia
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.memory.html">
+                  torch.mtia.memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mtia.mtia_graph.html">
+                  torch.mtia.mtia_graph
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../meta.html">
+                  Meta device
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../backends.html">
+                  torch.backends
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../user_guide/torch_compiler/export.html">
+                  torch.export
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.html">
+                  Distributed communication package - torch.distributed
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.html">
+                  torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.algorithms.join.html">
+                  Generic Join Context Manager
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.elastic.html">
+                  Torch Distributed Elastic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
+                  FullyShardedDataParallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.fsdp.fully_shard.html">
+                  torch.distributed.fsdp.fully_shard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.tensor.parallel.html">
+                  Tensor Parallelism - torch.distributed.tensor.parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.optim.html">
+                  Distributed Optimizers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.pipelining.html">
+                  Pipeline Parallelism
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
+                  PyTorch Symmetric Memory
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributed.checkpoint.html">
+                  Distributed Checkpoint - torch.distributed.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../distributions.html">
+                  Probability distributions - torch.distributions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.compiler_api.html">
+                  torch.compiler API reference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fft.html">
+                  torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../func.html">
+                  torch.func
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../futures.html">
+                  torch.futures
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.html">
+                  torch.fx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../fx.experimental.html">
+                  torch.fx.experimental
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../hub.html">
+                  torch.hub
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../linalg.html">
+                  torch.linalg
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../monitor.html">
+                  torch.monitor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../signal.html">
+                  torch.signal
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../special.html">
+                  torch.special
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch.overrides.html">
+                  torch.overrides
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nativert.html">
+                  torch.nativert
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../package.html">
+                  torch.package
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../profiler.html">
+                  torch.profiler
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.init.html">
+                  torch.nn.init
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nn.attention.html">
+                  torch.nn.attention
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../onnx.html">
+                  torch.onnx
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
+                  torch.optim
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../complex_numbers.html">
+                  Complex Numbers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
+                  DDP Communication Hooks
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../quantization.html">
+                  Quantization
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
+                  Distributed RPC Framework
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../random.html">
+                  torch.random
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../masked.html">
+                  torch.masked
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../nested.html">
+                  torch.nested
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../size.html">
+                  torch.Size
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../sparse.html">
+                  torch.sparse
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../storage.html">
+                  torch.Storage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../testing.html">
+                  torch.testing
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../utils.html">
+                  torch.utils
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../benchmark_utils.html">
+                  Benchmark Utils - torch.utils.benchmark
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
+                  torch.utils.checkpoint
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../cpp_extension.html">
+                  torch.utils.cpp_extension
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../data.html">
+                  torch.utils.data
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../deterministic.html">
+                  torch.utils.deterministic
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../jit_utils.html">
+                  JIT Utils - torch.utils.jit
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../dlpack.html">
+                  torch.utils.dlpack
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../mobile_optimizer.html">
+                  torch.utils.mobile_optimizer
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../model_zoo.html">
+                  torch.utils.model_zoo
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../tensorboard.html">
+                  torch.utils.tensorboard
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../module_tracker.html">
+                  torch.utils.module_tracker
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
+                  Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
+                  torch.config
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../future_mod.html">
+                  torch.__future__
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../logging.html">
+                  torch._logging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../torch_environment_variables.html">
+                  Torch Environment Variables
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal" href="../notes.html">
+              Developer Notes
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-4">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/amp_examples.html">
+                  Automatic Mixed Precision examples
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/autograd.html">
+                  Autograd mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/broadcasting.html">
+                  Broadcasting semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/cpu_threading_torchscript_inference.html">
+                  CPU threading and TorchScript inference
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/cuda.html">
+                  CUDA semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/custom_operators.html">
+                  PyTorch Custom Operators Landing Page
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/ddp.html">
+                  Distributed Data Parallel
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/extending.html">
+                  Extending PyTorch
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/extending.func.html">
+                  Extending torch.func with autograd.Function
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/faq.html">
+                  Frequently Asked Questions
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/get_start_xpu.html">
+                  Getting Started on Intel GPU
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/gradcheck.html">
+                  Gradcheck mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/hip.html">
+                  HIP (ROCm) semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/large_scale_deployments.html">
+                  Features for large-scale deployments
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/libtorch_stable_abi.html">
+                  LibTorch Stable ABI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/local_tensor_tutorial.html">
+                  LocalTensor Tutorial: Single-Process SPMD Debugging
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/mkldnn.html">
+                  MKLDNN backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/modules.html">
+                  Modules
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/mps.html">
+                  MPS backend
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/multiprocessing.html">
+                  Multiprocessing best practices
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/numerical_accuracy.html">
+                  Numerical accuracy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/out.html">
+                  Out Notes
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/randomness.html">
+                  Reproducibility
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/serialization.html">
+                  Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../notes/windows.html">
+                  Windows FAQ
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item dropdown current active">
+        
+          
+          <div class="nav-item-with-toggle">
+            <a class="nav-link nav-internal active" href="index.html">
+              Community
+            </a>
+          </div>
+          <ul class="dropdown-menu" id="dropdown-5">
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="build_ci_governance.html">
+                  PyTorch Governance | Build + CI
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="contribution_guide.html">
+                  PyTorch Contribution Guide
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="design.html">
+                  PyTorch Design Philosophy
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="governance.html">
+                  PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="#">
+                  PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li class="nav-item">
+        
+          
+          <a class="nav-link" href="https://docs.pytorch.org/tutorials/" target="_blank" rel="noopener noreferrer">
+            Tutorials&nbsp;<i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        
+      </li>
+    
+
+    
+    
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+        
+          <div class="navbar-item"><!-- PyTorch.org site link - desktop only, two-line layout -->
+<!-- Note: The show_pytorch_org_link check is handled in layout.html's navbar_end block -->
+<a href="https://pytorch.org" class="pytorch-site-link nav-link nav-external" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go to PyTorch.org">
+  <span class="pytorch-site-link-text">
+    <span>Go to</span>
+    <span>pytorch.org <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i></span>
+  </span>
+</a></div>
+        
+        
+          <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
+
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
+    }
+
+    // Update tooltip
+    updateTooltip(toggle.checked);
+
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        localStorage.setItem('searchPreference', 'google');
+        reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
+      } else {
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
+      }
+
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
+
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
+
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
+
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
+      });
+    }
+  }
+
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
+    const toggle = document.getElementById('search-toggle');
+    if (!toggle) return;
+
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
+
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+    });
+
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
+    }
+
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
+    });
+
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+        }
+      });
+
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
+
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
+        }
+      }
+    }
+  });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
+</script>
+</div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions">The Ultimate Guide to PyTorch Contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyTorch Governance | Maintainers</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+<div id="rtd-footer-container"></div>
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Community</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">PyTorch...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+</div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="searchbox"></div>
+<div id="pytorch-article">
+  <!-- Hidden breadcrumb schema for SEO only -->
+  <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <link itemprop="item" href="index.html">
+      <meta itemprop="name" content="Community">
+      <meta itemprop="position" content="1">
+    </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="PyTorch Governance | Maintainers">
+      <meta itemprop="position" content="2">
+    </div>
+  </div>
+
+  
+  
+
+  
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pytorch-governance-maintainers">
+<h1>PyTorch Governance | Maintainers<a class="headerlink" href="#pytorch-governance-maintainers" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 11, 2019 | Last Updated On: Jan 13, 2026</p>
+<section id="responsibilities">
+<h2>Responsibilities<a class="headerlink" href="#responsibilities" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Triage and fix high priority issues assigned to the module or library</p></li>
+<li><p>Triage, review, and land high priority pull requests assigned to the module or library</p></li>
+<li><p>Answer module or library questions on <a class="reference external" href="https://discuss.pytorch.org/">discuss.pytorch.org</a>
+and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-discuss.pytorch.org</a></p></li>
+<li><p>Maintain public user and development documentation</p></li>
+<li><p>Run meetings and share minutes plus roadmap on a half or quarterly basis</p></li>
+</ul>
+</section>
+<section id="lead-core-maintainer-bdfl">
+<h2>Lead Core Maintainer (BDFL)<a class="headerlink" href="#lead-core-maintainer-bdfl" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
+</ul>
+</section>
+<section id="core-maintainers">
+<h2>Core Maintainers<a class="headerlink" href="#core-maintainers" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+<li><p>Greg Chanan (<a class="reference external" href="https://github.com/gchanan">gchanan</a>)</p></li>
+<li><p>Nikita Shulga (<a class="reference external" href="https://github.com/malfet">malfet</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>Piotr Bialecki (<a class="reference external" href="https://github.com/ptrblck">ptrblck</a>)</p></li>
+<li><p>Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
+<li><p>Horace He (<a class="reference external" href="https://github.com/Chillee">Chillee</a>)</p></li>
+<li><p>Joe Spisak (<a class="reference external" href="https://github.com/jspisak">jspisak</a>)</p></li>
+<li><p>(emeritus) Dmytro Dzhulgakov (<a class="reference external" href="https://github.com/dzhulgakov">dzhulgakov</a>)</p></li>
+</ul>
+</section>
+<section id="module-level-maintainers">
+<h2>Module-level maintainers<a class="headerlink" href="#module-level-maintainers" title="Link to this heading">#</a></h2>
+<section id="nn-apis-torch-nn">
+<h3>NN APIs (torch.nn)<a class="headerlink" href="#nn-apis-torch-nn" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mikayla Gawarecki (<a class="reference external" href="https://github.com/mikaylagawarecki">mikaylagawarecki</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>(emeritus) Greg Chanan (<a class="reference external" href="https://github.com/gchanan">gchanan</a>)</p></li>
+<li><p>(emeritus) Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
+<li><p>(emeritus) Sam Gross (<a class="reference external" href="https://github.com/colesbury">colesbury</a>)</p></li>
+<li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
+</ul>
+</section>
+<section id="optimizers-torch-optim">
+<h3>Optimizers (torch.optim)<a class="headerlink" href="#optimizers-torch-optim" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jane Xu (<a class="reference external" href="https://github.com/janeyx99">janeyx99</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>(emeritus) Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
+<li><p>(emeritus) Ilqar Ramazanli (<a class="reference external" href="https://github.com/iramazanli">iramazanli</a>)</p></li>
+<li><p>(emeritus) Vincent Quenneville-Belair (<a class="reference external" href="https://github.com/vincentqb">vincentqb</a>)</p></li>
+</ul>
+</section>
+<section id="autograd-torch-autograd">
+<h3>Autograd (torch.autograd)<a class="headerlink" href="#autograd-torch-autograd" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jeffrey Wan (<a class="reference external" href="https://github.com/soulitzer">soulitzer</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+<li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
+</ul>
+</section>
+<section id="torchdynamo">
+<h3>TorchDynamo<a class="headerlink" href="#torchdynamo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Animesh Jain (<a class="reference external" href="https://github.com/anijain2305">anijain2305</a>)</p></li>
+<li><p>Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+</ul>
+</section>
+<section id="torchinductor">
+<h3>TorchInductor<a class="headerlink" href="#torchinductor" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
+<li><p>Horace He (<a class="reference external" href="https://github.com/Chillee">Chillee</a>)</p></li>
+<li><p>Shunting Zhang (<a class="reference external" href="https://github.com/shunting314">shunting314</a>)</p></li>
+<li><p>Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
+<li><p>Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
+</ul>
+</section>
+<section id="cudagraph-tree">
+<h3>Cudagraph Tree<a class="headerlink" href="#cudagraph-tree" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
+</ul>
+</section>
+<section id="pt2-dispatcher">
+<h3>PT2 Dispatcher<a class="headerlink" href="#pt2-dispatcher" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Brian Hirsh (<a class="reference external" href="https://github.com/bdhirsh">bdhirsh</a>)</p></li>
+<li><p>Richard Zou (<a class="reference external" href="https://github.com/zou3519">zou3519</a>)</p></li>
+<li><p>Horace He (<a class="reference external" href="https://github.com/Chillee">Chillee</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+</ul>
+</section>
+<section id="pt2-export-torch-export">
+<h3>PT2 Export (torch.export)<a class="headerlink" href="#pt2-export-torch-export" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Avik Chaudhuri (<a class="reference external" href="https://github.com/avikchaudhuri">avikchaudhuri</a>)</p></li>
+<li><p>Yanan Cao (<a class="reference external" href="https://github.com/gmagogsfm">gmagogsfm</a>)</p></li>
+</ul>
+</section>
+<section id="aot-inductor-aoti-aoti-runtime">
+<h3>AOT Inductor (AOTI) &amp; AOTI Runtime<a class="headerlink" href="#aot-inductor-aoti-aoti-runtime" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Bin Bao (<a class="reference external" href="https://github.com/desertfire">desertfire</a>)</p></li>
+<li><p>Angela Yi (<a class="reference external" href="https://github.com/angelayi">angelayi</a>)</p></li>
+<li><p>Yang Chen (<a class="reference external" href="https://github.com/chenyang78">chenyang78</a>)</p></li>
+</ul>
+</section>
+<section id="compilers-jit-torchscript-package-deploy">
+<h3>Compilers (JIT / TorchScript / Package / Deploy)<a class="headerlink" href="#compilers-jit-torchscript-package-deploy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
+<li><p>(emeritus) Michael Suo (<a class="reference external" href="https://github.com/suo">suo</a>)</p></li>
+<li><p>(emeritus) Yanan Cao (<a class="reference external" href="https://github.com/gmagogsfm">gmagogsfm</a>)</p></li>
+<li><p>(emeritus) James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
+<li><p>(emeritus) Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
+<li><p>(emeritus) Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
+<li><p>(emeritus) Zach Devito (<a class="reference external" href="https://github.com/zdevito">zdevito</a>)</p></li>
+</ul>
+</section>
+<section id="distributions-rng">
+<h3>Distributions &amp; RNG<a class="headerlink" href="#distributions-rng" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fritz Obermeyer (<a class="reference external" href="https://github.com/fritzo">fritzo</a>)</p></li>
+<li><p>Neeraj Pradhan (<a class="reference external" href="https://github.com/neerajprad">neerajprad</a>)</p></li>
+<li><p>Alican Bozkurt (<a class="reference external" href="https://github.com/alicanb">alicanb</a>)</p></li>
+<li><p>(emeritus) Vishwak Srinivasan (<a class="reference external" href="https://github.com/vishwakftw">vishwakftw</a>)</p></li>
+</ul>
+</section>
+<section id="distributed">
+<h3>Distributed<a class="headerlink" href="#distributed" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Will Constable (<a class="reference external" href="https://github.com/wconstab">wconstab</a>)</p></li>
+<li><p>Howard Huang (<a class="reference external" href="https://github.com/H-Huang">H-Huang</a>)</p></li>
+<li><p>Wanchao Liang (<a class="reference external" href="https://github.com/wanchaol">wanchaol</a>)</p></li>
+<li><p>Ke Wen (<a class="reference external" href="https://github.com/kwen2501">kwen2501</a>)</p></li>
+<li><p>Chien-Chin Huang (<a class="reference external" href="https://github.com/fegin">fegin</a>)</p></li>
+<li><p>Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
+<li><p>Junjie Wang (<a class="reference external" href="https://github.com/fduwjj">fduwjj</a>)</p></li>
+<li><p>Wei Feng (<a class="reference external" href="https://github.com/weifengpy">weifengpy</a>)</p></li>
+<li><p>(emeritus) Shen Li (<a class="reference external" href="https://github.com/mrshenli">mrshenli</a>)</p></li>
+<li><p>(emeritus) Pritam Damania (<a class="reference external" href="https://github.com/pritamdamania87">pritamdamania87</a>)</p></li>
+<li><p>(emeritus) Yanli Zhao (<a class="reference external" href="https://github.com/zhaojuanmao">zhaojuanmao</a>)</p></li>
+<li><p>(emeritus) Rohan Varma (<a class="reference external" href="https://github.com/rohan-varma">rohan-varma</a>)</p></li>
+<li><p>(emeritus) Alisson Azzolini (<a class="reference external" href="https://github.com/aazzolini">aazzolini</a>)</p></li>
+<li><p>(emeritus) James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
+<li><p>(emeritus) Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
+<li><p>(emeritus) Pieter Noordhuis (<a class="reference external" href="https://github.com/pietern">pietern</a>)</p></li>
+<li><p>(emeritus) Mingzhe Li (<a class="reference external" href="https://github.com/mingzhe09088">mingzhe09088</a>)</p></li>
+<li><p>(emeritus) Omkar Salpekar (<a class="reference external" href="https://github.com/osalpekar">osalpekar</a>)</p></li>
+</ul>
+</section>
+<section id="multiprocessing">
+<h3>Multiprocessing<a class="headerlink" href="#multiprocessing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Simon Wang (<a class="reference external" href="https://github.com/SsnL">SsnL</a>)</p></li>
+<li><p>(emeritus) Vitaly Fedyunin (<a class="reference external" href="https://github.com/VitalyFedyunin">VitalyFedyunin</a>)</p></li>
+<li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
+</ul>
+</section>
+<section id="linear-algebra-torch-linalg">
+<h3>Linear Algebra (torch.linalg)<a class="headerlink" href="#linear-algebra-torch-linalg" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mario Lezcano (<a class="reference external" href="https://github.com/lezcano">lezcano</a>)</p></li>
+<li><p>(emeritus) Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
+<li><p>(emeritus) Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
+<li><p>(emeritus) Vishwak Srinivasan (<a class="reference external" href="https://github.com/vishwakftw">vishwakftw</a>)</p></li>
+<li><p>(emeritus) Nikita Vedeneev (<a class="reference external" href="https://github.com/nikitaved">nikitaved</a>)</p></li>
+</ul>
+</section>
+<section id="sparse-torch-sparse">
+<h3>Sparse (torch.sparse)<a class="headerlink" href="#sparse-torch-sparse" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Pearu Peterson (<a class="reference external" href="https://github.com/pearu">pearu</a>)</p></li>
+<li><p>(emeritus) Nikita Vedeneev (<a class="reference external" href="https://github.com/nikitaved">nikitaved</a>)</p></li>
+<li><p>(emeritus) Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
+<li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>(emeritus) Andrew James (<a class="reference external" href="https://github.com/amjames">amjames</a>)</p></li>
+</ul>
+</section>
+<section id="nestedtensor-torch-nested">
+<h3>NestedTensor (torch.nested)<a class="headerlink" href="#nestedtensor-torch-nested" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>Driss Guessous (<a class="reference external" href="https://github.com/drisspg">drisspg</a>)</p></li>
+<li><p>Mikayla Gawarecki (<a class="reference external" href="https://github.com/mikaylagawarecki">mikaylagawarecki</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>(emeritus) Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
+</ul>
+</section>
+<section id="maskedtensor-torch-masked">
+<h3>MaskedTensor (torch.masked)<a class="headerlink" href="#maskedtensor-torch-masked" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>(emeritus) George Qi (<a class="reference external" href="https://github.com/george-qi">george-qi</a>)</p></li>
+</ul>
+</section>
+<section id="fast-fourier-transform-torch-fft">
+<h3>Fast Fourier Transform (torch.fft)<a class="headerlink" href="#fast-fourier-transform-torch-fft" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
+<li><p>(emeritus) Peter Bell (<a class="reference external" href="https://github.com/peterbell10">peterbell10</a>)</p></li>
+</ul>
+</section>
+<section id="mkldnn">
+<h3>MKLDNN<a class="headerlink" href="#mkldnn" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Xiaobing Zhang (<a class="reference external" href="https://github.com/XiaobingSuper">XiaobingSuper</a>)</p></li>
+<li><p>Mingfei Ma (<a class="reference external" href="https://github.com/mingfeima">mingfeima</a>)</p></li>
+<li><p>Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
+<li><p>(emeritus) Xiaoqiang Zheng (<a class="reference external" href="https://github.com/zheng-xq">zheng-xq</a>)</p></li>
+<li><p>(emeritus) Sam Gross (<a class="reference external" href="https://github.com/colesbury">colesbury</a>)</p></li>
+<li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>(emeritus) Ilia Cherniavskii (<a class="reference external" href="https://github.com/ilia-cher">ilia-cher</a>)</p></li>
+<li><p>(emeritus) Junjie Bai (<a class="reference external" href="https://github.com/bddppq">bddppq</a>)</p></li>
+<li><p>(emeritus) Yinghai Lu (<a class="reference external" href="https://github.com/yinghai">yinghai</a>)</p></li>
+<li><p>(emeritus) Vitaly Fedyunin (<a class="reference external" href="https://github.com/VitalyFedyunin">VitalyFedyunin</a>)</p></li>
+<li><p>(emeritus) Jianhui Li (<a class="reference external" href="https://github.com/Jianhui-Li">Jianhui-Li</a>)</p></li>
+</ul>
+</section>
+<section id="cuda">
+<h3>CUDA<a class="headerlink" href="#cuda" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+<li><p>Piotr Bialecki (<a class="reference external" href="https://github.com/ptrblck">ptrblck</a>)</p></li>
+<li><p>Christian Sarofeen (<a class="reference external" href="https://github.com/csarofeen">csarofeen</a>)</p></li>
+<li><p>(emeritus) Andrew Tulloch (<a class="reference external" href="https://github.com/ajtulloch">ajtulloch</a>)</p></li>
+<li><p>(emeritus) Xiaoqiang Zheng (<a class="reference external" href="https://github.com/zheng-xq">zheng-xq</a>)</p></li>
+</ul>
+</section>
+<section id="amd-rocm-hip">
+<h3>AMD/ROCm/HIP<a class="headerlink" href="#amd-rocm-hip" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jeff Daily (<a class="reference external" href="https://github.com/jeffdaily">jeffdaily</a>)</p></li>
+<li><p>Jithun Nair (<a class="reference external" href="https://github.com/jithunnair-amd">jithunnair-amd</a>)</p></li>
+<li><p>(emeritus) Junjie Bai (<a class="reference external" href="https://github.com/bddppq">bddppq</a>)</p></li>
+</ul>
+</section>
+<section id="xpu-intel-gpu">
+<h3>XPU/Intel GPU<a class="headerlink" href="#xpu-intel-gpu" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Eikan Wang (<a class="reference external" href="https://github.com/EikanWang">EikanWang</a>)</p></li>
+<li><p>Guangye Yu (<a class="reference external" href="https://github.com/guangyey">guangyey</a>)</p></li>
+</ul>
+</section>
+<section id="build-ci">
+<h3>Build + CI<a class="headerlink" href="#build-ci" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nikita Shulga (<a class="reference external" href="https://github.com/malfet">malfet</a>)</p></li>
+<li><p>Eli Uriegas (<a class="reference external" href="https://github.com/seemethere">seemethere</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
+<li><p>Andrey Talman (<a class="reference external" href="https://github.com/atalman">atalman</a>)</p></li>
+<li><p>Zain Rizvi (<a class="reference external" href="https://github.com/ZainRizvi">ZainRizvi</a>)</p></li>
+<li><p>(emeritus) Mikey Dagitses (<a class="reference external" href="https://github.com/dagitses">dagitses</a>)</p></li>
+<li><p>(emeritus) Omkar Salpekar (<a class="reference external" href="https://github.com/osalpekar">osalpekar</a>)</p></li>
+<li><p>(emeritus) Nirav Mehta (<a class="reference external" href="https://github.com/mehtanirav">mehtanirav</a>)</p></li>
+<li><p>(emeritus) Zhuojie Zhou (<a class="reference external" href="https://github.com/zhouzhuojie">zhouzhuojie</a>)</p></li>
+<li><p>(emeritus) Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+<li><p>(emeritus) Karl Ostmo (<a class="reference external" href="https://github.com/kostmo">kostmo</a>)</p></li>
+</ul>
+</section>
+<section id="performance-tools">
+<h3>Performance Tools<a class="headerlink" href="#performance-tools" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Taylor Robie (<a class="reference external" href="https://github.com/robieta">robieta</a>)</p></li>
+<li><p>Xu Zhao (<a class="reference external" href="https://github.com/xuzhao9">xuzhao9</a>)</p></li>
+<li><p>(emeritus) Victor Bittorf (<a class="reference external" href="https://github.com/bitfort">bitfort</a>)</p></li>
+<li><p>(emeritus) Gisle Dankel (<a class="reference external" href="https://github.com/gdankel">gdankel</a>)</p></li>
+<li><p>(emeritus) Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
+<li><p>(emeritus) Mingzhe Li (<a class="reference external" href="https://github.com/mingzhe09088">mingzhe09088</a>)</p></li>
+</ul>
+</section>
+<section id="c-api">
+<h3>C++ API<a class="headerlink" href="#c-api" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>(emeritus) Will Feng (<a class="reference external" href="https://github.com/yf225">yf225</a>)</p></li>
+</ul>
+</section>
+<section id="c10-utils-and-operator-dispatch">
+<h3>C10 utils and operator dispatch<a class="headerlink" href="#c10-utils-and-operator-dispatch" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Brian Hirsh (<a class="reference external" href="https://github.com/bdhirsh">bdhirsh</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+<li><p>(emeritus) Dmytro Dzhulgakov (<a class="reference external" href="https://github.com/dzhulgakov">dzhulgakov</a>)</p></li>
+<li><p>(emeritus) Sebastian Messmer (<a class="reference external" href="https://github.com/smessmer">smessmer</a>)</p></li>
+</ul>
+</section>
+<section id="onnx-exporter">
+<h3>ONNX exporter<a class="headerlink" href="#onnx-exporter" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Shubham Bhokare (<a class="reference external" href="https://github.com/shubhambhokare1">shubhambhokare1</a>)</p></li>
+<li><p>Justin Chu (<a class="reference external" href="https://github.com/justinchuby">justinchuby</a>)</p></li>
+<li><p>Xavier Dupré (<a class="reference external" href="https://github.com/xadupre">xadupre</a>)</p></li>
+<li><p>Titai Wang (<a class="reference external" href="https://github.com/titaiwangms">titaiwangms</a>)</p></li>
+<li><p>(emeritus) Bowen Bao (<a class="reference external" href="https://github.com/BowenBao">BowenBao</a>)</p></li>
+<li><p>(emeritus) Thiago Crepaldi (<a class="reference external" href="https://github.com/thiagocrepaldi">thiagocrepaldi</a>)</p></li>
+<li><p>(emeritus) Aaron Bockover (<a class="reference external" href="https://github.com/abock">abock</a>)</p></li>
+<li><p>(emeritus) Gary Miguel (<a class="reference external" href="https://github.com/garymm">garymm</a>)</p></li>
+<li><p>(emeritus) Lara Haidar (<a class="reference external" href="https://github.com/lara-hdr">lara-hdr</a>)</p></li>
+<li><p>(emeritus) Lu Fang (<a class="reference external" href="https://github.com/houseroad">houseroad</a>)</p></li>
+<li><p>(emeritus) Negin Raoof (<a class="reference external" href="https://github.com/neginraoof">neginraoof</a>)</p></li>
+<li><p>(emeritus) Spandan Tiwari (<a class="reference external" href="https://github.com/spandantiwari">spandantiwari</a>)</p></li>
+</ul>
+</section>
+<section id="liteinterpreter">
+<h3>LiteInterpreter<a class="headerlink" href="#liteinterpreter" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) David Reiss (<a class="reference external" href="https://github.com/dreiss">dreiss</a>)</p></li>
+<li><p>(emeritus) Raziel Guevara (<a class="reference external" href="https://github.com/raziel">raziel</a>)</p></li>
+<li><p>(emeritus) Linbin Yu (<a class="reference external" href="https://github.com/linbinyu">linbinyu</a>)</p></li>
+<li><p>(emeritus) Ivan Kobzarev (<a class="reference external" href="https://github.com/IvanKobzarev">IvanKobzarev</a>)</p></li>
+<li><p>(emeritus) Tao Xu (<a class="reference external" href="https://github.com/xta0">xta0</a>)</p></li>
+</ul>
+</section>
+<section id="quantization-torch-ao">
+<h3>Quantization (torch/ao)<a class="headerlink" href="#quantization-torch-ao" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mark Saroufim (<a class="reference external" href="https://github.com/msaroufim">msaroufim</a>)</p></li>
+<li><p>Vasiliy Kuznetsov (<a class="reference external" href="https://github.com/vkuzo">vkuzo</a>)</p></li>
+<li><p>Jerry Zhang (<a class="reference external" href="https://github.com/jerryzh168">jerryzh168</a>)</p></li>
+<li><p>(emeritus) Zafar Takhirov (<a class="reference external" href="https://github.com/z-a-f">z-a-f</a>)</p></li>
+<li><p>(emeritus) Raghuraman Krishnamoorthi (<a class="reference external" href="https://github.com/raghuramank100">raghuramank100</a>)</p></li>
+</ul>
+</section>
+<section id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Guoliang Hua (<a class="reference external" href="https://github.com/nbcsm">nbcsm</a>)</p></li>
+<li><p>(emeritus) Teng Gao (<a class="reference external" href="https://github.com/gaoteng-git">gaoteng-git</a>)</p></li>
+<li><p>(emeritus) Peter Johnson (<a class="reference external" href="https://github.com/peterjc123">peterjc123</a>)</p></li>
+</ul>
+</section>
+<section id="apple-m1-mps-metal">
+<h3>Apple M1/MPS/Metal<a class="headerlink" href="#apple-m1-mps-metal" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Kulin Seth (<a class="reference external" href="https://github.com/kulinseth">kulinseth</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
+<li><p>Nikita Shulga (<a class="reference external" href="https://github.com/malfet">malfet</a>)</p></li>
+<li><p>(emeritus) Ramin Azarmehr (<a class="reference external" href="https://github.com/razarmehr">razarmehr</a>)</p></li>
+</ul>
+</section>
+<section id="powerpc">
+<h3>PowerPC<a class="headerlink" href="#powerpc" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Alfredo Mendoza (<a class="reference external" href="https://github.com/avmgithub">avmgithub</a>)</p></li>
+</ul>
+</section>
+<section id="x86-cpu">
+<h3>x86 CPU<a class="headerlink" href="#x86-cpu" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mingfei Ma (<a class="reference external" href="https://github.com/mingfeima">mingfeima</a>)</p></li>
+<li><p>Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
+</ul>
+</section>
+<section id="aarch64-cpu">
+<h3>AArch64 CPU<a class="headerlink" href="#aarch64-cpu" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sunita Nadampalli (<a class="reference external" href="https://github.com/snadampal">snadampal</a>)</p></li>
+</ul>
+</section>
+<section id="out-of-tree-backend-integration-privateuse1">
+<h3>Out-of-tree Backend Integration (PrivateUse1)<a class="headerlink" href="#out-of-tree-backend-integration-privateuse1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jiawei Li (<a class="reference external" href="https://github.com/fffrog">fffrog</a>)</p></li>
+</ul>
+</section>
+<section id="docs-tutorials">
+<h3>Docs / Tutorials<a class="headerlink" href="#docs-tutorials" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Svetlana Karslioglu (<a class="reference external" href="https://github.com/svekars">svekars</a>)</p></li>
+<li><p>Ivan Sekyonda (<a class="reference external" href="https://github.com/sekyondaMeta">sekyondaMeta</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="library-level-maintainers">
+<h2>Library-level maintainers<a class="headerlink" href="#library-level-maintainers" title="Link to this heading">#</a></h2>
+<section id="xla">
+<h3>XLA<a class="headerlink" href="#xla" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jack Cao (<a class="reference external" href="https://github.com/JackCaoG">JackCaoG</a>)</p></li>
+<li><p>Han Qi (<a class="reference external" href="https://github.com/qihqi">qihqi</a>)</p></li>
+<li><p>Yifei Teng (<a class="reference external" href="https://github.com/tengyifei">tengyifei</a>)</p></li>
+<li><p>Siyuan Liu (<a class="reference external" href="https://github.com/lsy323">lsy323</a>)</p></li>
+<li><p>Brian Hirsh (<a class="reference external" href="https://github.com/bdhirsh">bdhirsh</a>)</p></li>
+<li><p>(emeritus) Gregory Chanan (<a class="reference external" href="https://github.com/gchanan">gchanan</a>)</p></li>
+<li><p>(emeritus) Ailing Zhang (<a class="reference external" href="https://github.com/ailzhang">ailzhang</a>)</p></li>
+<li><p>(emeritus) Davide Libenzi (<a class="reference external" href="https://github.com/dlibenzi">dlibenzi</a>)</p></li>
+<li><p>(emeritus) Alex Suhan (<a class="reference external" href="https://github.com/asuhan">asuhan</a>)</p></li>
+<li><p>(emeritus) Daniel Sohn (<a class="reference external" href="https://github.com/jysohn23">jysohn23</a>)</p></li>
+<li><p>(emeritus) Zach Cain (<a class="reference external" href="https://github.com/zcain117">zcain117</a>)</p></li>
+</ul>
+</section>
+<section id="torchserve">
+<h3>TorchServe<a class="headerlink" href="#torchserve" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Li Ning (<a class="reference external" href="https://github.com/lxning">lxning</a>)</p></li>
+<li><p>(emeritus) Ankith Gunapal (<a class="reference external" href="https://github.com/agunapal">agunapal</a>)</p></li>
+<li><p>(emeritus) Hamid Shojanazeri (<a class="reference external" href="https://github.com/HamidShojanazeri">HamidShojanazeri</a>)</p></li>
+<li><p>(emeritus) Mark Saroufim (<a class="reference external" href="https://github.com/msaroufIm">msaroufIm</a>)</p></li>
+<li><p>(emeritus) Manoj Rao (<a class="reference external" href="https://github.com/mycpuorg">mycpuorg</a>)</p></li>
+<li><p>(emeritus) Vamshi Dantu (<a class="reference external" href="https://github.com/vdantu">vdantu</a>)</p></li>
+<li><p>(emeritus) Dhanasekar Karuppasamy (<a class="reference external" href="https://github.com/dhanainme">dhanainme</a>)</p></li>
+</ul>
+</section>
+<section id="torchvision">
+<h3>TorchVision<a class="headerlink" href="#torchvision" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nicolas Hug (<a class="reference external" href="https://github.com/NicolasHug">NicolasHug</a>)</p></li>
+<li><p>Antoine Simoulin (<a class="reference external" href="https://github.com/AntoineSimoulin">AntoineSimoulin</a>)</p></li>
+<li><p>(emeritus) Philip Meier (<a class="reference external" href="https://github.com/pmeier">pmeier</a>)</p></li>
+<li><p>(emeritus) Victor Fomin (<a class="reference external" href="https://github.com/vfdev-5">vfdev-5</a>)</p></li>
+<li><p>(emeritus) Francisco Massa (<a class="reference external" href="https://github.com/fmassa">fmassa</a>)</p></li>
+<li><p>(emeritus) Vasilis Vryniotis (<a class="reference external" href="https://github.com/datumbox">datumbox</a>)</p></li>
+<li><p>(emeritus) Yosua Michael Maranatha (<a class="reference external" href="https://github.com/YosuaMichael">YosuaMichael</a>)</p></li>
+<li><p>(emeritus) Joao Gomes (<a class="reference external" href="https://github.com/jdsgomes">jdsgomes</a>)</p></li>
+</ul>
+</section>
+<section id="torchtext">
+<h3>TorchText<a class="headerlink" href="#torchtext" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Nayef Ahmed (<a class="reference external" href="https://github.com/Nayef211">Nayef211</a>)</p></li>
+<li><p>(emeritus) Parmeet Singh Bhatia (<a class="reference external" href="https://github.com/parmeet">parmeet</a>)</p></li>
+<li><p>(emeritus) Guanheng George Zhang (<a class="reference external" href="https://github.com/zhangguanheng66">zhangguanheng66</a>)</p></li>
+<li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+</ul>
+</section>
+<section id="torchaudio">
+<h3>TorchAudio<a class="headerlink" href="#torchaudio" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Moto Hira (<a class="reference external" href="https://github.com/mthrok">mthrok</a>)</p></li>
+<li><p>(emeritus) Jeff Hwang (<a class="reference external" href="https://github.com/hwangjeff">hwangjeff</a>)</p></li>
+<li><p>(emeritus) Caroline Chen (<a class="reference external" href="https://github.com/carolineechen">carolineechen</a>)</p></li>
+<li><p>(emeritus) Xiaohui Zhang (<a class="reference external" href="https://github.com/xiaohui-zhang">xiaohui-zhang</a>)</p></li>
+<li><p>(emeritus) Zhaoheng Ni (<a class="reference external" href="https://github.com/nateanl">nateanl</a>)</p></li>
+<li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>(emeritus) Vincent QB (<a class="reference external" href="https://github.com/vincentqb">vincentqb</a>)</p></li>
+</ul>
+</section>
+<section id="torchrec">
+<h3>TorchRec<a class="headerlink" href="#torchrec" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Colin Taylor (<a class="reference external" href="https://github.com/colin2328">colin2328</a>)</p></li>
+<li><p>Paul Zhang (<a class="reference external" href="https://github.com/PaulZhang12">PaulZhang12</a>)</p></li>
+<li><p>(emeritus) Dmytro Ivchenko (<a class="reference external" href="https://github.com/divchenko">divchenko</a>)</p></li>
+</ul>
+</section>
+<section id="torchx">
+<h3>TorchX<a class="headerlink" href="#torchx" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
+<li><p>(emeritus) Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
+</ul>
+</section>
+<section id="torchdata">
+<h3>TorchData<a class="headerlink" href="#torchdata" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Divyansh Khanna (<a class="reference external" href="https://github.com/divyanshk">divyanshk</a>)</p></li>
+<li><p>Ramanish Singh (<a class="reference external" href="https://github.com/ramanishsingh">ramanishsingh</a>)</p></li>
+<li><p>Lavender (<a class="reference external" href="https://github.com/aelavender">aelavender</a>)</p></li>
+<li><p>Scott Schneider (<a class="reference external" href="https://github.com/scotts">scotts</a>)</p></li>
+<li><p>(emeritus) Andrew Ho (<a class="reference external" href="https://github.com/andrewkho">andrewkho</a>)</p></li>
+</ul>
+</section>
+<section id="torcharrow">
+<h3>TorchArrow<a class="headerlink" href="#torcharrow" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Wenlei Xie (<a class="reference external" href="https://github.com/wenleix">wenleix</a>)</p></li>
+<li><p>(emeritus) Vitaly Fedyunin (<a class="reference external" href="https://github.com/VitalyFedyunin">VitalyFedyunin</a>)</p></li>
+</ul>
+</section>
+<section id="executorch-edge-mobile">
+<h3>ExecuTorch (Edge, Mobile)<a class="headerlink" href="#executorch-edge-mobile" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mergen Nachin (<a class="reference external" href="https://github.com/mergennachin">mergennachin</a>)</p></li>
+<li><p>Kimish Patel (<a class="reference external" href="https://github.com/kimishpatel">kimishpatel</a>)</p></li>
+<li><p>Dave Bort (<a class="reference external" href="https://github.com/dbort">dbort</a>)</p></li>
+<li><p>Martin Yuan (<a class="reference external" href="https://github.com/iseeyuan">iseeyuan</a>)</p></li>
+</ul>
+</section>
+<section id="torchtune">
+<h3>TorchTune<a class="headerlink" href="#torchtune" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Kartikay Khandelwal (<a class="reference external" href="https://github.com/kartikayk">kartikayk</a>)</p></li>
+<li><p>Evan Smothers (<a class="reference external" href="https://github.com/ebsmothers">ebsmothers</a>)</p></li>
+<li><p>Joe Cummings (<a class="reference external" href="https://github.com/joecummings">joecummings</a>)</p></li>
+</ul>
+</section>
+<section id="torchchat">
+<h3>TorchChat<a class="headerlink" href="#torchchat" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jack Khuu (<a class="reference external" href="https://github.com/Jack-Khuu">Jack-Khuu</a>)</p></li>
+<li><p>Jesse White (<a class="reference external" href="https://github.com/byjlw">byjlw</a>)</p></li>
+<li><p>(emeritus) Michael Gschwind (<a class="reference external" href="https://github.com/mikekgfb">mikekgfb</a>)</p></li>
+</ul>
+</section>
+<section id="torchcodec">
+<h3>TorchCodec<a class="headerlink" href="#torchcodec" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nicolas Hug (<a class="reference external" href="https://github.com/NicolasHug">NicolasHug</a>)</p></li>
+<li><p>Scott Schneider (<a class="reference external" href="https://github.com/scotts">scotts</a>)</p></li>
+<li><p>(emeritus) Ahmad Sharif (<a class="reference external" href="https://github.com/ahmadsharif1">ahmadsharif1</a>)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+</div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="feedback">
+  
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+
+  <div class="feedback-send">
+    <button class="feedback-btn"
+            onclick="openGitHubIssue()"
+            data-bs-title="Create a GitHub Issue"
+            data-bs-placement="bottom"
+            data-bs-toggle="tooltip"
+            data-gtm="feedback-btn-click">Send Feedback
+    </button>
+  </div>
+</div>
+
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="governance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyTorch Governance | Mechanics</p>
+      </div>
+    </a>
+</div>
+
+<div class="footer-info">
+  <p class="copyright">
+    
+  </p>
+
+  <p class="theme-version">
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  </p>
+</div>
+</div>
+  
+</div>
+                </footer>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="governance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyTorch Governance | Mechanics</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc">
+<div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#responsibilities">Responsibilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lead-core-maintainer-bdfl">Lead Core Maintainer (BDFL)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-maintainers">Core Maintainers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-level-maintainers">Module-level maintainers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nn-apis-torch-nn">NN APIs (torch.nn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizers-torch-optim">Optimizers (torch.optim)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autograd-torch-autograd">Autograd (torch.autograd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchdynamo">TorchDynamo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchinductor">TorchInductor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cudagraph-tree">Cudagraph Tree</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pt2-dispatcher">PT2 Dispatcher</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pt2-export-torch-export">PT2 Export (torch.export)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aot-inductor-aoti-aoti-runtime">AOT Inductor (AOTI) &amp; AOTI Runtime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilers-jit-torchscript-package-deploy">Compilers (JIT / TorchScript / Package / Deploy)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributions-rng">Distributions &amp; RNG</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed">Distributed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiprocessing">Multiprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra-torch-linalg">Linear Algebra (torch.linalg)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-torch-sparse">Sparse (torch.sparse)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nestedtensor-torch-nested">NestedTensor (torch.nested)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maskedtensor-torch-masked">MaskedTensor (torch.masked)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-fourier-transform-torch-fft">Fast Fourier Transform (torch.fft)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkldnn">MKLDNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda">CUDA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amd-rocm-hip">AMD/ROCm/HIP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xpu-intel-gpu">XPU/Intel GPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-ci">Build + CI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-tools">Performance Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-api">C++ API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c10-utils-and-operator-dispatch">C10 utils and operator dispatch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onnx-exporter">ONNX exporter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liteinterpreter">LiteInterpreter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantization-torch-ao">Quantization (torch/ao)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apple-m1-mps-metal">Apple M1/MPS/Metal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#powerpc">PowerPC</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x86-cpu">x86 CPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aarch64-cpu">AArch64 CPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#out-of-tree-backend-integration-privateuse1">Out-of-tree Backend Integration (PrivateUse1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-tutorials">Docs / Tutorials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-level-maintainers">Library-level maintainers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xla">XLA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchserve">TorchServe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchvision">TorchVision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchtext">TorchText</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchaudio">TorchAudio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchrec">TorchRec</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchx">TorchX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchdata">TorchData</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torcharrow">TorchArrow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#executorch-edge-mobile">ExecuTorch (Edge, Mobile)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchtune">TorchTune</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchchat">TorchChat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchcodec">TorchCodec</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    
+       <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/community/persons_of_interest.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+    
+       <div class="sidebar-secondary-item">
+    <div class="tocsection sourcelink">
+      <a href="../_sources/community/persons_of_interest.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+      </a>
+    </div>
+</div>
+    
+
+
+
+
+<div class="sidebar-secondary-item">
+  <div class="sidebar-heading">PyTorch Libraries</div>
+  <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/helion" style="color: var(--pst-color-text-muted)">Helion</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/kineto" style="color: var(--pst-color-text-muted)">kineto</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/torchtitan" style="color: var(--pst-color-text-muted)">torchtitan</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/rl" style="color: var(--pst-color-text-muted)">TorchRL</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/audio" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/tensordict" style="color: var(--pst-color-text-muted)">tensordict</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+  
+  </ul>
+</div>
+
+</div>
+</div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer class="site-footer">
+
+  <div class="container footer-container">
+
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+    
+    <div class="privacy-policy">
+      <div class="copyright">
+      
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
+      </div>
+    </div>
+
+
+  </div>
+</footer>
+
+<div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../_static/img/pytorch-x.svg">
+  </div>
+</div>
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright PyTorch Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "PyTorch Governance | Maintainers",
+       "headline": "PyTorch Governance | Maintainers",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
+       "url": "/community/persons_of_interest.html",
+       "articleBody": "PyTorch Governance | Maintainers# Created On: Mar 11, 2019 | Last Updated On: Jan 13, 2026 Responsibilities# Triage and fix high priority issues assigned to the module or library Triage, review, and land high priority pull requests assigned to the module or library Answer module or library questions on discuss.pytorch.org and dev-discuss.pytorch.org Maintain public user and development documentation Run meetings and share minutes plus roadmap on a half or quarterly basis Lead Core Maintainer (BDFL)# Soumith Chintala (soumith) Core Maintainers# Soumith Chintala (soumith) Edward Yang (ezyang) Greg Chanan (gchanan) Nikita Shulga (malfet) Alban Desmaison (albanD) Piotr Bialecki (ptrblck) Natalia Gimelshein (ngimel) Horace He (Chillee) Joe Spisak (jspisak) (emeritus) Dmytro Dzhulgakov (dzhulgakov) Module-level maintainers# NN APIs (torch.nn)# Mikayla Gawarecki (mikaylagawarecki) Alban Desmaison (albanD) Joel Schlosser (jbschlosser) (emeritus) Greg Chanan (gchanan) (emeritus) Soumith Chintala (soumith) (emeritus) Sam Gross (colesbury) (emeritus) Adam Paszke (apaszke) Optimizers (torch.optim)# Jane Xu (janeyx99) Alban Desmaison (albanD) Joel Schlosser (jbschlosser) (emeritus) Soumith Chintala (soumith) (emeritus) Ilqar Ramazanli (iramazanli) (emeritus) Vincent Quenneville-Belair (vincentqb) Autograd (torch.autograd)# Jeffrey Wan (soulitzer) Alban Desmaison (alband) Edward Yang (ezyang) (emeritus) Adam Paszke (apaszke) TorchDynamo# Animesh Jain (anijain2305) Jason Ansel (jansel) Edward Yang (ezyang) TorchInductor# Elias Ellison (eellison) Horace He (Chillee) Shunting Zhang (shunting314) Jason Ansel (jansel) Jiong Gong (jgong5) Cudagraph Tree# Elias Ellison (eellison) PT2 Dispatcher# Brian Hirsh (bdhirsh) Richard Zou (zou3519) Horace He (Chillee) Edward Yang (ezyang) PT2 Export (torch.export)# Avik Chaudhuri (avikchaudhuri) Yanan Cao (gmagogsfm) AOT Inductor (AOTI) \u0026 AOTI Runtime# Bin Bao (desertfire) Angela Yi (angelayi) Yang Chen (chenyang78) Compilers (JIT / TorchScript / Package / Deploy)# (emeritus) Elias Ellison (eellison) (emeritus) Michael Suo (suo) (emeritus) Yanan Cao (gmagogsfm) (emeritus) James Reed (jamesr66a) (emeritus) Jason Ansel (jansel) (emeritus) Jiong Gong (jgong5) (emeritus) Zach Devito (zdevito) Distributions \u0026 RNG# Fritz Obermeyer (fritzo) Neeraj Pradhan (neerajprad) Alican Bozkurt (alicanb) (emeritus) Vishwak Srinivasan (vishwakftw) Distributed# Will Constable (wconstab) Howard Huang (H-Huang) Wanchao Liang (wanchaol) Ke Wen (kwen2501) Chien-Chin Huang (fegin) Tristan Rice (d4l3k) Junjie Wang (fduwjj) Wei Feng (weifengpy) (emeritus) Shen Li (mrshenli) (emeritus) Pritam Damania (pritamdamania87) (emeritus) Yanli Zhao (zhaojuanmao) (emeritus) Rohan Varma (rohan-varma) (emeritus) Alisson Azzolini (aazzolini) (emeritus) James Reed (jamesr66a) (emeritus) Kiuk Chung (kiukchung) (emeritus) Pieter Noordhuis (pietern) (emeritus) Mingzhe Li (mingzhe09088) (emeritus) Omkar Salpekar (osalpekar) Multiprocessing# (emeritus) Simon Wang (SsnL) (emeritus) Vitaly Fedyunin (VitalyFedyunin) (emeritus) Adam Paszke (apaszke) Linear Algebra (torch.linalg)# Mario Lezcano (lezcano) (emeritus) Mike Ruberry (mruberry) (emeritus) Ivan Yashchuk (IvanYashchuk) (emeritus) Vishwak Srinivasan (vishwakftw) (emeritus) Nikita Vedeneev (nikitaved) Sparse (torch.sparse)# (emeritus) Pearu Peterson (pearu) (emeritus) Nikita Vedeneev (nikitaved) (emeritus) Ivan Yashchuk (IvanYashchuk) (emeritus) Christian Puhrsch (cpuhrsch) (emeritus) Andrew James (amjames) NestedTensor (torch.nested)# Joel Schlosser (jbschlosser) Christian Puhrsch (cpuhrsch) Driss Guessous (drisspg) Mikayla Gawarecki (mikaylagawarecki) Alban Desmaison (albanD) (emeritus) Natalia Gimelshein (ngimel) MaskedTensor (torch.masked)# Christian Puhrsch (cpuhrsch) (emeritus) George Qi (george-qi) Fast Fourier Transform (torch.fft)# (emeritus) Mike Ruberry (mruberry) (emeritus) Peter Bell (peterbell10) MKLDNN# Xiaobing Zhang (XiaobingSuper) Mingfei Ma (mingfeima) Jiong Gong (jgong5) (emeritus) Xiaoqiang Zheng (zheng-xq) (emeritus) Sam Gross (colesbury) (emeritus) Christian Puhrsch (cpuhrsch) (emeritus) Ilia Cherniavskii (ilia-cher) (emeritus) Junjie Bai (bddppq) (emeritus) Yinghai Lu (yinghai) (emeritus) Vitaly Fedyunin (VitalyFedyunin) (emeritus) Jianhui Li (Jianhui-Li) CUDA# Natalia Gimelshein (ngimel) Edward Yang (ezyang) Piotr Bialecki (ptrblck) Christian Sarofeen (csarofeen) (emeritus) Andrew Tulloch (ajtulloch) (emeritus) Xiaoqiang Zheng (zheng-xq) AMD/ROCm/HIP# Jeff Daily (jeffdaily) Jithun Nair (jithunnair-amd) (emeritus) Junjie Bai (bddppq) XPU/Intel GPU# Eikan Wang (EikanWang) Guangye Yu (guangyey) Build + CI# Nikita Shulga (malfet) Eli Uriegas (seemethere) Alban Desmaison (alband) Andrey Talman (atalman) Zain Rizvi (ZainRizvi) (emeritus) Mikey Dagitses (dagitses) (emeritus) Omkar Salpekar (osalpekar) (emeritus) Nirav Mehta (mehtanirav) (emeritus) Zhuojie Zhou (zhouzhuojie) (emeritus) Edward Yang (ezyang) (emeritus) Karl Ostmo (kostmo) Performance Tools# Taylor Robie (robieta) Xu Zhao (xuzhao9) (emeritus) Victor Bittorf (bitfort) (emeritus) Gisle Dankel (gdankel) (emeritus) Natalia Gimelshein (ngimel) (emeritus) Mingzhe Li (mingzhe09088) C++ API# (emeritus) Joel Schlosser (jbschlosser) (emeritus) Will Feng (yf225) C10 utils and operator dispatch# Brian Hirsh (bdhirsh) Edward Yang (ezyang) (emeritus) Dmytro Dzhulgakov (dzhulgakov) (emeritus) Sebastian Messmer (smessmer) ONNX exporter# Shubham Bhokare (shubhambhokare1) Justin Chu (justinchuby) Xavier Dupr\u00e9 (xadupre) Titai Wang (titaiwangms) (emeritus) Bowen Bao (BowenBao) (emeritus) Thiago Crepaldi (thiagocrepaldi) (emeritus) Aaron Bockover (abock) (emeritus) Gary Miguel (garymm) (emeritus) Lara Haidar (lara-hdr) (emeritus) Lu Fang (houseroad) (emeritus) Negin Raoof (neginraoof) (emeritus) Spandan Tiwari (spandantiwari) LiteInterpreter# (emeritus) David Reiss (dreiss) (emeritus) Raziel Guevara (raziel) (emeritus) Linbin Yu (linbinyu) (emeritus) Ivan Kobzarev (IvanKobzarev) (emeritus) Tao Xu (xta0) Quantization (torch/ao)# Mark Saroufim (msaroufim) Vasiliy Kuznetsov (vkuzo) Jerry Zhang (jerryzh168) (emeritus) Zafar Takhirov (z-a-f) (emeritus) Raghuraman Krishnamoorthi (raghuramank100) Windows# (emeritus) Guoliang Hua (nbcsm) (emeritus) Teng Gao (gaoteng-git) (emeritus) Peter Johnson (peterjc123) Apple M1/MPS/Metal# Kulin Seth (kulinseth) Alban Desmaison (alband) Nikita Shulga (malfet) (emeritus) Ramin Azarmehr (razarmehr) PowerPC# (emeritus) Alfredo Mendoza (avmgithub) x86 CPU# Mingfei Ma (mingfeima) Jiong Gong (jgong5) AArch64 CPU# Sunita Nadampalli (snadampal) Out-of-tree Backend Integration (PrivateUse1)# Jiawei Li (fffrog) Docs / Tutorials# Svetlana Karslioglu (svekars) Ivan Sekyonda (sekyondaMeta) Library-level maintainers# XLA# Jack Cao (JackCaoG) Han Qi (qihqi) Yifei Teng (tengyifei) Siyuan Liu (lsy323) Brian Hirsh (bdhirsh) (emeritus) Gregory Chanan (gchanan) (emeritus) Ailing Zhang (ailzhang) (emeritus) Davide Libenzi (dlibenzi) (emeritus) Alex Suhan (asuhan) (emeritus) Daniel Sohn (jysohn23) (emeritus) Zach Cain (zcain117) TorchServe# (emeritus) Li Ning (lxning) (emeritus) Ankith Gunapal (agunapal) (emeritus) Hamid Shojanazeri (HamidShojanazeri) (emeritus) Mark Saroufim (msaroufIm) (emeritus) Manoj Rao (mycpuorg) (emeritus) Vamshi Dantu (vdantu) (emeritus) Dhanasekar Karuppasamy (dhanainme) TorchVision# Nicolas Hug (NicolasHug) Antoine Simoulin (AntoineSimoulin) (emeritus) Philip Meier (pmeier) (emeritus) Victor Fomin (vfdev-5) (emeritus) Francisco Massa (fmassa) (emeritus) Vasilis Vryniotis (datumbox) (emeritus) Yosua Michael Maranatha (YosuaMichael) (emeritus) Joao Gomes (jdsgomes) TorchText# (emeritus) Nayef Ahmed (Nayef211) (emeritus) Parmeet Singh Bhatia (parmeet) (emeritus) Guanheng George Zhang (zhangguanheng66) (emeritus) Christian Puhrsch (cpuhrsch) TorchAudio# Moto Hira (mthrok) (emeritus) Jeff Hwang (hwangjeff) (emeritus) Caroline Chen (carolineechen) (emeritus) Xiaohui Zhang (xiaohui-zhang) (emeritus) Zhaoheng Ni (nateanl) (emeritus) Christian Puhrsch (cpuhrsch) (emeritus) Vincent QB (vincentqb) TorchRec# Colin Taylor (colin2328) Paul Zhang (PaulZhang12) (emeritus) Dmytro Ivchenko (divchenko) TorchX# (emeritus) Tristan Rice (d4l3k) (emeritus) Kiuk Chung (kiukchung) TorchData# Divyansh Khanna (divyanshk) Ramanish Singh (ramanishsingh) Lavender (aelavender) Scott Schneider (scotts) (emeritus) Andrew Ho (andrewkho) TorchArrow# (emeritus) Wenlei Xie (wenleix) (emeritus) Vitaly Fedyunin (VitalyFedyunin) ExecuTorch (Edge, Mobile)# Mergen Nachin (mergennachin) Kimish Patel (kimishpatel) Dave Bort (dbort) Martin Yuan (iseeyuan) TorchTune# Kartikay Khandelwal (kartikayk) Evan Smothers (ebsmothers) Joe Cummings (joecummings) TorchChat# Jack Khuu (Jack-Khuu) Jesse White (byjlw) (emeritus) Michael Gschwind (mikekgfb) TorchCodec# Nicolas Hug (NicolasHug) Scott Schneider (scotts) (emeritus) Ahmad Sharif (ahmadsharif1)",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/community/persons_of_interest.html"
+       },
+       "datePublished": "Mar 11, 2019T00:00:00Z",
+       "dateModified": "Jan 13, 2026T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
+  </body>
+</html>

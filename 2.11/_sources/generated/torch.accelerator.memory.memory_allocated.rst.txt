@@ -1,0 +1,6 @@
+﻿torch.accelerator.memory.memory\_allocated
+==========================================
+
+.. currentmodule:: torch.accelerator.memory
+
+.. autofunction:: memory_allocated
