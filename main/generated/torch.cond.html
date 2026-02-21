@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git60dc00d )">
+<meta name="llm:version" content="main (2.12.0a0+git619534e )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git60dc00d )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git619534e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4896,8 +4896,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6061,7 +6061,7 @@ document.write(`
 <h1>torch.cond<a class="headerlink" href="#torch-cond" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cond">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/60dc00dcd74dd7e22533b81eeb0e6382fbf9dea2/torch/_higher_order_ops/cond.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cond" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/619534ee5a28377071af7b360da8d2bb6bfee723/torch/_higher_order_ops/cond.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cond" title="Link to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -6113,10 +6113,10 @@ true/false functions. It can be empty if true_fn/false_fn doesn’t require inpu
 <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Restrictions:</dt><dd><ul class="simple">
+<dl>
+<dt>Restrictions:</dt><dd><ul>
 <li><p>The conditional statement (aka <cite>pred</cite>) must meet one of the following constraints:</p>
-<ul>
+<ul class="simple">
 <li><p>It’s a <cite>torch.Tensor</cite> with only one element, and torch.bool dtype</p></li>
 <li><p>It’s a boolean expression, e.g. <cite>x.shape[0] &gt; 10</cite> or <cite>x.dim() &gt; 1 and x.shape[1] &gt; 10</cite></p></li>
 </ul>
@@ -6126,9 +6126,23 @@ true/false functions. It can be empty if true_fn/false_fn doesn’t require inpu
 <li><p>The function signature must match with operands.</p></li>
 <li><p>The function must return a tensor with the same metadata, e.g. shape,
 dtype, etc.</p></li>
-<li><p>The function cannot have in-place mutations on inputs or global variables.
+<li><p>The function cannot have in-place mutations on global variables.
 (Note: in-place tensor operations such as <cite>add_</cite> for intermediate results
 are allowed in a branch)</p></li>
+<li><p>The function can perform in-place mutations on its input tensors.
+However, outputs will always be new tensors that do not share object
+identity with the original inputs.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin_</span><span class="p">()</span>
+
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">x</span>  <span class="c1"># result is a new tensor, not the original x</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </li>
 </ul>
@@ -6492,7 +6506,7 @@ are allowed in a branch)</p></li>
        "headline": "torch.cond",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cond.html",
-       "articleBody": "torch.cond# torch.cond(pred, true_fn, false_fn, operands=())[source]# Conditionally applies true_fn or false_fn. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype cond is structured control flow operator. That is, it is like a Python if-statement, but has restrictions on true_fn, false_fn, and operands that enable it to be capturable using torch.compile and torch.export. Assuming the constraints on cond\u2019s arguments are met, cond is equivalent to the following: def cond(pred, true_branch, false_branch, operands): if pred: return true_branch(*operands) else: return false_branch(*operands) Parameters: pred (Union[bool, torch.Tensor]) \u2013 A boolean expression or a tensor with one element, indicating which branch function to apply. true_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. false_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. The true branch and false branch must have consistent input and outputs, meaning the inputs have to be the same, and the outputs have to be the same type and shape. Int output is also allowed. We\u2019ll make the output dynamic by turning it into a symint. operands (Tuple of possibly nested dict/list/tuple of torch.Tensor) \u2013 A tuple of inputs to the true/false functions. It can be empty if true_fn/false_fn doesn\u2019t require input. Defaults to (). Return type: Any Example: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) Restrictions: The conditional statement (aka pred) must meet one of the following constraints: It\u2019s a torch.Tensor with only one element, and torch.bool dtype It\u2019s a boolean expression, e.g. x.shape[0] \u003e 10 or x.dim() \u003e 1 and x.shape[1] \u003e 10 The branch function (aka true_fn/false_fn) must meet all of the following constraints: The function signature must match with operands. The function must return a tensor with the same metadata, e.g. shape, dtype, etc. The function cannot have in-place mutations on inputs or global variables. (Note: in-place tensor operations such as add_ for intermediate results are allowed in a branch)",
+       "articleBody": "torch.cond# torch.cond(pred, true_fn, false_fn, operands=())[source]# Conditionally applies true_fn or false_fn. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype cond is structured control flow operator. That is, it is like a Python if-statement, but has restrictions on true_fn, false_fn, and operands that enable it to be capturable using torch.compile and torch.export. Assuming the constraints on cond\u2019s arguments are met, cond is equivalent to the following: def cond(pred, true_branch, false_branch, operands): if pred: return true_branch(*operands) else: return false_branch(*operands) Parameters: pred (Union[bool, torch.Tensor]) \u2013 A boolean expression or a tensor with one element, indicating which branch function to apply. true_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. false_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. The true branch and false branch must have consistent input and outputs, meaning the inputs have to be the same, and the outputs have to be the same type and shape. Int output is also allowed. We\u2019ll make the output dynamic by turning it into a symint. operands (Tuple of possibly nested dict/list/tuple of torch.Tensor) \u2013 A tuple of inputs to the true/false functions. It can be empty if true_fn/false_fn doesn\u2019t require input. Defaults to (). Return type: Any Example: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) Restrictions: The conditional statement (aka pred) must meet one of the following constraints: It\u2019s a torch.Tensor with only one element, and torch.bool dtype It\u2019s a boolean expression, e.g. x.shape[0] \u003e 10 or x.dim() \u003e 1 and x.shape[1] \u003e 10 The branch function (aka true_fn/false_fn) must meet all of the following constraints: The function signature must match with operands. The function must return a tensor with the same metadata, e.g. shape, dtype, etc. The function cannot have in-place mutations on global variables. (Note: in-place tensor operations such as add_ for intermediate results are allowed in a branch) The function can perform in-place mutations on its input tensors. However, outputs will always be new tensors that do not share object identity with the original inputs. Example: def true_fn(x): return x.sin_() x = torch.randn(4) result = cond(x.shape[0] \u003e 2, true_fn, false_fn, (x,)) assert result is not x # result is a new tensor, not the original x",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
