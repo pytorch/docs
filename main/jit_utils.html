@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/jit_utils.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.utils.dlpack" href="dlpack.html" />
+    <link rel="next" title="torch.utils.jit.log_extract.run_baseline_no_fusion" href="generated/torch.utils.jit.log_extract.run_baseline_no_fusion.html" />
     <link rel="prev" title="torch.utils.deterministic" href="deterministic.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git48c8d4e )">
+<meta name="llm:version" content="main (2.12.0a0+gitca36c84 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git48c8d4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitca36c84 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3429,6 +3429,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.is_warn_always_enabled.html">torch.is_warn_always_enabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vmap.html">torch.vmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._assert.html">torch._assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.typename.html">torch.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_float.html">torch.sym_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_fresh_size.html">torch.sym_fresh_size</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_int.html">torch.sym_int</a></li>
@@ -4739,6 +4740,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.is_available.html">torch.mps.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.get_rng_state.html">torch.mps.get_rng_state</a></li>
@@ -4896,8 +4898,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4951,7 +4953,16 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="elastic/quickstart.html">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/train_script.html">Train script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/examples.html">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/agent.html">Elastic Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/multiprocessing.html">Multiprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/errors.html">Error Propagation</a></li>
@@ -5161,6 +5172,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.replay_shape_env_events.html">torch.fx.experimental.recording.replay_shape_env_events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
@@ -5913,12 +5925,15 @@ document.write(`
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">Benchmark Utils - torch.utils.benchmark</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">torch.utils.jit</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">JIT Utils - torch.utils.jit</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
@@ -6050,7 +6065,27 @@ document.write(`
                   
   <section id="module-torch.utils.jit">
 <span id="jit-utils-torch-utils-jit"></span><h1>JIT Utils - torch.utils.jit<a class="headerlink" href="#module-torch.utils.jit" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: Jun 26, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: Feb 24, 2026</p>
+</section>
+<section id="module-torch.utils.jit.log_extract">
+<span id="torch-utils-jit-log-extract"></span><h1>torch.utils.jit.log_extract<a class="headerlink" href="#module-torch.utils.jit.log_extract" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.utils.jit.log_extract.run_baseline_no_fusion"/><p id="torch.utils.jit.log_extract.run_baseline_no_fusion"/><a class="reference internal" href="generated/torch.utils.jit.log_extract.run_baseline_no_fusion.html#torch.utils.jit.log_extract.run_baseline_no_fusion" title="torch.utils.jit.log_extract.run_baseline_no_fusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_baseline_no_fusion</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.utils.jit.log_extract.run_nnc"/><p id="torch.utils.jit.log_extract.run_nnc"/><a class="reference internal" href="generated/torch.utils.jit.log_extract.run_nnc.html#torch.utils.jit.log_extract.run_nnc" title="torch.utils.jit.log_extract.run_nnc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_nnc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.utils.jit.log_extract.run_nvfuser"/><p id="torch.utils.jit.log_extract.run_nvfuser"/><a class="reference internal" href="generated/torch.utils.jit.log_extract.run_nvfuser.html#torch.utils.jit.log_extract.run_nvfuser" title="torch.utils.jit.log_extract.run_nvfuser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_nvfuser</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.utils.jit.log_extract.run_test"/><p id="torch.utils.jit.log_extract.run_test"/><a class="reference internal" href="generated/torch.utils.jit.log_extract.run_test.html#torch.utils.jit.log_extract.run_test" title="torch.utils.jit.log_extract.run_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_test</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 
 
@@ -6105,11 +6140,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="dlpack.html"
+       href="generated/torch.utils.jit.log_extract.run_baseline_no_fusion.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.utils.dlpack</p>
+        <p class="prev-next-title">torch.utils.jit.log_extract.run_baseline_no_fusion</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6144,11 +6179,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="dlpack.html"
+       href="generated/torch.utils.jit.log_extract.run_baseline_no_fusion.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.utils.dlpack</p>
+        <p class="prev-next-title">torch.utils.jit.log_extract.run_baseline_no_fusion</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6161,6 +6196,20 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">JIT Utils - torch.utils.jit</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.utils.jit.log_extract">torch.utils.jit.log_extract</a></li>
+</ul>
+
+  </nav></div>
     
        <div class="sidebar-secondary-item">
 
@@ -6411,7 +6460,7 @@ document.write(`
        "headline": "JIT Utils - torch.utils.jit",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/jit_utils.html",
-       "articleBody": "JIT Utils - torch.utils.jit# Created On: Jun 26, 2025 | Last Updated On: Jun 26, 2025",
+       "articleBody": "JIT Utils - torch.utils.jit# Created On: Jun 26, 2025 | Last Updated On: Feb 24, 2026 torch.utils.jit.log_extract# run_baseline_no_fusion run_nnc run_nvfuser run_test",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -6423,7 +6472,7 @@ document.write(`
          "@id": "/jit_utils.html"
        },
        "datePublished": "Jun 26, 2025T00:00:00Z",
-       "dateModified": "Jun 26, 2025T00:00:00Z"
+       "dateModified": "Feb 24, 2026T00:00:00Z"
      }
  </script>
   <script>

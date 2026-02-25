@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/mps.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.mps.device_count" href="generated/torch.mps.device_count.html" />
+    <link rel="next" title="torch.mps.is_available" href="generated/torch.mps.is_available.html" />
     <link rel="prev" title="Understanding CUDA Memory Usage" href="torch_cuda_memory.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git48c8d4e )">
+<meta name="llm:version" content="main (2.12.0a0+gitca36c84 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git48c8d4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitca36c84 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3429,6 +3429,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.is_warn_always_enabled.html">torch.is_warn_always_enabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vmap.html">torch.vmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._assert.html">torch._assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.typename.html">torch.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_float.html">torch.sym_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_fresh_size.html">torch.sym_fresh_size</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_int.html">torch.sym_int</a></li>
@@ -4739,6 +4740,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">torch.mps</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.is_available.html">torch.mps.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.get_rng_state.html">torch.mps.get_rng_state</a></li>
@@ -4896,8 +4898,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4951,7 +4953,16 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="elastic/quickstart.html">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/train_script.html">Train script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/examples.html">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/agent.html">Elastic Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/multiprocessing.html">Multiprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/errors.html">Error Propagation</a></li>
@@ -5161,6 +5172,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.replay_shape_env_events.html">torch.fx.experimental.recording.replay_shape_env_events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
@@ -5913,12 +5925,15 @@ document.write(`
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">Benchmark Utils - torch.utils.benchmark</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">JIT Utils - torch.utils.jit</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
@@ -6050,47 +6065,50 @@ document.write(`
                   
   <section id="module-torch.mps">
 <span id="torch-mps"></span><h1>torch.mps<a class="headerlink" href="#module-torch.mps" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 10, 2023 | Last Updated On: Jun 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 10, 2023 | Last Updated On: Feb 24, 2026</p>
 <p>This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python.
 Metal is Apple’s API for programming metal GPU (graphics processor unit). Using MPS means that increased
 performance can be achieved, by running work on the metal GPU(s).
 See <a class="reference external" href="https://developer.apple.com/documentation/metalperformanceshaders">https://developer.apple.com/documentation/metalperformanceshaders</a> for more details.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.mps.device_count"/><p id="torch.mps.device_count"/><a class="reference internal" href="generated/torch.mps.device_count.html#torch.mps.device_count" title="torch.mps.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.is_available"/><p id="torch.mps.is_available"/><a class="reference internal" href="generated/torch.mps.is_available.html#torch.mps.is_available" title="torch.mps.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.mps.device_count"/><p id="torch.mps.device_count"/><a class="reference internal" href="generated/torch.mps.device_count.html#torch.mps.device_count" title="torch.mps.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
 <td><p>Returns the number of available MPS devices.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.synchronize"/><p id="torch.mps.synchronize"/><a class="reference internal" href="generated/torch.mps.synchronize.html#torch.mps.synchronize" title="torch.mps.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.synchronize"/><p id="torch.mps.synchronize"/><a class="reference internal" href="generated/torch.mps.synchronize.html#torch.mps.synchronize" title="torch.mps.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Waits for all kernels in all streams on a MPS device to complete.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.get_rng_state"/><p id="torch.mps.get_rng_state"/><a class="reference internal" href="generated/torch.mps.get_rng_state.html#torch.mps.get_rng_state" title="torch.mps.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.get_rng_state"/><p id="torch.mps.get_rng_state"/><a class="reference internal" href="generated/torch.mps.get_rng_state.html#torch.mps.get_rng_state" title="torch.mps.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
 <td><p>Returns the random number generator state as a ByteTensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.set_rng_state"/><p id="torch.mps.set_rng_state"/><a class="reference internal" href="generated/torch.mps.set_rng_state.html#torch.mps.set_rng_state" title="torch.mps.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.set_rng_state"/><p id="torch.mps.set_rng_state"/><a class="reference internal" href="generated/torch.mps.set_rng_state.html#torch.mps.set_rng_state" title="torch.mps.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
 <td><p>Sets the random number generator state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.manual_seed"/><p id="torch.mps.manual_seed"/><a class="reference internal" href="generated/torch.mps.manual_seed.html#torch.mps.manual_seed" title="torch.mps.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.manual_seed"/><p id="torch.mps.manual_seed"/><a class="reference internal" href="generated/torch.mps.manual_seed.html#torch.mps.manual_seed" title="torch.mps.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
 <td><p>Sets the seed for generating random numbers.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.seed"/><p id="torch.mps.seed"/><a class="reference internal" href="generated/torch.mps.seed.html#torch.mps.seed" title="torch.mps.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.seed"/><p id="torch.mps.seed"/><a class="reference internal" href="generated/torch.mps.seed.html#torch.mps.seed" title="torch.mps.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
 <td><p>Sets the seed for generating random numbers to a random number.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.empty_cache"/><p id="torch.mps.empty_cache"/><a class="reference internal" href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache" title="torch.mps.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.empty_cache"/><p id="torch.mps.empty_cache"/><a class="reference internal" href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache" title="torch.mps.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
 <td><p>Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.set_per_process_memory_fraction"/><p id="torch.mps.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction" title="torch.mps.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.set_per_process_memory_fraction"/><p id="torch.mps.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction" title="torch.mps.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Set memory fraction for limiting process's memory allocation on MPS device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.current_allocated_memory"/><p id="torch.mps.current_allocated_memory"/><a class="reference internal" href="generated/torch.mps.current_allocated_memory.html#torch.mps.current_allocated_memory" title="torch.mps.current_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_allocated_memory</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.current_allocated_memory"/><p id="torch.mps.current_allocated_memory"/><a class="reference internal" href="generated/torch.mps.current_allocated_memory.html#torch.mps.current_allocated_memory" title="torch.mps.current_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_allocated_memory</span></code></a></p></td>
 <td><p>Returns the current GPU memory occupied by tensors in bytes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.driver_allocated_memory"/><p id="torch.mps.driver_allocated_memory"/><a class="reference internal" href="generated/torch.mps.driver_allocated_memory.html#torch.mps.driver_allocated_memory" title="torch.mps.driver_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_allocated_memory</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.driver_allocated_memory"/><p id="torch.mps.driver_allocated_memory"/><a class="reference internal" href="generated/torch.mps.driver_allocated_memory.html#torch.mps.driver_allocated_memory" title="torch.mps.driver_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_allocated_memory</span></code></a></p></td>
 <td><p>Returns total GPU memory allocated by Metal driver for the process in bytes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.recommended_max_memory"/><p id="torch.mps.recommended_max_memory"/><a class="reference internal" href="generated/torch.mps.recommended_max_memory.html#torch.mps.recommended_max_memory" title="torch.mps.recommended_max_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recommended_max_memory</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.recommended_max_memory"/><p id="torch.mps.recommended_max_memory"/><a class="reference internal" href="generated/torch.mps.recommended_max_memory.html#torch.mps.recommended_max_memory" title="torch.mps.recommended_max_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recommended_max_memory</span></code></a></p></td>
 <td><p>Returns recommended max Working set size for GPU memory in bytes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.compile_shader"/><p id="torch.mps.compile_shader"/><a class="reference internal" href="generated/torch.mps.compile_shader.html#torch.mps.compile_shader" title="torch.mps.compile_shader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile_shader</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.compile_shader"/><p id="torch.mps.compile_shader"/><a class="reference internal" href="generated/torch.mps.compile_shader.html#torch.mps.compile_shader" title="torch.mps.compile_shader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile_shader</span></code></a></p></td>
 <td><p>Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example.</p></td>
 </tr>
 </tbody>
@@ -6187,11 +6205,11 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.mps.device_count.html"
+       href="generated/torch.mps.is_available.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.mps.device_count</p>
+        <p class="prev-next-title">torch.mps.is_available</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6226,11 +6244,11 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.mps.device_count.html"
+       href="generated/torch.mps.is_available.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.mps.device_count</p>
+        <p class="prev-next-title">torch.mps.is_available</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6506,7 +6524,7 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
        "headline": "torch.mps",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mps.html",
-       "articleBody": "torch.mps# Created On: Feb 10, 2023 | Last Updated On: Jun 08, 2025 This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python. Metal is Apple\u2019s API for programming metal GPU (graphics processor unit). Using MPS means that increased performance can be achieved, by running work on the metal GPU(s). See https://developer.apple.com/documentation/metalperformanceshaders for more details. device_count Returns the number of available MPS devices. synchronize Waits for all kernels in all streams on a MPS device to complete. get_rng_state Returns the random number generator state as a ByteTensor. set_rng_state Sets the random number generator state. manual_seed Sets the seed for generating random numbers. seed Sets the seed for generating random numbers to a random number. empty_cache Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications. set_per_process_memory_fraction Set memory fraction for limiting process\u0027s memory allocation on MPS device. current_allocated_memory Returns the current GPU memory occupied by tensors in bytes. driver_allocated_memory Returns total GPU memory allocated by Metal driver for the process in bytes. recommended_max_memory Returns recommended max Working set size for GPU memory in bytes. compile_shader Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. MPS Profiler# profiler.start Start OS Signpost tracing from MPS backend. profiler.stop Stops generating OS Signpost tracing from MPS backend. profiler.profile Context Manager to enabling generating OS Signpost tracing from MPS backend. profiler.is_capturing_metal Checks if metal capture is in progress profiler.is_metal_capture_enabled Checks if metal_capture context manager is usable To enable metal capture, set MTL_CAPTURE_ENABLED envvar profiler.metal_capture Context manager that enables capturing of Metal calls into gputrace MPS Event# event.Event Wrapper around an MPS event.",
+       "articleBody": "torch.mps# Created On: Feb 10, 2023 | Last Updated On: Feb 24, 2026 This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python. Metal is Apple\u2019s API for programming metal GPU (graphics processor unit). Using MPS means that increased performance can be achieved, by running work on the metal GPU(s). See https://developer.apple.com/documentation/metalperformanceshaders for more details. is_available device_count Returns the number of available MPS devices. synchronize Waits for all kernels in all streams on a MPS device to complete. get_rng_state Returns the random number generator state as a ByteTensor. set_rng_state Sets the random number generator state. manual_seed Sets the seed for generating random numbers. seed Sets the seed for generating random numbers to a random number. empty_cache Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications. set_per_process_memory_fraction Set memory fraction for limiting process\u0027s memory allocation on MPS device. current_allocated_memory Returns the current GPU memory occupied by tensors in bytes. driver_allocated_memory Returns total GPU memory allocated by Metal driver for the process in bytes. recommended_max_memory Returns recommended max Working set size for GPU memory in bytes. compile_shader Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. MPS Profiler# profiler.start Start OS Signpost tracing from MPS backend. profiler.stop Stops generating OS Signpost tracing from MPS backend. profiler.profile Context Manager to enabling generating OS Signpost tracing from MPS backend. profiler.is_capturing_metal Checks if metal capture is in progress profiler.is_metal_capture_enabled Checks if metal_capture context manager is usable To enable metal capture, set MTL_CAPTURE_ENABLED envvar profiler.metal_capture Context manager that enables capturing of Metal calls into gputrace MPS Event# event.Event Wrapper around an MPS event.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -6518,7 +6536,7 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
          "@id": "/mps.html"
        },
        "datePublished": "Feb 10, 2023T00:00:00Z",
-       "dateModified": "Jun 08, 2025T00:00:00Z"
+       "dateModified": "Feb 24, 2026T00:00:00Z"
      }
  </script>
   <script>

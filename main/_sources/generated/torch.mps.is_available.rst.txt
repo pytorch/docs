@@ -1,0 +1,6 @@
+﻿torch.mps.is\_available
+=======================
+
+.. currentmodule:: torch.mps
+
+.. autofunction:: is_available

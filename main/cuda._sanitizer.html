@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git48c8d4e )">
+<meta name="llm:version" content="main (2.12.0a0+gitca36c84 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git48c8d4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitca36c84 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3429,6 +3429,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.is_warn_always_enabled.html">torch.is_warn_always_enabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vmap.html">torch.vmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._assert.html">torch._assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.typename.html">torch.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_float.html">torch.sym_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_fresh_size.html">torch.sym_fresh_size</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_int.html">torch.sym_int</a></li>
@@ -4739,6 +4740,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.is_available.html">torch.mps.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.get_rng_state.html">torch.mps.get_rng_state</a></li>
@@ -4896,8 +4898,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4951,7 +4953,16 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="elastic/quickstart.html">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/train_script.html">Train script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/examples.html">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="elastic/run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elastic/generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/agent.html">Elastic Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/multiprocessing.html">Multiprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic/errors.html">Error Propagation</a></li>
@@ -5161,6 +5172,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.replay_shape_env_events.html">torch.fx.experimental.recording.replay_shape_env_events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
@@ -5913,12 +5925,15 @@ document.write(`
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">Benchmark Utils - torch.utils.benchmark</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">JIT Utils - torch.utils.jit</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
@@ -6059,7 +6074,7 @@ document.write(`
                   
   <section id="cuda-stream-sanitizer">
 <h1>CUDA Stream Sanitizer<a class="headerlink" href="#cuda-stream-sanitizer" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 09, 2022 | Last Updated On: Oct 31, 2022</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 09, 2022 | Last Updated On: Feb 24, 2026</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a prototype feature, which means it is at an early stage
@@ -6162,12 +6177,32 @@ and the <code class="docutils literal notranslate"><span class="pre">output</spa
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.enable_cuda_sanitizer">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/48c8d4ebce348cb359f1bbd90fcbbd6c1177498a/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca36c84c34589f26f98510addb89ad3e20acfe8b/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
 <dd><p>Enable CUDA Sanitizer.</p>
 <p>The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions
 for synchronization errors. All data races found will be printed to the standard
 error output along with stack traces of suspected causes. For best results, the
 sanitizer should be enabled at the very beginning of the program.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_arguments">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca36c84c34589f26f98510addb89ad3e20acfe8b/torch/cuda/_sanitizer.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_arguments" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>Argument</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_by_key">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca36c84c34589f26f98510addb89ad3e20acfe8b/torch/cuda/_sanitizer.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_by_key" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>TK</em>, <em>TVa</em>, <em>TVb</em>]]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -6294,6 +6329,8 @@ sanitizer should be enabled at the very beginning of the program.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda._sanitizer.enable_cuda_sanitizer"><code class="docutils literal notranslate"><span class="pre">enable_cuda_sanitizer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda._sanitizer.zip_arguments"><code class="docutils literal notranslate"><span class="pre">zip_arguments()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda._sanitizer.zip_by_key"><code class="docutils literal notranslate"><span class="pre">zip_by_key()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -6548,7 +6585,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
        "headline": "CUDA Stream Sanitizer",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/cuda._sanitizer.html",
-       "articleBody": "CUDA Stream Sanitizer# Created On: Sep 09, 2022 | Last Updated On: Oct 31, 2022 Note This is a prototype feature, which means it is at an early stage for feedback and testing, and its components are subject to change. Overview# This module introduces CUDA Sanitizer, a tool for detecting synchronization errors between kernels ran on different streams. It stores information on accesses to tensors to determine if they are synchronized or not. When enabled in a python program and a possible data race is detected, a detailed warning will be printed and the program will exit. It can be enabled either by importing this module and calling enable_cuda_sanitizer() or by exporting the TORCH_CUDA_SANITIZER environment variable. Usage# Here is an example of a simple synchronization error in PyTorch: import torch a = torch.rand(4, 2, device=\"cuda\") with torch.cuda.stream(torch.cuda.Stream()): torch.mul(a, 5, out=a) The a tensor is initialized on the default stream and, without any synchronization methods, modified on a new stream. The two kernels will run concurrently on the same tensor, which might cause the second kernel to read uninitialized data before the first one was able to write it, or the first kernel might overwrite part of the result of the second. When this script is run on the commandline with: TORCH_CUDA_SANITIZER=1 python example_error.py the following output is printed by CSAN: ============================ CSAN detected a possible data race on tensor with data pointer 139719969079296 Access by stream 94646435460352 during kernel: aten::mul.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) writing to argument(s) self, out, and to the output With stack trace: File \"example_error.py\", line 6, in \u003cmodule\u003e torch.mul(a, 5, out=a) ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Previous access by stream 0 during kernel: aten::rand(int[] size, *, int? dtype=None, Device? device=None) -\u003e Tensor writing to the output With stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Tensor was allocated with stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 420, in _handle_memory_allocation traceback.StackSummary.extract( This gives extensive insight into the origin of the error: A tensor was incorrectly accessed from streams with ids: 0 (default stream) and 94646435460352 (new stream) The tensor was allocated by invoking a = torch.rand(10000, device=\"cuda\") The faulty accesses were caused by operators a = torch.rand(10000, device=\"cuda\") on stream 0 torch.mul(a, 5, out=a) on stream 94646435460352 The error message also displays the schemas of the invoked operators, along with a note showing which arguments of the operators correspond to the affected tensor. In the example, it can be seen that tensor a corresponds to arguments self, out and the output value of the invoked operator torch.mul. See also The list of supported torch operators and their schemas can be viewed here. The bug can be fixed by forcing the new stream to wait for the default stream: with torch.cuda.stream(torch.cuda.Stream()): torch.cuda.current_stream().wait_stream(torch.cuda.default_stream()) torch.mul(a, 5, out=a) When the script is run again, there are no errors reported. API Reference# torch.cuda._sanitizer.enable_cuda_sanitizer()[source]# Enable CUDA Sanitizer. The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions for synchronization errors. All data races found will be printed to the standard error output along with stack traces of suspected causes. For best results, the sanitizer should be enabled at the very beginning of the program.",
+       "articleBody": "CUDA Stream Sanitizer# Created On: Sep 09, 2022 | Last Updated On: Feb 24, 2026 Note This is a prototype feature, which means it is at an early stage for feedback and testing, and its components are subject to change. Overview# This module introduces CUDA Sanitizer, a tool for detecting synchronization errors between kernels ran on different streams. It stores information on accesses to tensors to determine if they are synchronized or not. When enabled in a python program and a possible data race is detected, a detailed warning will be printed and the program will exit. It can be enabled either by importing this module and calling enable_cuda_sanitizer() or by exporting the TORCH_CUDA_SANITIZER environment variable. Usage# Here is an example of a simple synchronization error in PyTorch: import torch a = torch.rand(4, 2, device=\"cuda\") with torch.cuda.stream(torch.cuda.Stream()): torch.mul(a, 5, out=a) The a tensor is initialized on the default stream and, without any synchronization methods, modified on a new stream. The two kernels will run concurrently on the same tensor, which might cause the second kernel to read uninitialized data before the first one was able to write it, or the first kernel might overwrite part of the result of the second. When this script is run on the commandline with: TORCH_CUDA_SANITIZER=1 python example_error.py the following output is printed by CSAN: ============================ CSAN detected a possible data race on tensor with data pointer 139719969079296 Access by stream 94646435460352 during kernel: aten::mul.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) writing to argument(s) self, out, and to the output With stack trace: File \"example_error.py\", line 6, in \u003cmodule\u003e torch.mul(a, 5, out=a) ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Previous access by stream 0 during kernel: aten::rand(int[] size, *, int? dtype=None, Device? device=None) -\u003e Tensor writing to the output With stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Tensor was allocated with stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 420, in _handle_memory_allocation traceback.StackSummary.extract( This gives extensive insight into the origin of the error: A tensor was incorrectly accessed from streams with ids: 0 (default stream) and 94646435460352 (new stream) The tensor was allocated by invoking a = torch.rand(10000, device=\"cuda\") The faulty accesses were caused by operators a = torch.rand(10000, device=\"cuda\") on stream 0 torch.mul(a, 5, out=a) on stream 94646435460352 The error message also displays the schemas of the invoked operators, along with a note showing which arguments of the operators correspond to the affected tensor. In the example, it can be seen that tensor a corresponds to arguments self, out and the output value of the invoked operator torch.mul. See also The list of supported torch operators and their schemas can be viewed here. The bug can be fixed by forcing the new stream to wait for the default stream: with torch.cuda.stream(torch.cuda.Stream()): torch.cuda.current_stream().wait_stream(torch.cuda.default_stream()) torch.mul(a, 5, out=a) When the script is run again, there are no errors reported. API Reference# torch.cuda._sanitizer.enable_cuda_sanitizer()[source]# Enable CUDA Sanitizer. The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions for synchronization errors. All data races found will be printed to the standard error output along with stack traces of suspected causes. For best results, the sanitizer should be enabled at the very beginning of the program. torch.cuda._sanitizer.zip_arguments(schema, args, kwargs)[source]# Return type: Iterator[tuple[Argument, Any]] torch.cuda._sanitizer.zip_by_key(a, b)[source]# Return type: Iterator[tuple[TK, TVa, TVb]]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -6560,7 +6597,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
          "@id": "/cuda._sanitizer.html"
        },
        "datePublished": "Sep 09, 2022T00:00:00Z",
-       "dateModified": "Oct 31, 2022T00:00:00Z"
+       "dateModified": "Feb 24, 2026T00:00:00Z"
      }
  </script>
   <script>

@@ -1,0 +1,6 @@
+﻿torch.utils.benchmark.examples.spectral\_ops\_fuzz\_test.run\_benchmark
+=======================================================================
+
+.. currentmodule:: torch.utils.benchmark.examples.spectral_ops_fuzz_test
+
+.. autofunction:: run_benchmark
