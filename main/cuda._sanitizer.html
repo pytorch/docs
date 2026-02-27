@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git7dcfccf )">
+<meta name="llm:version" content="main (2.12.0a0+git4802e2a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7dcfccf )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git4802e2a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6177,7 +6177,7 @@ and the <code class="docutils literal notranslate"><span class="pre">output</spa
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.enable_cuda_sanitizer">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7dcfccfb7233e4a61f6abf0c0808a6fb03a50004/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4802e2ae96bf7b97aec6a7b733e19e2b44f15026/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
 <dd><p>Enable CUDA Sanitizer.</p>
 <p>The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions
 for synchronization errors. All data races found will be printed to the standard
@@ -6187,7 +6187,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_arguments">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7dcfccfb7233e4a61f6abf0c0808a6fb03a50004/torch/cuda/_sanitizer.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_arguments" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4802e2ae96bf7b97aec6a7b733e19e2b44f15026/torch/cuda/_sanitizer.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_arguments" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>Argument</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
@@ -6197,7 +6197,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_by_key">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7dcfccfb7233e4a61f6abf0c0808a6fb03a50004/torch/cuda/_sanitizer.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_by_key" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4802e2ae96bf7b97aec6a7b733e19e2b44f15026/torch/cuda/_sanitizer.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_by_key" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>TK</em>, <em>TVa</em>, <em>TVb</em>]]</p>
