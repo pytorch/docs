@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitac7111b )">
+<meta name="llm:version" content="main (2.12.0a0+git6ca50f5 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitac7111b )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6ca50f5 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6076,7 +6076,7 @@ document.write(`
 <h1>GreenContext<a class="headerlink" href="#greencontext" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/cuda/green_contexts.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/cuda/green_contexts.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA green context.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -6084,7 +6084,7 @@ document.write(`
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.Stream">
-<span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/cuda/green_contexts.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.Stream" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/cuda/green_contexts.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.Stream" title="Link to this definition">#</a></dt>
 <dd><p>Return the CUDA Stream used by the green context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6095,7 +6095,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.create">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_sms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/cuda/green_contexts.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_sms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/cuda/green_contexts.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
 <dd><p>Create a CUDA green context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6112,7 +6112,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.pop_context">
-<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/cuda/green_contexts.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/cuda/green_contexts.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
 <dd><p>Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.</p>
 <dl class="field-list simple">
@@ -6121,7 +6121,7 @@ context stack and restore the previous context.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.set_context">
-<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/cuda/green_contexts.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/cuda/green_contexts.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
 <dd><p>Make the green context the current context.</p>
 <dl class="field-list simple">
 </dl>

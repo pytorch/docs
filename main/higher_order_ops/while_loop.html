@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitac7111b )">
+<meta name="llm:version" content="main (2.12.0a0+git6ca50f5 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitac7111b )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6ca50f5 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6210,7 +6210,7 @@ the top-level graph module.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.while_loop.while_loop">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ac7111b87ca5d62fcac772c648c255b555098f09/torch/_higher_order_ops/while_loop.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ca50f5ca4000d9cbbcef4593d81900d4eb14c3f/torch/_higher_order_ops/while_loop.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">body_fn(*carried_inputs)</span></code> while <code class="docutils literal notranslate"><span class="pre">cond_fn(*carried_inputs)</span></code> returns
 a True scalar tensor. Returns the output of body_fn or initial
 carried_inputs.</p>
