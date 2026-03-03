@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitebd456c )">
+<meta name="llm:version" content="main (2.12.0a0+git7109d38 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitebd456c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7109d38 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3437,6 +3437,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_min.html">torch.sym_min</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_not.html">torch.sym_not</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_ite.html">torch.sym_ite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_sqrt.html">torch.sym_sqrt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_sum.html">torch.sym_sum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compile.html">torch.compile</a></li>
@@ -4898,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4984,7 +4985,12 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="distributions.html">torch.distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.logits_to_probs.html">torch.distributions.utils.logits_to_probs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.probs_to_logits.html">torch.distributions.utils.probs_to_logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.vec_to_tril_matrix.html">torch.distributions.utils.vec_to_tril_matrix</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="torch.compiler_api.html">torch.compiler</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.compile.html">torch.compiler.compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.reset.html">torch.compiler.reset</a></li>
@@ -5058,7 +5064,17 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="fx.html">torch.fx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.annotate.annotate.html">torch.fx.annotate.annotate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.has_side_effect.html">torch.fx.node.has_side_effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.map_aggregate.html">torch.fx.node.map_aggregate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.map_arg.html">torch.fx.node.map_arg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.check_for_mutable_operation.html">torch.fx.operator_schemas.check_for_mutable_operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.create_type_hint.html">torch.fx.operator_schemas.create_type_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.type_matches.html">torch.fx.operator_schemas.type_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.traceback.annotate_fn.html">torch.fx.traceback.annotate_fn</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.sym_node.is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.sym_node.is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_3d</a></li>
@@ -5149,6 +5165,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.dispatch_trace.html">torch.fx.experimental.proxy_tensor.dispatch_trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.extract_val.html">torch.fx.experimental.proxy_tensor.extract_val</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.fake_signature.html">torch.fx.experimental.proxy_tensor.fake_signature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.fetch_object_proxy.html">torch.fx.experimental.proxy_tensor.fetch_object_proxy</a></li>
@@ -5162,6 +5179,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.extract_subgraph.html">torch.fx.experimental.optimization.extract_subgraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.matches_module_pattern.html">torch.fx.experimental.optimization.matches_module_pattern</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.modules_to_mkldnn.html">torch.fx.experimental.optimization.modules_to_mkldnn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.optimize_for_inference.html">torch.fx.experimental.optimization.optimize_for_inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.remove_dropout.html">torch.fx.experimental.optimization.remove_dropout</a></li>
@@ -5173,10 +5191,15 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.expand_tuples.html">torch.fx.experimental.unification.multipledispatch.utils.expand_tuples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.groupby.html">torch.fx.experimental.unification.multipledispatch.utils.groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.raises.html">torch.fx.experimental.unification.multipledispatch.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.reverse_dict.html">torch.fx.experimental.unification.multipledispatch.utils.reverse_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.first.html">torch.fx.experimental.unification.unification_tools.first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.groupby.html">torch.fx.experimental.unification.unification_tools.groupby</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.keyfilter.html">torch.fx.experimental.unification.unification_tools.keyfilter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.keymap.html">torch.fx.experimental.unification.unification_tools.keymap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.merge.html">torch.fx.experimental.unification.unification_tools.merge</a></li>
@@ -5254,6 +5277,60 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_nn_relu_override.html">torch.fx.experimental.meta_tracer.torch_nn_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_relu_override.html">torch.fx.experimental.meta_tracer.torch_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_where_override.html">torch.fx.experimental.meta_tracer.torch_where_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.check_dependency.html">torch.fx.experimental.accelerator_partitioner.check_dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.combine_two_partitions.html">torch.fx.experimental.accelerator_partitioner.combine_two_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.reorganize_partitions.html">torch.fx.experimental.accelerator_partitioner.reorganize_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.reset_partition_device.html">torch.fx.experimental.accelerator_partitioner.reset_partition_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.set_parents_and_children.html">torch.fx.experimental.accelerator_partitioner.set_parents_and_children</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.debug.set_trace.html">torch.fx.experimental.debug.set_trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.are_nodes_independent.html">torch.fx.experimental.merge_matmul.are_nodes_independent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.may_depend_on.html">torch.fx.experimental.merge_matmul.may_depend_on</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.merge_matmul.html">torch.fx.experimental.merge_matmul.merge_matmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.edge.html">torch.fx.experimental.unification.match.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.match.html">torch.fx.experimental.unification.match.match</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.ordering.html">torch.fx.experimental.unification.match.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.supercedes.html">torch.fx.experimental.unification.match.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.reify_object.html">torch.fx.experimental.unification.more.reify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.unifiable.html">torch.fx.experimental.unification.more.unifiable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.unify_object.html">torch.fx.experimental.unification.more.unify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ambiguities.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ambiguous.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.consistent.html">torch.fx.experimental.unification.multipledispatch.conflict.consistent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.edge.html">torch.fx.experimental.unification.multipledispatch.conflict.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ordering.html">torch.fx.experimental.unification.multipledispatch.conflict.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.super_signature.html">torch.fx.experimental.unification.multipledispatch.conflict.super_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.supercedes.html">torch.fx.experimental.unification.multipledispatch.conflict.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.core.dispatch.html">torch.fx.experimental.unification.multipledispatch.core.dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.core.ismethod.html">torch.fx.experimental.unification.multipledispatch.core.ismethod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn.html">torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.source.html">torch.fx.experimental.unification.multipledispatch.dispatcher.source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature.html">torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text.html">torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.variadic.isvariadic.html">torch.fx.experimental.unification.multipledispatch.variadic.isvariadic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.freeze.html">torch.fx.experimental.unification.utils.freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.hashable.html">torch.fx.experimental.unification.utils.hashable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.raises.html">torch.fx.experimental.unification.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.reverse_dict.html">torch.fx.experimental.unification.utils.reverse_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.transitive_get.html">torch.fx.experimental.unification.utils.transitive_get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.xfail.html">torch.fx.experimental.unification.utils.xfail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.var.html">torch.fx.experimental.unification.variable.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.variables.html">torch.fx.experimental.unification.variable.variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.vars.html">torch.fx.experimental.unification.variable.vars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.check_for_type_equality.html">torch.fx.experimental.unify_refinements.check_for_type_equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.infer_symbolic_types.html">torch.fx.experimental.unify_refinements.infer_symbolic_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass.html">torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.substitute_all_types.html">torch.fx.experimental.unify_refinements.substitute_all_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.substitute_solution_one_type.html">torch.fx.experimental.unify_refinements.substitute_solution_one_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.unify_eq.html">torch.fx.experimental.unify_refinements.unify_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.bisect.html">torch.fx.experimental.validator.bisect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.translation_validation_enabled.html">torch.fx.experimental.validator.translation_validation_enabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.translation_validation_timeout.html">torch.fx.experimental.validator.translation_validation_timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.z3op.html">torch.fx.experimental.validator.z3op</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.z3str.html">torch.fx.experimental.validator.z3str</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
@@ -5567,6 +5644,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_weight_only_qconfig.html">default_weight_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_activation_only_qconfig.html">default_activation_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_qat_qconfig_v2.html">default_qat_qconfig_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantization_mappings.no_observer_set.html">no_observer_set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU1d.html">ConvReLU1d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU2d.html">ConvReLU2d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU3d.html">ConvReLU3d</a></li>
@@ -6065,7 +6143,7 @@ document.write(`
                   
   <section id="module-torch.utils">
 <span id="torch-utils"></span><h1>torch.utils<a class="headerlink" href="#module-torch.utils" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 21, 2023 | Last Updated On: Feb 24, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 21, 2023 | Last Updated On: Mar 02, 2026</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><p id="torch.utils.rename_privateuse1_backend"/><p id="torch.utils.rename_privateuse1_backend"/><a class="reference internal" href="generated/torch.utils.rename_privateuse1_backend.html#torch.utils.rename_privateuse1_backend" title="torch.utils.rename_privateuse1_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_privateuse1_backend</span></code></a></p></td>
@@ -6230,6 +6308,12 @@ document.write(`
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.utils.hipify.hipify_python.is_special_file"/><p id="torch.utils.hipify.hipify_python.is_special_file"/><a class="reference internal" href="generated/torch.utils.hipify.hipify_python.is_special_file.html#torch.utils.hipify.hipify_python.is_special_file" title="torch.utils.hipify.hipify_python.is_special_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_special_file</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.utils.hipify.hipify_python.match_extensions"/><p id="torch.utils.hipify.hipify_python.match_extensions"/><a class="reference internal" href="generated/torch.utils.hipify.hipify_python.match_extensions.html#torch.utils.hipify.hipify_python.match_extensions" title="torch.utils.hipify.hipify_python.match_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_extensions</span></code></a></p></td>
+<td><p>Helper method to see if filename ends with certain extension</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.utils.hipify.hipify_python.matched_files_iter"/><p id="torch.utils.hipify.hipify_python.matched_files_iter"/><a class="reference internal" href="generated/torch.utils.hipify.hipify_python.matched_files_iter.html#torch.utils.hipify.hipify_python.matched_files_iter" title="torch.utils.hipify.hipify_python.matched_files_iter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matched_files_iter</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><p id="torch.utils.hipify.hipify_python.openf"/><p id="torch.utils.hipify.hipify_python.openf"/><a class="reference internal" href="generated/torch.utils.hipify.hipify_python.openf.html#torch.utils.hipify.hipify_python.openf" title="torch.utils.hipify.hipify_python.openf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openf</span></code></a></p></td>
@@ -6634,7 +6718,7 @@ for tracking purposes -->
        "headline": "torch.utils",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/utils.html",
-       "articleBody": "torch.utils# Created On: Jul 21, 2023 | Last Updated On: Feb 24, 2026 rename_privateuse1_backend Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. generate_methods_for_privateuse1_backend Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. get_cpp_backtrace Return a string containing the C++ stack trace of the current thread. set_module Set the module attribute on a python object for a given object for nicer printing swap_tensors This function swaps the content of the two Tensor objects. torch.utils.collect_env# check_release_file is_xnnpack_available main pretty_str run Return (return-code, stdout, stderr). run_and_parse_first_match Run command using run_lambda, returns the first regex match if it exists. run_and_read_all Run command using run_lambda; reads and returns entire output if rc is 0. run_and_return_first_line Run command using run_lambda and returns first line if output is not empty. torch.utils.flop_counter# baddbmm_flop Count flops for the baddbmm operation. bmm_flop Count flops for the bmm operation. conv_backward_flop conv_flop Count flops for convolution. conv_flop_count Count flops for convolution. register_flop_formula sdpa_backward_flop Count flops for self-attention backward. sdpa_backward_flop_count sdpa_flop Count flops for self-attention. sdpa_flop_count Count flops for self-attention. shape_wrapper torch.utils.hipify.hipify_python# The Python Hipify script. ## # Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved. # 2017-2018 Advanced Micro Devices, Inc. and # Facebook Inc. All rights reserved. # # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documentation files (the \u201cSoftware\u201d), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to whom the Software is # furnished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. compute_stats extract_arguments Return the list of arguments in the upcoming function parameter closure. file_add_header file_specific_replacement find_bracket_group Finds the first balanced parentheses. find_closure_group Generalization for finding a balancing closure group find_parentheses_group Finds the first balanced bracket. fix_static_global_kernels Static global kernels in HIP results in a compilation error. hip_header_magic If the file makes kernel builtin calls and does not include the cuda_runtime.h header, then automatically add an #include to match the \"magic\" includes provided by NVCC. hipify is_caffe2_gpu_file is_cusparse_file is_out_of_place is_pytorch_file is_special_file openf preprocess_file_and_save_result preprocessor Executes the CUDA -\u003e HIP conversion on the specified file. processKernelLaunches Replace the CUDA style Kernel launches with the HIP style kernel launches. replace_extern_shared Match \u0027extern __shared__ type foo[];\u0027 syntax and use HIP_DYNAMIC_SHARED() MACRO instead. replace_math_functions FIXME: Temporarily replace std:: invocations of math functions with non-std:: versions to prevent linker errors NOTE: This can lead to correctness issues when running tests, since the correct version of the math function (exp/expf) might not get called. str2bool ArgumentParser doesn\u0027t support type=bool.",
+       "articleBody": "torch.utils# Created On: Jul 21, 2023 | Last Updated On: Mar 02, 2026 rename_privateuse1_backend Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. generate_methods_for_privateuse1_backend Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. get_cpp_backtrace Return a string containing the C++ stack trace of the current thread. set_module Set the module attribute on a python object for a given object for nicer printing swap_tensors This function swaps the content of the two Tensor objects. torch.utils.collect_env# check_release_file is_xnnpack_available main pretty_str run Return (return-code, stdout, stderr). run_and_parse_first_match Run command using run_lambda, returns the first regex match if it exists. run_and_read_all Run command using run_lambda; reads and returns entire output if rc is 0. run_and_return_first_line Run command using run_lambda and returns first line if output is not empty. torch.utils.flop_counter# baddbmm_flop Count flops for the baddbmm operation. bmm_flop Count flops for the bmm operation. conv_backward_flop conv_flop Count flops for convolution. conv_flop_count Count flops for convolution. register_flop_formula sdpa_backward_flop Count flops for self-attention backward. sdpa_backward_flop_count sdpa_flop Count flops for self-attention. sdpa_flop_count Count flops for self-attention. shape_wrapper torch.utils.hipify.hipify_python# The Python Hipify script. ## # Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved. # 2017-2018 Advanced Micro Devices, Inc. and # Facebook Inc. All rights reserved. # # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documentation files (the \u201cSoftware\u201d), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to whom the Software is # furnished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. compute_stats extract_arguments Return the list of arguments in the upcoming function parameter closure. file_add_header file_specific_replacement find_bracket_group Finds the first balanced parentheses. find_closure_group Generalization for finding a balancing closure group find_parentheses_group Finds the first balanced bracket. fix_static_global_kernels Static global kernels in HIP results in a compilation error. hip_header_magic If the file makes kernel builtin calls and does not include the cuda_runtime.h header, then automatically add an #include to match the \"magic\" includes provided by NVCC. hipify is_caffe2_gpu_file is_cusparse_file is_out_of_place is_pytorch_file is_special_file match_extensions Helper method to see if filename ends with certain extension matched_files_iter openf preprocess_file_and_save_result preprocessor Executes the CUDA -\u003e HIP conversion on the specified file. processKernelLaunches Replace the CUDA style Kernel launches with the HIP style kernel launches. replace_extern_shared Match \u0027extern __shared__ type foo[];\u0027 syntax and use HIP_DYNAMIC_SHARED() MACRO instead. replace_math_functions FIXME: Temporarily replace std:: invocations of math functions with non-std:: versions to prevent linker errors NOTE: This can lead to correctness issues when running tests, since the correct version of the math function (exp/expf) might not get called. str2bool ArgumentParser doesn\u0027t support type=bool.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -6646,7 +6730,7 @@ for tracking purposes -->
          "@id": "/utils.html"
        },
        "datePublished": "Jul 21, 2023T00:00:00Z",
-       "dateModified": "Feb 24, 2026T00:00:00Z"
+       "dateModified": "Mar 02, 2026T00:00:00Z"
      }
  </script>
   <script>

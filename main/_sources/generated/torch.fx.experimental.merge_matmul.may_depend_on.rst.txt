@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.merge\_matmul.may\_depend\_on
+===================================================
+
+.. currentmodule:: torch.fx.experimental.merge_matmul
+
+.. autofunction:: may_depend_on

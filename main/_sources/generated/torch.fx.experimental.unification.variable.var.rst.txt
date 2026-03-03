@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.variable.var
+==============================================
+
+.. currentmodule:: torch.fx.experimental.unification.variable
+
+.. autofunction:: var

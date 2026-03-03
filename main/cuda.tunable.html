@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitebd456c )">
+<meta name="llm:version" content="main (2.12.0a0+git7109d38 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitebd456c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7109d38 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3437,6 +3437,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_min.html">torch.sym_min</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_not.html">torch.sym_not</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_ite.html">torch.sym_ite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_sqrt.html">torch.sym_sqrt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.sym_sum.html">torch.sym_sum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compile.html">torch.compile</a></li>
@@ -4898,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4984,7 +4985,12 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="distributions.html">torch.distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.logits_to_probs.html">torch.distributions.utils.logits_to_probs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.probs_to_logits.html">torch.distributions.utils.probs_to_logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.utils.vec_to_tril_matrix.html">torch.distributions.utils.vec_to_tril_matrix</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="torch.compiler_api.html">torch.compiler</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.compile.html">torch.compiler.compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.reset.html">torch.compiler.reset</a></li>
@@ -5058,7 +5064,17 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="fx.html">torch.fx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.annotate.annotate.html">torch.fx.annotate.annotate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.has_side_effect.html">torch.fx.node.has_side_effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.map_aggregate.html">torch.fx.node.map_aggregate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.node.map_arg.html">torch.fx.node.map_arg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.check_for_mutable_operation.html">torch.fx.operator_schemas.check_for_mutable_operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.create_type_hint.html">torch.fx.operator_schemas.create_type_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.operator_schemas.type_matches.html">torch.fx.operator_schemas.type_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.traceback.annotate_fn.html">torch.fx.traceback.annotate_fn</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.sym_node.is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.sym_node.is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_3d</a></li>
@@ -5149,6 +5165,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.dispatch_trace.html">torch.fx.experimental.proxy_tensor.dispatch_trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.extract_val.html">torch.fx.experimental.proxy_tensor.extract_val</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.fake_signature.html">torch.fx.experimental.proxy_tensor.fake_signature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.fetch_object_proxy.html">torch.fx.experimental.proxy_tensor.fetch_object_proxy</a></li>
@@ -5162,6 +5179,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.extract_subgraph.html">torch.fx.experimental.optimization.extract_subgraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.matches_module_pattern.html">torch.fx.experimental.optimization.matches_module_pattern</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.modules_to_mkldnn.html">torch.fx.experimental.optimization.modules_to_mkldnn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.optimize_for_inference.html">torch.fx.experimental.optimization.optimize_for_inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.optimization.remove_dropout.html">torch.fx.experimental.optimization.remove_dropout</a></li>
@@ -5173,10 +5191,15 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.expand_tuples.html">torch.fx.experimental.unification.multipledispatch.utils.expand_tuples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.groupby.html">torch.fx.experimental.unification.multipledispatch.utils.groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.raises.html">torch.fx.experimental.unification.multipledispatch.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.utils.reverse_dict.html">torch.fx.experimental.unification.multipledispatch.utils.reverse_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.first.html">torch.fx.experimental.unification.unification_tools.first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.groupby.html">torch.fx.experimental.unification.unification_tools.groupby</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.keyfilter.html">torch.fx.experimental.unification.unification_tools.keyfilter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.keymap.html">torch.fx.experimental.unification.unification_tools.keymap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.unification_tools.merge.html">torch.fx.experimental.unification.unification_tools.merge</a></li>
@@ -5254,6 +5277,60 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_nn_relu_override.html">torch.fx.experimental.meta_tracer.torch_nn_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_relu_override.html">torch.fx.experimental.meta_tracer.torch_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.meta_tracer.torch_where_override.html">torch.fx.experimental.meta_tracer.torch_where_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.check_dependency.html">torch.fx.experimental.accelerator_partitioner.check_dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.combine_two_partitions.html">torch.fx.experimental.accelerator_partitioner.combine_two_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.reorganize_partitions.html">torch.fx.experimental.accelerator_partitioner.reorganize_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.reset_partition_device.html">torch.fx.experimental.accelerator_partitioner.reset_partition_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.accelerator_partitioner.set_parents_and_children.html">torch.fx.experimental.accelerator_partitioner.set_parents_and_children</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.debug.set_trace.html">torch.fx.experimental.debug.set_trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.are_nodes_independent.html">torch.fx.experimental.merge_matmul.are_nodes_independent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.may_depend_on.html">torch.fx.experimental.merge_matmul.may_depend_on</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.merge_matmul.merge_matmul.html">torch.fx.experimental.merge_matmul.merge_matmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.edge.html">torch.fx.experimental.unification.match.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.match.html">torch.fx.experimental.unification.match.match</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.ordering.html">torch.fx.experimental.unification.match.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.match.supercedes.html">torch.fx.experimental.unification.match.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.reify_object.html">torch.fx.experimental.unification.more.reify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.unifiable.html">torch.fx.experimental.unification.more.unifiable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.more.unify_object.html">torch.fx.experimental.unification.more.unify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ambiguities.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ambiguous.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.consistent.html">torch.fx.experimental.unification.multipledispatch.conflict.consistent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.edge.html">torch.fx.experimental.unification.multipledispatch.conflict.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.ordering.html">torch.fx.experimental.unification.multipledispatch.conflict.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.super_signature.html">torch.fx.experimental.unification.multipledispatch.conflict.super_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.conflict.supercedes.html">torch.fx.experimental.unification.multipledispatch.conflict.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.core.dispatch.html">torch.fx.experimental.unification.multipledispatch.core.dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.core.ismethod.html">torch.fx.experimental.unification.multipledispatch.core.ismethod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn.html">torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.source.html">torch.fx.experimental.unification.multipledispatch.dispatcher.source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature.html">torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text.html">torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.multipledispatch.variadic.isvariadic.html">torch.fx.experimental.unification.multipledispatch.variadic.isvariadic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.freeze.html">torch.fx.experimental.unification.utils.freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.hashable.html">torch.fx.experimental.unification.utils.hashable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.raises.html">torch.fx.experimental.unification.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.reverse_dict.html">torch.fx.experimental.unification.utils.reverse_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.transitive_get.html">torch.fx.experimental.unification.utils.transitive_get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.utils.xfail.html">torch.fx.experimental.unification.utils.xfail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.var.html">torch.fx.experimental.unification.variable.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.variables.html">torch.fx.experimental.unification.variable.variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unification.variable.vars.html">torch.fx.experimental.unification.variable.vars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.check_for_type_equality.html">torch.fx.experimental.unify_refinements.check_for_type_equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.infer_symbolic_types.html">torch.fx.experimental.unify_refinements.infer_symbolic_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass.html">torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.substitute_all_types.html">torch.fx.experimental.unify_refinements.substitute_all_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.substitute_solution_one_type.html">torch.fx.experimental.unify_refinements.substitute_solution_one_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.unify_refinements.unify_eq.html">torch.fx.experimental.unify_refinements.unify_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.bisect.html">torch.fx.experimental.validator.bisect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.translation_validation_enabled.html">torch.fx.experimental.validator.translation_validation_enabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.translation_validation_timeout.html">torch.fx.experimental.validator.translation_validation_timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.z3op.html">torch.fx.experimental.validator.z3op</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.validator.z3str.html">torch.fx.experimental.validator.z3str</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
@@ -5567,6 +5644,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_weight_only_qconfig.html">default_weight_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_activation_only_qconfig.html">default_activation_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.qconfig.default_qat_qconfig_v2.html">default_qat_qconfig_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantization_mappings.no_observer_set.html">no_observer_set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU1d.html">ConvReLU1d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU2d.html">ConvReLU2d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.intrinsic.ConvReLU3d.html">ConvReLU3d</a></li>
@@ -6242,7 +6320,7 @@ Use the C++ or Python APIs instead.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.enable" title="Link to this definition">#</a></dt>
 <dd><p>This is the big on/off switch for all TunableOp implementations.</p>
 <dl class="field-list simple">
 </dl>
@@ -6250,7 +6328,7 @@ Use the C++ or Python APIs instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether the TunableOp feature is enabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6261,7 +6339,7 @@ Use the C++ or Python APIs instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tuning_enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_enable" title="Link to this definition">#</a></dt>
 <dd><p>Enable tuning of TunableOp implementations.</p>
 <p>When enabled, if a tuned entry isn’t found, run the tuning step and record
 the entry.</p>
@@ -6271,7 +6349,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tuning_is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether TunableOp implementations can be tuned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6282,7 +6360,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_enable" title="Link to this definition">#</a></dt>
 <dd><p>Enable recording untuned of TunableOp perations for offline tuning.</p>
 <p>When enabled, if a tuned entry isn’t found, write it to the untuned file.</p>
 <dl class="field-list simple">
@@ -6291,7 +6369,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether TunableOp operations are recorded for offline tuning.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6302,7 +6380,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_max_tuning_duration">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_duration" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_duration" title="Link to this definition">#</a></dt>
 <dd><p>Set max time in milliseconds to spend tuning a given solution.</p>
 <p>If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.</p>
@@ -6312,7 +6390,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_max_tuning_duration">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_duration" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_duration" title="Link to this definition">#</a></dt>
 <dd><p>Get max time to spend tuning a given solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6323,7 +6401,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_max_tuning_iterations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_iterations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_iterations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_iterations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_iterations" title="Link to this definition">#</a></dt>
 <dd><p>Set max number of iterations to spend tuning a given solution.</p>
 <p>If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.</p>
@@ -6333,7 +6411,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_max_tuning_iterations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_iterations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_iterations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_iterations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_iterations" title="Link to this definition">#</a></dt>
 <dd><p>Get max iterations to spend tuning a given solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6344,7 +6422,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_filename">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_device_ordinal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_filename" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_device_ordinal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_filename" title="Link to this definition">#</a></dt>
 <dd><p>Set the filename to use for input/output of tuning results.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">insert_device_ordinal</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> then the current device ordinal
 will be added to the given filename automatically. This can be used in a
@@ -6355,7 +6433,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_filename">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_filename" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_filename" title="Link to this definition">#</a></dt>
 <dd><p>Get the results filename.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6366,7 +6444,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_results">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_results" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_results" title="Link to this definition">#</a></dt>
 <dd><p>Return all TunableOp results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6377,7 +6455,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_validators">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_validators" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_validators" title="Link to this definition">#</a></dt>
 <dd><p>Return the TunableOp validators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6388,7 +6466,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.read_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.read_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.read_file" title="Link to this definition">#</a></dt>
 <dd><p>Read results from a TunableOp CSV file.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">filename</span></code> is not given, <code class="docutils literal notranslate"><span class="pre">get_filename()</span></code> is called.</p>
 <dl class="field-list simple">
@@ -6400,7 +6478,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tune_gemm_in_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tune_gemm_in_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tune_gemm_in_file" title="Link to this definition">#</a></dt>
 <dd><p>tune GEMM in file.</p>
 <dl class="field-list simple">
 </dl>
@@ -6408,7 +6486,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.mgpu_tune_gemm_in_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">mgpu_tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L797"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.mgpu_tune_gemm_in_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">mgpu_tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L797"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.mgpu_tune_gemm_in_file" title="Link to this definition">#</a></dt>
 <dd><p>Process one or more files and distribute work over one or more GPUs.</p>
 <dl class="field-list simple">
 </dl>
@@ -6416,7 +6494,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_rotating_buffer_size">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_rotating_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_rotating_buffer_size" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_rotating_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_rotating_buffer_size" title="Link to this definition">#</a></dt>
 <dd><p>Set rotating buffer size to this value in MB, if the buffer size is greater than zero.</p>
 <p>If less than zero, query L2 cache size. If equal to zero, means deactivate rotating buffer.</p>
 <dl class="field-list simple">
@@ -6425,7 +6503,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_rotating_buffer_size">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_rotating_buffer_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_rotating_buffer_size" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_rotating_buffer_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_rotating_buffer_size" title="Link to this definition">#</a></dt>
 <dd><p>Get the rotating buffer size in kilobytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6436,7 +6514,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_numerical_check_tolerances">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_numerical_check_tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/cuda/tunable.py#L330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_numerical_check_tolerances" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_numerical_check_tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/cuda/tunable.py#L330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_numerical_check_tolerances" title="Link to this definition">#</a></dt>
 <dd><p>Set the atol and rtol values in numeric check</p>
 <dl class="field-list simple">
 </dl>

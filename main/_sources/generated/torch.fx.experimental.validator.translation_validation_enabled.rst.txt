@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.validator.translation\_validation\_enabled
+================================================================
+
+.. currentmodule:: torch.fx.experimental.validator
+
+.. autofunction:: translation_validation_enabled

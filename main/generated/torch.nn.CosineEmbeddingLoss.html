@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitebd456c )">
+<meta name="llm:version" content="main (2.12.0a0+git7109d38 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitebd456c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7109d38 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3437,6 +3437,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.sym_min.html">torch.sym_min</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.sym_not.html">torch.sym_not</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.sym_ite.html">torch.sym_ite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.sym_sqrt.html">torch.sym_sqrt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.sym_sum.html">torch.sym_sum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compile.html">torch.compile</a></li>
@@ -4898,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4984,7 +4985,12 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../distributions.html">torch.distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="torch.distributions.utils.logits_to_probs.html">torch.distributions.utils.logits_to_probs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.distributions.utils.probs_to_logits.html">torch.distributions.utils.probs_to_logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.distributions.utils.vec_to_tril_matrix.html">torch.distributions.utils.vec_to_tril_matrix</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../torch.compiler_api.html">torch.compiler</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.compile.html">torch.compiler.compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.reset.html">torch.compiler.reset</a></li>
@@ -5058,7 +5064,17 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fx.html">torch.fx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.annotate.annotate.html">torch.fx.annotate.annotate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.node.has_side_effect.html">torch.fx.node.has_side_effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.node.map_aggregate.html">torch.fx.node.map_aggregate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.node.map_arg.html">torch.fx.node.map_arg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.operator_schemas.check_for_mutable_operation.html">torch.fx.operator_schemas.check_for_mutable_operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.operator_schemas.create_type_hint.html">torch.fx.operator_schemas.create_type_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.operator_schemas.type_matches.html">torch.fx.operator_schemas.type_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.traceback.annotate_fn.html">torch.fx.traceback.annotate_fn</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_3d</a></li>
@@ -5149,6 +5165,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.dispatch_trace.html">torch.fx.experimental.proxy_tensor.dispatch_trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.extract_val.html">torch.fx.experimental.proxy_tensor.extract_val</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.fake_signature.html">torch.fx.experimental.proxy_tensor.fake_signature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.fetch_object_proxy.html">torch.fx.experimental.proxy_tensor.fetch_object_proxy</a></li>
@@ -5162,6 +5179,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.extract_subgraph.html">torch.fx.experimental.optimization.extract_subgraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.matches_module_pattern.html">torch.fx.experimental.optimization.matches_module_pattern</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.modules_to_mkldnn.html">torch.fx.experimental.optimization.modules_to_mkldnn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.optimize_for_inference.html">torch.fx.experimental.optimization.optimize_for_inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.optimization.remove_dropout.html">torch.fx.experimental.optimization.remove_dropout</a></li>
@@ -5173,10 +5191,15 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.recording.shape_env_check_state_equal.html">torch.fx.experimental.recording.shape_env_check_state_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.core.reify.html">torch.fx.experimental.unification.core.reify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.utils.typename.html">torch.fx.experimental.unification.multipledispatch.utils.typename</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.utils.expand_tuples.html">torch.fx.experimental.unification.multipledispatch.utils.expand_tuples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.utils.groupby.html">torch.fx.experimental.unification.multipledispatch.utils.groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.utils.raises.html">torch.fx.experimental.unification.multipledispatch.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.utils.reverse_dict.html">torch.fx.experimental.unification.multipledispatch.utils.reverse_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.first.html">torch.fx.experimental.unification.unification_tools.first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.groupby.html">torch.fx.experimental.unification.unification_tools.groupby</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.keyfilter.html">torch.fx.experimental.unification.unification_tools.keyfilter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.keymap.html">torch.fx.experimental.unification.unification_tools.keymap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.merge.html">torch.fx.experimental.unification.unification_tools.merge</a></li>
@@ -5254,6 +5277,60 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_nn_relu_override.html">torch.fx.experimental.meta_tracer.torch_nn_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_relu_override.html">torch.fx.experimental.meta_tracer.torch_relu_override</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.meta_tracer.torch_where_override.html">torch.fx.experimental.meta_tracer.torch_where_override</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.accelerator_partitioner.check_dependency.html">torch.fx.experimental.accelerator_partitioner.check_dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.accelerator_partitioner.combine_two_partitions.html">torch.fx.experimental.accelerator_partitioner.combine_two_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.accelerator_partitioner.reorganize_partitions.html">torch.fx.experimental.accelerator_partitioner.reorganize_partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.accelerator_partitioner.reset_partition_device.html">torch.fx.experimental.accelerator_partitioner.reset_partition_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.accelerator_partitioner.set_parents_and_children.html">torch.fx.experimental.accelerator_partitioner.set_parents_and_children</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.debug.set_trace.html">torch.fx.experimental.debug.set_trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.merge_matmul.are_nodes_independent.html">torch.fx.experimental.merge_matmul.are_nodes_independent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.merge_matmul.may_depend_on.html">torch.fx.experimental.merge_matmul.may_depend_on</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.merge_matmul.merge_matmul.html">torch.fx.experimental.merge_matmul.merge_matmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.match.edge.html">torch.fx.experimental.unification.match.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.match.match.html">torch.fx.experimental.unification.match.match</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.match.ordering.html">torch.fx.experimental.unification.match.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.match.supercedes.html">torch.fx.experimental.unification.match.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.more.reify_object.html">torch.fx.experimental.unification.more.reify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.more.unifiable.html">torch.fx.experimental.unification.more.unifiable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.more.unify_object.html">torch.fx.experimental.unification.more.unify_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.ambiguities.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.ambiguous.html">torch.fx.experimental.unification.multipledispatch.conflict.ambiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.consistent.html">torch.fx.experimental.unification.multipledispatch.conflict.consistent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.edge.html">torch.fx.experimental.unification.multipledispatch.conflict.edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.ordering.html">torch.fx.experimental.unification.multipledispatch.conflict.ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.super_signature.html">torch.fx.experimental.unification.multipledispatch.conflict.super_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.conflict.supercedes.html">torch.fx.experimental.unification.multipledispatch.conflict.supercedes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.core.dispatch.html">torch.fx.experimental.unification.multipledispatch.core.dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.core.ismethod.html">torch.fx.experimental.unification.multipledispatch.core.ismethod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn.html">torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.halt_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering.html">torch.fx.experimental.unification.multipledispatch.dispatcher.restart_ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.source.html">torch.fx.experimental.unification.multipledispatch.dispatcher.source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature.html">torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter.html">torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text.html">torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.multipledispatch.variadic.isvariadic.html">torch.fx.experimental.unification.multipledispatch.variadic.isvariadic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.freeze.html">torch.fx.experimental.unification.utils.freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.hashable.html">torch.fx.experimental.unification.utils.hashable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.raises.html">torch.fx.experimental.unification.utils.raises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.reverse_dict.html">torch.fx.experimental.unification.utils.reverse_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.transitive_get.html">torch.fx.experimental.unification.utils.transitive_get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.utils.xfail.html">torch.fx.experimental.unification.utils.xfail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.variable.var.html">torch.fx.experimental.unification.variable.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.variable.variables.html">torch.fx.experimental.unification.variable.variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.variable.vars.html">torch.fx.experimental.unification.variable.vars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.check_for_type_equality.html">torch.fx.experimental.unify_refinements.check_for_type_equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.infer_symbolic_types.html">torch.fx.experimental.unify_refinements.infer_symbolic_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass.html">torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.substitute_all_types.html">torch.fx.experimental.unify_refinements.substitute_all_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.substitute_solution_one_type.html">torch.fx.experimental.unify_refinements.substitute_solution_one_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unify_refinements.unify_eq.html">torch.fx.experimental.unify_refinements.unify_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.validator.bisect.html">torch.fx.experimental.validator.bisect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.validator.translation_validation_enabled.html">torch.fx.experimental.validator.translation_validation_enabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.validator.translation_validation_timeout.html">torch.fx.experimental.validator.translation_validation_timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.validator.z3op.html">torch.fx.experimental.validator.z3op</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.validator.z3str.html">torch.fx.experimental.validator.z3str</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
@@ -5567,6 +5644,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.qconfig.default_weight_only_qconfig.html">default_weight_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.qconfig.default_activation_only_qconfig.html">default_activation_only_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.qconfig.default_qat_qconfig_v2.html">default_qat_qconfig_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantization_mappings.no_observer_set.html">no_observer_set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.intrinsic.ConvReLU1d.html">ConvReLU1d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.intrinsic.ConvReLU2d.html">ConvReLU2d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.intrinsic.ConvReLU3d.html">ConvReLU3d</a></li>
@@ -6076,7 +6154,7 @@ document.write(`
 <h1>CosineEmbeddingLoss<a class="headerlink" href="#cosineembeddingloss" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.CosineEmbeddingLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CosineEmbeddingLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/nn/modules/loss.py#L1460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CosineEmbeddingLoss" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CosineEmbeddingLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/nn/modules/loss.py#L1460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CosineEmbeddingLoss" title="Link to this definition">#</a></dt>
 <dd><p>Creates a criterion that measures the loss given input tensors
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> and a <cite>Tensor</cite> label <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> with values 1 or -1.
 Use (<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span>) to maximize the cosine similarity of two inputs, and (<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y=-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span></span>) otherwise.
@@ -6134,7 +6212,7 @@ specifying either of those two args will override <code class="xref py py-attr d
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.CosineEmbeddingLoss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebd456cda6ccf6fcc25a503fda505c75d9ecbf05/torch/nn/modules/loss.py#L1525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CosineEmbeddingLoss.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7109d38a07a1d68c0170cd6ba87a0f5e8ad08e7c/torch/nn/modules/loss.py#L1525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CosineEmbeddingLoss.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

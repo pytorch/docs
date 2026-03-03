@@ -42,7 +42,7 @@ Result:
 
 .. code-block::
 
-    Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS="+dynamic".
+    RuntimeError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS="+dynamic".
 
 
 tensor_setattr

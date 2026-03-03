@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.debug.set\_trace
+======================================
+
+.. currentmodule:: torch.fx.experimental.debug
+
+.. autofunction:: set_trace

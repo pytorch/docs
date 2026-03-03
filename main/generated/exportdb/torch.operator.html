@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitebd456c )">
+<meta name="llm:version" content="main (2.12.0a0+git7109d38 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitebd456c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7109d38 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3057,8 +3057,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -3276,7 +3276,7 @@ document.write(`
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="#"><span class="doc">torch.operator</span></a></p>
-<p>Support Level: NOT_SUPPORTED_YET</p>
+<p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypy: allow-untyped-defs</span>
@@ -3286,7 +3286,7 @@ document.write(`
 
 <span class="k">class</span> <span class="nc">TorchSymMin</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    torch.sym_min operator is not supported in export.</span>
+<span class="sd">    torch.sym_min operator is supported in export.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -3295,7 +3295,7 @@ document.write(`
 
 <span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.operator&quot;</span><span class="p">}</span>
-<span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">NOT_SUPPORTED_YET</span>
+<span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">SUPPORTED</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TorchSymMin</span><span class="p">()</span>
 
 
@@ -3303,7 +3303,21 @@ document.write(`
 </pre></div>
 </div>
 <p>Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
+                <span class="n">sum_1</span><span class="p">:</span> <span class="s2">&quot;f32[]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sum</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">add</span><span class="p">:</span> <span class="s2">&quot;f32[]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">sum_1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="n">sum_1</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">add</span><span class="p">,)</span>
+
+<span class="n">Graph</span> <span class="n">signature</span><span class="p">:</span>
+    <span class="c1"># inputs</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">USER_INPUT</span>
+
+    <span class="c1"># outputs</span>
+    <span class="n">add</span><span class="p">:</span> <span class="n">USER_OUTPUT</span>
+
+<span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
 </section>
@@ -3663,7 +3677,7 @@ document.write(`
        "headline": "torch.operator",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/torch.operator.html",
-       "articleBody": "torch.operator# unsupported_operator# Note Tags: torch.operator Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class TorchSymMin(torch.nn.Module): \"\"\" torch.sym_min operator is not supported in export. \"\"\" def forward(self, x): return x.sum() + torch.sym_min(x.size(0), 100) example_args = (torch.randn(3, 2),) tags = {\"torch.operator\"} support_level = SupportLevel.NOT_SUPPORTED_YET model = TorchSymMin() torch.export.export(model, example_args) Result: Unsupported: torch.* op returned non-Tensor",
+       "articleBody": "torch.operator# unsupported_operator# Note Tags: torch.operator Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class TorchSymMin(torch.nn.Module): \"\"\" torch.sym_min operator is supported in export. \"\"\" def forward(self, x): return x.sum() + torch.sym_min(x.size(0), 100) example_args = (torch.randn(3, 2),) tags = {\"torch.operator\"} support_level = SupportLevel.SUPPORTED model = TorchSymMin() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sum_1: \"f32[]\" = torch.ops.aten.sum.default(x); x = None add: \"f32[]\" = torch.ops.aten.add.Tensor(sum_1, 3); sum_1 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
