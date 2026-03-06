@@ -60,7 +60,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="torch.dynamic-value" href="torch.dynamic-value.html" />
-    <link rel="prev" title="torch.dynamic-shape" href="torch.dynamic-shape.html" />
+    <link rel="prev" title="torch.cond" href="torch.cond.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git23c859c )">
+<meta name="llm:version" content="main (2.12.0a0+git3258b18 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git23c859c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3258b18 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3057,8 +3057,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -3275,7 +3275,7 @@ document.write(`
 <h2>cond_closed_over_variable<a class="headerlink" href="#cond-closed-over-variable" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">python.closure</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">python.closure</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3446,12 +3446,12 @@ document.write(`
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.dynamic-shape.html"
+       href="torch.cond.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.dynamic-shape</p>
+        <p class="prev-next-title">torch.cond</p>
       </div>
     </a>
     <a class="right-next"
@@ -3485,12 +3485,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.dynamic-shape.html"
+       href="torch.cond.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.dynamic-shape</p>
+        <p class="prev-next-title">torch.cond</p>
       </div>
     </a>
     <a class="right-next"
@@ -3758,7 +3758,7 @@ document.write(`
        "headline": "python.closure",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/python.closure.html",
-       "articleBody": "python.closure# cond_closed_over_variable# Note Tags: torch.cond, python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} nested_function# Note Tags: python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class NestedFunction(torch.nn.Module): \"\"\" Nested functions are traced through. Side effects on global captures are not supported though. \"\"\" def forward(self, a, b): x = a + b z = a - b def closure(y): nonlocal x x += 1 return x * y + z return closure(x) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"python.closure\"} model = NestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, a: \"f32[3, 2]\", b: \"f32[2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(a, b) sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(a, b); a = b = None add_: \"f32[3, 2]\" = torch.ops.aten.add_.Tensor(add, 1); add = None mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add_, add_); add_ = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, sub); mul = sub = None return (add_1,) Graph signature: # inputs a: USER_INPUT b: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {}",
+       "articleBody": "python.closure# cond_closed_over_variable# Note Tags: python.closure, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} nested_function# Note Tags: python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class NestedFunction(torch.nn.Module): \"\"\" Nested functions are traced through. Side effects on global captures are not supported though. \"\"\" def forward(self, a, b): x = a + b z = a - b def closure(y): nonlocal x x += 1 return x * y + z return closure(x) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"python.closure\"} model = NestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, a: \"f32[3, 2]\", b: \"f32[2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(a, b) sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(a, b); a = b = None add_: \"f32[3, 2]\" = torch.ops.aten.add_.Tensor(add, 1); add = None mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add_, add_); add_ = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, sub); mul = sub = None return (add_1,) Graph signature: # inputs a: USER_INPUT b: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

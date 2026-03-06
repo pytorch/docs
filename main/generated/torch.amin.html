@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git23c859c )">
+<meta name="llm:version" content="main (2.12.0a0+git3258b18 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git23c859c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3258b18 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4899,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6154,7 +6154,7 @@ document.write(`
 <h1>torch.amin<a class="headerlink" href="#torch-amin" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.amin">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">amin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.amin" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">amin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.amin" title="Link to this definition">#</a></dt>
 <dd><p>Returns the minimum value of each slice of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor in the given
 dimension(s) <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>.</p>
 <div class="admonition note">
@@ -6562,7 +6562,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
        "headline": "torch.amin",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.amin.html",
-       "articleBody": "torch.amin# torch.amin(input, dim, keepdim=False, *, out=None) \u2192 Tensor# Returns the minimum value of each slice of the input tensor in the given dimension(s) dim. Note The difference between max/min and amax/amin is: amax/amin supports reducing on multiple dimensions, amax/amin does not return indices. Both amax/amin evenly distribute gradients between equal values when there are multiple input elements with the same minimum or maximum value. For max/min: If reduce over all dimensions(no dim specified), gradients evenly distribute between equally max/min values. If reduce over one specified axis, only propagate to the indexed element. If keepdim is True, the output tensor is of the same size as input except in the dimension(s) dim where it is of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensor having 1 (or len(dim)) fewer dimension(s). Parameters: input (Tensor) \u2013 the input tensor. dim (int or tuple of ints, optional) \u2013 the dimension or dimensions to reduce. If None, all dimensions are reduced. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4, 4) \u003e\u003e\u003e a tensor([[ 0.6451, -0.4866, 0.2987, -1.3312], [-0.5744, 1.2980, 1.8397, -0.2713], [ 0.9128, 0.9214, -1.7268, -0.2995], [ 0.9023, 0.4853, 0.9075, -1.6165]]) \u003e\u003e\u003e torch.amin(a, 1) tensor([-1.3312, -0.5744, -1.7268, -1.6165])",
+       "articleBody": "torch.amin# torch.amin(input, dim=None, keepdim=False, *, out=None) \u2192 Tensor# Returns the minimum value of each slice of the input tensor in the given dimension(s) dim. Note The difference between max/min and amax/amin is: amax/amin supports reducing on multiple dimensions, amax/amin does not return indices. Both amax/amin evenly distribute gradients between equal values when there are multiple input elements with the same minimum or maximum value. For max/min: If reduce over all dimensions(no dim specified), gradients evenly distribute between equally max/min values. If reduce over one specified axis, only propagate to the indexed element. If keepdim is True, the output tensor is of the same size as input except in the dimension(s) dim where it is of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensor having 1 (or len(dim)) fewer dimension(s). Parameters: input (Tensor) \u2013 the input tensor. dim (int or tuple of ints, optional) \u2013 the dimension or dimensions to reduce. If None, all dimensions are reduced. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4, 4) \u003e\u003e\u003e a tensor([[ 0.6451, -0.4866, 0.2987, -1.3312], [-0.5744, 1.2980, 1.8397, -0.2713], [ 0.9128, 0.9214, -1.7268, -0.2995], [ 0.9023, 0.4853, 0.9075, -1.6165]]) \u003e\u003e\u003e torch.amin(a, 1) tensor([-1.3312, -0.5744, -1.7268, -1.6165])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
