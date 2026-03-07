@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git3258b18 )">
+<meta name="llm:version" content="main (2.12.0a0+git1178724 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3258b18 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1178724 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4899,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5108,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5145,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6154,7 +6154,7 @@ document.write(`
 <h1>torch.nn.functional.binary_cross_entropy_with_logits<a class="headerlink" href="#torch-nn-functional-binary-cross-entropy-with-logits" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.binary_cross_entropy_with_logits">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">binary_cross_entropy_with_logits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/nn/functional.py#L3580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.binary_cross_entropy_with_logits" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">binary_cross_entropy_with_logits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/nn/functional.py#L3580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.binary_cross_entropy_with_logits" title="Link to this definition">#</a></dt>
 <dd><p>Compute Binary Cross Entropy between target and input logits.</p>
 <p>See <a class="reference internal" href="torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss" title="torch.nn.BCEWithLogitsLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BCEWithLogitsLoss</span></code></a> for details.</p>
 <dl class="field-list simple">

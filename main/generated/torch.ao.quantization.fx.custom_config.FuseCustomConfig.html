@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git3258b18 )">
+<meta name="llm:version" content="main (2.12.0a0+git1178724 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3258b18 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1178724 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4899,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5108,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5145,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6165,7 +6165,7 @@ document.write(`
 <h1>FuseCustomConfig<a class="headerlink" href="#fusecustomconfig" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.FuseCustomConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.custom_config.</span></span><span class="sig-name descname"><span class="pre">FuseCustomConfig</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/ao/quantization/fx/custom_config.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.custom_config.</span></span><span class="sig-name descname"><span class="pre">FuseCustomConfig</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/ao/quantization/fx/custom_config.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig" title="Link to this definition">#</a></dt>
 <dd><p>Custom configuration for <a class="reference internal" href="torch.ao.quantization.quantize_fx.fuse_fx.html#torch.ao.quantization.quantize_fx.fuse_fx" title="torch.ao.quantization.quantize_fx.fuse_fx"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuse_fx()</span></code></a>.</p>
 <p>Example usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fuse_custom_config</span> <span class="o">=</span> <span class="n">FuseCustomConfig</span><span class="p">()</span><span class="o">.</span><span class="n">set_preserved_attributes</span><span class="p">(</span>
@@ -6177,7 +6177,7 @@ document.write(`
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.FuseCustomConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/ao/quantization/fx/custom_config.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.from_dict" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/ao/quantization/fx/custom_config.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.from_dict" title="Link to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">ConvertCustomConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“preserved_attributes”: a list of attributes that persist even if they are not used in <code class="docutils literal notranslate"><span class="pre">forward</span></code></p>
@@ -6192,7 +6192,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.FuseCustomConfig.set_preserved_attributes">
-<span class="sig-name descname"><span class="pre">set_preserved_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/ao/quantization/fx/custom_config.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.set_preserved_attributes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_preserved_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/ao/quantization/fx/custom_config.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.set_preserved_attributes" title="Link to this definition">#</a></dt>
 <dd><p>Set the names of the attributes that will persist in the graph module even if they are not used in
 the model’s <code class="docutils literal notranslate"><span class="pre">forward</span></code> method.</p>
 <dl class="field-list simple">
@@ -6204,7 +6204,7 @@ the model’s <code class="docutils literal notranslate"><span class="pre">forwa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.FuseCustomConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/ao/quantization/fx/custom_config.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.to_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/ao/quantization/fx/custom_config.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.FuseCustomConfig.to_dict" title="Link to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">FuseCustomConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict" title="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">

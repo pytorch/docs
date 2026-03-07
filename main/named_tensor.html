@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git3258b18 )">
+<meta name="llm:version" content="main (2.12.0a0+git1178724 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3258b18 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1178724 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4899,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5108,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5145,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6413,7 +6413,7 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename">
-<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/_tensor.py#L1477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/_tensor.py#L1477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Link to this definition">#</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -6446,13 +6446,13 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename_">
-<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/_tensor.py#L1462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/_tensor.py#L1462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Link to this definition">#</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.refine_names">
-<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/_tensor.py#L1351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/_tensor.py#L1351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Link to this definition">#</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -6534,7 +6534,7 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.align_to">
-<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3258b1853508fa63ecfa9faa9192f7db1a16c1d8/torch/_tensor.py#L1395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/117872455ae8c1a04a03fd58498e0df6ec42e7f3/torch/_tensor.py#L1395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Link to this definition">#</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.

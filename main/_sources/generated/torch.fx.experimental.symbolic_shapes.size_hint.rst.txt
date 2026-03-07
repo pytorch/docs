@@ -1,6 +1,0 @@
-﻿torch.fx.experimental.symbolic\_shapes.size\_hint
-=================================================
-
-.. currentmodule:: torch.fx.experimental.symbolic_shapes
-
-.. autofunction:: size_hint
