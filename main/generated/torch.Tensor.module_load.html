@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitad8f739 )">
+<meta name="llm:version" content="main (2.12.0a0+git5843119 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitad8f739 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git5843119 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4899,8 +4899,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6154,7 +6154,7 @@ document.write(`
 <h1>torch.Tensor.module_load<a class="headerlink" href="#torch-tensor-module-load" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.module_load">
-<span class="sig-prename descclassname"><span class="pre">Tensor.</span></span><span class="sig-name descname"><span class="pre">module_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad8f7396bea3aa2156c30351426d9c6368a668aa/torch/_tensor.py#L857"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.module_load" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Tensor.</span></span><span class="sig-name descname"><span class="pre">module_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/_tensor.py#L857"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.module_load" title="Link to this definition">#</a></dt>
 <dd><p>Defines how to transform <code class="docutils literal notranslate"><span class="pre">other</span></code> when loading it into <code class="docutils literal notranslate"><span class="pre">self</span></code> in <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.load_state_dict" title="torch.nn.Module.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a>.</p>
 <p>Used when <a class="reference internal" href="../future_mod.html#torch.__future__.get_swap_module_params_on_conversion" title="torch.__future__.get_swap_module_params_on_conversion"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_swap_module_params_on_conversion()</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>It is expected that <code class="docutils literal notranslate"><span class="pre">self</span></code> is a parameter or buffer in an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> and <code class="docutils literal notranslate"><span class="pre">other</span></code> is the
