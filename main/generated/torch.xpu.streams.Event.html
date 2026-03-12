@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git5843119 )">
+<meta name="llm:version" content="main (2.12.0a0+git21a60af )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git5843119 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git21a60af )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5108,6 +5108,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5145,13 +5147,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6165,7 +6165,7 @@ document.write(`
 <h1>Event<a class="headerlink" href="#event" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.streams.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.streams.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a XPU event.</p>
 <p>XPU events are synchronization markers that can be used to monitor the
 device’s progress, and to synchronize XPU streams.</p>
@@ -6180,7 +6180,7 @@ event. However, streams on any device can wait on the event.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.elapsed_time">
-<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.elapsed_time" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.elapsed_time" title="Link to this definition">#</a></dt>
 <dd><p>Return the time elapsed.</p>
 <p>Time reported in milliseconds after the event was recorded and
 before the end_event was recorded.</p>
@@ -6193,7 +6193,7 @@ before the end_event was recorded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.query" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.query" title="Link to this definition">#</a></dt>
 <dd><p>Check if all work currently captured by event has completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -6208,7 +6208,7 @@ completed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.record">
-<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.record" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.record" title="Link to this definition">#</a></dt>
 <dd><p>Record the event in a given stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6220,7 +6220,7 @@ The stream’s device must match the event’s device.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.synchronize" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.synchronize" title="Link to this definition">#</a></dt>
 <dd><p>Wait for the event to complete.</p>
 <p>Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.</p>
@@ -6230,7 +6230,7 @@ This prevents the CPU thread from proceeding until the event completes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/xpu/streams.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.wait" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/xpu/streams.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.wait" title="Link to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

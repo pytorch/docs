@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw &#8212; PyTorch main documentation</title>
+    <title>torch.fx.experimental.symbolic_shapes.size_hint &#8212; PyTorch main documentation</title>
   
   
   
@@ -49,18 +49,18 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=940804e7"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.fx.experimental.symbolic_shapes.size_hint';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html" />
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.size_hint.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.fx.experimental.symbolic_shapes.has_guarding_hint" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html" />
-    <link rel="prev" title="torch.fx.experimental.symbolic_shapes.guard_scalar" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html" />
+    <link rel="next" title="torch.fx.experimental.symbolic_shapes.is_concrete_int" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html" />
+    <link rel="prev" title="torch.fx.experimental.symbolic_shapes.hint_int" href="torch.fx.experimental.symbolic_shapes.hint_int.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -70,7 +70,7 @@
 <meta name="llm:site-type" content="documentation">
 <meta name="llm:framework" content="PyTorch">
 
-<meta name="llm:description" content="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw - Documentation for PyTorch, part of the PyTorch ecosystem.">
+<meta name="llm:description" content="torch.fx.experimental.symbolic_shapes.size_hint - Documentation for PyTorch, part of the PyTorch ecosystem.">
 
 
 
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git5843119 )">
+<meta name="llm:version" content="main (2.12.0a0+git21a60af )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git5843119 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git21a60af )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5108,6 +5108,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5145,13 +5147,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6136,7 +6136,7 @@ document.write(`
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <meta itemprop="name" content="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw">
+      <meta itemprop="name" content="torch.fx.experimental.symbolic_shapes.size_hint">
       <meta itemprop="position" content="3">
     </div>
   </div>
@@ -6150,17 +6150,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="torch-fx-experimental-symbolic-shapes-guarding-hint-or-throw">
-<h1>torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-guarding-hint-or-throw" title="Link to this heading">#</a></h1>
+  <section id="torch-fx-experimental-symbolic-shapes-size-hint">
+<h1>torch.fx.experimental.symbolic_shapes.size_hint<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-size-hint" title="Link to this heading">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">guarding_hint_or_throw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/584311965a97491724ea4d082109285c959c5ad8/torch/fx/experimental/symbolic_shapes.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw" title="Link to this definition">#</a></dt>
-<dd><p>Return a concrete hint for a symbolic value, for use in guarding decisions.</p>
-<p>Returns Python bool (True/False) for boolean inputs (SymBool, bool),
-and Python int for integer inputs (SymInt, int).</p>
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.size_hint">
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">size_hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/21a60af8b932e513ac141ebcc88826f7cf21623c/torch/fx/experimental/symbolic_shapes.py#L378"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.size_hint" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the hint for an int (based on the underlying real values as observed
+at runtime).  If no hint is available (e.g., because data dependent shapes),
+if fallback is not None, use that instead to hint each unbacked symbol individually
+(otherwise raise an error).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6210,20 +6211,20 @@ and Python int for integer inputs (SymInt, int).</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.fx.experimental.symbolic_shapes.guard_scalar.html"
+       href="torch.fx.experimental.symbolic_shapes.hint_int.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.guard_scalar</p>
+        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.hint_int</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html"
+       href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.has_guarding_hint</p>
+        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.is_concrete_int</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6249,20 +6250,20 @@ and Python int for integer inputs (SymInt, int).</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.fx.experimental.symbolic_shapes.guard_scalar.html"
+       href="torch.fx.experimental.symbolic_shapes.hint_int.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.guard_scalar</p>
+        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.hint_int</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html"
+       href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.has_guarding_hint</p>
+        <p class="prev-next-title">torch.fx.experimental.symbolic_shapes.is_concrete_int</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6284,13 +6285,13 @@ and Python int for integer inputs (SymInt, int).</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw"><code class="docutils literal notranslate"><span class="pre">guarding_hint_or_throw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.size_hint"><code class="docutils literal notranslate"><span class="pre">size_hint()</span></code></a></li>
 </ul>
   </nav></div>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.rst.txt">
+      <a href="../_sources/generated/torch.fx.experimental.symbolic_shapes.size_hint.rst.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -6517,11 +6518,11 @@ and Python int for integer inputs (SymInt, int).</p>
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw",
-       "headline": "torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw",
+       "name": "torch.fx.experimental.symbolic_shapes.size_hint",
+       "headline": "torch.fx.experimental.symbolic_shapes.size_hint",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
-       "url": "/generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html",
-       "articleBody": "torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw# torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(a)[source]# Return a concrete hint for a symbolic value, for use in guarding decisions. Returns Python bool (True/False) for boolean inputs (SymBool, bool), and Python int for integer inputs (SymInt, int). Return type: int | bool",
+       "url": "/generated/torch.fx.experimental.symbolic_shapes.size_hint.html",
+       "articleBody": "torch.fx.experimental.symbolic_shapes.size_hint# torch.fx.experimental.symbolic_shapes.size_hint(a, fallback=None)[source]# Retrieve the hint for an int (based on the underlying real values as observed at runtime). If no hint is available (e.g., because data dependent shapes), if fallback is not None, use that instead to hint each unbacked symbol individually (otherwise raise an error). Return type: int",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -6530,7 +6531,7 @@ and Python int for integer inputs (SymInt, int).</p>
        "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "/generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html"
+         "@id": "/generated/torch.fx.experimental.symbolic_shapes.size_hint.html"
        },
        "datePublished": "2023-01-01T00:00:00Z",
        "dateModified": "2023-01-01T00:00:00Z"

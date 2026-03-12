@@ -1,6 +1,0 @@
-﻿torch.fx.experimental.symbolic\_shapes.guarding\_hint\_or\_throw
-================================================================
-
-.. currentmodule:: torch.fx.experimental.symbolic_shapes
-
-.. autofunction:: guarding_hint_or_throw
