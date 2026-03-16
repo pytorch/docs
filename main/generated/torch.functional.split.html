@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git9578d4e )">
+<meta name="llm:version" content="main (2.12.0a0+git19afa71 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git9578d4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git19afa71 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6165,7 +6165,7 @@ document.write(`
 <h1>torch.functional.split<a class="headerlink" href="#torch-functional-split" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.functional.split">
-<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_size_or_sections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/functional.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.split" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_size_or_sections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/functional.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.split" title="Link to this definition">#</a></dt>
 <dd><p>Splits the tensor into chunks. Each chunk is a view of the original tensor.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">split_size_or_sections</span></code> is an integer type, then <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor</span></code> will
 be split into equally sized chunks (if possible). Last chunk will be smaller if

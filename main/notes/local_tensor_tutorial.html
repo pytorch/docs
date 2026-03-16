@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git9578d4e )">
+<meta name="llm:version" content="main (2.12.0a0+git19afa71 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="tutorial">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git9578d4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git19afa71 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3804,7 +3804,7 @@ directly invokes the same functions included above:</p>
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">Core Classes</a><a class="headerlink" href="#core-classes" title="Link to this heading">#</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L922"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L922"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor" title="Link to this definition">#</a></dt>
 <dd><p>LocalTensor is a Tensor subclass that simulates a tensor distributed across multiple SPMD
 (Single Program, Multiple Data) ranks. Each LocalTensor instance internally holds a mapping from
 global rank ids to their corresponding local Tensor shards.Operations performed on a LocalTensor
@@ -3822,7 +3822,7 @@ on a single process.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor.reconcile">
-<span class="sig-name descname"><span class="pre">reconcile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.reconcile" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reconcile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.reconcile" title="Link to this definition">#</a></dt>
 <dd><p>Reconciles the LocalTensor into a single torch.Tensor by ensuring all local
 shards are identical and returning a detached clone of one of them.</p>
 <div class="admonition note">
@@ -3840,7 +3840,7 @@ that synchronizes all ranks.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor.tolist">
-<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.tolist" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.tolist" title="Link to this definition">#</a></dt>
 <dd><p>Try to reconcile, if successful convert to list, otherwise if dtype is integer,
 convert to list of local integers.</p>
 <dl class="field-list simple">
@@ -3854,7 +3854,7 @@ convert to list of local integers.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensorMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensorMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode" title="Link to this definition">#</a></dt>
 <dd><p>A TorchDispatchMode that simulates SPMD (Single Program, Multiple Data) execution
 for LocalTensor objects across a set of ranks.</p>
 <p>LocalTensorMode enables PyTorch operations to be transparently applied to each
@@ -3871,7 +3871,7 @@ functions over ranks.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.disable">
-<span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.disable" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.disable" title="Link to this definition">#</a></dt>
 <dd><p>Disables LocalTensorMode temporarily. Primarily is intended to be used to perform
 rank specific computations and merge results back before enabling LocalTensorMode back.</p>
 <dl class="field-list simple">
@@ -3883,7 +3883,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.rank_map">
-<span class="sig-name descname"><span class="pre">rank_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.rank_map" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rank_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.rank_map" title="Link to this definition">#</a></dt>
 <dd><p>Creates a LocalTensor instance by mapping rank id to ids local shard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -3894,7 +3894,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.tensor_map">
-<span class="sig-name descname"><span class="pre">tensor_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.tensor_map" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">tensor_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.tensor_map" title="Link to this definition">#</a></dt>
 <dd><p>Creates a LocalTensor instance by mapping rank id to ids local shard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -3907,7 +3907,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalIntNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalIntNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_ints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalIntNode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalIntNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_ints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalIntNode" title="Link to this definition">#</a></dt>
 <dd><p>Like a LocalTensor, but for an int.  We can’t use a 0D tensor to represent this
 because often only a SymInt is accepted where we wish to use this.</p>
 <dl class="field-list simple">
@@ -3922,7 +3922,7 @@ because often only a SymInt is accepted where we wish to use this.</p>
 <h3><a class="toc-backref" href="#id14" role="doc-backlink">Utility Functions</a><a class="headerlink" href="#utility-functions" title="Link to this heading">#</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1696"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1696"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current active LocalTensorMode if one exists.</p>
 <p>This function checks the global stack of LocalTensorMode instance. If there
 is at least one LocalTensorMode active, it returns the most recently entered
@@ -3939,7 +3939,7 @@ is at least one LocalTensorMode active, it returns the most recently entered
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.enabled_local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">enabled_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.enabled_local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">enabled_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.enabled_local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current active LocalTensorMode only if it’s enabled.</p>
 <p>This is a convenience function that combines the common pattern of checking
 if local_tensor_mode() is not None and not disabled.</p>
@@ -3955,7 +3955,7 @@ if local_tensor_mode() is not None and not disabled.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.maybe_run_for_local_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_run_for_local_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_run_for_local_tensor" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_run_for_local_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_run_for_local_tensor" title="Link to this definition">#</a></dt>
 <dd><p>Decorator that ensures a function is executed for each local tensor shard
 when running under LocalTensorMode. If not in LocalTensorMode, the function
 is executed normally. When in LocalTensorMode, the function is run for each
@@ -3981,7 +3981,7 @@ that performs a collective operation will not work.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.maybe_disable_local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9578d4e85b69de3939cddad1647ad8d0e35a1dce/torch/distributed/_local_tensor/__init__.py#L1800"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_disable_local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afa71c679c3f2879eb49ddd11a82be7a560fbf/torch/distributed/_local_tensor/__init__.py#L1800"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_disable_local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that disables LocalTensorMode for the duration of the context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
