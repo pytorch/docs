@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -4899,8 +5284,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5493,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5530,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6252,7 +6637,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 <h2>Registry<a class="headerlink" href="#registry" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousParameters">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters" title="Link to this definition">#</a></dt>
 <dd><p>Hold the parameters to construct a <a class="reference internal" href="#torch.distributed.elastic.rendezvous.RendezvousHandler" title="torch.distributed.elastic.rendezvous.RendezvousHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RendezvousHandler</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6269,7 +6654,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousParameters.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get" title="Link to this definition">#</a></dt>
 <dd><p>Return the value for <code class="docutils literal notranslate"><span class="pre">key</span></code> if <code class="docutils literal notranslate"><span class="pre">key</span></code> exists, else <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6280,7 +6665,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_bool">
-<span class="sig-name descname"><span class="pre">get_as_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_bool" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_as_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_bool" title="Link to this definition">#</a></dt>
 <dd><p>Return the value for <code class="docutils literal notranslate"><span class="pre">key</span></code> as a <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6291,7 +6676,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_int">
-<span class="sig-name descname"><span class="pre">get_as_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_int" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_as_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_int" title="Link to this definition">#</a></dt>
 <dd><p>Return the value for <code class="docutils literal notranslate"><span class="pre">key</span></code> as an <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6304,7 +6689,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousHandlerRegistry</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousHandlerRegistry</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry" title="Link to this definition">#</a></dt>
 <dd><p>Represent a registry of <a class="reference internal" href="#torch.distributed.elastic.rendezvous.RendezvousHandler" title="torch.distributed.elastic.rendezvous.RendezvousHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RendezvousHandler</span></code></a> backends.</p>
 <dl class="field-list simple">
 </dl>
@@ -6315,7 +6700,7 @@ instantiating an <a class="reference internal" href="#torch.distributed.elastic.
 <span id="module-torch.distributed.elastic.rendezvous.registry"></span><h2>Handler<a class="headerlink" href="#handler" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler" title="Link to this definition">#</a></dt>
 <dd><p>Main rendezvous interface.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6325,7 +6710,7 @@ provided, and is recommended for most users.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.get_backend">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.get_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.get_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the name of the rendezvous backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6336,7 +6721,7 @@ provided, and is recommended for most users.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.get_run_id">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_run_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.get_run_id" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_run_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.get_run_id" title="Link to this definition">#</a></dt>
 <dd><p>Return the run id of the rendezvous.</p>
 <p>The run id is a user-defined id that uniquely identifies an instance of
 a distributed application. It typically maps to a job id and is used to
@@ -6350,7 +6735,7 @@ allow nodes to join the correct distributed application.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.is_closed">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_closed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.is_closed" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_closed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.is_closed" title="Link to this definition">#</a></dt>
 <dd><p>Check whether the rendezvous has been closed.</p>
 <p>A closed rendezvous means all future attempts to re-rendezvous within
 same job will fail.</p>
@@ -6368,7 +6753,7 @@ well.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.next_rendezvous">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">next_rendezvous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.next_rendezvous" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">next_rendezvous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.next_rendezvous" title="Link to this definition">#</a></dt>
 <dd><p>Main entry-point into the rendezvous barrier.</p>
 <p>Blocks until the rendezvous is complete and the current process is
 included in the formed worker group, or a timeout occurs, or the
@@ -6393,7 +6778,7 @@ rendezvous was marked closed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.num_nodes_waiting">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes_waiting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.num_nodes_waiting" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes_waiting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.num_nodes_waiting" title="Link to this definition">#</a></dt>
 <dd><p>Return the number of nodes who arrived late at the rendezvous
 barrier, hence were not included in the current worker group.</p>
 <p>Callers should periodically call this method to check whether new
@@ -6408,13 +6793,13 @@ nodes are waiting to join the job and if so admit them by calling
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.set_closed">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_closed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.set_closed" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_closed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.set_closed" title="Link to this definition">#</a></dt>
 <dd><p>Mark the rendezvous as closed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousHandler.shutdown">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.shutdown" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousHandler.shutdown" title="Link to this definition">#</a></dt>
 <dd><p>Close all resources that were open for the rendezvous.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rdzv_handler</span> <span class="o">=</span> <span class="o">...</span>
@@ -6447,7 +6832,7 @@ Applications as a convention use <cite>MASTER_ADDR</cite>/<cite>MASTER_PORT</cit
 <h2>Dataclasses<a class="headerlink" href="#dataclasses" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.RendezvousInfo">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bootstrap_store_info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousInfo" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bootstrap_store_info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.RendezvousInfo" title="Link to this definition">#</a></dt>
 <dd><p>Holds the information about the rendezvous.</p>
 <dl class="field-list simple">
 </dl>
@@ -6455,13 +6840,13 @@ Applications as a convention use <cite>MASTER_ADDR</cite>/<cite>MASTER_PORT</cit
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousStoreInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousStoreInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo" title="Link to this definition">#</a></dt>
 <dd><p>Store address and port that can be used to bootstrap trainer distributed comms</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo.build">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo.build" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo.build" title="Link to this definition">#</a></dt>
 <dd><p>Factory method, finds unused new port on rank0 host and addr/port info with all ranks.</p>
 <p>If master_addr/master_port is knowns (useful when sharing existing tcp store server) use the constructor.</p>
 <dl class="field-list simple">
@@ -6486,37 +6871,37 @@ Applications as a convention use <cite>MASTER_ADDR</cite>/<cite>MASTER_PORT</cit
 <h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousError" title="Link to this definition">#</a></dt>
 <dd><p>Represents the base type for rendezvous errors.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousClosedError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousClosedError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousClosedError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousClosedError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousClosedError" title="Link to this definition">#</a></dt>
 <dd><p>Raised when a rendezvous is closed.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousTimeoutError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousTimeoutError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError" title="Link to this definition">#</a></dt>
 <dd><p>Raised when a rendezvous did not complete on time.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousConnectionError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousConnectionError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousConnectionError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousConnectionError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousConnectionError" title="Link to this definition">#</a></dt>
 <dd><p>Raised when the connection to a rendezvous backend has failed.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousStateError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousStateError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStateError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousStateError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousStateError" title="Link to this definition">#</a></dt>
 <dd><p>Raised when the state of a rendezvous is corrupt.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousGracefulExitError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/api.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.api.</span></span><span class="sig-name descname"><span class="pre">RendezvousGracefulExitError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/api.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError" title="Link to this definition">#</a></dt>
 <dd><p>Raised when node wasn’t not included in rendezvous and gracefully exits.</p>
 <p>Exception is a mechanism to exit the stack, however does not mean a failure.</p>
 </dd></dl>
@@ -6528,7 +6913,7 @@ Applications as a convention use <cite>MASTER_ADDR</cite>/<cite>MASTER_PORT</cit
 <h3>Dynamic Rendezvous<a class="headerlink" href="#dynamic-rendezvous" title="Link to this heading">#</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">create_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">create_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler" title="Link to this definition">#</a></dt>
 <dd><p>Create a new <a class="reference internal" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler" title="torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DynamicRendezvousHandler</span></code></a> from the specified parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6576,13 +6961,13 @@ heartbeat is expected to complete</p></td>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">DynamicRendezvousHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">DynamicRendezvousHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler" title="Link to this definition">#</a></dt>
 <dd><p>Represent a handler that sets up a rendezvous among a set of nodes.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler.from_backend">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alive_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alive_max_attempt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1011"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler.from_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alive_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alive_max_attempt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1011"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler.from_backend" title="Link to this definition">#</a></dt>
 <dd><p>Create a new <a class="reference internal" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler" title="torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DynamicRendezvousHandler</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6607,11 +6992,11 @@ is considered dead.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousBackend</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousBackend</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend" title="Link to this definition">#</a></dt>
 <dd><p>Represent a backend that holds the rendezvous state.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.get_state">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.get_state" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.get_state" title="Link to this definition">#</a></dt>
 <dd><p>Get the rendezvous state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -6638,7 +7023,7 @@ is considered dead.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.set_state">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.set_state" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend.set_state" title="Link to this definition">#</a></dt>
 <dd><p>Set the rendezvous state.</p>
 <p>The new rendezvous state is set conditionally:</p>
 <blockquote>
@@ -6683,7 +7068,7 @@ a boolean value indicating whether our set attempt succeeded.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousTimeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heartbeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.dynamic_rendezvous.</span></span><span class="sig-name descname"><span class="pre">RendezvousTimeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heartbeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout" title="Link to this definition">#</a></dt>
 <dd><p>Hold the timeout configuration of a rendezvous.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6729,7 +7114,7 @@ complete.</p></li>
 <h4>C10d Backend<a class="headerlink" href="#c10d-backend" title="Link to this heading">#</a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">create_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">create_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend" title="Link to this definition">#</a></dt>
 <dd><p>Create a new <a class="reference internal" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend" title="torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">C10dRendezvousBackend</span></code></a> from the specified parameters.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -6780,7 +7165,7 @@ the hostname or does not match the FQDN of the machine).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">C10dRendezvousBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">C10dRendezvousBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend" title="Link to this definition">#</a></dt>
 <dd><p>Represents a C10d-backed rendezvous backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6793,7 +7178,7 @@ communicate with the C10d store.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.get_state">
-<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.get_state" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.get_state" title="Link to this definition">#</a></dt>
 <dd><p>See base class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6810,7 +7195,7 @@ communicate with the C10d store.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.set_state">
-<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.set_state" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.set_state" title="Link to this definition">#</a></dt>
 <dd><p>See base class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6826,7 +7211,7 @@ communicate with the C10d store.</p></li>
 <h4>Etcd Backend<a class="headerlink" href="#etcd-backend" title="Link to this heading">#</a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">create_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">create_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend" title="Link to this definition">#</a></dt>
 <dd><p>Create a new <a class="reference internal" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend" title="torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">EtcdRendezvousBackend</span></code></a> from the specified parameters.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -6867,7 +7252,7 @@ to <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">EtcdRendezvousBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.</span></span><span class="sig-name descname"><span class="pre">EtcdRendezvousBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend" title="Link to this definition">#</a></dt>
 <dd><p>Represents an etcd-based rendezvous backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6881,7 +7266,7 @@ to <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.get_state">
-<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.get_state" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.get_state" title="Link to this definition">#</a></dt>
 <dd><p>See base class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6898,7 +7283,7 @@ to <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.set_state">
-<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.set_state" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.set_state" title="Link to this definition">#</a></dt>
 <dd><p>See base class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6921,7 +7306,7 @@ maintenance mode and will be deprecated in the future.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous.</span></span><span class="sig-name descname"><span class="pre">EtcdRendezvousHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rdzv_impl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_rendezvous.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_rendezvous.</span></span><span class="sig-name descname"><span class="pre">EtcdRendezvousHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rdzv_impl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_rendezvous.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler" title="Link to this definition">#</a></dt>
 <dd><p>Implements a
 <a class="reference internal" href="#torch.distributed.elastic.rendezvous.RendezvousHandler" title="torch.distributed.elastic.rendezvous.RendezvousHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.distributed.elastic.rendezvous.RendezvousHandler</span></code></a> interface
 backed by
@@ -7003,14 +7388,14 @@ created (defaults to
 <code class="docutils literal notranslate"><span class="pre">next_rendezvous()</span></code> when etcd is used as the rendezvous backend.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_store.</span></span><span class="sig-name descname"><span class="pre">EtcdStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etcd_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etcd_store_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_store.</span></span><span class="sig-name descname"><span class="pre">EtcdStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etcd_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etcd_store_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore" title="Link to this definition">#</a></dt>
 <dd><p>Implement a c10 Store interface by piggybacking on the rendezvous etcd instance.</p>
 <p>This is the store object returned by <code class="docutils literal notranslate"><span class="pre">EtcdRendezvous</span></code>.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.add" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.add" title="Link to this definition">#</a></dt>
 <dd><p>Atomically increment a value by an integer amount.</p>
 <p>The integer is represented as a string using base 10. If key is not present,
 a default value of <code class="docutils literal notranslate"><span class="pre">0</span></code> will be assumed.</p>
@@ -7026,7 +7411,7 @@ a default value of <code class="docutils literal notranslate"><span class="pre">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.check">
-<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.check" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.check" title="Link to this definition">#</a></dt>
 <dd><p>Check if all of the keys are immediately present (without waiting).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7037,7 +7422,7 @@ a default value of <code class="docutils literal notranslate"><span class="pre">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.get" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.get" title="Link to this definition">#</a></dt>
 <dd><p>Get a value by key, possibly doing a blocking wait.</p>
 <p>If key is not immediately present, will do a blocking wait
 for at most <code class="docutils literal notranslate"><span class="pre">timeout</span></code> duration or until the key is published.</p>
@@ -7056,14 +7441,14 @@ for at most <code class="docutils literal notranslate"><span class="pre">timeout
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.set">
-<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.set" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.set" title="Link to this definition">#</a></dt>
 <dd><p>Write a key/value pair into <code class="docutils literal notranslate"><span class="pre">EtcdStore</span></code>.</p>
 <p>Both key and value may be either Python <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">bytes</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_store.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_store.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait" title="Link to this definition">#</a></dt>
 <dd><p>Wait until all of the keys are published, or until timeout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -7089,7 +7474,7 @@ the single point of failure for your distributed jobs.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.rendezvous.etcd_server.EtcdServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_server.</span></span><span class="sig-name descname"><span class="pre">EtcdServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/distributed/elastic/rendezvous/etcd_server.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_server.EtcdServer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.rendezvous.etcd_server.</span></span><span class="sig-name descname"><span class="pre">EtcdServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/distributed/elastic/rendezvous/etcd_server.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.rendezvous.etcd_server.EtcdServer" title="Link to this definition">#</a></dt>
 <dd><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>tested on etcd server v3.4.3.</p>
@@ -7547,7 +7932,7 @@ calling the <code class="docutils literal notranslate"><span class="pre">stop()<
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>

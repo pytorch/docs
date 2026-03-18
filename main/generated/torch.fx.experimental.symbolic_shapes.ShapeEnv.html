@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -4899,8 +5284,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5493,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5530,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6154,12 +6539,12 @@ document.write(`
 <h1>ShapeEnv<a class="headerlink" href="#shapeenv" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">ShapeEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_record_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracked_fakes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L3734"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">ShapeEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_record_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracked_fakes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L3768"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.add_backed_var_to_val">
-<span class="sig-name descname"><span class="pre">add_backed_var_to_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5479"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.add_backed_var_to_val" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_backed_var_to_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5521"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.add_backed_var_to_val" title="Link to this definition">#</a></dt>
 <dd><p>Adds a new symbol to the symbolic environment.</p>
 <dl class="field-list simple">
 </dl>
@@ -6167,7 +6552,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.add_var_to_val">
-<span class="sig-name descname"><span class="pre">add_var_to_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5495"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.add_var_to_val" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_var_to_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5537"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.add_var_to_val" title="Link to this definition">#</a></dt>
 <dd><p>Deprecated: use add_backed_var_to_val instead.</p>
 <dl class="field-list simple">
 </dl>
@@ -6175,7 +6560,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols">
-<span class="sig-name descname"><span class="pre">bind_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bind_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols" title="Link to this definition">#</a></dt>
 <dd><p>Given a paired list of placeholders (fake tensors with
 symbolic sizes) and concrete arguments (regular tensors
 with real sizes), returns a dictionary mapping each
@@ -6198,7 +6583,7 @@ though if it’s cheap we’ll check for shenanigans</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.bound_sympy">
-<span class="sig-name descname"><span class="pre">bound_sympy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.bound_sympy" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bound_sympy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.bound_sympy" title="Link to this definition">#</a></dt>
 <dd><p>Given a sympy expression, computes a ValueRanges bound for what values it can be</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6209,7 +6594,7 @@ though if it’s cheap we’ll check for shenanigans</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.check_equal">
-<span class="sig-name descname"><span class="pre">check_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.check_equal" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">check_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.check_equal" title="Link to this definition">#</a></dt>
 <dd><p>Compare another ShapeEnv for equivalence</p>
 <dl class="field-list simple">
 </dl>
@@ -6217,7 +6602,7 @@ though if it’s cheap we’ll check for shenanigans</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L8071"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.cleanup" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L8160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.cleanup" title="Link to this definition">#</a></dt>
 <dd><p>Break reference cycles.</p>
 <p>This destroys the stacks. If you really want to keep them, we
 just need some way to break references on code objects.</p>
@@ -6227,7 +6612,7 @@ just need some way to break references on code objects.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbol">
-<span class="sig-name descname"><span class="pre">create_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DimDynamic.DUCK</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_not_specialize_zero_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbol" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DimDynamic.DUCK</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_not_specialize_zero_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbol" title="Link to this definition">#</a></dt>
 <dd><p>Create a new symbol which is tracked by this ShapeEnv</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6238,7 +6623,7 @@ just need some way to break references on code objects.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbolic_sizes_strides_storage_offset">
-<span class="sig-name descname"><span class="pre">create_symbolic_sizes_strides_storage_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4620"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbolic_sizes_strides_storage_offset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_symbolic_sizes_strides_storage_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4662"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbolic_sizes_strides_storage_offset" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of symbolic sizes and strides for the given tensor.
 We try our best to express stride in terms of the sizes, so as to not
 introduce new symbolic variables.</p>
@@ -6251,7 +6636,7 @@ introduce new symbolic variables.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symboolnode">
-<span class="sig-name descname"><span class="pre">create_symboolnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5005"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symboolnode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_symboolnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5047"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symboolnode" title="Link to this definition">#</a></dt>
 <dd><p>Create a SymBool object from a sympy boolean expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6262,7 +6647,7 @@ introduce new symbolic variables.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symfloatnode">
-<span class="sig-name descname"><span class="pre">create_symfloatnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4948"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symfloatnode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_symfloatnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4990"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symfloatnode" title="Link to this definition">#</a></dt>
 <dd><p>Create a SymFloat value from a symbolic expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6273,7 +6658,7 @@ introduce new symbolic variables.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symintnode">
-<span class="sig-name descname"><span class="pre">create_symintnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4902"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symintnode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_symintnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4944"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symintnode" title="Link to this definition">#</a></dt>
 <dd><p>Create a SymInt value from a symbolic expression</p>
 <p>If you know what the current hint value of the SymInt to be created
 is, pass it into hint.  Otherwise, pass None and we will make our best
@@ -6287,7 +6672,7 @@ guess</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symbool">
-<span class="sig-name descname"><span class="pre">create_unbacked_symbool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symbool" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_unbacked_symbool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symbool" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbolic boolean without a hint value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6298,7 +6683,7 @@ guess</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat">
-<span class="sig-name descname"><span class="pre">create_unbacked_symfloat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5048"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_unbacked_symfloat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5090"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbolic float without a hint value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6309,7 +6694,7 @@ guess</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symint">
-<span class="sig-name descname"><span class="pre">create_unbacked_symint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5075"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_unbacked_symint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symint" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbolic integer without a hint value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6320,7 +6705,7 @@ guess</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symbol">
-<span class="sig-name descname"><span class="pre">create_unspecified_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DimDynamic.DUCK</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symbol" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_unspecified_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DimDynamic.DUCK</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symbol" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbol with an unspecified value</p>
 <p>Compared to standard symbols we do not assume the value is positive,
 nor do we specialze on zero or one values.</p>
@@ -6333,7 +6718,7 @@ nor do we specialze on zero or one values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol">
-<span class="sig-name descname"><span class="pre">create_unspecified_symint_and_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4990"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_unspecified_symint_and_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5032"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol" title="Link to this definition">#</a></dt>
 <dd><p>Create a SymInt wrapping a new unspecified symbol</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6344,7 +6729,7 @@ nor do we specialze on zero or one values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.deserialize_symexpr">
-<span class="sig-name descname"><span class="pre">deserialize_symexpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.deserialize_symexpr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">deserialize_symexpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.deserialize_symexpr" title="Link to this definition">#</a></dt>
 <dd><p>To be used by compile_fx to deserialize symexprs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6355,7 +6740,7 @@ nor do we specialze on zero or one values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.error_on_new_guards">
-<span class="sig-name descname"><span class="pre">error_on_new_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.error_on_new_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">error_on_new_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4554"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.error_on_new_guards" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that raises _ShapeEnvGuardError if a guard is attempted.</p>
 <p>Temporarily freezes the ShapeEnv and makes _check_frozen raise
 instead of warn, so that guard-installing code paths produce an
@@ -6369,7 +6754,7 @@ exception that is not cached by the _inner_evaluate_expr LRU cache.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_expr">
-<span class="sig-name descname"><span class="pre">evaluate_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fx_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcing_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L7716"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_expr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fx_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcing_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L7795"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_expr" title="Link to this definition">#</a></dt>
 <dd><p>Given an expression, evaluates it, adding guards if necessary
 When fallback_value is not None the function return fallback_value instead of failing with data dependent error.</p>
 <dl class="field-list simple">
@@ -6381,7 +6766,7 @@ When fallback_value is not None the function return fallback_value instead of fa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_expression">
-<span class="sig-name descname"><span class="pre">evaluate_guards_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_expression" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate_guards_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_expression" title="Link to this definition">#</a></dt>
 <dd><p>Expected to be used with produce_guards_expression(). Evaluates an expression
 generated by produce_guards_expression for the given concrete args.</p>
 <dl class="field-list simple">
@@ -6393,7 +6778,7 @@ generated by produce_guards_expression for the given concrete args.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args">
-<span class="sig-name descname"><span class="pre">evaluate_guards_for_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6412"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate_guards_for_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args" title="Link to this definition">#</a></dt>
 <dd><p>Generate guards for a graph’s placeholder values and evaluate the guards with args</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6404,7 +6789,7 @@ generated by produce_guards_expression for the given concrete args.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_sym_node">
-<span class="sig-name descname"><span class="pre">evaluate_sym_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L7626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_sym_node" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate_sym_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L7705"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_sym_node" title="Link to this definition">#</a></dt>
 <dd><p>Given a a SymNode, evaluates sym_node.expr, adding guards if necessary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6415,7 +6800,7 @@ generated by produce_guards_expression for the given concrete args.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr">
-<span class="sig-name descname"><span class="pre">evaluate_symexpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate_symexpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6429"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr" title="Link to this definition">#</a></dt>
 <dd><p>To be used by compile_fx to evaluate symexprs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6426,7 +6811,7 @@ generated by produce_guards_expression for the given concrete args.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">
-<span class="sig-name descname"><span class="pre">format_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards" title="Link to this definition">#</a></dt>
 <dd><p>Format this shape env’s guard expressions with optional traceback info if verbose</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6437,7 +6822,7 @@ generated by produce_guards_expression for the given concrete args.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze">
-<span class="sig-name descname"><span class="pre">freeze</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">freeze</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4411"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze" title="Link to this definition">#</a></dt>
 <dd><p>Freeze this ShapeEnv to stop accumulating guards</p>
 <p>A frozen ShapeEnv will ignore any further guards generated on it and
 only emit a warning which may lead to accuracy problems.</p>
@@ -6447,7 +6832,7 @@ only emit a warning which may lead to accuracy problems.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts">
-<span class="sig-name descname"><span class="pre">freeze_runtime_asserts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4378"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">freeze_runtime_asserts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts" title="Link to this definition">#</a></dt>
 <dd><p>Freeze this ShapeEnv to stop adding deferred runtime asserts.</p>
 <p>We will error if you try to install a new runtime assert when it is
 frozen.  This would indicate a lowering violation, or perhaps something
@@ -6459,7 +6844,7 @@ that is not clearly dischargeable.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">
-<span class="sig-name descname"><span class="pre">get_axioms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_hint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_axioms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_hint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms" title="Link to this definition">#</a></dt>
 <dd><p>Given the symbols in an expression, it returns all the runtime asserts that have those symbols
 concatenated with all the guards.
 If symbols is None, it returns all the runtime asserts (and all the guards)</p>
@@ -6472,7 +6857,7 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications">
-<span class="sig-name descname"><span class="pre">get_implications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_implications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications" title="Link to this definition">#</a></dt>
 <dd><p>Given a expression, it returns a list of predicates that follow from it</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6483,7 +6868,7 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards">
-<span class="sig-name descname"><span class="pre">get_nontrivial_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6495"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_nontrivial_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6537"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of guard expressions that aren’t statically known (i.e. not trivial)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6494,7 +6879,7 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards">
-<span class="sig-name descname"><span class="pre">get_pruned_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_pruned_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards" title="Link to this definition">#</a></dt>
 <dd><p>Get a list of guards, but pruned so it only provides guards that
 reference symints from the passed in input</p>
 <dl class="field-list simple">
@@ -6506,7 +6891,7 @@ reference symints from the passed in input</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.guard_or_defer_runtime_assert">
-<span class="sig-name descname"><span class="pre">guard_or_defer_runtime_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fx_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L8107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.guard_or_defer_runtime_assert" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">guard_or_defer_runtime_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fx_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L8196"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.guard_or_defer_runtime_assert" title="Link to this definition">#</a></dt>
 <dd><p>Adds a guard that orig_expr is True if we can or fall back to adding an assert
 that is checked at runtime.</p>
 <dl class="field-list simple">
@@ -6525,8 +6910,21 @@ to the expression, if applicable</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.guarding_hint_or_throw">
+<span class="sig-name descname"><span class="pre">guarding_hint_or_throw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6971"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.guarding_hint_or_throw" title="Link to this definition">#</a></dt>
+<dd><p>Return a concrete hint for an expression.</p>
+<p>Returns Python bool (True/False) for boolean expressions (e.g. Eq, Ne),
+and Python int for integer expressions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols">
-<span class="sig-name descname"><span class="pre">ignore_fresh_unbacked_symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ignore_fresh_unbacked_symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols" title="Link to this definition">#</a></dt>
 <dd><p>Indicates that the newly allocated unbacked SymInts are being
 discarded</p>
 <dl class="field-list simple">
@@ -6538,7 +6936,7 @@ discarded</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.is_unbacked_symint">
-<span class="sig-name descname"><span class="pre">is_unbacked_symint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.is_unbacked_symint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_unbacked_symint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.is_unbacked_symint" title="Link to this definition">#</a></dt>
 <dd><p>Check if a sympy symbol matches the naming convention for unbacked symbols</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6548,8 +6946,31 @@ discarded</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.optimization_hint">
+<span class="sig-name descname"><span class="pre">optimization_hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6989"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.optimization_hint" title="Link to this definition">#</a></dt>
+<dd><p>Return a concrete integer hint for an expression.</p>
+<p>This function should be used for non-guarding based optimizations. If you
+want a hint that you can guard on, use the guarding_hint API instead.</p>
+<p>This function will hint unbacked symbols using user provided optimization
+hints. If not provided, fallback will be used along with some heuristics
+that try to maximize consistency with the shape environment.</p>
+<p>Special cases:</p>
+<ul class="simple">
+<li><p>Complex numbers (containing sympy.I): raises an error since tensor
+dimensions cannot be complex.</p></li>
+<li><p>Infinity (int_oo, sympy.oo): returns sys.maxsize.</p></li>
+<li><p>NaN (sympy.nan): returns the fallback value.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.patch_source_specialization">
-<span class="sig-name descname"><span class="pre">patch_source_specialization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4090"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.patch_source_specialization" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">patch_source_specialization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.patch_source_specialization" title="Link to this definition">#</a></dt>
 <dd><p>Temporarily add symbol-level axioms to the ShapeEnv. This is useful when you want to “fork”
 and have parallel universes of ShapeEnvs. For example, we use this when doing multi-graph
 compile so we can support various graphs with varying levels of specializations.</p>
@@ -6571,7 +6992,7 @@ representing a constraint/specialization to be applied</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards">
-<span class="sig-name descname"><span class="pre">produce_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5529"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">produce_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards" title="Link to this definition">#</a></dt>
 <dd><p>Like produce_guards_verbose, but only returns the non-verbose python guard expressions
 (no verbose guards produced.)</p>
 <dl class="field-list simple">
@@ -6583,7 +7004,7 @@ representing a constraint/specialization to be applied</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_expression">
-<span class="sig-name descname"><span class="pre">produce_guards_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6362"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_expression" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">produce_guards_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_expression" title="Link to this definition">#</a></dt>
 <dd><p>Expected to be used with evaluate_guards_expression(). Produces the guards
 for the given placeholders and returns a string expression to be evaluated
 by evaluate_guards_expression given concrete values for the placeholders.</p>
@@ -6596,7 +7017,7 @@ by evaluate_guards_expression given concrete values for the placeholders.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_verbose">
-<span class="sig-name descname"><span class="pre">produce_guards_verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_ref=&lt;function</span> <span class="pre">ShapeEnv.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guards=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_contexts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalities_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_simplified=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langs=('python'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'verbose_python')</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L5536"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_verbose" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">produce_guards_verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_ref=&lt;function</span> <span class="pre">ShapeEnv.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guards=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_contexts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalities_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_simplified=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langs=('python'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'verbose_python')</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L5578"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_verbose" title="Link to this definition">#</a></dt>
 <dd><p>Generates a list of guards strings which, when evaluated in a context that
 defines tensors for all the sources, returns True or False depending
 on if the guards in the list evaluated to True or not.  Primarily used by Dynamo,
@@ -6621,7 +7042,7 @@ default.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.replace">
-<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6761"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.replace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6803"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.replace" title="Link to this definition">#</a></dt>
 <dd><p>Apply symbol replacements to any symbols in the given expression.</p>
 <p>IMPORTANT: The output of this method MUST depend only on
 self.replacements and the input expr. Do not add dependencies on other
@@ -6637,7 +7058,7 @@ depending on other state would cause stale cache results.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.set_real_tensor_prop_unbacked_vals">
-<span class="sig-name descname"><span class="pre">set_real_tensor_prop_unbacked_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.set_real_tensor_prop_unbacked_vals" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_real_tensor_prop_unbacked_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.set_real_tensor_prop_unbacked_vals" title="Link to this definition">#</a></dt>
 <dd><p>Used only when propagate_real_tensors; registers a value for an
 unbacked symbol, which can be used last resort to resolve hints.</p>
 <dl class="field-list simple">
@@ -6646,7 +7067,7 @@ unbacked symbol, which can be used last resort to resolve hints.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.simplify">
-<span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6799"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.simplify" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_oblivious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6841"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.simplify" title="Link to this definition">#</a></dt>
 <dd><p>Use known constraints and replacements to simplify the given expr</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6657,7 +7078,7 @@ unbacked symbol, which can be used last resort to resolve hints.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.size_hint">
-<span class="sig-name descname"><span class="pre">size_hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L6879"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.size_hint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">size_hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L6921"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.size_hint" title="Link to this definition">#</a></dt>
 <dd><p>Gets a size hint for a given expression from the underlying shapes we had.
 Does not introduce a guard, so only use this when you can guarantee that
 your code is still valid for arbitrary shapes (such as optimization decisions)</p>
@@ -6670,7 +7091,7 @@ your code is still valid for arbitrary shapes (such as optimization decisions)</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards">
-<span class="sig-name descname"><span class="pre">suppress_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/fx/experimental/symbolic_shapes.py#L4508"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">suppress_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/fx/experimental/symbolic_shapes.py#L4550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards" title="Link to this definition">#</a></dt>
 <dd><p>Context manager to ignore all guards generated inside.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6843,8 +7264,10 @@ your code is still valid for arbitrary shapes (such as optimization decisions)</
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.get_nontrivial_guards()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.get_pruned_guards()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.guard_or_defer_runtime_assert"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.guard_or_defer_runtime_assert()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.guarding_hint_or_throw"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.guarding_hint_or_throw()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.ignore_fresh_unbacked_symbols()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.is_unbacked_symint"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.is_unbacked_symint()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.optimization_hint"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.optimization_hint()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.patch_source_specialization"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.patch_source_specialization()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.produce_guards()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_expression"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.produce_guards_expression()</span></code></a></li>
@@ -7041,7 +7464,7 @@ your code is still valid for arbitrary shapes (such as optimization decisions)</
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
@@ -7093,7 +7516,7 @@ your code is still valid for arbitrary shapes (such as optimization decisions)</
        "headline": "ShapeEnv",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html",
-       "articleBody": "ShapeEnv# class torch.fx.experimental.symbolic_shapes.ShapeEnv(*, should_record_events=None, tracked_fakes=None, **kwargs)[source]# add_backed_var_to_val(expr, val)[source]# Adds a new symbol to the symbolic environment. add_var_to_val(expr, val)[source]# Deprecated: use add_backed_var_to_val instead. bind_symbols(placeholders, args)[source]# Given a paired list of placeholders (fake tensors with symbolic sizes) and concrete arguments (regular tensors with real sizes), returns a dictionary mapping each symbol to its real value. So for example, if you have a placeholder with size (s0, s1), binding (2, 4) to it will give you {s0: 2, s1: 4}. This is not guaranteed to bind ALL symbols in the ShapeEnv; we can\u2019t bind a symbol if it doesn\u2019t occur in any placeholder, and symbols that already have replacements won\u2019t get bindings. This is a little duplicative with evaluate_guards but it\u2019s different enough that it seemed cleanest to make another copy. This assumes the guards are already checked, though if it\u2019s cheap we\u2019ll check for shenanigans Return type: dict[sympy.Symbol, int] bound_sympy(expr, size_oblivious=False)[source]# Given a sympy expression, computes a ValueRanges bound for what values it can be Return type: ValueRanges check_equal(other)[source]# Compare another ShapeEnv for equivalence cleanup()[source]# Break reference cycles. This destroys the stacks. If you really want to keep them, we just need some way to break references on code objects. create_symbol(val, source, dynamic_dim=DimDynamic.DUCK, constraint_dim=None, positive=True, do_not_specialize_zero_one=False, symbolic_context=None)[source]# Create a new symbol which is tracked by this ShapeEnv Return type: Expr create_symbolic_sizes_strides_storage_offset(ex, source, *, symbolic_context=None)[source]# Returns a list of symbolic sizes and strides for the given tensor. We try our best to express stride in terms of the sizes, so as to not introduce new symbolic variables. Return type: tuple[tuple[IntLikeType, \u2026], tuple[IntLikeType, \u2026], IntLikeType] create_symboolnode(sym)[source]# Create a SymBool object from a sympy boolean expression Return type: SymBool create_symfloatnode(sym, *, hint, source=None)[source]# Create a SymFloat value from a symbolic expression Return type: FloatLikeType create_symintnode(sym, *, hint, source=None)[source]# Create a SymInt value from a symbolic expression If you know what the current hint value of the SymInt to be created is, pass it into hint. Otherwise, pass None and we will make our best guess Return type: IntLikeType create_unbacked_symbool()[source]# Create a symbolic boolean without a hint value Return type: SymBool create_unbacked_symfloat()[source]# Create a symbolic float without a hint value Return type: SymFloat create_unbacked_symint(source=None)[source]# Create a symbolic integer without a hint value Return type: SymInt create_unspecified_symbol(val, source, dynamic_dim=DimDynamic.DUCK, constraint_dim=None, symbolic_context=None)[source]# Create a symbol with an unspecified value Compared to standard symbols we do not assume the value is positive, nor do we specialze on zero or one values. Return type: Expr create_unspecified_symint_and_symbol(value, source, dynamic_dim)[source]# Create a SymInt wrapping a new unspecified symbol Return type: IntLikeType deserialize_symexpr(code)[source]# To be used by compile_fx to deserialize symexprs Return type: SymInt | SymFloat | SymBool error_on_new_guards()[source]# Context manager that raises _ShapeEnvGuardError if a guard is attempted. Temporarily freezes the ShapeEnv and makes _check_frozen raise instead of warn, so that guard-installing code paths produce an exception that is not cached by the _inner_evaluate_expr LRU cache. Return type: Iterator[None] evaluate_expr(orig_expr, hint=None, fx_node=None, size_oblivious=False, fallback_value=None, *, forcing_spec=False)[source]# Given an expression, evaluates it, adding guards if necessary When fallback_value is not None the function return fallback_value instead of failing with data dependent error. Return type: Basic evaluate_guards_expression(code, args)[source]# Expected to be used with produce_guards_expression(). Evaluates an expression generated by produce_guards_expression for the given concrete args. Return type: bool evaluate_guards_for_args(placeholders, args, *, ignore_static=True)[source]# Generate guards for a graph\u2019s placeholder values and evaluate the guards with args Return type: bool evaluate_sym_node(sym_node, size_oblivious=False, fallback_value=None)[source]# Given a a SymNode, evaluates sym_node.expr, adding guards if necessary. Return type: Basic evaluate_symexpr(code)[source]# To be used by compile_fx to evaluate symexprs Return type: int | float | bool format_guards(verbose=False)[source]# Format this shape env\u2019s guard expressions with optional traceback info if verbose Return type: str freeze()[source]# Freeze this ShapeEnv to stop accumulating guards A frozen ShapeEnv will ignore any further guards generated on it and only emit a warning which may lead to accuracy problems. freeze_runtime_asserts()[source]# Freeze this ShapeEnv to stop adding deferred runtime asserts. We will error if you try to install a new runtime assert when it is frozen. This would indicate a lowering violation, or perhaps something we know statically is already True but we are checking it again in a way that is not clearly dischargeable. get_axioms(symbols=None, compute_hint=False)[source]# Given the symbols in an expression, it returns all the runtime asserts that have those symbols concatenated with all the guards. If symbols is None, it returns all the runtime asserts (and all the guards) Return type: tuple[sympy.logic.boolalg.Boolean, \u2026] get_implications(e)[source]# Given a expression, it returns a list of predicates that follow from it Return type: tuple[tuple[sympy.logic.boolalg.Boolean, BooleanAtom], \u2026] get_nontrivial_guards()[source]# Returns a list of guard expressions that aren\u2019t statically known (i.e. not trivial) Return type: list[sympy.logic.boolalg.Boolean] get_pruned_guards(symints)[source]# Get a list of guards, but pruned so it only provides guards that reference symints from the passed in input Return type: list[ShapeGuard] guard_or_defer_runtime_assert(orig_expr, msg, fx_node=None)[source]# Adds a guard that orig_expr is True if we can or fall back to adding an assert that is checked at runtime. Parameters: orig_expr (sympy.Expr) \u2013 Boolean expression to assert is true msg (str) \u2013 Message to display on assertion failure fx_node (Optional, torch.fx.Node) \u2013 node in self.graph corresponding to the expression, if applicable Return type: bool ignore_fresh_unbacked_symbols()[source]# Indicates that the newly allocated unbacked SymInts are being discarded Return type: Iterator[None] is_unbacked_symint(symbol)[source]# Check if a sympy symbol matches the naming convention for unbacked symbols Return type: bool patch_source_specialization(source, check_fn)[source]# Temporarily add symbol-level axioms to the ShapeEnv. This is useful when you want to \u201cfork\u201d and have parallel universes of ShapeEnvs. For example, we use this when doing multi-graph compile so we can support various graphs with varying levels of specializations. This context manager allows for temporarily adding constraints to the shape environment based on a specialization function applied to a symbol associated with a source. Parameters: source (Source) \u2013 The source of the symbol to specialize check_fn (Callable[[Symbol], Expr]) \u2013 A function that takes a sympy Symbol and returns a sympy expression representing a constraint/specialization to be applied Return type: Iterator[None] produce_guards(*args, **kwargs)[source]# Like produce_guards_verbose, but only returns the non-verbose python guard expressions (no verbose guards produced.) Return type: list[str] produce_guards_expression(placeholders, *, guards=None, ignore_static=True)[source]# Expected to be used with evaluate_guards_expression(). Produces the guards for the given placeholders and returns a string expression to be evaluated by evaluate_guards_expression given concrete values for the placeholders. Return type: str | None produce_guards_verbose(placeholders, sources, source_ref=\u003cfunction ShapeEnv.\u003clambda\u003e\u003e, *, guards=None, input_contexts=None, equalities_inputs=None, _simplified=False, ignore_static=True, langs=(\u0027python\u0027, \u0027verbose_python\u0027))[source]# Generates a list of guards strings which, when evaluated in a context that defines tensors for all the sources, returns True or False depending on if the guards in the list evaluated to True or not. Primarily used by Dynamo, but this is also helpful for manual testing of guards (see evaluate_guards_for_args) For convenience in testing, a source is allowed to be a str, in which case we will assume it is a LocalSource simplified lets you omit duck sizing, equality and 0/1 guards. This is useful for testing when you don\u2019t care about the boilerplate guards, and it may be helpful for user output too (be careful though; some equality guards are nontrivial! It would be nice to get simplified output to print them too). It\u2019s private because it\u2019s not intended for normal use Returns guards in python and python with verbose comments (verbose) by default. Return type: list[_ShapeGuardsHelper] replace(expr)[source]# Apply symbol replacements to any symbols in the given expression. IMPORTANT: The output of this method MUST depend only on self.replacements and the input expr. Do not add dependencies on other mutable state. SymNode.expr uses _replacements_version_counter (which tracks only replacement changes) to cache calls to this method, so depending on other state would cause stale cache results. Return type: _SympyT set_real_tensor_prop_unbacked_vals(k, v)[source]# Used only when propagate_real_tensors; registers a value for an unbacked symbol, which can be used last resort to resolve hints. simplify(expr, size_oblivious=False)[source]# Use known constraints and replacements to simplify the given expr Return type: _SympyT size_hint(expr, *, allow_none=False)[source]# Gets a size hint for a given expression from the underlying shapes we had. Does not introduce a guard, so only use this when you can guarantee that your code is still valid for arbitrary shapes (such as optimization decisions) Return type: Basic | None suppress_guards()[source]# Context manager to ignore all guards generated inside. Return type: _GeneratorContextManager[None] property var_to_val: dict[Symbol, Integer]# use backed_var_to_val instead. Type: Deprecated",
+       "articleBody": "ShapeEnv# class torch.fx.experimental.symbolic_shapes.ShapeEnv(*, should_record_events=None, tracked_fakes=None, **kwargs)[source]# add_backed_var_to_val(expr, val)[source]# Adds a new symbol to the symbolic environment. add_var_to_val(expr, val)[source]# Deprecated: use add_backed_var_to_val instead. bind_symbols(placeholders, args)[source]# Given a paired list of placeholders (fake tensors with symbolic sizes) and concrete arguments (regular tensors with real sizes), returns a dictionary mapping each symbol to its real value. So for example, if you have a placeholder with size (s0, s1), binding (2, 4) to it will give you {s0: 2, s1: 4}. This is not guaranteed to bind ALL symbols in the ShapeEnv; we can\u2019t bind a symbol if it doesn\u2019t occur in any placeholder, and symbols that already have replacements won\u2019t get bindings. This is a little duplicative with evaluate_guards but it\u2019s different enough that it seemed cleanest to make another copy. This assumes the guards are already checked, though if it\u2019s cheap we\u2019ll check for shenanigans Return type: dict[sympy.Symbol, int] bound_sympy(expr, size_oblivious=False)[source]# Given a sympy expression, computes a ValueRanges bound for what values it can be Return type: ValueRanges check_equal(other)[source]# Compare another ShapeEnv for equivalence cleanup()[source]# Break reference cycles. This destroys the stacks. If you really want to keep them, we just need some way to break references on code objects. create_symbol(val, source, dynamic_dim=DimDynamic.DUCK, constraint_dim=None, positive=True, do_not_specialize_zero_one=False, symbolic_context=None)[source]# Create a new symbol which is tracked by this ShapeEnv Return type: Expr create_symbolic_sizes_strides_storage_offset(ex, source, *, symbolic_context=None)[source]# Returns a list of symbolic sizes and strides for the given tensor. We try our best to express stride in terms of the sizes, so as to not introduce new symbolic variables. Return type: tuple[tuple[IntLikeType, \u2026], tuple[IntLikeType, \u2026], IntLikeType] create_symboolnode(sym)[source]# Create a SymBool object from a sympy boolean expression Return type: SymBool create_symfloatnode(sym, *, hint, source=None)[source]# Create a SymFloat value from a symbolic expression Return type: FloatLikeType create_symintnode(sym, *, hint, source=None)[source]# Create a SymInt value from a symbolic expression If you know what the current hint value of the SymInt to be created is, pass it into hint. Otherwise, pass None and we will make our best guess Return type: IntLikeType create_unbacked_symbool()[source]# Create a symbolic boolean without a hint value Return type: SymBool create_unbacked_symfloat()[source]# Create a symbolic float without a hint value Return type: SymFloat create_unbacked_symint(source=None)[source]# Create a symbolic integer without a hint value Return type: SymInt create_unspecified_symbol(val, source, dynamic_dim=DimDynamic.DUCK, constraint_dim=None, symbolic_context=None)[source]# Create a symbol with an unspecified value Compared to standard symbols we do not assume the value is positive, nor do we specialze on zero or one values. Return type: Expr create_unspecified_symint_and_symbol(value, source, dynamic_dim)[source]# Create a SymInt wrapping a new unspecified symbol Return type: IntLikeType deserialize_symexpr(code)[source]# To be used by compile_fx to deserialize symexprs Return type: SymInt | SymFloat | SymBool error_on_new_guards()[source]# Context manager that raises _ShapeEnvGuardError if a guard is attempted. Temporarily freezes the ShapeEnv and makes _check_frozen raise instead of warn, so that guard-installing code paths produce an exception that is not cached by the _inner_evaluate_expr LRU cache. Return type: Iterator[None] evaluate_expr(orig_expr, hint=None, fx_node=None, size_oblivious=False, fallback_value=None, *, forcing_spec=False)[source]# Given an expression, evaluates it, adding guards if necessary When fallback_value is not None the function return fallback_value instead of failing with data dependent error. Return type: Basic evaluate_guards_expression(code, args)[source]# Expected to be used with produce_guards_expression(). Evaluates an expression generated by produce_guards_expression for the given concrete args. Return type: bool evaluate_guards_for_args(placeholders, args, *, ignore_static=True)[source]# Generate guards for a graph\u2019s placeholder values and evaluate the guards with args Return type: bool evaluate_sym_node(sym_node, size_oblivious=False, fallback_value=None)[source]# Given a a SymNode, evaluates sym_node.expr, adding guards if necessary. Return type: Basic evaluate_symexpr(code)[source]# To be used by compile_fx to evaluate symexprs Return type: int | float | bool format_guards(verbose=False)[source]# Format this shape env\u2019s guard expressions with optional traceback info if verbose Return type: str freeze()[source]# Freeze this ShapeEnv to stop accumulating guards A frozen ShapeEnv will ignore any further guards generated on it and only emit a warning which may lead to accuracy problems. freeze_runtime_asserts()[source]# Freeze this ShapeEnv to stop adding deferred runtime asserts. We will error if you try to install a new runtime assert when it is frozen. This would indicate a lowering violation, or perhaps something we know statically is already True but we are checking it again in a way that is not clearly dischargeable. get_axioms(symbols=None, compute_hint=False)[source]# Given the symbols in an expression, it returns all the runtime asserts that have those symbols concatenated with all the guards. If symbols is None, it returns all the runtime asserts (and all the guards) Return type: tuple[sympy.logic.boolalg.Boolean, \u2026] get_implications(e)[source]# Given a expression, it returns a list of predicates that follow from it Return type: tuple[tuple[sympy.logic.boolalg.Boolean, BooleanAtom], \u2026] get_nontrivial_guards()[source]# Returns a list of guard expressions that aren\u2019t statically known (i.e. not trivial) Return type: list[sympy.logic.boolalg.Boolean] get_pruned_guards(symints)[source]# Get a list of guards, but pruned so it only provides guards that reference symints from the passed in input Return type: list[ShapeGuard] guard_or_defer_runtime_assert(orig_expr, msg, fx_node=None)[source]# Adds a guard that orig_expr is True if we can or fall back to adding an assert that is checked at runtime. Parameters: orig_expr (sympy.Expr) \u2013 Boolean expression to assert is true msg (str) \u2013 Message to display on assertion failure fx_node (Optional, torch.fx.Node) \u2013 node in self.graph corresponding to the expression, if applicable Return type: bool guarding_hint_or_throw(expr)[source]# Return a concrete hint for an expression. Returns Python bool (True/False) for boolean expressions (e.g. Eq, Ne), and Python int for integer expressions. Return type: int | bool ignore_fresh_unbacked_symbols()[source]# Indicates that the newly allocated unbacked SymInts are being discarded Return type: Iterator[None] is_unbacked_symint(symbol)[source]# Check if a sympy symbol matches the naming convention for unbacked symbols Return type: bool optimization_hint(expr, fallback=None)[source]# Return a concrete integer hint for an expression. This function should be used for non-guarding based optimizations. If you want a hint that you can guard on, use the guarding_hint API instead. This function will hint unbacked symbols using user provided optimization hints. If not provided, fallback will be used along with some heuristics that try to maximize consistency with the shape environment. Special cases: Complex numbers (containing sympy.I): raises an error since tensor dimensions cannot be complex. Infinity (int_oo, sympy.oo): returns sys.maxsize. NaN (sympy.nan): returns the fallback value. Return type: int patch_source_specialization(source, check_fn)[source]# Temporarily add symbol-level axioms to the ShapeEnv. This is useful when you want to \u201cfork\u201d and have parallel universes of ShapeEnvs. For example, we use this when doing multi-graph compile so we can support various graphs with varying levels of specializations. This context manager allows for temporarily adding constraints to the shape environment based on a specialization function applied to a symbol associated with a source. Parameters: source (Source) \u2013 The source of the symbol to specialize check_fn (Callable[[Symbol], Expr]) \u2013 A function that takes a sympy Symbol and returns a sympy expression representing a constraint/specialization to be applied Return type: Iterator[None] produce_guards(*args, **kwargs)[source]# Like produce_guards_verbose, but only returns the non-verbose python guard expressions (no verbose guards produced.) Return type: list[str] produce_guards_expression(placeholders, *, guards=None, ignore_static=True)[source]# Expected to be used with evaluate_guards_expression(). Produces the guards for the given placeholders and returns a string expression to be evaluated by evaluate_guards_expression given concrete values for the placeholders. Return type: str | None produce_guards_verbose(placeholders, sources, source_ref=\u003cfunction ShapeEnv.\u003clambda\u003e\u003e, *, guards=None, input_contexts=None, equalities_inputs=None, _simplified=False, ignore_static=True, langs=(\u0027python\u0027, \u0027verbose_python\u0027))[source]# Generates a list of guards strings which, when evaluated in a context that defines tensors for all the sources, returns True or False depending on if the guards in the list evaluated to True or not. Primarily used by Dynamo, but this is also helpful for manual testing of guards (see evaluate_guards_for_args) For convenience in testing, a source is allowed to be a str, in which case we will assume it is a LocalSource simplified lets you omit duck sizing, equality and 0/1 guards. This is useful for testing when you don\u2019t care about the boilerplate guards, and it may be helpful for user output too (be careful though; some equality guards are nontrivial! It would be nice to get simplified output to print them too). It\u2019s private because it\u2019s not intended for normal use Returns guards in python and python with verbose comments (verbose) by default. Return type: list[_ShapeGuardsHelper] replace(expr)[source]# Apply symbol replacements to any symbols in the given expression. IMPORTANT: The output of this method MUST depend only on self.replacements and the input expr. Do not add dependencies on other mutable state. SymNode.expr uses _replacements_version_counter (which tracks only replacement changes) to cache calls to this method, so depending on other state would cause stale cache results. Return type: _SympyT set_real_tensor_prop_unbacked_vals(k, v)[source]# Used only when propagate_real_tensors; registers a value for an unbacked symbol, which can be used last resort to resolve hints. simplify(expr, size_oblivious=False)[source]# Use known constraints and replacements to simplify the given expr Return type: _SympyT size_hint(expr, *, allow_none=False)[source]# Gets a size hint for a given expression from the underlying shapes we had. Does not introduce a guard, so only use this when you can guarantee that your code is still valid for arbitrary shapes (such as optimization decisions) Return type: Basic | None suppress_guards()[source]# Context manager to ignore all guards generated inside. Return type: _GeneratorContextManager[None] property var_to_val: dict[Symbol, Integer]# use backed_var_to_val instead. Type: Deprecated",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

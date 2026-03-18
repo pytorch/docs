@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -4899,8 +5284,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5493,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5530,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6158,7 +6543,7 @@ examine their input shapes and stack traces, study device kernel activity and vi
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">_KinetoProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">_KinetoProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile" title="Link to this definition">#</a></dt>
 <dd><p>Low-level profiler wrap the autograd profile</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6213,7 +6598,7 @@ extra tensor copies.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.add_metadata">
-<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a string value
 into the trace file</p>
 <dl class="field-list simple">
@@ -6222,7 +6607,7 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.add_metadata_json">
-<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.add_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a valid json value
 into the trace file</p>
 <dl class="field-list simple">
@@ -6231,14 +6616,14 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.events">
-<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.events" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.events" title="Link to this definition">#</a></dt>
 <dd><p>Returns the list of unaggregated profiler events,
 to be used in the trace callback or after the profiling is finished</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_chrome_trace">
-<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_chrome_trace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_chrome_trace" title="Link to this definition">#</a></dt>
 <dd><p>Exports the collected trace in Chrome JSON format. If kineto is enabled, only
 last cycle in schedule is exported.</p>
 <dl class="field-list simple">
@@ -6247,7 +6632,7 @@ last cycle in schedule is exported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_memory_timeline">
-<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_memory_timeline" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_memory_timeline" title="Link to this definition">#</a></dt>
 <dd><p>Export memory event information from the profiler collected
 tree for a given device, and export a timeline plot. There are 3
 exportable files using <code class="docutils literal notranslate"><span class="pre">export_memory_timeline</span></code>, each controlled by the
@@ -6277,7 +6662,7 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.export_stacks">
-<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_stacks" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.export_stacks" title="Link to this definition">#</a></dt>
 <dd><p>Save stack traces to a file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6291,7 +6676,7 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.key_averages">
-<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.key_averages" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.key_averages" title="Link to this definition">#</a></dt>
 <dd><p>Averages events, grouping them by operator name and (optionally) input shapes, stack
 and overload name.</p>
 <div class="admonition note">
@@ -6305,7 +6690,7 @@ when creating profiler context manager.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.preset_metadata_json">
-<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.preset_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.preset_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Preset a user defined metadata when the profiler is not started
 and added into the trace file later.
 Metadata is in the format of a string key and a valid json value</p>
@@ -6315,7 +6700,7 @@ Metadata is in the format of a string key and a valid json value</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler._KinetoProfile.toggle_collection_dynamic">
-<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L362"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L362"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler._KinetoProfile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
 <dd><p>Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops
 (CPU) and CUDA activity supported in Kineto</p>
 <dl class="field-list simple">
@@ -6348,7 +6733,7 @@ Metadata is in the format of a string key and a valid json value</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.profile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L649"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L649"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
 <dd><p>Profiler context manager.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6486,13 +6871,13 @@ extra tensor copies.</p>
 Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.get_trace_id">
-<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L977"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L977"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current trace ID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.set_custom_trace_id_callback">
-<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L971"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L971"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
 <dd><p>Sets a callback to be called when a new trace ID is generated.</p>
 <dl class="field-list simple">
 </dl>
@@ -6500,7 +6885,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L949"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L949"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
 <dd><p>Signals the profiler that the next profiling step has started.</p>
 <dl class="field-list simple">
 </dl>
@@ -6510,7 +6895,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.ProfilerAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L538"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L538"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
 <dd><p>Profiler actions that can be taken at the specified intervals</p>
 </dd></dl>
 
@@ -6533,7 +6918,7 @@ Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.schedule">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L549"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.schedule" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L549"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.schedule" title="Link to this definition">#</a></dt>
 <dd><p>Returns a callable that can be used as profiler <code class="docutils literal notranslate"><span class="pre">schedule</span></code> argument. The profiler will skip
 the first <code class="docutils literal notranslate"><span class="pre">skip_first</span></code> steps, then wait for <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps, then do the warmup for the next <code class="docutils literal notranslate"><span class="pre">warmup</span></code> steps,
 then do the active recording for the next <code class="docutils literal notranslate"><span class="pre">active</span></code> steps and then repeat the cycle starting with <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps.
@@ -6554,7 +6939,7 @@ last active and warmup.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.tensorboard_trace_handler">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/profiler.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/profiler.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
 <dd><p>Outputs tracing files to directory of <code class="docutils literal notranslate"><span class="pre">dir_name</span></code>, then that directory can be
 directly delivered to tensorboard as logdir.
 <code class="docutils literal notranslate"><span class="pre">worker_name</span></code> should be unique for each worker in distributed scenario,
@@ -6568,13 +6953,13 @@ it will be set to ‘[hostname]_[pid]’ by default.</p>
 <h2>Intel Instrumentation and Tracing Technology APIs<a class="headerlink" href="#intel-instrumentation-and-tracing-technology-apis" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Check if ITT feature is available or not</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.mark">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
 <dd><p>Describe an instantaneous event that occurred at some point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6585,7 +6970,7 @@ it will be set to ‘[hostname]_[pid]’ by default.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_push">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
 <dd><p>Pushes a range onto a stack of nested range span.  Returns zero-based
 depth of the range that is started.</p>
 <dl class="field-list simple">
@@ -6597,7 +6982,7 @@ depth of the range that is started.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_pop">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
 <dd><p>Pops a range off of a stack of nested range spans. Returns the
 zero-based depth of the range that is ended.</p>
 </dd></dl>
@@ -6960,7 +7345,7 @@ for tracking purposes -->
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>

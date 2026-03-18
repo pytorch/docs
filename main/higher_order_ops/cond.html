@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -3057,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3336,8 +3721,8 @@ Read more about feature classification at: https://pytorch.org/blog/pytorch-feat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.1386,  0.1643,  0.8846]) tensor([-0.1386,  0.1643,  0.8846])
-tensor([0.5186, 0.8736, 0.9902, 0.8957, 0.9555]) tensor([0.5186, 0.8736, 0.9902, 0.8957, 0.9555])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.1994,  0.8816,  0.7386]) tensor([-0.1994,  0.8816,  0.7386])
+tensor([0.3528, 0.9214, 0.9725, 0.9685, 0.1081]) tensor([0.3528, 0.9214, 0.9725, 0.9685, 0.1081])
 </pre></div>
 </div>
 </div>
@@ -3363,7 +3748,7 @@ us an exported program as shown below:</p>
             # No stacktrace found for following nodes
             sym_size_int_1: &quot;Sym(s77)&quot; = torch.ops.aten.sym_size.int(x, 0)
     
-            # File: /tmp/ipykernel_186/4212800129.py:18 in forward, code: return torch.cond(x.shape[0] &gt; 4, true_fn, false_fn, (x,))
+            # File: /tmp/ipykernel_185/4212800129.py:18 in forward, code: return torch.cond(x.shape[0] &gt; 4, true_fn, false_fn, (x,))
             gt: &quot;Sym(s77 &gt; 4)&quot; = sym_size_int_1 &gt; 4;  sym_size_int_1 = None
     
             # File: &lt;eval_with_key&gt;.5:9 in forward, code: cond = torch.ops.higher_order.cond(l_args_0_, cond_true_0, cond_false_0, (l_args_3_0_,));  l_args_0_ = cond_true_0 = cond_false_0 = l_args_3_0_ = None
@@ -3428,7 +3813,7 @@ and branch functions becomes two sub-graph attributes of the top level graph mod
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;f32[s77, 3]&quot;):
-            # File: /tmp/ipykernel_186/895898802.py:15 in forward, code: return torch.cond(x.sum() &gt; 4.0, true_fn, false_fn, (x,))
+            # File: /tmp/ipykernel_185/895898802.py:15 in forward, code: return torch.cond(x.sum() &gt; 4.0, true_fn, false_fn, (x,))
             sum_1: &quot;f32[]&quot; = torch.ops.aten.sum.default(x)
             gt: &quot;b8[]&quot; = torch.ops.aten.gt.Scalar(sum_1, 4.0);  sum_1 = None
     
@@ -3500,7 +3885,7 @@ Range constraints: {s77: VR[2, int_oo]}
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.cond.cond">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/_higher_order_ops/cond.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/_higher_order_ops/cond.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Link to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3925,7 +4310,7 @@ be new tensors that do not share object identity with the original inputs.</p>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
@@ -3977,7 +4362,7 @@ be new tensors that do not share object identity with the original inputs.</p>
        "headline": "Control Flow - Cond",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/higher_order_ops/cond.html",
-       "articleBody": "Control Flow - Cond# Created On: Oct 03, 2023 | Last Updated On: Feb 14, 2026 torch.cond is a structured control flow operator. It can be used to specify if-else like control flow and can logically be seen as implemented as follows. def cond( pred: Union[bool, torch.Tensor], true_fn: Callable, false_fn: Callable, operands: Tuple[torch.Tensor] ): if pred: return true_fn(*operands) else: return false_fn(*operands) Its unique power lies in its ability of expressing data-dependent control flow: it lowers to a conditional operator (torch.ops.higher_order.cond), which preserves predicate, true function and false functions. This unlocks great flexibility in writing and deploying models that change model architecture based on the value or shape of inputs or intermediate outputs of tensor operations. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses cond to branch based on input shape: import torch def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() class DynamicShapeCondPredicate(torch.nn.Module): \"\"\" A basic usage of cond based on dynamic shape predicate. \"\"\" def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -\u003e torch.Tensor: return torch.cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) dyn_shape_mod = DynamicShapeCondPredicate() We can eagerly run the model and expect the results vary based on input shape: inp = torch.randn(3) inp2 = torch.randn(5) print(dyn_shape_mod(inp), false_fn(inp)) print(dyn_shape_mod(inp2), true_fn(inp2)) tensor([-0.1386, 0.1643, 0.8846]) tensor([-0.1386, 0.1643, 0.8846]) tensor([0.5186, 0.8736, 0.9902, 0.8957, 0.9555]) tensor([0.5186, 0.8736, 0.9902, 0.8957, 0.9555]) We can export the model for further transformations and deployment. This gives us an exported program as shown below: inp = torch.randn(4, 3) ep = torch.export.export( DynamicShapeCondPredicate(), (inp,), dynamic_shapes={\"x\": {0: torch.export.Dim.DYNAMIC}} ) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s77)\" = torch.ops.aten.sym_size.int(x, 0) # File: /tmp/ipykernel_186/4212800129.py:18 in forward, code: return torch.cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) gt: \"Sym(s77 \u003e 4)\" = sym_size_int_1 \u003e 4; sym_size_int_1 = None # File: \u003ceval_with_key\u003e.5:9 in forward, code: cond = torch.ops.higher_order.cond(l_args_0_, cond_true_0, cond_false_0, (l_args_3_0_,)); l_args_0_ = cond_true_0 = cond_false_0 = l_args_3_0_ = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x,)); gt = true_graph_0 = false_graph_0 = x = None getitem: \"f32[s77, 3]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.6:6 in forward, code: cos = l_args_3_0__1.cos(); l_args_3_0__1 = None cos: \"f32[s77, 3]\" = torch.ops.aten.cos.default(x); x = None return (cos,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.7:6 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s77: VR[2, int_oo]} Notice that torch.cond is lowered to torch.ops.higher_order.cond, its predicate becomes a Symbolic expression over the shape of input, and branch functions becomes two sub-graph attributes of the top level graph module. Here is another example that showcases how to express a data-dependent control flow: def true_fn(x: torch.Tensor): return x.cos() + x.sin() def false_fn(x: torch.Tensor): return x.sin() class DataDependentCondPredicate(torch.nn.Module): \"\"\" A basic usage of cond based on data dependent predicate. \"\"\" def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -\u003e torch.Tensor: return torch.cond(x.sum() \u003e 4.0, true_fn, false_fn, (x,)) inp = torch.randn(4, 3) ep = torch.export.export(DataDependentCondPredicate(), (inp,), dynamic_shapes={\"x\": {0: torch.export.Dim.DYNAMIC}}) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: /tmp/ipykernel_186/895898802.py:15 in forward, code: return torch.cond(x.sum() \u003e 4.0, true_fn, false_fn, (x,)) sum_1: \"f32[]\" = torch.ops.aten.sum.default(x) gt: \"b8[]\" = torch.ops.aten.gt.Scalar(sum_1, 4.0); sum_1 = None # File: \u003ceval_with_key\u003e.43:9 in forward, code: cond = torch.ops.higher_order.cond(l_args_0_, cond_true_0, cond_false_0, (l_args_3_0_,)); l_args_0_ = cond_true_0 = cond_false_0 = l_args_3_0_ = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x,)); gt = true_graph_0 = false_graph_0 = x = None getitem: \"f32[s77, 3]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.44:6 in forward, code: cos = l_args_3_0__1.cos() cos: \"f32[s77, 3]\" = torch.ops.aten.cos.default(x) # File: \u003ceval_with_key\u003e.44:7 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None # File: \u003ceval_with_key\u003e.44:8 in forward, code: add = cos + sin; cos = sin = None add: \"f32[s77, 3]\" = torch.ops.aten.add.Tensor(cos, sin); cos = sin = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.45:6 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s77: VR[2, int_oo]} Invariants of torch.ops.higher_order.cond# There are several useful invariants for torch.ops.higher_order.cond: For predicate: Dynamicness of predicate is preserved (e.g. gt shown in the above example) If the predicate in user-program is constant (e.g. a python bool constant), the pred of the operator will be a constant. For branches: The input and output signature will be a flattened tuple. They are torch.fx.GraphModule. Closures in original function becomes explicit inputs. No closures. No mutations on inputs or globals are allowed. For operands: It will also be a flat tuple. Nesting of torch.cond in user program becomes nested graph modules. API Reference# torch._higher_order_ops.cond.cond(pred, true_fn, false_fn, operands=())[source]# Conditionally applies true_fn or false_fn. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype cond is structured control flow operator. That is, it is like a Python if-statement, but has restrictions on true_fn, false_fn, and operands that enable it to be capturable using torch.compile and torch.export. Assuming the constraints on cond\u2019s arguments are met, cond is equivalent to the following: def cond(pred, true_branch, false_branch, operands): if pred: return true_branch(*operands) else: return false_branch(*operands) Parameters: pred (Union[bool, torch.Tensor]) \u2013 A boolean expression or a tensor with one element, indicating which branch function to apply. true_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. false_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. The true branch and false branch must have consistent input and outputs, meaning the inputs have to be the same, and the outputs have to be the same type and shape. Int output is also allowed. We\u2019ll make the output dynamic by turning it into a symint. operands (Tuple of possibly nested dict/list/tuple of torch.Tensor) \u2013 A tuple of inputs to the true/false functions. It can be empty if true_fn/false_fn doesn\u2019t require input. Defaults to (). Return type: Any Example: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) Restrictions: The conditional statement (aka pred) must meet one of the following constraints: It\u2019s a torch.Tensor with only one element, and torch.bool dtype It\u2019s a boolean expression, e.g. x.shape[0] \u003e 10 or x.dim() \u003e 1 and x.shape[1] \u003e 10 The branch function (aka true_fn/false_fn) must meet all of the following constraints: The function signature must match with operands. The function must return a tensor with the same metadata, e.g. shape, dtype, etc. The function cannot have in-place mutations on global variables. (Note: in-place tensor operations such as add_ for intermediate results are allowed in a branch) The function can perform in-place mutations on its input tensors during inference (i.e., when torch.is_grad_enabled() is False). Note: When using torch.compile() with a non-constant predicate, the outputs will always be new tensors that do not share object identity with the original inputs. Example: def true_fn(x): return x.sin_() def false_fn(x): return x + 1 def f(x): return cond(x.sum() \u003e 0, true_fn, false_fn, (x,)) x = torch.ones(4) with torch.no_grad(): result = torch.compile(f)(x) assert result is not x # result is a new tensor, not the original x",
+       "articleBody": "Control Flow - Cond# Created On: Oct 03, 2023 | Last Updated On: Feb 14, 2026 torch.cond is a structured control flow operator. It can be used to specify if-else like control flow and can logically be seen as implemented as follows. def cond( pred: Union[bool, torch.Tensor], true_fn: Callable, false_fn: Callable, operands: Tuple[torch.Tensor] ): if pred: return true_fn(*operands) else: return false_fn(*operands) Its unique power lies in its ability of expressing data-dependent control flow: it lowers to a conditional operator (torch.ops.higher_order.cond), which preserves predicate, true function and false functions. This unlocks great flexibility in writing and deploying models that change model architecture based on the value or shape of inputs or intermediate outputs of tensor operations. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses cond to branch based on input shape: import torch def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() class DynamicShapeCondPredicate(torch.nn.Module): \"\"\" A basic usage of cond based on dynamic shape predicate. \"\"\" def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -\u003e torch.Tensor: return torch.cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) dyn_shape_mod = DynamicShapeCondPredicate() We can eagerly run the model and expect the results vary based on input shape: inp = torch.randn(3) inp2 = torch.randn(5) print(dyn_shape_mod(inp), false_fn(inp)) print(dyn_shape_mod(inp2), true_fn(inp2)) tensor([-0.1994, 0.8816, 0.7386]) tensor([-0.1994, 0.8816, 0.7386]) tensor([0.3528, 0.9214, 0.9725, 0.9685, 0.1081]) tensor([0.3528, 0.9214, 0.9725, 0.9685, 0.1081]) We can export the model for further transformations and deployment. This gives us an exported program as shown below: inp = torch.randn(4, 3) ep = torch.export.export( DynamicShapeCondPredicate(), (inp,), dynamic_shapes={\"x\": {0: torch.export.Dim.DYNAMIC}} ) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s77)\" = torch.ops.aten.sym_size.int(x, 0) # File: /tmp/ipykernel_185/4212800129.py:18 in forward, code: return torch.cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) gt: \"Sym(s77 \u003e 4)\" = sym_size_int_1 \u003e 4; sym_size_int_1 = None # File: \u003ceval_with_key\u003e.5:9 in forward, code: cond = torch.ops.higher_order.cond(l_args_0_, cond_true_0, cond_false_0, (l_args_3_0_,)); l_args_0_ = cond_true_0 = cond_false_0 = l_args_3_0_ = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x,)); gt = true_graph_0 = false_graph_0 = x = None getitem: \"f32[s77, 3]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.6:6 in forward, code: cos = l_args_3_0__1.cos(); l_args_3_0__1 = None cos: \"f32[s77, 3]\" = torch.ops.aten.cos.default(x); x = None return (cos,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.7:6 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s77: VR[2, int_oo]} Notice that torch.cond is lowered to torch.ops.higher_order.cond, its predicate becomes a Symbolic expression over the shape of input, and branch functions becomes two sub-graph attributes of the top level graph module. Here is another example that showcases how to express a data-dependent control flow: def true_fn(x: torch.Tensor): return x.cos() + x.sin() def false_fn(x: torch.Tensor): return x.sin() class DataDependentCondPredicate(torch.nn.Module): \"\"\" A basic usage of cond based on data dependent predicate. \"\"\" def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -\u003e torch.Tensor: return torch.cond(x.sum() \u003e 4.0, true_fn, false_fn, (x,)) inp = torch.randn(4, 3) ep = torch.export.export(DataDependentCondPredicate(), (inp,), dynamic_shapes={\"x\": {0: torch.export.Dim.DYNAMIC}}) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: /tmp/ipykernel_185/895898802.py:15 in forward, code: return torch.cond(x.sum() \u003e 4.0, true_fn, false_fn, (x,)) sum_1: \"f32[]\" = torch.ops.aten.sum.default(x) gt: \"b8[]\" = torch.ops.aten.gt.Scalar(sum_1, 4.0); sum_1 = None # File: \u003ceval_with_key\u003e.43:9 in forward, code: cond = torch.ops.higher_order.cond(l_args_0_, cond_true_0, cond_false_0, (l_args_3_0_,)); l_args_0_ = cond_true_0 = cond_false_0 = l_args_3_0_ = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x,)); gt = true_graph_0 = false_graph_0 = x = None getitem: \"f32[s77, 3]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.44:6 in forward, code: cos = l_args_3_0__1.cos() cos: \"f32[s77, 3]\" = torch.ops.aten.cos.default(x) # File: \u003ceval_with_key\u003e.44:7 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None # File: \u003ceval_with_key\u003e.44:8 in forward, code: add = cos + sin; cos = sin = None add: \"f32[s77, 3]\" = torch.ops.aten.add.Tensor(cos, sin); cos = sin = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s77, 3]\"): # File: \u003ceval_with_key\u003e.45:6 in forward, code: sin = l_args_3_0__1.sin(); l_args_3_0__1 = None sin: \"f32[s77, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s77: VR[2, int_oo]} Invariants of torch.ops.higher_order.cond# There are several useful invariants for torch.ops.higher_order.cond: For predicate: Dynamicness of predicate is preserved (e.g. gt shown in the above example) If the predicate in user-program is constant (e.g. a python bool constant), the pred of the operator will be a constant. For branches: The input and output signature will be a flattened tuple. They are torch.fx.GraphModule. Closures in original function becomes explicit inputs. No closures. No mutations on inputs or globals are allowed. For operands: It will also be a flat tuple. Nesting of torch.cond in user program becomes nested graph modules. API Reference# torch._higher_order_ops.cond.cond(pred, true_fn, false_fn, operands=())[source]# Conditionally applies true_fn or false_fn. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype cond is structured control flow operator. That is, it is like a Python if-statement, but has restrictions on true_fn, false_fn, and operands that enable it to be capturable using torch.compile and torch.export. Assuming the constraints on cond\u2019s arguments are met, cond is equivalent to the following: def cond(pred, true_branch, false_branch, operands): if pred: return true_branch(*operands) else: return false_branch(*operands) Parameters: pred (Union[bool, torch.Tensor]) \u2013 A boolean expression or a tensor with one element, indicating which branch function to apply. true_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. false_fn (Callable) \u2013 A callable function (a -\u003e b) that is within the scope that is being traced. The true branch and false branch must have consistent input and outputs, meaning the inputs have to be the same, and the outputs have to be the same type and shape. Int output is also allowed. We\u2019ll make the output dynamic by turning it into a symint. operands (Tuple of possibly nested dict/list/tuple of torch.Tensor) \u2013 A tuple of inputs to the true/false functions. It can be empty if true_fn/false_fn doesn\u2019t require input. Defaults to (). Return type: Any Example: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return cond(x.shape[0] \u003e 4, true_fn, false_fn, (x,)) Restrictions: The conditional statement (aka pred) must meet one of the following constraints: It\u2019s a torch.Tensor with only one element, and torch.bool dtype It\u2019s a boolean expression, e.g. x.shape[0] \u003e 10 or x.dim() \u003e 1 and x.shape[1] \u003e 10 The branch function (aka true_fn/false_fn) must meet all of the following constraints: The function signature must match with operands. The function must return a tensor with the same metadata, e.g. shape, dtype, etc. The function cannot have in-place mutations on global variables. (Note: in-place tensor operations such as add_ for intermediate results are allowed in a branch) The function can perform in-place mutations on its input tensors during inference (i.e., when torch.is_grad_enabled() is False). Note: When using torch.compile() with a non-constant predicate, the outputs will always be new tensors that do not share object identity with the original inputs. Example: def true_fn(x): return x.sin_() def false_fn(x): return x + 1 def f(x): return cond(x.sum() \u003e 0, true_fn, false_fn, (x,)) x = torch.ones(4) with torch.no_grad(): result = torch.compile(f)(x) assert result is not x # result is a new tensor, not the original x",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -4899,8 +5284,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5493,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5530,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6161,19 +6546,19 @@ document.write(`
 <h3>Containers (Aliases)<a class="headerlink" href="#containers-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.Sequential.html#torch.nn.modules.container.Sequential" title="torch.nn.modules.container.Sequential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.Sequential</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Sequential.html#torch.nn.Sequential" title="torch.nn.modules.container.Sequential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.Sequential</span></code></a></p></td>
 <td><p>A sequential container.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.ModuleList.html#torch.nn.modules.container.ModuleList" title="torch.nn.modules.container.ModuleList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleList</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ModuleList.html#torch.nn.ModuleList" title="torch.nn.modules.container.ModuleList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleList</span></code></a></p></td>
 <td><p>Holds submodules in a list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.ModuleDict.html#torch.nn.modules.container.ModuleDict" title="torch.nn.modules.container.ModuleDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleDict</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict" title="torch.nn.modules.container.ModuleDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleDict</span></code></a></p></td>
 <td><p>Holds submodules in a dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.ParameterList.html#torch.nn.modules.container.ParameterList" title="torch.nn.modules.container.ParameterList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterList</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ParameterList.html#torch.nn.ParameterList" title="torch.nn.modules.container.ParameterList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterList</span></code></a></p></td>
 <td><p>Holds parameters in a list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.ParameterDict.html#torch.nn.modules.container.ParameterDict" title="torch.nn.modules.container.ParameterDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterDict</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict" title="torch.nn.modules.container.ParameterDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterDict</span></code></a></p></td>
 <td><p>Holds parameters in a dictionary.</p></td>
 </tr>
 </tbody>
@@ -6184,46 +6569,46 @@ document.write(`
 <h3>Convolution Layers (Aliases)<a class="headerlink" href="#convolution-layers-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.Conv1d.html#torch.nn.modules.conv.Conv1d" title="torch.nn.modules.conv.Conv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Conv1d.html#torch.nn.Conv1d" title="torch.nn.modules.conv.Conv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv1d</span></code></a></p></td>
 <td><p>Applies a 1D convolution over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.Conv2d.html#torch.nn.modules.conv.Conv2d" title="torch.nn.modules.conv.Conv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Conv2d.html#torch.nn.Conv2d" title="torch.nn.modules.conv.Conv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv2d</span></code></a></p></td>
 <td><p>Applies a 2D convolution over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.Conv3d.html#torch.nn.modules.conv.Conv3d" title="torch.nn.modules.conv.Conv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Conv3d.html#torch.nn.Conv3d" title="torch.nn.modules.conv.Conv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.Conv3d</span></code></a></p></td>
 <td><p>Applies a 3D convolution over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose1d.html#torch.nn.modules.conv.ConvTranspose1d" title="torch.nn.modules.conv.ConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose1d.html#torch.nn.ConvTranspose1d" title="torch.nn.modules.conv.ConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose1d</span></code></a></p></td>
 <td><p>Applies a 1D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose2d.html#torch.nn.modules.conv.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose2d.html#torch.nn.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
 <td><p>Applies a 2D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose3d.html#torch.nn.modules.conv.ConvTranspose3d" title="torch.nn.modules.conv.ConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d" title="torch.nn.modules.conv.ConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose3d</span></code></a></p></td>
 <td><p>Applies a 3D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConv1d.html#torch.nn.modules.conv.LazyConv1d" title="torch.nn.modules.conv.LazyConv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyConv1d.html#torch.nn.LazyConv1d" title="torch.nn.modules.conv.LazyConv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv1d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.Conv1d.html#torch.nn.Conv1d" title="torch.nn.Conv1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Conv1d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConv2d.html#torch.nn.modules.conv.LazyConv2d" title="torch.nn.modules.conv.LazyConv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyConv2d.html#torch.nn.LazyConv2d" title="torch.nn.modules.conv.LazyConv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv2d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.Conv2d.html#torch.nn.Conv2d" title="torch.nn.Conv2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Conv2d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConv3d.html#torch.nn.modules.conv.LazyConv3d" title="torch.nn.modules.conv.LazyConv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyConv3d.html#torch.nn.LazyConv3d" title="torch.nn.modules.conv.LazyConv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConv3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.Conv3d.html#torch.nn.Conv3d" title="torch.nn.Conv3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Conv3d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConvTranspose1d.html#torch.nn.modules.conv.LazyConvTranspose1d" title="torch.nn.modules.conv.LazyConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyConvTranspose1d.html#torch.nn.LazyConvTranspose1d" title="torch.nn.modules.conv.LazyConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose1d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.ConvTranspose1d.html#torch.nn.ConvTranspose1d" title="torch.nn.ConvTranspose1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.ConvTranspose1d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConvTranspose2d.html#torch.nn.modules.conv.LazyConvTranspose2d" title="torch.nn.modules.conv.LazyConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyConvTranspose2d.html#torch.nn.LazyConvTranspose2d" title="torch.nn.modules.conv.LazyConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose2d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.ConvTranspose2d.html#torch.nn.ConvTranspose2d" title="torch.nn.ConvTranspose2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.ConvTranspose2d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConvTranspose3d.html#torch.nn.modules.conv.LazyConvTranspose3d" title="torch.nn.modules.conv.LazyConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyConvTranspose3d.html#torch.nn.LazyConvTranspose3d" title="torch.nn.modules.conv.LazyConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d" title="torch.nn.ConvTranspose3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.ConvTranspose3d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Unfold.html#torch.nn.Unfold" title="torch.nn.modules.fold.Unfold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Unfold</span></code></a></p></td>
 <td><p>Extracts sliding local blocks from a batched input tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.fold.Fold.html#torch.nn.modules.fold.Fold" title="torch.nn.modules.fold.Fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Fold</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Fold.html#torch.nn.Fold" title="torch.nn.modules.fold.Fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Fold</span></code></a></p></td>
 <td><p>Combines an array of sliding local blocks into a large containing tensor.</p></td>
 </tr>
 </tbody>
@@ -6355,19 +6740,19 @@ document.write(`
 <h3>Non-linear Activations (weighted sum, nonlinearity) (Aliases)<a class="headerlink" href="#non-linear-activations-weighted-sum-nonlinearity-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.ELU.html#torch.nn.modules.activation.ELU" title="torch.nn.modules.activation.ELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.ELU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ELU.html#torch.nn.ELU" title="torch.nn.modules.activation.ELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.ELU</span></code></a></p></td>
 <td><p>Applies the Exponential Linear Unit (ELU) function, element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardshrink.html#torch.nn.modules.activation.Hardshrink" title="torch.nn.modules.activation.Hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardshrink</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Hardshrink.html#torch.nn.Hardshrink" title="torch.nn.modules.activation.Hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardshrink</span></code></a></p></td>
 <td><p>Applies the Hard Shrinkage (Hardshrink) function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardsigmoid.html#torch.nn.modules.activation.Hardsigmoid" title="torch.nn.modules.activation.Hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardsigmoid</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Hardsigmoid.html#torch.nn.Hardsigmoid" title="torch.nn.modules.activation.Hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardsigmoid</span></code></a></p></td>
 <td><p>Applies the Hardsigmoid function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardtanh.html#torch.nn.modules.activation.Hardtanh" title="torch.nn.modules.activation.Hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardtanh</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Hardtanh.html#torch.nn.Hardtanh" title="torch.nn.modules.activation.Hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardtanh</span></code></a></p></td>
 <td><p>Applies the HardTanh function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardswish.html#torch.nn.modules.activation.Hardswish" title="torch.nn.modules.activation.Hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardswish</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Hardswish.html#torch.nn.Hardswish" title="torch.nn.modules.activation.Hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardswish</span></code></a></p></td>
 <td><p>Applies the Hardswish function, element-wise.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LeakyReLU.html#torch.nn.LeakyReLU" title="torch.nn.modules.activation.LeakyReLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.LeakyReLU</span></code></a></p></td>
@@ -6394,10 +6779,10 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.SELU.html#torch.nn.SELU" title="torch.nn.modules.activation.SELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.SELU</span></code></a></p></td>
 <td><p>Applies the SELU function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.CELU.html#torch.nn.modules.activation.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.CELU.html#torch.nn.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
 <td><p>Applies the CELU function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.GELU.html#torch.nn.modules.activation.GELU" title="torch.nn.modules.activation.GELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GELU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GELU.html#torch.nn.GELU" title="torch.nn.modules.activation.GELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GELU</span></code></a></p></td>
 <td><p>Applies the Gaussian Error Linear Units function.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Sigmoid.html#torch.nn.Sigmoid" title="torch.nn.modules.activation.Sigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Sigmoid</span></code></a></p></td>
@@ -6427,7 +6812,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Threshold.html#torch.nn.Threshold" title="torch.nn.modules.activation.Threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Threshold</span></code></a></p></td>
 <td><p>Thresholds each element of the input Tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.GLU.html#torch.nn.modules.activation.GLU" title="torch.nn.modules.activation.GLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GLU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GLU.html#torch.nn.GLU" title="torch.nn.modules.activation.GLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GLU</span></code></a></p></td>
 <td><p>Applies the gated linear unit function.</p></td>
 </tr>
 </tbody>
@@ -6467,16 +6852,16 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.BatchNorm2d.html#torch.nn.modules.batchnorm.BatchNorm2d" title="torch.nn.modules.batchnorm.BatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm2d</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a 4D input.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.BatchNorm3d.html#torch.nn.modules.batchnorm.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm3d</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a 5D input.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm1d.html#torch.nn.modules.batchnorm.LazyBatchNorm1d" title="torch.nn.modules.batchnorm.LazyBatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm1d.html#torch.nn.LazyBatchNorm1d" title="torch.nn.modules.batchnorm.LazyBatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm1d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d" title="torch.nn.BatchNorm1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm1d</span></code></a> module with lazy initialization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm2d.html#torch.nn.modules.batchnorm.LazyBatchNorm2d" title="torch.nn.modules.batchnorm.LazyBatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm2d.html#torch.nn.LazyBatchNorm2d" title="torch.nn.modules.batchnorm.LazyBatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm2d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" title="torch.nn.BatchNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code></a> module with lazy initialization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm3d.html#torch.nn.modules.batchnorm.LazyBatchNorm3d" title="torch.nn.modules.batchnorm.LazyBatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm3d.html#torch.nn.LazyBatchNorm3d" title="torch.nn.modules.batchnorm.LazyBatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm3d</span></code></a> module with lazy initialization.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.normalization.GroupNorm.html#torch.nn.modules.normalization.GroupNorm" title="torch.nn.modules.normalization.GroupNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalization.GroupNorm</span></code></a></p></td>
@@ -6485,22 +6870,22 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm" title="torch.nn.modules.batchnorm.SyncBatchNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.SyncBatchNorm</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a N-Dimensional input.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.InstanceNorm1d.html#torch.nn.modules.instancenorm.InstanceNorm1d" title="torch.nn.modules.instancenorm.InstanceNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d" title="torch.nn.modules.instancenorm.InstanceNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm1d</span></code></a></p></td>
 <td><p>Applies Instance Normalization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.InstanceNorm2d.html#torch.nn.modules.instancenorm.InstanceNorm2d" title="torch.nn.modules.instancenorm.InstanceNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.modules.instancenorm.InstanceNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm2d</span></code></a></p></td>
 <td><p>Applies Instance Normalization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.InstanceNorm3d.html#torch.nn.modules.instancenorm.InstanceNorm3d" title="torch.nn.modules.instancenorm.InstanceNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.modules.instancenorm.InstanceNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.InstanceNorm3d</span></code></a></p></td>
 <td><p>Applies Instance Normalization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.LazyInstanceNorm1d.html#torch.nn.modules.instancenorm.LazyInstanceNorm1d" title="torch.nn.modules.instancenorm.LazyInstanceNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyInstanceNorm1d.html#torch.nn.LazyInstanceNorm1d" title="torch.nn.modules.instancenorm.LazyInstanceNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm1d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d" title="torch.nn.InstanceNorm1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.InstanceNorm1d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.LazyInstanceNorm2d.html#torch.nn.modules.instancenorm.LazyInstanceNorm2d" title="torch.nn.modules.instancenorm.LazyInstanceNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyInstanceNorm2d.html#torch.nn.LazyInstanceNorm2d" title="torch.nn.modules.instancenorm.LazyInstanceNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm2d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.InstanceNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.InstanceNorm2d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.instancenorm.LazyInstanceNorm3d.html#torch.nn.modules.instancenorm.LazyInstanceNorm3d" title="torch.nn.modules.instancenorm.LazyInstanceNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyInstanceNorm3d.html#torch.nn.LazyInstanceNorm3d" title="torch.nn.modules.instancenorm.LazyInstanceNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instancenorm.LazyInstanceNorm3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.InstanceNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.InstanceNorm3d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.normalization.LayerNorm.html#torch.nn.modules.normalization.LayerNorm" title="torch.nn.modules.normalization.LayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalization.LayerNorm</span></code></a></p></td>
@@ -6572,16 +6957,16 @@ document.write(`
 <h3>Linear Layers (Aliases)<a class="headerlink" href="#linear-layers-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.linear.Identity.html#torch.nn.modules.linear.Identity" title="torch.nn.modules.linear.Identity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Identity</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Identity.html#torch.nn.Identity" title="torch.nn.modules.linear.Identity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Identity</span></code></a></p></td>
 <td><p>A placeholder identity operator that is argument-insensitive.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.linear.Linear.html#torch.nn.modules.linear.Linear" title="torch.nn.modules.linear.Linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Linear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Linear.html#torch.nn.Linear" title="torch.nn.modules.linear.Linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Linear</span></code></a></p></td>
 <td><p>Applies an affine linear transformation to the incoming data: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><msup><mi>A</mi><mi>T</mi></msup><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = xA^T + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9247em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.linear.Bilinear.html#torch.nn.modules.linear.Bilinear" title="torch.nn.modules.linear.Bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Bilinear</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Bilinear.html#torch.nn.Bilinear" title="torch.nn.modules.linear.Bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.Bilinear</span></code></a></p></td>
 <td><p>Applies a bilinear transformation to the incoming data: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msubsup><mi>x</mi><mn>1</mn><mi>T</mi></msubsup><mi>A</mi><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = x_1^T A x_2 + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0894em;vertical-align:-0.2481em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.linear.LazyLinear.html#torch.nn.modules.linear.LazyLinear" title="torch.nn.modules.linear.LazyLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.LazyLinear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyLinear.html#torch.nn.LazyLinear" title="torch.nn.modules.linear.LazyLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear.LazyLinear</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.Linear.html#torch.nn.Linear" title="torch.nn.Linear"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Linear</span></code></a> module where <cite>in_features</cite> is inferred.</p></td>
 </tr>
 </tbody>
@@ -6592,22 +6977,22 @@ document.write(`
 <h3>Dropout Layers (Aliases)<a class="headerlink" href="#dropout-layers-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.Dropout.html#torch.nn.modules.dropout.Dropout" title="torch.nn.modules.dropout.Dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Dropout.html#torch.nn.Dropout" title="torch.nn.modules.dropout.Dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout</span></code></a></p></td>
 <td><p>During training, randomly zeroes some of the elements of the input tensor with probability <code class="xref py py-attr docutils literal notranslate"><span class="pre">p</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.Dropout1d.html#torch.nn.modules.dropout.Dropout1d" title="torch.nn.modules.dropout.Dropout1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Dropout1d.html#torch.nn.Dropout1d" title="torch.nn.modules.dropout.Dropout1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout1d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.Dropout2d.html#torch.nn.modules.dropout.Dropout2d" title="torch.nn.modules.dropout.Dropout2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Dropout2d.html#torch.nn.Dropout2d" title="torch.nn.modules.dropout.Dropout2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout2d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.Dropout3d.html#torch.nn.modules.dropout.Dropout3d" title="torch.nn.modules.dropout.Dropout3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Dropout3d.html#torch.nn.Dropout3d" title="torch.nn.modules.dropout.Dropout3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.Dropout3d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.AlphaDropout.html#torch.nn.modules.dropout.AlphaDropout" title="torch.nn.modules.dropout.AlphaDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.AlphaDropout</span></code></a></p></td>
 <td><p>Applies Alpha Dropout over the input.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.dropout.FeatureAlphaDropout.html#torch.nn.modules.dropout.FeatureAlphaDropout" title="torch.nn.modules.dropout.FeatureAlphaDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.FeatureAlphaDropout</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.FeatureAlphaDropout.html#torch.nn.FeatureAlphaDropout" title="torch.nn.modules.dropout.FeatureAlphaDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout.FeatureAlphaDropout</span></code></a></p></td>
 <td><p>Randomly masks out entire channels.</p></td>
 </tr>
 </tbody>
@@ -6632,10 +7017,10 @@ document.write(`
 <h3>Distance Functions (Aliases)<a class="headerlink" href="#distance-functions-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.distance.CosineSimilarity.html#torch.nn.modules.distance.CosineSimilarity" title="torch.nn.modules.distance.CosineSimilarity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.CosineSimilarity</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.CosineSimilarity.html#torch.nn.CosineSimilarity" title="torch.nn.modules.distance.CosineSimilarity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.CosineSimilarity</span></code></a></p></td>
 <td><p>Returns cosine similarity between <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>, computed along <cite>dim</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.distance.PairwiseDistance.html#torch.nn.modules.distance.PairwiseDistance" title="torch.nn.modules.distance.PairwiseDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.PairwiseDistance</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.PairwiseDistance.html#torch.nn.PairwiseDistance" title="torch.nn.modules.distance.PairwiseDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.PairwiseDistance</span></code></a></p></td>
 <td><p>Computes the pairwise distance between input vectors, or between columns of input matrices.</p></td>
 </tr>
 </tbody>
@@ -6652,10 +7037,10 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MSELoss.html#torch.nn.modules.loss.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CrossEntropyLoss.html#torch.nn.modules.loss.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
 <td><p>This criterion computes the cross entropy loss between input logits and target.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CTCLoss.html#torch.nn.modules.loss.CTCLoss" title="torch.nn.modules.loss.CTCLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CTCLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.CTCLoss.html#torch.nn.CTCLoss" title="torch.nn.modules.loss.CTCLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CTCLoss</span></code></a></p></td>
 <td><p>The Connectionist Temporal Classification loss.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.NLLLoss.html#torch.nn.modules.loss.NLLLoss" title="torch.nn.modules.loss.NLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.NLLLoss</span></code></a></p></td>
@@ -6664,10 +7049,10 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.PoissonNLLLoss.html#torch.nn.modules.loss.PoissonNLLLoss" title="torch.nn.modules.loss.PoissonNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.PoissonNLLLoss</span></code></a></p></td>
 <td><p>Negative log likelihood loss with Poisson distribution of target.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.GaussianNLLLoss.html#torch.nn.modules.loss.GaussianNLLLoss" title="torch.nn.modules.loss.GaussianNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.GaussianNLLLoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GaussianNLLLoss.html#torch.nn.GaussianNLLLoss" title="torch.nn.modules.loss.GaussianNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.GaussianNLLLoss</span></code></a></p></td>
 <td><p>Gaussian negative log likelihood loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.KLDivLoss.html#torch.nn.modules.loss.KLDivLoss" title="torch.nn.modules.loss.KLDivLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.KLDivLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.KLDivLoss.html#torch.nn.KLDivLoss" title="torch.nn.modules.loss.KLDivLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.KLDivLoss</span></code></a></p></td>
 <td><p>The Kullback-Leibler divergence loss.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.BCELoss.html#torch.nn.modules.loss.BCELoss" title="torch.nn.modules.loss.BCELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.BCELoss</span></code></a></p></td>
@@ -6679,13 +7064,13 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MarginRankingLoss.html#torch.nn.modules.loss.MarginRankingLoss" title="torch.nn.modules.loss.MarginRankingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MarginRankingLoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the loss given inputs <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">x</span><span class="mord">1</span></span></span></span></span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">x</span><span class="mord">2</span></span></span></span></span>, two 1D mini-batch or 0D <cite>Tensors</cite>, and a label 1D mini-batch or 0D <cite>Tensor</cite> <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (containing 1 or -1).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.HingeEmbeddingLoss.html#torch.nn.modules.loss.HingeEmbeddingLoss" title="torch.nn.modules.loss.HingeEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HingeEmbeddingLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.HingeEmbeddingLoss.html#torch.nn.HingeEmbeddingLoss" title="torch.nn.modules.loss.HingeEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HingeEmbeddingLoss</span></code></a></p></td>
 <td><p>Measures the loss given an input tensor <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and a labels tensor <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (containing 1 or -1).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MultiLabelMarginLoss.html#torch.nn.modules.loss.MultiLabelMarginLoss" title="torch.nn.modules.loss.MultiLabelMarginLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MultiLabelMarginLoss</span></code></a></p></td>
 <td><p>Creates a criterion that optimizes a multi-class multi-classification hinge loss (margin-based loss) between input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> (a 2D mini-batch <cite>Tensor</cite>) and output <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (which is a 2D <cite>Tensor</cite> of target class indices).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.HuberLoss.html#torch.nn.modules.loss.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HuberLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HuberLoss</span></code></a></p></td>
 <td><p>Creates a criterion that uses a squared term if the absolute element-wise error falls below delta and a delta-scaled L1 term otherwise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.SmoothL1Loss.html#torch.nn.modules.loss.SmoothL1Loss" title="torch.nn.modules.loss.SmoothL1Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.SmoothL1Loss</span></code></a></p></td>
@@ -6697,7 +7082,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MultiLabelSoftMarginLoss.html#torch.nn.modules.loss.MultiLabelSoftMarginLoss" title="torch.nn.modules.loss.MultiLabelSoftMarginLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MultiLabelSoftMarginLoss</span></code></a></p></td>
 <td><p>Creates a criterion that optimizes a multi-label one-versus-all loss based on max-entropy, between input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> of size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, C)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CosineEmbeddingLoss.html#torch.nn.modules.loss.CosineEmbeddingLoss" title="torch.nn.modules.loss.CosineEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CosineEmbeddingLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.CosineEmbeddingLoss.html#torch.nn.CosineEmbeddingLoss" title="torch.nn.modules.loss.CosineEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CosineEmbeddingLoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the loss given input tensors <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> and a <cite>Tensor</cite> label <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> with values 1 or -1.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MultiMarginLoss.html#torch.nn.modules.loss.MultiMarginLoss" title="torch.nn.modules.loss.MultiMarginLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MultiMarginLoss</span></code></a></p></td>
@@ -6740,7 +7125,7 @@ document.write(`
 <h3>Shuffle Layers (Aliases)<a class="headerlink" href="#shuffle-layers-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.channelshuffle.ChannelShuffle.html#torch.nn.modules.channelshuffle.ChannelShuffle" title="torch.nn.modules.channelshuffle.ChannelShuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channelshuffle.ChannelShuffle</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ChannelShuffle.html#torch.nn.ChannelShuffle" title="torch.nn.modules.channelshuffle.ChannelShuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channelshuffle.ChannelShuffle</span></code></a></p></td>
 <td><p>Divides and rearranges the channels in a tensor.</p></td>
 </tr>
 </tbody>
@@ -7177,7 +7562,7 @@ document.write(`
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>

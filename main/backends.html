@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -4899,8 +5284,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5108,8 +5493,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.size_hint.html">torch.fx.experimental.symbolic_shapes.size_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
@@ -5147,11 +5530,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw.html">torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html">torch.fx.experimental.symbolic_shapes.has_guarding_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.optimization_hint.html">torch.fx.experimental.symbolic_shapes.optimization_hint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.expect_true.html">torch.fx.experimental.symbolic_shapes.expect_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.log_lru_cache_stats.html">torch.fx.experimental.symbolic_shapes.log_lru_cache_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
@@ -6164,7 +6549,7 @@ document.write(`
 <span id="torch-backends-cpu"></span><h2>torch.backends.cpu<a class="headerlink" href="#module-torch.backends.cpu" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cpu.get_cpu_capability">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cpu.</span></span><span class="sig-name descname"><span class="pre">get_cpu_capability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cpu/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cpu.get_cpu_capability" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cpu.</span></span><span class="sig-name descname"><span class="pre">get_cpu_capability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cpu/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cpu.get_cpu_capability" title="Link to this definition">#</a></dt>
 <dd><p>Return cpu capability as a string value.</p>
 <p>Possible values:
 - “DEFAULT”
@@ -6186,7 +6571,7 @@ document.write(`
 <span id="torch-backends-cuda"></span><h2>torch.backends.cuda<a class="headerlink" href="#module-torch.backends.cuda" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.is_built">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_built" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_built" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with CUDA support.</p>
 <p>Note that this doesn’t necessarily mean CUDA is available; just that if this PyTorch
 binary were run on a machine with working CUDA drivers and devices, we would be able to use it.</p>
@@ -6242,7 +6627,7 @@ Query a specific device <cite>i</cite>’s cache via <cite>torch.backends.cuda.c
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_blas_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_blas_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_blas_library" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_blas_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_blas_library" title="Link to this definition">#</a></dt>
 <dd><p>Override the library PyTorch uses for BLAS operations. Choose between cuBLAS, cuBLASLt, and CK [ROCm-only].</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -6275,7 +6660,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_rocm_fa_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_rocm_fa_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_rocm_fa_library" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_rocm_fa_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_rocm_fa_library" title="Link to this definition">#</a></dt>
 <dd><p>[ROCm-only]
 Override the backend PyTorch uses in ROCm environments for Flash Attention. Choose between AOTriton and CK</p>
 <div class="admonition warning">
@@ -6305,7 +6690,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_linalg_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_linalg_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_linalg_library" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_linalg_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_linalg_library" title="Link to this definition">#</a></dt>
 <dd><p>Override the heuristic PyTorch uses to choose between cuSOLVER and MAGMA for CUDA linear algebra operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -6360,7 +6745,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.flash_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">flash_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.flash_sdp_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">flash_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.flash_sdp_enabled" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6370,7 +6755,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_mem_efficient_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_mem_efficient_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_mem_efficient_sdp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_mem_efficient_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_mem_efficient_sdp" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6382,7 +6767,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.mem_efficient_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">mem_efficient_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.mem_efficient_sdp_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">mem_efficient_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.mem_efficient_sdp_enabled" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6392,7 +6777,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_flash_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_flash_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_flash_sdp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_flash_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_flash_sdp" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6404,7 +6789,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.math_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">math_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L424"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.math_sdp_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">math_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L424"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.math_sdp_enabled" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6414,7 +6799,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_math_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_math_sdp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_math_sdp" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6426,7 +6811,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">fp16_bf16_reduction_math_sdp_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">fp16_bf16_reduction_math_sdp_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6436,7 +6821,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_bf16_reduction_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_bf16_reduction_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6448,7 +6833,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.cudnn_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">cudnn_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.cudnn_sdp_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">cudnn_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.cudnn_sdp_enabled" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6458,7 +6843,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_cudnn_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_cudnn_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_cudnn_sdp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_cudnn_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_cudnn_sdp" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6470,7 +6855,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.is_flash_attention_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_flash_attention_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_flash_attention_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_flash_attention_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_flash_attention_available" title="Link to this definition">#</a></dt>
 <dd><p>Check if PyTorch was built with FlashAttention for scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -6489,7 +6874,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_flash_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_flash_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_flash_attention" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_flash_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_flash_attention" title="Link to this definition">#</a></dt>
 <dd><p>Check if FlashAttention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6517,7 +6902,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_efficient_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_efficient_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L493"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_efficient_attention" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_efficient_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L493"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_efficient_attention" title="Link to this definition">#</a></dt>
 <dd><p>Check if efficient_attention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6545,7 +6930,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_cudnn_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_cudnn_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_cudnn_attention" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_cudnn_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_cudnn_attention" title="Link to this definition">#</a></dt>
 <dd><p>Check if cudnn_attention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6573,7 +6958,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.sdp_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">sdp_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_math</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_mem_efficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_cudnn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cuda/__init__.py#L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.sdp_kernel" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">sdp_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_math</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_mem_efficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_cudnn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cuda/__init__.py#L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.sdp_kernel" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -6589,13 +6974,13 @@ Upon exiting the context manager, the previous state of the flags will be restor
 <span id="torch-backends-cudnn"></span><h2>torch.backends.cudnn<a class="headerlink" href="#module-torch.backends.cudnn" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cudnn.version">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cudnn/__init__.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.version" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cudnn/__init__.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.version" title="Link to this definition">#</a></dt>
 <dd><p>Return the version of cuDNN.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cudnn.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cudnn/__init__.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cudnn/__init__.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return a bool indicating if CUDNN is currently available.</p>
 </dd></dl>
 
@@ -6641,7 +7026,7 @@ cuDNN v8 API.</p>
 <span id="torch-backends-cusparselt"></span><span id="module-torch.backends.cudnn.rnn"></span><h2>torch.backends.cusparselt<a class="headerlink" href="#module-torch.backends.cusparselt" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cusparselt.version">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cusparselt/__init__.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.version" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cusparselt/__init__.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.version" title="Link to this definition">#</a></dt>
 <dd><p>Return the version of cuSPARSELt</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6652,7 +7037,7 @@ cuDNN v8 API.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cusparselt.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/cusparselt/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/cusparselt/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return a bool indicating if cuSPARSELt is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6666,7 +7051,7 @@ cuDNN v8 API.</p>
 <span id="torch-backends-mha"></span><h2>torch.backends.mha<a class="headerlink" href="#module-torch.backends.mha" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mha.get_fastpath_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">get_fastpath_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mha/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.get_fastpath_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">get_fastpath_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mha/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.get_fastpath_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether fast path for TransformerEncoder and MultiHeadAttention
 is enabled, or <code class="docutils literal notranslate"><span class="pre">True</span></code> if jit is scripting.</p>
 <div class="admonition note">
@@ -6683,7 +7068,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mha.set_fastpath_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">set_fastpath_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mha/__init__.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.set_fastpath_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">set_fastpath_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mha/__init__.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.set_fastpath_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Sets whether fast path is enabled</p>
 <dl class="field-list simple">
 </dl>
@@ -6704,7 +7089,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 <span id="torch-backends-mps"></span><h2>torch.backends.mps<a class="headerlink" href="#module-torch.backends.mps" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mps.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mps/__init__.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mps/__init__.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return a bool indicating if MPS is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6715,7 +7100,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mps.is_built">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mps/__init__.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_built" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mps/__init__.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_built" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with MPS support.</p>
 <p>Note that this doesn’t necessarily mean MPS is available; just that
 if this PyTorch binary were run a machine with working MPS drivers
@@ -6732,13 +7117,13 @@ and devices, we would be able to use it.</p>
 <span id="torch-backends-mkl"></span><h2>torch.backends.mkl<a class="headerlink" href="#module-torch.backends.mkl" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mkl.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mkl/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mkl/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with MKL support.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.backends.mkl.verbose">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mkl/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.verbose" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mkl/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.verbose" title="Link to this definition">#</a></dt>
 <dd><p>On-demand oneMKL verbosing functionality.</p>
 <p>To make it easier to debug performance issues, oneMKL can dump verbose
 messages containing execution information like duration while executing
@@ -6771,12 +7156,12 @@ inference only.</p>
 <span id="torch-backends-mkldnn"></span><h2>torch.backends.mkldnn<a class="headerlink" href="#module-torch.backends.mkldnn" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mkldnn.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mkldnn/__init__.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mkldnn/__init__.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.is_available" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.backends.mkldnn.verbose">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/mkldnn/__init__.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.verbose" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/mkldnn/__init__.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.verbose" title="Link to this definition">#</a></dt>
 <dd><p>On-demand oneDNN (former MKL-DNN) verbosing functionality.</p>
 <p>To make it easier to debug performance issues, oneDNN can dump verbose
 messages containing information like kernel size, input data size and
@@ -6810,19 +7195,19 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-nnpack"></span><h2>torch.backends.nnpack<a class="headerlink" href="#module-torch.backends.nnpack" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/nnpack/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/nnpack/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with NNPACK support.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.flags">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/nnpack/__init__.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.flags" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/nnpack/__init__.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.flags" title="Link to this definition">#</a></dt>
 <dd><p>Context manager for setting if nnpack is enabled globally</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.set_flags">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">set_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/nnpack/__init__.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.set_flags" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">set_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/nnpack/__init__.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.set_flags" title="Link to this definition">#</a></dt>
 <dd><p>Set if nnpack is enabled globally</p>
 </dd></dl>
 
@@ -6831,13 +7216,13 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-openmp"></span><h2>torch.backends.openmp<a class="headerlink" href="#module-torch.backends.openmp" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.openmp.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.openmp.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/openmp/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.openmp.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.openmp.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/openmp/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.openmp.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with OpenMP support.</p>
 </dd></dl>
 
 <dl class="py function" id="module-torch.backends.kleidiai">
 <span id="module-torch.backends.xnnpack"></span><span id="module-torch.backends.quantized"></span><dt class="sig sig-object py" id="torch.backends.kleidiai.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.kleidiai.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/kleidiai/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.kleidiai.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.kleidiai.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/kleidiai/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.kleidiai.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with KleidiAI support.</p>
 </dd></dl>
 
@@ -6846,7 +7231,7 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-opt-einsum"></span><h2>torch.backends.opt_einsum<a class="headerlink" href="#module-torch.backends.opt_einsum" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/opt_einsum/__init__.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/opt_einsum/__init__.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Return a bool indicating if opt_einsum is currently available.</p>
 <p>You must install opt-einsum in order for torch to automatically optimize einsum. To
 make opt-einsum available, you can install it along with torch: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">torch[opt-einsum]</span></code>
@@ -6862,7 +7247,7 @@ was installed and properly imported by torch.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.get_opt_einsum">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">get_opt_einsum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/79e120aa03dc3558a8fdfeb2f2b7715bc3710008/torch/backends/opt_einsum/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.get_opt_einsum" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">get_opt_einsum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6548add3ead7bef2235b80cd6899815411b2beb8/torch/backends/opt_einsum/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.get_opt_einsum" title="Link to this definition">#</a></dt>
 <dd><p>Return the opt_einsum package if opt_einsum is currently available, else None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7306,7 +7691,7 @@ inputs as it tries all possible paths. See more details in opt_einsum’s docs
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>

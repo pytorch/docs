@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=b417fedc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
@@ -59,8 +59,8 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/exportdb/torch.dynamic-shape.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="python.closure" href="python.closure.html" />
-    <link rel="prev" title="torch.cond" href="torch.cond.html" />
+    <link rel="next" title="torch.cond" href="torch.cond.html" />
+    <link rel="prev" title="torch.escape-hatch" href="torch.escape-hatch.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git79e120a )">
+<meta name="llm:version" content="main (2.12.0a0+git6548add )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git79e120a )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git6548add )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -333,6 +333,9 @@
   </head>
 
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+  
+
+
   
   
   
@@ -1333,10 +1336,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -1382,12 +1395,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -1424,6 +1623,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -1489,18 +1690,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -1510,19 +1699,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -1531,27 +1714,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -1564,34 +1740,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -1601,7 +1796,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -2592,10 +2786,20 @@ document.write(`
   </div>
 
   <div id="google-search" class="search-container" style="display:none;">
-    <div class="gcse-search-wrapper">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <div class="gcse-search"></div>
-    </div>
+    <form class="bd-search d-flex align-items-center" id="google-search-form">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search"
+             class="form-control"
+             id="google-search-input"
+             placeholder="Search the docs ..."
+             aria-label="Search the docs ..."
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"/>
+    </form>
+    <div id="google-search-suggestions" class="google-search-suggestions"></div>
+    <div class="gcse-searchresults-only"></div>
   </div>
 
   <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -2641,12 +2845,198 @@ document.write(`
     }
   }
 
+  // Execute Google CSE search programmatically from our custom input
+  function executeGoogleSearch(query) {
+    if (!query) return;
+
+    // Close mobile sidebar if open, so results overlay is visible
+    var sidebar = document.querySelector('.bd-sidebar-primary');
+    if (sidebar && sidebar.classList.contains('show')) {
+      var closeBtn = sidebar.querySelector('[data-bs-dismiss="offcanvas"]');
+      if (closeBtn) closeBtn.click();
+      // Also try Bootstrap's offcanvas API
+      try {
+        var offcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        if (offcanvas) offcanvas.hide();
+      } catch(e) {}
+    }
+
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (element) {
+      element.execute(query);
+    }
+  }
+
+  // Wire up our custom Google search input
+  var googleSearchForm = document.getElementById('google-search-form');
+  var googleSearchInput = document.getElementById('google-search-input');
+
+  if (googleSearchForm) {
+    googleSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var query = googleSearchInput ? googleSearchInput.value : '';
+      executeGoogleSearch(query);
+    });
+  }
+
+  var suggestDebounce;
+  var activeSuggestionIndex = -1;
+
+  if (googleSearchInput) {
+    // Trigger search on Enter key
+    googleSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        hideSuggestions();
+        executeGoogleSearch(this.value);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateSuggestions(e.key === 'ArrowDown' ? 1 : -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    googleSearchInput.addEventListener('input', function() {
+      clearTimeout(suggestDebounce);
+      var query = this.value.trim();
+      activeSuggestionIndex = -1;
+      if (query.length < 2) {
+        hideSuggestions();
+        return;
+      }
+      suggestDebounce = setTimeout(function() {
+        fetchGoogleSuggestions(query);
+      }, 200);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#google-search')) {
+        hideSuggestions();
+      }
+    });
+  }
+
+  // Filter and clean suggestions: keep only PyTorch-related, strip prefix
+  function cleanSuggestions(rawList) {
+    return rawList.map(function(s) {
+      var text = typeof s === 'string' ? s : s[0];
+      return text;
+    }).filter(function(text) {
+      return /pytorch/i.test(text);
+    }).map(function(text) {
+      return text.replace(/^pytorch\s*/i, '');
+    }).filter(function(s) {
+      return s.length > 0;
+    });
+  }
+
+  // Fetch suggestions from Google suggest API, scoped to PyTorch
+  function fetchGoogleSuggestions(query) {
+    var scopedQuery = 'pytorch ' + query;
+    fetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(scopedQuery))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data[1] && data[1].length) {
+          var cleaned = cleanSuggestions(data[1]);
+          cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+        } else {
+          hideSuggestions();
+        }
+      })
+      .catch(function() {
+        fetchGoogleSuggestionsJSONP(scopedQuery);
+      });
+  }
+
+  function fetchGoogleSuggestionsJSONP(scopedQuery) {
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+
+    window.__gcseSuggestCallback = function(data) {
+      if (data && data[1] && data[1].length) {
+        var cleaned = cleanSuggestions(data[1]);
+        cleaned.length ? showSuggestions(cleaned) : hideSuggestions();
+      } else {
+        hideSuggestions();
+      }
+    };
+
+    script = document.createElement('script');
+    script.id = 'gcse-suggest-script';
+    script.src = 'https://clients1.google.com/complete/search?client=hp&q=' + encodeURIComponent(scopedQuery) + '&callback=__gcseSuggestCallback';
+    script.onerror = function() { hideSuggestions(); };
+    document.head.appendChild(script);
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function showSuggestions(suggestions) {
+    var container = document.getElementById('google-search-suggestions');
+    if (!container || !suggestions.length) { hideSuggestions(); return; }
+
+    container.innerHTML = '';
+    suggestions.forEach(function(rawText, index) {
+      var text = stripHtml(rawText);
+      var item = document.createElement('div');
+      item.className = 'google-suggest-item';
+      item.textContent = text;
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', function() {
+        googleSearchInput.value = text;
+        hideSuggestions();
+        executeGoogleSearch(text);
+      });
+      item.addEventListener('mouseenter', function() {
+        activeSuggestionIndex = index;
+        highlightSuggestion();
+      });
+      container.appendChild(item);
+    });
+    container.style.display = 'block';
+    activeSuggestionIndex = -1;
+  }
+
+  function hideSuggestions() {
+    var container = document.getElementById('google-search-suggestions');
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+    activeSuggestionIndex = -1;
+    // Clean up JSONP script
+    var script = document.getElementById('gcse-suggest-script');
+    if (script) script.remove();
+  }
+
+  function navigateSuggestions(direction) {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    if (!items.length) return;
+
+    activeSuggestionIndex += direction;
+    if (activeSuggestionIndex >= items.length) activeSuggestionIndex = 0;
+    if (activeSuggestionIndex < 0) activeSuggestionIndex = items.length - 1;
+
+    highlightSuggestion();
+    googleSearchInput.value = items[activeSuggestionIndex].textContent;
+  }
+
+  function highlightSuggestion() {
+    var items = document.querySelectorAll('#google-search-suggestions .google-suggest-item');
+    items.forEach(function(item, i) {
+      item.classList.toggle('active', i === activeSuggestionIndex);
+    });
+  }
+
   // Function to handle search toggle
   function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
     if (!toggle || !sphinxSearch || !googleSearch) return;
 
-    // Check if the URL contains /stable/ or /tutorials/
-    const currentUrl = window.location.href;
     // TODO: We've had reports that the google programmable search is returning stale documentation,
     //       Simple reproduction is to turn google search on and search for multinomial which will
     //       result in returning 1.8.1 documentation.
@@ -2683,6 +3073,8 @@ document.write(`
         localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
         trackSearchEngineSwitch('Google');
+        // Focus our custom input when switching to Google
+        if (googleSearchInput) googleSearchInput.focus();
       } else {
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
@@ -2748,18 +3140,6 @@ document.write(`
   const googleSearch = document.getElementById('google-search');
   handleSearchToggle(toggle, sphinxSearch, googleSearch);
 
-  // Set placeholder text for Google search input
-  const observer = new MutationObserver(function() {
-    document.querySelectorAll('.gsc-input input').forEach(input => {
-      if (input && !input.hasAttribute('data-placeholder-set')) {
-        input.setAttribute('placeholder', 'Search the docs ...');
-        input.setAttribute('data-placeholder-set', 'true');
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
   // Fix for scroll jump issue - improved approach
   function setupSearchInputHandlers(input) {
     if (input.hasAttribute('data-scroll-fixed')) return;
@@ -2769,19 +3149,13 @@ document.write(`
     let isTyping = false;
     let scrollTimeout;
 
-    // Save position before typing starts
     input.addEventListener('keydown', () => {
       lastScrollPosition = window.scrollY;
       isTyping = true;
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
     });
 
-    // Only maintain scroll position during typing
     function maintainScroll() {
       if (document.activeElement === input && isTyping) {
         window.scrollTo(0, lastScrollPosition);
@@ -2790,27 +3164,20 @@ document.write(`
     }
 
     input.addEventListener('focus', () => {
-      // Just store initial position but don't force it
       lastScrollPosition = window.scrollY;
     });
 
     input.addEventListener('input', () => {
       isTyping = true;
       window.scrollTo(0, lastScrollPosition);
-
-      // Reset typing state after a short delay
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isTyping = false;
-      }, 100);
-
+      scrollTimeout = setTimeout(() => { isTyping = false; }, 100);
       requestAnimationFrame(maintainScroll);
     });
   }
 
-  // Apply to all search inputs and observe for new ones
   function applyToSearchInputs() {
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    document.querySelectorAll('.search-container input').forEach(setupSearchInputHandlers);
   }
 
   applyToSearchInputs();
@@ -2823,34 +3190,53 @@ document.write(`
     for (const mutation of mutations) {
       if (!mutation.addedNodes.length) continue;
 
-      // Style mobile search inputs
-      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
-        if (input) {
-          input.setAttribute('placeholder', 'Search the docs ...');
-          input.style.paddingLeft = '36px';
-        }
-      });
-
-      // Check for mobile search container
       const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
       if (!mobileSearchContainer) continue;
 
       const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
       if (mobileToggle && toggle) {
-        // Sync mobile toggle with desktop toggle
         mobileToggle.checked = toggle.checked;
         updateMobileSearch();
 
-        // Add event listener to mobile toggle if not already added
         if (!mobileToggle.hasAttribute('data-initialized')) {
           mobileToggle.setAttribute('data-initialized', 'true');
           mobileToggle.addEventListener('change', function() {
-            // Sync desktop toggle with mobile toggle
             toggle.checked = this.checked;
-            // Trigger change event on desktop toggle to update both
             toggle.dispatchEvent(new Event('change'));
           });
         }
+      }
+
+      // Wire up mobile Google search input
+      var mobileGoogleInput = mobileSearchContainer.querySelector('#google-search-input');
+      if (mobileGoogleInput && !mobileGoogleInput.hasAttribute('data-mobile-wired')) {
+        mobileGoogleInput.setAttribute('data-mobile-wired', 'true');
+
+        var mobileForm = mobileSearchContainer.querySelector('#google-search-form');
+        if (mobileForm) {
+          mobileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            executeGoogleSearch(mobileGoogleInput.value);
+          });
+        }
+
+        mobileGoogleInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeGoogleSearch(this.value);
+          }
+        });
+
+        mobileGoogleInput.addEventListener('input', function() {
+          clearTimeout(suggestDebounce);
+          var query = this.value.trim();
+          activeSuggestionIndex = -1;
+          if (query.length < 2) return;
+          suggestDebounce = setTimeout(function() {
+            // Mobile uses the same search execution but no suggestions dropdown
+            // (suggestions dropdown is complex on mobile; just support Enter to search)
+          }, 200);
+        });
       }
     }
   });
@@ -2860,7 +3246,6 @@ document.write(`
   // Ensure Google CSE is properly loaded
   if (window.__gcse) {
     window.__gcse.callback = function() {
-      // This will run after Google CSE is fully loaded
       if (toggle && toggle.checked) {
         reinitializeGoogleSearch();
       }
@@ -3057,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -3275,7 +3660,7 @@ document.write(`
 <h2>cond_branch_class_method<a class="headerlink" href="#cond-branch-class-method" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3350,7 +3735,7 @@ document.write(`
 <h2>cond_branch_nested_function<a class="headerlink" href="#cond-branch-nested-function" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3422,7 +3807,7 @@ document.write(`
 <h2>cond_branch_nonlocal_variables<a class="headerlink" href="#cond-branch-nonlocal-variables" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3519,7 +3904,7 @@ document.write(`
 <h2>cond_operands<a class="headerlink" href="#cond-operands" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3603,7 +3988,7 @@ document.write(`
 <h2>cond_predicate<a class="headerlink" href="#cond-predicate" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4095,20 +4480,20 @@ document.write(`
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cond.html"
+       href="torch.escape-hatch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.escape-hatch</p>
       </div>
     </a>
     <a class="right-next"
-       href="python.closure.html"
+       href="torch.cond.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">python.closure</p>
+        <p class="prev-next-title">torch.cond</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4134,20 +4519,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cond.html"
+       href="torch.escape-hatch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.escape-hatch</p>
       </div>
     </a>
     <a class="right-next"
-       href="python.closure.html"
+       href="torch.cond.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">python.closure</p>
+        <p class="prev-next-title">torch.cond</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4366,7 +4751,7 @@ document.write(`
 
 <div class="cookie-banner-wrapper">
   <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
     <img class="close-button" src="../../_static/img/pytorch-x.svg">
   </div>
 </div>
@@ -4418,7 +4803,7 @@ document.write(`
        "headline": "torch.dynamic-shape",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/torch.dynamic-shape.html",
-       "articleBody": "torch.dynamic-shape# cond_branch_class_method# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} dynamic_shape_constructor# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeConstructor(torch.nn.Module): \"\"\" Tensor constructors should be captured with dynamic shape inputs rather than being baked in with static shape. \"\"\" def forward(self, x): return torch.zeros(x.shape[0] * 2) example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeConstructor() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[6]\" = torch.ops.aten.zeros.default([6], device = device(type=\u0027cpu\u0027), pin_memory = False) return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {} dynamic_shape_if_guard# Note Tags: torch.dynamic-shape, python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): \"\"\" `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. \"\"\" def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {\"torch.dynamic-shape\", \"python.control-flow\"} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): cos: \"f32[3, 2, 2]\" = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} dynamic_shape_map# Note Tags: torch.dynamic-shape, torch.map Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} dynamic_shape_round# Note Tags: torch.dynamic-shape, python.builtin Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: RuntimeError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". dynamic_shape_slicing# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeSlicing(torch.nn.Module): \"\"\" Slices with dynamic shape arguments should be captured into the graph rather than being baked in. \"\"\" def forward(self, x): return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2] example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeSlicing() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): slice_1: \"f32[1, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 1); x = None slice_2: \"f32[1, 1]\" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2); slice_1 = None return (slice_2,) Graph signature: # inputs x: USER_INPUT # outputs slice_2: USER_OUTPUT Range constraints: {} dynamic_shape_view# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeView(torch.nn.Module): \"\"\" Dynamic shapes should be propagated to view arguments instead of being baked into the exported graph. \"\"\" def forward(self, x): new_x_shape = x.size()[:-1] + (2, 5) x = x.view(*new_x_shape) return x.permute(0, 2, 1) example_args = (torch.randn(10, 10),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeView() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\"): view: \"f32[10, 2, 5]\" = torch.ops.aten.view.default(x, [10, 2, 5]); x = None permute: \"f32[10, 5, 2]\" = torch.ops.aten.permute.default(view, [0, 2, 1]); view = None return (permute,) Graph signature: # inputs x: USER_INPUT # outputs permute: USER_OUTPUT Range constraints: {} list_contains# Note Tags: python.assert, torch.dynamic-shape, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] # noqa: S101 assert x.size(0) not in [4, 5, 6] # noqa: S101 assert \"monkey\" not in [\"cow\", \"pig\"] # noqa: S101 return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} scalar_output# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) dim1_x = Dim(\"dim1_x\") class ScalarOutput(torch.nn.Module): \"\"\" Returning scalar values from the graph is supported, in addition to Tensor outputs. Symbolic shapes are captured and rank is specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() def forward(self, x): return x.shape[1] + 1 example_args = (x,) tags = {\"torch.dynamic-shape\"} dynamic_shapes = {\"x\": {1: dim1_x}} model = ScalarOutput() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, s11]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s11)\" = torch.ops.aten.sym_size.int(x, 1); x = None add: \"Sym(s11 + 1)\" = sym_size_int_1 + 1; sym_size_int_1 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {s11: VR[0, int_oo]}",
+       "articleBody": "torch.dynamic-shape# cond_branch_class_method# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} dynamic_shape_constructor# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeConstructor(torch.nn.Module): \"\"\" Tensor constructors should be captured with dynamic shape inputs rather than being baked in with static shape. \"\"\" def forward(self, x): return torch.zeros(x.shape[0] * 2) example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeConstructor() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[6]\" = torch.ops.aten.zeros.default([6], device = device(type=\u0027cpu\u0027), pin_memory = False) return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {} dynamic_shape_if_guard# Note Tags: torch.dynamic-shape, python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): \"\"\" `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. \"\"\" def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {\"torch.dynamic-shape\", \"python.control-flow\"} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): cos: \"f32[3, 2, 2]\" = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} dynamic_shape_map# Note Tags: torch.dynamic-shape, torch.map Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} dynamic_shape_round# Note Tags: torch.dynamic-shape, python.builtin Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: RuntimeError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". dynamic_shape_slicing# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeSlicing(torch.nn.Module): \"\"\" Slices with dynamic shape arguments should be captured into the graph rather than being baked in. \"\"\" def forward(self, x): return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2] example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeSlicing() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): slice_1: \"f32[1, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 1); x = None slice_2: \"f32[1, 1]\" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2); slice_1 = None return (slice_2,) Graph signature: # inputs x: USER_INPUT # outputs slice_2: USER_OUTPUT Range constraints: {} dynamic_shape_view# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeView(torch.nn.Module): \"\"\" Dynamic shapes should be propagated to view arguments instead of being baked into the exported graph. \"\"\" def forward(self, x): new_x_shape = x.size()[:-1] + (2, 5) x = x.view(*new_x_shape) return x.permute(0, 2, 1) example_args = (torch.randn(10, 10),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeView() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\"): view: \"f32[10, 2, 5]\" = torch.ops.aten.view.default(x, [10, 2, 5]); x = None permute: \"f32[10, 5, 2]\" = torch.ops.aten.permute.default(view, [0, 2, 1]); view = None return (permute,) Graph signature: # inputs x: USER_INPUT # outputs permute: USER_OUTPUT Range constraints: {} list_contains# Note Tags: python.assert, torch.dynamic-shape, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] # noqa: S101 assert x.size(0) not in [4, 5, 6] # noqa: S101 assert \"monkey\" not in [\"cow\", \"pig\"] # noqa: S101 return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} scalar_output# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) dim1_x = Dim(\"dim1_x\") class ScalarOutput(torch.nn.Module): \"\"\" Returning scalar values from the graph is supported, in addition to Tensor outputs. Symbolic shapes are captured and rank is specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() def forward(self, x): return x.shape[1] + 1 example_args = (x,) tags = {\"torch.dynamic-shape\"} dynamic_shapes = {\"x\": {1: dim1_x}} model = ScalarOutput() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, s11]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s11)\" = torch.ops.aten.sym_size.int(x, 1); x = None add: \"Sym(s11 + 1)\" = sym_size_int_1 + 1; sym_size_int_1 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {s11: VR[0, int_oo]}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
