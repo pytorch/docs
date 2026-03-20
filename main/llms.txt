@@ -700,6 +700,7 @@
 - [torch._logging.set_logs](https://docs.pytorch.org/docs/stable/generated/torch._logging.set_logs.html)
 - [torch.abs](https://docs.pytorch.org/docs/stable/generated/torch.abs.html)
 - [torch.absolute](https://docs.pytorch.org/docs/stable/generated/torch.absolute.html)
+- [Graph](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.Graph.html)
 - [torch.accelerator.current_accelerator](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.current_accelerator.html)
 - [torch.accelerator.current_device_idx](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.current_device_idx.html)
 - [torch.accelerator.current_device_index](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.current_device_index.html)

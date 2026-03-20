@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.accelerator.device_index.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.accelerator.memory.empty_cache" href="torch.accelerator.memory.empty_cache.html" />
+    <link rel="next" title="Graph" href="torch.accelerator.Graph.html" />
     <link rel="prev" title="torch.accelerator.synchronize" href="torch.accelerator.synchronize.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git12bfd2c )">
+<meta name="llm:version" content="main (2.12.0a0+gitc7e314f )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git12bfd2c )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitc7e314f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4975,6 +4975,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.Graph.html">Graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
@@ -6539,7 +6540,7 @@ document.write(`
 <h1>device_index<a class="headerlink" href="#device-index" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.accelerator.device_index">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">device_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/12bfd2cbfcb761b04f97ddc92e063e8bdc5b763d/torch/accelerator/__init__.py#L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.device_index" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">device_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c7e314f42b1ac498b216a0739457e86a210ca650/torch/accelerator/__init__.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.device_index" title="Link to this definition">#</a></dt>
 <dd><p>Context manager to set the current device index for the current <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a>.
 Temporarily changes the current device index to the specified value for the duration
 of the context, and automatically restores the previous device index when exiting
@@ -6618,11 +6619,11 @@ no device index switching occurs.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.accelerator.memory.empty_cache.html"
+       href="torch.accelerator.Graph.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.accelerator.memory.empty_cache</p>
+        <p class="prev-next-title">Graph</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -6657,11 +6658,11 @@ no device index switching occurs.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.accelerator.memory.empty_cache.html"
+       href="torch.accelerator.Graph.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.accelerator.memory.empty_cache</p>
+        <p class="prev-next-title">Graph</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
