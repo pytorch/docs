@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitfa15f2b )">
+<meta name="llm:version" content="main (2.12.0a0+git3f14378 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitfa15f2b )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git3f14378 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6540,7 +6540,7 @@ document.write(`
 <h1>Graph<a class="headerlink" href="#graph" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.accelerator.Graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around an <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a> graph that supports capture and replay.</p>
 <p>A graph captures a sequence of operations and their dependencies, allowing them to be
 replayed efficiently with reduced overhead. This class can be used as a context manager
@@ -6576,7 +6576,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.capture_begin">
-<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.capture_begin" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.capture_begin" title="Link to this definition">#</a></dt>
 <dd><p>Begin graph capture on the current stream.</p>
 <p>All operations executed on the current stream of the current device after this call
 will be recorded into the graph until <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> is called. By default, capture
@@ -6598,7 +6598,7 @@ calls that inherently conflict with stream capture.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.capture_end">
-<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.capture_end" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.capture_end" title="Link to this definition">#</a></dt>
 <dd><p>End graph capture on the current stream of the current device.</p>
 <p>After this call, the graph can be replayed via <code class="docutils literal notranslate"><span class="pre">replay</span></code>.</p>
 <dl class="field-list simple">
@@ -6607,7 +6607,7 @@ calls that inherently conflict with stream capture.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.debug_dump">
-<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.debug_dump" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.debug_dump" title="Link to this definition">#</a></dt>
 <dd><p>Dump the captured graph to a file for debugging purposes if the debugging is
 enabled via <code class="docutils literal notranslate"><span class="pre">enable_debug_mode</span></code>.</p>
 <dl class="field-list simple">
@@ -6635,7 +6635,7 @@ enabled via <code class="docutils literal notranslate"><span class="pre">enable_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.enable_debug_mode">
-<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.enable_debug_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.enable_debug_mode" title="Link to this definition">#</a></dt>
 <dd><p>Enable debugging mode for <code class="docutils literal notranslate"><span class="pre">debug_dump</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -6643,7 +6643,7 @@ enabled via <code class="docutils literal notranslate"><span class="pre">enable_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.instantiate">
-<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.instantiate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.instantiate" title="Link to this definition">#</a></dt>
 <dd><p>Instantiate the underlying graph. Will be called by <code class="docutils literal notranslate"><span class="pre">capture_end</span></code>
 if <code class="docutils literal notranslate"><span class="pre">keep_graph=False</span></code>, or by <code class="docutils literal notranslate"><span class="pre">replay</span></code> if <code class="docutils literal notranslate"><span class="pre">keep_graph=True</span></code> and
 <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> has not already been explicitly called.</p>
@@ -6653,7 +6653,7 @@ if <code class="docutils literal notranslate"><span class="pre">keep_graph=False
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.pool">
-<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.pool" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.pool" title="Link to this definition">#</a></dt>
 <dd><p>Return an opaque token representing the id of this graph’s memory pool.</p>
 <p>This id can optionally be passed to another graph’s <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code>,
 which hints the other graph may share the same memory pool.</p>
@@ -6680,7 +6680,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.replay">
-<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.replay" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.replay" title="Link to this definition">#</a></dt>
 <dd><p>Replay the work captured by this graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -6688,7 +6688,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.accelerator.Graph.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fa15f2bbf3ece0995d54bb2a267a359d217afcd4/torch/accelerator/graphs.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f14378080012bafc834a927560b6a1555b5bf80/torch/accelerator/graphs.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.Graph.reset" title="Link to this definition">#</a></dt>
 <dd><p>Delete the graph currently held by this instance.</p>
 <dl class="field-list simple">
 </dl>
