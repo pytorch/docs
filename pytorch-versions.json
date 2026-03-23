@@ -5,15 +5,15 @@
     "url": "https://docs.pytorch.org/docs/main/"
   },
   {
-    "name": "v2.11.0 (release candidate)",
+    "name": "v2.11.0 (stable)",
     "version": "2.11",
-    "url": "https://docs.pytorch.org/docs/2.11/"
+    "url": "https://docs.pytorch.org/docs/2.11/",
+    "preferred": true
   },
   {
-    "name": "v2.10.0 (stable)",
+    "name": "v2.10.0",
     "version": "2.10",
-    "url": "https://docs.pytorch.org/docs/2.10/",
-    "preferred": true
+    "url": "https://docs.pytorch.org/docs/2.10/"
   },
   {
     "name": "v2.9.1",
