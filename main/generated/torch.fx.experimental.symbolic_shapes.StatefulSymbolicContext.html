@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+gitc311aed )">
+<meta name="llm:version" content="main (2.12.0a0+git7cd5eaf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitc311aed )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7cd5eaf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4977,6 +4977,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.Graph.html">Graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_host_cache.html">torch.accelerator.memory.empty_host_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
@@ -5285,8 +5286,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6540,7 +6541,7 @@ document.write(`
 <h1>StatefulSymbolicContext<a class="headerlink" href="#statefulsymboliccontext" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">StatefulSymbolicContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_strides=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_sizes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_strides=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specialize_on=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_base_context=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbacked_bounds=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env_to_source_to_symbol_cache=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excluded_sizes=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c311aed673b92ee8ae87ae6ef805f7e94d6b2fe7/torch/fx/experimental/symbolic_shapes.py#L2293"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">StatefulSymbolicContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_strides=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_sizes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_strides=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specialize_on=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_base_context=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbacked_bounds=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env_to_source_to_symbol_cache=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excluded_sizes=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7cd5eafaadc53d7cbe86652896087fcd1a8cb871/torch/fx/experimental/symbolic_shapes.py#L2293"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext" title="Link to this definition">#</a></dt>
 <dd><p>Create symbols in <code class="docutils literal notranslate"><span class="pre">create_symbolic_sizes_strides_storage_offset</span></code> via
 a symbolic_context determination as given by a cache of Source:Symbol. A cache hit
 will reuse a stored symbol, and a cache miss will write to this cache.</p>

@@ -709,6 +709,7 @@
 - [device_index](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.device_index.html)
 - [torch.accelerator.is_available](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.is_available.html)
 - [torch.accelerator.memory.empty_cache](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.memory.empty_cache.html)
+- [torch.accelerator.memory.empty_host_cache](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.memory.empty_host_cache.html)
 - [torch.accelerator.memory.get_memory_info](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.memory.get_memory_info.html)
 - [torch.accelerator.memory.max_memory_allocated](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.memory.max_memory_allocated.html)
 - [torch.accelerator.memory.max_memory_reserved](https://docs.pytorch.org/docs/stable/generated/torch.accelerator.memory.max_memory_reserved.html)
