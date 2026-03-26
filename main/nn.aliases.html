@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git7cd5eaf )">
+<meta name="llm:version" content="main (2.12.0a0+git274a26d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7cd5eaf )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git274a26d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3753,6 +3753,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
@@ -4971,6 +4972,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.set_device_idx.html">torch.accelerator.set_device_idx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_device_index.html">torch.accelerator.current_device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_device_idx.html">torch.accelerator.current_device_idx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.get_device_capability.html">torch.accelerator.get_device_capability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.set_stream.html">torch.accelerator.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
@@ -6742,19 +6744,19 @@ document.write(`
 <h3>Non-linear Activations (weighted sum, nonlinearity) (Aliases)<a class="headerlink" href="#non-linear-activations-weighted-sum-nonlinearity-aliases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ELU.html#torch.nn.ELU" title="torch.nn.modules.activation.ELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.ELU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.ELU.html#torch.nn.modules.activation.ELU" title="torch.nn.modules.activation.ELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.ELU</span></code></a></p></td>
 <td><p>Applies the Exponential Linear Unit (ELU) function, element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Hardshrink.html#torch.nn.Hardshrink" title="torch.nn.modules.activation.Hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardshrink</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardshrink.html#torch.nn.modules.activation.Hardshrink" title="torch.nn.modules.activation.Hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardshrink</span></code></a></p></td>
 <td><p>Applies the Hard Shrinkage (Hardshrink) function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Hardsigmoid.html#torch.nn.Hardsigmoid" title="torch.nn.modules.activation.Hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardsigmoid</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardsigmoid.html#torch.nn.modules.activation.Hardsigmoid" title="torch.nn.modules.activation.Hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardsigmoid</span></code></a></p></td>
 <td><p>Applies the Hardsigmoid function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Hardtanh.html#torch.nn.Hardtanh" title="torch.nn.modules.activation.Hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardtanh</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardtanh.html#torch.nn.modules.activation.Hardtanh" title="torch.nn.modules.activation.Hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardtanh</span></code></a></p></td>
 <td><p>Applies the HardTanh function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Hardswish.html#torch.nn.Hardswish" title="torch.nn.modules.activation.Hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardswish</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Hardswish.html#torch.nn.modules.activation.Hardswish" title="torch.nn.modules.activation.Hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Hardswish</span></code></a></p></td>
 <td><p>Applies the Hardswish function, element-wise.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LeakyReLU.html#torch.nn.LeakyReLU" title="torch.nn.modules.activation.LeakyReLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.LeakyReLU</span></code></a></p></td>
@@ -6781,10 +6783,10 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.SELU.html#torch.nn.SELU" title="torch.nn.modules.activation.SELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.SELU</span></code></a></p></td>
 <td><p>Applies the SELU function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.CELU.html#torch.nn.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.CELU.html#torch.nn.modules.activation.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
 <td><p>Applies the CELU function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GELU.html#torch.nn.GELU" title="torch.nn.modules.activation.GELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GELU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.GELU.html#torch.nn.modules.activation.GELU" title="torch.nn.modules.activation.GELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GELU</span></code></a></p></td>
 <td><p>Applies the Gaussian Error Linear Units function.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Sigmoid.html#torch.nn.Sigmoid" title="torch.nn.modules.activation.Sigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Sigmoid</span></code></a></p></td>
@@ -6814,7 +6816,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Threshold.html#torch.nn.Threshold" title="torch.nn.modules.activation.Threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Threshold</span></code></a></p></td>
 <td><p>Thresholds each element of the input Tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GLU.html#torch.nn.GLU" title="torch.nn.modules.activation.GLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GLU</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.GLU.html#torch.nn.modules.activation.GLU" title="torch.nn.modules.activation.GLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GLU</span></code></a></p></td>
 <td><p>Applies the gated linear unit function.</p></td>
 </tr>
 </tbody>
@@ -7051,22 +7053,22 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.PoissonNLLLoss.html#torch.nn.modules.loss.PoissonNLLLoss" title="torch.nn.modules.loss.PoissonNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.PoissonNLLLoss</span></code></a></p></td>
 <td><p>Negative log likelihood loss with Poisson distribution of target.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GaussianNLLLoss.html#torch.nn.GaussianNLLLoss" title="torch.nn.modules.loss.GaussianNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.GaussianNLLLoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.GaussianNLLLoss.html#torch.nn.modules.loss.GaussianNLLLoss" title="torch.nn.modules.loss.GaussianNLLLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.GaussianNLLLoss</span></code></a></p></td>
 <td><p>Gaussian negative log likelihood loss.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.KLDivLoss.html#torch.nn.modules.loss.KLDivLoss" title="torch.nn.modules.loss.KLDivLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.KLDivLoss</span></code></a></p></td>
 <td><p>The Kullback-Leibler divergence loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.BCELoss.html#torch.nn.modules.loss.BCELoss" title="torch.nn.modules.loss.BCELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.BCELoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BCELoss.html#torch.nn.BCELoss" title="torch.nn.modules.loss.BCELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.BCELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the Binary Cross Entropy between the target and the input probabilities:</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.BCEWithLogitsLoss.html#torch.nn.modules.loss.BCEWithLogitsLoss" title="torch.nn.modules.loss.BCEWithLogitsLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.BCEWithLogitsLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss" title="torch.nn.modules.loss.BCEWithLogitsLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.BCEWithLogitsLoss</span></code></a></p></td>
 <td><p>This loss combines a <cite>Sigmoid</cite> layer and the <cite>BCELoss</cite> in one single class.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MarginRankingLoss.html#torch.nn.modules.loss.MarginRankingLoss" title="torch.nn.modules.loss.MarginRankingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MarginRankingLoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the loss given inputs <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">x</span><span class="mord">1</span></span></span></span></span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">x</span><span class="mord">2</span></span></span></span></span>, two 1D mini-batch or 0D <cite>Tensors</cite>, and a label 1D mini-batch or 0D <cite>Tensor</cite> <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (containing 1 or -1).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.HingeEmbeddingLoss.html#torch.nn.HingeEmbeddingLoss" title="torch.nn.modules.loss.HingeEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HingeEmbeddingLoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.HingeEmbeddingLoss.html#torch.nn.modules.loss.HingeEmbeddingLoss" title="torch.nn.modules.loss.HingeEmbeddingLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.HingeEmbeddingLoss</span></code></a></p></td>
 <td><p>Measures the loss given an input tensor <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and a labels tensor <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> (containing 1 or -1).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MultiLabelMarginLoss.html#torch.nn.modules.loss.MultiLabelMarginLoss" title="torch.nn.modules.loss.MultiLabelMarginLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MultiLabelMarginLoss</span></code></a></p></td>

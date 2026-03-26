@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git7cd5eaf )">
+<meta name="llm:version" content="main (2.12.0a0+git274a26d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git7cd5eaf )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git274a26d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3753,6 +3753,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
@@ -4971,6 +4972,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.set_device_idx.html">torch.accelerator.set_device_idx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_device_index.html">torch.accelerator.current_device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_device_idx.html">torch.accelerator.current_device_idx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.get_device_capability.html">torch.accelerator.get_device_capability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.set_stream.html">torch.accelerator.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
@@ -6530,7 +6532,7 @@ document.write(`
                   
   <section id="module-torch.accelerator">
 <span id="torch-accelerator"></span><h1>torch.accelerator<a class="headerlink" href="#module-torch.accelerator" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Mar 23, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Mar 25, 2026</p>
 <p>This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -6555,16 +6557,19 @@ document.write(`
 <tr class="row-odd"><td><p><p id="torch.accelerator.current_device_idx"/><p id="torch.accelerator.current_device_idx"/><a class="reference internal" href="generated/torch.accelerator.current_device_idx.html#torch.accelerator.current_device_idx" title="torch.accelerator.current_device_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device_idx</span></code></a></p></td>
 <td><p>(Deprecated) Return the index of a currently selected device for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.set_stream"/><p id="torch.accelerator.set_stream"/><a class="reference internal" href="generated/torch.accelerator.set_stream.html#torch.accelerator.set_stream" title="torch.accelerator.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.accelerator.get_device_capability"/><p id="torch.accelerator.get_device_capability"/><a class="reference internal" href="generated/torch.accelerator.get_device_capability.html#torch.accelerator.get_device_capability" title="torch.accelerator.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
+<td><p>Return the capability of the currently selected device.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.accelerator.set_stream"/><p id="torch.accelerator.set_stream"/><a class="reference internal" href="generated/torch.accelerator.set_stream.html#torch.accelerator.set_stream" title="torch.accelerator.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
 <td><p>Set the current stream to a given stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.accelerator.current_stream"/><p id="torch.accelerator.current_stream"/><a class="reference internal" href="generated/torch.accelerator.current_stream.html#torch.accelerator.current_stream" title="torch.accelerator.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.accelerator.current_stream"/><p id="torch.accelerator.current_stream"/><a class="reference internal" href="generated/torch.accelerator.current_stream.html#torch.accelerator.current_stream" title="torch.accelerator.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
 <td><p>Return the currently selected stream for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.synchronize"/><p id="torch.accelerator.synchronize"/><a class="reference internal" href="generated/torch.accelerator.synchronize.html#torch.accelerator.synchronize" title="torch.accelerator.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.accelerator.synchronize"/><p id="torch.accelerator.synchronize"/><a class="reference internal" href="generated/torch.accelerator.synchronize.html#torch.accelerator.synchronize" title="torch.accelerator.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Wait for all kernels in all streams on the given device to complete.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.accelerator.device_index"/><p id="torch.accelerator.device_index"/><a class="reference internal" href="generated/torch.accelerator.device_index.html#torch.accelerator.device_index" title="torch.accelerator.device_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_index</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.accelerator.device_index"/><p id="torch.accelerator.device_index"/><a class="reference internal" href="generated/torch.accelerator.device_index.html#torch.accelerator.device_index" title="torch.accelerator.device_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_index</span></code></a></p></td>
 <td><p>Context manager to set the current device index for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a>.</p></td>
 </tr>
 </tbody>
@@ -6992,7 +6997,7 @@ document.write(`
        "headline": "torch.accelerator",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator.html",
-       "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Mar 23, 2026 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index.",
+       "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Mar 25, 2026 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. get_device_capability Return the capability of the currently selected device. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7004,7 +7009,7 @@ document.write(`
          "@id": "/accelerator.html"
        },
        "datePublished": "Oct 27, 2024T00:00:00Z",
-       "dateModified": "Mar 23, 2026T00:00:00Z"
+       "dateModified": "Mar 25, 2026T00:00:00Z"
      }
  </script>
   <script>
