@@ -458,3 +458,30 @@ function openGitHubIssue() {
     $(this).html(tag.replace(/-/, ' '));
   });
 });
+
+// Survey announcement banner
+$(function() {
+  if (localStorage.getItem("pytorch-survey-banner-dismissed")) return;
+
+  var banner = $(
+    '<div class="bd-header-announcement" style="' +
+      'position:relative;background-color:#CC2FAA;color:#fff;' +
+      'min-height:2rem;padding:0.3rem 12.5%;font-size:0.85rem;">' +
+      '<p style="color:#fff;margin:0;">Help us understand how you use PyTorch! Take our quick survey. ' +
+        '<a href="https://forms.gle/Wm63Nff19mBd6orz7" target="_blank" rel="noopener" ' +
+          'style="color:#fff;text-decoration:underline;">Take Survey</a>' +
+      '</p>' +
+      '<button class="survey-banner-close" aria-label="Close" style="' +
+        'position:absolute;right:1rem;top:50%;transform:translateY(-50%);' +
+        'background:none;border:none;font-size:1.1rem;cursor:pointer;' +
+        'color:#fff;padding:0.25rem;line-height:1;">&times;</button>' +
+    '</div>'
+  );
+
+  banner.find(".survey-banner-close").on("click", function() {
+    localStorage.setItem("pytorch-survey-banner-dismissed", "true");
+    banner.remove();
+  });
+
+  $(".bd-header.navbar").before(banner);
+});
