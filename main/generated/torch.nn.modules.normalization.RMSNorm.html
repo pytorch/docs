@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git274a26d )">
+<meta name="llm:version" content="main (2.12.0a0+git151264f )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git274a26d )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git151264f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6554,7 +6554,7 @@ document.write(`
 <h1>RMSNorm<a class="headerlink" href="#rmsnorm" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.normalization.RMSNorm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.normalization.</span></span><span class="sig-name descname"><span class="pre">RMSNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementwise_affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/nn/modules/normalization.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.normalization.</span></span><span class="sig-name descname"><span class="pre">RMSNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementwise_affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/nn/modules/normalization.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm" title="Link to this definition">#</a></dt>
 <dd><p>Applies Root Mean Square Layer Normalization over a mini-batch of inputs.</p>
 <p>This layer implements the operation as described in
 the paper <a class="reference external" href="https://arxiv.org/pdf/1910.07467.pdf">Root Mean Square Layer Normalization</a></p>
@@ -6606,7 +6606,7 @@ has learnable per-element affine parameters initialized to ones (for weights). D
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.normalization.RMSNorm.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/nn/modules/normalization.py#L429"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.extra_repr" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/nn/modules/normalization.py#L429"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.extra_repr" title="Link to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6617,7 +6617,7 @@ has learnable per-element affine parameters initialized to ones (for weights). D
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.normalization.RMSNorm.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/nn/modules/normalization.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/nn/modules/normalization.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6628,7 +6628,7 @@ has learnable per-element affine parameters initialized to ones (for weights). D
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.normalization.RMSNorm.reset_parameters">
-<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/nn/modules/normalization.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.reset_parameters" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/nn/modules/normalization.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.normalization.RMSNorm.reset_parameters" title="Link to this definition">#</a></dt>
 <dd><p>Resets parameters based on their initialization used in __init__.</p>
 <dl class="field-list simple">
 </dl>

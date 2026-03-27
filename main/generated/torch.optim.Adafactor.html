@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git274a26d )">
+<meta name="llm:version" content="main (2.12.0a0+git151264f )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git274a26d )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git151264f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6773,7 +6773,7 @@ allows for greater numerical stability for large sums.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.add_param_group">
-<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L1108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.add_param_group" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L1108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.add_param_group" title="Link to this definition">#</a></dt>
 <dd><p>Add a param group to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> s <cite>param_groups</cite>.</p>
 <p>This can be useful when fine tuning a pre-trained network as frozen layers can be made
 trainable and added to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> as training progresses.</p>
@@ -6787,7 +6787,7 @@ specific optimization options.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L885"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L885"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Load the optimizer state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6840,7 +6840,7 @@ the optimizer <code class="docutils literal notranslate"><span class="pre">param
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_load_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_load_state_dict_post_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_load_state_dict_post_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a load_state_dict post-hook which will be called after
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -6874,7 +6874,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_load_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L810"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_load_state_dict_pre_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L810"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_load_state_dict_pre_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a load_state_dict pre-hook which will be called before
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -6911,7 +6911,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_state_dict_post_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_state_dict_post_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a state dict post-hook which will be called after <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state_dict</span> <span class="ow">or</span> <span class="kc">None</span>
@@ -6943,7 +6943,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_state_dict_pre_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_state_dict_pre_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a state dict pre-hook which will be called before <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -6975,7 +6975,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_step_post_hook">
-<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_step_post_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_step_post_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register an optimizer step post hook which will be called after optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -6998,7 +6998,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.register_step_pre_hook">
-<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_step_pre_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.register_step_pre_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register an optimizer step pre hook which will be called before optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span>
@@ -7023,7 +7023,7 @@ values are returned as a tuple containing the new_args and new_kwargs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains two entries:</p>
 <ul class="simple">
@@ -7086,7 +7086,7 @@ match state WITHOUT additional verification.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/_adafactor.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/_adafactor.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.step" title="Link to this definition">#</a></dt>
 <dd><p>Perform a single optimization step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7098,7 +7098,7 @@ and returns the loss.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.zero_grad">
-<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/274a26df346a9898b8496745c0b8b7069cb84507/torch/optim/optimizer.py#L1029"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.zero_grad" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/151264ff8336350f7ce056c931db4b14afa4ed54/torch/optim/optimizer.py#L1029"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Adafactor.zero_grad" title="Link to this definition">#</a></dt>
 <dd><p>Reset the gradients of all optimized <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
