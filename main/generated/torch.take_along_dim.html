@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git151264f )">
+<meta name="llm:version" content="main (2.12.0a0+gita4658ab )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git151264f )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gita4658ab )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6558,7 +6558,7 @@ See also <a class="reference internal" href="torch.gather.html#torch.gather" tit
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p></li>
 <li><p><strong>indices</strong> (<em>LongTensor</em>) – the indices into <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>. Must have long dtype.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – dimension to select along. Default: 0</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – dimension to select along. Default: <cite>None</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -6934,7 +6934,7 @@ See also <a class="reference internal" href="torch.gather.html#torch.gather" tit
        "headline": "torch.take_along_dim",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.take_along_dim.html",
-       "articleBody": "torch.take_along_dim# torch.take_along_dim(input, indices, dim=None, *, out=None) \u2192 Tensor# Selects values from input at the 1-dimensional indices from indices along the given dim. If dim is None, the input array is treated as if it has been flattened to 1d. Functions that return indices along a dimension, like torch.argmax() and torch.argsort(), are designed to work with this function. See the examples below. Note This function is similar to NumPy\u2019s take_along_axis. See also torch.gather(). Parameters: input (Tensor) \u2013 the input tensor. indices (LongTensor) \u2013 the indices into input. Must have long dtype. dim (int, optional) \u2013 dimension to select along. Default: 0 Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e t = torch.tensor([[10, 30, 20], [60, 40, 50]]) \u003e\u003e\u003e max_idx = torch.argmax(t) \u003e\u003e\u003e torch.take_along_dim(t, max_idx) tensor([60]) \u003e\u003e\u003e sorted_idx = torch.argsort(t, dim=1) \u003e\u003e\u003e torch.take_along_dim(t, sorted_idx, dim=1) tensor([[10, 20, 30], [40, 50, 60]])",
+       "articleBody": "torch.take_along_dim# torch.take_along_dim(input, indices, dim=None, *, out=None) \u2192 Tensor# Selects values from input at the 1-dimensional indices from indices along the given dim. If dim is None, the input array is treated as if it has been flattened to 1d. Functions that return indices along a dimension, like torch.argmax() and torch.argsort(), are designed to work with this function. See the examples below. Note This function is similar to NumPy\u2019s take_along_axis. See also torch.gather(). Parameters: input (Tensor) \u2013 the input tensor. indices (LongTensor) \u2013 the indices into input. Must have long dtype. dim (int, optional) \u2013 dimension to select along. Default: None. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e t = torch.tensor([[10, 30, 20], [60, 40, 50]]) \u003e\u003e\u003e max_idx = torch.argmax(t) \u003e\u003e\u003e torch.take_along_dim(t, max_idx) tensor([60]) \u003e\u003e\u003e sorted_idx = torch.argsort(t, dim=1) \u003e\u003e\u003e torch.take_along_dim(t, sorted_idx, dim=1) tensor([[10, 20, 30], [40, 50, 60]])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

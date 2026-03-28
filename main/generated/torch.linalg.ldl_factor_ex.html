@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git151264f )">
+<meta name="llm:version" content="main (2.12.0a0+gita4658ab )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git151264f )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gita4658ab )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6547,7 +6547,7 @@ document.write(`
 <dd><p>This is a version of <a class="reference internal" href="torch.linalg.ldl_factor.html#torch.linalg.ldl_factor" title="torch.linalg.ldl_factor"><code class="xref py py-func docutils literal notranslate"><span class="pre">ldl_factor()</span></code></a> that does not perform error checks unless <code class="xref py py-attr docutils literal notranslate"><span class="pre">check_errors</span></code><cite>= True</cite>.
 It also returns the <code class="xref py py-attr docutils literal notranslate"><span class="pre">info</span></code> tensor returned by <a class="reference external" href="https://www.netlib.org/lapack/explore-html-3.6.1/d3/db6/group__double_s_ycomputational_gad91bde1212277b3e909eb6af7f64858a.html">LAPACK’s sytrf</a>.
 <code class="docutils literal notranslate"><span class="pre">info</span></code> stores integer error codes from the backend library.
-A positive integer indicates the diagonal element of <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span> that is zero.
+A positive integer indicates the diagonal element of <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">D</span></span></span></span></span> that is zero.
 Division by 0 will occur if the result is used for solving a system of linear equations.
 <code class="docutils literal notranslate"><span class="pre">info</span></code> filled with zeros indicates that the factorization was successful.
 If <code class="docutils literal notranslate"><span class="pre">check_errors=True</span></code> and <code class="docutils literal notranslate"><span class="pre">info</span></code> contains positive integers, then a <cite>RuntimeError</cite> is thrown.</p>
