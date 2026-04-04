@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6554,7 +6554,7 @@ document.write(`
 <h1>torch.func.grad<a class="headerlink" href="#torch-func-grad" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.grad">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/_functorch/apis.py#L329"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.grad" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/_functorch/apis.py#L329"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.grad" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">grad</span></code> operator helps computing gradients of <code class="docutils literal notranslate"><span class="pre">func</span></code> with respect to the
 input(s) specified by <code class="docutils literal notranslate"><span class="pre">argnums</span></code>. This operator can be nested to
 compute higher-order gradients.</p>
@@ -6583,29 +6583,29 @@ respect to each <code class="docutils literal notranslate"><span class="pre">arg
 </dd>
 </dl>
 <p>Example of using <code class="docutils literal notranslate"><span class="pre">grad</span></code>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cos_x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">())</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Second-order gradients</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">neg_sin_x</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">neg_sin_x</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>When composed with <code class="docutils literal notranslate"><span class="pre">vmap</span></code>, <code class="docutils literal notranslate"><span class="pre">grad</span></code> can be used to compute per-sample-gradients:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span><span class="p">,</span> <span class="n">vmap</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span><span class="p">,</span> <span class="n">vmap</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">batch_size</span><span class="p">,</span> <span class="n">feature_size</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">feature_vec</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">feature_vec</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Very simple linear model with activation</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">compute_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">compute_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># MSELoss</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">feature_size</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">examples</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">feature_size</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
@@ -6616,12 +6616,12 @@ respect to each <code class="docutils literal notranslate"><span class="pre">arg
 </pre></div>
 </div>
 <p>Example of using <code class="docutils literal notranslate"><span class="pre">grad</span></code> with <code class="docutils literal notranslate"><span class="pre">has_aux</span></code> and <code class="docutils literal notranslate"><span class="pre">argnums</span></code>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">my_loss_func</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">my_loss_func</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>   <span class="n">loss_per_sample</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span>   <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_per_sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span>   <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">loss_per_sample</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">my_loss_func</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">has_aux</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -6633,7 +6633,7 @@ respect to each <code class="docutils literal notranslate"><span class="pre">arg
 <p class="admonition-title">Note</p>
 <p>Using PyTorch <code class="docutils literal notranslate"><span class="pre">torch.no_grad</span></code> together with <code class="docutils literal notranslate"><span class="pre">grad</span></code>.</p>
 <p>Case 1: Using <code class="docutils literal notranslate"><span class="pre">torch.no_grad</span></code> inside a function:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="n">c</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">c</span>

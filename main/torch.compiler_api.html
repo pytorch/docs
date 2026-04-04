@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3656,7 +3656,7 @@ document.write(`
                   
   <section id="torch-compiler-api-reference">
 <span id="torch-compiler-api"></span><span id="module-torch.compiler"></span><h1>torch.compiler API reference<a class="headerlink" href="#torch-compiler-api-reference" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Dec 16, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Apr 03, 2026</p>
 <p>For a quick overview of <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>, see <a class="reference internal" href="user_guide/torch_compiler/torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -4083,7 +4083,7 @@ document.write(`
        "headline": "torch.compiler API reference",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch.compiler_api.html",
-       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Dec 16, 2025 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused.",
+       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Apr 03, 2026 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4095,7 +4095,7 @@ document.write(`
          "@id": "/torch.compiler_api.html"
        },
        "datePublished": "Jun 02, 2023T00:00:00Z",
-       "dateModified": "Dec 16, 2025T00:00:00Z"
+       "dateModified": "Apr 03, 2026T00:00:00Z"
      }
  </script>
   <script>

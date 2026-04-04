@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6543,7 +6543,7 @@ document.write(`
 <h1>Stream<a class="headerlink" href="#stream" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.Stream">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a XPU stream.</p>
 <p>A XPU stream is a linear sequence of execution that belongs to a specific
 device, independent from other streams. It supports with statement as a
@@ -6565,7 +6565,7 @@ highest for large negative numbers).</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Stream.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.query" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.query" title="Link to this definition">#</a></dt>
 <dd><p>Check if all the work submitted has been completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -6579,7 +6579,7 @@ highest for large negative numbers).</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Stream.record_event">
-<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.record_event" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.record_event" title="Link to this definition">#</a></dt>
 <dd><p>Record an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6594,7 +6594,7 @@ will be allocated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Stream.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.synchronize" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.synchronize" title="Link to this definition">#</a></dt>
 <dd><p>Wait for all the kernels in this stream to complete.</p>
 <dl class="field-list simple">
 </dl>
@@ -6602,7 +6602,7 @@ will be allocated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Stream.wait_event">
-<span class="sig-name descname"><span class="pre">wait_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.wait_event" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.wait_event" title="Link to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the stream wait for an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6613,7 +6613,7 @@ will be allocated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Stream.wait_stream">
-<span class="sig-name descname"><span class="pre">wait_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/xpu/streams.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.wait_stream" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/xpu/streams.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Stream.wait_stream" title="Link to this definition">#</a></dt>
 <dd><p>Synchronize with another stream.</p>
 <p>All future work submitted to this stream will wait until all kernels
 submitted to a given stream at the time of call complete.</p>

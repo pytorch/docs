@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3691,7 +3691,7 @@ document.write(`
 <h2><strong>CUDAGraph Trees Integration</strong><a class="headerlink" href="#cudagraph-trees-integration" title="Link to this heading">#</a></h2>
 <p>Like Graph Callables, CUDA Graph Trees use a single memory pool across all graph captures. However, instead of requiring a single sequence of invocations, CUDA Graph Trees create separate trees of CUDA Graph captures. Let’s take a look at an illustrative example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># GRAPH 1</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
     <span class="c1"># graph break triggered here</span>
@@ -3736,7 +3736,7 @@ document.write(`
 <h3>Input Mutation Support<a class="headerlink" href="#input-mutation-support" title="Link to this heading">#</a></h3>
 <p>Input mutation function refers to a function conducting in-place writes to an input tensor,
 as illustrated below:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="c1"># mutates input x</span>
     <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
@@ -3766,14 +3766,14 @@ these inputs are stable at runtime, and if they’re not we will re-record.</p><
 outputs from CUDAGraph Trees. For mutation on inputs from eager, CUDAGraph Trees will run the
 function without CUDAGraph and emit <em>skipping due to mutated inputs</em> log. The following example
 shows CUDAGraph Trees’ support for tensors which are prior outputs from CUDAGraph Trees.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">mut</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mut</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Enable input mutation support</span>
@@ -3830,7 +3830,7 @@ functions with static input tensor shapes.</p>
 <p>CUDAGraph Trees support functions with nccl operators. While CUDAGraph Trees perform per-device
 record for CUDAGraph, NCCL support allows cross-device communication.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -3894,13 +3894,13 @@ show an exhaustive list of incompatible operators:</p></li>
     <span class="n">mutates_args</span><span class="o">=</span><span class="p">(),</span>
     <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Tag</span><span class="o">.</span><span class="n">cudagraph_unsafe</span><span class="p">,),</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="n">pic</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="n">pic</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
     <span class="n">pic1</span> <span class="o">=</span> <span class="n">pic</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">pic1_cpu</span> <span class="o">=</span> <span class="p">(</span><span class="n">pic1</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">pic1_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span> <span class="o">+</span> <span class="n">pic</span>
 
 <span class="nd">@modify</span><span class="o">.</span><span class="n">register_fake</span>
-<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3909,7 +3909,7 @@ show an exhaustive list of incompatible operators:</p></li>
 <h3>CUDAGraph Partition<a class="headerlink" href="#cudagraph-partition" title="Link to this heading">#</a></h3>
 <p>As we discussed earlier, CUDAGraph does not support some ops (e.g., cpu ops) which may limit its adoption. CUDAGraph partition is a compiler solution that automatically splits off these ops, reorders ops to reduce the number of partitions, and applies CUDAGraph to each partition individually. Please set <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.graph_partition=True</span></code> to enable CUDAGraph partition.</p>
 <p>Consider the following example where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are gpu inputs but <code class="docutils literal notranslate"><span class="pre">y_cpu</span></code> is a cpu tensor. Without graph partition, this function must be skipped due to cpu ops. With graph partition, the CPU ops are split off, and the remaining GPU ops are cudagraphified, resulting in two separate separate CUDAGraphs.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">y1</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">y_cpu</span> <span class="o">=</span> <span class="n">y1</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
@@ -3930,10 +3930,10 @@ show an exhaustive list of incompatible operators:</p></li>
 <h3>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h3>
 <p>Because CUDA Graph fixes memory addresses, CUDA Graphs do not have a great way of handling live tensors from a previous invocation.</p>
 <p>Let’s say we are benchmarking running inference with the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">my_model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">y</span>
 

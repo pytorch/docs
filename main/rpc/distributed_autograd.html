@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6550,10 +6550,10 @@ proceeding.</p>
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>Let’s say you have two nodes and a very simple model partitioned across two
 nodes. This can be implemented using <a class="reference internal" href="../rpc.html#module-torch.distributed.rpc" title="torch.distributed.rpc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.distributed.rpc</span></code></a> as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.rpc</span> <span class="k">as</span> <span class="nn">rpc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
 
-<span class="k">def</span> <span class="nf">my_add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
 
 <span class="c1"># On worker 0:</span>
@@ -6631,7 +6631,7 @@ distributed autograd pass.</p></li>
 <div class="line"><br /></div>
 </div>
 <p>From the user’s perspective the autograd context is setup as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.distributed.autograd</span> <span class="k">as</span> <span class="nn">dist_autograd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.autograd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist_autograd</span>
 <span class="k">with</span> <span class="n">dist_autograd</span><span class="o">.</span><span class="n">context</span><span class="p">()</span> <span class="k">as</span> <span class="n">context_id</span><span class="p">:</span>
   <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
   <span class="n">dist_autograd</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">context_id</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
@@ -6650,7 +6650,7 @@ tradeoffs) on how we can execute a distributed backward pass.</p>
 <section id="computing-dependencies">
 <h3>Computing dependencies<a class="headerlink" href="#computing-dependencies" title="Link to this heading">#</a></h3>
 <p>Consider the following piece of code being run on a single machine</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -6672,8 +6672,8 @@ dependencies by traversing the graph from the root nodes (<code class="docutils 
 <p>The fact that certain nodes in the autograd graph might not be executed in the
 backward pass poses a challenge for distributed autograd. Consider this piece
 of code which uses RPC.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.rpc</span> <span class="k">as</span> <span class="nn">rpc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -6740,11 +6740,11 @@ associated gradient and this map can be retrieved using the
 <div class="line"><br /></div>
 </div>
 <p>As an example the complete code with distributed autograd would be as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.autograd</span> <span class="k">as</span> <span class="nn">dist_autograd</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.rpc</span> <span class="k">as</span> <span class="nn">rpc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.autograd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist_autograd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
 
-<span class="k">def</span> <span class="nf">my_add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
 
 <span class="c1"># On worker 0:</span>
@@ -6831,17 +6831,17 @@ parameters on a worker, these updates are serialized via a lock.</p></li>
 distributed autograd and the distributed optimizer. If the code is placed into a
 file called “dist_autograd_simple.py”, it can be run with the command
 <code class="code docutils literal notranslate"><span class="pre">MASTER_ADDR=&quot;localhost&quot;</span> <span class="pre">MASTER_PORT=29500</span> <span class="pre">python</span> <span class="pre">dist_autograd_simple.py</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.autograd</span> <span class="k">as</span> <span class="nn">dist_autograd</span>
-<span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">rpc</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">optim</span>
-<span class="kn">from</span> <span class="nn">torch.distributed.optim</span> <span class="kn">import</span> <span class="n">DistributedOptimizer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.autograd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist_autograd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">rpc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.optim</span><span class="w"> </span><span class="kn">import</span> <span class="n">DistributedOptimizer</span>
 
-<span class="k">def</span> <span class="nf">random_tensor</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_tensor</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_run_process</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">dst_rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_process</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">dst_rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;worker</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
     <span class="n">dst_name</span> <span class="o">=</span> <span class="s2">&quot;worker</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dst_rank</span><span class="p">)</span>
 
@@ -6872,7 +6872,7 @@ file called “dist_autograd_simple.py”, it can be run with the command
         <span class="c1"># Run the distributed optimizer step.</span>
         <span class="n">dist_optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">context_id</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">run_process</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_process</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">):</span>
     <span class="n">dst_rank</span> <span class="o">=</span> <span class="p">(</span><span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">world_size</span>
     <span class="n">_run_process</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">dst_rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">)</span>
     <span class="n">rpc</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>

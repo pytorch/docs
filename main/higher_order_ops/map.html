@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3659,7 +3659,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.map</span></code> is a structured control flow operator that applies a function over the leading dimension of
 input tensors. It can logically be seen as implemented as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">map</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span>
     <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PyTree</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">PyTree</span><span class="p">],</span>
     <span class="n">xs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PyTree</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
@@ -3681,10 +3681,10 @@ Read more about feature classification at: https://pytorch.org/blog/pytorch-feat
 <p>Below is an example that uses map to apply a function over a batch:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._higher_order_ops</span> <span class="kn">import</span> <span class="nb">map</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._higher_order_ops</span><span class="w"> </span><span class="kn">import</span> <span class="nb">map</span>
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
 <span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># batch of 3 tensors, each 4x5</span>
@@ -3695,20 +3695,20 @@ Read more about feature classification at: https://pytorch.org/blog/pytorch-feat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[[-1.3393,  0.9125,  0.5900, -0.5429,  0.7169],
-         [ 1.3405,  1.4117,  0.6566,  0.4108,  0.8262],
-         [-1.1714,  1.3779, -0.1089, -0.5328,  1.3411],
-         [ 0.4997, -0.0726,  1.0333,  1.3641,  0.6485]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[[-0.8769,  0.8795,  1.3362,  1.2739,  0.0565],
+         [ 0.5086,  1.4093,  0.9862,  1.4044,  1.3988],
+         [ 0.8086,  1.0868,  1.2258,  1.1964,  0.3357],
+         [ 0.3497, -0.2923,  0.5094,  0.1707,  0.8088]],
 
-        [[ 0.8013, -0.2858, -0.5214,  0.6268,  1.0398],
-         [ 0.5225,  1.3356,  1.4045,  0.7199, -0.1327],
-         [ 1.2741, -0.5842,  1.2529,  1.3898,  0.1119],
-         [-1.0938,  1.2176,  1.1658,  0.6120,  0.4598]],
+        [[ 0.1303,  0.8000,  1.3244,  0.9393, -0.1755],
+         [ 1.2064,  1.3879,  1.1815,  1.1536,  1.3497],
+         [ 1.3875,  1.2659, -0.5565,  1.3343, -1.2788],
+         [ 0.6588,  1.2993,  0.8996,  0.1522,  0.7613]],
 
-        [[ 0.9100,  1.2111,  1.2044,  1.2464,  1.0881],
-         [ 0.2575,  1.2505,  1.2473,  0.1993,  1.2439],
-         [-0.1878, -1.3815, -0.9991,  1.4110, -0.2420],
-         [ 0.6191,  0.8896,  0.9867, -0.9760,  1.4140]]])
+        [[ 1.3944, -0.2759, -0.1581,  0.9471,  1.3787],
+         [ 1.3957,  1.4061,  1.0860,  1.4087, -0.6434],
+         [ 0.5503,  1.1281,  1.3335,  1.1523,  0.9155],
+         [-0.7086, -0.1685,  0.9627,  0.2082,  0.8897]]])
 </pre></div>
 </div>
 </div>
@@ -3717,12 +3717,12 @@ Read more about feature classification at: https://pytorch.org/blog/pytorch-feat
 This example uses dynamic shapes to allow variable batch size:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MapModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MapModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">body_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">body_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">body_fn</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span>
@@ -3783,7 +3783,7 @@ sub-graph attribute of the top-level graph module.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.map.map">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.map.</span></span><span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/_higher_order_ops/map.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.map.map" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.map.</span></span><span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/_higher_order_ops/map.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.map.map" title="Link to this definition">#</a></dt>
 <dd><p>Performs a map of f with xs. Intuitively, you can think of the semantic being:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)):</span>
@@ -3815,7 +3815,7 @@ map is able to automatically figure out the read dependency.</p></li>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">const1</span> <span class="o">+</span> <span class="n">const2</span>
 
 
@@ -4206,7 +4206,7 @@ map is able to automatically figure out the read dependency.</p></li>
        "headline": "Control Flow - Map",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/higher_order_ops/map.html",
-       "articleBody": "Control Flow - Map# Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026 torch.map is a structured control flow operator that applies a function over the leading dimension of input tensors. It can logically be seen as implemented as follows: def map( f: Callable[[PyTree, ...], PyTree], xs: Union[PyTree, torch.Tensor], *args, ): out = [] for idx in range(xs.size(0)): xs_sliced = xs.select(0, idx) out.append(f(xs_sliced, *args)) return torch.stack(out) Warning torch._higher_order_ops.map is a prototype feature in PyTorch. You may run into miscompiles. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses map to apply a function over a batch: import torch from torch._higher_order_ops import map def f(x): return x.sin() + x.cos() xs = torch.randn(3, 4, 5) # batch of 3 tensors, each 4x5 # Applies f to each of the 3 slices result = map(f, xs) # returns tensor of shape [3, 4, 5] print(result) tensor([[[-1.3393, 0.9125, 0.5900, -0.5429, 0.7169], [ 1.3405, 1.4117, 0.6566, 0.4108, 0.8262], [-1.1714, 1.3779, -0.1089, -0.5328, 1.3411], [ 0.4997, -0.0726, 1.0333, 1.3641, 0.6485]], [[ 0.8013, -0.2858, -0.5214, 0.6268, 1.0398], [ 0.5225, 1.3356, 1.4045, 0.7199, -0.1327], [ 1.2741, -0.5842, 1.2529, 1.3898, 0.1119], [-1.0938, 1.2176, 1.1658, 0.6120, 0.4598]], [[ 0.9100, 1.2111, 1.2044, 1.2464, 1.0881], [ 0.2575, 1.2505, 1.2473, 0.1993, 1.2439], [-0.1878, -1.3815, -0.9991, 1.4110, -0.2420], [ 0.6191, 0.8896, 0.9867, -0.9760, 1.4140]]]) We can export the model with map for further transformations and deployment. This example uses dynamic shapes to allow variable batch size: class MapModule(torch.nn.Module): def __init__(self): super().__init__() def forward(self, xs: torch.Tensor) -\u003e torch.Tensor: def body_fn(x): return x.sin() + x.cos() return map(body_fn, xs) mod = MapModule() inp = torch.randn(3, 4) ep = torch.export.export(mod, (inp,), dynamic_shapes={\"xs\": {0: torch.export.Dim.DYNAMIC}}) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[s83, 4]\"): # File: \u003ceval_with_key\u003e.8:7 in forward, code: map_impl = torch.ops.higher_order.map_impl(map_body_0, [l_flat_xs_0_], []); map_body_0 = l_flat_xs_0_ = None body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], []); body_graph_0 = xs = None getitem: \"f32[s83, 4]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[4]\"): # File: \u003ceval_with_key\u003e.9:5 in forward, code: sin = child.sin() sin: \"f32[4]\" = torch.ops.aten.sin.default(xs) # File: \u003ceval_with_key\u003e.9:6 in forward, code: cos = child.cos(); child = None cos: \"f32[4]\" = torch.ops.aten.cos.default(xs); xs = None # File: \u003ceval_with_key\u003e.9:7 in forward, code: add = sin + cos; sin = cos = None add: \"f32[4]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs xs: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s83: VR[2, int_oo]} Notice that torch.map is lowered to torch.ops.higher_order.map_impl, and the body function becomes a sub-graph attribute of the top-level graph module. Restrictions# Mapped xs can only consist of tensors. Leading dimensions of all tensors in xs must be consistent and non-zero. The body function must not mutate inputs. API Reference# torch._higher_order_ops.map.map(f, xs, *args)[source]# Performs a map of f with xs. Intuitively, you can think of the semantic being: out = [] for idx in len(xs.size(0)): xs_sliced = xs.select(0, idx) out.append(f(xs_sliced, *args)) torch.stack(out) Warning torch._higher_order_ops.map is a prototype feature in PyTorch. It currently does not support autograd and you may run into miscompiles. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Parameters: f (Callable) \u2013 a callable that takes an input x, that could either be a single Tensor or a nested dict, list of tensors and some additional inputs xs (Any | Tensor) \u2013 the inputs that\u2019re to be mapped over. We\u2019ll iterate over the first dim of each x and perform f on each slice. *args (TypeVarTuple) \u2013 additional arguments provided to each step of f. They could also be omitted and map is able to automatically figure out the read dependency. Returns: the stacked output for each step of f Example: def f(xs): return xs[0] + xs[1] + const1 + const2 xs = [torch.randn(2, 3), torch.randn(2, 3)] const1 = torch.randn(2, 3) const2 = torch.randn(2, 3) # returns a tensor of shape [2, 2, 3] torch._higher_order_ops.map(f, xs)",
+       "articleBody": "Control Flow - Map# Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026 torch.map is a structured control flow operator that applies a function over the leading dimension of input tensors. It can logically be seen as implemented as follows: def map( f: Callable[[PyTree, ...], PyTree], xs: Union[PyTree, torch.Tensor], *args, ): out = [] for idx in range(xs.size(0)): xs_sliced = xs.select(0, idx) out.append(f(xs_sliced, *args)) return torch.stack(out) Warning torch._higher_order_ops.map is a prototype feature in PyTorch. You may run into miscompiles. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses map to apply a function over a batch: import torch from torch._higher_order_ops import map def f(x): return x.sin() + x.cos() xs = torch.randn(3, 4, 5) # batch of 3 tensors, each 4x5 # Applies f to each of the 3 slices result = map(f, xs) # returns tensor of shape [3, 4, 5] print(result) tensor([[[-0.8769, 0.8795, 1.3362, 1.2739, 0.0565], [ 0.5086, 1.4093, 0.9862, 1.4044, 1.3988], [ 0.8086, 1.0868, 1.2258, 1.1964, 0.3357], [ 0.3497, -0.2923, 0.5094, 0.1707, 0.8088]], [[ 0.1303, 0.8000, 1.3244, 0.9393, -0.1755], [ 1.2064, 1.3879, 1.1815, 1.1536, 1.3497], [ 1.3875, 1.2659, -0.5565, 1.3343, -1.2788], [ 0.6588, 1.2993, 0.8996, 0.1522, 0.7613]], [[ 1.3944, -0.2759, -0.1581, 0.9471, 1.3787], [ 1.3957, 1.4061, 1.0860, 1.4087, -0.6434], [ 0.5503, 1.1281, 1.3335, 1.1523, 0.9155], [-0.7086, -0.1685, 0.9627, 0.2082, 0.8897]]]) We can export the model with map for further transformations and deployment. This example uses dynamic shapes to allow variable batch size: class MapModule(torch.nn.Module): def __init__(self): super().__init__() def forward(self, xs: torch.Tensor) -\u003e torch.Tensor: def body_fn(x): return x.sin() + x.cos() return map(body_fn, xs) mod = MapModule() inp = torch.randn(3, 4) ep = torch.export.export(mod, (inp,), dynamic_shapes={\"xs\": {0: torch.export.Dim.DYNAMIC}}) print(ep) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[s83, 4]\"): # File: \u003ceval_with_key\u003e.8:7 in forward, code: map_impl = torch.ops.higher_order.map_impl(map_body_0, [l_flat_xs_0_], []); map_body_0 = l_flat_xs_0_ = None body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], []); body_graph_0 = xs = None getitem: \"f32[s83, 4]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[4]\"): # File: \u003ceval_with_key\u003e.9:5 in forward, code: sin = child.sin() sin: \"f32[4]\" = torch.ops.aten.sin.default(xs) # File: \u003ceval_with_key\u003e.9:6 in forward, code: cos = child.cos(); child = None cos: \"f32[4]\" = torch.ops.aten.cos.default(xs); xs = None # File: \u003ceval_with_key\u003e.9:7 in forward, code: add = sin + cos; sin = cos = None add: \"f32[4]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs xs: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s83: VR[2, int_oo]} Notice that torch.map is lowered to torch.ops.higher_order.map_impl, and the body function becomes a sub-graph attribute of the top-level graph module. Restrictions# Mapped xs can only consist of tensors. Leading dimensions of all tensors in xs must be consistent and non-zero. The body function must not mutate inputs. API Reference# torch._higher_order_ops.map.map(f, xs, *args)[source]# Performs a map of f with xs. Intuitively, you can think of the semantic being: out = [] for idx in len(xs.size(0)): xs_sliced = xs.select(0, idx) out.append(f(xs_sliced, *args)) torch.stack(out) Warning torch._higher_order_ops.map is a prototype feature in PyTorch. It currently does not support autograd and you may run into miscompiles. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Parameters: f (Callable) \u2013 a callable that takes an input x, that could either be a single Tensor or a nested dict, list of tensors and some additional inputs xs (Any | Tensor) \u2013 the inputs that\u2019re to be mapped over. We\u2019ll iterate over the first dim of each x and perform f on each slice. *args (TypeVarTuple) \u2013 additional arguments provided to each step of f. They could also be omitted and map is able to automatically figure out the read dependency. Returns: the stacked output for each step of f Example: def f(xs): return xs[0] + xs[1] + const1 + const2 xs = [torch.randn(2, 3), torch.randn(2, 3)] const1 = torch.randn(2, 3) const2 = torch.randn(2, 3) # returns a tensor of shape [2, 2, 3] torch._higher_order_ops.map(f, xs)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

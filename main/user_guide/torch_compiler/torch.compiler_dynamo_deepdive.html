@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3678,10 +3678,10 @@ let’s start by discussing what it is that Dynamo does.</p>
 executes the function and records a linear sequence of instructions
 (without control flow) into a graph. For example, consider the following
 program:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">mse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">z</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
@@ -3695,7 +3695,7 @@ program:</p>
 </pre></div>
 </div>
 <p>we see the output that Dynamo traced</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_y_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_y_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="c1"># File: example.py:5, code: z = (x - y) ** 2</span>
     <span class="n">sub</span> <span class="o">=</span> <span class="n">l_x_</span> <span class="o">-</span> <span class="n">l_y_</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">sub</span> <span class="o">**</span> <span class="mi">2</span>
@@ -3715,10 +3715,10 @@ into its two constituting operations, <code class="docutils literal notranslate"
 <code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">sub</span> <span class="pre">**</span> <span class="pre">2</span></code>.</p>
 <p>When we say that the trace is linear, we mean that there is no branching
 or any control flow. To see this, consider</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span>
@@ -3730,7 +3730,7 @@ or any control flow. To see this, consider</p>
 </pre></div>
 </div>
 <p>which, when executed with <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=graph_code</span></code>, returns</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="c1"># File: example.py:5, code: y = x ** 2</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">l_x_</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="c1"># File: example.py:7, code: return (n + 1) * y</span>
@@ -3760,10 +3760,10 @@ model with a fixed batch size but then perform inference for an
 arbitrary batch size, or the variable sequence length that one
 encounters when processing text or audio.</p>
 <p>We can see this by executing a few more times the example above</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span>
@@ -3779,7 +3779,7 @@ encounters when processing text or audio.</p>
 <p>In this case, <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=graph_code</span></code> generates two more graphs</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graph for n==2 omitted</span>
 
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_n_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_n_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
     <span class="c1"># File: a.py:5, code: y = x ** 2</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">l_x_</span> <span class="o">**</span> <span class="mi">2</span>
 
@@ -3789,7 +3789,7 @@ encounters when processing text or audio.</p>
     <span class="k">return</span> <span class="p">(</span><span class="n">mul</span><span class="p">,)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_n_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_x_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_n_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
     <span class="c1"># File: a.py:5, code: y = x ** 2</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">l_x_</span> <span class="o">**</span> <span class="mi">2</span>
 
@@ -3920,7 +3920,7 @@ in
 <p><code class="docutils literal notranslate"><span class="pre">InstructionTranslatorBase</span></code> has about 200 methods, implementing almost
 all of Python bytecodes. As an example, we can see the implementation of
 <code class="docutils literal notranslate"><span class="pre">BUILD_LIST</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">BUILD_LIST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">BUILD_LIST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
     <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">popn</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">argval</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">ListVariable</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">mutation_type</span><span class="o">=</span><span class="n">ValueMutationNew</span><span class="p">()))</span>
 </pre></div>
@@ -3976,10 +3976,10 @@ graph is only valid if these assumptions hold on the new inputs.</p>
 <p>For example, any constant input to a function, like a string, installs a
 guard stating that that input should be of type <code class="docutils literal notranslate"><span class="pre">str</span></code> and equal to the
 string we passed. Running</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
@@ -3994,10 +3994,10 @@ string we passed. Running</p>
 (<code class="docutils literal notranslate"><span class="pre">str</span></code> in this case, represented by the constant <code class="docutils literal notranslate"><span class="pre">9433...</span></code>) and
 its value should be <code class="docutils literal notranslate"><span class="pre">'Hello'</span></code>”. If we then execute the function
 again passing a different argument</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
@@ -4021,7 +4021,7 @@ let us discuss sources.</p>
 local or global variables present when entering the current frame. In
 particular, it tracks the original local and global objects and any of
 the objects they contain. In</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x</span>
 </pre></div>
@@ -4037,10 +4037,10 @@ the fx graph.</p>
 <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/source.py">torch/_dynamo/source.py</a>.
 We can see the guard generated by <code class="docutils literal notranslate"><span class="pre">GetItemSource</span></code> in the following
 example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Hi&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">])</span>
@@ -4088,10 +4088,10 @@ that an integer or a shape changed value during the execution, it will
 trace it and generate a graph generic on that variable.</p>
 <p>We already saw this behavior in the introduction using integers. Let us
 now look at an example using shapes of tensors.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -4100,12 +4100,12 @@ now look at an example using shapes of tensors.</p>
 </div>
 <p>Running this program with <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=graph_code</span></code> we see that these
 two calls are traced as</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_a_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_b_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l_a_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_b_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="n">mul</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">l_a_</span>
     <span class="n">mul_1</span> <span class="o">=</span> <span class="n">mul</span> <span class="o">*</span> <span class="n">l_b_</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">mul_1</span><span class="p">,)</span>
 
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s0</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">l_a_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_b_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s0</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">l_a_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">l_b_</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="n">size</span> <span class="o">=</span> <span class="n">l_a_</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
     <span class="n">getitem</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">mul</span> <span class="o">=</span> <span class="n">getitem</span> <span class="o">*</span> <span class="n">l_a_</span>
@@ -4187,10 +4187,10 @@ generate kernels that are generic enough.</p>
 and the properties they have. Now, why is that symbolic shapes forced us
 through the tricky route of getting control of the CPython interpreter?
 Consider the following example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">a</span>
     <span class="k">else</span><span class="p">:</span>
@@ -4300,10 +4300,10 @@ or global variables that would be visible at this point</p></li>
 <li><p>Bytecode that executes the second graph</p></li>
 </ol>
 <p>Let us see this in a simple example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hi&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>

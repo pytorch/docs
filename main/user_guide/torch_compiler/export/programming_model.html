@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3703,10 +3703,10 @@ the output of the operation is directly hard-coded into the graph and the
 operation does not show up (i.e. it gets “constant-folded”).</p>
 <p>When a value has been hard-coded into the graph, we say that the graph has
 been <em>specialized</em> to that value. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">class</span> <span class="nc">MyMod</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyMod</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">7</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">z</span>
 
@@ -3798,15 +3798,15 @@ input type, but you will need to register such a class as a PyTree.</p>
 <p>Here’s an example of using an utility to register a dataclass that is used as
 an input type.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Input</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Input</span><span class="p">:</span>
     <span class="n">f</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">p</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 
-<span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.utils._pytree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pytree</span>
 <span class="n">pytree</span><span class="o">.</span><span class="n">register_dataclass</span><span class="p">(</span><span class="n">Input</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">f</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),))</span>
@@ -3819,8 +3819,8 @@ an input type.</p>
 <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> will specialize to their default values. As a
 result, the exported program will require users to explicitly pass in all
 arguments, and will lose the defaulting behavior. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">y</span> <span class="o">*</span> <span class="n">x</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
@@ -3903,15 +3903,15 @@ if you truly want <em>data-dependent control flow</em>.</p>
 <code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an input Tensor, rewritten using <code class="docutils literal notranslate"><span class="pre">torch.cond</span></code>.
 Instead of having to decide which branch to trace, now both branches are
 traced.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
             <span class="n">pred</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
             <span class="n">true_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">(),</span>
@@ -3935,16 +3935,16 @@ data-dependent dynamic shape, <code class="docutils literal notranslate"><span c
 calling <a class="reference internal" href="../../../generated/torch.nonzero.html#torch.nonzero" title="torch.nonzero"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nonzero()</span></code></a>, an operator whose output shape depends on input
 data. Instead of rewriting it, you can add an assertion using <code class="docutils literal notranslate"><span class="pre">torch._check</span></code>
 to effectively decide which branch to trace.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">nz</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">nz</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -3987,7 +3987,7 @@ shapes and other forms of metadata carried by fake Tensors.</p>
 <p>For example, note how the fake implementation of <a class="reference internal" href="../../../generated/torch.index_select.html#torch.index_select" title="torch.index_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.index_select()</span></code></a>
 computes the shape of the output using the shape of the input (while ignoring
 input data and returning empty output data).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meta_index_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">meta_index_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
     <span class="n">result_size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">result_size</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
@@ -4070,13 +4070,13 @@ just like any other PyTorch operator (see previous section).</p>
 <p>Here’s an example of a custom <code class="docutils literal notranslate"><span class="pre">sin</span></code> operator that wraps NumPy, and its
 registered (trivial) fake implementation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
-<span class="k">def</span> <span class="nf">sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
     <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -4086,7 +4086,7 @@ data-dependent shapes</strong>. Here’s how a fake implementation for a custom
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">nnz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_ctx</span><span class="p">()</span><span class="o">.</span><span class="n">new_dynamic_size</span><span class="p">()</span>
     <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">nnz</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()]</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>

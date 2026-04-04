@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6532,7 +6532,7 @@ document.write(`
                   
   <section id="torch-mtia">
 <h1>torch.mtia<a class="headerlink" href="#torch-mtia" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Dec 10, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Apr 03, 2026</p>
 <p>The MTIA backend is implemented out of the tree, only interfaces are defined
 here.</p>
 <p id="module-torch.mtia">This package enables an interface for accessing MTIA backend in python</p>
@@ -7017,7 +7017,7 @@ here.</p>
        "headline": "torch.mtia",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mtia.html",
-       "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Dec 10, 2025 The MTIA backend is implemented out of the tree, only interfaces are defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_bf16_supported Return a bool indicating if the current MTIA device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream. This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state of the specified MTIA device. get_rng_state Returns the random number generator state of the specified MTIA device as a ByteTensor. set_rng_state_all Sets the random number generator state of all devices. get_rng_state_all Returns a list of ByteTensor representing the random number states of all devices. manual_seed Sets the seed for generating random numbers for the current MTIA device. manual_seed_all Sets the seed for generating random numbers on all MTIA devices. seed Sets the seed for generating random numbers to a random number for the current MTIA device. seed_all Sets the seed for generating random numbers to a random number on all MTIA devices. initial_seed Returns the current random seed of the current MTIA device. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order.",
+       "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Apr 03, 2026 The MTIA backend is implemented out of the tree, only interfaces are defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_bf16_supported Return a bool indicating if the current MTIA device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream. This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state of the specified MTIA device. get_rng_state Returns the random number generator state of the specified MTIA device as a ByteTensor. set_rng_state_all Sets the random number generator state of all devices. get_rng_state_all Returns a list of ByteTensor representing the random number states of all devices. manual_seed Sets the seed for generating random numbers for the current MTIA device. manual_seed_all Sets the seed for generating random numbers on all MTIA devices. seed Sets the seed for generating random numbers to a random number for the current MTIA device. seed_all Sets the seed for generating random numbers to a random number on all MTIA devices. initial_seed Returns the current random seed of the current MTIA device. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7029,7 +7029,7 @@ here.</p>
          "@id": "/mtia.html"
        },
        "datePublished": "Jul 11, 2023T00:00:00Z",
-       "dateModified": "Dec 10, 2025T00:00:00Z"
+       "dateModified": "Apr 03, 2026T00:00:00Z"
      }
  </script>
   <script>

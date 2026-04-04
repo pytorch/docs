@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3675,8 +3675,8 @@ Non-strict tracing runs a Python function and uses Python and PyTorch’s operat
 <p><strong><code class="docutils literal notranslate"><span class="pre">make_fx</span></code></strong> is the main entrypoint for non-strict tracing. For the following function, only the top branch is taken during execution of the inputs, so it captures a graph with only that branch.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.fx.experimental.proxy_tensor</span> <span class="kn">import</span> <span class="n">make_fx</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.experimental.proxy_tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_fx</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span>
     <span class="k">else</span><span class="p">:</span>
@@ -3718,7 +3718,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">function_with_global_access</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">function_with_global_access</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">var</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="c1"># _allow_non_fake_inputs=True is needed to capture the global variable</span>
@@ -3736,7 +3736,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. call graph&quot;</span><span class="p">,</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="c1"># To capture a graph that can have a varying `var` tensor,</span>
 <span class="c1"># it must be an explicit input:</span>
-<span class="k">def</span> <span class="nf">function_fixed</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">function_fixed</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">var</span>
 <span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">function_fixed</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
@@ -3767,7 +3767,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <h3>Example 2: Side effect (printing)<a class="headerlink" href="#example-2-side-effect-printing" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_with_side_effect</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">function_with_side_effect</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">function_with_side_effect</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -3808,7 +3808,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">def</span> <span class="nf">function_with_input_list_mutation</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">function_with_input_list_mutation</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
     <span class="n">val</span> <span class="o">=</span> <span class="n">lst</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">val</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -3847,10 +3847,10 @@ len(lst) after two calls to graph 2
 <p>Directly manipulating <code class="docutils literal notranslate"><span class="pre">Tensor.data_ptr</span></code> is not non-strict traceable. The intuition behind this is that PyTorch is unable to tell <em>how</em> you manipulated the <code class="docutils literal notranslate"><span class="pre">data_ptr</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ctypes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
 <span class="c1"># Create a tensor with a single element</span>
 <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">42</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># Using int32 for simplicity</span>
-<span class="k">def</span> <span class="nf">function_with_data_ptr</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">function_with_data_ptr</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
     <span class="c1"># Get the data pointer</span>
     <span class="n">ptr</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()</span>
     <span class="c1"># Cast the pointer to a ctypes pointer</span>
@@ -3879,7 +3879,7 @@ len(lst) after two calls to graph 2
 <p>All non-Tensor variables are treated as constant during Non-strict Tracing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mf">3.14</span>
@@ -3905,7 +3905,7 @@ len(lst) after two calls to graph 2
 <p>Non-strict tracing will also specialize on properties of the input Tensors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span>
     <span class="k">else</span><span class="p">:</span>
@@ -3934,7 +3934,7 @@ len(lst) after two calls to graph 2
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>

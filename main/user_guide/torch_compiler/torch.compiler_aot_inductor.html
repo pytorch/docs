@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3673,18 +3673,18 @@ it is suggested to enable freezing by setting <code class="docutils literal notr
 before running the Python script below. The same behavior works in an environment with Intel®
 GPU as well.</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -3724,8 +3724,8 @@ To access this path from the C++ side, we save it to a file for later retrieval 
 <p>There are multiple ways to deploy the compiled artifact for inference, and one of that is using Python.
 We have provided a convenient utility API in Python <a class="reference internal" href="#torch._inductor.aoti_load_package" title="torch._inductor.aoti_load_package"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch._inductor.aoti_load_package()</span></code></a> for loading
 and running the artifact, as shown in the following example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_load_package</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;model.pt2&quot;</span><span class="p">))</span>
@@ -3837,7 +3837,7 @@ Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_compile_and_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/_inductor/__init__.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/_inductor/__init__.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Link to this definition">#</a></dt>
 <dd><p>Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
 call <code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_load_package(package_path)</span></code>.</p>
@@ -3860,7 +3860,7 @@ the following:</p>
     <span class="n">ep2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;aot_inductor.package&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">torch._inductor.package</span> <span class="kn">import</span> <span class="n">package_aoti</span><span class="p">,</span> <span class="n">load_package</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._inductor.package</span><span class="w"> </span><span class="kn">import</span> <span class="n">package_aoti</span><span class="p">,</span> <span class="n">load_package</span>
 
 <span class="n">package_aoti</span><span class="p">(</span><span class="s2">&quot;my_package.pt2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;model1&quot;</span><span class="p">:</span> <span class="n">aoti_file1</span><span class="p">,</span> <span class="s2">&quot;model2&quot;</span><span class="p">:</span> <span class="n">aoti_file2</span><span class="p">})</span>
 
@@ -3887,11 +3887,11 @@ the following:</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_load_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/_inductor/__init__.py#L240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/_inductor/__init__.py#L240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Link to this definition">#</a></dt>
 <dd><p>Loads the model from the PT2 package.</p>
 <p>If multiple models were packaged into the PT2, this will load the default
 model. To load a specific model, you can directly call the load API</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._inductor.package</span> <span class="kn">import</span> <span class="n">load_package</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch._inductor.package</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_package</span>
 
 <span class="n">compiled_model1</span> <span class="o">=</span> <span class="n">load_package</span><span class="p">(</span><span class="s2">&quot;my_package.pt2&quot;</span><span class="p">,</span> <span class="s2">&quot;model1&quot;</span><span class="p">)</span>
 <span class="n">compiled_model2</span> <span class="o">=</span> <span class="n">load_package</span><span class="p">(</span><span class="s2">&quot;my_package.pt2&quot;</span><span class="p">,</span> <span class="s2">&quot;model2&quot;</span><span class="p">)</span>

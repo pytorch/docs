@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="tutorial">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3713,7 +3713,7 @@ ensure correctness. The tests directly invoke these same functions.</p>
 <section id="example-1-basic-localtensor-creation-and-operations">
 <h3><a class="toc-backref" href="#id5" role="doc-backlink">Example 1: Basic LocalTensor Creation and Operations</a><a class="headerlink" href="#example-1-basic-localtensor-creation-and-operations" title="Link to this heading">#</a></h3>
 <p><strong>Creating a LocalTensor from per-rank tensors:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_local_tensor</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_local_tensor</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a LocalTensor from per-rank tensors.</span>
 
 <span class="sd">    Returns: (local_tensor, (expected_shape, expected_ranks, expected_rank_0, expected_rank_1))</span>
@@ -3730,7 +3730,7 @@ ensure correctness. The tests directly invoke these same functions.</p>
 </pre></div>
 </div>
 <p><strong>Arithmetic operations (applied per-rank):</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">arithmetic_operations</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">arithmetic_operations</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Demonstrate arithmetic on LocalTensor.</span>
 
 <span class="sd">    Returns: ((doubled, added), (expected_doubled_0, expected_doubled_1, expected_added_0))</span>
@@ -3750,7 +3750,7 @@ ensure correctness. The tests directly invoke these same functions.</p>
 </pre></div>
 </div>
 <p><strong>Extracting a tensor when all shards are identical:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reconcile_identical_shards</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reconcile_identical_shards</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a single tensor when all shards are identical.</span>
 
 <span class="sd">    Returns: (result, expected)</span>
@@ -3765,7 +3765,7 @@ ensure correctness. The tests directly invoke these same functions.</p>
 </pre></div>
 </div>
 <p><strong>Using LocalTensorMode for automatic LocalTensor creation:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">use_local_tensor_mode</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">use_local_tensor_mode</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use LocalTensorMode to auto-create LocalTensors.</span>
 
 <span class="sd">    Returns: ((is_local, num_ranks), (expected_is_local, expected_num_ranks))</span>
@@ -3787,7 +3787,7 @@ ensure correctness. The tests directly invoke these same functions.</p>
 <p>Test collective operations like <code class="docutils literal notranslate"><span class="pre">all_reduce</span></code>, <code class="docutils literal notranslate"><span class="pre">broadcast</span></code>, and <code class="docutils literal notranslate"><span class="pre">all_gather</span></code>
 without multiple processes.</p>
 <p><strong>All-reduce with SUM:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">all_reduce_sum</span><span class="p">(</span><span class="n">process_group</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">all_reduce_sum</span><span class="p">(</span><span class="n">process_group</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate all_reduce with SUM across ranks.</span>
 
 <span class="sd">    Returns: (result, expected)</span>
@@ -3811,7 +3811,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Broadcast from a source rank:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">broadcast_from_rank</span><span class="p">(</span><span class="n">process_group</span><span class="p">,</span> <span class="n">src_rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">broadcast_from_rank</span><span class="p">(</span><span class="n">process_group</span><span class="p">,</span> <span class="n">src_rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate broadcast from a source rank.</span>
 
 <span class="sd">    Returns: (result, expected)</span>
@@ -3835,7 +3835,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>All-gather to collect tensors from all ranks:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">all_gather_tensors</span><span class="p">(</span><span class="n">process_group</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">all_gather_tensors</span><span class="p">(</span><span class="n">process_group</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate all_gather to collect tensors from all ranks.</span>
 
 <span class="sd">    Returns: (results_list, expected_list)</span>
@@ -3866,7 +3866,7 @@ without multiple processes.</p>
 <h3><a class="toc-backref" href="#id7" role="doc-backlink">Example 3: Working with DTensor</a><a class="headerlink" href="#example-3-working-with-dtensor" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">LocalTensor</span></code> integrates with DTensor for testing distributed tensor parallelism.</p>
 <p><strong>Distribute a tensor and verify reconstruction:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">distribute_and_verify</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">distribute_and_verify</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Distribute a tensor and verify reconstruction.</span>
 
 <span class="sd">    Returns: ((sharded_actual, replicated_actual), (sharded_expected, replicated_expected))</span>
@@ -3887,7 +3887,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Distributed matrix multiplication:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dtensor_matmul</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dtensor_matmul</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform matrix multiplication with DTensors.</span>
 
 <span class="sd">    Returns: (actual, expected)</span>
@@ -3912,7 +3912,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Simulating a distributed linear layer:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dtensor_linear_layer</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dtensor_linear_layer</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate a distributed linear layer forward pass.</span>
 
 <span class="sd">    Returns: (actual, expected)</span>
@@ -3947,7 +3947,7 @@ without multiple processes.</p>
 <p>Real-world distributed systems often have uneven data distribution across ranks.
 <code class="docutils literal notranslate"><span class="pre">LocalTensor</span></code> handles this using <code class="docutils literal notranslate"><span class="pre">LocalIntNode</span></code>.</p>
 <p><strong>Creating LocalTensor with different sizes per rank:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_uneven_shards</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_uneven_shards</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create LocalTensor with different sizes per rank.</span>
 
 <span class="sd">    Returns: ((local_tensor, is_symint), expected_shapes_dict)</span>
@@ -3968,7 +3968,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>LocalIntNode arithmetic operations:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">local_int_node_arithmetic</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">local_int_node_arithmetic</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;LocalIntNode for per-rank integer values.</span>
 
 <span class="sd">    Returns: ((add_result, mul_result), (expected_add, expected_mul))</span>
@@ -3993,7 +3993,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>DTensor with unevenly divisible dimensions:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dtensor_uneven_sharding</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dtensor_uneven_sharding</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DTensor with unevenly divisible tensor dimension.</span>
 
 <span class="sd">    Returns: ((rows_per_rank, matches), expected_total_rows)</span>
@@ -4025,7 +4025,7 @@ without multiple processes.</p>
 <h3><a class="toc-backref" href="#id9" role="doc-backlink">Example 5: Rank-Specific Computations</a><a class="headerlink" href="#example-5-rank-specific-computations" title="Link to this heading">#</a></h3>
 <p>Sometimes you need to perform different operations on different ranks.</p>
 <p><strong>Using rank_map() to create per-rank values:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">use_rank_map</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">use_rank_map</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create LocalTensors with per-rank values using rank_map.</span>
 
 <span class="sd">    Returns: (values_dict, expected_dict)</span>
@@ -4043,7 +4043,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Using tensor_map() to transform shards per-rank:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">use_tensor_map</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">use_tensor_map</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform each shard differently using tensor_map.</span>
 
 <span class="sd">    Returns: (values_dict, expected_dict)</span>
@@ -4051,7 +4051,7 @@ without multiple processes.</p>
     <span class="k">with</span> <span class="n">LocalTensorMode</span><span class="p">(</span><span class="n">world_size</span><span class="p">):</span>
         <span class="n">lt</span> <span class="o">=</span> <span class="n">rank_map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">rank</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 
-        <span class="k">def</span> <span class="nf">scale_by_rank</span><span class="p">(</span><span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">scale_by_rank</span><span class="p">(</span><span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">tensor</span> <span class="o">*</span> <span class="p">(</span><span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="n">scaled</span> <span class="o">=</span> <span class="n">tensor_map</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">scale_by_rank</span><span class="p">)</span>
@@ -4067,7 +4067,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Temporarily exiting LocalTensorMode:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">disable_mode_temporarily</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">disable_mode_temporarily</span><span class="p">(</span><span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Temporarily exit LocalTensorMode for regular tensor ops.</span>
 
 <span class="sd">    Returns: ((inside_type, disabled_type), (expected_inside, expected_disabled))</span>
@@ -4091,7 +4091,7 @@ without multiple processes.</p>
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">Example 6: Multi-Dimensional Meshes</a><a class="headerlink" href="#example-6-multi-dimensional-meshes" title="Link to this heading">#</a></h3>
 <p>Use 2D/3D device meshes for hybrid parallelism (e.g., data parallel + tensor parallel).</p>
 <p><strong>Creating a 2D mesh:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_2d_mesh</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_2d_mesh</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a 2D mesh for hybrid parallelism.</span>
 
 <span class="sd">    Returns: ((shape, dim_names, total_size), (expected_shape, expected_names, expected_size))</span>
@@ -4112,7 +4112,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>Hybrid parallelism (DP + TP):</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hybrid_parallelism</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">hybrid_parallelism</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine data parallel and tensor parallel.</span>
 
 <span class="sd">    Returns: (actual, expected)</span>
@@ -4140,7 +4140,7 @@ without multiple processes.</p>
 </pre></div>
 </div>
 <p><strong>3D mesh for DP + TP + PP:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_3d_mesh</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_3d_mesh</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a 3D mesh for DP + TP + PP.</span>
 
 <span class="sd">    Returns: (actual, expected)</span>
@@ -4173,9 +4173,9 @@ without multiple processes.</p>
 <p>All examples in this tutorial are tested to ensure correctness. The test suite
 directly invokes the same functions included above:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># From test_local_tensor_tutorial_examples.py</span>
-<span class="kn">from</span> <span class="nn">example_01_basic_operations</span> <span class="kn">import</span> <span class="n">create_local_tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">example_01_basic_operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_local_tensor</span>
 
-<span class="k">def</span> <span class="nf">test_create_local_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_create_local_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">lt</span> <span class="o">=</span> <span class="n">create_local_tensor</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">LocalTensor</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">lt</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
@@ -4189,7 +4189,7 @@ directly invokes the same functions included above:</p>
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">Core Classes</a><a class="headerlink" href="#core-classes" title="Link to this heading">#</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L922"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L922"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor" title="Link to this definition">#</a></dt>
 <dd><p>LocalTensor is a Tensor subclass that simulates a tensor distributed across multiple SPMD
 (Single Program, Multiple Data) ranks. Each LocalTensor instance internally holds a mapping from
 global rank ids to their corresponding local Tensor shards.Operations performed on a LocalTensor
@@ -4207,7 +4207,7 @@ on a single process.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor.reconcile">
-<span class="sig-name descname"><span class="pre">reconcile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.reconcile" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reconcile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.reconcile" title="Link to this definition">#</a></dt>
 <dd><p>Reconciles the LocalTensor into a single torch.Tensor by ensuring all local
 shards are identical and returning a detached clone of one of them.</p>
 <div class="admonition note">
@@ -4225,7 +4225,7 @@ that synchronizes all ranks.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensor.tolist">
-<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.tolist" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensor.tolist" title="Link to this definition">#</a></dt>
 <dd><p>Try to reconcile, if successful convert to list, otherwise if dtype is integer,
 convert to list of local integers.</p>
 <dl class="field-list simple">
@@ -4239,7 +4239,7 @@ convert to list of local integers.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensorMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalTensorMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode" title="Link to this definition">#</a></dt>
 <dd><p>A TorchDispatchMode that simulates SPMD (Single Program, Multiple Data) execution
 for LocalTensor objects across a set of ranks.</p>
 <p>LocalTensorMode enables PyTorch operations to be transparently applied to each
@@ -4256,7 +4256,7 @@ functions over ranks.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.disable">
-<span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.disable" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.disable" title="Link to this definition">#</a></dt>
 <dd><p>Disables LocalTensorMode temporarily. Primarily is intended to be used to perform
 rank specific computations and merge results back before enabling LocalTensorMode back.</p>
 <dl class="field-list simple">
@@ -4268,7 +4268,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.rank_map">
-<span class="sig-name descname"><span class="pre">rank_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.rank_map" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rank_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.rank_map" title="Link to this definition">#</a></dt>
 <dd><p>Creates a LocalTensor instance by mapping rank id to ids local shard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4279,7 +4279,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalTensorMode.tensor_map">
-<span class="sig-name descname"><span class="pre">tensor_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.tensor_map" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">tensor_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalTensorMode.tensor_map" title="Link to this definition">#</a></dt>
 <dd><p>Creates a LocalTensor instance by mapping rank id to ids local shard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4292,7 +4292,7 @@ rank specific computations and merge results back before enabling LocalTensorMod
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.LocalIntNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalIntNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_ints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalIntNode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">LocalIntNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_ints</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.LocalIntNode" title="Link to this definition">#</a></dt>
 <dd><p>Like a LocalTensor, but for an int.  We can’t use a 0D tensor to represent this
 because often only a SymInt is accepted where we wish to use this.</p>
 <dl class="field-list simple">
@@ -4307,7 +4307,7 @@ because often only a SymInt is accepted where we wish to use this.</p>
 <h3><a class="toc-backref" href="#id14" role="doc-backlink">Utility Functions</a><a class="headerlink" href="#utility-functions" title="Link to this heading">#</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1696"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1696"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current active LocalTensorMode if one exists.</p>
 <p>This function checks the global stack of LocalTensorMode instance. If there
 is at least one LocalTensorMode active, it returns the most recently entered
@@ -4324,7 +4324,7 @@ is at least one LocalTensorMode active, it returns the most recently entered
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.enabled_local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">enabled_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.enabled_local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">enabled_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.enabled_local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current active LocalTensorMode only if it’s enabled.</p>
 <p>This is a convenience function that combines the common pattern of checking
 if local_tensor_mode() is not None and not disabled.</p>
@@ -4340,7 +4340,7 @@ if local_tensor_mode() is not None and not disabled.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.maybe_run_for_local_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_run_for_local_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_run_for_local_tensor" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_run_for_local_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_run_for_local_tensor" title="Link to this definition">#</a></dt>
 <dd><p>Decorator that ensures a function is executed for each local tensor shard
 when running under LocalTensorMode. If not in LocalTensorMode, the function
 is executed normally. When in LocalTensorMode, the function is run for each
@@ -4366,7 +4366,7 @@ that performs a collective operation will not work.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._local_tensor.maybe_disable_local_tensor_mode">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/distributed/_local_tensor/__init__.py#L1800"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_disable_local_tensor_mode" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._local_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_local_tensor_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/distributed/_local_tensor/__init__.py#L1800"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._local_tensor.maybe_disable_local_tensor_mode" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that disables LocalTensorMode for the duration of the context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

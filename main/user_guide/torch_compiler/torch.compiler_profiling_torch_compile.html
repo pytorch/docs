@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3672,8 +3672,8 @@ document.write(`
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">prof.export_chrome_trace(&quot;trace.json&quot;)</span></code> to export the profiling artifact.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-    <span class="kn">import</span> <span class="nn">torch</span>
-    <span class="kn">from</span> <span class="nn">torchvision.models</span> <span class="kn">import</span> <span class="n">resnet18</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">resnet18</span>
 
     <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span>      <span class="c1"># or &#39;cpu&#39;, &#39;xpu&#39;, etc.</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">resnet18</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
@@ -3682,7 +3682,7 @@ document.write(`
 
     <span class="n">model_c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">model_c</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
         <span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 
@@ -3718,7 +3718,7 @@ document.write(`
 <h2>Working around CUDA Graph profiling issues<a class="headerlink" href="#working-around-cuda-graph-profiling-issues" title="Link to this heading">#</a></h2>
 <p>When CUDA graphs are enabled, some CUDA configurations (driver version under 525.85.12 or CUDA &lt; 12)  can encounter issues between the profiling tools and CUDA graphs. To fix these issues, add an empty profiling context at the top of your program:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-    <span class="kn">import</span> <span class="nn">torch</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
     <span class="n">torch</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_init_for_cuda_graphs</span><span class="p">()</span>
 
@@ -3732,8 +3732,8 @@ document.write(`
 <p>Note: roughly the same information can also be obtained in non-graphical format with :code:<code class="docutils literal notranslate"><span class="pre">torch._dynamo.utils.compile_times()</span></code>. This utility won’t show when the compilation steps occur, but it will show the amount of time spent on each step - and times will not be affected by any profiling overhead.</p>
 <p>See an example below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-    <span class="kn">import</span> <span class="nn">torch</span>
-    <span class="kn">from</span> <span class="nn">torchvision.models</span> <span class="kn">import</span> <span class="n">resnet18</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">resnet18</span>
 
     <span class="c1"># user can switch between cuda and xpu</span>
     <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span>
@@ -3742,12 +3742,12 @@ document.write(`
 
     <span class="n">model_c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">model_c</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
         <span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">warmup_compile</span><span class="p">():</span>
-        <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">warmup_compile</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
 
         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -3785,15 +3785,15 @@ document.write(`
 <p>If your use case includes a graph that doesn’t require grad and doesn’t include “Torch-Compiled Region” events, it can be more difficult to identify whether torch.compile is being applied correctly. One clue can be the existence of Inductor-generated Triton kernels.</p>
 <p>See the synthetic example below for a demonstration:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-    <span class="kn">import</span> <span class="nn">torch</span>
-    <span class="kn">import</span> <span class="nn">torch._dynamo</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch._dynamo</span>
     <span class="c1"># user can switch between cuda and xpu</span>
     <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span>
 
-    <span class="k">class</span> <span class="nc">ModelWithBreaks</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">ModelWithBreaks</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-            <span class="k">def</span> <span class="nf">create_sequential</span><span class="p">():</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">create_sequential</span><span class="p">():</span>
                 <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
@@ -3805,7 +3805,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">mod3</span> <span class="o">=</span> <span class="n">create_sequential</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mod4</span> <span class="o">=</span> <span class="n">create_sequential</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span>
             <span class="n">mod1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod1</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
             <span class="n">mod2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod2</span><span class="p">(</span><span class="n">mod1</span><span class="p">)</span>
@@ -3820,7 +3820,7 @@ document.write(`
 
     <span class="n">model_c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fwd_bwd</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">model_c</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
         <span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 

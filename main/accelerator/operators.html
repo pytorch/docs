@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4063,7 +4063,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <span class="linenos">2</span>
 <span class="linenos">3</span>
 <span class="linenos">4</span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="s2">&quot;custom_abs&quot;</span><span class="p">)</span>
-<span class="linenos">5</span><span class="k">def</span> <span class="nf">custom_abs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">5</span><span class="k">def</span><span class="w"> </span><span class="nf">custom_abs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">6</span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 <span class="linenos">7</span>
 <span class="linenos">8</span>
@@ -4107,7 +4107,7 @@ _dispatch_key_set
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">torch._C._dispatch_key_set</span></code>:</p>
 <p>Displays the DispatchKey of the current Tensor, with priority increasing from left to right.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_dispatch_key_set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="s1">&#39;DispatchKeySet(CUDA, ADInplaceOrView, AutogradCUDA, AutocastCUDA)&#39;</span>
@@ -4116,7 +4116,7 @@ _dispatch_key_set
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">torch._C._dispatch_dump_table</span></code>:</p>
 <p>Queries the support status of a given operator across different Dispatch Keys, making it easy to locate the corresponding implementation code.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_dispatch_dump_table</span><span class="p">(</span><span class="s2">&quot;aten::add.Tensor&quot;</span><span class="p">))</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="o">...</span>
     <span class="n">CPU</span><span class="p">:</span> <span class="n">registered</span> <span class="n">at</span> <span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">aten</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">ATen</span><span class="o">/</span><span class="n">RegisterCPU_0</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">1309</span> <span class="p">[</span><span class="n">kernel</span><span class="p">]</span>
@@ -4146,7 +4146,7 @@ _dispatch_key_set
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TORCH_SHOW_DISPATCH_TRACE</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
  <span class="p">[</span><span class="n">call</span><span class="p">]</span> <span class="n">op</span><span class="o">=</span><span class="p">[</span><span class="n">aten</span><span class="p">::</span><span class="n">randn</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="n">BackendSelect</span><span class="p">]</span>
    <span class="p">[</span><span class="n">redispatch</span><span class="p">]</span> <span class="n">op</span><span class="o">=</span><span class="p">[</span><span class="n">aten</span><span class="p">::</span><span class="n">randn</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="n">CPU</span><span class="p">]</span>

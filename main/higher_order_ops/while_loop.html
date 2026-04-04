@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3659,7 +3659,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.while_loop</span></code> is a structured control flow operator that runs a body function while a condition is true.
 It can logically be seen as implemented as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">while_loop</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">while_loop</span><span class="p">(</span>
     <span class="n">cond_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span>
     <span class="n">body_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">],</span>
     <span class="n">carried_inputs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
@@ -3681,18 +3681,18 @@ Read more about feature classification at: https://pytorch.org/blog/pytorch-feat
 <p>Below is a basic example that uses while_loop to iterate until a condition is met:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._higher_order_ops</span> <span class="kn">import</span> <span class="n">while_loop</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._higher_order_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">while_loop</span>
 
-<span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">cond_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_count</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cond_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_count</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">iter_count</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">body_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_count</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">body_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_count</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">iter_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_iter</span><span class="p">,</span> <span class="n">init_x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_iter</span><span class="p">,</span> <span class="n">init_x</span><span class="p">):</span>
         <span class="n">final_iter</span><span class="p">,</span> <span class="n">final_x</span> <span class="o">=</span> <span class="n">while_loop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cond_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">init_iter</span><span class="p">,</span> <span class="n">init_x</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">final_iter</span><span class="p">,</span> <span class="n">final_x</span>
 
@@ -3781,7 +3781,7 @@ the top-level graph module.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.while_loop.while_loop">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/_higher_order_ops/while_loop.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/_higher_order_ops/while_loop.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">body_fn(*carried_inputs)</span></code> while <code class="docutils literal notranslate"><span class="pre">cond_fn(*carried_inputs)</span></code> returns
 a True scalar tensor. Returns the output of body_fn or initial
 carried_inputs.</p>
@@ -3793,7 +3793,7 @@ Read more about feature classification at: <a class="reference external" href="h
 </div>
 <p><cite>while_loop</cite> is a structured control flow operator. It preserves the loop semantic across the torch.compile and torch.export.</p>
 <p><cite>while_loop</cite> is equivalent to the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">while_loop</span><span class="p">(</span><span class="n">cond_fn</span><span class="p">,</span> <span class="n">body_fn</span><span class="p">,</span> <span class="n">carried_inputs</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">while_loop</span><span class="p">(</span><span class="n">cond_fn</span><span class="p">,</span> <span class="n">body_fn</span><span class="p">,</span> <span class="n">carried_inputs</span><span class="p">):</span>
     <span class="n">val</span> <span class="o">=</span> <span class="n">carried_inputs</span>
     <span class="k">while</span> <span class="n">cond_fn</span><span class="p">(</span><span class="o">*</span><span class="n">val</span><span class="p">):</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">body_fn</span><span class="p">(</span><span class="o">*</span><span class="n">val</span><span class="p">)</span>
@@ -3813,11 +3813,11 @@ iterations while_loop will run.</p></li>
 </dd>
 </dl>
 <p>Example 1:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cond_fn</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cond_fn</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">iter</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">10</span>
 
 
-<span class="k">def</span> <span class="nf">body_fn</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">body_fn</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
 
 
@@ -3825,11 +3825,11 @@ iterations while_loop will run.</p></li>
 </pre></div>
 </div>
 <p>Example 2:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cond_fn</span><span class="p">(</span><span class="n">int_iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cond_fn</span><span class="p">(</span><span class="n">int_iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">int_iter</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">body_fn</span><span class="p">(</span><span class="n">int_iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">body_fn</span><span class="p">(</span><span class="n">int_iter</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">int_iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">int_iter</span>
 
 

@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3668,9 +3668,9 @@ given graph and directly manipulating the nodes within the graph.</p>
 <p>For example, let’s say we want to replace
 <code class="docutils literal notranslate"><span class="pre">torch.ops.aten.add.Tensor()</span></code> calls with
 <code class="docutils literal notranslate"><span class="pre">torch.ops.aten.mul.Tensor()</span></code> calls:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">def</span> <span class="nf">replace_add_with_mul</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">replace_add_with_mul</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
             <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Tensor</span>
@@ -3681,9 +3681,9 @@ that can be found in the
 <a class="reference external" href="https://pytorch.org/docs/stable/fx.html#torch.fx.Graph">Graph</a>
 documentation. For example, if we want to insert a
 <code class="docutils literal notranslate"><span class="pre">torch.ops.aten.relu.default()</span></code> after the <code class="docutils literal notranslate"><span class="pre">add</span></code> call:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">def</span> <span class="nf">insert_relu_after_add</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">insert_relu_after_add</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 
@@ -3723,8 +3723,8 @@ transformations specified.</p>
 another op B, we can run the GraphModule, and very time we see op A,
 return op B.</p>
 <p>An example is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReplaceAddWithMul</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ReplaceAddWithMul</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">!=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">call_function</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">call_function</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
@@ -3743,7 +3743,7 @@ ops B and C, we would then make 2 calls to <code class="docutils literal notrans
 create 2 FX nodes, one with op B and another with op C, and return the
 result of running op C.</p>
 <p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReplaceAddWithMulSub</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ReplaceAddWithMulSub</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Original:</span>
 <span class="sd">        def f(x, y):</span>
@@ -3754,7 +3754,7 @@ result of running op C.</p>
 <span class="sd">            z = x * y</span>
 <span class="sd">            return z - y</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">!=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">call_function</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 
@@ -3771,8 +3771,8 @@ result of running op C.</p>
 <h4>One-to-None Pass<a class="headerlink" href="#one-to-none-pass" title="Link to this heading">#</a></h4>
 <p>If we wanted to remove an op, we can just return the value passed into
 the function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RemoveDetachPass</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RemoveDetachPass</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">detach</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">detach_copy</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
@@ -3792,14 +3792,14 @@ the function:</p>
 convert all the scalars within the graph to tensors, we can run the
 given <code class="docutils literal notranslate"><span class="pre">fx.GraphModule</span></code>, and for every argument that contains a scalar,
 we convert it to a tensor. It might look something like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">args_map</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">args_map</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="c1"># Update the argument based on the function passed</span>
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
         <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">schema</span><span class="p">)</span>
 
     <span class="c1"># Update each argument in the schema</span>
@@ -3810,10 +3810,10 @@ we convert it to a tensor. It might look something like:</p>
             <span class="n">update</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">kwargs</span>
 
-<span class="k">class</span> <span class="nc">ScalarToTensorPass</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScalarToTensorPass</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Transformer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">breakpoint</span><span class="p">()</span>
-        <span class="k">def</span> <span class="nf">try_coerce</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">try_coerce</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>
@@ -3846,15 +3846,15 @@ graph (ATen ops) so that the subgraph rewriter can find the correct
 pattern in the graph. Inputs to the pattern/replacement callables will
 be treated as wildcards when matching.</p>
 <p>An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.fx</span> <span class="kn">import</span> <span class="n">subgraph_rewriter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx</span><span class="w"> </span><span class="kn">import</span> <span class="n">subgraph_rewriter</span>
 
-<span class="k">def</span> <span class="nf">replace_patterns</span><span class="p">(</span><span class="n">graph_module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">pattern</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">replace_patterns</span><span class="p">(</span><span class="n">graph_module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pattern</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
 
-    <span class="k">def</span> <span class="nf">replacement</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">replacement</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
 <span class="n">replaced_patterns</span> <span class="o">=</span> <span class="n">subgraph_rewriter</span><span class="o">.</span><span class="n">replace_pattern_with_filters</span><span class="p">(</span>
@@ -3864,7 +3864,7 @@ be treated as wildcards when matching.</p>
 </div>
 <p>The subgraph rewriter returns a list of <code class="docutils literal notranslate"><span class="pre">ReplacedPatterns</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">ReplacedPatterns</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReplacedPatterns</span><span class="p">:</span>
     <span class="c1"># Node from which the match was found</span>
     <span class="n">anchor</span><span class="p">:</span> <span class="n">Node</span>
     <span class="c1"># Maps nodes in the pattern subgraph to nodes in the larger graph</span>
@@ -3893,7 +3893,7 @@ that we want to run and set a couple of flags. To run the collection of
 passes on a graph module, we can pass the graph module directly to the
 <code class="docutils literal notranslate"><span class="pre">PassManager</span></code> instance.</p>
 <p>An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.fx.passes.infra.pass_manager</span> <span class="kn">import</span> <span class="n">PassManager</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.passes.infra.pass_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">PassManager</span>
 
 <span class="n">pm</span> <span class="o">=</span> <span class="n">PassManager</span><span class="p">(</span>
     <span class="n">passes</span><span class="o">=</span><span class="p">[</span><span class="n">replace_add_with_div</span><span class="p">,</span> <span class="n">replace_div_with_mul</span><span class="p">],</span>
@@ -3910,7 +3910,7 @@ the <code class="docutils literal notranslate"><span class="pre">check</span></c
 <p>An example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span> <span class="o">=</span> <span class="n">PassManager</span><span class="p">(</span><span class="n">passes</span><span class="o">=</span><span class="p">[</span><span class="n">replace_add_with_div</span><span class="p">,</span> <span class="n">replace_div_with_mul</span><span class="p">])</span>
 
-<span class="k">def</span> <span class="nf">check_div_target</span><span class="p">(</span><span class="n">graph_module</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_div_target</span><span class="p">(</span><span class="n">graph_module</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph_module</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">!=</span> <span class="n">torch</span><span class="o">.</span><span class="n">div</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target should be div!&quot;</span><span class="p">)</span>
@@ -3946,26 +3946,26 @@ overlapping matches, only the first match will be returned.</p></li>
 equal and will instead treat them as wildcards.</p></li>
 </ul>
 <p>An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.fx.passes.utils.matcher_utils</span> <span class="kn">import</span> <span class="n">SubgraphMatcher</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.passes.utils.matcher_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SubgraphMatcher</span>
 
-<span class="k">class</span> <span class="nc">LargeModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LargeModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">addmm</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bias</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weight</span><span class="p">)</span>
 
 <span class="n">large_model_graph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">LargeModel</span><span class="p">(),</span> <span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">graph</span>
 
-<span class="k">class</span> <span class="nc">PatternModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PatternModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_weight_1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bias_1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">addmm</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bias_1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weight_1</span><span class="p">)</span>
 
 <span class="n">pattern_graph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">PatternModel</span><span class="p">(),</span> <span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">graph</span>
@@ -3976,7 +3976,7 @@ equal and will instead treat them as wildcards.</p></li>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">match</span></code> function returns a list of <code class="docutils literal notranslate"><span class="pre">InternalMatch</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">InternalMatch</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InternalMatch</span><span class="p">():</span>
     <span class="c1"># Nodes from which the match was found</span>
     <span class="n">anchors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]</span>
     <span class="c1"># Maps nodes in the pattern subgraph to nodes in the larger graph</span>
@@ -4019,11 +4019,11 @@ returns False if any of the OperatorSupportBase return False) and
 <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/fx/passes/operator_support.py#L164"><code class="docutils literal notranslate"><span class="pre">any_chain</span></code></a>
 (which returns True if any of the OperatorSupportBase returns True).</p>
 <p>An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.fx.passes.infra.partitioner</span> <span class="kn">import</span> <span class="n">CapabilityBasedPartitioner</span>
-<span class="kn">from</span> <span class="nn">torch.fx.passes.operator_support</span> <span class="kn">import</span> <span class="n">any_chain</span><span class="p">,</span> <span class="n">OperatorSupportBase</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.passes.infra.partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">CapabilityBasedPartitioner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.passes.operator_support</span><span class="w"> </span><span class="kn">import</span> <span class="n">any_chain</span><span class="p">,</span> <span class="n">OperatorSupportBase</span>
 
-<span class="k">class</span> <span class="nc">AddMulOperatorSupport</span><span class="p">(</span><span class="n">OperatorSupportBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">is_node_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AddMulOperatorSupport</span><span class="p">(</span><span class="n">OperatorSupportBase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_node_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="p">[</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
         <span class="p">]</span>

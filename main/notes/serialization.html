@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3788,13 +3788,13 @@ and the state then restored with <a class="reference internal" href="../generate
 <p>Even custom modules and modules containing other modules have state dicts and
 can use this pattern:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># A module with two linear layers</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-      <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span><span class="w"> </span><span class="nc">MyModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+      <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">l0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-      <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+      <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="n">out0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l0</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
         <span class="n">out0_relu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out0</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="n">out0_relu</span><span class="p">)</span>
@@ -3868,8 +3868,8 @@ to be written later.</p></li>
 data, use <code class="docutils literal notranslate"><span class="pre">torch.load</span></code> within the <code class="docutils literal notranslate"><span class="pre">FakeTensorMode</span></code> context manager. On top of skipping loading
 storage data similar to <code class="docutils literal notranslate"><span class="pre">skip_data</span></code> above, it additionally tags storages with their offset within
 the checkpoint, enabling direct checkpoint manipulation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensorMode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._subclasses.fake_tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">FakeTensorMode</span>
 
 <span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;checkpoint.pt&quot;</span><span class="p">)</span>
@@ -3972,7 +3972,7 @@ if <code class="docutils literal notranslate"><span class="pre">weights_only</sp
 <p>The following utility functions are related to serialization:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.register_package">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">register_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tagger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.register_package" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">register_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tagger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.register_package" title="Link to this definition">#</a></dt>
 <dd><p>Registers callables for tagging and deserializing storage objects with an associated priority.
 Tagging associates a device with a storage object at save time while deserializing moves a
 storage object to an appropriate device at load time. <code class="xref py py-attr docutils literal notranslate"><span class="pre">tagger</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">deserializer</span></code>
@@ -3997,10 +3997,10 @@ object on the appropriate device or None.</p></li>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">ipu_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">ipu_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;ipu&#39;</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="s1">&#39;ipu&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">ipu_deserialize</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">ipu_deserialize</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">location</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ipu&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="n">ipu</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="s2">&quot;ipu&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="k">assert</span> <span class="n">ipu</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;IPU device module is not loaded&quot;</span>
@@ -4013,7 +4013,7 @@ object on the appropriate device or None.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_crc32_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_crc32_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_crc32_options" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_crc32_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_crc32_options" title="Link to this definition">#</a></dt>
 <dd><p>Get whether <a class="reference internal" href="../generated/torch.save.html#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> computes and writes crc32 for each record.</p>
 <p>Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
@@ -4025,7 +4025,7 @@ object on the appropriate device or None.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_crc32_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_crc32_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compute_crc32</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_crc32_options" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_crc32_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compute_crc32</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_crc32_options" title="Link to this definition">#</a></dt>
 <dd><p>Set whether <a class="reference internal" href="../generated/torch.save.html#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> computes and writes crc32 for each record.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4042,7 +4042,7 @@ able to load the file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_default_load_endianness">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_load_endianness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_load_endianness" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_load_endianness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_load_endianness" title="Link to this definition">#</a></dt>
 <dd><p>Get fallback byte order for loading files</p>
 <p>If byteorder mark is not present in saved checkpoint,
 this byte order is used as fallback.
@@ -4059,7 +4059,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_default_load_endianness">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_load_endianness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_load_endianness" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_load_endianness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_load_endianness" title="Link to this definition">#</a></dt>
 <dd><p>Set fallback byte order for loading files</p>
 <p>If byteorder mark is not present in saved checkpoint,
 this byte order is used as fallback.
@@ -4073,7 +4073,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_default_mmap_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_mmap_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_mmap_options" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_mmap_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_mmap_options" title="Link to this definition">#</a></dt>
 <dd><p>Get default mmap options for <a class="reference internal" href="../generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">mmap=True</span></code>.</p>
 <p>Defaults to <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code>.</p>
 <dl class="field-list simple">
@@ -4088,7 +4088,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_default_mmap_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_mmap_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_mmap_options" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_mmap_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_mmap_options" title="Link to this definition">#</a></dt>
 <dd><p>Context manager or function to set default mmap options for <a class="reference internal" href="../generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">mmap=True</span></code> to flags.</p>
 <p>For now, only either <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code> or <code class="docutils literal notranslate"><span class="pre">mmap.MAP_SHARED</span></code> are supported.
 Please open an issue if you need any other option to be added here.</p>
@@ -4105,7 +4105,7 @@ Please open an issue if you need any other option to be added here.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.add_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">add_safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.add_safe_globals" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">add_safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.add_safe_globals" title="Link to this definition">#</a></dt>
 <dd><p>Marks the given globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load. For example, functions
 added to this list can be called during unpickling, classes could be instantiated
 and have state set.</p>
@@ -4121,8 +4121,8 @@ full path that should match the one in the checkpoint otherwise the default
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -4130,8 +4130,8 @@ full path that should match the one in the checkpoint otherwise the default
 <span class="go"># Running `torch.load(f.name, weights_only=True)` will fail with</span>
 <span class="go"># Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default.</span>
 <span class="go"># Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint.</span>
-<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">add_safe_globals</span><span class="p">([</span><span class="n">MyTensor</span><span class="p">])</span>
-<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">...     torch.serialization.add_safe_globals([MyTensor])</span>
+<span class="go">...     torch.load(f.name, weights_only=True)</span>
 <span class="go"># MyTensor([[-0.5024, -1.8152, -0.5455],</span>
 <span class="go">#          [-0.8234,  2.0500, -0.3657]])</span>
 </pre></div>
@@ -4140,7 +4140,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.clear_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">clear_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.clear_safe_globals" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">clear_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.clear_safe_globals" title="Link to this definition">#</a></dt>
 <dd><p>Clears the list of globals that are safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 </dl>
@@ -4148,7 +4148,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_safe_globals" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_safe_globals" title="Link to this definition">#</a></dt>
 <dd><p>Returns the list of user-added globals that are safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4159,7 +4159,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_unsafe_globals_in_checkpoint">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_unsafe_globals_in_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_unsafe_globals_in_checkpoint" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_unsafe_globals_in_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_unsafe_globals_in_checkpoint" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of strings of functions/classes in a <code class="docutils literal notranslate"><span class="pre">torch.save</span></code> object that are not safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code>.</p>
 <p>For a given function or class <code class="docutils literal notranslate"><span class="pre">f</span></code>, the corresponding string will be of the form
 <code class="docutils literal notranslate"><span class="pre">{f.__module__}.{f.__name__}</span></code>.</p>
@@ -4187,7 +4187,7 @@ will not be included in the output.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.serialization.safe_globals">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L318"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.safe_globals" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L318"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.safe_globals" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that adds certain globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4195,8 +4195,8 @@ will not be included in the output.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -4204,8 +4204,8 @@ will not be included in the output.</p>
 <span class="go"># Running `torch.load(f.name, weights_only=True)` will fail with</span>
 <span class="go"># Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default.</span>
 <span class="go"># Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint.</span>
-<span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">safe_globals</span><span class="p">([</span><span class="n">MyTensor</span><span class="p">]):</span>
-<span class="gp">... </span>        <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">...     with torch.serialization.safe_globals([MyTensor]):</span>
+<span class="go">...         torch.load(f.name, weights_only=True)</span>
 <span class="go"># MyTensor([[-0.5024, -1.8152, -0.5455],</span>
 <span class="go">#          [-0.8234,  2.0500, -0.3657]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">get_safe_globals</span><span class="p">()</span> <span class="o">==</span> <span class="p">[]</span>
@@ -4215,7 +4215,7 @@ will not be included in the output.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.serialization.skip_data">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">skip_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">materialize_fake_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/serialization.py#L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.skip_data" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">skip_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">materialize_fake_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/serialization.py#L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.skip_data" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that skips writing/reading storage bytes for <code class="docutils literal notranslate"><span class="pre">torch.save</span></code> / <code class="docutils literal notranslate"><span class="pre">torch.load</span></code> calls.</p>
 <p>For the save path, storages will still be saved, but the space that their bytes would usually be written to
 will be empty space. The storage bytes can then be populated in a separate pass.</p>
@@ -4230,7 +4230,7 @@ will be empty space. The storage bytes can then be populated in a separate pass.
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">skip_data</span><span class="p">():</span>

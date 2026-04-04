@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3684,11 +3684,11 @@ that this is not true when <code class="docutils literal notranslate"><span clas
 <h2>Guards<a class="headerlink" href="#guards" title="Link to this heading">#</a></h2>
 <p>In <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, a guard is a mechanism that is used to ensure the validity of a compiled code graph.
 By default, when you make a variable dynamic, it can range from <code class="docutils literal notranslate"><span class="pre">[-inf,</span> <span class="pre">inf]</span></code>. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
 
 <span class="n">This</span> <span class="n">works</span> <span class="k">for</span> <span class="nb">any</span> <span class="n">dynamic</span> <span class="n">x</span><span class="o">.</span> <span class="n">But</span> <span class="k">if</span> <span class="n">your</span> <span class="n">code</span> <span class="ow">is</span><span class="p">:</span>
 
-<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">3</span>
@@ -3700,7 +3700,7 @@ require recompilation because the guard is broken.</p>
 <section id="runtime-asserts">
 <h2>Runtime Asserts<a class="headerlink" href="#runtime-asserts" title="Link to this heading">#</a></h2>
 <p>You can use runtime asserts to provide hints when you know certain facts, like batch size being less than 100:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">batch_size</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">batch_size</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">do_something</span>

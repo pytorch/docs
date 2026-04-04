@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3664,7 +3664,7 @@ document.write(`
 <h1>torch.compiler.nested_compile_region<a class="headerlink" href="#torch-compiler-nested-compile-region" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.nested_compile_region">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nested_compile_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_reuse_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1781f63f19fdfb119cc58a9a9b6c6ef0650c7cc4/torch/compiler/__init__.py#L682"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nested_compile_region" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nested_compile_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_reuse_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reuse_hash_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/566c4167d4c01b084e3b2d62f5b0822897c41314/torch/compiler/__init__.py#L682"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nested_compile_region" title="Link to this definition">#</a></dt>
 <dd><p>Tells <strong>``torch.compile``</strong> that the marked set of operations forms a nested
 compile region (which is often repeated in the full model) whose code can be
 compiled once and safely reused.  <code class="docutils literal notranslate"><span class="pre">nested_compile_region</span></code> can also be used
@@ -3694,6 +3694,14 @@ not ready for use yet.</p></li>
 <li><p><strong>max_reuse_entries</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum number of reuse cache entries per function
 before raising an error. If this limit is hit, guards keep failing
 across invocations and hierarchical compilation is not effective.</p></li>
+<li><p><strong>reuse_hash_fn</strong> – Optional callable that takes the same <code class="docutils literal notranslate"><span class="pre">*args,</span> <span class="pre">**kwargs</span></code>
+as the wrapped function and returns an integer hash key. When
+provided, Dynamo traces this function to obtain a constant integer
+and uses it as the cache key for subgraph reuse, bypassing the
+automatic fingerprint/guard machinery. Two calls that produce the
+same hash key reuse the same cached subgraph. The hash function
+must be fully traceable (no graph breaks) and must return a
+constant integer.</p></li>
 </ul>
 </dd>
 </dl>
@@ -4055,7 +4063,7 @@ across invocations and hierarchical compilation is not effective.</p></li>
        "headline": "torch.compiler.nested_compile_region",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.nested_compile_region.html",
-       "articleBody": "torch.compiler.nested_compile_region# torch.compiler.nested_compile_region(fn=None, *, options=None, max_reuse_entries=8)[source]# Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. nested_compile_region can also be used as a decorator. During ``torch.compile`` tracing, the compiler applies hierarchical compilation with nested_compile_region: it emits optimized code for the marked region the first time it is encountered and re-emits (or \u201cstamps out\u201d) the previously compiled code on every subsequent invocation. This can substantially reduce overall compile time for deeply-stacked, structurally-identical components such as the transformer layers of a large-language-model (LLM). Outside a torch.compile context\u2014i.e., in standard eager execution\u2014the call is a no-op, so existing workflows remain unaffected. Note that nested_compile_region does not promise that a region will be compiled exactly once. If the compiler detects that new input conditions (shape, dtype, device, stride, globals etc.) make the cached version invalid to reuse, it will transparently re-compile the region. Using it is therefore safe: correctness is always preserved, and you pay the extra compilation cost only when required. Parameters: fn \u2013 The function to wrap options (NestedCompileRegionOptions | None) \u2013 Optional backend to use for compiling the subgraph. Warning: this is an experimental feature under development and not ready for use yet. max_reuse_entries (int) \u2013 Maximum number of reuse cache entries per function before raising an error. If this limit is hit, guards keep failing across invocations and hierarchical compilation is not effective.",
+       "articleBody": "torch.compiler.nested_compile_region# torch.compiler.nested_compile_region(fn=None, *, options=None, max_reuse_entries=8, reuse_hash_fn=None)[source]# Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. nested_compile_region can also be used as a decorator. During ``torch.compile`` tracing, the compiler applies hierarchical compilation with nested_compile_region: it emits optimized code for the marked region the first time it is encountered and re-emits (or \u201cstamps out\u201d) the previously compiled code on every subsequent invocation. This can substantially reduce overall compile time for deeply-stacked, structurally-identical components such as the transformer layers of a large-language-model (LLM). Outside a torch.compile context\u2014i.e., in standard eager execution\u2014the call is a no-op, so existing workflows remain unaffected. Note that nested_compile_region does not promise that a region will be compiled exactly once. If the compiler detects that new input conditions (shape, dtype, device, stride, globals etc.) make the cached version invalid to reuse, it will transparently re-compile the region. Using it is therefore safe: correctness is always preserved, and you pay the extra compilation cost only when required. Parameters: fn \u2013 The function to wrap options (NestedCompileRegionOptions | None) \u2013 Optional backend to use for compiling the subgraph. Warning: this is an experimental feature under development and not ready for use yet. max_reuse_entries (int) \u2013 Maximum number of reuse cache entries per function before raising an error. If this limit is hit, guards keep failing across invocations and hierarchical compilation is not effective. reuse_hash_fn \u2013 Optional callable that takes the same *args, **kwargs as the wrapped function and returns an integer hash key. When provided, Dynamo traces this function to obtain a constant integer and uses it as the cache key for subgraph reuse, bypassing the automatic fingerprint/guard machinery. Two calls that produce the same hash key reuse the same cached subgraph. The hash function must be fully traceable (no graph breaks) and must return a constant integer.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

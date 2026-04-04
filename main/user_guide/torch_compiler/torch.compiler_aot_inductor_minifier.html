@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3670,17 +3670,17 @@ to create a minimal nn.Module that reproduce the error by setting <code class="d
 <h2>Example Code<a class="headerlink" href="#example-code" title="Link to this heading">#</a></h2>
 <p>Here is sample code which will generate an error because we injected an error on relu with
 <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.triton.inject_relu_bug_TESTING_ONLY</span> <span class="pre">=</span> <span class="pre">&quot;compile_error&quot;</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">inductor_config</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._inductor</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">inductor_config</span>
 
-<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -3735,13 +3735,13 @@ W1031 16:21:08.612000 2861654 pytorch/torch/_dynamo/debug_utils.py:279] /data/us
 <p>The <code class="docutils literal notranslate"><span class="pre">minifier_launcher.py</span></code> file has the following code. The <code class="docutils literal notranslate"><span class="pre">exported_program</span></code> contains the inputs to <code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_compile_and_package</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">command='minify'</span></code> parameter means the script will run the minifier to create a minimal graph module that reproduce the error. Alternatively, you set
 use <code class="docutils literal notranslate"><span class="pre">command='run'</span></code> to just compile, load, and run the loaded model (without running the minifier).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch._inductor.inductor_prims</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._inductor.inductor_prims</span>
 
-<span class="kn">import</span> <span class="nn">torch._dynamo.config</span>
-<span class="kn">import</span> <span class="nn">torch._inductor.config</span>
-<span class="kn">import</span> <span class="nn">torch._functorch.config</span>
-<span class="kn">import</span> <span class="nn">torch.fx.experimental._config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._dynamo.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._inductor.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._functorch.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.fx.experimental._config</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">triton</span><span class="o">.</span><span class="n">inject_relu_bug_TESTING_ONLY</span> <span class="o">=</span> <span class="s1">&#39;compile_error&#39;</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">aot_inductor</span><span class="o">.</span><span class="n">dump_aoti_minifier</span> <span class="o">=</span> <span class="kc">True</span>
@@ -3772,7 +3772,7 @@ use <code class="docutils literal notranslate"><span class="pre">command='run'</
 <span class="c1"># print(exported_program.graph)</span>
 <span class="n">config_patches</span><span class="o">=</span><span class="p">{}</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">torch._dynamo.repro.aoti</span> <span class="kn">import</span> <span class="n">run_repro</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.repro.aoti</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_repro</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="n">run_repro</span><span class="p">(</span><span class="n">exported_program</span><span class="p">,</span> <span class="n">config_patches</span><span class="o">=</span><span class="n">config_patches</span><span class="p">,</span> <span class="n">accuracy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;minify&#39;</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s1">&#39;/data/users/shangdiy/pytorch/torch_compile_debug/run_2024_11_06_13_52_35_711642-pid_3567062/minifier/checkpoints&#39;</span><span class="p">,</span> <span class="n">check_str</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -3800,17 +3800,17 @@ Wrote minimal repro out to repro.py
 <span class="c1">#         relu = torch.ops.aten.relu.default(linear);  linear = None</span>
 <span class="c1">#         return (relu,)</span>
 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">device</span>
-<span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
-<span class="kn">from</span> <span class="nn">torch._dynamo.testing</span> <span class="kn">import</span> <span class="n">rand_strided</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">inf</span>
-<span class="kn">import</span> <span class="nn">torch._inductor.inductor_prims</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">device</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.fx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">fx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">rand_strided</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">inf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._inductor.inductor_prims</span>
 
-<span class="kn">import</span> <span class="nn">torch._dynamo.config</span>
-<span class="kn">import</span> <span class="nn">torch._inductor.config</span>
-<span class="kn">import</span> <span class="nn">torch._functorch.config</span>
-<span class="kn">import</span> <span class="nn">torch.fx.experimental._config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._dynamo.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._inductor.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch._functorch.config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.fx.experimental._config</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">generate_intermediate_hooks</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">triton</span><span class="o">.</span><span class="n">inject_relu_bug_TESTING_ONLY</span> <span class="o">=</span> <span class="s1">&#39;compile_error&#39;</span>
@@ -3843,7 +3843,7 @@ Wrote minimal repro out to repro.py
 <span class="c1"># print(exported_program.graph)</span>
 <span class="n">config_patches</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aot_inductor.package&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">torch._dynamo.repro.aoti</span> <span class="kn">import</span> <span class="n">run_repro</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.repro.aoti</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_repro</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="n">run_repro</span><span class="p">(</span><span class="n">exported_program</span><span class="p">,</span> <span class="n">config_patches</span><span class="o">=</span><span class="n">config_patches</span><span class="p">,</span> <span class="n">accuracy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s1">&#39;/data/users/shangdiy/pytorch/torch_compile_debug/run_2024_11_25_13_59_33_102283-pid_3658904/minifier/checkpoints&#39;</span><span class="p">,</span> <span class="n">check_str</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>

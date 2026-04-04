@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3668,7 +3668,7 @@ regression testing.</p>
 <h3>PyTorch random number generator<a class="headerlink" href="#pytorch-random-number-generator" title="Link to this heading">#</a></h3>
 <p>You can use <a class="reference internal" href="../generated/torch.manual_seed.html#torch.manual_seed" title="torch.manual_seed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.manual_seed()</span></code></a> to seed the RNG for all devices (both
 CPU and CUDA):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3686,7 +3686,7 @@ subsequent calls.</p>
 <section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h3>
 <p>For custom operators, you might need to set python seed as well:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3695,7 +3695,7 @@ subsequent calls.</p>
 <h3>Random number generators in other libraries<a class="headerlink" href="#random-number-generators-in-other-libraries" title="Link to this heading">#</a></h3>
 <p>If you or any of the libraries you are using rely on NumPy, you can seed the global
 NumPy RNG with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3738,19 +3738,19 @@ of an operation that does not have one, please submit an issue:
 <a class="github reference external" href="https://github.com/pytorch/pytorch/issues?q=label:%22module:%20determinism%22">pytorch/pytorch#issues</a></p>
 <p>For example, running the nondeterministic CUDA implementation of <a class="reference internal" href="../generated/torch.Tensor.index_add_.html#torch.Tensor.index_add_" title="torch.Tensor.index_add_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.index_add_()</span></code></a>
 will throw an error:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import torch
-&gt;&gt;&gt; torch.use_deterministic_algorithms(True)
-&gt;&gt;&gt; torch.randn(2, 2).cuda().index_add_(0, torch.tensor([0, 1]), torch.randn(2, 2))
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-RuntimeError: index_add_cuda_ does not have a deterministic implementation, but you set
-&#39;torch.use_deterministic_algorithms(True)&#39;. ...
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">use_deterministic_algorithms</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="gr">RuntimeError</span>: <span class="n">index_add_cuda_ does not have a deterministic implementation, but you set</span>
+<span class="x">&#39;torch.use_deterministic_algorithms(True)&#39;. ...</span>
 </pre></div>
 </div>
 <p>When <a class="reference internal" href="../generated/torch.bmm.html#torch.bmm" title="torch.bmm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.bmm()</span></code></a> is called with sparse-dense CUDA tensors it typically uses a
 nondeterministic algorithm, but when the deterministic flag is turned on, its alternate
 deterministic implementation will be used:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">use_deterministic_algorithms</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_sparse</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
 <span class="go">tensor([[[ 1.1900, -2.3409],</span>
@@ -3794,7 +3794,7 @@ operation, then this setting can be turned off for better performance.</p>
 <h2>DataLoader<a class="headerlink" href="#dataloader" title="Link to this heading">#</a></h2>
 <p>DataLoader will reseed workers following <a class="reference internal" href="../data.html#data-loading-randomness"><span class="std std-ref">Randomness in multi-process data loading</span></a> algorithm.
 Use <code class="xref py py-meth docutils literal notranslate"><span class="pre">worker_init_fn()</span></code> and <cite>generator</cite> to preserve reproducibility:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">seed_worker</span><span class="p">(</span><span class="n">worker_id</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">seed_worker</span><span class="p">(</span><span class="n">worker_id</span><span class="p">):</span>
     <span class="n">worker_seed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">initial_seed</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span>
     <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">worker_seed</span><span class="p">)</span>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">worker_seed</span><span class="p">)</span>

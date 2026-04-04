@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3699,16 +3699,16 @@ demonstrate how Dynamo works under the hood.</p>
 dynamic properties. Below is a basic example of how to use Dynamo.
 One can decorate a function or a method using <code class="docutils literal notranslate"><span class="pre">torchdynamo.optimize</span></code> to enable
 Dynamo optimization:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_dynamo</span> <span class="k">as</span> <span class="n">torchdynamo</span>
-<span class="k">def</span> <span class="nf">my_compiler</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">example_inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">_dynamo</span> <span class="k">as</span> <span class="n">torchdynamo</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_compiler</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">example_inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;my_compiler() called with FX graph:&quot;</span><span class="p">)</span>
     <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">print_tabular</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">gm</span><span class="o">.</span><span class="n">forward</span>  <span class="c1"># return a python callable</span>
 
 <span class="nd">@torchdynamo</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">my_compiler</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
@@ -3757,7 +3757,7 @@ to decompile the bytecode into human-readable source code. One available
 tool is <a class="reference external" href="https://github.com/youkaichao/depyf">depyf</a>. If you don’t have
 <code class="docutils literal notranslate"><span class="pre">depyf</span></code> already installed, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">depyf</span></code>. Then, add the
 following code to install decompilation hooks before you run any code.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">depyf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">depyf</span>
 <span class="n">depyf</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -3818,7 +3818,7 @@ are:</p>
              <span class="mi">30</span> <span class="n">CALL_FUNCTION</span>            <span class="mi">2</span>
              <span class="mi">32</span> <span class="n">RETURN_VALUE</span>
 <span class="n">possible</span> <span class="n">source</span> <span class="n">code</span><span class="p">:</span>
-<span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">__temp_1</span> <span class="o">=</span> <span class="n">__compiled_fn_0</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">__temp_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">__temp_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
@@ -3850,12 +3850,12 @@ point for the first time.</p>
 <section id="how-to-inspect-artifacts-generated-by-dynamo">
 <h3>How to inspect artifacts generated by Dynamo?<a class="headerlink" href="#how-to-inspect-artifacts-generated-by-dynamo" title="Link to this heading">#</a></h3>
 <p>To inspect the artifacts generated by Dynamo, there is an API <code class="docutils literal notranslate"><span class="pre">torch._dynamo.eval_frame._debug_get_cache_entry_list</span></code> that retrieves compiled code and guards out of a function’s <code class="docutils literal notranslate"><span class="pre">__code__</span></code> object. A compiled function can have several cache entries, and each cache entry consists a generated function to check guards, and a <code class="docutils literal notranslate"><span class="pre">types.CodeType</span></code> object to keep the code to be executed if the guarding conditions are satisfied.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._dynamo.eval_frame</span> <span class="kn">import</span> <span class="n">_debug_get_cache_entry_list</span><span class="p">,</span> <span class="n">innermost_fn</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.eval_frame</span><span class="w"> </span><span class="kn">import</span> <span class="n">_debug_get_cache_entry_list</span><span class="p">,</span> <span class="n">innermost_fn</span>
 <span class="n">cache_entries</span> <span class="o">=</span> <span class="n">_debug_get_cache_entry_list</span><span class="p">(</span><span class="n">innermost_fn</span><span class="p">(</span><span class="n">toy_example</span><span class="p">))</span>
 <span class="n">cache_entry</span> <span class="o">=</span> <span class="n">cache_entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">guard</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="n">cache_entry</span><span class="o">.</span><span class="n">check_fn</span><span class="p">,</span> <span class="n">cache_entry</span><span class="o">.</span><span class="n">code</span>
 <span class="c1"># the guard takes the local variables of an input frame, and tells whether a re-compilation should be triggered.</span>
-<span class="kn">import</span> <span class="nn">dis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dis</span>
 <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">guard</span><span class="p">)</span>
 <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
@@ -3878,12 +3878,12 @@ point for the first time.</p>
 </div>
 <p>Only when all the conditions are satisfied, the guard function returns true, and the compiled code is executed.</p>
 <p>For the compiled code, we cannot directly access its source but have to decompile it.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">depyf</span> <span class="kn">import</span> <span class="n">decompile</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">depyf</span><span class="w"> </span><span class="kn">import</span> <span class="n">decompile</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">decompile</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>The output is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">__temp_1</span> <span class="o">=</span> <span class="n">__compiled_fn_0</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">__temp_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">__temp_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
@@ -3910,7 +3910,7 @@ point for the first time.</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__compiled_fn_0</span><span class="p">:</span>
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">L_a_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">L_b_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">L_a_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">L_b_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="n">l_a_</span> <span class="o">=</span> <span class="n">L_a_</span>
     <span class="n">l_b_</span> <span class="o">=</span> <span class="n">L_b_</span>
     <span class="n">abs_1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">l_a_</span><span class="p">)</span>
@@ -3922,18 +3922,18 @@ point for the first time.</p>
 <span class="c1"># To see more debug info, please use ``graph_module.print_readable()``</span>
 <span class="o">============================================================</span>
 <span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__resume_at_30_1</span><span class="p">:</span>
-<span class="k">def</span> <span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">b</span>
 <span class="o">============================================================</span>
 <span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__resume_at_38_2</span><span class="p">:</span>
-<span class="k">def</span> <span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">b</span>
 </pre></div>
 </div>
 <p>However, if we use other backends like the built-in <code class="docutils literal notranslate"><span class="pre">inductor</span></code>, the subgraph code will be compiled CUDA kernels for GPU or C++ code for CPU.</p>
 <p>To summarize, the compiled code is conceptually equivalent to the code below:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compiled_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compiled_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">L</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">}</span>
     <span class="k">for</span> <span class="n">guard</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">get_cache_entries</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">guard</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>

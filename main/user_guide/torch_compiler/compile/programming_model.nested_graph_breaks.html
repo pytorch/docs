@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3682,13 +3682,13 @@ document.write(`
 </ul>
 <p>Recall that when <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is applied to a function, any nested function calls are also traced.
 A <strong>nested graph break</strong> refers to any graph break that happens in a nested function call.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">inner</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>  <span class="c1"># nested graph break</span>
     <span class="o">...</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">outer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">inner</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="o">...</span>
@@ -3701,18 +3701,18 @@ Resuming a function is actually a fairly complicated technical feat, so resuming
 <p>We can therefore resume tracing after a nested graph break with this restriction in the following way:</p>
 <p>First, consider the below example where <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> traces from <code class="docutils literal notranslate"><span class="pre">f</span></code> and traces all the way until the
 graph break in <code class="docutils literal notranslate"><span class="pre">inner1</span></code> is encountered.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>  <span class="c1"># stop tracing due to graph break</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
 
-<span class="k">def</span> <span class="nf">inner2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inner2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># start tracing from here</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">inner2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -3723,12 +3723,12 @@ graph break in <code class="docutils literal notranslate"><span class="pre">inne
 </div>
 <p>Since we can only resume from top-level functions, we graph break on the <code class="docutils literal notranslate"><span class="pre">inner2</span></code> call in <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The semantics of torch.compile(f)(x) is roughly this:</span>
-<span class="k">def</span> <span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">inner2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_f_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">32</span>
 
 <span class="n">compiled_f_semantics</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
@@ -3736,37 +3736,37 @@ graph break in <code class="docutils literal notranslate"><span class="pre">inne
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">inner2</span></code> is then automatically compiled as a top-level function.
 We trace all the way until the graph break in <code class="docutils literal notranslate"><span class="pre">inner1</span></code> is encountered again.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>  <span class="c1"># stop tracing due to graph break</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
 
 <span class="c1"># this torch.compile is automatically applied</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">inner2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inner2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># start tracing from here</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span>
 
-<span class="k">def</span> <span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">inner2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_f_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">32</span>
 
 <span class="n">compiled_f_semantics</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Then we graph break on the <code class="docutils literal notranslate"><span class="pre">inner1</span></code> call in <code class="docutils literal notranslate"><span class="pre">inner2</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">inner1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_inner2_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span>
 </pre></div>
 </div>
@@ -3774,64 +3774,64 @@ We trace all the way until the graph break in <code class="docutils literal notr
 The graph break is from <code class="docutils literal notranslate"><span class="pre">inner1</span></code>, so we handle the graph break normally.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this torch.compile is automatically applied</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inner1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="c1"># start tracing from here</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>  <span class="c1"># stop tracing due to graph break</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
 
-<span class="k">def</span> <span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">compiled_inner2_semantics</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_f_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">32</span>
 
-<span class="k">def</span> <span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">inner1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_inner2_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span>
 
 <span class="n">compiled_f_semantics</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">inner1</span></code> is handled normally:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compiled_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compiled_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_inner1_semantics</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
 </pre></div>
 </div>
 <p>So the initial code is semantically equivalent to</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compiled_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">compiled_inner2_semantics</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_f_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_f_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">32</span>
 
-<span class="k">def</span> <span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">compiled_inner1_semantics</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_inner2_semantics</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_inner2_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span>
 
-<span class="k">def</span> <span class="nf">compiled_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compiled_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">resume_inner1_semantics</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">resume_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resume_inner1_semantics</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
 
 <span class="n">compiled_f_semantics</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>

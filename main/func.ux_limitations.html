@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6559,13 +6559,13 @@ from the function. This restriction comes from how torch.func is implemented:
 each transform wraps Tensor inputs in special torch.func Tensor subclasses
 that facilitate the transform.</p>
 <p>So, instead of the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
 
 <span class="c1"># Don&#39;t do this</span>
 <span class="n">intermediate</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">global</span> <span class="n">intermediate</span>
   <span class="n">intermediate</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
   <span class="n">z</span> <span class="o">=</span> <span class="n">intermediate</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
@@ -6576,7 +6576,7 @@ that facilitate the transform.</p>
 </pre></div>
 </div>
 <p>Please rewrite <code class="docutils literal notranslate"><span class="pre">f</span></code> to return <code class="docutils literal notranslate"><span class="pre">intermediate</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">intermediate</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
   <span class="n">z</span> <span class="o">=</span> <span class="n">intermediate</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
   <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">intermediate</span>
@@ -6623,7 +6623,7 @@ effects), <code class="docutils literal notranslate"><span class="pre">vmap(f)(x
 <h3>Mutation: Arbitrary mutation of Python data structures<a class="headerlink" href="#mutation-arbitrary-mutation-of-python-data-structures" title="Link to this heading">#</a></h3>
 <p>In the presence of side effects, <a class="reference internal" href="generated/torch.func.vmap.html#torch.func.vmap" title="torch.func.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a> no longer acts like it is running
 a for-loop. For example, the following function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
   <span class="nb">list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -6649,7 +6649,7 @@ operations. <a class="reference internal" href="generated/torch.func.vmap.html#t
 in-place operation and it will succeed otherwise. Unsupported operations
 are those that would cause a Tensor with more elements to be written to a
 Tensor with fewer elements. Here’s an example of how this can occur:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span>
 
@@ -6666,7 +6666,7 @@ three elements back into <code class="docutils literal notranslate"><span class=
 due to attempting to write three elements into a Tensor with a single element.</p>
 <p>There is no problem if the Tensor being written to is batched under
 <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a> (i.e. it is being vmapped over).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span>
 
@@ -6686,7 +6686,7 @@ their “new_*” equivalent. For example:</p>
 <li><p>Replace <a class="reference internal" href="generated/torch.empty.html#torch.empty" title="torch.empty"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty()</span></code></a> with <code class="xref py py-meth docutils literal notranslate"><span class="pre">Tensor.new_empty()</span></code></p></li>
 </ul>
 <p>To see why this helps, consider the following.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
   <span class="k">assert</span> <span class="n">vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
   <span class="n">result</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
@@ -6703,7 +6703,7 @@ However, although <code class="docutils literal notranslate"><span class="pre">v
 underlying shape [2, 3].
 It is not possible to copy <code class="docutils literal notranslate"><span class="pre">vec</span></code> into <code class="docutils literal notranslate"><span class="pre">result.diagonal()</span></code>, which has
 shape [3], because it has too many elements.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
   <span class="k">assert</span> <span class="n">vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
   <span class="n">result</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
@@ -6730,7 +6730,7 @@ future but we have chosen not to for now.</p>
 control flow is when the condition of an if-statement, while-loop, or
 for-loop is a Tensor that is being <code class="docutils literal notranslate"><span class="pre">vmap</span></code>’ed over. For example, the
 following will raise an error message:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">x</span>
   <span class="k">return</span> <span class="mi">0</span>
@@ -6741,7 +6741,7 @@ following will raise an error message:</p>
 </div>
 <p>However, any control flow that is not dependent on the values in <code class="docutils literal notranslate"><span class="pre">vmap</span></code>’ed
 tensors will work:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_dot</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">custom_dot</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -6759,7 +6759,7 @@ We’re investigating adding equivalents of those to PyTorch.</p>
 <h3>Data-dependent operations (.item())<a class="headerlink" href="#data-dependent-operations-item" title="Link to this heading">#</a></h3>
 <p>We do not (and will not) support vmap over a user-defined function that calls
 <code class="docutils literal notranslate"><span class="pre">.item()</span></code> on a Tensor. For example, the following will raise an error message:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -6798,7 +6798,7 @@ To address this, <code class="docutils literal notranslate"><span class="pre">vm
 to error. Under “error” mode, any call to a random function will produce an error asking the user to use
 one of the other two flags based on their use case.</p>
 <p>Under “different” randomness, elements in a batch produce different random values. For instance,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(())</span>  <span class="c1"># y will be different across the batch</span>
   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
@@ -6807,7 +6807,7 @@ one of the other two flags based on their use case.</p>
 </pre></div>
 </div>
 <p>Under “same” randomness, elements in a batch produce same random values. For instance,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(())</span>  <span class="c1"># y will be the same across the batch</span>
   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 

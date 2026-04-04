@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3773,10 +3773,10 @@ Graph breaks occur on things like:</p>
 </ul>
 <p>Below is an example of a graph break due to the function <code class="docutils literal notranslate"><span class="pre">copy.deepcopy</span></code> from a Python builtin library
 (exact output may differ).</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
@@ -3820,10 +3820,10 @@ During tracing, we generate “guards”, which are runtime checks for these ass
 Guards are run in future calls to the compiled function to determine if we can reuse previously compiled code.
 Examples of runtime checks are constant values, types, and object IDs.</p>
 <p>Below is an example of generated guards. The <code class="docutils literal notranslate"><span class="pre">TENSOR_MATCH</span></code> guard checks for the input’s type, device, dtype, shape, etc.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -3848,10 +3848,10 @@ TREE_GUARD_MANAGER:
 <p>If the guards fail for every instance of previously compiled code,
 then <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> must “recompile” the function, requiring the original code to be traced again.</p>
 <p>In the example below, recompilation is necessary because the guard checking the tensor argument’s shape failed.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -3874,10 +3874,10 @@ By default, automatic dynamic shapes are enabled <code class="docutils literal n
 if compilation fails due to shape mismatch, recompilation is attempted with dynamic shapes.
 Dynamic shapes can also be fully enabled <code class="docutils literal notranslate"><span class="pre">dynamic=True</span></code> or disabled <code class="docutils literal notranslate"><span class="pre">dynamic=False</span></code>.</p>
 <p>Below, we enable dynamic shapes and note that we no longer need to recompile.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -3955,7 +3955,7 @@ For example, you can look at the high-level generated FX graph or the generated 
 <li><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code>: logs related to dynamic shapes</p></li>
 </ul>
 <p>Also, you can programmatically set logging options using <code class="docutils literal notranslate"><span class="pre">torch._logging.set_logs</span></code>:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_logging</span><span class="o">.</span><span class="n">set_logs</span><span class="p">(</span><span class="n">graph_breaks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="o">...</span>
 </pre></div>
@@ -3996,7 +3996,7 @@ DDP or FSDP very well, so consider applying <code class="docutils literal notran
 <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">pred</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()(</span><span class="n">pred</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -4028,24 +4028,24 @@ You can do this by using the <code class="docutils literal notranslate"><span cl
 disabled function, it breaks the graph and skips tracing the disabled function, resuming tracing after the call.
 By default, all recursive calls made from a disabled function are also disabled. Use the <code class="docutils literal notranslate"><span class="pre">recursive=False</span></code>
 option to allow compilation for recursive calls.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bad1_inner</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bad1_inner</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="c1"># skipped</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">disable</span>
-<span class="k">def</span> <span class="nf">bad1_outer</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bad1_outer</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="c1"># skipped</span>
     <span class="n">bad1_inner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">bad2_inner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bad2_inner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
     <span class="c1"># traced</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">bad2_outer</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bad2_outer</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="c1"># skipped</span>
     <span class="n">bad2_inner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="c1"># graph break</span>
     <span class="n">bad1_outer</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="o">...</span>
@@ -4089,10 +4089,10 @@ consider disabling compilation on that function, as the overhead cost for the gr
 <h4><a class="toc-backref" href="#id18" role="doc-backlink">Data-dependent operations</a><a class="headerlink" href="#data-dependent-operations" title="Link to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> graph breaks on data-dependent operations such as data-dependent control flow
 (if-statements, loops with tensors) and direct tensor data accesses (<code class="docutils literal notranslate"><span class="pre">.item</span></code>, <code class="docutils literal notranslate"><span class="pre">.data_ptr</span></code>).</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
@@ -4144,7 +4144,7 @@ torch._dynamo.exc.Unsupported: Tensor.item
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># old</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
@@ -4154,7 +4154,7 @@ torch._dynamo.exc.Unsupported: Tensor.item
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
@@ -4166,14 +4166,14 @@ torch._dynamo.exc.Unsupported: Tensor.item
 </ul>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># old</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
 
 <span class="c1"># new</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
         <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
         <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
@@ -4201,12 +4201,12 @@ for example, a function that logs data about a training iteration, consider appl
 <p>Alternatively, you can try using <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.reorderable_logging_functions</span></code>.
 This config is used to reorder logging functions so that they are called at the end of the traced function,
 thus avoiding a graph break. However, the logged contents may differ if, for example, a mutation occurs.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reorderable_logging_functions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">print</span><span class="p">)</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;log!&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -4223,10 +4223,10 @@ log!
 <h4><a class="toc-backref" href="#id21" role="doc-backlink">Incorrect code</a><a class="headerlink" href="#incorrect-code" title="Link to this heading">#</a></h4>
 <p>Your code may be wrong, or is otherwise encountering an error from outside <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.
 In the code below, we made a typo in the <code class="docutils literal notranslate"><span class="pre">torch.sin</span></code> call by providing an extra argument.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">y</span>
 
@@ -4268,10 +4268,10 @@ If either limit is exceeded, then we will not attempt to compile the function ag
 <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> will also issue a warning containing the affected function and which limit was hit.
 In the example below, each function call results in a recompile attempt.
 When we hit the cache size limit (8), we stop attempting to recompile.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
@@ -4291,10 +4291,10 @@ If the cost of recompilation outweighs the benefit of compilation, then you can 
 <h4><a class="toc-backref" href="#id25" role="doc-backlink">Wrapping constants with tensors</a><a class="headerlink" href="#wrapping-constants-with-tensors" title="Link to this heading">#</a></h4>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">int</span></code> / <code class="docutils literal notranslate"><span class="pre">float</span></code> variables are treated as constants and are guarded as such.
 In the below example, we have a recompilation for each function call.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
@@ -4318,14 +4318,14 @@ torch._dynamo hit config.recompile_limit (8)
 </pre></div>
 </div>
 <p>In particular, for LR schedulers, initializing with a constant can lead to recompilations:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">sched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ExponentialLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
     <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="n">out</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
@@ -4481,13 +4481,13 @@ it is advisable to inspect the last few bytecode instructions traced.</p>
 This is useful in combination with <code class="docutils literal notranslate"><span class="pre">trace_bytecode</span></code> to see the line of source code each traced bytecode instruction corresponds to.</p>
 <p>Finally, you can use <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=graph_code</span></code> to see the Python code representing the FX graph that Dynamo traced.
 You can view this code to double check that the correct ops are being traced.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;eager&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
@@ -4556,10 +4556,10 @@ for example, the <code class="docutils literal notranslate"><span class="pre">ar
 This function determines how to symbolically represent a given value. Consider breakpointing here if you suspect that a value is represented incorrectly.</p></li>
 </ul>
 <p>The second way to insert a breakpoint is to use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.comptime.comptime.breakpoint</span></code>:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._dynamo.comptime</span> <span class="kn">import</span> <span class="n">comptime</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.comptime</span><span class="w"> </span><span class="kn">import</span> <span class="n">comptime</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="n">comptime</span><span class="o">.</span><span class="n">breakpoint</span><span class="p">()</span>
     <span class="o">...</span>
@@ -4575,11 +4575,11 @@ It does not require you to insert a breakpoint in the Dynamo source or to condit
 <li><p><code class="docutils literal notranslate"><span class="pre">ctx.disas()</span></code> to print the currently traced function’s bytecode</p></li>
 <li><p>Use standard <code class="docutils literal notranslate"><span class="pre">pdb</span></code> commands, such as <code class="docutils literal notranslate"><span class="pre">bt/u/d/n/s/r</span></code>, - you can go up the <code class="docutils literal notranslate"><span class="pre">pdb</span></code> stack to inspect more Dynamo internals</p></li>
 </ul>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._dynamo.comptime</span> <span class="kn">import</span> <span class="n">comptime</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch._dynamo.comptime</span><span class="w"> </span><span class="kn">import</span> <span class="n">comptime</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;eager&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">comptime</span><span class="o">.</span><span class="n">breakpoint</span><span class="p">()</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span>

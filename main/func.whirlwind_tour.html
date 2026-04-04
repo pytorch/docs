@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5288,8 +5288,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6580,8 +6580,8 @@ allows us to express the above without designing a separate subsystem for each.<
 that computes the gradients of <code class="docutils literal notranslate"><span class="pre">func</span></code>. It assumes <code class="docutils literal notranslate"><span class="pre">func</span></code> returns a single-element
 Tensor and by default it computes the gradients of the output of <code class="docutils literal notranslate"><span class="pre">func</span></code> w.r.t.
 to the first input.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([])</span>
 <span class="n">cos_x</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cos_x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">())</span>
@@ -6602,12 +6602,12 @@ over some dimension (default: 0) of each Tensor in inputs.</p>
 <p>vmap is useful for hiding batch dimensions: one can write a function func that
 runs on examples and then lift it to a function that can take batches of
 examples with <code class="docutils literal notranslate"><span class="pre">vmap(func)</span></code>, leading to a simpler modeling experience:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">vmap</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">vmap</span>
 <span class="n">batch_size</span><span class="p">,</span> <span class="n">feature_size</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span>
 <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">feature_size</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">feature_vec</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">feature_vec</span><span class="p">):</span>
     <span class="c1"># Very simple linear model with activation</span>
     <span class="k">assert</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
@@ -6617,15 +6617,15 @@ examples with <code class="docutils literal notranslate"><span class="pre">vmap(
 </pre></div>
 </div>
 <p>When composed with <a class="reference internal" href="generated/torch.func.grad.html#torch.func.grad" title="torch.func.grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">grad()</span></code></a>, <a class="reference internal" href="generated/torch.func.vmap.html#torch.func.vmap" title="torch.func.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a> can be used to compute per-sample-gradients:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">vmap</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">vmap</span>
 <span class="n">batch_size</span><span class="p">,</span> <span class="n">feature_size</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span>
 
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">feature_vec</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">feature_vec</span><span class="p">):</span>
     <span class="c1"># Very simple linear model with activation</span>
     <span class="k">assert</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">feature_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">compute_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">example</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># MSELoss</span>
 
@@ -6641,7 +6641,7 @@ examples with <code class="docutils literal notranslate"><span class="pre">vmap(
 <h3><a class="reference internal" href="generated/torch.func.vjp.html#torch.func.vjp" title="torch.func.vjp"><code class="xref py py-func docutils literal notranslate"><span class="pre">vjp()</span></code></a> (vector-Jacobian product)<a class="headerlink" href="#vjp-vector-jacobian-product" title="Link to this heading">#</a></h3>
 <p>The <a class="reference internal" href="generated/torch.func.vjp.html#torch.func.vjp" title="torch.func.vjp"><code class="xref py py-func docutils literal notranslate"><span class="pre">vjp()</span></code></a> transform applies <code class="docutils literal notranslate"><span class="pre">func</span></code> to <code class="docutils literal notranslate"><span class="pre">inputs</span></code> and returns a new function
 that computes the vector-Jacobian product (vjp) given some <code class="docutils literal notranslate"><span class="pre">cotangents</span></code> Tensors.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">vjp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">vjp</span>
 
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span>
@@ -6656,7 +6656,7 @@ that computes the vector-Jacobian product (vjp) given some <code class="docutils
 <p>The <a class="reference internal" href="generated/torch.func.jvp.html#torch.func.jvp" title="torch.func.jvp"><code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code></a> transforms computes Jacobian-vector-products and is also known as
 “forward-mode AD”. It is not a higher-order function unlike most other transforms,
 but it returns the outputs of <code class="docutils literal notranslate"><span class="pre">func(inputs)</span></code> as well as the jvps.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">jvp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">jvp</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
@@ -6669,7 +6669,7 @@ but it returns the outputs of <code class="docutils literal notranslate"><span c
 <h3><a class="reference internal" href="generated/torch.func.jacrev.html#torch.func.jacrev" title="torch.func.jacrev"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacrev()</span></code></a>, <a class="reference internal" href="generated/torch.func.jacfwd.html#torch.func.jacfwd" title="torch.func.jacfwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacfwd()</span></code></a>, and <a class="reference internal" href="generated/torch.func.hessian.html#torch.func.hessian" title="torch.func.hessian"><code class="xref py py-func docutils literal notranslate"><span class="pre">hessian()</span></code></a><a class="headerlink" href="#jacrev-jacfwd-and-hessian" title="Link to this heading">#</a></h3>
 <p>The <a class="reference internal" href="generated/torch.func.jacrev.html#torch.func.jacrev" title="torch.func.jacrev"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacrev()</span></code></a> transform returns a new function that takes in <code class="docutils literal notranslate"><span class="pre">x</span></code> and returns
 the Jacobian of the function with respect to <code class="docutils literal notranslate"><span class="pre">x</span></code> using reverse-mode AD.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">jacrev</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">jacrev</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">jacobian</span> <span class="o">=</span> <span class="n">jacrev</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">expected</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -6684,7 +6684,7 @@ the Jacobian of the function with respect to <code class="docutils literal notra
 </div>
 <p><a class="reference internal" href="generated/torch.func.jacfwd.html#torch.func.jacfwd" title="torch.func.jacfwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacfwd()</span></code></a> is a drop-in replacement for jacrev that computes Jacobians using
 forward-mode AD:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">jacfwd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">jacfwd</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">jacobian</span> <span class="o">=</span> <span class="n">jacfwd</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">expected</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -6692,7 +6692,7 @@ forward-mode AD:</p>
 </pre></div>
 </div>
 <p>Composing <a class="reference internal" href="generated/torch.func.jacrev.html#torch.func.jacrev" title="torch.func.jacrev"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacrev()</span></code></a> with itself or <a class="reference internal" href="generated/torch.func.jacfwd.html#torch.func.jacfwd" title="torch.func.jacfwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">jacfwd()</span></code></a> can produce hessians:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -6701,9 +6701,9 @@ forward-mode AD:</p>
 </pre></div>
 </div>
 <p><a class="reference internal" href="generated/torch.func.hessian.html#torch.func.hessian" title="torch.func.hessian"><code class="xref py py-func docutils literal notranslate"><span class="pre">hessian()</span></code></a> is a convenience function that combines jacfwd and jacrev:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">hessian</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.func</span><span class="w"> </span><span class="kn">import</span> <span class="n">hessian</span>
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>

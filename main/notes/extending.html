@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3799,11 +3799,11 @@ finite-differencing.</p>
 <p>Below you can find code for a <code class="docutils literal notranslate"><span class="pre">Linear</span></code> function, with
 additional comments:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inherit from Function</span>
-<span class="k">class</span> <span class="nc">LinearFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LinearFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
 
     <span class="c1"># Note that forward, setup_context, and backward are @staticmethods</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
         <span class="n">output</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">+=</span> <span class="n">bias</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand_as</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
@@ -3812,13 +3812,13 @@ additional comments:</p>
     <span class="nd">@staticmethod</span>
     <span class="c1"># inputs is a Tuple of all of the inputs passed to forward.</span>
     <span class="c1"># output is the output of the forward().</span>
-    <span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
 
     <span class="c1"># This function has only a single output, so it gets only one gradient</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
         <span class="c1"># This is a pattern that is very convenient - at the top of backward</span>
         <span class="c1"># unpack saved_tensors and initialize all gradients w.r.t. inputs to</span>
         <span class="c1"># None. Thanks to the fact that additional trailing Nones are</span>
@@ -3848,45 +3848,45 @@ default arguments and keyword arguments:</p>
 <span class="n">linear</span> <span class="o">=</span> <span class="n">LinearFunction</span><span class="o">.</span><span class="n">apply</span>
 
 <span class="c1"># Option 2: wrap in a function, to support default args and keyword args.</span>
-<span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">LinearFunction</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here, we give an additional example of a function that is parametrized by
 non-Tensor arguments:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MulConstant</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MulConstant</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tensor</span> <span class="o">*</span> <span class="n">constant</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="c1"># ctx is a context object that can be used to stash information</span>
         <span class="c1"># for backward computation</span>
         <span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">constant</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
         <span class="c1"># We return as many input gradients as there were arguments.</span>
         <span class="c1"># Gradients of non-Tensor arguments to forward must be None.</span>
         <span class="k">return</span> <span class="n">grad_output</span> <span class="o">*</span> <span class="n">ctx</span><span class="o">.</span><span class="n">constant</span><span class="p">,</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <p>And here, we optimize the above example by calling set_materialize_grads(False):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MulConstant</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MulConstant</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tensor</span> <span class="o">*</span> <span class="n">constant</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="n">tensor</span><span class="p">,</span> <span class="n">constant</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">set_materialize_grads</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">constant</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
         <span class="c1"># Here we must handle None grad_output tensor. In this case we</span>
         <span class="c1"># can skip unnecessary computations and just return None.</span>
         <span class="k">if</span> <span class="n">grad_output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -3901,17 +3901,17 @@ non-Tensor arguments:</p>
 the backward pass. This function computes two matrix multiplications, and in backward
 we free the intermediate tensor after computing its gradient but before computing
 the remaining gradients:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TwoMatmuls</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">TwoMatmuls</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="n">clear_saved_tensors_on_access</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">weight1</span><span class="p">,</span> <span class="n">weight2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">weight1</span><span class="p">,</span> <span class="n">weight2</span><span class="p">):</span>
         <span class="n">inter</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">weight1</span><span class="p">)</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight1</span><span class="p">,</span> <span class="n">inter</span><span class="p">,</span> <span class="n">weight2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">inter</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">weight2</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">weight1</span><span class="p">,</span> <span class="n">inter</span><span class="p">,</span> <span class="n">weight2</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
 
         <span class="c1"># Compute gradients for second matmul</span>
@@ -3935,9 +3935,9 @@ Note that this means if you want gradients to flow through those intermediate va
 need to define the gradient formula for them (see also
 <a class="reference external" href="https://pytorch.org/tutorials/intermediate/custom_function_double_backward_tutorial.html">the double backward tutorial</a>
 ):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCube</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyCube</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="c1"># We wish to save dx for backward. In order to do so, it must</span>
         <span class="c1"># be returned as an output.</span>
         <span class="n">dx</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
@@ -3945,13 +3945,13 @@ need to define the gradient formula for them (see also
         <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">dx</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="n">result</span><span class="p">,</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">output</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_dx</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_dx</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
         <span class="c1"># In order for the autograd.Function to work with higher-order</span>
         <span class="c1"># gradients, we must add the gradient contribution of `dx`,</span>
@@ -3960,7 +3960,7 @@ need to define the gradient formula for them (see also
         <span class="k">return</span> <span class="n">result</span>
 
 <span class="c1"># Wrap MyCube in a function so that it is clearer what the output is</span>
-<span class="k">def</span> <span class="nf">my_cube</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_cube</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">result</span><span class="p">,</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">MyCube</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
 </pre></div>
@@ -3980,7 +3980,7 @@ make it an output of the custom <code class="docutils literal notranslate"><span
 <p>You probably want to check if the backward method you implemented actually
 computes the derivatives of your function. It is possible by comparing with
 numerical approximations using small finite differences:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">gradcheck</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.autograd</span><span class="w"> </span><span class="kn">import</span> <span class="n">gradcheck</span>
 
 <span class="c1"># gradcheck takes a tuple of tensors as input, check if your gradient</span>
 <span class="c1"># evaluated with these tensors are close enough to numerical</span>
@@ -4010,10 +4010,10 @@ you are able to save intermediates without returning them as output.</p>
 <a class="reference internal" href="../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward" title="torch.autograd.Function.forward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">forward()</span></code></a> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">setup_context()</span></code>.</p>
 <p>Here is an example of how to define a <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> with combined <a class="reference internal" href="../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward" title="torch.autograd.Function.forward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">forward()</span></code></a> and
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">setup_context()</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LinearFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
     <span class="c1"># ctx is the first argument to forward</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># The forward pass can use ctx.</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
@@ -4022,7 +4022,7 @@ you are able to save intermediates without returning them as output.</p>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
         <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
         <span class="n">grad_input</span> <span class="o">=</span> <span class="n">grad_weight</span> <span class="o">=</span> <span class="n">grad_bias</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -4093,8 +4093,8 @@ uses it to perform the operation. It’s very similar to a functional wrapper
 shown above.</p></li>
 </ul>
 <p>This is how a <code class="docutils literal notranslate"><span class="pre">Linear</span></code> module can be implemented:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Linear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="p">,</span> <span class="n">output_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Linear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="p">,</span> <span class="n">output_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_features</span> <span class="o">=</span> <span class="n">input_features</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_features</span> <span class="o">=</span> <span class="n">output_features</span>
@@ -4119,11 +4119,11 @@ shown above.</p></li>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="c1"># See the autograd section for explanation of what happens here.</span>
         <span class="k">return</span> <span class="n">LinearFunction</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># (Optional)Set the extra information about this module. You can test</span>
         <span class="c1"># it by printing an object of this class.</span>
         <span class="k">return</span> <span class="s1">&#39;input_features=</span><span class="si">{}</span><span class="s1">, output_features=</span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -4161,15 +4161,15 @@ more details.</p>
 API dispatch mechanism. We’ll create a custom type that represents a 2D scalar
 tensor, parametrized by the order <code class="docutils literal notranslate"><span class="pre">N</span></code> and value along the diagonal entries,
 <code class="docutils literal notranslate"><span class="pre">value</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ScalarTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ScalarTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
 
-   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
        <span class="k">return</span> <span class="s2">&quot;ScalarTensor(N=</span><span class="si">{}</span><span class="s2">, value=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
 
-   <span class="k">def</span> <span class="nf">tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="nf">tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -4189,7 +4189,7 @@ tensor than in the base tensor class:</p>
 </div>
 <p>If we try to use this object with the <a class="reference internal" href="../torch.html#module-torch" title="torch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code></a> API, we will run
 into issues:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 <span class="go">TypeError: mean(): argument &#39;input&#39; (position 1) must be Tensor, not ScalarTensor</span>
 </pre></div>
@@ -4198,19 +4198,19 @@ into issues:</p>
 possible for the above operation to succeed. Let’s re-do our implementation,
 this time adding a <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> implementation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HANDLED_FUNCTIONS</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">class</span> <span class="nc">ScalarTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScalarTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;ScalarTensor(N=</span><span class="si">{}</span><span class="s2">, value=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HANDLED_FUNCTIONS</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
@@ -4240,10 +4240,10 @@ thing when we pass it a <code class="docutils literal notranslate"><span class="
 implementation for <code class="docutils literal notranslate"><span class="pre">torch.mean</span></code> for <code class="docutils literal notranslate"><span class="pre">ScalarTensor</span></code> operands and add the
 implementation to the <code class="docutils literal notranslate"><span class="pre">HANDLED_FUNCTIONS</span></code> dispatch table dictionary. One way
 of doing this is to define a decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
-<span class="k">def</span> <span class="nf">implements</span><span class="p">(</span><span class="n">torch_function</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">implements</span><span class="p">(</span><span class="n">torch_function</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Register a torch function override for ScalarTensor&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="n">functools</span><span class="o">.</span><span class="n">update_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch_function</span><span class="p">)</span>
         <span class="n">HANDLED_FUNCTIONS</span><span class="p">[</span><span class="n">torch_function</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
         <span class="k">return</span> <span class="n">func</span>
@@ -4252,7 +4252,7 @@ of doing this is to define a decorator:</p>
 </div>
 <p>which can be applied to the implementation of our override:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@implements</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span> <span class="o">/</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span>
 </pre></div>
 </div>
@@ -4267,13 +4267,13 @@ override since it only takes one operand. We can use the same machinery to
 override a function that takes more than one operand, any one of which might be
 a tensor or tensor-like that defines <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>, for example for
 <a class="reference internal" href="../generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ensure_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ensure_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ScalarTensor</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">tensor</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="nd">@implements</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
    <span class="k">try</span><span class="p">:</span>
        <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_N</span><span class="p">:</span>
            <span class="k">return</span> <span class="n">ScalarTensor</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="nb">input</span><span class="o">.</span><span class="n">_value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
@@ -4330,7 +4330,7 @@ handled but to instead pass a <code class="xref py py-class docutils literal not
 function when no override is available. For example, if we change our
 implementation of <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> for <code class="docutils literal notranslate"><span class="pre">ScalarTensor</span></code> to the one below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
-<span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HANDLED_FUNCTIONS</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
@@ -4368,7 +4368,7 @@ of a function from <code class="docutils literal notranslate"><span class="pre">
 <p>As of version 1.7.0, methods on <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> and functions in public
 <code class="docutils literal notranslate"><span class="pre">torch.*</span></code> namespaces applied on <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> subclasses
 will return subclass instances instead of <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> instances:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SubTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">SubTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SubTensor</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">SubTensor</span><span class="p">([</span><span class="mi">1</span><span class="p">])))</span><span class="o">.</span><span class="vm">__name__</span>
 <span class="go">&#39;SubTensor&#39;</span>
@@ -4392,9 +4392,9 @@ default. If there is no unique way to determine such a case, then a
 <p>If one wishes to have a global override for all tensor methods, one can use
 <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>. Here is an example that logs all function/method
 calls:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LoggingTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LoggingTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># NOTE: Logging calls Tensor.__repr__, so we can&#39;t log __repr__ without infinite recursion</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;func: </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, args: </span><span class="si">{</span><span class="n">args</span><span class="si">!r}</span><span class="s2">, kwargs: </span><span class="si">{</span><span class="n">kwargs</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -4422,16 +4422,16 @@ type, a <code class="docutils literal notranslate"><span class="pre">MetadataTen
 is a generic sort of wrapping for the full <a class="reference internal" href="../torch.html#module-torch" title="torch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code></a> API, we do not need to
 individually implement each override so we can make the <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>
 implementation more permissive about what operations are allowed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MetadataTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MetadataTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="n">metadata</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;Metadata:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n\n</span><span class="s2">data:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">metadatas</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">_metadata</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;_metadata&#39;</span><span class="p">))</span>
@@ -4494,7 +4494,7 @@ keys are namespaces in the <code class="docutils literal notranslate"><span clas
 functions in that namespace that can be overridden. For example, let’s print the
 names of the first 5 functions in <code class="docutils literal notranslate"><span class="pre">torch.nn.functional</span></code> that can be
 overridden:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.overrides</span> <span class="kn">import</span> <span class="n">get_overridable_functions</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.overrides</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_overridable_functions</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func_dict</span> <span class="o">=</span> <span class="n">get_overridable_functions</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nn_funcs</span> <span class="o">=</span> <span class="n">func_dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">nn_funcs</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
@@ -4511,8 +4511,8 @@ overridable functions in the <code class="docutils literal notranslate"><span cl
 the same signature as the original function but unconditionally return -1. These
 functions are most useful to use with <code class="docutils literal notranslate"><span class="pre">inspect</span></code> to analyze the function
 signature of the original <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspect</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.overrides</span> <span class="kn">import</span> <span class="n">get_testing_overrides</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.overrides</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_testing_overrides</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">override_dict</span> <span class="o">=</span> <span class="n">get_testing_overrides</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dummy_add</span> <span class="o">=</span> <span class="n">override_dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">dummy_add</span><span class="p">)</span>
@@ -4566,7 +4566,7 @@ Some more exotic functions or features are also registered in other places in th
 <section id="torch-dispatch-calling-convention">
 <span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code> calling convention<a class="headerlink" href="#torch-dispatch-calling-convention" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
-<span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
@@ -4592,21 +4592,21 @@ are not passed, it will not be passed.</p></li>
 This means in particular that all modes handlers will be called before any subclass handler and that modes corresponding to the inner context manager will always run first.</p>
 <p>It is also important to note that within a given mode handler, this specific mode is disabled and can be re-enabled manually by doing <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">self:</span></code>.</p>
 <p>Here is an example that shows logging modes of each type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.overrides</span> <span class="kn">import</span> <span class="n">TorchFunctionMode</span><span class="p">,</span> <span class="n">resolve_name</span>
-<span class="kn">from</span> <span class="nn">torch.utils._python_dispatch</span> <span class="kn">import</span> <span class="n">TorchDispatchMode</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.overrides</span><span class="w"> </span><span class="kn">import</span> <span class="n">TorchFunctionMode</span><span class="p">,</span> <span class="n">resolve_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils._python_dispatch</span><span class="w"> </span><span class="kn">import</span> <span class="n">TorchDispatchMode</span>
 
-<span class="k">class</span> <span class="nc">FunctionLog</span><span class="p">(</span><span class="n">TorchFunctionMode</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FunctionLog</span><span class="p">(</span><span class="n">TorchFunctionMode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function Log: </span><span class="si">{</span><span class="n">resolve_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="si">}</span><span class="s2">(*</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">, **</span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}))</span>
 
-<span class="k">class</span> <span class="nc">DispatchLog</span><span class="p">(</span><span class="n">TorchDispatchMode</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DispatchLog</span><span class="p">(</span><span class="n">TorchDispatchMode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dispatch Log: </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2">(*</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">, **</span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}))</span>
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">():</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
     <span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>

@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -60,7 +60,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="torch.dynamic-value" href="torch.dynamic-value.html" />
-    <link rel="prev" title="torch.cond" href="torch.cond.html" />
+    <link rel="prev" title="torch.dynamic-shape" href="torch.dynamic-shape.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git1781f63 )">
+<meta name="llm:version" content="main (2.12.0a0+git566c416 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git1781f63 )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git566c416 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,8 +3442,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -3665,20 +3665,20 @@ document.write(`
 </div>
 <p>Original source code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functorch.experimental.control_flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">cond</span>
 
-<span class="k">class</span> <span class="nc">CondClosedOverVariable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CondClosedOverVariable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    torch.cond() supports branches closed over arbitrary variables.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">true_fn</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
 
-        <span class="k">def</span> <span class="nf">false_fn</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">false_fn</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
@@ -3693,8 +3693,8 @@ document.write(`
 </div>
 <p>Result:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
-    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="s2">&quot;b8[]&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="s2">&quot;b8[]&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
                 <span class="n">add</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="n">add</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">true_graph_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_graph_0</span>
             <span class="n">false_graph_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">false_graph_0</span>
@@ -3702,13 +3702,13 @@ document.write(`
             <span class="n">getitem</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">cond</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>  <span class="n">cond</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">getitem</span><span class="p">,)</span>
 
-        <span class="k">class</span> <span class="nc">true_graph_0</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-            <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">true_graph_0</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
                         <span class="n">mul</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">return</span> <span class="p">(</span><span class="n">mul</span><span class="p">,)</span>
 
-        <span class="k">class</span> <span class="nc">false_graph_0</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-            <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">false_graph_0</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">):</span>
                         <span class="n">sub</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">return</span> <span class="p">(</span><span class="n">sub</span><span class="p">,)</span>
 
@@ -3733,19 +3733,19 @@ document.write(`
 </div>
 <p>Original source code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="k">class</span> <span class="nc">NestedFunction</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NestedFunction</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Nested functions are traced through. Side effects on global captures</span>
 <span class="sd">    are not supported though.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-        <span class="k">def</span> <span class="nf">closure</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
             <span class="k">nonlocal</span> <span class="n">x</span>
             <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
@@ -3762,8 +3762,8 @@ document.write(`
 </div>
 <p>Result:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
-    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="s2">&quot;f32[2]&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="s2">&quot;f32[2]&quot;</span><span class="p">):</span>
                 <span class="n">add</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
                 <span class="n">sub</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>  <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="kc">None</span>
@@ -3831,12 +3831,12 @@ document.write(`
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cond.html"
+       href="torch.dynamic-shape.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
     </a>
     <a class="right-next"
@@ -3870,12 +3870,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cond.html"
+       href="torch.dynamic-shape.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
     </a>
     <a class="right-next"
