@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git874a17d )">
+<meta name="llm:version" content="main (2.12.0a0+gitdaa5058 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git874a17d )');
+  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+gitdaa5058 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5093,6 +5093,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.change_current_allocator.html">torch.cuda.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.MemPool.html">MemPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
@@ -6554,7 +6555,7 @@ document.write(`
 <h1>torch.nn.utils.memory_format.convert_conv3d_weight_memory_format<a class="headerlink" href="#torch-nn-utils-memory-format-convert-conv3d-weight-memory-format" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.memory_format.convert_conv3d_weight_memory_format">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.memory_format.</span></span><span class="sig-name descname"><span class="pre">convert_conv3d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/874a17dc2ad591c8f23d61e13b3ef2f8e995afa8/torch/nn/utils/memory_format.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.memory_format.convert_conv3d_weight_memory_format" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.memory_format.</span></span><span class="sig-name descname"><span class="pre">convert_conv3d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/daa505864efb7086d31dcb7f3f3ed358fa0d0416/torch/nn/utils/memory_format.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.memory_format.convert_conv3d_weight_memory_format" title="Link to this definition">#</a></dt>
 <dd><p>Convert <code class="docutils literal notranslate"><span class="pre">memory_format</span></code> of <code class="docutils literal notranslate"><span class="pre">nn.Conv3d.weight</span></code> to <code class="docutils literal notranslate"><span class="pre">memory_format</span></code>
 The conversion recursively applies to nested <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, including <code class="docutils literal notranslate"><span class="pre">module</span></code>.
 Note that it only changes the memory_format, but not the semantics of each dimensions.
