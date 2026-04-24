@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Advanced Options to Control Dynamic Behavior - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3662,7 +3665,6 @@ document.write(`
                   
   <section id="advanced-options-to-control-dynamic-behavior">
 <span id="dynamic-shapes-advanced-control-options"></span><h1>Advanced Options to Control Dynamic Behavior<a class="headerlink" href="#advanced-options-to-control-dynamic-behavior" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 22, 2025 | Last Updated On: Dec 03, 2025</p>
 <p>PyTorch provides several advanced options to control dynamic behavior.
 These options requires a deep understanding of the PyTorch internals and
 may inlvolve setting additional tools. These options include:</p>
@@ -4220,10 +4222,10 @@ call  to a Triton kernel. To identify the reason for specialization:</p>
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4274,7 +4276,7 @@ call  to a Triton kernel. To identify the reason for specialization:</p>
        "headline": "Advanced Options to Control Dynamic Behavior",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/dynamic_shapes_advanced_control_options.html",
-       "articleBody": "Advanced Options to Control Dynamic Behavior# Created On: Sep 22, 2025 | Last Updated On: Dec 03, 2025 PyTorch provides several advanced options to control dynamic behavior. These options requires a deep understanding of the PyTorch internals and may inlvolve setting additional tools. These options include: Profile-Guided Optimization (PGO) is a technique that allows the compiler to save automatic dynamic decisions and reuse them across jobs. Compiler Collective is a feature that is used to modify automatic dynamic shapes behavior by inferring if an input is dynamic based on whether its size varies across ranks. Profile-Guided Optimization (PGO)# Profile-Guided Optimization (PGO) enhances automatic dynamic by sharing profiling decisions across runs of your model. Specifically, it serializes all the choices made by automatic dynamic into a file on disk. You can then copy this file\u2014or store it in a centralized metadata service like S3\u2014and reuse it on other machines to ensure consistent behavior across environments. For the purposes of the rest of this tutorial, you can use the following environmental variables to turn on PGO locally TORCH_COMPILE_JOB_ID=1 TORCH_DYNAMO_AUTOMATIC_DYNAMIC_LOCAL_PGO=1 Identifying Dynamic Elements Marked by PGO# Use tlparse to find line numbers of interest and check for multiple values seen for inputs. To determine which elements are marked as dynamic by Profile-Guided Optimization (PGO), follow these steps using tlparse: In the tlparse output, identify the line number of the frame of interest. Example: Open local_code using put_local_code_state_ or put_remote_code_state_ for the latest frame (for example, 6/1). Each ? indicates that multiple values have been observed for this input. For instance, the following output shows that the input L[\u0027m\u0027] has been seen with multiple sizes at size[0], but the stride has consistently been 1: /data/users/bobren/a/pytorch/r2.py:2:func: L[\u0027m\u0027]: fully dynamic scalar or tensor L[\u0027x\u0027]: tensor size=[?] stride=[1] L[\u0027y\u0027]: tensor size=[?] stride=[1] L[\u0027z\u0027]: tensor size=[?] stride=[1] Note If an element is marked as dynamic by PGO, it does not guarantee that it will remain dynamic in the graph. Specialization can revert it to a static state. Compiler Collective# Different ranks can communicate with each other to share observed sizes. In the second iteration, automatic dynamic uses this information to determine which elements to mark as dynamic based on inputs seen across all ranks. Check this PR for more details. To enable this feature, use enable_compiler_collectives=True with the @config.patch decorator. @config.patch(enable_compiler_collectives=True) Note This feature enables the use of collectives during compilation to synchronize behavior across ranks. Currently, it is used to modify automatic dynamic shapes behavior by inferring if an input is dynamic based on whether its size varies across ranks. Since this synchronization uses collectives, all ranks must run compilation simultaneously; ranks must not diverge with graph breaks. This is most reliably achieved by ensuring torch is only run on SPMD programs. Violating this invariant may result in deadlocking NCCL and encountering a NCCL timeout. Reducing Compilations: Step by Step# If you have a model that you can run on your master job and have a tlparse, here\u2019s whatyou should do next: Step 1: Mark Dynamic Elements# The first step is to reduce initial compilations that are eventually optimized away by automatic dynamic or PGO. This is straightforward because we know it will work upfront. If, in one run, a frame starts with static graphs and converges to dynamic graphs, and if you notice a reduction in the number of compiled frames in a second (warm) PGO-enabled run, it\u2019s likely due to this optimization. This is a two-step process: Find elements marked as dynamic by PGO or automatic dynamic. Mark them as dynamic using one of the User Annotations. How to Identify Elements to Mark as Dynamic# Follow these guidelines: PGO artifact: Follow the steps in Identifying Dynamic Elements Marked by PGO. Dynamic Logs: If you have a run with TORCH_LOGS=\"+dynamic\", each time a new dynamic dimension is allocated, a debug line will specify it along with the input name. Compare Graphs: For frames with reduced compilations across runs, inspect the Dynamo graphs in the second run or the latest runs in the cold run. Look for elements marked as dynamic in those graphs. Specifically, find graphs that are similar (once specialized and once dynamic). Even without a warm run, you can inspect all graphs for a specific frame to see if some are similar and converge to a dynamic version. For example, in the following tlparse snapshot, Dynamo graphs 20/0, 20/1, and 20/2 are similar except for different sizes (for example, graph 20/0 vs. graph 20/2). In the Dynamo graph of 20/2, sizes s0, s1, and s5 are used for rotary_pos_emb_ and x. Tip Two graphs are considered similar if they have the same sequence of calls for torch operations and the same tensor inputs. Variations may exist in integer inputs that could be inlined in the specialized version or arithmetic computations that only exist in the dynamic version due to inlining in the static version. Step 2: Debugging: Identifying Missed Opportunities# The complexity of debugging can vary greatly depending on the issues you encounter. The end result is often to find a bug, enable a flag, or modify user/framework code. Finding Similar Graphs# Start by identifying a group of similar graphs that you might want to combine into one dynamic graph, as discussed in the previous section on comparing graphs. If you can\u2019t find any similar graphs, there\u2019s nothing further to do in this step. Quick Checks: Fail Fast# After finding similar graphs, you want to understand why the have recompilations. Check the following: Check Recompile Reasons: For graphs you believe are similar, click on recompile_reason in the tlparse output for the later graph. Ensure the reason is size-related and not due to other factors. For example, while in these screenshot the recomplile reason is size-related: In the one below it is not, which indicates that dynamic shapes won\u2019t resolve it: Compare Guards Files: Ensure there are no guards on non-size-related elementsthat exist in one graph but not the others. Early Check for Custom Triton Kernels: Check if your model calls custom Triton kernels with tl.constexpr arguments, as these are always specialized. If your model receives different values for these arguments, it could be a source of recompilation. Identifying and Fixing Recompilation Causes# Is Something Not Marked Dynamic but Should Be? Determine if an input was marked dynamic and got specialized or was not marked dynamic at all. You can identify this by: Checking the Dynamo graph - look for Sym(number). For example: Sym(256) vs Sym(s0) Using dynamic logs: [\"TORCH_LOGS=+dynamic\"] create_symbol s2 = 2 for L[\u0027self\u0027]._modules[\u0027cle ... Reviewing guards files. If a tensor size is dynamic, it will be indicated as None: TENSOR_MATCH:check_tensor(L[\u0027self\u0027].x._parameters[\u0027weight\u0027]], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[None, None], stride=[None, 1]) Why Is It Not Marked Dynamic? If you determine an element is not marked dynamic, consider: Checking if it\u2019s an nn module property, parameter, or field. Verify setting for the flags: force_parameter_static_shapes = True force_nn_module_property_static_shapes = True allow_unspec_int_on_nn_module = False Or using the dynamic allow list to mark it dynamic, which should have the highest priority. Tip Marking elements one by one can be time-consuming. Initially, flip the flags to identify any blocking specializations, then decide how to mark them dynamic at the end of the process. If you feel, like it could be a bug, please file a bug report and mark with the module: dynamic shapes label. Check the list of known issues in this list. Is a Dynamic Element Getting Specialized? Determine why it is specialized. It could be due to user code (such as an if condition), framework code, or a call to a Triton kernel. To identify the reason for specialization: Using tlparse: Check the compilation_metrics for a specialization section, which will indicate what got specialized and the user and framework stack when it happened. Example: The log above indicates that s0 is specialized to 33 due to the following code: `if self.x ==33` at example4.py line 16. +Dynamic Logs: pass [\"TORCH_LOGS=+dynamic\"]. Look for the first specialization, as once a variable is specialized, all dependent variables get specialized too. Example log: torch/fx/experimental/symbolic_shapes.py:6557] [0/2] eval Eq(s0, 33) [guard added] if self.x ==33: # example4.py:16 in forward (_dynamo/variables/tensor.py:1242 in evaluate_expr), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED=\"Eq(s0, 33)\" V0228 12:04:24.190000 2990033 torch/fx/experimental/symbolic_shapes.py:6000] [0/2] _update_var_to_range s0 = VR[33, 33] (update) The log above indicates that s0 is specialized to 33 due to the following code: if self.x ==33. At example4.py like 16.",
+       "articleBody": "Advanced Options to Control Dynamic Behavior# PyTorch provides several advanced options to control dynamic behavior. These options requires a deep understanding of the PyTorch internals and may inlvolve setting additional tools. These options include: Profile-Guided Optimization (PGO) is a technique that allows the compiler to save automatic dynamic decisions and reuse them across jobs. Compiler Collective is a feature that is used to modify automatic dynamic shapes behavior by inferring if an input is dynamic based on whether its size varies across ranks. Profile-Guided Optimization (PGO)# Profile-Guided Optimization (PGO) enhances automatic dynamic by sharing profiling decisions across runs of your model. Specifically, it serializes all the choices made by automatic dynamic into a file on disk. You can then copy this file\u2014or store it in a centralized metadata service like S3\u2014and reuse it on other machines to ensure consistent behavior across environments. For the purposes of the rest of this tutorial, you can use the following environmental variables to turn on PGO locally TORCH_COMPILE_JOB_ID=1 TORCH_DYNAMO_AUTOMATIC_DYNAMIC_LOCAL_PGO=1 Identifying Dynamic Elements Marked by PGO# Use tlparse to find line numbers of interest and check for multiple values seen for inputs. To determine which elements are marked as dynamic by Profile-Guided Optimization (PGO), follow these steps using tlparse: In the tlparse output, identify the line number of the frame of interest. Example: Open local_code using put_local_code_state_ or put_remote_code_state_ for the latest frame (for example, 6/1). Each ? indicates that multiple values have been observed for this input. For instance, the following output shows that the input L[\u0027m\u0027] has been seen with multiple sizes at size[0], but the stride has consistently been 1: /data/users/bobren/a/pytorch/r2.py:2:func: L[\u0027m\u0027]: fully dynamic scalar or tensor L[\u0027x\u0027]: tensor size=[?] stride=[1] L[\u0027y\u0027]: tensor size=[?] stride=[1] L[\u0027z\u0027]: tensor size=[?] stride=[1] Note If an element is marked as dynamic by PGO, it does not guarantee that it will remain dynamic in the graph. Specialization can revert it to a static state. Compiler Collective# Different ranks can communicate with each other to share observed sizes. In the second iteration, automatic dynamic uses this information to determine which elements to mark as dynamic based on inputs seen across all ranks. Check this PR for more details. To enable this feature, use enable_compiler_collectives=True with the @config.patch decorator. @config.patch(enable_compiler_collectives=True) Note This feature enables the use of collectives during compilation to synchronize behavior across ranks. Currently, it is used to modify automatic dynamic shapes behavior by inferring if an input is dynamic based on whether its size varies across ranks. Since this synchronization uses collectives, all ranks must run compilation simultaneously; ranks must not diverge with graph breaks. This is most reliably achieved by ensuring torch is only run on SPMD programs. Violating this invariant may result in deadlocking NCCL and encountering a NCCL timeout. Reducing Compilations: Step by Step# If you have a model that you can run on your master job and have a tlparse, here\u2019s whatyou should do next: Step 1: Mark Dynamic Elements# The first step is to reduce initial compilations that are eventually optimized away by automatic dynamic or PGO. This is straightforward because we know it will work upfront. If, in one run, a frame starts with static graphs and converges to dynamic graphs, and if you notice a reduction in the number of compiled frames in a second (warm) PGO-enabled run, it\u2019s likely due to this optimization. This is a two-step process: Find elements marked as dynamic by PGO or automatic dynamic. Mark them as dynamic using one of the User Annotations. How to Identify Elements to Mark as Dynamic# Follow these guidelines: PGO artifact: Follow the steps in Identifying Dynamic Elements Marked by PGO. Dynamic Logs: If you have a run with TORCH_LOGS=\"+dynamic\", each time a new dynamic dimension is allocated, a debug line will specify it along with the input name. Compare Graphs: For frames with reduced compilations across runs, inspect the Dynamo graphs in the second run or the latest runs in the cold run. Look for elements marked as dynamic in those graphs. Specifically, find graphs that are similar (once specialized and once dynamic). Even without a warm run, you can inspect all graphs for a specific frame to see if some are similar and converge to a dynamic version. For example, in the following tlparse snapshot, Dynamo graphs 20/0, 20/1, and 20/2 are similar except for different sizes (for example, graph 20/0 vs. graph 20/2). In the Dynamo graph of 20/2, sizes s0, s1, and s5 are used for rotary_pos_emb_ and x. Tip Two graphs are considered similar if they have the same sequence of calls for torch operations and the same tensor inputs. Variations may exist in integer inputs that could be inlined in the specialized version or arithmetic computations that only exist in the dynamic version due to inlining in the static version. Step 2: Debugging: Identifying Missed Opportunities# The complexity of debugging can vary greatly depending on the issues you encounter. The end result is often to find a bug, enable a flag, or modify user/framework code. Finding Similar Graphs# Start by identifying a group of similar graphs that you might want to combine into one dynamic graph, as discussed in the previous section on comparing graphs. If you can\u2019t find any similar graphs, there\u2019s nothing further to do in this step. Quick Checks: Fail Fast# After finding similar graphs, you want to understand why the have recompilations. Check the following: Check Recompile Reasons: For graphs you believe are similar, click on recompile_reason in the tlparse output for the later graph. Ensure the reason is size-related and not due to other factors. For example, while in these screenshot the recomplile reason is size-related: In the one below it is not, which indicates that dynamic shapes won\u2019t resolve it: Compare Guards Files: Ensure there are no guards on non-size-related elementsthat exist in one graph but not the others. Early Check for Custom Triton Kernels: Check if your model calls custom Triton kernels with tl.constexpr arguments, as these are always specialized. If your model receives different values for these arguments, it could be a source of recompilation. Identifying and Fixing Recompilation Causes# Is Something Not Marked Dynamic but Should Be? Determine if an input was marked dynamic and got specialized or was not marked dynamic at all. You can identify this by: Checking the Dynamo graph - look for Sym(number). For example: Sym(256) vs Sym(s0) Using dynamic logs: [\"TORCH_LOGS=+dynamic\"] create_symbol s2 = 2 for L[\u0027self\u0027]._modules[\u0027cle ... Reviewing guards files. If a tensor size is dynamic, it will be indicated as None: TENSOR_MATCH:check_tensor(L[\u0027self\u0027].x._parameters[\u0027weight\u0027]], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[None, None], stride=[None, 1]) Why Is It Not Marked Dynamic? If you determine an element is not marked dynamic, consider: Checking if it\u2019s an nn module property, parameter, or field. Verify setting for the flags: force_parameter_static_shapes = True force_nn_module_property_static_shapes = True allow_unspec_int_on_nn_module = False Or using the dynamic allow list to mark it dynamic, which should have the highest priority. Tip Marking elements one by one can be time-consuming. Initially, flip the flags to identify any blocking specializations, then decide how to mark them dynamic at the end of the process. If you feel, like it could be a bug, please file a bug report and mark with the module: dynamic shapes label. Check the list of known issues in this list. Is a Dynamic Element Getting Specialized? Determine why it is specialized. It could be due to user code (such as an if condition), framework code, or a call to a Triton kernel. To identify the reason for specialization: Using tlparse: Check the compilation_metrics for a specialization section, which will indicate what got specialized and the user and framework stack when it happened. Example: The log above indicates that s0 is specialized to 33 due to the following code: `if self.x ==33` at example4.py line 16. +Dynamic Logs: pass [\"TORCH_LOGS=+dynamic\"]. Look for the first specialization, as once a variable is specialized, all dependent variables get specialized too. Example log: torch/fx/experimental/symbolic_shapes.py:6557] [0/2] eval Eq(s0, 33) [guard added] if self.x ==33: # example4.py:16 in forward (_dynamo/variables/tensor.py:1242 in evaluate_expr), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED=\"Eq(s0, 33)\" V0228 12:04:24.190000 2990033 torch/fx/experimental/symbolic_shapes.py:6000] [0/2] _update_var_to_range s0 = VR[33, 33] (update) The log above indicates that s0 is specialized to 33 due to the following code: if self.x ==33. At example4.py like 16.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4285,8 +4287,8 @@ call  to a Triton kernel. To identify the reason for specialization:</p>
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/dynamic_shapes_advanced_control_options.html"
        },
-       "datePublished": "Sep 22, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

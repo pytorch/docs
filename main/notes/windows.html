@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Windows FAQ - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/torch_compiler/compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../user_guide/torch_compiler/troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3645,7 +3648,6 @@ document.write(`
                   
   <section id="windows-faq">
 <h1>Windows FAQ<a class="headerlink" href="#windows-faq" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 23, 2018 | Last Updated On: May 20, 2025</p>
 <section id="building-from-source">
 <h2>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading">#</a></h2>
 <section id="include-optional-components">
@@ -4180,10 +4182,10 @@ tensors cannot succeed, there are two alternatives for this.</p>
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4234,7 +4236,7 @@ tensors cannot succeed, there are two alternatives for this.</p>
        "headline": "Windows FAQ",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/windows.html",
-       "articleBody": "Windows FAQ# Created On: Apr 23, 2018 | Last Updated On: May 20, 2025 Building from source# Include optional components# There are two supported components for Windows PyTorch: MKL and MAGMA. Here are the steps to build with them. REM Make sure you have 7z and curl installed. REM Download MKL files curl https://s3.amazonaws.com/ossci-windows/mkl_2020.2.254.7z -k -O 7z x -aoa mkl_2020.2.254.7z -omkl REM Download MAGMA files REM version available: REM 2.5.4 (CUDA 10.1 10.2 11.0 11.1) x (Debug Release) REM 2.5.3 (CUDA 10.1 10.2 11.0) x (Debug Release) REM 2.5.2 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) REM 2.5.1 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) set \"CUDA_PREFIX=cuda102\" set \"CONFIG=release\" set \"HOST=https://s3.amazonaws.com/ossci-windows\" curl -k \"%HOST%/magma_2.5.4_%CUDA_PREFIX%_%CONFIG%.7z\" -o magma.7z 7z x -aoa magma.7z -omagma REM Setting essential environment variables set \"CMAKE_INCLUDE_PATH=%cd%\\mkl\\include\" set \"LIB=%cd%\\mkl\\lib;%LIB%\" set \"MAGMA_HOME=%cd%\\magma\" Speeding CUDA build for Windows# Visual Studio doesn\u2019t support parallel custom task currently. As an alternative, we can use Ninja to parallelize CUDA build tasks. It can be used by typing only a few lines of code. REM Let\u0027s install ninja first. pip install ninja REM Set it as the cmake generator set CMAKE_GENERATOR=Ninja One key install script# You can take a look at this set of scripts. It will lead the way for you. Extension# CFFI Extension# The support for CFFI Extension is very experimental. You must specify additional libraries in Extension object to make it build on Windows. ffi = create_extension( \u0027_ext.my_lib\u0027, headers=headers, sources=sources, define_macros=defines, relative_to=__file__, with_cuda=with_cuda, extra_compile_args=[\"-std=c99\"], libraries=[\u0027ATen\u0027, \u0027_C\u0027] # Append cuda libraries when necessary, like cudart ) Cpp Extension# This type of extension has better support compared with the previous one. However, it still needs some manual configuration. First, you should open the x86_x64 Cross Tools Command Prompt for VS 2017. And then, you can start your compiling process. Installation# Package not found in win-32 channel.# Solving environment: failed PackagesNotFoundError: The following packages are not available from current channels: - pytorch Current channels: - https://repo.continuum.io/pkgs/main/win-32 - https://repo.continuum.io/pkgs/main/noarch - https://repo.continuum.io/pkgs/free/win-32 - https://repo.continuum.io/pkgs/free/noarch - https://repo.continuum.io/pkgs/r/win-32 - https://repo.continuum.io/pkgs/r/noarch - https://repo.continuum.io/pkgs/pro/win-32 - https://repo.continuum.io/pkgs/pro/noarch - https://repo.continuum.io/pkgs/msys2/win-32 - https://repo.continuum.io/pkgs/msys2/noarch PyTorch doesn\u2019t work on 32-bit system. Please use Windows and Python 64-bit version. Import error# from torch._C import * ImportError: DLL load failed: The specified module could not be found. The problem is caused by the missing of the essential files. For the wheels package, since we didn\u2019t pack some libraries and VS2017 redistributable files in, please make sure you install them manually. The VS 2017 redistributable installer can be downloaded. And you should also pay attention to your installation of Numpy. Make sure it uses MKL instead of OpenBLAS. You may type in the following command. pip install numpy mkl intel-openmp mkl_fft Usage (multiprocessing)# Multiprocessing error without if-clause protection# RuntimeError: An attempt has been made to start a new process before the current process has finished its bootstrapping phase. This probably means that you are not using fork to start your child processes and you have forgotten to use the proper idiom in the main module: if __name__ == \u0027__main__\u0027: freeze_support() ... The \"freeze_support()\" line can be omitted if the program is not going to be frozen to produce an executable. The implementation of multiprocessing is different on Windows, which uses spawn instead of fork. So we have to wrap the code with an if-clause to protect the code from executing multiple times. Refactor your code into the following structure. import torch def main() for i, data in enumerate(dataloader): # do something here if __name__ == \u0027__main__\u0027: main() Multiprocessing error \u201cBroken pipe\u201d# ForkingPickler(file, protocol).dump(obj) BrokenPipeError: [Errno 32] Broken pipe This issue happens when the child process ends before the parent process finishes sending data. There may be something wrong with your code. You can debug your code by reducing the num_worker of DataLoader to zero and see if the issue persists. Multiprocessing error \u201cdriver shut down\u201d# Couldn\u2019t open shared file mapping: \u003ctorch_14808_1591070686\u003e, error code: \u003c1455\u003e at torch\\lib\\TH\\THAllocator.c:154 [windows] driver shut down Please update your graphics driver. If this persists, this may be that your graphics card is too old or the calculation is too heavy for your card. Please update the TDR settings according to this post. CUDA IPC operations# THCudaCheck FAIL file=torch\\csrc\\generic\\StorageSharing.cpp line=252 error=63 : OS call failed or operation not supported on this OS They are not supported on Windows. Something like doing multiprocessing on CUDA tensors cannot succeed, there are two alternatives for this. 1. Don\u2019t use multiprocessing. Set the num_worker of DataLoader to zero. 2. Share CPU tensors instead. Make sure your custom DataSet returns CPU tensors.",
+       "articleBody": "Windows FAQ# Building from source# Include optional components# There are two supported components for Windows PyTorch: MKL and MAGMA. Here are the steps to build with them. REM Make sure you have 7z and curl installed. REM Download MKL files curl https://s3.amazonaws.com/ossci-windows/mkl_2020.2.254.7z -k -O 7z x -aoa mkl_2020.2.254.7z -omkl REM Download MAGMA files REM version available: REM 2.5.4 (CUDA 10.1 10.2 11.0 11.1) x (Debug Release) REM 2.5.3 (CUDA 10.1 10.2 11.0) x (Debug Release) REM 2.5.2 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) REM 2.5.1 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) set \"CUDA_PREFIX=cuda102\" set \"CONFIG=release\" set \"HOST=https://s3.amazonaws.com/ossci-windows\" curl -k \"%HOST%/magma_2.5.4_%CUDA_PREFIX%_%CONFIG%.7z\" -o magma.7z 7z x -aoa magma.7z -omagma REM Setting essential environment variables set \"CMAKE_INCLUDE_PATH=%cd%\\mkl\\include\" set \"LIB=%cd%\\mkl\\lib;%LIB%\" set \"MAGMA_HOME=%cd%\\magma\" Speeding CUDA build for Windows# Visual Studio doesn\u2019t support parallel custom task currently. As an alternative, we can use Ninja to parallelize CUDA build tasks. It can be used by typing only a few lines of code. REM Let\u0027s install ninja first. pip install ninja REM Set it as the cmake generator set CMAKE_GENERATOR=Ninja One key install script# You can take a look at this set of scripts. It will lead the way for you. Extension# CFFI Extension# The support for CFFI Extension is very experimental. You must specify additional libraries in Extension object to make it build on Windows. ffi = create_extension( \u0027_ext.my_lib\u0027, headers=headers, sources=sources, define_macros=defines, relative_to=__file__, with_cuda=with_cuda, extra_compile_args=[\"-std=c99\"], libraries=[\u0027ATen\u0027, \u0027_C\u0027] # Append cuda libraries when necessary, like cudart ) Cpp Extension# This type of extension has better support compared with the previous one. However, it still needs some manual configuration. First, you should open the x86_x64 Cross Tools Command Prompt for VS 2017. And then, you can start your compiling process. Installation# Package not found in win-32 channel.# Solving environment: failed PackagesNotFoundError: The following packages are not available from current channels: - pytorch Current channels: - https://repo.continuum.io/pkgs/main/win-32 - https://repo.continuum.io/pkgs/main/noarch - https://repo.continuum.io/pkgs/free/win-32 - https://repo.continuum.io/pkgs/free/noarch - https://repo.continuum.io/pkgs/r/win-32 - https://repo.continuum.io/pkgs/r/noarch - https://repo.continuum.io/pkgs/pro/win-32 - https://repo.continuum.io/pkgs/pro/noarch - https://repo.continuum.io/pkgs/msys2/win-32 - https://repo.continuum.io/pkgs/msys2/noarch PyTorch doesn\u2019t work on 32-bit system. Please use Windows and Python 64-bit version. Import error# from torch._C import * ImportError: DLL load failed: The specified module could not be found. The problem is caused by the missing of the essential files. For the wheels package, since we didn\u2019t pack some libraries and VS2017 redistributable files in, please make sure you install them manually. The VS 2017 redistributable installer can be downloaded. And you should also pay attention to your installation of Numpy. Make sure it uses MKL instead of OpenBLAS. You may type in the following command. pip install numpy mkl intel-openmp mkl_fft Usage (multiprocessing)# Multiprocessing error without if-clause protection# RuntimeError: An attempt has been made to start a new process before the current process has finished its bootstrapping phase. This probably means that you are not using fork to start your child processes and you have forgotten to use the proper idiom in the main module: if __name__ == \u0027__main__\u0027: freeze_support() ... The \"freeze_support()\" line can be omitted if the program is not going to be frozen to produce an executable. The implementation of multiprocessing is different on Windows, which uses spawn instead of fork. So we have to wrap the code with an if-clause to protect the code from executing multiple times. Refactor your code into the following structure. import torch def main() for i, data in enumerate(dataloader): # do something here if __name__ == \u0027__main__\u0027: main() Multiprocessing error \u201cBroken pipe\u201d# ForkingPickler(file, protocol).dump(obj) BrokenPipeError: [Errno 32] Broken pipe This issue happens when the child process ends before the parent process finishes sending data. There may be something wrong with your code. You can debug your code by reducing the num_worker of DataLoader to zero and see if the issue persists. Multiprocessing error \u201cdriver shut down\u201d# Couldn\u2019t open shared file mapping: \u003ctorch_14808_1591070686\u003e, error code: \u003c1455\u003e at torch\\lib\\TH\\THAllocator.c:154 [windows] driver shut down Please update your graphics driver. If this persists, this may be that your graphics card is too old or the calculation is too heavy for your card. Please update the TDR settings according to this post. CUDA IPC operations# THCudaCheck FAIL file=torch\\csrc\\generic\\StorageSharing.cpp line=252 error=63 : OS call failed or operation not supported on this OS They are not supported on Windows. Something like doing multiprocessing on CUDA tensors cannot succeed, there are two alternatives for this. 1. Don\u2019t use multiprocessing. Set the num_worker of DataLoader to zero. 2. Share CPU tensors instead. Make sure your custom DataSet returns CPU tensors.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4245,8 +4247,8 @@ tensors cannot succeed, there are two alternatives for this.</p>
          "@type": "WebPage",
          "@id": "/notes/windows.html"
        },
-       "datePublished": "Apr 23, 2018T00:00:00Z",
-       "dateModified": "May 20, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

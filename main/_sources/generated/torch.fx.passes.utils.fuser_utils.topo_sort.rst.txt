@@ -1,0 +1,6 @@
+﻿torch.fx.passes.utils.fuser\_utils.topo\_sort
+=============================================
+
+.. currentmodule:: torch.fx.passes.utils.fuser_utils
+
+.. autofunction:: topo_sort

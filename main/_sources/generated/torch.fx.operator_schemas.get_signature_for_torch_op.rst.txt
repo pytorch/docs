@@ -1,0 +1,6 @@
+﻿torch.fx.operator\_schemas.get\_signature\_for\_torch\_op
+=========================================================
+
+.. currentmodule:: torch.fx.operator_schemas
+
+.. autofunction:: get_signature_for_torch_op

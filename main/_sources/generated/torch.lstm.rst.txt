@@ -1,0 +1,6 @@
+﻿torch.lstm
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: lstm

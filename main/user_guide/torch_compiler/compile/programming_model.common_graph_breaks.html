@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Common Graph Breaks - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3668,86 +3671,21 @@ document.write(`
                   
   <section id="common-graph-breaks">
 <h1>Common Graph Breaks<a class="headerlink" href="#common-graph-breaks" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Mar 09, 2026</p>
 <p>Below are some common graph breaks and some workarounds.</p>
 <section id="incorrect-code">
 <h2>Incorrect Code<a class="headerlink" href="#incorrect-code" title="Link to this heading">#</a></h2>
 <p>Your code might contain errors (meaning it doesn’t execute even without <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>). In the example below, there’s a typo in the <code class="docutils literal notranslate"><span class="pre">torch.sin</span></code> call due to an extra argument. <strong>Always disable <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to check if the code runs correctly.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">y</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_293/343837593.py:3
-Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y):
-
-TypeError when making fake tensor call
-  Explanation: 
-  Hint: Your code may result in an error when running in eager. Please double check that your code doesn&#39;t contain a similar error when actually running eager/uncompiled. You can do this by removing the `torch.compile` call, or by using `torch.compiler.set_stance(&quot;force_eager&quot;)`. 
-
-  Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f6166b7f700&gt;: sin() takes 1 positional argument but 2 were given
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0112.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_293/343837593.py&quot;, line 7, in &lt;module&gt;
-    fn(torch.ones(3, 3))
-  File &quot;/tmp/ipykernel_293/343837593.py&quot;, line 3, in fn
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
     y = torch.sin(x, x)
+    return y
+
+try:
+    fn(torch.ones(3, 3))
+except Exception as e:
+    pass
 </pre></div>
 </div>
 </div>
@@ -3758,21 +3696,16 @@ is a more complicated graph break, or is a <code class="docutils literal notrans
 <p>You can also use <code class="docutils literal notranslate"><span class="pre">torch.compiler.set_stance(&quot;force_eager&quot;)</span></code> to quickly disable <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> without needing to modify the <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> call:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">y</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
+    y = torch.sin(x, x)
+    return y
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">set_stance</span><span class="p">(</span><span class="s2">&quot;force_eager&quot;</span><span class="p">):</span>
-        <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sin() takes 1 positional argument but 2 were given
+try:
+    with torch.compiler.set_stance(&quot;force_eager&quot;):
+        fn(torch.ones(3, 3))
+except Exception as e:
+    print(e)
 </pre></div>
 </div>
 </div>
@@ -3784,151 +3717,14 @@ is a more complicated graph break, or is a <code class="docutils literal notrans
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> graph breaks on data-dependent operations such as data-dependent control flow (if-statements, loops with tensors) and direct tensor data accesses (<code class="docutils literal notranslate"><span class="pre">.item</span></code>, <code class="docutils literal notranslate"><span class="pre">.data_ptr</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[10., 10., 10.],
-        [10., 10., 10.],
-        [10., 10., 10.]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_293/3495555842.py:4
-Graph Break Reason: Data-dependent branching
-  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() &gt; 0:`). Dynamo does not support tracing dynamic control flow.
-  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.
-  Hint: Use `torch.cond` to express dynamic control flow.
-
-  Developer debug context: attempted to jump with TensorVariable()
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_293/3495555842.py&quot;, line 8, in &lt;module&gt;
-    print(fn(torch.ones(3, 3)))
-  File &quot;/tmp/ipykernel_293/3495555842.py&quot;, line 4, in fn
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
+    y = x.sum()
     if y &gt; 0:
-Graph break from `Tensor.item()`, consider setting:
-    torch._dynamo.config.capture_scalar_outputs = True
-or:
-    env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
-to include these operations in the captured graph.
+        return x + y.item()
+    return x - y.item()
 
-Graph break: from user code at:
-  File &quot;/tmp/ipykernel_293/3495555842.py&quot;, line 5, in torch_dynamo_resume_in_fn_at_4
-    return x + y.item()
-Graph break in user code at /tmp/ipykernel_293/3495555842.py:5
-Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y):
-
-Unsupported Tensor.item() call with capture_scalar_outputs=False
-  Explanation: Dynamo does not support tracing `Tensor.item()` with config.capture_scalar_outputs=False.
-  Hint: Set `torch._dynamo.config.capture_scalar_outputs = True` or `export TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1` to include these operations in the captured graph.
-
-  Developer debug context: call_method TensorVariable() item () {}
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0124.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_293/3495555842.py&quot;, line 8, in &lt;module&gt;
-    print(fn(torch.ones(3, 3)))
-  File &quot;/tmp/ipykernel_293/3495555842.py&quot;, line 5, in fn
-    return x + y.item()
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
@@ -3939,108 +3735,33 @@ User code traceback:
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># old</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.4894, 2.2777, 1.1573],
-        [1.4241, 1.1092, 0.7518],
-        [0.3763, 0.9987, 1.3312]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_293/2410325100.py:5
-Graph Break Reason: Data-dependent branching
-  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() &gt; 0:`). Dynamo does not support tracing dynamic control flow.
-  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.
-  Hint: Use `torch.cond` to express dynamic control flow.
-
-  Developer debug context: attempted to jump with TensorVariable()
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_293/2410325100.py&quot;, line 10, in &lt;module&gt;
-    print(fn(torch.ones(3, 3)))
-  File &quot;/tmp/ipykernel_293/2410325100.py&quot;, line 5, in fn
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># old
+x = torch.randn(3, 3)
+@torch.compile
+def fn(y):
     if x.sum() &gt; 0:
+        return y + x
+    else:
+        return y - x
+
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># new</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># new
+x = torch.randn(3, 3)
+cond = (x.sum() &gt; 0).item()
+@torch.compile
+def fn(y):
+    if cond:
+        return y + x
+    else:
+        return y - x
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.8940, 2.4174, 1.9050],
-        [1.6594, 3.1478, 0.6590],
-        [2.7995, 2.7827, 0.7899]])
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
@@ -4050,106 +3771,31 @@ User code traceback:
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># old</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2., 2., 2.],
-        [2., 2., 2.],
-        [2., 2., 2.]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_293/520574912.py:4
-Graph Break Reason: Data-dependent branching
-  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() &gt; 0:`). Dynamo does not support tracing dynamic control flow.
-  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.
-  Hint: Use `torch.cond` to express dynamic control flow.
-
-  Developer debug context: attempted to jump with TensorVariable()
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_293/520574912.py&quot;, line 8, in &lt;module&gt;
-    print(fn(torch.ones(3, 3)))
-  File &quot;/tmp/ipykernel_293/520574912.py&quot;, line 4, in fn
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># old
+@torch.compile
+def fn(x):
     if x.sum() &gt; 0:
+        return x + 1
+    return x - 1
+
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># new</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="p">(</span><span class="n">x</span><span class="p">,),</span>
-    <span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># new
+@torch.compile
+def fn(x):
+    return torch.cond(
+        x.sum() &gt; 0,
+        lambda x: x + 1,
+        lambda x: x - 1,
+        (x,),
+    )
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2., 2., 2.],
-        [2., 2., 2.],
-        [2., 2., 2.]])
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
@@ -4492,10 +4138,10 @@ entirely. See <a class="reference internal" href="programming_model.fullgraph_tr
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4546,7 +4192,7 @@ entirely. See <a class="reference internal" href="programming_model.fullgraph_tr
        "headline": "Common Graph Breaks",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.common_graph_breaks.html",
-       "articleBody": "Common Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Mar 09, 2026 Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn\u2019t execute even without torch.compile). In the example below, there\u2019s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Graph break in user code at /tmp/ipykernel_293/343837593.py:3 Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y): TypeError when making fake tensor call Explanation: Hint: Your code may result in an error when running in eager. Please double check that your code doesn\u0027t contain a similar error when actually running eager/uncompiled. You can do this by removing the `torch.compile` call, or by using `torch.compiler.set_stance(\"force_eager\")`. Developer debug context: TypeError \u003cbuilt-in method sin of type object at 0x7f6166b7f700\u003e: sin() takes 1 positional argument but 2 were given For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0112.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_293/343837593.py\", line 7, in \u003cmodule\u003e fn(torch.ones(3, 3)) File \"/tmp/ipykernel_293/343837593.py\", line 3, in fn y = torch.sin(x, x) Dynamo makes a best-effort attempt to hint if a graph break is caused by your code. But it can still sometimes be difficult to tell from the logs if the graph break is caused by an error in your code, is a more complicated graph break, or is a torch.compile bug. In order to differentiate, we recommend trying to run your code without torch.compile to see if you still get the error reported by the graph break. You can also use torch.compiler.set_stance(\"force_eager\") to quickly disable torch.compile without needing to modify the torch.compile call: @torch.compile def fn(x): y = torch.sin(x, x) return y try: with torch.compiler.set_stance(\"force_eager\"): fn(torch.ones(3, 3)) except Exception as e: print(e) sin() takes 1 positional argument but 2 were given See https://docs.pytorch.org/tutorials/recipes/torch_compiler_set_stance_tutorial.html#crashing-sooner for more examples of set_stance usage for debugging. Data-dependent operations# torch.compile graph breaks on data-dependent operations such as data-dependent control flow (if-statements, loops with tensors) and direct tensor data accesses (.item, .data_ptr). @torch.compile def fn(x): y = x.sum() if y \u003e 0: return x + y.item() return x - y.item() print(fn(torch.ones(3, 3))) tensor([[10., 10., 10.], [10., 10., 10.], [10., 10., 10.]]) Graph break in user code at /tmp/ipykernel_293/3495555842.py:4 Graph Break Reason: Data-dependent branching Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() \u003e 0:`). Dynamo does not support tracing dynamic control flow. Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround. Hint: Use `torch.cond` to express dynamic control flow. Developer debug context: attempted to jump with TensorVariable() For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_293/3495555842.py\", line 8, in \u003cmodule\u003e print(fn(torch.ones(3, 3))) File \"/tmp/ipykernel_293/3495555842.py\", line 4, in fn if y \u003e 0: Graph break from `Tensor.item()`, consider setting: torch._dynamo.config.capture_scalar_outputs = True or: env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1 to include these operations in the captured graph. Graph break: from user code at: File \"/tmp/ipykernel_293/3495555842.py\", line 5, in torch_dynamo_resume_in_fn_at_4 return x + y.item() Graph break in user code at /tmp/ipykernel_293/3495555842.py:5 Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y): Unsupported Tensor.item() call with capture_scalar_outputs=False Explanation: Dynamo does not support tracing `Tensor.item()` with config.capture_scalar_outputs=False. Hint: Set `torch._dynamo.config.capture_scalar_outputs = True` or `export TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1` to include these operations in the captured graph. Developer debug context: call_method TensorVariable() item () {} For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0124.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_293/3495555842.py\", line 8, in \u003cmodule\u003e print(fn(torch.ones(3, 3))) File \"/tmp/ipykernel_293/3495555842.py\", line 5, in fn return x + y.item() The general workaround for these graph breaks is to avoid doing data-dependent operations. Some specific workarounds are: If your control flow doesn\u2019t actually depend on data values, consider modifying your code to perform control flow on constants. # old x = torch.randn(3, 3) @torch.compile def fn(y): if x.sum() \u003e 0: return y + x else: return y - x print(fn(torch.ones(3, 3))) tensor([[1.4894, 2.2777, 1.1573], [1.4241, 1.1092, 0.7518], [0.3763, 0.9987, 1.3312]]) Graph break in user code at /tmp/ipykernel_293/2410325100.py:5 Graph Break Reason: Data-dependent branching Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() \u003e 0:`). Dynamo does not support tracing dynamic control flow. Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround. Hint: Use `torch.cond` to express dynamic control flow. Developer debug context: attempted to jump with TensorVariable() For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_293/2410325100.py\", line 10, in \u003cmodule\u003e print(fn(torch.ones(3, 3))) File \"/tmp/ipykernel_293/2410325100.py\", line 5, in fn if x.sum() \u003e 0: # new x = torch.randn(3, 3) cond = (x.sum() \u003e 0).item() @torch.compile def fn(y): if cond: return y + x else: return y - x print(fn(torch.ones(3, 3))) tensor([[0.8940, 2.4174, 1.9050], [1.6594, 3.1478, 0.6590], [2.7995, 2.7827, 0.7899]]) Use higher-order ops like Control Flow - Cond in place of data-dependent control flow # old @torch.compile def fn(x): if x.sum() \u003e 0: return x + 1 return x - 1 print(fn(torch.ones(3, 3))) tensor([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]]) Graph break in user code at /tmp/ipykernel_293/520574912.py:4 Graph Break Reason: Data-dependent branching Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() \u003e 0:`). Dynamo does not support tracing dynamic control flow. Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround. Hint: Use `torch.cond` to express dynamic control flow. Developer debug context: attempted to jump with TensorVariable() For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0170.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_293/520574912.py\", line 8, in \u003cmodule\u003e print(fn(torch.ones(3, 3))) File \"/tmp/ipykernel_293/520574912.py\", line 4, in fn if x.sum() \u003e 0: # new @torch.compile def fn(x): return torch.cond( x.sum() \u003e 0, lambda x: x + 1, lambda x: x - 1, (x,), ) print(fn(torch.ones(3, 3))) tensor([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]]) If you have a .item() call, try torch._dynamo.config.capture_scalar_outputs = True or TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1. Wrap problematic parts of the function in a custom operator Printing and logging# Printing/logging/issuing warnings will result in a graph break. You can try working around this by using torch._dynamo.config.reorderable_logging_functions. This config is used to reorder logging functions so that they are called at the end of the traced function, thus avoiding a graph break. However, the logged contents may differ if, for example, a mutation occurs. Note: reorderable_logging_functions has restrictions, these functions must return None, and their arguments must be limited to tensors, constants, or format strings. If you do not need to run the printing or logging function, then consider using torch.compiler.is_compiling() or torch._dyanmo.config.ignore_logging_functions to skip the function entirely. See this page for more details.",
+       "articleBody": "Common Graph Breaks# Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn\u2019t execute even without torch.compile). In the example below, there\u2019s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Dynamo makes a best-effort attempt to hint if a graph break is caused by your code. But it can still sometimes be difficult to tell from the logs if the graph break is caused by an error in your code, is a more complicated graph break, or is a torch.compile bug. In order to differentiate, we recommend trying to run your code without torch.compile to see if you still get the error reported by the graph break. You can also use torch.compiler.set_stance(\"force_eager\") to quickly disable torch.compile without needing to modify the torch.compile call: @torch.compile def fn(x): y = torch.sin(x, x) return y try: with torch.compiler.set_stance(\"force_eager\"): fn(torch.ones(3, 3)) except Exception as e: print(e) See https://docs.pytorch.org/tutorials/recipes/torch_compiler_set_stance_tutorial.html#crashing-sooner for more examples of set_stance usage for debugging. Data-dependent operations# torch.compile graph breaks on data-dependent operations such as data-dependent control flow (if-statements, loops with tensors) and direct tensor data accesses (.item, .data_ptr). @torch.compile def fn(x): y = x.sum() if y \u003e 0: return x + y.item() return x - y.item() print(fn(torch.ones(3, 3))) The general workaround for these graph breaks is to avoid doing data-dependent operations. Some specific workarounds are: If your control flow doesn\u2019t actually depend on data values, consider modifying your code to perform control flow on constants. # old x = torch.randn(3, 3) @torch.compile def fn(y): if x.sum() \u003e 0: return y + x else: return y - x print(fn(torch.ones(3, 3))) # new x = torch.randn(3, 3) cond = (x.sum() \u003e 0).item() @torch.compile def fn(y): if cond: return y + x else: return y - x print(fn(torch.ones(3, 3))) Use higher-order ops like Control Flow - Cond in place of data-dependent control flow # old @torch.compile def fn(x): if x.sum() \u003e 0: return x + 1 return x - 1 print(fn(torch.ones(3, 3))) # new @torch.compile def fn(x): return torch.cond( x.sum() \u003e 0, lambda x: x + 1, lambda x: x - 1, (x,), ) print(fn(torch.ones(3, 3))) If you have a .item() call, try torch._dynamo.config.capture_scalar_outputs = True or TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1. Wrap problematic parts of the function in a custom operator Printing and logging# Printing/logging/issuing warnings will result in a graph break. You can try working around this by using torch._dynamo.config.reorderable_logging_functions. This config is used to reorder logging functions so that they are called at the end of the traced function, thus avoiding a graph break. However, the logged contents may differ if, for example, a mutation occurs. Note: reorderable_logging_functions has restrictions, these functions must return None, and their arguments must be limited to tensors, constants, or format strings. If you do not need to run the printing or logging function, then consider using torch.compiler.is_compiling() or torch._dyanmo.config.ignore_logging_functions to skip the function entirely. See this page for more details.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4557,8 +4203,8 @@ entirely. See <a class="reference internal" href="programming_model.fullgraph_tr
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.common_graph_breaks.html"
        },
-       "datePublished": "Jul 28, 2025T00:00:00Z",
-       "dateModified": "Mar 09, 2026T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

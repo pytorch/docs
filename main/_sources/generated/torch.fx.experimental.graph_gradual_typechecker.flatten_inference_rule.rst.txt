@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.graph\_gradual\_typechecker.flatten\_inference\_rule
+==========================================================================
+
+.. currentmodule:: torch.fx.experimental.graph_gradual_typechecker
+
+.. autofunction:: flatten_inference_rule

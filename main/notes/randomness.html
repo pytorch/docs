@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Reproducibility - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/torch_compiler/compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../user_guide/torch_compiler/troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3645,7 +3648,6 @@ document.write(`
                   
   <section id="reproducibility">
 <span id="id1"></span><h1>Reproducibility<a class="headerlink" href="#reproducibility" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 11, 2018 | Last Updated On: Oct 03, 2025</p>
 <p>Completely reproducible results are not guaranteed across PyTorch releases,
 individual commits, or different platforms. Furthermore, results may not be
 reproducible between CPU and GPU executions, even when using identical seeds.</p>
@@ -4143,10 +4145,10 @@ Use <code class="xref py py-meth docutils literal notranslate"><span class="pre"
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4197,7 +4199,7 @@ Use <code class="xref py py-meth docutils literal notranslate"><span class="pre"
        "headline": "Reproducibility",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/randomness.html",
-       "articleBody": "Reproducibility# Created On: Sep 11, 2018 | Last Updated On: Oct 03, 2025 Completely reproducible results are not guaranteed across PyTorch releases, individual commits, or different platforms. Furthermore, results may not be reproducible between CPU and GPU executions, even when using identical seeds. However, there are some steps you can take to limit the number of sources of nondeterministic behavior for a specific platform, device, and PyTorch release. First, you can control sources of randomness that can cause multiple executions of your application to behave differently. Second, you can configure PyTorch to avoid using nondeterministic algorithms for some operations, so that multiple calls to those operations, given the same inputs, will produce the same result. Warning Deterministic operations are often slower than nondeterministic operations, so single-run performance may decrease for your model. However, determinism may save time in development by facilitating experimentation, debugging, and regression testing. Controlling sources of randomness# PyTorch random number generator# You can use torch.manual_seed() to seed the RNG for all devices (both CPU and CUDA): import torch torch.manual_seed(0) Some PyTorch operations may use random numbers internally. torch.svd_lowrank() does this, for instance. Consequently, calling it multiple times back-to-back with the same input arguments may give different results. However, as long as torch.manual_seed() is set to a constant at the beginning of an application and all other sources of nondeterminism have been eliminated, the same series of random numbers will be generated each time the application is run in the same environment. It is also possible to obtain identical results from an operation that uses random numbers by setting torch.manual_seed() to the same value between subsequent calls. Python# For custom operators, you might need to set python seed as well: import random random.seed(0) Random number generators in other libraries# If you or any of the libraries you are using rely on NumPy, you can seed the global NumPy RNG with: import numpy as np np.random.seed(0) However, some applications and libraries may use NumPy Random Generator objects, not the global RNG (https://numpy.org/doc/stable/reference/random/generator.html), and those will need to be seeded consistently as well. If you are using any other libraries that use random number generators, refer to the documentation for those libraries to see how to set consistent seeds for them. CUDA convolution benchmarking# The cuDNN library, used by CUDA convolution operations, can be a source of nondeterminism across multiple executions of an application. When a cuDNN convolution is called with a new set of size parameters, an optional feature can run multiple convolution algorithms, benchmarking them to find the fastest one. Then, the fastest algorithm will be used consistently during the rest of the process for the corresponding set of size parameters. Due to benchmarking noise and different hardware, the benchmark may select different algorithms on subsequent runs, even on the same machine. Disabling the benchmarking feature with torch.backends.cudnn.benchmark = False causes cuDNN to deterministically select an algorithm, possibly at the cost of reduced performance. However, if you do not need reproducibility across multiple executions of your application, then performance might improve if the benchmarking feature is enabled with torch.backends.cudnn.benchmark = True. Note that this setting is different from the torch.backends.cudnn.deterministic setting discussed below. Avoiding nondeterministic algorithms# torch.use_deterministic_algorithms() lets you configure PyTorch to use deterministic algorithms instead of nondeterministic ones where available, and to throw an error if an operation is known to be nondeterministic (and without a deterministic alternative). Please check the documentation for torch.use_deterministic_algorithms() for a full list of affected operations. If an operation does not act correctly according to the documentation, or if you need a deterministic implementation of an operation that does not have one, please submit an issue: pytorch/pytorch#issues For example, running the nondeterministic CUDA implementation of torch.Tensor.index_add_() will throw an error: \u003e\u003e\u003e import torch \u003e\u003e\u003e torch.use_deterministic_algorithms(True) \u003e\u003e\u003e torch.randn(2, 2).cuda().index_add_(0, torch.tensor([0, 1]), torch.randn(2, 2)) Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e RuntimeError: index_add_cuda_ does not have a deterministic implementation, but you set \u0027torch.use_deterministic_algorithms(True)\u0027. ... When torch.bmm() is called with sparse-dense CUDA tensors it typically uses a nondeterministic algorithm, but when the deterministic flag is turned on, its alternate deterministic implementation will be used: \u003e\u003e\u003e import torch \u003e\u003e\u003e torch.use_deterministic_algorithms(True) \u003e\u003e\u003e torch.bmm(torch.randn(2, 2, 2).to_sparse().cuda(), torch.randn(2, 2, 2).cuda()) tensor([[[ 1.1900, -2.3409], [ 0.4796, 0.8003]], [[ 0.1509, 1.8027], [ 0.0333, -1.1444]]], device=\u0027cuda:0\u0027) CUDA convolution determinism# While disabling CUDA convolution benchmarking (discussed above) ensures that CUDA selects the same algorithm each time an application is run, that algorithm itself may be nondeterministic, unless either torch.use_deterministic_algorithms(True) or torch.backends.cudnn.deterministic = True is set. The latter setting controls only this behavior, unlike torch.use_deterministic_algorithms() which will make other PyTorch operations behave deterministically, too. CUDA RNN and LSTM# In some versions of CUDA, RNNs and LSTM networks may have non-deterministic behavior. See torch.nn.RNN() and torch.nn.LSTM() for details and workarounds. Filling uninitialized memory# Operations like torch.empty() and torch.Tensor.resize_() can return tensors with uninitialized memory that contain undefined values. Using such a tensor as an input to another operation is invalid if determinism is required, because the output will be nondeterministic. But there is nothing to actually prevent such invalid code from being run. So for safety, torch.utils.deterministic.fill_uninitialized_memory is set to True by default, which will fill the uninitialized memory with a known value if torch.use_deterministic_algorithms(True) is set. This will prevent the possibility of this kind of nondeterministic behavior. However, filling uninitialized memory is detrimental to performance. So if your program is valid and does not use uninitialized memory as the input to an operation, then this setting can be turned off for better performance. DataLoader# DataLoader will reseed workers following Randomness in multi-process data loading algorithm. Use worker_init_fn() and generator to preserve reproducibility: def seed_worker(worker_id): worker_seed = torch.initial_seed() % 2**32 numpy.random.seed(worker_seed) random.seed(worker_seed) g = torch.Generator() g.manual_seed(0) DataLoader( train_dataset, batch_size=batch_size, num_workers=num_workers, worker_init_fn=seed_worker, generator=g, )",
+       "articleBody": "Reproducibility# Completely reproducible results are not guaranteed across PyTorch releases, individual commits, or different platforms. Furthermore, results may not be reproducible between CPU and GPU executions, even when using identical seeds. However, there are some steps you can take to limit the number of sources of nondeterministic behavior for a specific platform, device, and PyTorch release. First, you can control sources of randomness that can cause multiple executions of your application to behave differently. Second, you can configure PyTorch to avoid using nondeterministic algorithms for some operations, so that multiple calls to those operations, given the same inputs, will produce the same result. Warning Deterministic operations are often slower than nondeterministic operations, so single-run performance may decrease for your model. However, determinism may save time in development by facilitating experimentation, debugging, and regression testing. Controlling sources of randomness# PyTorch random number generator# You can use torch.manual_seed() to seed the RNG for all devices (both CPU and CUDA): import torch torch.manual_seed(0) Some PyTorch operations may use random numbers internally. torch.svd_lowrank() does this, for instance. Consequently, calling it multiple times back-to-back with the same input arguments may give different results. However, as long as torch.manual_seed() is set to a constant at the beginning of an application and all other sources of nondeterminism have been eliminated, the same series of random numbers will be generated each time the application is run in the same environment. It is also possible to obtain identical results from an operation that uses random numbers by setting torch.manual_seed() to the same value between subsequent calls. Python# For custom operators, you might need to set python seed as well: import random random.seed(0) Random number generators in other libraries# If you or any of the libraries you are using rely on NumPy, you can seed the global NumPy RNG with: import numpy as np np.random.seed(0) However, some applications and libraries may use NumPy Random Generator objects, not the global RNG (https://numpy.org/doc/stable/reference/random/generator.html), and those will need to be seeded consistently as well. If you are using any other libraries that use random number generators, refer to the documentation for those libraries to see how to set consistent seeds for them. CUDA convolution benchmarking# The cuDNN library, used by CUDA convolution operations, can be a source of nondeterminism across multiple executions of an application. When a cuDNN convolution is called with a new set of size parameters, an optional feature can run multiple convolution algorithms, benchmarking them to find the fastest one. Then, the fastest algorithm will be used consistently during the rest of the process for the corresponding set of size parameters. Due to benchmarking noise and different hardware, the benchmark may select different algorithms on subsequent runs, even on the same machine. Disabling the benchmarking feature with torch.backends.cudnn.benchmark = False causes cuDNN to deterministically select an algorithm, possibly at the cost of reduced performance. However, if you do not need reproducibility across multiple executions of your application, then performance might improve if the benchmarking feature is enabled with torch.backends.cudnn.benchmark = True. Note that this setting is different from the torch.backends.cudnn.deterministic setting discussed below. Avoiding nondeterministic algorithms# torch.use_deterministic_algorithms() lets you configure PyTorch to use deterministic algorithms instead of nondeterministic ones where available, and to throw an error if an operation is known to be nondeterministic (and without a deterministic alternative). Please check the documentation for torch.use_deterministic_algorithms() for a full list of affected operations. If an operation does not act correctly according to the documentation, or if you need a deterministic implementation of an operation that does not have one, please submit an issue: pytorch/pytorch#issues For example, running the nondeterministic CUDA implementation of torch.Tensor.index_add_() will throw an error: \u003e\u003e\u003e import torch \u003e\u003e\u003e torch.use_deterministic_algorithms(True) \u003e\u003e\u003e torch.randn(2, 2).cuda().index_add_(0, torch.tensor([0, 1]), torch.randn(2, 2)) Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e RuntimeError: index_add_cuda_ does not have a deterministic implementation, but you set \u0027torch.use_deterministic_algorithms(True)\u0027. ... When torch.bmm() is called with sparse-dense CUDA tensors it typically uses a nondeterministic algorithm, but when the deterministic flag is turned on, its alternate deterministic implementation will be used: \u003e\u003e\u003e import torch \u003e\u003e\u003e torch.use_deterministic_algorithms(True) \u003e\u003e\u003e torch.bmm(torch.randn(2, 2, 2).to_sparse().cuda(), torch.randn(2, 2, 2).cuda()) tensor([[[ 1.1900, -2.3409], [ 0.4796, 0.8003]], [[ 0.1509, 1.8027], [ 0.0333, -1.1444]]], device=\u0027cuda:0\u0027) CUDA convolution determinism# While disabling CUDA convolution benchmarking (discussed above) ensures that CUDA selects the same algorithm each time an application is run, that algorithm itself may be nondeterministic, unless either torch.use_deterministic_algorithms(True) or torch.backends.cudnn.deterministic = True is set. The latter setting controls only this behavior, unlike torch.use_deterministic_algorithms() which will make other PyTorch operations behave deterministically, too. CUDA RNN and LSTM# In some versions of CUDA, RNNs and LSTM networks may have non-deterministic behavior. See torch.nn.RNN() and torch.nn.LSTM() for details and workarounds. Filling uninitialized memory# Operations like torch.empty() and torch.Tensor.resize_() can return tensors with uninitialized memory that contain undefined values. Using such a tensor as an input to another operation is invalid if determinism is required, because the output will be nondeterministic. But there is nothing to actually prevent such invalid code from being run. So for safety, torch.utils.deterministic.fill_uninitialized_memory is set to True by default, which will fill the uninitialized memory with a known value if torch.use_deterministic_algorithms(True) is set. This will prevent the possibility of this kind of nondeterministic behavior. However, filling uninitialized memory is detrimental to performance. So if your program is valid and does not use uninitialized memory as the input to an operation, then this setting can be turned off for better performance. DataLoader# DataLoader will reseed workers following Randomness in multi-process data loading algorithm. Use worker_init_fn() and generator to preserve reproducibility: def seed_worker(worker_id): worker_seed = torch.initial_seed() % 2**32 numpy.random.seed(worker_seed) random.seed(worker_seed) g = torch.Generator() g.manual_seed(0) DataLoader( train_dataset, batch_size=batch_size, num_workers=num_workers, worker_init_fn=seed_worker, generator=g, )",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4208,8 +4210,8 @@ Use <code class="xref py py-meth docutils literal notranslate"><span class="pre"
          "@type": "WebPage",
          "@id": "/notes/randomness.html"
        },
-       "datePublished": "Sep 11, 2018T00:00:00Z",
-       "dateModified": "Oct 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

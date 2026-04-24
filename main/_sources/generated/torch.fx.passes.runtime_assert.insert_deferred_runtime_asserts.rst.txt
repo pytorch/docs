@@ -1,0 +1,6 @@
+﻿torch.fx.passes.runtime\_assert.insert\_deferred\_runtime\_asserts
+==================================================================
+
+.. currentmodule:: torch.fx.passes.runtime_assert
+
+.. autofunction:: insert_deferred_runtime_asserts

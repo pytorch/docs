@@ -1,0 +1,6 @@
+﻿torch.mkldnn\_convolution
+=========================
+
+.. currentmodule:: torch
+
+.. autofunction:: mkldnn_convolution

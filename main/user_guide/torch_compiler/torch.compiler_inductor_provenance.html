@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="TorchInductor and AOTInductor Provenance Tracking - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3656,7 +3659,6 @@ document.write(`
                   
   <section id="torchinductor-and-aotinductor-provenance-tracking">
 <span id="torchinductor-provenance"></span><h1>TorchInductor and AOTInductor Provenance Tracking<a class="headerlink" href="#torchinductor-and-aotinductor-provenance-tracking" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 09, 2025 | Last Updated On: Dec 03, 2025</p>
 <p>This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in <code class="docutils literal notranslate"><span class="pre">tlparse</span></code>.
 Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation.</p>
 <p>Some example screenshots of the provenance tracking tool are shown below.
@@ -4052,10 +4054,10 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4106,7 +4108,7 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
        "headline": "TorchInductor and AOTInductor Provenance Tracking",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_inductor_provenance.html",
-       "articleBody": "TorchInductor and AOTInductor Provenance Tracking# Created On: May 09, 2025 | Last Updated On: Dec 03, 2025 This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in tlparse. Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation. Some example screenshots of the provenance tracking tool are shown below. The tool visualizes the mapping between nodes in the input graph (panel 1), the post grad graph (panel 2), and the Inductor generated code (panel 3). The bolded lines represent nodes/kernels covered by the current provenance tracing functionality. We currently cover triton kernels, cpp kernels, and combo kernels. The yellow highlighting shows the provenance of the nodes/kernels. Example screenshot of the provenance tracking tool for TorchInductor: Example screenshot of the provenance tracking tool for AOTInductor: Using the Provenance Tracking Highlighter# Follow these steps to enable and use provenance tracking in your PyTorch project: Install tlparse by cargo install tlparse. If you don\u2019t have cargo, see The Cargo Book for instructions to install. Run your program with required flags: TORCH_TRACE=~/my_trace_log_dir INDUCTOR_PROVENANCE=1 python your_program.py This will generate a log file in ~/my_trace_log_dir. The log file will be used by tlparse to generate the provenance tracking highlighter. Run tlparse on the log with --inductor-provenance flag. For example: tlparse log_file_name.log --inductor-provenance Even if you don\u2019t add the --inductor-provenance flag, you should be able to see the mapping in json format in the inductor_provenance_tracking_node_mappings_\u003cnumber\u003e.json file in the index.html tlparse output. Run tlpare directly on the log file. It might not work if you run \u201ctlparse parse \u003cfolder_name\u003e \u2013inductor-provenance\u201d. The tlparse artifacts used by the provenance tracking highlighter are: before_pre_grad_graph.txt after_post_grad_graph.txt inductor_aot_wrapper_code.txt inductor_output_code.txt inductor_provenance_tracking_node_mappings.json After running tlparse \u003cfile_name\u003e --inductor-provenance, you should see an additional \u201cProvenance Tracking\u201d section in the tlparse output. Clicking into the link(s) to access the provenance tracking tool. For a demo, see: pytorch/tlparse#93 Source code corresponding to each Inductor kernel# With INDUCTOR_PROVENANCE=1, you can also view the source code corresponding to each Inductor kernel in tlparse. To access it, click the \u201creadable_html\u201d link next to \u201cinductor_provenance_tracking_kernel_stack_traces.json\u201d in the tlparse output. Below are some example screenshots. The :1 and :467 suffixes at the end of the kernel names are used to distinguish different calls to the same kernel. We refer to these suffixes as debug handles. You can also find the debug handle in the comments within the kernel source code. See Also# tlparse is a tool written in Rust. Link to the tlparse GitHub repo: pytorch/tlparse Learn more about tlparse at torch.compile Troubleshooting",
+       "articleBody": "TorchInductor and AOTInductor Provenance Tracking# This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in tlparse. Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation. Some example screenshots of the provenance tracking tool are shown below. The tool visualizes the mapping between nodes in the input graph (panel 1), the post grad graph (panel 2), and the Inductor generated code (panel 3). The bolded lines represent nodes/kernels covered by the current provenance tracing functionality. We currently cover triton kernels, cpp kernels, and combo kernels. The yellow highlighting shows the provenance of the nodes/kernels. Example screenshot of the provenance tracking tool for TorchInductor: Example screenshot of the provenance tracking tool for AOTInductor: Using the Provenance Tracking Highlighter# Follow these steps to enable and use provenance tracking in your PyTorch project: Install tlparse by cargo install tlparse. If you don\u2019t have cargo, see The Cargo Book for instructions to install. Run your program with required flags: TORCH_TRACE=~/my_trace_log_dir INDUCTOR_PROVENANCE=1 python your_program.py This will generate a log file in ~/my_trace_log_dir. The log file will be used by tlparse to generate the provenance tracking highlighter. Run tlparse on the log with --inductor-provenance flag. For example: tlparse log_file_name.log --inductor-provenance Even if you don\u2019t add the --inductor-provenance flag, you should be able to see the mapping in json format in the inductor_provenance_tracking_node_mappings_\u003cnumber\u003e.json file in the index.html tlparse output. Run tlpare directly on the log file. It might not work if you run \u201ctlparse parse \u003cfolder_name\u003e \u2013inductor-provenance\u201d. The tlparse artifacts used by the provenance tracking highlighter are: before_pre_grad_graph.txt after_post_grad_graph.txt inductor_aot_wrapper_code.txt inductor_output_code.txt inductor_provenance_tracking_node_mappings.json After running tlparse \u003cfile_name\u003e --inductor-provenance, you should see an additional \u201cProvenance Tracking\u201d section in the tlparse output. Clicking into the link(s) to access the provenance tracking tool. For a demo, see: pytorch/tlparse#93 Source code corresponding to each Inductor kernel# With INDUCTOR_PROVENANCE=1, you can also view the source code corresponding to each Inductor kernel in tlparse. To access it, click the \u201creadable_html\u201d link next to \u201cinductor_provenance_tracking_kernel_stack_traces.json\u201d in the tlparse output. Below are some example screenshots. The :1 and :467 suffixes at the end of the kernel names are used to distinguish different calls to the same kernel. We refer to these suffixes as debug handles. You can also find the debug handle in the comments within the kernel source code. See Also# tlparse is a tool written in Rust. Link to the tlparse GitHub repo: pytorch/tlparse Learn more about tlparse at torch.compile Troubleshooting",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4117,8 +4119,8 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/torch.compiler_inductor_provenance.html"
        },
-       "datePublished": "May 09, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

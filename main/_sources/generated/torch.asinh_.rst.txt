@@ -1,0 +1,6 @@
+﻿torch.asinh\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: asinh_

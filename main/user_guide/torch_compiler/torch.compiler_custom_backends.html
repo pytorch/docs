@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Custom Backends - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3656,7 +3659,6 @@ document.write(`
                   
   <section id="custom-backends">
 <h1>Custom Backends<a class="headerlink" href="#custom-backends" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jan 08, 2026</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> provides a straightforward method to enable users
@@ -4235,10 +4237,10 @@ together with the following code:</p>
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4289,7 +4291,7 @@ together with the following code:</p>
        "headline": "Custom Backends",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_custom_backends.html",
-       "articleBody": "Custom Backends# Created On: Jun 10, 2025 | Last Updated On: Jan 08, 2026 Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -\u003e Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -\u003e List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... \u0027torch_dynamo_backends\u0027: [ \u0027my_compiler = your_module.submodule:my_compiler\u0027, ] ... ) Please replace the my_compiler before = to the name of your backend\u2019s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=\"my_compiler\"), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function\u2019s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=\"my_compiler\"). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph for compilation. AOTAutograd produces FX graphs consisting of core Aten ops. As a result, custom backends only need to support the core Aten opset, which is a significantly smaller opset than the entire torch/Aten opset. Wrap your backend with torch._dynamo.backends.common.aot_autograd and use torch.compile with the backend kwarg as before. Backend functions wrapped by aot_autograd should have the same contract as before. Backend functions are passed to aot_autograd through the fw_compiler (forward compiler) or bw_compiler (backward compiler) kwargs. If bw_compiler is not specified, the backward compile function defaults to the forward compile function. One caveat is that AOTAutograd requires compiled functions returned by backends to be \u201cboxed\u201d. This can be done by wrapping the compiled function with functorch.compile.make_boxed_func. For example, from torch._dynamo.backends.common import aot_autograd from functorch.compile import make_boxed_func def my_compiler(gm, example_inputs): return make_boxed_func(gm.forward) my_backend = aot_autograd(fw_compiler=my_compiler) # bw_compiler=my_compiler model_opt = torch.compile(model, backend=my_backend) Examples# Debugging Backend# If you want to better understand what is going on during a compilation, you can create a custom compiler, which is referred to as backend in this section, that will print pretty print the fx GraphModule extracted from Dynamo\u2019s bytecode analysis and return a forward() callable. For example: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable @torch.compile(backend=my_compiler) def fn(x, y): a = torch.cos(x) b = torch.sin(y) return a + b fn(torch.randn(10), torch.randn(10)) Running the above example produces the following output: my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ------------------------------------------------------ ---------- -------- placeholder x x () {} placeholder y y () {} call_function cos \u003cbuilt-in method cos of type object at 0x7f1a894649a8\u003e (x,) {} call_function sin \u003cbuilt-in method sin of type object at 0x7f1a894649a8\u003e (y,) {} call_function add \u003cbuilt-in function add\u003e (cos, sin) {} output output output ((add,),) {} This works for torch.nn.Module as well as shown below: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable class MockModule(torch.nn.Module): def __init__(self): super().__init__() self.relu = torch.nn.ReLU() def forward(self, x): return self.relu(torch.cos(x)) mod = MockModule() optimized_mod = torch.compile(mod, backend=my_compiler) optimized_mod(torch.randn(10)) Let\u2019s take a look at one more example with control flow: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable @torch.compile(backend=my_compiler) def toy_example(a, b): x = a / (torch.abs(a) + 1) if b.sum() \u003c 0: b = b * -1 return x * b for _ in range(100): toy_example(torch.randn(10), torch.randn(10)) Running this example produces the following output: my_compiler() called with FX graph: opcode name target args kwargs ------------- ------- ------------------------------------------------------ ---------------- -------- placeholder a a () {} placeholder b b () {} call_function abs_1 \u003cbuilt-in method abs of type object at 0x7f8d259298a0\u003e (a,) {} call_function add \u003cbuilt-in function add\u003e (abs_1, 1) {} call_function truediv \u003cbuilt-in function truediv\u003e (a, add) {} call_method sum_1 sum (b,) {} call_function lt \u003cbuilt-in function lt\u003e (sum_1, 0) {} output output output ((truediv, lt),) {} my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ----------------------- ----------- -------- placeholder b b () {} placeholder x x () {} call_function mul \u003cbuilt-in function mul\u003e (b, -1) {} call_function mul_1 \u003cbuilt-in function mul\u003e (x, mul) {} output output output ((mul_1,),) {} my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ----------------------- --------- -------- placeholder b b () {} placeholder x x () {} call_function mul \u003cbuilt-in function mul\u003e (x, b) {} output output output ((mul,),) {} The order of the last two graphs is nondeterministic depending on which one is encountered first by the just-in-time compiler. Speedy Backend# Integrating a custom backend that offers superior performance is also easy and we\u2019ll integrate a real one with optimize_for_inference: def optimize_for_inference_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): scripted = torch.jit.script(gm) return torch.jit.optimize_for_inference(scripted) And then you should be able to optimize any existing code with: @torch.compile(backend=optimize_for_inference_compiler) def code_to_accelerate(): ... Composable Backends# TorchDynamo includes many backends, which can be listed with torch._dynamo.list_backends(). You can combine these backends together with the following code: from torch._dynamo import lookup_backend def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): try: trt_compiled = lookup_backend(\"tensorrt\")(gm, example_inputs) if trt_compiled is not None: return trt_compiled except Exception: pass # first backend failed, try something else... try: inductor_compiled = lookup_backend(\"inductor\")(gm, example_inputs) if inductor_compiled is not None: return inductor_compiled except Exception: pass return gm.forward",
+       "articleBody": "Custom Backends# Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -\u003e Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -\u003e List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... \u0027torch_dynamo_backends\u0027: [ \u0027my_compiler = your_module.submodule:my_compiler\u0027, ] ... ) Please replace the my_compiler before = to the name of your backend\u2019s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=\"my_compiler\"), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function\u2019s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=\"my_compiler\"). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph for compilation. AOTAutograd produces FX graphs consisting of core Aten ops. As a result, custom backends only need to support the core Aten opset, which is a significantly smaller opset than the entire torch/Aten opset. Wrap your backend with torch._dynamo.backends.common.aot_autograd and use torch.compile with the backend kwarg as before. Backend functions wrapped by aot_autograd should have the same contract as before. Backend functions are passed to aot_autograd through the fw_compiler (forward compiler) or bw_compiler (backward compiler) kwargs. If bw_compiler is not specified, the backward compile function defaults to the forward compile function. One caveat is that AOTAutograd requires compiled functions returned by backends to be \u201cboxed\u201d. This can be done by wrapping the compiled function with functorch.compile.make_boxed_func. For example, from torch._dynamo.backends.common import aot_autograd from functorch.compile import make_boxed_func def my_compiler(gm, example_inputs): return make_boxed_func(gm.forward) my_backend = aot_autograd(fw_compiler=my_compiler) # bw_compiler=my_compiler model_opt = torch.compile(model, backend=my_backend) Examples# Debugging Backend# If you want to better understand what is going on during a compilation, you can create a custom compiler, which is referred to as backend in this section, that will print pretty print the fx GraphModule extracted from Dynamo\u2019s bytecode analysis and return a forward() callable. For example: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable @torch.compile(backend=my_compiler) def fn(x, y): a = torch.cos(x) b = torch.sin(y) return a + b fn(torch.randn(10), torch.randn(10)) Running the above example produces the following output: my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ------------------------------------------------------ ---------- -------- placeholder x x () {} placeholder y y () {} call_function cos \u003cbuilt-in method cos of type object at 0x7f1a894649a8\u003e (x,) {} call_function sin \u003cbuilt-in method sin of type object at 0x7f1a894649a8\u003e (y,) {} call_function add \u003cbuilt-in function add\u003e (cos, sin) {} output output output ((add,),) {} This works for torch.nn.Module as well as shown below: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable class MockModule(torch.nn.Module): def __init__(self): super().__init__() self.relu = torch.nn.ReLU() def forward(self, x): return self.relu(torch.cos(x)) mod = MockModule() optimized_mod = torch.compile(mod, backend=my_compiler) optimized_mod(torch.randn(10)) Let\u2019s take a look at one more example with control flow: from typing import List import torch def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(\"my_compiler() called with FX graph:\") gm.graph.print_tabular() return gm.forward # return a python callable @torch.compile(backend=my_compiler) def toy_example(a, b): x = a / (torch.abs(a) + 1) if b.sum() \u003c 0: b = b * -1 return x * b for _ in range(100): toy_example(torch.randn(10), torch.randn(10)) Running this example produces the following output: my_compiler() called with FX graph: opcode name target args kwargs ------------- ------- ------------------------------------------------------ ---------------- -------- placeholder a a () {} placeholder b b () {} call_function abs_1 \u003cbuilt-in method abs of type object at 0x7f8d259298a0\u003e (a,) {} call_function add \u003cbuilt-in function add\u003e (abs_1, 1) {} call_function truediv \u003cbuilt-in function truediv\u003e (a, add) {} call_method sum_1 sum (b,) {} call_function lt \u003cbuilt-in function lt\u003e (sum_1, 0) {} output output output ((truediv, lt),) {} my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ----------------------- ----------- -------- placeholder b b () {} placeholder x x () {} call_function mul \u003cbuilt-in function mul\u003e (b, -1) {} call_function mul_1 \u003cbuilt-in function mul\u003e (x, mul) {} output output output ((mul_1,),) {} my_compiler() called with FX graph: opcode name target args kwargs ------------- ------ ----------------------- --------- -------- placeholder b b () {} placeholder x x () {} call_function mul \u003cbuilt-in function mul\u003e (x, b) {} output output output ((mul,),) {} The order of the last two graphs is nondeterministic depending on which one is encountered first by the just-in-time compiler. Speedy Backend# Integrating a custom backend that offers superior performance is also easy and we\u2019ll integrate a real one with optimize_for_inference: def optimize_for_inference_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): scripted = torch.jit.script(gm) return torch.jit.optimize_for_inference(scripted) And then you should be able to optimize any existing code with: @torch.compile(backend=optimize_for_inference_compiler) def code_to_accelerate(): ... Composable Backends# TorchDynamo includes many backends, which can be listed with torch._dynamo.list_backends(). You can combine these backends together with the following code: from torch._dynamo import lookup_backend def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): try: trt_compiled = lookup_backend(\"tensorrt\")(gm, example_inputs) if trt_compiled is not None: return trt_compiled except Exception: pass # first backend failed, try something else... try: inductor_compiled = lookup_backend(\"inductor\")(gm, example_inputs) if inductor_compiled is not None: return inductor_compiled except Exception: pass return gm.forward",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4300,8 +4302,8 @@ together with the following code:</p>
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/torch.compiler_custom_backends.html"
        },
-       "datePublished": "Jun 10, 2025T00:00:00Z",
-       "dateModified": "Jan 08, 2026T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

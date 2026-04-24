@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Broadcasting semantics - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/torch_compiler/compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../user_guide/torch_compiler/troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3645,7 +3648,6 @@ document.write(`
                   
   <section id="broadcasting-semantics">
 <span id="id1"></span><h1>Broadcasting semantics<a class="headerlink" href="#broadcasting-semantics" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 27, 2017 | Last Updated On: Sep 29, 2025</p>
 <p>Many PyTorch operations support NumPy’s broadcasting semantics.
 See <a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">https://numpy.org/doc/stable/user/basics.broadcasting.html</a> for details.</p>
 <p>In short, if a PyTorch operation supports broadcast, then its Tensor arguments can be
@@ -4074,10 +4076,10 @@ in such cases.</p>
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4128,7 +4130,7 @@ in such cases.</p>
        "headline": "Broadcasting semantics",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/broadcasting.html",
-       "articleBody": "Broadcasting semantics# Created On: Apr 27, 2017 | Last Updated On: Sep 29, 2025 Many PyTorch operations support NumPy\u2019s broadcasting semantics. See https://numpy.org/doc/stable/user/basics.broadcasting.html for details. In short, if a PyTorch operation supports broadcast, then its Tensor arguments can be automatically expanded to be of equal sizes (without making copies of the data). General semantics# Two tensors are \u201cbroadcastable\u201d if the following rules hold: When iterating over the dimension sizes, starting at the trailing dimension, the dimension sizes must either be equal, one of them is 1, or one of them does not exist. For Example: \u003e\u003e\u003e x=torch.empty(5,7,3) \u003e\u003e\u003e y=torch.empty(5,7,3) # same shapes are always broadcastable (i.e. the above rules always hold) \u003e\u003e\u003e x=torch.empty((0,)) \u003e\u003e\u003e y=torch.empty(2,2) # x and y are not broadcastable, because the 0-sized dimension of x # does not match the 2-sized dimension of y. # can line up trailing dimensions \u003e\u003e\u003e x=torch.empty(5,3,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) # x and y are broadcastable. # 1st trailing dimension: both have size 1 # 2nd trailing dimension: y has size 1 # 3rd trailing dimension: x size == y size # 4th trailing dimension: y dimension doesn\u0027t exist # but: \u003e\u003e\u003e x=torch.empty(5,2,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) # x and y are not broadcastable, because in the 3rd trailing dimension 2 != 3 If two tensors x, y are \u201cbroadcastable\u201d, the resulting tensor size is calculated as follows: If the number of dimensions of x and y are not equal, prepend 1 to the dimensions of the tensor with fewer dimensions to make them equal length. Then, for each dimension size, the resulting dimension size is the max of the sizes of x and y along that dimension. For Example: # can line up trailing dimensions to make reading easier \u003e\u003e\u003e x=torch.empty(5,1,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) \u003e\u003e\u003e (x+y).size() torch.Size([5, 3, 4, 1]) # but not necessary: \u003e\u003e\u003e x=torch.empty(1) \u003e\u003e\u003e y=torch.empty(3,1,7) \u003e\u003e\u003e (x+y).size() torch.Size([3, 1, 7]) \u003e\u003e\u003e x=torch.empty(5,2,4,1) \u003e\u003e\u003e y=torch.empty(3,1,1) \u003e\u003e\u003e (x+y).size() RuntimeError: The size of tensor a (2) must match the size of tensor b (3) at non-singleton dimension 1 In-place semantics# One complication is that in-place operations do not allow the in-place tensor to change shape as a result of the broadcast. For Example: \u003e\u003e\u003e x=torch.empty(5,3,4,1) \u003e\u003e\u003e y=torch.empty(3,1,1) \u003e\u003e\u003e (x.add_(y)).size() torch.Size([5, 3, 4, 1]) # but: \u003e\u003e\u003e x=torch.empty(1,3,1) \u003e\u003e\u003e y=torch.empty(3,1,7) \u003e\u003e\u003e (x.add_(y)).size() RuntimeError: The expanded size of the tensor (1) must match the existing size (7) at non-singleton dimension 2. Backwards compatibility# Prior versions of PyTorch allowed certain pointwise functions to execute on tensors with different shapes, as long as the number of elements in each tensor was equal. The pointwise operation would then be carried out by viewing each tensor as 1-dimensional. PyTorch now supports broadcasting and the \u201c1-dimensional\u201d pointwise behavior is considered deprecated and will generate a Python warning in cases where tensors are not broadcastable, but have the same number of elements. Note that the introduction of broadcasting can cause backwards incompatible changes in the case where two tensors do not have the same shape, but are broadcastable and have the same number of elements. For Example: \u003e\u003e\u003e torch.add(torch.ones(4,1), torch.randn(4)) would previously produce a Tensor with size: torch.Size([4,1]), but now produces a Tensor with size: torch.Size([4,4]). In order to help identify cases in your code where backwards incompatibilities introduced by broadcasting may exist, you may set torch.utils.backcompat.broadcast_warning.enabled to True, which will generate a python warning in such cases. For Example: \u003e\u003e\u003e torch.utils.backcompat.broadcast_warning.enabled=True \u003e\u003e\u003e torch.add(torch.ones(4,1), torch.ones(4)) __main__:1: UserWarning: self and other do not have the same shape, but are broadcastable, and have the same number of elements. Changing behavior in a backwards incompatible manner to broadcasting rather than viewing as 1-dimensional.",
+       "articleBody": "Broadcasting semantics# Many PyTorch operations support NumPy\u2019s broadcasting semantics. See https://numpy.org/doc/stable/user/basics.broadcasting.html for details. In short, if a PyTorch operation supports broadcast, then its Tensor arguments can be automatically expanded to be of equal sizes (without making copies of the data). General semantics# Two tensors are \u201cbroadcastable\u201d if the following rules hold: When iterating over the dimension sizes, starting at the trailing dimension, the dimension sizes must either be equal, one of them is 1, or one of them does not exist. For Example: \u003e\u003e\u003e x=torch.empty(5,7,3) \u003e\u003e\u003e y=torch.empty(5,7,3) # same shapes are always broadcastable (i.e. the above rules always hold) \u003e\u003e\u003e x=torch.empty((0,)) \u003e\u003e\u003e y=torch.empty(2,2) # x and y are not broadcastable, because the 0-sized dimension of x # does not match the 2-sized dimension of y. # can line up trailing dimensions \u003e\u003e\u003e x=torch.empty(5,3,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) # x and y are broadcastable. # 1st trailing dimension: both have size 1 # 2nd trailing dimension: y has size 1 # 3rd trailing dimension: x size == y size # 4th trailing dimension: y dimension doesn\u0027t exist # but: \u003e\u003e\u003e x=torch.empty(5,2,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) # x and y are not broadcastable, because in the 3rd trailing dimension 2 != 3 If two tensors x, y are \u201cbroadcastable\u201d, the resulting tensor size is calculated as follows: If the number of dimensions of x and y are not equal, prepend 1 to the dimensions of the tensor with fewer dimensions to make them equal length. Then, for each dimension size, the resulting dimension size is the max of the sizes of x and y along that dimension. For Example: # can line up trailing dimensions to make reading easier \u003e\u003e\u003e x=torch.empty(5,1,4,1) \u003e\u003e\u003e y=torch.empty( 3,1,1) \u003e\u003e\u003e (x+y).size() torch.Size([5, 3, 4, 1]) # but not necessary: \u003e\u003e\u003e x=torch.empty(1) \u003e\u003e\u003e y=torch.empty(3,1,7) \u003e\u003e\u003e (x+y).size() torch.Size([3, 1, 7]) \u003e\u003e\u003e x=torch.empty(5,2,4,1) \u003e\u003e\u003e y=torch.empty(3,1,1) \u003e\u003e\u003e (x+y).size() RuntimeError: The size of tensor a (2) must match the size of tensor b (3) at non-singleton dimension 1 In-place semantics# One complication is that in-place operations do not allow the in-place tensor to change shape as a result of the broadcast. For Example: \u003e\u003e\u003e x=torch.empty(5,3,4,1) \u003e\u003e\u003e y=torch.empty(3,1,1) \u003e\u003e\u003e (x.add_(y)).size() torch.Size([5, 3, 4, 1]) # but: \u003e\u003e\u003e x=torch.empty(1,3,1) \u003e\u003e\u003e y=torch.empty(3,1,7) \u003e\u003e\u003e (x.add_(y)).size() RuntimeError: The expanded size of the tensor (1) must match the existing size (7) at non-singleton dimension 2. Backwards compatibility# Prior versions of PyTorch allowed certain pointwise functions to execute on tensors with different shapes, as long as the number of elements in each tensor was equal. The pointwise operation would then be carried out by viewing each tensor as 1-dimensional. PyTorch now supports broadcasting and the \u201c1-dimensional\u201d pointwise behavior is considered deprecated and will generate a Python warning in cases where tensors are not broadcastable, but have the same number of elements. Note that the introduction of broadcasting can cause backwards incompatible changes in the case where two tensors do not have the same shape, but are broadcastable and have the same number of elements. For Example: \u003e\u003e\u003e torch.add(torch.ones(4,1), torch.randn(4)) would previously produce a Tensor with size: torch.Size([4,1]), but now produces a Tensor with size: torch.Size([4,4]). In order to help identify cases in your code where backwards incompatibilities introduced by broadcasting may exist, you may set torch.utils.backcompat.broadcast_warning.enabled to True, which will generate a python warning in such cases. For Example: \u003e\u003e\u003e torch.utils.backcompat.broadcast_warning.enabled=True \u003e\u003e\u003e torch.add(torch.ones(4,1), torch.ones(4)) __main__:1: UserWarning: self and other do not have the same shape, but are broadcastable, and have the same number of elements. Changing behavior in a backwards incompatible manner to broadcasting rather than viewing as 1-dimensional.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4139,8 +4141,8 @@ in such cases.</p>
          "@type": "WebPage",
          "@id": "/notes/broadcasting.html"
        },
-       "datePublished": "Apr 27, 2017T00:00:00Z",
-       "dateModified": "Sep 29, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

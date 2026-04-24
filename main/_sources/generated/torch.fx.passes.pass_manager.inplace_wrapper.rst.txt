@@ -1,0 +1,6 @@
+﻿torch.fx.passes.pass\_manager.inplace\_wrapper
+==============================================
+
+.. currentmodule:: torch.fx.passes.pass_manager
+
+.. autofunction:: inplace_wrapper

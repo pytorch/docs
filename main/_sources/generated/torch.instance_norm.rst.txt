@@ -1,0 +1,6 @@
+﻿torch.instance\_norm
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: instance_norm

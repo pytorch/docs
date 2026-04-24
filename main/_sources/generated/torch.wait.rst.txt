@@ -1,0 +1,6 @@
+﻿torch.wait
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: wait

@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Non-strict Tracing Programming Model - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3662,7 +3665,6 @@ document.write(`
                   
   <section id="non-strict-tracing-programming-model">
 <h1>Non-strict Tracing Programming Model<a class="headerlink" href="#non-strict-tracing-programming-model" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
 <p><strong>Summary:</strong></p>
 <ul class="simple">
 <li><p><strong>Non-strict tracing</strong> is a way to trace Python code that is less strict than Dynamo, but may result in silent incorrectness.</p></li>
@@ -3675,28 +3677,15 @@ Non-strict tracing runs a Python function and uses Python and PyTorch’s operat
 <p><strong><code class="docutils literal notranslate"><span class="pre">make_fx</span></code></strong> is the main entrypoint for non-strict tracing. For the following function, only the top branch is taken during execution of the inputs, so it captures a graph with only that branch.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.fx.experimental.proxy_tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_fx</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">print_readable</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class f(torch.nn.Module):
-    def forward(self, x_1: &quot;f32[3]&quot;):
-        # No stacktrace found for following nodes
-        pow_1: &quot;f32[3]&quot; = torch.ops.aten.pow.Tensor_Scalar(x_1, 2);  x_1 = None
-        div: &quot;f32[3]&quot; = torch.ops.aten.div.Tensor(pow_1, 6);  pow_1 = None
-        return div
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;class f(torch.nn.Module):\n    def forward(self, x_1: &quot;f32[3]&quot;):\n        # No stacktrace found for following nodes\n        pow_1: &quot;f32[3]&quot; = torch.ops.aten.pow.Tensor_Scalar(x_1, 2);  x_1 = None\n        div: &quot;f32[3]&quot; = torch.ops.aten.div.Tensor(pow_1, 6);  pow_1 = None\n        return div\n&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from torch.fx.experimental.proxy_tensor import make_fx
+def f(x):
+    if x.shape[0] &gt; 2:
+        return x ** 2 / 6
+    else:
+        return x * 3
+x = torch.randn(3)
+gm = make_fx(f, tracing_mode=&quot;fake&quot;)(x)
+gm.print_readable()
 </pre></div>
 </div>
 </div>
@@ -3717,46 +3706,34 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <h3>Example 1: No explicit input (e.g. accesses global tensor)<a class="headerlink" href="#example-1-no-explicit-input-e-g-accesses-global-tensor" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">function_with_global_access</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">var</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="c1"># _allow_non_fake_inputs=True is needed to capture the global variable</span>
-<span class="c1"># for demonstration purposes.</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span>
-    <span class="n">function_with_global_access</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">,</span> <span class="n">_allow_non_fake_inputs</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="c1"># Non-strict Tracing captures the value of the global (1.)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. call function&quot;</span><span class="p">,</span> <span class="n">function_with_global_access</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. call graph&quot;</span><span class="p">,</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="c1"># However, after changing the global, the captured graph</span>
-<span class="c1"># produces a different result from the original function</span>
-<span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. call function&quot;</span><span class="p">,</span> <span class="n">function_with_global_access</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. call graph&quot;</span><span class="p">,</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="c1"># To capture a graph that can have a varying `var` tensor,</span>
-<span class="c1"># it must be an explicit input:</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">function_fixed</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">var</span>
-<span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">function_fixed</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. call function&quot;</span><span class="p">,</span> <span class="n">function_fixed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. call graph&quot;</span><span class="p">,</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span>
-<span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. call function&quot;</span><span class="p">,</span> <span class="n">function_fixed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. call graph&quot;</span><span class="p">,</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1. call function tensor([1, 2, 3])
-1. call graph tensor([1, 2, 3])
-2. call function tensor([2, 3, 4])
-2. call graph tensor([1, 2, 3])
-3. call function tensor([3, 4, 5])
-3. call graph tensor([3, 4, 5])
-4. call function tensor([4, 5, 6])
-4. call graph tensor([4, 5, 6])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var = torch.tensor(1)
+def function_with_global_access(y):
+    return y + var
+x = torch.tensor([0, 1, 2])
+# _allow_non_fake_inputs=True is needed to capture the global variable
+# for demonstration purposes.
+gm = make_fx(
+    function_with_global_access, tracing_mode=&quot;fake&quot;, _allow_non_fake_inputs=True
+)(x)
+# Non-strict Tracing captures the value of the global (1.)
+print(&quot;1. call function&quot;, function_with_global_access(x))
+print(&quot;1. call graph&quot;, gm(x))
+# However, after changing the global, the captured graph
+# produces a different result from the original function
+var = torch.tensor(2)
+print(&quot;2. call function&quot;, function_with_global_access(x))
+print(&quot;2. call graph&quot;, gm(x))
+# To capture a graph that can have a varying `var` tensor,
+# it must be an explicit input:
+def function_fixed(y, var):
+    return y + var
+var = torch.tensor(3)
+gm = make_fx(function_fixed, tracing_mode=&quot;fake&quot;)(x, var)
+print(&quot;3. call function&quot;, function_fixed(x, var))
+print(&quot;3. call graph&quot;, gm(x, var))
+var = torch.tensor(4)
+print(&quot;4. call function&quot;, function_fixed(x, var))
+print(&quot;4. call graph&quot;, gm(x, var))
 </pre></div>
 </div>
 </div>
@@ -3767,15 +3744,10 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <h3>Example 2: Side effect (printing)<a class="headerlink" href="#example-2-side-effect-printing" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">function_with_side_effect</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">function_with_side_effect</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0, 1, 2])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def function_with_side_effect(y):
+    print(y)
+x = torch.tensor([0, 1, 2])
+_ = function_with_side_effect(x)
 </pre></div>
 </div>
 </div>
@@ -3783,12 +3755,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <p>Running <code class="docutils literal notranslate"><span class="pre">f</span></code> in Python prints a Tensor as a side effect.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">function_with_side_effect</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FakeTensor(..., size=(3,), dtype=torch.int64)
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gm = make_fx(function_with_side_effect, tracing_mode=&quot;fake&quot;)(x)
 </pre></div>
 </div>
 </div>
@@ -3796,7 +3763,7 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <p>During non-strict tracing, this print occurs during the graph capture.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">gm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>_ = gm(x)
 </pre></div>
 </div>
 </div>
@@ -3807,36 +3774,27 @@ Given a Python function, Dynamo Tracing captures a graph of Tensor operations an
 <h3>Example 3: Side effect (input list mutation)<a class="headerlink" href="#example-3-side-effect-input-list-mutation" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">function_with_input_list_mutation</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="n">lst</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">val</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="c1"># Each time the function is executed, the list shrinks in size</span>
-<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-<span class="n">function_with_input_list_mutation</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(lst) after one call&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
-<span class="n">function_with_input_list_mutation</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(lst) after two calls&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
-<span class="c1"># With Non-strict Tracing, the length of the list shrinks during</span>
-<span class="c1"># the graph capture but not in invocations of the graph.</span>
-<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">function_with_input_list_mutation</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">lst</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(lst) after graph capture&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
-<span class="n">gm</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(lst) after one call to graph&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
-<span class="n">gm</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(lst) after two calls to graph&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>len(lst) after one call 1
-len(lst) after two calls 0
-len(lst) after graph capture 2
-len(lst) after one call to graph 2
-len(lst) after two calls to graph 2
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lst = []
+def function_with_input_list_mutation(lst):
+    val = lst.pop()
+    return val
+x = torch.tensor([0, 1, 2])
+y = torch.tensor([0, 1, 2])
+# Each time the function is executed, the list shrinks in size
+lst = [x, y]
+function_with_input_list_mutation(lst)
+print(&quot;len(lst) after one call&quot;, len(lst))
+function_with_input_list_mutation(lst)
+print(&quot;len(lst) after two calls&quot;, len(lst))
+# With Non-strict Tracing, the length of the list shrinks during
+# the graph capture but not in invocations of the graph.
+lst = [x, y]
+gm = make_fx(function_with_input_list_mutation, tracing_mode=&quot;fake&quot;)(lst)
+print(&quot;len(lst) after graph capture&quot;, len(lst))
+gm(lst)
+print(&quot;len(lst) after one call to graph&quot;, len(lst))
+gm(lst)
+print(&quot;len(lst) after two calls to graph&quot;, len(lst))
 </pre></div>
 </div>
 </div>
@@ -3847,26 +3805,21 @@ len(lst) after two calls to graph 2
 <p>Directly manipulating <code class="docutils literal notranslate"><span class="pre">Tensor.data_ptr</span></code> is not non-strict traceable. The intuition behind this is that PyTorch is unable to tell <em>how</em> you manipulated the <code class="docutils literal notranslate"><span class="pre">data_ptr</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
-<span class="c1"># Create a tensor with a single element</span>
-<span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">42</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># Using int32 for simplicity</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">function_with_data_ptr</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
-    <span class="c1"># Get the data pointer</span>
-    <span class="n">ptr</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()</span>
-    <span class="c1"># Cast the pointer to a ctypes pointer</span>
-    <span class="n">ctypes_ptr</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">))</span>
-    <span class="c1"># Increment the value at the pointer</span>
-    <span class="n">ctypes_ptr</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">tensor</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">make_fx</span><span class="p">(</span><span class="n">function_with_data_ptr</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">tensor</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cannot access data pointer of Tensor (e.g. FakeTensor, FunctionalTensor). If you&#39;re using torch.compile/export/fx, it is likely that we are erroneously tracing into a custom kernel. To fix this, please wrap the custom kernel into an opaque custom op. Please see the following for details: https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import ctypes
+# Create a tensor with a single element
+tensor = torch.tensor([42], dtype=torch.int32)  # Using int32 for simplicity
+def function_with_data_ptr(tensor):
+    # Get the data pointer
+    ptr = tensor.data_ptr()
+    # Cast the pointer to a ctypes pointer
+    ctypes_ptr = ctypes.cast(ptr, ctypes.POINTER(ctypes.c_int32))
+    # Increment the value at the pointer
+    ctypes_ptr.contents.value += 1
+    return tensor
+try:
+    make_fx(function_with_data_ptr, tracing_mode=&quot;fake&quot;)(tensor)
+except Exception as e:
+    print(e)
 </pre></div>
 </div>
 </div>
@@ -3879,24 +3832,12 @@ len(lst) after two calls to graph 2
 <p>All non-Tensor variables are treated as constant during Non-strict Tracing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mf">3.14</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">print_readable</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class f(torch.nn.Module):
-    def forward(self, x_1: &quot;i64[3]&quot;, y_1):
-        # No stacktrace found for following nodes
-        add: &quot;f32[3]&quot; = torch.ops.aten.add.Tensor(x_1, 3.14);  x_1 = None
-        return add
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;class f(torch.nn.Module):\n    def forward(self, x_1: &quot;i64[3]&quot;, y_1):\n        # No stacktrace found for following nodes\n        add: &quot;f32[3]&quot; = torch.ops.aten.add.Tensor(x_1, 3.14);  x_1 = None\n        return add\n&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def f(x, y):
+    return x + y
+x = torch.tensor([0, 1, 2])
+y = 3.14
+gm = make_fx(f, tracing_mode=&quot;fake&quot;)(x, y)
+gm.print_readable()
 </pre></div>
 </div>
 </div>
@@ -3905,27 +3846,14 @@ len(lst) after two calls to graph 2
 <p>Non-strict tracing will also specialize on properties of the input Tensors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">print_readable</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class f(torch.nn.Module):
-    def forward(self, x_1: &quot;f32[3]&quot;):
-        # No stacktrace found for following nodes
-        pow_1: &quot;f32[3]&quot; = torch.ops.aten.pow.Tensor_Scalar(x_1, 2);  x_1 = None
-        div: &quot;f32[3]&quot; = torch.ops.aten.div.Tensor(pow_1, 6);  pow_1 = None
-        return div
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;class f(torch.nn.Module):\n    def forward(self, x_1: &quot;f32[3]&quot;):\n        # No stacktrace found for following nodes\n        pow_1: &quot;f32[3]&quot; = torch.ops.aten.pow.Tensor_Scalar(x_1, 2);  x_1 = None\n        div: &quot;f32[3]&quot; = torch.ops.aten.div.Tensor(pow_1, 6);  pow_1 = None\n        return div\n&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def f(x):
+    if x.shape[0] &gt; 2:
+        return x ** 2 / 6
+    else:
+        return x * 3
+x = torch.randn(3)
+gm = make_fx(f, tracing_mode=&quot;fake&quot;)(x)
+gm.print_readable()
 </pre></div>
 </div>
 </div>
@@ -3933,24 +3861,12 @@ len(lst) after two calls to graph 2
 <p>And it will also specialize on any variables not directly passed into the function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">gm</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">print_readable</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class f(torch.nn.Module):
-    def forward(self, x_1: &quot;f32[3]&quot;):
-        # No stacktrace found for following nodes
-        add: &quot;f32[3]&quot; = torch.ops.aten.add.Tensor(x_1, 3.14);  x_1 = None
-        return add
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;class f(torch.nn.Module):\n    def forward(self, x_1: &quot;f32[3]&quot;):\n        # No stacktrace found for following nodes\n        add: &quot;f32[3]&quot; = torch.ops.aten.add.Tensor(x_1, 3.14);  x_1 = None\n        return add\n&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var = torch.tensor(1)
+def f(x):
+    return x + y
+x = torch.randn(3)
+gm = make_fx(f, tracing_mode=&quot;fake&quot;)(x)
+gm.print_readable()
 </pre></div>
 </div>
 </div>
@@ -4281,10 +4197,10 @@ len(lst) after two calls to graph 2
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4335,7 +4251,7 @@ len(lst) after two calls to graph 2
        "headline": "Non-strict Tracing Programming Model",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.non_strict_tracing_model.html",
-       "articleBody": "Non-strict Tracing Programming Model# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 Summary: Non-strict tracing is a way to trace Python code that is less strict than Dynamo, but may result in silent incorrectness. Non-strict tracing runs a Python function and uses Python and PyTorch\u2019s operator overloading capabilities to record what Tensor operations occurred during execution into a trace. A function is non-strict traceable if it complies with some constraints, namely, that the function is pure and does not directly manipulate Tensor.data_ptr(). Non-strict tracing may specialize on certain variables and treat them as constants, baking the values of the variables into the trace. torch.compile internals (make_fx, AOTDispatcher) use non-strict tracing. torch._dynamo.nonstrict_trace can also be used in torch.compiled code to mark sections of code to be traced with non-strict tracing. Non-strict tracing runs a Python function and uses Python and PyTorch\u2019s operator overloading capabilities to record what Tensor operations occurred during execution into a trace. make_fx is the main entrypoint for non-strict tracing. For the following function, only the top branch is taken during execution of the inputs, so it captures a graph with only that branch. from torch.fx.experimental.proxy_tensor import make_fx def f(x): if x.shape[0] \u003e 2: return x ** 2 / 6 else: return x * 3 x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable() class f(torch.nn.Module): def forward(self, x_1: \"f32[3]\"): # No stacktrace found for following nodes pow_1: \"f32[3]\" = torch.ops.aten.pow.Tensor_Scalar(x_1, 2); x_1 = None div: \"f32[3]\" = torch.ops.aten.div.Tensor(pow_1, 6); pow_1 = None return div \u0027class f(torch.nn.Module):\\n def forward(self, x_1: \"f32[3]\"):\\n # No stacktrace found for following nodes\\n pow_1: \"f32[3]\" = torch.ops.aten.pow.Tensor_Scalar(x_1, 2); x_1 = None\\n div: \"f32[3]\" = torch.ops.aten.div.Tensor(pow_1, 6); pow_1 = None\\n return div\\n\u0027 Non-strict tracing differs from Dynamo (strict) tracing in that it is unsafe, that is, given a function, it captures a graph of Tensor operations that may have different semantics than the original function. Given a Python function, Dynamo Tracing captures a graph of Tensor operations and residual bytecode that when combined give the same semantics as the Python function. Pure Functions# Non-strict tracing is sound only on pure functions, and thus only pure functions should be non-strict traced. A pure function is a function with the following properties: Determinism. Given the same inputs, the pure function will always return the same output. No side effects. A pure function does not have any side effects such as modifying external state or performing I/O operations. Explicit input/output. All the input data must be passed through the function parameters and all of the outputs are returned from the function. Here are some examples of impure functions for which the captured graph behaves differently from the original function. Example 1: No explicit input (e.g. accesses global tensor)# var = torch.tensor(1) def function_with_global_access(y): return y + var x = torch.tensor([0, 1, 2]) # _allow_non_fake_inputs=True is needed to capture the global variable # for demonstration purposes. gm = make_fx( function_with_global_access, tracing_mode=\"fake\", _allow_non_fake_inputs=True )(x) # Non-strict Tracing captures the value of the global (1.) print(\"1. call function\", function_with_global_access(x)) print(\"1. call graph\", gm(x)) # However, after changing the global, the captured graph # produces a different result from the original function var = torch.tensor(2) print(\"2. call function\", function_with_global_access(x)) print(\"2. call graph\", gm(x)) # To capture a graph that can have a varying `var` tensor, # it must be an explicit input: def function_fixed(y, var): return y + var var = torch.tensor(3) gm = make_fx(function_fixed, tracing_mode=\"fake\")(x, var) print(\"3. call function\", function_fixed(x, var)) print(\"3. call graph\", gm(x, var)) var = torch.tensor(4) print(\"4. call function\", function_fixed(x, var)) print(\"4. call graph\", gm(x, var)) 1. call function tensor([1, 2, 3]) 1. call graph tensor([1, 2, 3]) 2. call function tensor([2, 3, 4]) 2. call graph tensor([1, 2, 3]) 3. call function tensor([3, 4, 5]) 3. call graph tensor([3, 4, 5]) 4. call function tensor([4, 5, 6]) 4. call graph tensor([4, 5, 6]) See Specialization and Constants for an explanation of why. Example 2: Side effect (printing)# def function_with_side_effect(y): print(y) x = torch.tensor([0, 1, 2]) _ = function_with_side_effect(x) tensor([0, 1, 2]) Running f in Python prints a Tensor as a side effect. gm = make_fx(function_with_side_effect, tracing_mode=\"fake\")(x) FakeTensor(..., size=(3,), dtype=torch.int64) During non-strict tracing, this print occurs during the graph capture. _ = gm(x) The graph does not store a call to the print statement, so executing the graph doesn\u2019t print anything. Example 3: Side effect (input list mutation)# lst = [] def function_with_input_list_mutation(lst): val = lst.pop() return val x = torch.tensor([0, 1, 2]) y = torch.tensor([0, 1, 2]) # Each time the function is executed, the list shrinks in size lst = [x, y] function_with_input_list_mutation(lst) print(\"len(lst) after one call\", len(lst)) function_with_input_list_mutation(lst) print(\"len(lst) after two calls\", len(lst)) # With Non-strict Tracing, the length of the list shrinks during # the graph capture but not in invocations of the graph. lst = [x, y] gm = make_fx(function_with_input_list_mutation, tracing_mode=\"fake\")(lst) print(\"len(lst) after graph capture\", len(lst)) gm(lst) print(\"len(lst) after one call to graph\", len(lst)) gm(lst) print(\"len(lst) after two calls to graph\", len(lst)) len(lst) after one call 1 len(lst) after two calls 0 len(lst) after graph capture 2 len(lst) after one call to graph 2 len(lst) after two calls to graph 2 No direct data_ptr manipulation# Directly manipulating Tensor.data_ptr is not non-strict traceable. The intuition behind this is that PyTorch is unable to tell how you manipulated the data_ptr. import ctypes # Create a tensor with a single element tensor = torch.tensor([42], dtype=torch.int32) # Using int32 for simplicity def function_with_data_ptr(tensor): # Get the data pointer ptr = tensor.data_ptr() # Cast the pointer to a ctypes pointer ctypes_ptr = ctypes.cast(ptr, ctypes.POINTER(ctypes.c_int32)) # Increment the value at the pointer ctypes_ptr.contents.value += 1 return tensor try: make_fx(function_with_data_ptr, tracing_mode=\"fake\")(tensor) except Exception as e: print(e) Cannot access data pointer of Tensor (e.g. FakeTensor, FunctionalTensor). If you\u0027re using torch.compile/export/fx, it is likely that we are erroneously tracing into a custom kernel. To fix this, please wrap the custom kernel into an opaque custom op. Please see the following for details: https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html Specialization and Constants# Non-strict tracing captures a graph that may be specialized on some values. What this means is the captured graph is only valid for these values. We say the graph treats those values as constant. All non-Tensor variables are treated as constant during Non-strict Tracing: def f(x, y): return x + y x = torch.tensor([0, 1, 2]) y = 3.14 gm = make_fx(f, tracing_mode=\"fake\")(x, y) gm.print_readable() class f(torch.nn.Module): def forward(self, x_1: \"i64[3]\", y_1): # No stacktrace found for following nodes add: \"f32[3]\" = torch.ops.aten.add.Tensor(x_1, 3.14); x_1 = None return add \u0027class f(torch.nn.Module):\\n def forward(self, x_1: \"i64[3]\", y_1):\\n # No stacktrace found for following nodes\\n add: \"f32[3]\" = torch.ops.aten.add.Tensor(x_1, 3.14); x_1 = None\\n return add\\n\u0027 3.14 is a constant in the graph. Non-strict tracing will also specialize on properties of the input Tensors. def f(x): if x.shape[0] \u003e 2: return x ** 2 / 6 else: return x * 3 x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable() class f(torch.nn.Module): def forward(self, x_1: \"f32[3]\"): # No stacktrace found for following nodes pow_1: \"f32[3]\" = torch.ops.aten.pow.Tensor_Scalar(x_1, 2); x_1 = None div: \"f32[3]\" = torch.ops.aten.div.Tensor(pow_1, 6); pow_1 = None return div \u0027class f(torch.nn.Module):\\n def forward(self, x_1: \"f32[3]\"):\\n # No stacktrace found for following nodes\\n pow_1: \"f32[3]\" = torch.ops.aten.pow.Tensor_Scalar(x_1, 2); x_1 = None\\n div: \"f32[3]\" = torch.ops.aten.div.Tensor(pow_1, 6); pow_1 = None\\n return div\\n\u0027 And it will also specialize on any variables not directly passed into the function: var = torch.tensor(1) def f(x): return x + y x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable() class f(torch.nn.Module): def forward(self, x_1: \"f32[3]\"): # No stacktrace found for following nodes add: \"f32[3]\" = torch.ops.aten.add.Tensor(x_1, 3.14); x_1 = None return add \u0027class f(torch.nn.Module):\\n def forward(self, x_1: \"f32[3]\"):\\n # No stacktrace found for following nodes\\n add: \"f32[3]\" = torch.ops.aten.add.Tensor(x_1, 3.14); x_1 = None\\n return add\\n\u0027",
+       "articleBody": "Non-strict Tracing Programming Model# Summary: Non-strict tracing is a way to trace Python code that is less strict than Dynamo, but may result in silent incorrectness. Non-strict tracing runs a Python function and uses Python and PyTorch\u2019s operator overloading capabilities to record what Tensor operations occurred during execution into a trace. A function is non-strict traceable if it complies with some constraints, namely, that the function is pure and does not directly manipulate Tensor.data_ptr(). Non-strict tracing may specialize on certain variables and treat them as constants, baking the values of the variables into the trace. torch.compile internals (make_fx, AOTDispatcher) use non-strict tracing. torch._dynamo.nonstrict_trace can also be used in torch.compiled code to mark sections of code to be traced with non-strict tracing. Non-strict tracing runs a Python function and uses Python and PyTorch\u2019s operator overloading capabilities to record what Tensor operations occurred during execution into a trace. make_fx is the main entrypoint for non-strict tracing. For the following function, only the top branch is taken during execution of the inputs, so it captures a graph with only that branch. from torch.fx.experimental.proxy_tensor import make_fx def f(x): if x.shape[0] \u003e 2: return x ** 2 / 6 else: return x * 3 x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable() Non-strict tracing differs from Dynamo (strict) tracing in that it is unsafe, that is, given a function, it captures a graph of Tensor operations that may have different semantics than the original function. Given a Python function, Dynamo Tracing captures a graph of Tensor operations and residual bytecode that when combined give the same semantics as the Python function. Pure Functions# Non-strict tracing is sound only on pure functions, and thus only pure functions should be non-strict traced. A pure function is a function with the following properties: Determinism. Given the same inputs, the pure function will always return the same output. No side effects. A pure function does not have any side effects such as modifying external state or performing I/O operations. Explicit input/output. All the input data must be passed through the function parameters and all of the outputs are returned from the function. Here are some examples of impure functions for which the captured graph behaves differently from the original function. Example 1: No explicit input (e.g. accesses global tensor)# var = torch.tensor(1) def function_with_global_access(y): return y + var x = torch.tensor([0, 1, 2]) # _allow_non_fake_inputs=True is needed to capture the global variable # for demonstration purposes. gm = make_fx( function_with_global_access, tracing_mode=\"fake\", _allow_non_fake_inputs=True )(x) # Non-strict Tracing captures the value of the global (1.) print(\"1. call function\", function_with_global_access(x)) print(\"1. call graph\", gm(x)) # However, after changing the global, the captured graph # produces a different result from the original function var = torch.tensor(2) print(\"2. call function\", function_with_global_access(x)) print(\"2. call graph\", gm(x)) # To capture a graph that can have a varying `var` tensor, # it must be an explicit input: def function_fixed(y, var): return y + var var = torch.tensor(3) gm = make_fx(function_fixed, tracing_mode=\"fake\")(x, var) print(\"3. call function\", function_fixed(x, var)) print(\"3. call graph\", gm(x, var)) var = torch.tensor(4) print(\"4. call function\", function_fixed(x, var)) print(\"4. call graph\", gm(x, var)) See Specialization and Constants for an explanation of why. Example 2: Side effect (printing)# def function_with_side_effect(y): print(y) x = torch.tensor([0, 1, 2]) _ = function_with_side_effect(x) Running f in Python prints a Tensor as a side effect. gm = make_fx(function_with_side_effect, tracing_mode=\"fake\")(x) During non-strict tracing, this print occurs during the graph capture. _ = gm(x) The graph does not store a call to the print statement, so executing the graph doesn\u2019t print anything. Example 3: Side effect (input list mutation)# lst = [] def function_with_input_list_mutation(lst): val = lst.pop() return val x = torch.tensor([0, 1, 2]) y = torch.tensor([0, 1, 2]) # Each time the function is executed, the list shrinks in size lst = [x, y] function_with_input_list_mutation(lst) print(\"len(lst) after one call\", len(lst)) function_with_input_list_mutation(lst) print(\"len(lst) after two calls\", len(lst)) # With Non-strict Tracing, the length of the list shrinks during # the graph capture but not in invocations of the graph. lst = [x, y] gm = make_fx(function_with_input_list_mutation, tracing_mode=\"fake\")(lst) print(\"len(lst) after graph capture\", len(lst)) gm(lst) print(\"len(lst) after one call to graph\", len(lst)) gm(lst) print(\"len(lst) after two calls to graph\", len(lst)) No direct data_ptr manipulation# Directly manipulating Tensor.data_ptr is not non-strict traceable. The intuition behind this is that PyTorch is unable to tell how you manipulated the data_ptr. import ctypes # Create a tensor with a single element tensor = torch.tensor([42], dtype=torch.int32) # Using int32 for simplicity def function_with_data_ptr(tensor): # Get the data pointer ptr = tensor.data_ptr() # Cast the pointer to a ctypes pointer ctypes_ptr = ctypes.cast(ptr, ctypes.POINTER(ctypes.c_int32)) # Increment the value at the pointer ctypes_ptr.contents.value += 1 return tensor try: make_fx(function_with_data_ptr, tracing_mode=\"fake\")(tensor) except Exception as e: print(e) Specialization and Constants# Non-strict tracing captures a graph that may be specialized on some values. What this means is the captured graph is only valid for these values. We say the graph treats those values as constant. All non-Tensor variables are treated as constant during Non-strict Tracing: def f(x, y): return x + y x = torch.tensor([0, 1, 2]) y = 3.14 gm = make_fx(f, tracing_mode=\"fake\")(x, y) gm.print_readable() 3.14 is a constant in the graph. Non-strict tracing will also specialize on properties of the input Tensors. def f(x): if x.shape[0] \u003e 2: return x ** 2 / 6 else: return x * 3 x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable() And it will also specialize on any variables not directly passed into the function: var = torch.tensor(1) def f(x): return x + y x = torch.randn(3) gm = make_fx(f, tracing_mode=\"fake\")(x) gm.print_readable()",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4346,8 +4262,8 @@ len(lst) after two calls to graph 2
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.non_strict_tracing_model.html"
        },
-       "datePublished": "Jul 28, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

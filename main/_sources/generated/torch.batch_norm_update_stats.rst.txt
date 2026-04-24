@@ -1,0 +1,6 @@
+﻿torch.batch\_norm\_update\_stats
+================================
+
+.. currentmodule:: torch
+
+.. autofunction:: batch_norm_update_stats

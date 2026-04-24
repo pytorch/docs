@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Getting Started on Intel GPU - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/torch_compiler/compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../user_guide/torch_compiler/troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3645,7 +3648,6 @@ document.write(`
                   
   <section id="getting-started-on-intel-gpu">
 <h1>Getting Started on Intel GPU<a class="headerlink" href="#getting-started-on-intel-gpu" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 14, 2024 | Last Updated On: Mar 04, 2026</p>
 <section id="hardware-prerequisite">
 <h2>Hardware Prerequisite<a class="headerlink" href="#hardware-prerequisite" title="Link to this heading">#</a></h2>
 <section id="intel-data-center-gpu">
@@ -3683,7 +3685,7 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Windows 11 &amp; Ubuntu 24.04/25.04</p></td>
+<tr class="row-even"><td><p>Windows 11 &amp; Ubuntu 24.04/25.10</p></td>
 <td><div class="line-block">
 <div class="line">Intel® Arc A-Series Graphics (CodeName: Alchemist)</div>
 <div class="line">Intel® Arc B-Series Graphics (CodeName: Battlemage)</div>
@@ -3708,7 +3710,7 @@ document.write(`
 <section id="software-prerequisite">
 <h2>Software Prerequisite<a class="headerlink" href="#software-prerequisite" title="Link to this heading">#</a></h2>
 <p>To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html">Intel GPUs Driver Installation</a>.</p>
-<p>Please skip the Intel® Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to  <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html">PyTorch Installation Prerequisites for Intel GPUs</a> for both Intel GPU Driver and Intel® Deep Learning Essentials Installation.</p>
+<p>Please skip the Intel® Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html">PyTorch Installation Prerequisites for Intel GPUs</a> for both Intel GPU Driver and Intel® Deep Learning Essentials Installation.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
@@ -3731,12 +3733,12 @@ document.write(`
 </section>
 <section id="previous-versions">
 <h4>Previous Versions<a class="headerlink" href="#previous-versions" title="Link to this heading">#</a></h4>
-<p><strong>v2.10.0</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/xpu
+<p><strong>v2.11.0</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.11.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.26.0<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">2</span>.11.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/xpu
 </pre></div>
 </div>
-<p><strong>v2.9.1</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.9.1<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.24.1<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">2</span>.9.1<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/xpu
+<p><strong>v2.10.0</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/xpu
 </pre></div>
 </div>
 <div class="admonition note">
@@ -3747,7 +3749,7 @@ document.write(`
 </section>
 <section id="from-source">
 <h3>From Source<a class="headerlink" href="#from-source" title="Link to this heading">#</a></h3>
-<p>Now that we have <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html">Intel GPU Driver and Intel® Deep Learning Essentials</a> installed. Follow guides to build <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>, <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>, <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> from source.</p>
+<p>Now that we have <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html">Intel GPU Driver and Intel® Deep Learning Essentials</a> installed, follow the guides to build <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>, <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>, <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> from source.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torch</span></code> refer to <a class="reference external" href="https://github.com/pytorch/pytorch?tab=readme-ov-file#from-source">PyTorch Installation Build from source</a>.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> refer to <a class="reference external" href="https://github.com/pytorch/vision/blob/main/CONTRIBUTING.md#development-installation">Torchvision Installation Build from source</a>.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> refer to <a class="reference external" href="https://github.com/pytorch/audio/blob/main/CONTRIBUTING.md#building-torchaudio-from-source">Torchaudio Installation Build from source</a>.</p>
@@ -3775,7 +3777,7 @@ document.write(`
 <p>The following points outline the support and limitations for PyTorch with Intel GPU:</p>
 <ol class="arabic simple">
 <li><p>Both training and inference workflows are supported.</p></li>
-<li><p>Both eager mode and <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is supported. The feature <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to <a class="reference external" href="https://pytorch.org/tutorials/unstable/inductor_windows.html">How to use torch.compile on Windows CPU/XPU</a>.</p></li>
+<li><p>Both eager mode and <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> are supported. The feature <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to <a class="reference external" href="https://pytorch.org/tutorials/unstable/inductor_windows.html">How to use torch.compile on Windows CPU/XPU</a>.</p></li>
 <li><p>Data types such as FP32, BF16, FP16, and Automatic Mixed Precision (AMP) are all supported.</p></li>
 </ol>
 </section>
@@ -3865,7 +3867,7 @@ document.write(`
 </section>
 <section id="training-examples">
 <h3>Training Examples<a class="headerlink" href="#training-examples" title="Link to this heading">#</a></h3>
-<p>Here is a few training workflow examples.</p>
+<p>Here are a few training workflow examples.</p>
 <section id="train-with-fp32">
 <h4>Train with FP32<a class="headerlink" href="#train-with-fp32" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -4399,10 +4401,10 @@ document.write(`
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4453,7 +4455,7 @@ document.write(`
        "headline": "Getting Started on Intel GPU",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/get_start_xpu.html",
-       "articleBody": "Getting Started on Intel GPU# Created On: Jun 14, 2024 | Last Updated On: Mar 04, 2026 Hardware Prerequisite# Intel Data Center GPU# Device Red Hat* Enterprise Linux* 9.2 SUSE Linux Enterprise Server* 15 SP5 Ubuntu* Server 22.04 (\u003e= 5.15 LTS kernel) Intel\u00ae Data Center GPU Max Series (CodeName: Ponte Vecchio) yes yes yes Intel Client GPU# Supported OS Validated Hardware Windows 11 \u0026 Ubuntu 24.04/25.04 Intel\u00ae Arc A-Series Graphics (CodeName: Alchemist) Intel\u00ae Arc B-Series Graphics (CodeName: Battlemage) Intel\u00ae Core\u2122 Ultra Processors with Intel\u00ae Arc\u2122 Graphics (CodeName: Meteor Lake-H) Intel\u00ae Core\u2122 Ultra Processors (Series 2) with Intel\u00ae Arc\u2122 Graphics (CodeName: Arrow Lake-H) Intel\u00ae Core\u2122 Ultra Mobile Processors (Series 2) with Intel\u00ae Arc\u2122 Graphics (CodeName: Lunar Lake) Windows 11 \u0026 Ubuntu 25.10 Intel\u00ae Core\u2122 Ultra Mobile Processors (Series 3) with Intel\u00ae Arc\u2122 Graphics (CodeName: Panther Lake) Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel\u00ae Client GPUs and Intel\u00ae Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios. Software Prerequisite# To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit Intel GPUs Driver Installation. Please skip the Intel\u00ae Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to PyTorch Installation Prerequisites for Intel GPUs for both Intel GPU Driver and Intel\u00ae Deep Learning Essentials Installation. Installation# Binaries# Now that we have Intel GPU Driver installed, use the following commands to install pytorch, torchvision, torchaudio. Stable Releases# To install the latest stable release wheels for Intel GPU (XPU): pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu Nightly Builds# To install the latest preview/nightly wheels: pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu Previous Versions# v2.10.0 pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/xpu v2.9.1 pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 --index-url https://download.pytorch.org/whl/xpu Note For older wheels, please refer to the previous versions page and ensure you use the xpu index URL. From Source# Now that we have Intel GPU Driver and Intel\u00ae Deep Learning Essentials installed. Follow guides to build pytorch, torchvision, torchaudio from source. Build from source for torch refer to PyTorch Installation Build from source. Build from source for torchvision refer to Torchvision Installation Build from source. Build from source for torchaudio refer to Torchaudio Installation Build from source. Check availability for Intel GPU# To check if your Intel GPU is available, you would typically use the following code: import torch print(torch.xpu.is_available()) # torch.xpu is the API for Intel GPU support If the output is False, double check driver installation for Intel GPUs. Minimum Code Change# If you are migrating code from cuda, you would change references from cuda to xpu. For example: # CUDA CODE tensor = torch.tensor([1.0, 2.0]).to(\"cuda\") # CODE for Intel GPU tensor = torch.tensor([1.0, 2.0]).to(\"xpu\") The following points outline the support and limitations for PyTorch with Intel GPU: Both training and inference workflows are supported. Both eager mode and torch.compile is supported. The feature torch.compile is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to How to use torch.compile on Windows CPU/XPU. Data types such as FP32, BF16, FP16, and Automatic Mixed Precision (AMP) are all supported. Examples# This section contains usage examples for both inference and training workflows. Inference Examples# Here are a few inference workflow examples. Inference with FP32# import torch import torchvision.models as models model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) model = model.to(\"xpu\") data = data.to(\"xpu\") with torch.no_grad(): model(data) print(\"Execution finished\") Inference with AMP# import torch import torchvision.models as models model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) model = model.to(\"xpu\") data = data.to(\"xpu\") with torch.no_grad(): d = torch.rand(1, 3, 224, 224) d = d.to(\"xpu\") # set dtype=torch.bfloat16 for BF16 with torch.autocast(device_type=\"xpu\", dtype=torch.float16, enabled=True): model(data) print(\"Execution finished\") Inference with torch.compile# import torch import torchvision.models as models import time model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) ITERS = 10 model = model.to(\"xpu\") data = data.to(\"xpu\") for i in range(ITERS): start = time.time() with torch.no_grad(): model(data) torch.xpu.synchronize() end = time.time() print(f\"Inference time before torch.compile for iteration {i}: {(end-start)*1000} ms\") model = torch.compile(model) for i in range(ITERS): start = time.time() with torch.no_grad(): model(data) torch.xpu.synchronize() end = time.time() print(f\"Inference time after torch.compile for iteration {i}: {(end-start)*1000} ms\") print(\"Execution finished\") Training Examples# Here is a few training workflow examples. Train with FP32# import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") print(f\"Initiating training\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") optimizer.zero_grad() output = model(data) loss = criterion(output, target) loss.backward() optimizer.step() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\") Train with AMP# Note Training with GradScaler requires hardware support for FP64. FP64 is not natively supported by the Intel\u00ae Arc\u2122 A-Series Graphics. If you run your workloads on Intel\u00ae Arc\u2122 A-Series Graphics, please disable GradScaler. import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" use_amp=True transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) scaler = torch.amp.GradScaler(device=\"xpu\", enabled=use_amp) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") print(f\"Initiating training\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") # set dtype=torch.bfloat16 for BF16 with torch.autocast(device_type=\"xpu\", dtype=torch.float16, enabled=use_amp): output = model(data) loss = criterion(output, target) scaler.scale(loss).backward() scaler.step(optimizer) scaler.update() optimizer.zero_grad() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\") Train with torch.compile# import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") model = torch.compile(model) print(f\"Initiating training with torch compile\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") optimizer.zero_grad() output = model(data) loss = criterion(output, target) loss.backward() optimizer.step() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\")",
+       "articleBody": "Getting Started on Intel GPU# Hardware Prerequisite# Intel Data Center GPU# Device Red Hat* Enterprise Linux* 9.2 SUSE Linux Enterprise Server* 15 SP5 Ubuntu* Server 22.04 (\u003e= 5.15 LTS kernel) Intel\u00ae Data Center GPU Max Series (CodeName: Ponte Vecchio) yes yes yes Intel Client GPU# Supported OS Validated Hardware Windows 11 \u0026 Ubuntu 24.04/25.10 Intel\u00ae Arc A-Series Graphics (CodeName: Alchemist) Intel\u00ae Arc B-Series Graphics (CodeName: Battlemage) Intel\u00ae Core\u2122 Ultra Processors with Intel\u00ae Arc\u2122 Graphics (CodeName: Meteor Lake-H) Intel\u00ae Core\u2122 Ultra Processors (Series 2) with Intel\u00ae Arc\u2122 Graphics (CodeName: Arrow Lake-H) Intel\u00ae Core\u2122 Ultra Mobile Processors (Series 2) with Intel\u00ae Arc\u2122 Graphics (CodeName: Lunar Lake) Windows 11 \u0026 Ubuntu 25.10 Intel\u00ae Core\u2122 Ultra Mobile Processors (Series 3) with Intel\u00ae Arc\u2122 Graphics (CodeName: Panther Lake) Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel\u00ae Client GPUs and Intel\u00ae Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios. Software Prerequisite# To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit Intel GPUs Driver Installation. Please skip the Intel\u00ae Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to PyTorch Installation Prerequisites for Intel GPUs for both Intel GPU Driver and Intel\u00ae Deep Learning Essentials Installation. Installation# Binaries# Now that we have Intel GPU Driver installed, use the following commands to install pytorch, torchvision, torchaudio. Stable Releases# To install the latest stable release wheels for Intel GPU (XPU): pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu Nightly Builds# To install the latest preview/nightly wheels: pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu Previous Versions# v2.11.0 pip install torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/xpu v2.10.0 pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/xpu Note For older wheels, please refer to the previous versions page and ensure you use the xpu index URL. From Source# Now that we have Intel GPU Driver and Intel\u00ae Deep Learning Essentials installed, follow the guides to build pytorch, torchvision, torchaudio from source. Build from source for torch refer to PyTorch Installation Build from source. Build from source for torchvision refer to Torchvision Installation Build from source. Build from source for torchaudio refer to Torchaudio Installation Build from source. Check availability for Intel GPU# To check if your Intel GPU is available, you would typically use the following code: import torch print(torch.xpu.is_available()) # torch.xpu is the API for Intel GPU support If the output is False, double check driver installation for Intel GPUs. Minimum Code Change# If you are migrating code from cuda, you would change references from cuda to xpu. For example: # CUDA CODE tensor = torch.tensor([1.0, 2.0]).to(\"cuda\") # CODE for Intel GPU tensor = torch.tensor([1.0, 2.0]).to(\"xpu\") The following points outline the support and limitations for PyTorch with Intel GPU: Both training and inference workflows are supported. Both eager mode and torch.compile are supported. The feature torch.compile is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to How to use torch.compile on Windows CPU/XPU. Data types such as FP32, BF16, FP16, and Automatic Mixed Precision (AMP) are all supported. Examples# This section contains usage examples for both inference and training workflows. Inference Examples# Here are a few inference workflow examples. Inference with FP32# import torch import torchvision.models as models model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) model = model.to(\"xpu\") data = data.to(\"xpu\") with torch.no_grad(): model(data) print(\"Execution finished\") Inference with AMP# import torch import torchvision.models as models model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) model = model.to(\"xpu\") data = data.to(\"xpu\") with torch.no_grad(): d = torch.rand(1, 3, 224, 224) d = d.to(\"xpu\") # set dtype=torch.bfloat16 for BF16 with torch.autocast(device_type=\"xpu\", dtype=torch.float16, enabled=True): model(data) print(\"Execution finished\") Inference with torch.compile# import torch import torchvision.models as models import time model = models.resnet50(weights=\"ResNet50_Weights.DEFAULT\") model.eval() data = torch.rand(1, 3, 224, 224) ITERS = 10 model = model.to(\"xpu\") data = data.to(\"xpu\") for i in range(ITERS): start = time.time() with torch.no_grad(): model(data) torch.xpu.synchronize() end = time.time() print(f\"Inference time before torch.compile for iteration {i}: {(end-start)*1000} ms\") model = torch.compile(model) for i in range(ITERS): start = time.time() with torch.no_grad(): model(data) torch.xpu.synchronize() end = time.time() print(f\"Inference time after torch.compile for iteration {i}: {(end-start)*1000} ms\") print(\"Execution finished\") Training Examples# Here are a few training workflow examples. Train with FP32# import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") print(f\"Initiating training\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") optimizer.zero_grad() output = model(data) loss = criterion(output, target) loss.backward() optimizer.step() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\") Train with AMP# Note Training with GradScaler requires hardware support for FP64. FP64 is not natively supported by the Intel\u00ae Arc\u2122 A-Series Graphics. If you run your workloads on Intel\u00ae Arc\u2122 A-Series Graphics, please disable GradScaler. import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" use_amp=True transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) scaler = torch.amp.GradScaler(device=\"xpu\", enabled=use_amp) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") print(f\"Initiating training\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") # set dtype=torch.bfloat16 for BF16 with torch.autocast(device_type=\"xpu\", dtype=torch.float16, enabled=use_amp): output = model(data) loss = criterion(output, target) scaler.scale(loss).backward() scaler.step(optimizer) scaler.update() optimizer.zero_grad() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\") Train with torch.compile# import torch import torchvision LR = 0.001 DOWNLOAD = True DATA = \"datasets/cifar10/\" transform = torchvision.transforms.Compose( [ torchvision.transforms.Resize((224, 224)), torchvision.transforms.ToTensor(), torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), ] ) train_dataset = torchvision.datasets.CIFAR10( root=DATA, train=True, transform=transform, download=DOWNLOAD, ) train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128) train_len = len(train_loader) model = torchvision.models.resnet50() criterion = torch.nn.CrossEntropyLoss() optimizer = torch.optim.SGD(model.parameters(), lr=LR, momentum=0.9) model.train() model = model.to(\"xpu\") criterion = criterion.to(\"xpu\") model = torch.compile(model) print(f\"Initiating training with torch compile\") for batch_idx, (data, target) in enumerate(train_loader): data = data.to(\"xpu\") target = target.to(\"xpu\") optimizer.zero_grad() output = model(data) loss = criterion(output, target) loss.backward() optimizer.step() if (batch_idx + 1) % 10 == 0: iteration_loss = loss.item() print(f\"Iteration [{batch_idx+1}/{train_len}], Loss: {iteration_loss:.4f}\") torch.save( { \"model_state_dict\": model.state_dict(), \"optimizer_state_dict\": optimizer.state_dict(), }, \"checkpoint.pth\", ) print(\"Execution finished\")",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4464,8 +4466,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/notes/get_start_xpu.html"
        },
-       "datePublished": "Jun 14, 2024T00:00:00Z",
-       "dateModified": "Mar 04, 2026T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

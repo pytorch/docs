@@ -1,0 +1,6 @@
+﻿torch.cosine\_embedding\_loss
+=============================
+
+.. currentmodule:: torch
+
+.. autofunction:: cosine_embedding_loss

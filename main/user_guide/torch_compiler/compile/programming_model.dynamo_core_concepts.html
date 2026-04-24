@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Dynamo Core Concepts - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3662,7 +3665,6 @@ document.write(`
                   
   <section id="dynamo-core-concepts">
 <h1>Dynamo Core Concepts<a class="headerlink" href="#dynamo-core-concepts" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
 <p><strong>Summary:</strong></p>
 <ul class="simple">
 <li><p>Dynamo, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>’s frontend, performs <strong>tracing</strong> to capture the semantics of a Python function
@@ -3706,84 +3708,15 @@ If you’re not getting the speedups you expect, we recommend checking for graph
 <p>Below is an example of a graph break due to calling an unsupported operation <code class="docutils literal notranslate"><span class="pre">torch.save</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-   <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>  <span class="o">/</span> <span class="mi">2</span>
-   <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s2">&quot;foo.pt&quot;</span><span class="p">)</span>  <span class="c1"># torch.save is an unsupported operation</span>
-   <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span>
-   <span class="k">return</span> <span class="n">z</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def f(x):
+   y = x ** 2  / 2
+   torch.save(y, &quot;foo.pt&quot;)  # torch.save is an unsupported operation
+   z = y ** 3 / 6
+   return z
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0464, 0.1771, 0.0016])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_430/215272159.py:4
-Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y):
-
-Attempted to call function marked as skipped
-  Explanation: Dynamo developers have intentionally marked that the function `save` in file `/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py` should not be traced.
-  Hint: Avoid calling the function `save`.
-  Hint: Apply `@torch._dynamo.dont_skip_tracing` to the function `save` to force tracing into the function. More graph breaks may occur as a result of attempting to trace into the function.
-  Hint: Please file an issue to PyTorch.
-
-  Developer debug context: module: torch.serialization, qualname: save, skip reason: file matches MOD_SKIPLIST (/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization)
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0007.html
-
-User code traceback:
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
-    exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
-    app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
-    app.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 758, in start
-    self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
-    self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
-    self._run_once()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
-    handle._run()
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py&quot;, line 71, in preserve_context
-    return await f(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 621, in shell_main
-    await self.dispatch_shell(msg, subshell_id=subshell_id)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 478, in dispatch_shell
-    await result
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 372, in execute_request
-    await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 834, in execute_request
-    reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 464, in do_execute
-    res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 663, in run_cell
-    return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
-    result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
-    result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
-    coro.send(None)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
-    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
-    if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_430/215272159.py&quot;, line 9, in &lt;module&gt;
-    print(f(x))
-  File &quot;/tmp/ipykernel_430/215272159.py&quot;, line 4, in f
-    torch.save(y, &quot;foo.pt&quot;)  # torch.save is an unsupported operation
+x = torch.randn(3)
+print(f(x))
 </pre></div>
 </div>
 </div>
@@ -3811,32 +3744,11 @@ can reuse previously compiled code. Examples of runtime checks are constant valu
 <p>Below is an example of generated guards. The <code class="docutils literal notranslate"><span class="pre">TENSOR_MATCH</span></code> guard checks for the input’s type, device, dtype, shape, etc.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
+    return x + 1
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2., 2., 2.],
-        [2., 2., 2.],
-        [2., 2., 2.]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GUARDS:
-
-TREE_GUARD_MANAGER:
-+- RootGuardManager
-| +- LAMBDA_GUARD: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:1011 in init_ambient_guards
-| +- GLOBAL_STATE: ___check_global_state() against {&quot;allow_bf16_reduce&quot;:0,&quot;allow_fp16_reduce&quot;:0,&quot;allow_tf32&quot;:false,&quot;autocast_state&quot;:{&quot;cached_enabled&quot;:true,&quot;dtype&quot;:[15,5,5,15,5,5,15,15,5,5],&quot;enabled&quot;:[false,false,false,false,false,false,false,false,false,false]},&quot;default_dtype&quot;:6,&quot;deterministic_algorithms&quot;:false,&quot;deterministic_algorithms_warn_only&quot;:false,&quot;grad_mode&quot;:true,&quot;num_threads&quot;:4,&quot;torch_function&quot;:true,&quot;torch_function_all_disabled&quot;:false}
-| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:998 in init_ambient_guards
-| +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
-| | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1])  # return x + 1  # mp/ipykernel_430/1068332425.py:3 in fn
-| | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_430/1068332425.py:3 in fn
-Guard eval latency = 378.20 us
+print(fn(torch.ones(3, 3)))
 </pre></div>
 </div>
 </div>
@@ -3848,28 +3760,12 @@ Guard eval latency = 378.20 us
 requiring the original code to be traced again. In the example below, recompilation is necessary because the guard checking the tensor argument’s shape failed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
+    return x + 1
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2., 2., 2.],
-        [2., 2., 2.],
-        [2., 2., 2.]])
-tensor([[2., 2., 2., 2.],
-        [2., 2., 2., 2.],
-        [2., 2., 2., 2.],
-        [2., 2., 2., 2.]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_430/420870727.py:1
-    triggered by the following guard failure(s):
-    - 3/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
+print(fn(torch.ones(3, 3)))
+print(fn(torch.ones(4, 4)))
 </pre></div>
 </div>
 </div>
@@ -3884,38 +3780,12 @@ recompilation is attempted with dynamic shapes. Dynamic shapes can also be fully
 <p>Below, we enable dynamic shapes and note that we no longer need to recompile.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile(dynamic=True)
+def fn(x):
+    return x + 1
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2., 2., 2.],
-        [2., 2., 2.],
-        [2., 2., 2.]])
-tensor([[2., 2., 2., 2.],
-        [2., 2., 2., 2.],
-        [2., 2., 2., 2.],
-        [2., 2., 2., 2.]])
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>create_env
-create_symbol s77 = 3 for L[&#39;x&#39;].size()[0] [2, int_oo] return x + 1  # mp/ipykernel_430/1458103805.py:3 in fn (_dynamo/variables/builder.py:4129 in &lt;lambda&gt;), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=&quot;s77&quot; or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=&quot;0&quot;
-create_symbol s77 duck sized L[&#39;x&#39;].size()[1]
-eval False == False [statically known]
-eval False == False [statically known]
-produce_guards
-track_symint L[&#39;x&#39;].size()[0] s77 None
-track_symint L[&#39;x&#39;].size()[1] s77 None
-track_symint L[&#39;x&#39;].stride()[0] s77 None
-track_symint L[&#39;x&#39;].stride()[1] 1 None
-track_symint L[&#39;x&#39;].storage_offset() 0 None
-Skipping guard L[&#39;x&#39;].stride()[1] == 1
-Skipping guard L[&#39;x&#39;].storage_offset() == 0
+print(fn(torch.ones(3, 3)))
+print(fn(torch.ones(4, 4)))
 </pre></div>
 </div>
 </div>
@@ -4244,10 +4114,10 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4298,7 +4168,7 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
        "headline": "Dynamo Core Concepts",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.dynamo_core_concepts.html",
-       "articleBody": "Dynamo Core Concepts# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 Summary: Dynamo, torch.compile\u2019s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the \u201c(FX) graph\u201d), residual bytecode, and \u201cguards\u201d (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you\u2019re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile\u2019s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can\u2019t be traced, a \u201cgraph break\u201d occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you\u2019re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, \"foo.pt\") # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) tensor([0.0464, 0.1771, 0.0016]) Graph break in user code at /tmp/ipykernel_430/215272159.py:4 Graph Break Reason: Encountered graph break when attempting to trace CALL_FUNCTION: a call to a regular function, e.g. f(x, y): Attempted to call function marked as skipped Explanation: Dynamo developers have intentionally marked that the function `save` in file `/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py` should not be traced. Hint: Avoid calling the function `save`. Hint: Apply `@torch._dynamo.dont_skip_tracing` to the function `save` to force tracing into the function. More graph breaks may occur as a result of attempting to trace into the function. Hint: Please file an issue to PyTorch. Developer debug context: module: torch.serialization, qualname: save, skip reason: file matches MOD_SKIPLIST (/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization) For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0007.html User code traceback: File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \"/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\", line 86, in _run_code exec(code, run_globals) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\", line 18, in \u003cmodule\u003e app.launch_new_instance() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\", line 1075, in launch_instance app.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\", line 758, in start self.io_loop.start() File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\", line 211, in start self.asyncio_loop.run_forever() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 603, in run_forever self._run_once() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\", line 1909, in _run_once handle._run() File \"/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\", line 80, in _run self._context.run(self._callback, *self._args) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/utils.py\", line 71, in preserve_context return await f(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 621, in shell_main await self.dispatch_shell(msg, subshell_id=subshell_id) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 478, in dispatch_shell await result File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 372, in execute_request await super().execute_request(stream, ident, parent) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\", line 834, in execute_request reply_content = await reply_content File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\", line 464, in do_execute res = shell.run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\", line 663, in run_cell return super().run_cell(*args, **kwargs) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3006, in run_cell result = self._run_cell( File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3061, in _run_cell result = runner(coro) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py\", line 129, in _pseudo_sync_runner coro.send(None) File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3266, in run_cell_async has_raised = await self.run_ast_nodes(code_ast.body, cell_name, File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3445, in run_ast_nodes if await self.run_code(code, result, async_=asy): File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py\", line 3505, in run_code exec(code_obj, self.user_global_ns, self.user_ns) File \"/tmp/ipykernel_430/215272159.py\", line 9, in \u003cmodule\u003e print(f(x)) File \"/tmp/ipykernel_430/215272159.py\", line 4, in f torch.save(y, \"foo.pt\") # torch.save is an unsupported operation The semantics of torch.compile(f)(x) are roughly this: def compiled_f_semantics(x): y = torch.compile(g, fullgraph=True)(x) torch.save(y, \"foo.pt\") z = torch.compile(h, fullgraph=True)(x) return z def g(x): return x ** 2 / 2 def h(x): return y ** 3 / 6 Guards# torch.compile makes some assumptions about runtime values as we trace through code. During tracing, we generate \u201cguards\u201d, which are runtime checks for these assumptions. Guards are run in future calls to the compiled function to determine if we can reuse previously compiled code. Examples of runtime checks are constant values, types, and object IDs. Below is an example of generated guards. The TENSOR_MATCH guard checks for the input\u2019s type, device, dtype, shape, etc. @torch.compile def fn(x): return x + 1 print(fn(torch.ones(3, 3))) tensor([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]]) GUARDS: TREE_GUARD_MANAGER: +- RootGuardManager | +- LAMBDA_GUARD: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None # _dynamo/output_graph.py:1011 in init_ambient_guards | +- GLOBAL_STATE: ___check_global_state() against {\"allow_bf16_reduce\":0,\"allow_fp16_reduce\":0,\"allow_tf32\":false,\"autocast_state\":{\"cached_enabled\":true,\"dtype\":[15,5,5,15,5,5,15,15,5,5],\"enabled\":[false,false,false,false,false,false,false,false,false,false]},\"default_dtype\":6,\"deterministic_algorithms\":false,\"deterministic_algorithms_warn_only\":false,\"grad_mode\":true,\"num_threads\":4,\"torch_function\":true,\"torch_function_all_disabled\":false} | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack() | +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None # _dynamo/output_graph.py:998 in init_ambient_guards | +- GuardManager: source=L[\u0027x\u0027], accessed_by=FrameLocalsGuardAccessor(key=\u0027x\u0027, framelocals_idx=0), type=\u003cclass \u0027torch.Tensor\u0027\u003e, tag_safe=(True, False) | | +- TENSOR_MATCH: check_tensor(L[\u0027x\u0027], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1]) # return x + 1 # mp/ipykernel_430/1068332425.py:3 in fn | | +- NO_HASATTR: hasattr(L[\u0027x\u0027], \u0027_dynamo_dynamic_indices\u0027) == False # return x + 1 # mp/ipykernel_430/1068332425.py:3 in fn Guard eval latency = 378.20 us Recompilations# If the guards fail for every instance of previously compiled code, then torch.compile must \u201crecompile\u201d the function, requiring the original code to be traced again. In the example below, recompilation is necessary because the guard checking the tensor argument\u2019s shape failed. @torch.compile def fn(x): return x + 1 print(fn(torch.ones(3, 3))) print(fn(torch.ones(4, 4))) tensor([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]]) tensor([[2., 2., 2., 2.], [2., 2., 2., 2.], [2., 2., 2., 2.], [2., 2., 2., 2.]]) Recompiling function fn in /tmp/ipykernel_430/420870727.py:1 triggered by the following guard failure(s): - 3/0: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 4 Dynamic Shapes# torch.compile initially assumes tensor shapes are static/constant and guards based on these assumptions. By using \u201cdynamic shapes,\u201d we can get torch.compile to produce compiled code that can accept tensor inputs with different shapes - we avoid recompiling every time shapes differ. By default, automatic dynamic shapes are enabled in torch.compile(dynamic=None) - if compilation fails due to shape mismatch, recompilation is attempted with dynamic shapes. Dynamic shapes can also be fully enabled (dynamic=True) or disabled (dynamic=False). Below, we enable dynamic shapes and note that we no longer need to recompile. @torch.compile(dynamic=True) def fn(x): return x + 1 print(fn(torch.ones(3, 3))) print(fn(torch.ones(4, 4))) tensor([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]]) tensor([[2., 2., 2., 2.], [2., 2., 2., 2.], [2., 2., 2., 2.], [2., 2., 2., 2.]]) create_env create_symbol s77 = 3 for L[\u0027x\u0027].size()[0] [2, int_oo] return x + 1 # mp/ipykernel_430/1458103805.py:3 in fn (_dynamo/variables/builder.py:4129 in \u003clambda\u003e), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=\"s77\" or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=\"0\" create_symbol s77 duck sized L[\u0027x\u0027].size()[1] eval False == False [statically known] eval False == False [statically known] produce_guards track_symint L[\u0027x\u0027].size()[0] s77 None track_symint L[\u0027x\u0027].size()[1] s77 None track_symint L[\u0027x\u0027].stride()[0] s77 None track_symint L[\u0027x\u0027].stride()[1] 1 None track_symint L[\u0027x\u0027].storage_offset() 0 None Skipping guard L[\u0027x\u0027].stride()[1] == 1 Skipping guard L[\u0027x\u0027].storage_offset() == 0 For more information on dynamic shapes, see The dynamic shapes manual.",
+       "articleBody": "Dynamo Core Concepts# Summary: Dynamo, torch.compile\u2019s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the \u201c(FX) graph\u201d), residual bytecode, and \u201cguards\u201d (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you\u2019re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile\u2019s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can\u2019t be traced, a \u201cgraph break\u201d occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you\u2019re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, \"foo.pt\") # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) The semantics of torch.compile(f)(x) are roughly this: def compiled_f_semantics(x): y = torch.compile(g, fullgraph=True)(x) torch.save(y, \"foo.pt\") z = torch.compile(h, fullgraph=True)(x) return z def g(x): return x ** 2 / 2 def h(x): return y ** 3 / 6 Guards# torch.compile makes some assumptions about runtime values as we trace through code. During tracing, we generate \u201cguards\u201d, which are runtime checks for these assumptions. Guards are run in future calls to the compiled function to determine if we can reuse previously compiled code. Examples of runtime checks are constant values, types, and object IDs. Below is an example of generated guards. The TENSOR_MATCH guard checks for the input\u2019s type, device, dtype, shape, etc. @torch.compile def fn(x): return x + 1 print(fn(torch.ones(3, 3))) Recompilations# If the guards fail for every instance of previously compiled code, then torch.compile must \u201crecompile\u201d the function, requiring the original code to be traced again. In the example below, recompilation is necessary because the guard checking the tensor argument\u2019s shape failed. @torch.compile def fn(x): return x + 1 print(fn(torch.ones(3, 3))) print(fn(torch.ones(4, 4))) Dynamic Shapes# torch.compile initially assumes tensor shapes are static/constant and guards based on these assumptions. By using \u201cdynamic shapes,\u201d we can get torch.compile to produce compiled code that can accept tensor inputs with different shapes - we avoid recompiling every time shapes differ. By default, automatic dynamic shapes are enabled in torch.compile(dynamic=None) - if compilation fails due to shape mismatch, recompilation is attempted with dynamic shapes. Dynamic shapes can also be fully enabled (dynamic=True) or disabled (dynamic=False). Below, we enable dynamic shapes and note that we no longer need to recompile. @torch.compile(dynamic=True) def fn(x): return x + 1 print(fn(torch.ones(3, 3))) print(fn(torch.ones(4, 4))) For more information on dynamic shapes, see The dynamic shapes manual.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4309,8 +4179,8 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.dynamo_core_concepts.html"
        },
-       "datePublished": "Jul 28, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

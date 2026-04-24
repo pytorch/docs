@@ -1,0 +1,6 @@
+﻿torch.abs\_
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: abs_

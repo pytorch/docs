@@ -1,0 +1,6 @@
+﻿torch.fx.passes.backends.cudagraphs.partition\_cudagraphs
+=========================================================
+
+.. currentmodule:: torch.fx.passes.backends.cudagraphs
+
+.. autofunction:: partition_cudagraphs

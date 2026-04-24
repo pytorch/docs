@@ -1,0 +1,6 @@
+﻿torch.merge\_type\_from\_type\_comment
+======================================
+
+.. currentmodule:: torch
+
+.. autofunction:: merge_type_from_type_comment

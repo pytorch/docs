@@ -1,0 +1,6 @@
+﻿torch.threshold
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: threshold

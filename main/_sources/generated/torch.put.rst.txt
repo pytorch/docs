@@ -1,0 +1,6 @@
+﻿torch.put
+=========
+
+.. currentmodule:: torch
+
+.. autofunction:: put

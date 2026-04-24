@@ -1,0 +1,6 @@
+﻿torch.conv\_transpose3d
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: conv_transpose3d

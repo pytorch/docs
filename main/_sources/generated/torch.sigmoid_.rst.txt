@@ -1,0 +1,6 @@
+﻿torch.sigmoid\_
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: sigmoid_

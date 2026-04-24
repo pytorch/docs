@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Use torch._dynamo.nonstrict_trace - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3668,7 +3671,6 @@ document.write(`
                   
   <section id="use-torch-dynamo-nonstrict-trace">
 <h1>Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code><a class="headerlink" href="#use-torch-dynamo-nonstrict-trace" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
 <p><strong>Summary:</strong></p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">nonstrict_trace</span></code> to trace a function with non-strict tracing inside of a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>’d region.
@@ -3678,39 +3680,20 @@ and you are sure that the function is non-strict traceable.</p></li>
 <p>Consider the following scenario:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_magic_num</span><span class="p">():</span>
-    <span class="c1"># This explicit graph break call is meant to emulate any kind of Dynamo</span>
-    <span class="c1"># graph break, e.g., the function is implemented in C, or uses some python</span>
-    <span class="c1"># language feature Dynamo doesn&#39;t yet support.</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">42</span><span class="p">])</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">get_magic_num</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">n</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">func</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call to `torch._dynamo.graph_break()`
-  Explanation: User-inserted graph break. Message: None
-  Hint: Remove the `torch._dynamo.graph_break()` call.
-
-  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
-
- For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-
-from user code:
-   File &quot;/tmp/ipykernel_470/2253748958.py&quot;, line 9, in func
-    n = get_magic_num()
-  File &quot;/tmp/ipykernel_470/2253748958.py&quot;, line 5, in get_magic_num
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def get_magic_num():
+    # This explicit graph break call is meant to emulate any kind of Dynamo
+    # graph break, e.g., the function is implemented in C, or uses some python
+    # language feature Dynamo doesn&#39;t yet support.
     torch._dynamo.graph_break()
-
-Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
+    return torch.tensor([42])
+@torch.compile(fullgraph=True)
+def func(x):
+    n = get_magic_num()
+    return x + n
+try:
+    func(torch.rand(10))
+except Exception as e:
+    print(e)
 </pre></div>
 </div>
 </div>
@@ -3740,25 +3723,19 @@ and the FX graph will eventually contain all the relevant tensor operations whic
 <p>For the example above, we can use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span> <span class="pre">to</span> <span class="pre">eliminate</span></code> the graph break:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">nonstrict_trace</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_magic_num</span><span class="p">():</span>
-    <span class="c1"># This explicit graph break call is meant to emulate any kind of Dynamo</span>
-    <span class="c1"># graph break, e.g., the function is implemented in C, or uses some python</span>
-    <span class="c1"># language feature Dynamo doesn&#39;t yet support.</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">42</span><span class="p">])</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">get_magic_num</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">n</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
-<span class="c1"># No graph break and no error.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.3236, 42.6844, 42.1723, 42.6132, 42.3326, 42.0426, 42.6424, 42.9706,
-        42.0388, 42.0949])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch._dynamo.nonstrict_trace
+def get_magic_num():
+    # This explicit graph break call is meant to emulate any kind of Dynamo
+    # graph break, e.g., the function is implemented in C, or uses some python
+    # language feature Dynamo doesn&#39;t yet support.
+    torch._dynamo.graph_break()
+    return torch.tensor([42])
+@torch.compile(fullgraph=True)
+def func(x):
+    n = get_magic_num()
+    return x + n
+print(func(torch.rand(10)))
+# No graph break and no error.
 </pre></div>
 </div>
 </div>
@@ -3766,24 +3743,18 @@ and the FX graph will eventually contain all the relevant tensor operations whic
 <p>Note that one can use it inside a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>’d region as well:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_magic_num</span><span class="p">():</span>
-    <span class="c1"># This explicit graph break call is meant to emulate any kind of Dynamo</span>
-    <span class="c1"># graph break, e.g., the function is implemented in C, or uses some python</span>
-    <span class="c1"># language feature Dynamo doesn&#39;t yet support.</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">42</span><span class="p">])</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">nonstrict_trace</span><span class="p">(</span><span class="n">get_magic_num</span><span class="p">)()</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">n</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
-<span class="c1"># No graph break and no error.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.2109, 42.6950, 42.2643, 42.1253, 42.7749, 42.2530, 42.4779, 42.5039,
-        42.9108, 42.6395])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def get_magic_num():
+    # This explicit graph break call is meant to emulate any kind of Dynamo
+    # graph break, e.g., the function is implemented in C, or uses some python
+    # language feature Dynamo doesn&#39;t yet support.
+    torch._dynamo.graph_break()
+    return torch.tensor([42])
+@torch.compile(fullgraph=True)
+def func(x):
+    n = torch._dynamo.nonstrict_trace(get_magic_num)()
+    return x + n
+print(func(torch.rand(10)))
+# No graph break and no error.
 </pre></div>
 </div>
 </div>
@@ -4094,10 +4065,10 @@ and the FX graph will eventually contain all the relevant tensor operations whic
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4148,7 +4119,7 @@ and the FX graph will eventually contain all the relevant tensor operations whic
        "headline": "Use torch._dynamo.nonstrict_trace",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.dynamo_nonstrict_trace.html",
-       "articleBody": "Use torch._dynamo.nonstrict_trace# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 Summary: Use nonstrict_trace to trace a function with non-strict tracing inside of a torch.compile\u2019d region. You may wish to do this because the Dynamo graph breaks on something inside of the function and you are sure that the function is non-strict traceable. Consider the following scenario: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n try: func(torch.rand(10)) except Exception as e: print(e) Call to `torch._dynamo.graph_break()` Explanation: User-inserted graph break. Message: None Hint: Remove the `torch._dynamo.graph_break()` call. Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}` For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html from user code: File \"/tmp/ipykernel_470/2253748958.py\", line 9, in func n = get_magic_num() File \"/tmp/ipykernel_470/2253748958.py\", line 5, in get_magic_num torch._dynamo.graph_break() Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you\u0027re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\"+dynamo\" If we run the code above, we\u2019ll get an error from Dynamo, because it sees a graph break while the user specified fullgraph=True. In these situations, if a user still wants to keep fullgraph=True, they typically have several options: The graph break is due to a language feature Dynamo doesn\u2019t yet support. In this case, the user either rewrites their code, or files an issue on GitHub. The graph break is due to a call to a function implemented in C. In this case, the user can try to use a custom op. The user could also try providing a polyfill (a reference implementation in Python) so that Dynamo can trace through it. Worst case scenario \u2013 an internal compiler error. In this case, the user likely has to file an issue on GitHub. In addition to all these options, PyTorch does provide an alternative torch._dynamo.nonstrict_trace, if the function call that induced the graph break satisfies certain requirements: The requirements of general non-strict tracing. The inputs and outputs must contain either basic types (e.g., int, float, list, dict, torch.Tensor), or user-defined types that are registered to torch.utils._pytree. The function must be defined outside the torch.compile\u2019d region. Any non-input values read by the function will be treated as a constant (e.g., a global tensor), and will not be guarded on. When tracing through a call to a torch._dynamo.nonstrict_trace\u2019d function, torch.compile switches to non-strict tracing, and the FX graph will eventually contain all the relevant tensor operations which happened inside that function. For the example above, we can use torch._dynamo.nonstrict_trace to eliminate the graph break: @torch._dynamo.nonstrict_trace def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n print(func(torch.rand(10))) # No graph break and no error. tensor([42.3236, 42.6844, 42.1723, 42.6132, 42.3326, 42.0426, 42.6424, 42.9706, 42.0388, 42.0949]) Note that one can use it inside a torch.compile\u2019d region as well: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = torch._dynamo.nonstrict_trace(get_magic_num)() return x + n print(func(torch.rand(10))) # No graph break and no error. tensor([42.2109, 42.6950, 42.2643, 42.1253, 42.7749, 42.2530, 42.4779, 42.5039, 42.9108, 42.6395])",
+       "articleBody": "Use torch._dynamo.nonstrict_trace# Summary: Use nonstrict_trace to trace a function with non-strict tracing inside of a torch.compile\u2019d region. You may wish to do this because the Dynamo graph breaks on something inside of the function and you are sure that the function is non-strict traceable. Consider the following scenario: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n try: func(torch.rand(10)) except Exception as e: print(e) If we run the code above, we\u2019ll get an error from Dynamo, because it sees a graph break while the user specified fullgraph=True. In these situations, if a user still wants to keep fullgraph=True, they typically have several options: The graph break is due to a language feature Dynamo doesn\u2019t yet support. In this case, the user either rewrites their code, or files an issue on GitHub. The graph break is due to a call to a function implemented in C. In this case, the user can try to use a custom op. The user could also try providing a polyfill (a reference implementation in Python) so that Dynamo can trace through it. Worst case scenario \u2013 an internal compiler error. In this case, the user likely has to file an issue on GitHub. In addition to all these options, PyTorch does provide an alternative torch._dynamo.nonstrict_trace, if the function call that induced the graph break satisfies certain requirements: The requirements of general non-strict tracing. The inputs and outputs must contain either basic types (e.g., int, float, list, dict, torch.Tensor), or user-defined types that are registered to torch.utils._pytree. The function must be defined outside the torch.compile\u2019d region. Any non-input values read by the function will be treated as a constant (e.g., a global tensor), and will not be guarded on. When tracing through a call to a torch._dynamo.nonstrict_trace\u2019d function, torch.compile switches to non-strict tracing, and the FX graph will eventually contain all the relevant tensor operations which happened inside that function. For the example above, we can use torch._dynamo.nonstrict_trace to eliminate the graph break: @torch._dynamo.nonstrict_trace def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n print(func(torch.rand(10))) # No graph break and no error. Note that one can use it inside a torch.compile\u2019d region as well: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn\u0027t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = torch._dynamo.nonstrict_trace(get_magic_num)() return x + n print(func(torch.rand(10))) # No graph break and no error.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4159,8 +4130,8 @@ and the FX graph will eventually contain all the relevant tensor operations whic
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.dynamo_nonstrict_trace.html"
        },
-       "datePublished": "Jul 28, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

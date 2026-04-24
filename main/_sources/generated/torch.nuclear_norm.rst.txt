@@ -1,0 +1,6 @@
+﻿torch.nuclear\_norm
+===================
+
+.. currentmodule:: torch
+
+.. autofunction:: nuclear_norm

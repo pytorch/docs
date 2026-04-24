@@ -1,0 +1,6 @@
+﻿torch.arcsin\_
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: arcsin_

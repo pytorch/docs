@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Dealing with Recompilations - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3662,7 +3665,6 @@ document.write(`
                   
   <section id="dealing-with-recompilations">
 <h1>Dealing with Recompilations<a class="headerlink" href="#dealing-with-recompilations" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 29, 2025 | Last Updated On: Dec 03, 2025</p>
 <p>Recompilations are necessary for <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> soundness, but can result in significantly increased compile time.
 Thus, minimizing recompilations while preserving soundness is essential for reducing compile time.</p>
 <p>You can view recompilations and their reasons using tlparse or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=recompiles</span></code>.</p>
@@ -3671,21 +3673,11 @@ Thus, minimizing recompilations while preserving soundness is essential for redu
 <p>In the below example, we recompile due to mismatched shapes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_653/2479206322.py:1
-    triggered by the following guard failure(s):
-    - 0/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2., 2., 2., 2.])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x):
+    return x + 1
+fn(torch.ones(3))
+fn(torch.ones(4))
 </pre></div>
 </div>
 </div>
@@ -3695,16 +3687,11 @@ The default option, <code class="docutils literal notranslate"><span class="pre"
 You can set <code class="docutils literal notranslate"><span class="pre">dynamic=True</span></code> to upfront compile as dynamic as possible:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2., 2., 2., 2.])
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile(dynamic=True)
+def gn(x):
+    return x + 1
+gn(torch.ones(3))
+gn(torch.ones(4))
 </pre></div>
 </div>
 </div>
@@ -3718,28 +3705,11 @@ dynamic shapes, see <a class="reference external" href="https://docs.google.com/
 In the below example, we have a recompilation for each function call.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1
-    triggered by the following guard failure(s):
-    - 2/0: c == 0.5                                                 # return x + c  # mp/ipykernel_653/3647755280.py:3 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/3647755280.py&quot;, line 3, in fn
-    -     return x + c
-Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1
-    triggered by the following guard failure(s):
-    - 2/1: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2
-    - 2/0: c == 0.5                                                 # return x + c  # mp/ipykernel_653/3647755280.py:3 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/3647755280.py&quot;, line 3, in fn
-    -     return x + c
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile
+def fn(x, c):
+    return x + c
+for i in range(5):
+    fn(torch.ones(i), 0.5 + i)
 </pre></div>
 </div>
 </div>
@@ -3747,29 +3717,18 @@ Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1
 <p>In particular, for LR schedulers, initializing with a constant can lead to recompilations:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="n">sched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ExponentialLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gn</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
-    <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">out</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-    <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">sched</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Profiler record function &lt;class &#39;torch.autograd.profiler.record_function&#39;&gt; will be ignored
-Recompiling function step in /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/optim/adam.py:214
-    triggered by the following guard failure(s):
-    - 6/0: self.param_groups[0][&#39;lr&#39;] == 0.01                       # for group in self.param_groups:  # optim/adam.py:229 in step
-    - User stack trace:
-    -   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/optim/adam.py&quot;, line 229, in step
-    -     for group in self.param_groups:
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mod = torch.nn.Linear(3, 3)
+opt = torch.optim.Adam(mod.parameters(), lr=0.01)
+sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9)
+@torch.compile
+def gn(inp):
+    opt.zero_grad(True)
+    out = mod(inp).sum()
+    out.backward()
+    opt.step()
+    sched.step()
+for i in range(5):
+    gn(torch.ones(3, 3))
 </pre></div>
 </div>
 </div>
@@ -3777,25 +3736,14 @@ Recompiling function step in /opt/conda/envs/py_3.10/lib/python3.10/site-package
 <p>In both examples, we can wrap <code class="docutils literal notranslate"><span class="pre">float</span></code> variables in tensors in order to prevent recompilations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first example</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">i</span><span class="p">))</span>
-<span class="c1"># second example</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
-<span class="n">sched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ExponentialLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.9</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1
-    triggered by the following guard failure(s):
-    - 0/0: tensor &#39;x&#39; size mismatch at index 0. expected 0, actual 1
-Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1
-    triggered by the following guard failure(s):
-    - 0/1: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2
-    - 0/0: tensor &#39;x&#39; size mismatch at index 0. expected 0, actual 2
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># first example
+for i in range(5):
+    fn(torch.ones(i), torch.tensor(0.5 + i))
+# second example
+opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01))
+sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9))
+for i in range(5):
+    gn(torch.ones(3, 3))
 </pre></div>
 </div>
 </div>
@@ -3816,73 +3764,12 @@ When we hit the cache size limit (by default, 8), we stop attempting to recompil
 (Note that we set <code class="docutils literal notranslate"><span class="pre">dynamic=False</span></code> for demonstration purposes to force recompilation every time).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-    <span class="c1"># recompile every time due to dynamic=False</span>
-    <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 3
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 3
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 4
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 4
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 5
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 5
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 5
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 5
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 6
-    - 7/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 6
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 6
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 6
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 6
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 7
-    - 7/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 7
-    - 7/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 7
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 7
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 7
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 7
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/6: tensor &#39;x&#39; size mismatch at index 0. expected 7, actual 8
-    - 7/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 8
-    - 7/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 8
-    - 7/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 8
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 8
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 8
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 8
-Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1
-    triggered by the following guard failure(s):
-    - 7/7: tensor &#39;x&#39; size mismatch at index 0. expected 8, actual 9
-    - 7/6: tensor &#39;x&#39; size mismatch at index 0. expected 7, actual 9
-    - 7/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 9
-    - 7/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 9
-    - 7/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 9
-    - 7/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 9
-    - 7/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 9
-    - 7/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 9
-torch._dynamo hit config.recompile_limit (8)
-   function: &#39;fn&#39; (/tmp/ipykernel_653/3054308037.py:1)
-   last reason: 7/7: tensor &#39;x&#39; size mismatch at index 0. expected 8, actual 9
-To log all recompilation reasons, use TORCH_LOGS=&quot;recompiles&quot;.
-To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@torch.compile(dynamic=False)
+def fn(x):
+    return x + 1
+for i in range(1, 10):
+    # recompile every time due to dynamic=False
+    fn(torch.ones(i))
 </pre></div>
 </div>
 </div>
@@ -3891,68 +3778,12 @@ To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_gu
 If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">cache_size_limit</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-    <span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 3
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 3
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 4
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 4
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 5
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 5
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 5
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 5
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 6
-    - 8/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 6
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 6
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 6
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 6
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 7
-    - 8/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 7
-    - 8/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 7
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 7
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 7
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 7
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/6: tensor &#39;x&#39; size mismatch at index 0. expected 7, actual 8
-    - 8/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 8
-    - 8/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 8
-    - 8/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 8
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 8
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 8
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 8
-Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
-    triggered by the following guard failure(s):
-    - 8/7: tensor &#39;x&#39; size mismatch at index 0. expected 8, actual 9
-    - 8/6: tensor &#39;x&#39; size mismatch at index 0. expected 7, actual 9
-    - 8/5: tensor &#39;x&#39; size mismatch at index 0. expected 6, actual 9
-    - 8/4: tensor &#39;x&#39; size mismatch at index 0. expected 5, actual 9
-    - 8/3: tensor &#39;x&#39; size mismatch at index 0. expected 4, actual 9
-    - 8/2: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 9
-    - 8/1: tensor &#39;x&#39; size mismatch at index 0. expected 2, actual 9
-    - 8/0: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 9
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>torch._dynamo.config.cache_size_limit = 16
+@torch.compile(dynamic=False)
+def gn(x):
+    return x + 1
+for i in range(1, 10):
+    gn(torch.ones(i))
 </pre></div>
 </div>
 </div>
@@ -3964,89 +3795,25 @@ Recompiling function gn in /tmp/ipykernel_653/887097224.py:2
 a graph break in order to reduce recompilation costs, at the expense of introducing a performance hit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">very_large_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def very_large_function(x):
+    return x + 1
 
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">very_large_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># recompiled every time</span>
-    <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">c</span>
+@torch.compile(dynamic=False)
+def fn(x, c):
+    y = very_large_function(x)  # recompiled every time
+    return y + c
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-    <span class="n">fn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+for i in range(1, 5):
+    fn(torch.ones(3), i)
 
-<span class="nd">@torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">very_large_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># compiled only once</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">graph_break</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">c</span>  <span class="c1"># recompiled every time</span>
+@torch.compile(dynamic=False)
+def gn(x, c):
+    y = very_large_function(x)  # compiled only once
+    torch._dynamo.graph_break()
+    return y + c  # recompiled every time
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-    <span class="n">gn</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4
-    triggered by the following guard failure(s):
-    - 9/0: c == 1                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4
-    triggered by the following guard failure(s):
-    - 9/1: c == 2                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-    - 9/0: c == 1                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4
-    triggered by the following guard failure(s):
-    - 9/2: c == 3                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-    - 9/1: c == 2                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-    - 9/0: c == 1                                                   # return y + c  # mp/ipykernel_653/2876112129.py:7 in fn
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 7, in fn
-    -     return y + c
-Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15
-    triggered by the following guard failure(s):
-    - 11/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
-Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15
-    triggered by the following guard failure(s):
-    - 11/1: c == 2                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
-    - 11/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
-Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15
-    triggered by the following guard failure(s):
-    - 11/2: c == 3                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
-    - 11/1: c == 2                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
-    - 11/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
-    - User stack trace:
-    -   File &quot;/tmp/ipykernel_653/2876112129.py&quot;, line 16, in torch_dynamo_resume_in_gn_at_15
-    -     return y + c  # recompiled every time
+for i in range(1, 5):
+    gn(torch.ones(3), i)
 </pre></div>
 </div>
 </div>
@@ -4373,10 +4140,10 @@ Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/28761
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4427,7 +4194,7 @@ Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/28761
        "headline": "Dealing with Recompilations",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.recompilation.html",
-       "articleBody": "Dealing with Recompilations# Created On: Jul 29, 2025 | Last Updated On: Dec 03, 2025 Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Recompiling function fn in /tmp/ipykernel_653/2479206322.py:1 triggered by the following guard failure(s): - 0/0: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 4 tensor([2., 2., 2., 2.]) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) tensor([2., 2., 2., 2.]) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1 triggered by the following guard failure(s): - 2/0: c == 0.5 # return x + c # mp/ipykernel_653/3647755280.py:3 in fn - User stack trace: - File \"/tmp/ipykernel_653/3647755280.py\", line 3, in fn - return x + c Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1 triggered by the following guard failure(s): - 2/1: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 2 - 2/0: c == 0.5 # return x + c # mp/ipykernel_653/3647755280.py:3 in fn - User stack trace: - File \"/tmp/ipykernel_653/3647755280.py\", line 3, in fn - return x + c In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) Profiler record function \u003cclass \u0027torch.autograd.profiler.record_function\u0027\u003e will be ignored Recompiling function step in /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/optim/adam.py:214 triggered by the following guard failure(s): - 6/0: self.param_groups[0][\u0027lr\u0027] == 0.01 # for group in self.param_groups: # optim/adam.py:229 in step - User stack trace: - File \"/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/optim/adam.py\", line 229, in step - for group in self.param_groups: In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): gn(torch.ones(3, 3)) Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1 triggered by the following guard failure(s): - 0/0: tensor \u0027x\u0027 size mismatch at index 0. expected 0, actual 1 Recompiling function fn in /tmp/ipykernel_653/3647755280.py:1 triggered by the following guard failure(s): - 0/1: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 2 - 0/0: tensor \u0027x\u0027 size mismatch at index 0. expected 0, actual 2 Changing the Cache Size Limit# There is a limit to how many times a function can be recompiled, determined by torch._dynamo.config.cache_size_limit and torch._dynamo.config.accumulated_cache_size_limit (The exact difference between these 2 values is detailed in torch/_dynamo/cache_size.py). If the Dynamo cache limit is hit, then all future compilation attempts will result in the function being skipped (run eagerly). Dynamo will still attempt to use previously compiled bytecode for future function calls, if the guards pass. Note that in the case of a recompilation limit hit, all nested function calls WILL be skipped (Dynamo will try to use previously compiled bytecode for the nested functions). Dynamo will also issue a warning containing the affected function and which limit was hit. In the example below, each function call results in a recompile attempt. When we hit the cache size limit (by default, 8), we stop attempting to recompile. (Note that we set dynamic=False for demonstration purposes to force recompilation every time). @torch.compile(dynamic=False) def fn(x): return x + 1 for i in range(1, 10): # recompile every time due to dynamic=False fn(torch.ones(i)) Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 2 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 3 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 3 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 4 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 4 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 4 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 5 - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 5 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 5 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 5 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 6 - 7/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 6 - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 6 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 6 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 6 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 7 - 7/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 7 - 7/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 7 - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 7 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 7 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 7 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/6: tensor \u0027x\u0027 size mismatch at index 0. expected 7, actual 8 - 7/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 8 - 7/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 8 - 7/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 8 - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 8 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 8 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 8 Recompiling function fn in /tmp/ipykernel_653/3054308037.py:1 triggered by the following guard failure(s): - 7/7: tensor \u0027x\u0027 size mismatch at index 0. expected 8, actual 9 - 7/6: tensor \u0027x\u0027 size mismatch at index 0. expected 7, actual 9 - 7/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 9 - 7/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 9 - 7/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 9 - 7/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 9 - 7/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 9 - 7/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 9 torch._dynamo hit config.recompile_limit (8) function: \u0027fn\u0027 (/tmp/ipykernel_653/3054308037.py:1) last reason: 7/7: tensor \u0027x\u0027 size mismatch at index 0. expected 8, actual 9 To log all recompilation reasons, use TORCH_LOGS=\"recompiles\". To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html If you know that the number of recompilations has a reasonable constant upper bound, you can raise the cache size limit. If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit. torch._dynamo.config.cache_size_limit = 16 @torch.compile(dynamic=False) def gn(x): return x + 1 for i in range(1, 10): gn(torch.ones(i)) Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 2 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 3 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 3 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 4 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 4 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 4 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 5 - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 5 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 5 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 5 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 6 - 8/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 6 - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 6 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 6 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 6 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 7 - 8/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 7 - 8/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 7 - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 7 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 7 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 7 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/6: tensor \u0027x\u0027 size mismatch at index 0. expected 7, actual 8 - 8/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 8 - 8/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 8 - 8/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 8 - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 8 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 8 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 8 Recompiling function gn in /tmp/ipykernel_653/887097224.py:2 triggered by the following guard failure(s): - 8/7: tensor \u0027x\u0027 size mismatch at index 0. expected 8, actual 9 - 8/6: tensor \u0027x\u0027 size mismatch at index 0. expected 7, actual 9 - 8/5: tensor \u0027x\u0027 size mismatch at index 0. expected 6, actual 9 - 8/4: tensor \u0027x\u0027 size mismatch at index 0. expected 5, actual 9 - 8/3: tensor \u0027x\u0027 size mismatch at index 0. expected 4, actual 9 - 8/2: tensor \u0027x\u0027 size mismatch at index 0. expected 3, actual 9 - 8/1: tensor \u0027x\u0027 size mismatch at index 0. expected 2, actual 9 - 8/0: tensor \u0027x\u0027 size mismatch at index 0. expected 1, actual 9 Graph Breaking to Reduce Recompilation Costs# If a large graph is recompiling and causing high compile time, you can intentionally introduce a graph break in order to reduce recompilation costs, at the expense of introducing a performance hit. def very_large_function(x): return x + 1 @torch.compile(dynamic=False) def fn(x, c): y = very_large_function(x) # recompiled every time return y + c for i in range(1, 5): fn(torch.ones(3), i) @torch.compile(dynamic=False) def gn(x, c): y = very_large_function(x) # compiled only once torch._dynamo.graph_break() return y + c # recompiled every time for i in range(1, 5): gn(torch.ones(3), i) Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4 triggered by the following guard failure(s): - 9/0: c == 1 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4 triggered by the following guard failure(s): - 9/1: c == 2 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c - 9/0: c == 1 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c Recompiling function fn in /tmp/ipykernel_653/2876112129.py:4 triggered by the following guard failure(s): - 9/2: c == 3 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c - 9/1: c == 2 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c - 9/0: c == 1 # return y + c # mp/ipykernel_653/2876112129.py:7 in fn - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 7, in fn - return y + c Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15 triggered by the following guard failure(s): - 11/0: c == 1 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15 triggered by the following guard failure(s): - 11/1: c == 2 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time - 11/0: c == 1 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/2876112129.py:15 triggered by the following guard failure(s): - 11/2: c == 3 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time - 11/1: c == 2 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time - 11/0: c == 1 # return y + c # recompiled every time # mp/ipykernel_653/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15 - User stack trace: - File \"/tmp/ipykernel_653/2876112129.py\", line 16, in torch_dynamo_resume_in_gn_at_15 - return y + c # recompiled every time",
+       "articleBody": "Dealing with Recompilations# Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): gn(torch.ones(3, 3)) Changing the Cache Size Limit# There is a limit to how many times a function can be recompiled, determined by torch._dynamo.config.cache_size_limit and torch._dynamo.config.accumulated_cache_size_limit (The exact difference between these 2 values is detailed in torch/_dynamo/cache_size.py). If the Dynamo cache limit is hit, then all future compilation attempts will result in the function being skipped (run eagerly). Dynamo will still attempt to use previously compiled bytecode for future function calls, if the guards pass. Note that in the case of a recompilation limit hit, all nested function calls WILL be skipped (Dynamo will try to use previously compiled bytecode for the nested functions). Dynamo will also issue a warning containing the affected function and which limit was hit. In the example below, each function call results in a recompile attempt. When we hit the cache size limit (by default, 8), we stop attempting to recompile. (Note that we set dynamic=False for demonstration purposes to force recompilation every time). @torch.compile(dynamic=False) def fn(x): return x + 1 for i in range(1, 10): # recompile every time due to dynamic=False fn(torch.ones(i)) If you know that the number of recompilations has a reasonable constant upper bound, you can raise the cache size limit. If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit. torch._dynamo.config.cache_size_limit = 16 @torch.compile(dynamic=False) def gn(x): return x + 1 for i in range(1, 10): gn(torch.ones(i)) Graph Breaking to Reduce Recompilation Costs# If a large graph is recompiling and causing high compile time, you can intentionally introduce a graph break in order to reduce recompilation costs, at the expense of introducing a performance hit. def very_large_function(x): return x + 1 @torch.compile(dynamic=False) def fn(x, c): y = very_large_function(x) # recompiled every time return y + c for i in range(1, 5): fn(torch.ones(3), i) @torch.compile(dynamic=False) def gn(x, c): y = very_large_function(x) # compiled only once torch._dynamo.graph_break() return y + c # recompiled every time for i in range(1, 5): gn(torch.ones(3), i)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4438,8 +4205,8 @@ Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_653/28761
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.recompilation.html"
        },
-       "datePublished": "Jul 29, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

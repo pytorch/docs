@@ -1,0 +1,6 @@
+﻿torch.miopen\_rnn
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_rnn

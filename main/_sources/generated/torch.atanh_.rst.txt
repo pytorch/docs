@@ -1,0 +1,6 @@
+﻿torch.atanh\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: atanh_

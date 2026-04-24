@@ -1,0 +1,6 @@
+﻿torch.col\_indices\_copy
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: col_indices_copy

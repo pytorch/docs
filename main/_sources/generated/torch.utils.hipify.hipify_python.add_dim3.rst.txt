@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.add\_dim3
+===========================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: add_dim3

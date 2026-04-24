@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.gen\_mkl\_autotuner
+======================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: gen_mkl_autotuner

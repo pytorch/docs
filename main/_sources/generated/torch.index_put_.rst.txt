@@ -1,0 +1,6 @@
+﻿torch.index\_put\_
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: index_put_

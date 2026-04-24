@@ -1,0 +1,6 @@
+﻿torch.fbgemm\_pack\_quantized\_matrix
+=====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: fbgemm_pack_quantized_matrix

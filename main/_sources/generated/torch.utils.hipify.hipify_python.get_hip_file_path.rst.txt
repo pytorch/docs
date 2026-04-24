@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.get\_hip\_file\_path
+======================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: get_hip_file_path

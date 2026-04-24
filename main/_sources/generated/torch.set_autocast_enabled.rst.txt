@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_enabled
+============================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_enabled

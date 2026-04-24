@@ -1,0 +1,6 @@
+﻿torch.cudnn\_affine\_grid\_generator
+====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_affine_grid_generator

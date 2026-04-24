@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="Autoload Mechanism - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/torch_compiler/compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../user_guide/torch_compiler/troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/torch_compiler/torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3645,7 +3648,6 @@ document.write(`
                   
   <section id="autoload-mechanism">
 <h1>Autoload Mechanism<a class="headerlink" href="#autoload-mechanism" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 12, 2025 | Last Updated On: Sep 13, 2025</p>
 <p>The <strong>Autoload</strong> mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch.</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
@@ -4066,10 +4068,10 @@ PYTHON</label><div class="sd-tab-content docutils">
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4120,7 +4122,7 @@ PYTHON</label><div class="sd-tab-content docutils">
        "headline": "Autoload Mechanism",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator/autoload.html",
-       "articleBody": "Autoload Mechanism# Created On: Sep 12, 2025 | Last Updated On: Sep 13, 2025 The Autoload mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch. Background# The Autoload Device Extension proposal in PyTorch is centered on improving support for various hardware backend devices, especially those implemented as out-of-the-tree extensions (not part of PyTorch\u2019s main codebase). Currently, users must manually import or load these device-specific extensions to use them, which complicates the experience and increases cognitive overhead. In contrast, in-tree devices (devices officially supported within PyTorch) are seamlessly integrated\u2014users don\u2019t need extra imports or steps. The goal of autoloading is to make out-of-the-tree devices just as easy to use, so users can follow the standard PyTorch device programming model without explicit loading or code changes. This would allow existing PyTorch applications to run on new devices without any modification, making hardware support more user-friendly and reducing barriers to adoption. For more information about the background of Autoload, please refer to its RFC. Design# The core idea of Autoload is to Use Python\u2019s plugin discovery (entry points) so PyTorch automatically loads out-of-tree device extensions when torch is imported\u2014no explicit user import needed. For more instructions of the design of Autoload, please refer to How it works. Implementation# This tutorial will take OpenReg as a new out-of-the-tree device and guide you through the steps to enable and use the Autoload mechanism. Entry Point Setup# To enable Autoload, register the _autoload function as an entry point in setup.py file. Python 1 setup( 2 packages=find_packages(), 3 package_data=package_data, 4 ext_modules=ext_modules, 5 cmdclass={ 6 \"clean\": BuildClean, # type: ignore[misc] 7 }, 8 include_package_data=False, 9 entry_points={ 10 \"torch.backends\": [ 11 \"torch_openreg = torch_openreg:_autoload\", 12 ], 13 }, 14 ) Backend Setup# Define the initialization hook _autoload for backend initialization in torch_openreg. This hook will be automatically invoked by PyTorch during startup. PYTHON 1def _autoload(): 2 # It is a placeholder function here to be registered as an entry point. 3 pass 4 5 Result# After setting up the entry point and backend, build and install your backend. Now, we can use the new accelerator without explicitly importing it. Without Autoload \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch_openreg \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027) With Autoload \u003e\u003e\u003e import torch # Automatically import torch_openreg \u003e\u003e\u003e \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027)",
+       "articleBody": "Autoload Mechanism# The Autoload mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch. Background# The Autoload Device Extension proposal in PyTorch is centered on improving support for various hardware backend devices, especially those implemented as out-of-the-tree extensions (not part of PyTorch\u2019s main codebase). Currently, users must manually import or load these device-specific extensions to use them, which complicates the experience and increases cognitive overhead. In contrast, in-tree devices (devices officially supported within PyTorch) are seamlessly integrated\u2014users don\u2019t need extra imports or steps. The goal of autoloading is to make out-of-the-tree devices just as easy to use, so users can follow the standard PyTorch device programming model without explicit loading or code changes. This would allow existing PyTorch applications to run on new devices without any modification, making hardware support more user-friendly and reducing barriers to adoption. For more information about the background of Autoload, please refer to its RFC. Design# The core idea of Autoload is to Use Python\u2019s plugin discovery (entry points) so PyTorch automatically loads out-of-tree device extensions when torch is imported\u2014no explicit user import needed. For more instructions of the design of Autoload, please refer to How it works. Implementation# This tutorial will take OpenReg as a new out-of-the-tree device and guide you through the steps to enable and use the Autoload mechanism. Entry Point Setup# To enable Autoload, register the _autoload function as an entry point in setup.py file. Python 1 setup( 2 packages=find_packages(), 3 package_data=package_data, 4 ext_modules=ext_modules, 5 cmdclass={ 6 \"clean\": BuildClean, # type: ignore[misc] 7 }, 8 include_package_data=False, 9 entry_points={ 10 \"torch.backends\": [ 11 \"torch_openreg = torch_openreg:_autoload\", 12 ], 13 }, 14 ) Backend Setup# Define the initialization hook _autoload for backend initialization in torch_openreg. This hook will be automatically invoked by PyTorch during startup. PYTHON 1def _autoload(): 2 # It is a placeholder function here to be registered as an entry point. 3 pass 4 5 Result# After setting up the entry point and backend, build and install your backend. Now, we can use the new accelerator without explicitly importing it. Without Autoload \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch_openreg \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027) With Autoload \u003e\u003e\u003e import torch # Automatically import torch_openreg \u003e\u003e\u003e \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4131,8 +4133,8 @@ PYTHON</label><div class="sd-tab-content docutils">
          "@type": "WebPage",
          "@id": "/accelerator/autoload.html"
        },
-       "datePublished": "Sep 12, 2025T00:00:00Z",
-       "dateModified": "Sep 13, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>

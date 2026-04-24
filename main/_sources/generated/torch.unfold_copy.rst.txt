@@ -1,0 +1,6 @@
+﻿torch.unfold\_copy
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: unfold_copy

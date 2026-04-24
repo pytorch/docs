@@ -1,0 +1,6 @@
+﻿torch.split\_copy
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: split_copy

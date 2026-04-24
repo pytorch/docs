@@ -1,0 +1,6 @@
+﻿torch.get\_autocast\_cpu\_dtype
+===============================
+
+.. currentmodule:: torch
+
+.. autofunction:: get_autocast_cpu_dtype

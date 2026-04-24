@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=6977116a" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
@@ -64,24 +64,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
-<!-- Machine-readable LLM metadata -->
-<meta name="llm:site-type" content="documentation">
-<meta name="llm:framework" content="PyTorch">
-
-<meta name="llm:description" content="TorchDynamo APIs for fine-grained tracing - Documentation for PyTorch, part of the PyTorch ecosystem.">
-
-
-
-
-
-<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
-<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.12.0a0+git0775839 )">
-<meta name="llm:project" content="PyTorch">
-<meta name="llm:page-type" content="documentation">
-<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -184,7 +166,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.12.0a0+git0775839 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git89f341b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -242,11 +224,24 @@
         link.parentElement.classList.remove('active');
       });
 
-      // Add active class to the matching link
+      // Add active class to the matching link and all its ancestor TOC items
       const matchingLink = tocNav.querySelector(`a[href="#${CSS.escape(targetId)}"]`);
       if (matchingLink) {
         matchingLink.classList.add('active');
         matchingLink.parentElement.classList.add('active');
+
+        // Walk up the DOM to activate parent TOC entries (e.g. h2 parent of h3)
+        let ancestor = matchingLink.parentElement.parentElement;
+        while (ancestor && ancestor !== tocNav) {
+          if (ancestor.classList.contains('toc-entry')) {
+            ancestor.classList.add('active');
+            const parentLink = ancestor.querySelector(':scope > a.nav-link');
+            if (parentLink) {
+              parentLink.classList.add('active');
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
       }
 
       // Use setTimeout to reset the guard after the current call stack
@@ -3385,6 +3380,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3403,6 +3399,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.assume_constant_result.html">torch.compiler.assume_constant_result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.disable.html">torch.compiler.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_default_backend.html">torch.compiler.set_default_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.get_default_backend.html">torch.compiler.get_default_backend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
@@ -3416,6 +3414,10 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.skip_all_guards_unsafe.html">torch.compiler.skip_all_guards_unsafe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_cache_artifacts.html">torch.compiler.load_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.load_compiled_function.html">torch.compiler.load_compiled_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.save_cache_artifacts.html">torch.compiler.save_cache_artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/torch.compiler.wrap_numpy.html">torch.compiler.wrap_numpy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
@@ -3530,6 +3532,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/operators.html">Operator Registration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/amp.html">Automatic Mixed Precision</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../accelerator/profiler.html">Profiler Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../accelerator/ci.html">CI Integration</a></li>
 </ul>
 </details></li>
 </ul>
@@ -3656,7 +3659,6 @@ document.write(`
                   
   <section id="torchdynamo-apis-for-fine-grained-tracing">
 <span id="torchdynamo-fine-grain-tracing"></span><h1>TorchDynamo APIs for fine-grained tracing<a class="headerlink" href="#torchdynamo-apis-for-fine-grained-tracing" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Dec 03, 2025</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this document <code class="docutils literal notranslate"><span class="pre">torch.compiler.compile</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> are used interchangeably.
@@ -4099,10 +4101,10 @@ above example.</p>
   </div>
 </footer>
 
-<div class="cookie-banner-wrapper">
+<div class="cookie-banner-wrapper" data-nosnippet>
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://opensource.fb.com/legal/cookie-policy">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../_static/img/pytorch-x.svg">
+    <button class="close-button" aria-label="Close cookie banner"></button>
   </div>
 </div>
   
@@ -4153,7 +4155,7 @@ above example.</p>
        "headline": "TorchDynamo APIs for fine-grained tracing",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_fine_grain_apis.html",
-       "articleBody": "TorchDynamo APIs for fine-grained tracing# Created On: Jul 28, 2023 | Last Updated On: Dec 03, 2025 Note In this document torch.compiler.compile and torch.compile are used interchangeably. Both versions will work in your code. torch.compile performs TorchDynamo tracing on the whole user model. However, it is possible that a small part of the model code cannot be handled by torch.compiler. In this case, you might want to disable the compiler on that particular portion, while running compilation on the rest of the model. This section describe the existing APIs that use to define parts of your code in which you want to skip compilation and the relevant use cases. The API that you can use to define portions of the code on which you can disable compilation are listed in the following table: TorchDynamo APIs to control fine-grained tracing# API Description When to use? torch.compiler.disable Disables Dynamo on the decorated function as well as recursively invoked functions. Excellent for unblocking a user, if a small portion of the model cannot be handled with torch.compile. torch._dynamo.disallow_in_graph Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while torch.compiler.disable is suitable for decorating functions. This API is excellent for both debugging and unblocking if a custom op like torch.ops.fbgemm.* is causing issues with the torch.compile function. torch.compile.allow_in_graph The annotated callable goes as is in the TorchDynamo graph. For example, a black-box for TorchDynamo Dynamo.nnNote that AOT Autograd will trace through it, so the allow_in_graph is only a Dynamo-level concept. This API is useful for portions of the model which have known TorchDynamo hard-to-support features, like hooks or autograd.Function. However, each usage of allow_in_graph must be carefully screened (no graph breaks, no closures). torch._dynamo.graph_break Adds a graph break. The code before and after the graph break goes through TorchDynamo. Rarely useful for deployment - If you think you need this, most probably you need either disable or disallow_in_graph. torch.compiler.is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). torch.compiler.is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. It\u2019s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when TorchDynamo is used. torch.compiler.is_exporting Indicates whether a graph is traced via export. It\u2019s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when torch.export is used. torch.compiler.disable# torch.compiler.disable disables compilation on the decorated function frame and all the function frames recursively invoked from the decorated function frame. TorchDynamo intercepts the execution of each Python function frame. So, suppose you have a code structure (image below) where the function fn calls functions a_fn and b_fn. And a_fn calls aa_fn and ab_fn. When you use the PyTorch eager mode rather than torch.compile, these function frames run as is. With torch.compile, TorchDynamo intercepts each of these function frames (indicated by the green color): Let\u2019s imagine, that function a_fn is causing troubles with torch.compile. And this is a non-critical portion of the model. You can use compiler.disable on function a_fn. As shown above, TorchDynamo will stop looking at frames originating from the a_fn call (white color indicates original Python behavior). To skip compilation, you can decorate the offending function with @torch.compiler.disable. You can also use the non-decorator syntax if you don\u2019t want to change the source code However, we recommend that you avoid this style if possible. Here, you have to take care that all users of the original function are now using the patched version. torch._dynamo.disallow_in_graph# torch._dynamo.disallow_in_graph disallows an operator but not the function to be present in the TorchDynamo extracted graph. Note that this is suitable for operators and not general functions as in the case of _dynamo.disable. Let\u2019s imagine you compile your model with PyTorch. TorchDynamo is able to extract a graph, but then you see the downstream compiler failing. For example, the meta kernel is missing, or some Autograd dispatch key is set incorrectly for a particular operator. Then you can mark that operator as disallow_in_graph, and TorchDynamo will cause a graph break and run that operator by using the PyTorch eager mode. The catch is that you will have to find the corresponding Dynamo level operator, and not the ATen level operator. See more in the Limitations section of the doc. Warning torch._dynamo.disallow_in_graph is a global flag. If you are comparing different backend compilers, you might have to call allow_in_graph for the disallowed operator when switching to the other compiler. torch.compiler.allow_in_graph# torch.compiler.allow_in_graph is useful when the relevant function frame has some known hard-to-support TorchDynamo feature, such as hooks and autograd.Function, and you are confident that downstream PyTorch components such as AOTAutograd can safely trace through the decorated function. When a function is decorated with allow_in_graph, TorchDynamo treats it as a black-box and puts it as is in the generated graph. Warning allow_in_graph skips TorchDynamo completely on the decorated function omitting all TorchDynamo safety checks, including graph breaks, handling closures, and others. Use allow_in_graph with caution. PyTorch downstream components, such as AOTAutograd rely on TorchDynamo to handle complex Python features, but allow_in_graph bypasses TorchDynamo. Using allow_in_graph could lead to soundness and hard-to-debug issues. Limitations# All the existing APIs are applied at the TorchDynamo level. Therefore, these APIs have visibility to only what TorchDynamo sees. This can lead to confusing scenarios. For example, torch._dynamo.disallow_in_graph will not work for ATen operators because they are visible to AOT Autograd. For example, torch._dynamo.disallow_in_graph(torch.ops.aten.add) will not work in the above example.",
+       "articleBody": "TorchDynamo APIs for fine-grained tracing# Note In this document torch.compiler.compile and torch.compile are used interchangeably. Both versions will work in your code. torch.compile performs TorchDynamo tracing on the whole user model. However, it is possible that a small part of the model code cannot be handled by torch.compiler. In this case, you might want to disable the compiler on that particular portion, while running compilation on the rest of the model. This section describe the existing APIs that use to define parts of your code in which you want to skip compilation and the relevant use cases. The API that you can use to define portions of the code on which you can disable compilation are listed in the following table: TorchDynamo APIs to control fine-grained tracing# API Description When to use? torch.compiler.disable Disables Dynamo on the decorated function as well as recursively invoked functions. Excellent for unblocking a user, if a small portion of the model cannot be handled with torch.compile. torch._dynamo.disallow_in_graph Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while torch.compiler.disable is suitable for decorating functions. This API is excellent for both debugging and unblocking if a custom op like torch.ops.fbgemm.* is causing issues with the torch.compile function. torch.compile.allow_in_graph The annotated callable goes as is in the TorchDynamo graph. For example, a black-box for TorchDynamo Dynamo.nnNote that AOT Autograd will trace through it, so the allow_in_graph is only a Dynamo-level concept. This API is useful for portions of the model which have known TorchDynamo hard-to-support features, like hooks or autograd.Function. However, each usage of allow_in_graph must be carefully screened (no graph breaks, no closures). torch._dynamo.graph_break Adds a graph break. The code before and after the graph break goes through TorchDynamo. Rarely useful for deployment - If you think you need this, most probably you need either disable or disallow_in_graph. torch.compiler.is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). torch.compiler.is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. It\u2019s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when TorchDynamo is used. torch.compiler.is_exporting Indicates whether a graph is traced via export. It\u2019s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when torch.export is used. torch.compiler.disable# torch.compiler.disable disables compilation on the decorated function frame and all the function frames recursively invoked from the decorated function frame. TorchDynamo intercepts the execution of each Python function frame. So, suppose you have a code structure (image below) where the function fn calls functions a_fn and b_fn. And a_fn calls aa_fn and ab_fn. When you use the PyTorch eager mode rather than torch.compile, these function frames run as is. With torch.compile, TorchDynamo intercepts each of these function frames (indicated by the green color): Let\u2019s imagine, that function a_fn is causing troubles with torch.compile. And this is a non-critical portion of the model. You can use compiler.disable on function a_fn. As shown above, TorchDynamo will stop looking at frames originating from the a_fn call (white color indicates original Python behavior). To skip compilation, you can decorate the offending function with @torch.compiler.disable. You can also use the non-decorator syntax if you don\u2019t want to change the source code However, we recommend that you avoid this style if possible. Here, you have to take care that all users of the original function are now using the patched version. torch._dynamo.disallow_in_graph# torch._dynamo.disallow_in_graph disallows an operator but not the function to be present in the TorchDynamo extracted graph. Note that this is suitable for operators and not general functions as in the case of _dynamo.disable. Let\u2019s imagine you compile your model with PyTorch. TorchDynamo is able to extract a graph, but then you see the downstream compiler failing. For example, the meta kernel is missing, or some Autograd dispatch key is set incorrectly for a particular operator. Then you can mark that operator as disallow_in_graph, and TorchDynamo will cause a graph break and run that operator by using the PyTorch eager mode. The catch is that you will have to find the corresponding Dynamo level operator, and not the ATen level operator. See more in the Limitations section of the doc. Warning torch._dynamo.disallow_in_graph is a global flag. If you are comparing different backend compilers, you might have to call allow_in_graph for the disallowed operator when switching to the other compiler. torch.compiler.allow_in_graph# torch.compiler.allow_in_graph is useful when the relevant function frame has some known hard-to-support TorchDynamo feature, such as hooks and autograd.Function, and you are confident that downstream PyTorch components such as AOTAutograd can safely trace through the decorated function. When a function is decorated with allow_in_graph, TorchDynamo treats it as a black-box and puts it as is in the generated graph. Warning allow_in_graph skips TorchDynamo completely on the decorated function omitting all TorchDynamo safety checks, including graph breaks, handling closures, and others. Use allow_in_graph with caution. PyTorch downstream components, such as AOTAutograd rely on TorchDynamo to handle complex Python features, but allow_in_graph bypasses TorchDynamo. Using allow_in_graph could lead to soundness and hard-to-debug issues. Limitations# All the existing APIs are applied at the TorchDynamo level. Therefore, these APIs have visibility to only what TorchDynamo sees. This can lead to confusing scenarios. For example, torch._dynamo.disallow_in_graph will not work for ATen operators because they are visible to AOT Autograd. For example, torch._dynamo.disallow_in_graph(torch.ops.aten.add) will not work in the above example.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4164,8 +4166,8 @@ above example.</p>
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/torch.compiler_fine_grain_apis.html"
        },
-       "datePublished": "Jul 28, 2023T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "UnknownT00:00:00Z",
+       "dateModified": "UnknownT00:00:00Z"
      }
  </script>
   <script>
