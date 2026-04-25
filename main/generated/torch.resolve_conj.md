@@ -1,0 +1,24 @@
+# torch.resolve_conj
+
+torch.resolve_conj(*input*) → [Tensor](../tensors.html#torch.Tensor)
+
+Returns a new tensor with materialized conjugation if `input`'s conjugate bit is set to True,
+else returns `input`. The output tensor will always have its conjugate bit set to False.
+
+Parameters:
+
+**input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+
+Example:
+
+```
+>>> x = torch.tensor([-1 + 1j, -2 + 2j, 3 - 3j])
+>>> y = x.conj()
+>>> y.is_conj()
+True
+>>> z = y.resolve_conj()
+>>> z
+tensor([-1 - 1j, -2 - 2j, 3 + 3j])
+>>> z.is_conj()
+False
+```

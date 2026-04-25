@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Meta device - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,6 +7029,7 @@ document.write(`
                   
   <section id="meta-device">
 <h1>Meta device<a class="headerlink" href="#meta-device" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 17, 2025 | Last Updated On: Jun 17, 2025</p>
 <p>The “meta” device is an abstract device which denotes a tensor which records
 only metadata, but no actual data.  Meta tensors have two primary use cases:</p>
 <ul class="simple">
@@ -7462,7 +7481,7 @@ at any time.</p>
        "headline": "Meta device",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/meta.html",
-       "articleBody": "Meta device# The \u201cmeta\u201d device is an abstract device which denotes a tensor which records only metadata, but no actual data. Meta tensors have two primary use cases: Models can be loaded on the meta device, allowing you to load a representation of the model without actually loading the actual parameters into memory. This can be helpful if you need to make transformations on the model before you load the actual data. Most operations can be performed on meta tensors, producing new meta tensors that describe what the result would have been if you performed the operation on a real tensor. You can use this to perform abstract analysis without needing to spend time on compute or space to represent the actual tensors. Because meta tensors do not have real data, you cannot perform data-dependent operations like torch.nonzero() or item(). In some cases, not all device types (e.g., CPU and CUDA) have exactly the same output metadata for an operation; we typically prefer representing the CUDA behavior faithfully in this situation. Warning Although in principle meta tensor computation should always be faster than an equivalent CPU/CUDA computation, many meta tensor implementations are implemented in Python and have not been ported to C++ for speed, so you may find that you get lower absolute framework latency with small CPU tensors. Idioms for working with meta tensors# An object can be loaded with torch.load() onto meta device by specifying map_location=\u0027meta\u0027: \u003e\u003e\u003e torch.save(torch.randn(2), \u0027foo.pt\u0027) \u003e\u003e\u003e torch.load(\u0027foo.pt\u0027, map_location=\u0027meta\u0027) tensor(..., device=\u0027meta\u0027, size=(2,)) If you have some arbitrary code which performs some tensor construction without explicitly specifying a device, you can override it to instead construct on meta device by using the torch.device() context manager: \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... print(torch.randn(30, 30)) ... tensor(..., device=\u0027meta\u0027, size=(30, 30)) This is especially helpful NN module construction, where you often are not able to explicitly pass in a device for initialization: \u003e\u003e\u003e from torch.nn.modules import Linear \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... print(Linear(20, 30)) ... Linear(in_features=20, out_features=30, bias=True) You cannot convert a meta tensor directly to a CPU/CUDA tensor, because the meta tensor stores no data and we do not know what the correct data values for your new tensor are: \u003e\u003e\u003e torch.ones(5, device=\u0027meta\u0027).to(\"cpu\") Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e NotImplementedError: Cannot copy out of meta tensor; no data! Use a factory function like torch.empty_like() to explicitly specify how you would like the missing data to be filled in. NN modules have a convenience method torch.nn.Module.to_empty() that allows you to move the module to another device, leaving all parameters uninitialized. You are expected to explicitly reinitialize the parameters manually: \u003e\u003e\u003e from torch.nn.modules import Linear \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... m = Linear(20, 30) \u003e\u003e\u003e m.to_empty(device=\"cpu\") Linear(in_features=20, out_features=30, bias=True) torch._subclasses.meta_utils contains undocumented utilities for taking an arbitrary Tensor and constructing an equivalent meta Tensor with high fidelity. These APIs are experimental and may be changed in a BC breaking way at any time.",
+       "articleBody": "Meta device# Created On: Jun 17, 2025 | Last Updated On: Jun 17, 2025 The \u201cmeta\u201d device is an abstract device which denotes a tensor which records only metadata, but no actual data. Meta tensors have two primary use cases: Models can be loaded on the meta device, allowing you to load a representation of the model without actually loading the actual parameters into memory. This can be helpful if you need to make transformations on the model before you load the actual data. Most operations can be performed on meta tensors, producing new meta tensors that describe what the result would have been if you performed the operation on a real tensor. You can use this to perform abstract analysis without needing to spend time on compute or space to represent the actual tensors. Because meta tensors do not have real data, you cannot perform data-dependent operations like torch.nonzero() or item(). In some cases, not all device types (e.g., CPU and CUDA) have exactly the same output metadata for an operation; we typically prefer representing the CUDA behavior faithfully in this situation. Warning Although in principle meta tensor computation should always be faster than an equivalent CPU/CUDA computation, many meta tensor implementations are implemented in Python and have not been ported to C++ for speed, so you may find that you get lower absolute framework latency with small CPU tensors. Idioms for working with meta tensors# An object can be loaded with torch.load() onto meta device by specifying map_location=\u0027meta\u0027: \u003e\u003e\u003e torch.save(torch.randn(2), \u0027foo.pt\u0027) \u003e\u003e\u003e torch.load(\u0027foo.pt\u0027, map_location=\u0027meta\u0027) tensor(..., device=\u0027meta\u0027, size=(2,)) If you have some arbitrary code which performs some tensor construction without explicitly specifying a device, you can override it to instead construct on meta device by using the torch.device() context manager: \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... print(torch.randn(30, 30)) ... tensor(..., device=\u0027meta\u0027, size=(30, 30)) This is especially helpful NN module construction, where you often are not able to explicitly pass in a device for initialization: \u003e\u003e\u003e from torch.nn.modules import Linear \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... print(Linear(20, 30)) ... Linear(in_features=20, out_features=30, bias=True) You cannot convert a meta tensor directly to a CPU/CUDA tensor, because the meta tensor stores no data and we do not know what the correct data values for your new tensor are: \u003e\u003e\u003e torch.ones(5, device=\u0027meta\u0027).to(\"cpu\") Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e NotImplementedError: Cannot copy out of meta tensor; no data! Use a factory function like torch.empty_like() to explicitly specify how you would like the missing data to be filled in. NN modules have a convenience method torch.nn.Module.to_empty() that allows you to move the module to another device, leaving all parameters uninitialized. You are expected to explicitly reinitialize the parameters manually: \u003e\u003e\u003e from torch.nn.modules import Linear \u003e\u003e\u003e with torch.device(\u0027meta\u0027): ... m = Linear(20, 30) \u003e\u003e\u003e m.to_empty(device=\"cpu\") Linear(in_features=20, out_features=30, bias=True) torch._subclasses.meta_utils contains undocumented utilities for taking an arbitrary Tensor and constructing an equivalent meta Tensor with high fidelity. These APIs are experimental and may be changed in a BC breaking way at any time.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7473,8 +7492,8 @@ at any time.</p>
          "@type": "WebPage",
          "@id": "/meta.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jun 17, 2025T00:00:00Z",
+       "dateModified": "Jun 17, 2025T00:00:00Z"
      }
  </script>
   <script>

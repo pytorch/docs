@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="MPS backend - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3648,6 +3666,7 @@ document.write(`
                   
   <section id="mps-backend">
 <span id="id1"></span><h1>MPS backend<a class="headerlink" href="#mps-backend" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 13, 2022 | Last Updated On: Mar 13, 2026</p>
 <p><code class="xref py py-mod docutils literal notranslate"><span class="pre">mps</span></code> device enables high-performance
 training on GPU for macOS devices with Metal programming framework.  It
 introduces a new device to map Machine Learning computational graphs and
@@ -4044,7 +4063,7 @@ capabilities to setup and run operations on GPU.</p>
        "headline": "MPS backend",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/mps.html",
-       "articleBody": "MPS backend# mps device enables high-performance training on GPU for macOS devices with Metal programming framework. It introduces a new device to map Machine Learning computational graphs and primitives on highly efficient Metal Performance Shaders Graph framework and tuned kernels provided by Metal Performance Shaders framework respectively. The new MPS backend extends the PyTorch ecosystem and provides existing scripts capabilities to setup and run operations on GPU. To get started, simply move your Tensor and Module to the mps device: # Check that MPS is available if not torch.backends.mps.is_available(): if not torch.backends.mps.is_built(): print(\"MPS not available because the current PyTorch install was not \" \"built with MPS enabled.\") else: print(\"MPS not available because the current macOS version is not 14.0+ \" \"and/or you do not have an MPS-enabled device on this machine.\") else: mps_device = torch.device(\"mps\") # Create a Tensor directly on the mps device x = torch.ones(5, device=mps_device) # Or x = torch.ones(5, device=\"mps\") # Any operation happens on the GPU y = x * 2 # Move your model to mps just like any other device model = YourFavoriteNet() model.to(mps_device) # Now every call runs on the GPU pred = model(x)",
+       "articleBody": "MPS backend# Created On: May 13, 2022 | Last Updated On: Mar 13, 2026 mps device enables high-performance training on GPU for macOS devices with Metal programming framework. It introduces a new device to map Machine Learning computational graphs and primitives on highly efficient Metal Performance Shaders Graph framework and tuned kernels provided by Metal Performance Shaders framework respectively. The new MPS backend extends the PyTorch ecosystem and provides existing scripts capabilities to setup and run operations on GPU. To get started, simply move your Tensor and Module to the mps device: # Check that MPS is available if not torch.backends.mps.is_available(): if not torch.backends.mps.is_built(): print(\"MPS not available because the current PyTorch install was not \" \"built with MPS enabled.\") else: print(\"MPS not available because the current macOS version is not 14.0+ \" \"and/or you do not have an MPS-enabled device on this machine.\") else: mps_device = torch.device(\"mps\") # Create a Tensor directly on the mps device x = torch.ones(5, device=mps_device) # Or x = torch.ones(5, device=\"mps\") # Any operation happens on the GPU y = x * 2 # Move your model to mps just like any other device model = YourFavoriteNet() model.to(mps_device) # Now every call runs on the GPU pred = model(x)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4055,8 +4074,8 @@ capabilities to setup and run operations on GPU.</p>
          "@type": "WebPage",
          "@id": "/notes/mps.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "May 13, 2022T00:00:00Z",
+       "dateModified": "Mar 13, 2026T00:00:00Z"
      }
  </script>
   <script>

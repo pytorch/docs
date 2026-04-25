@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.onnx.verification - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,10 +7038,11 @@ document.write(`
                   
   <section id="module-torch.onnx.verification">
 <span id="torch-onnx-verification"></span><h1>torch.onnx.verification<a class="headerlink" href="#module-torch.onnx.verification" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 18, 2025 | Last Updated On: Aug 29, 2025</p>
 <p>A set of tools to verify the correctness of ONNX models.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.verification.verify_onnx_program">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_intermediates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/onnx/_internal/exporter/_verification.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_onnx_program" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_intermediates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/onnx/_internal/exporter/_verification.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_onnx_program" title="Link to this definition">#</a></dt>
 <dd><p>Verify the ONNX model by comparing the values with the expected values from ExportedProgram.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7070,7 +7089,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.verification.VerificationInfo.asdict">
-<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/onnx/_internal/exporter/_verification.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.asdict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/onnx/_internal/exporter/_verification.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.asdict" title="Link to this definition">#</a></dt>
 <dd><p>Convert the VerificationInfo object to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7084,7 +7103,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.verification.VerificationInfo.from_tensors">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/onnx/_internal/exporter/_verification.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.from_tensors" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/onnx/_internal/exporter/_verification.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.from_tensors" title="Link to this definition">#</a></dt>
 <dd><p>Create a VerificationInfo object from two tensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7482,7 +7501,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
        "headline": "torch.onnx.verification",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/onnx_verification.html",
-       "articleBody": "torch.onnx.verification# A set of tools to verify the correctness of ONNX models. torch.onnx.verification.verify_onnx_program(onnx_program, args=None, kwargs=None, compare_intermediates=False)[source]# Verify the ONNX model by comparing the values with the expected values from ExportedProgram. Parameters: onnx_program (_onnx_program.ONNXProgram) \u2013 The ONNX program to verify. args (tuple[Any, ...] | None) \u2013 The input arguments for the model. kwargs (dict[str, Any] | None) \u2013 The keyword arguments for the model. compare_intermediates (bool) \u2013 Whether to verify intermediate values. This is going to take longer time, so it is disabled by default. Returns: VerificationInfo objects containing the verification information for each value. Return type: list[VerificationInfo] class torch.onnx.verification.VerificationInfo(name, max_abs_diff, max_rel_diff, abs_diff_hist, rel_diff_hist, expected_dtype, actual_dtype)# Verification information for a value in the ONNX program. This class contains the maximum absolute difference, maximum relative difference, and histograms of absolute and relative differences between the expected and actual values. It also includes the expected and actual data types. The histograms are represented as tuples of tensors, where the first tensor is the histogram counts and the second tensor is the bin edges. Variables: name (str) \u2013 The name of the value (output or intermediate). max_abs_diff (float) \u2013 The maximum absolute difference between the expected and actual values. max_rel_diff (float) \u2013 The maximum relative difference between the expected and actual values. abs_diff_hist (tuple[torch.Tensor, torch.Tensor]) \u2013 A tuple of tensors representing the histogram of absolute differences. The first tensor is the histogram counts and the second tensor is the bin edges. rel_diff_hist (tuple[torch.Tensor, torch.Tensor]) \u2013 A tuple of tensors representing the histogram of relative differences. The first tensor is the histogram counts and the second tensor is the bin edges. expected_dtype (torch.dtype) \u2013 The data type of the expected value. actual_dtype (torch.dtype) \u2013 The data type of the actual value. asdict()[source]# Convert the VerificationInfo object to a dictionary. Returns: A dictionary representation of the VerificationInfo object. Return type: dict[str, Any] classmethod from_tensors(name, expected, actual)[source]# Create a VerificationInfo object from two tensors. Parameters: name (str) \u2013 The name of the value. expected (Tensor | float | int | bool) \u2013 The expected tensor. actual (Tensor | float | int | bool) \u2013 The actual tensor. Returns: The VerificationInfo object. Return type: VerificationInfo",
+       "articleBody": "torch.onnx.verification# Created On: Mar 18, 2025 | Last Updated On: Aug 29, 2025 A set of tools to verify the correctness of ONNX models. torch.onnx.verification.verify_onnx_program(onnx_program, args=None, kwargs=None, compare_intermediates=False)[source]# Verify the ONNX model by comparing the values with the expected values from ExportedProgram. Parameters: onnx_program (_onnx_program.ONNXProgram) \u2013 The ONNX program to verify. args (tuple[Any, ...] | None) \u2013 The input arguments for the model. kwargs (dict[str, Any] | None) \u2013 The keyword arguments for the model. compare_intermediates (bool) \u2013 Whether to verify intermediate values. This is going to take longer time, so it is disabled by default. Returns: VerificationInfo objects containing the verification information for each value. Return type: list[VerificationInfo] class torch.onnx.verification.VerificationInfo(name, max_abs_diff, max_rel_diff, abs_diff_hist, rel_diff_hist, expected_dtype, actual_dtype)# Verification information for a value in the ONNX program. This class contains the maximum absolute difference, maximum relative difference, and histograms of absolute and relative differences between the expected and actual values. It also includes the expected and actual data types. The histograms are represented as tuples of tensors, where the first tensor is the histogram counts and the second tensor is the bin edges. Variables: name (str) \u2013 The name of the value (output or intermediate). max_abs_diff (float) \u2013 The maximum absolute difference between the expected and actual values. max_rel_diff (float) \u2013 The maximum relative difference between the expected and actual values. abs_diff_hist (tuple[torch.Tensor, torch.Tensor]) \u2013 A tuple of tensors representing the histogram of absolute differences. The first tensor is the histogram counts and the second tensor is the bin edges. rel_diff_hist (tuple[torch.Tensor, torch.Tensor]) \u2013 A tuple of tensors representing the histogram of relative differences. The first tensor is the histogram counts and the second tensor is the bin edges. expected_dtype (torch.dtype) \u2013 The data type of the expected value. actual_dtype (torch.dtype) \u2013 The data type of the actual value. asdict()[source]# Convert the VerificationInfo object to a dictionary. Returns: A dictionary representation of the VerificationInfo object. Return type: dict[str, Any] classmethod from_tensors(name, expected, actual)[source]# Create a VerificationInfo object from two tensors. Parameters: name (str) \u2013 The name of the value. expected (Tensor | float | int | bool) \u2013 The expected tensor. actual (Tensor | float | int | bool) \u2013 The actual tensor. Returns: The VerificationInfo object. Return type: VerificationInfo",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7493,8 +7512,8 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
          "@type": "WebPage",
          "@id": "/onnx_verification.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Mar 18, 2025T00:00:00Z",
+       "dateModified": "Aug 29, 2025T00:00:00Z"
      }
  </script>
   <script>

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="MPS Environment Variables - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,6 +7038,7 @@ document.write(`
                   
   <section id="mps-environment-variables">
 <span id="id1"></span><h1>MPS Environment Variables<a class="headerlink" href="#mps-environment-variables" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
 <p><strong>PyTorch Environment Variables</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -7431,7 +7450,7 @@ allocation size.</p>
        "headline": "MPS Environment Variables",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mps_environment_variables.html",
-       "articleBody": "MPS Environment Variables# PyTorch Environment Variables Variable Description PYTORCH_DEBUG_MPS_ALLOCATOR If set to 1, set allocator logging level to verbose. PYTORCH_MPS_LOG_PROFILE_INFO Set log options bitmask to MPSProfiler. See LogOptions enum in aten/src/ATen/mps/MPSProfiler.h. PYTORCH_MPS_TRACE_SIGNPOSTS Set profile and signpost bitmasks to MPSProfiler. See ProfileOptions and SignpostTypes. PYTORCH_MPS_HIGH_WATERMARK_RATIO High watermark ratio for MPS allocator. Default is 1.7. PYTORCH_MPS_LOW_WATERMARK_RATIO Low watermark ratio for MPS allocator. Default is 1.4 (unified) or 1.0 (discrete). PYTORCH_MPS_FAST_MATH If 1, enables fast math for MPS kernels. See section 1.6.3 in the Metal Shading Language Spec. PYTORCH_MPS_PREFER_METAL If 1, uses metal kernels instead of MPS Graph APIs. Used for matmul. PYTORCH_ENABLE_MPS_FALLBACK If 1, falls back to CPU when MPS ops aren\u2019t supported. Note high watermark ratio is a hard limit for the total allowed allocations 0.0 : disables high watermark limit (may cause system failure if system-wide OOM occurs) 1.0 : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize) \u003e1.0: allows limits beyond the device.recommendedMaxWorkingSetSize e.g., value 0.95 means we allocate up to 95% of recommended maximum allocation size; beyond that, the allocations would fail with OOM error. low watermark ratio is a soft limit to attempt limiting memory allocations up to the lower watermark level by garbage collection or committing command buffers more frequently (a.k.a, adaptive commit). Value between 0 to m_high_watermark_ratio (setting 0.0 disables adaptive commit and garbage collection) e.g., value 0.9 means we \u2018attempt\u2019 to limit allocations up to 90% of recommended maximum allocation size.",
+       "articleBody": "MPS Environment Variables# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 PyTorch Environment Variables Variable Description PYTORCH_DEBUG_MPS_ALLOCATOR If set to 1, set allocator logging level to verbose. PYTORCH_MPS_LOG_PROFILE_INFO Set log options bitmask to MPSProfiler. See LogOptions enum in aten/src/ATen/mps/MPSProfiler.h. PYTORCH_MPS_TRACE_SIGNPOSTS Set profile and signpost bitmasks to MPSProfiler. See ProfileOptions and SignpostTypes. PYTORCH_MPS_HIGH_WATERMARK_RATIO High watermark ratio for MPS allocator. Default is 1.7. PYTORCH_MPS_LOW_WATERMARK_RATIO Low watermark ratio for MPS allocator. Default is 1.4 (unified) or 1.0 (discrete). PYTORCH_MPS_FAST_MATH If 1, enables fast math for MPS kernels. See section 1.6.3 in the Metal Shading Language Spec. PYTORCH_MPS_PREFER_METAL If 1, uses metal kernels instead of MPS Graph APIs. Used for matmul. PYTORCH_ENABLE_MPS_FALLBACK If 1, falls back to CPU when MPS ops aren\u2019t supported. Note high watermark ratio is a hard limit for the total allowed allocations 0.0 : disables high watermark limit (may cause system failure if system-wide OOM occurs) 1.0 : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize) \u003e1.0: allows limits beyond the device.recommendedMaxWorkingSetSize e.g., value 0.95 means we allocate up to 95% of recommended maximum allocation size; beyond that, the allocations would fail with OOM error. low watermark ratio is a soft limit to attempt limiting memory allocations up to the lower watermark level by garbage collection or committing command buffers more frequently (a.k.a, adaptive commit). Value between 0 to m_high_watermark_ratio (setting 0.0 disables adaptive commit and garbage collection) e.g., value 0.9 means we \u2018attempt\u2019 to limit allocations up to 90% of recommended maximum allocation size.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7442,8 +7461,8 @@ allocation size.</p>
          "@type": "WebPage",
          "@id": "/mps_environment_variables.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jun 11, 2025T00:00:00Z",
+       "dateModified": "Jun 11, 2025T00:00:00Z"
      }
  </script>
   <script>

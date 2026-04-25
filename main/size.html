@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.Size - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,6 +7029,7 @@ document.write(`
                   
   <section id="torch-size">
 <h1>torch.Size<a class="headerlink" href="#torch-size" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 19, 2024 | Last Updated On: Jun 18, 2025</p>
 <p><a class="reference internal" href="#torch.Size" title="torch.Size"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Size</span></code></a> is the result type of a call to <a class="reference internal" href="generated/torch.Tensor.size.html#torch.Tensor.size" title="torch.Tensor.size"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.size()</span></code></a>. It describes the size of all dimensions
 of the original tensor. As a subclass of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>, it supports common sequence operations like indexing and
 length.</p>
@@ -7444,7 +7463,7 @@ of elements a <a class="reference internal" href="tensors.html#torch.Tensor" tit
        "headline": "torch.Size",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/size.html",
-       "articleBody": "torch.Size# torch.Size is the result type of a call to torch.Tensor.size(). It describes the size of all dimensions of the original tensor. As a subclass of tuple, it supports common sequence operations like indexing and length. Example: \u003e\u003e\u003e x = torch.ones(10, 20, 30) \u003e\u003e\u003e s = x.size() \u003e\u003e\u003e s torch.Size([10, 20, 30]) \u003e\u003e\u003e s[1] 20 \u003e\u003e\u003e len(s) 3 class torch.Size(iterable=(), /)# count(value, /)# Return number of occurrences of value. index(value, start=0, stop=9223372036854775807, /)# Return first index of value. Raises ValueError if the value is not present. numel() \u2192 int# Returns the number of elements a torch.Tensor with the given size would contain. More formally, for a tensor x = tensor.ones(10, 10) with size s = torch.Size([10, 10]), x.numel() == x.size().numel() == s.numel() == 100 holds true. Example: \u003e\u003e\u003e x=torch.ones(10, 10) \u003e\u003e\u003e s=x.size() \u003e\u003e\u003e s torch.Size([10, 10]) \u003e\u003e\u003e s.numel() 100 \u003e\u003e\u003e x.numel() == s.numel() True Warning This function does not return the number of dimensions described by torch.Size, but instead the number of elements a torch.Tensor with that size would contain.",
+       "articleBody": "torch.Size# Created On: Apr 19, 2024 | Last Updated On: Jun 18, 2025 torch.Size is the result type of a call to torch.Tensor.size(). It describes the size of all dimensions of the original tensor. As a subclass of tuple, it supports common sequence operations like indexing and length. Example: \u003e\u003e\u003e x = torch.ones(10, 20, 30) \u003e\u003e\u003e s = x.size() \u003e\u003e\u003e s torch.Size([10, 20, 30]) \u003e\u003e\u003e s[1] 20 \u003e\u003e\u003e len(s) 3 class torch.Size(iterable=(), /)# count(value, /)# Return number of occurrences of value. index(value, start=0, stop=9223372036854775807, /)# Return first index of value. Raises ValueError if the value is not present. numel() \u2192 int# Returns the number of elements a torch.Tensor with the given size would contain. More formally, for a tensor x = tensor.ones(10, 10) with size s = torch.Size([10, 10]), x.numel() == x.size().numel() == s.numel() == 100 holds true. Example: \u003e\u003e\u003e x=torch.ones(10, 10) \u003e\u003e\u003e s=x.size() \u003e\u003e\u003e s torch.Size([10, 10]) \u003e\u003e\u003e s.numel() 100 \u003e\u003e\u003e x.numel() == s.numel() True Warning This function does not return the number of dimensions described by torch.Size, but instead the number of elements a torch.Tensor with that size would contain.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7455,8 +7474,8 @@ of elements a <a class="reference internal" href="tensors.html#torch.Tensor" tit
          "@type": "WebPage",
          "@id": "/size.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Apr 19, 2024T00:00:00Z",
+       "dateModified": "Jun 18, 2025T00:00:00Z"
      }
  </script>
   <script>

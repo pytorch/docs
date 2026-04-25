@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Aliases in torch.cuda - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,6 +7038,7 @@ document.write(`
                   
   <section id="aliases-in-torch-cuda">
 <h1>Aliases in torch.cuda<a class="headerlink" href="#aliases-in-torch-cuda" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 21, 2025 | Last Updated On: Sep 21, 2025</p>
 <p>The following are aliases to their counterparts in <code class="docutils literal notranslate"><span class="pre">torch.cuda</span></code> in the nested namespaces in which they are defined. For any of these APIs, feel free to use the top-level version in <code class="docutils literal notranslate"><span class="pre">torch.cuda</span></code> like <code class="docutils literal notranslate"><span class="pre">torch.cuda.seed</span></code> or the nested version <code class="docutils literal notranslate"><span class="pre">torch.cuda.random.seed</span></code>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -7447,7 +7466,7 @@ document.write(`
        "headline": "Aliases in torch.cuda",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/cuda.aliases.html",
-       "articleBody": "Aliases in torch.cuda# The following are aliases to their counterparts in torch.cuda in the nested namespaces in which they are defined. For any of these APIs, feel free to use the top-level version in torch.cuda like torch.cuda.seed or the nested version torch.cuda.random.seed. get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. initial_seed Return the current random seed of the current GPU. is_current_stream_capturing Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise. graph_pool_handle Return an opaque token representing the id of a graph memory pool. CUDAGraph Wrapper around a CUDA graph. graph Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. make_graphed_callables Accept callables (functions or nn.Modules) and returns graphed versions. Stream Wrapper around a CUDA stream. ExternalStream Wrapper around an externally allocated CUDA stream. Event Wrapper around a CUDA event.",
+       "articleBody": "Aliases in torch.cuda# Created On: Sep 21, 2025 | Last Updated On: Sep 21, 2025 The following are aliases to their counterparts in torch.cuda in the nested namespaces in which they are defined. For any of these APIs, feel free to use the top-level version in torch.cuda like torch.cuda.seed or the nested version torch.cuda.random.seed. get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. initial_seed Return the current random seed of the current GPU. is_current_stream_capturing Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise. graph_pool_handle Return an opaque token representing the id of a graph memory pool. CUDAGraph Wrapper around a CUDA graph. graph Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. make_graphed_callables Accept callables (functions or nn.Modules) and returns graphed versions. Stream Wrapper around a CUDA stream. ExternalStream Wrapper around an externally allocated CUDA stream. Event Wrapper around a CUDA event.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7458,8 +7477,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/cuda.aliases.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Sep 21, 2025T00:00:00Z",
+       "dateModified": "Sep 21, 2025T00:00:00Z"
      }
  </script>
   <script>

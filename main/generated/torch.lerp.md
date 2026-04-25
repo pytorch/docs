@@ -1,0 +1,39 @@
+# torch.lerp
+
+torch.lerp(*input*, *end*, *weight*, ***, *out=None*)
+
+Does a linear interpolation of two tensors `start` (given by `input`) and `end` based
+on a scalar or tensor `weight` and returns the resulting `out` tensor.
+
+outi=starti+weighti×(endi−starti)\text{out}_i = \text{start}_i + \text{weight}_i \times (\text{end}_i - \text{start}_i)
+
+outi​=starti​+weighti​×(endi​−starti​)
+
+The shapes of `start` and `end` must be
+[broadcastable](../notes/broadcasting.html#broadcasting-semantics). If `weight` is a tensor, then
+the shapes of `weight`, `start`, and `end` must be [broadcastable](../notes/broadcasting.html#broadcasting-semantics).
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor with the starting points
+- **end** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor with the ending points
+- **weight** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**tensor*) - the weight for the interpolation formula
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example:
+
+```
+>>> start = torch.arange(1., 5.)
+>>> end = torch.empty(4).fill_(10)
+>>> start
+tensor([ 1., 2., 3., 4.])
+>>> end
+tensor([ 10., 10., 10., 10.])
+>>> torch.lerp(start, end, 0.5)
+tensor([ 5.5000, 6.0000, 6.5000, 7.0000])
+>>> torch.lerp(start, end, torch.full_like(start, 0.5))
+tensor([ 5.5000, 6.0000, 6.5000, 7.0000])
+```

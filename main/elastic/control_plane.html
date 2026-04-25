@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Control Plane - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,11 +7038,12 @@ document.write(`
                   
   <section id="module-torch.distributed.elastic.control_plane">
 <span id="control-plane"></span><h1>Control Plane<a class="headerlink" href="#module-torch.distributed.elastic.control_plane" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 30, 2024 | Last Updated On: Jun 04, 2024</p>
 <p>This module contains optional helpers that add extra debug and control handlers
 into your application.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.control_plane.worker_main">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.control_plane.</span></span><span class="sig-name descname"><span class="pre">worker_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/distributed/elastic/control_plane.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.control_plane.worker_main" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.control_plane.</span></span><span class="sig-name descname"><span class="pre">worker_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/distributed/elastic/control_plane.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.control_plane.worker_main" title="Link to this definition">#</a></dt>
 <dd><p>This is a context manager that wraps your main entry function. This combines
 the existing <code class="docutils literal notranslate"><span class="pre">errors.record</span></code> logic as well as a new <code class="docutils literal notranslate"><span class="pre">_WorkerServer</span></code> that
 exposes handlers via a unix socket specified by
@@ -7418,7 +7437,7 @@ exposes handlers via a unix socket specified by
        "headline": "Control Plane",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/control_plane.html",
-       "articleBody": "Control Plane# This module contains optional helpers that add extra debug and control handlers into your application. torch.distributed.elastic.control_plane.worker_main()[source]# This is a context manager that wraps your main entry function. This combines the existing errors.record logic as well as a new _WorkerServer that exposes handlers via a unix socket specified by Torch_WORKER_SERVER_SOCKET. Example @worker_main() def main(): pass if __name__ == \"__main__\": main() Return type: Generator[None, None, None]",
+       "articleBody": "Control Plane# Created On: May 30, 2024 | Last Updated On: Jun 04, 2024 This module contains optional helpers that add extra debug and control handlers into your application. torch.distributed.elastic.control_plane.worker_main()[source]# This is a context manager that wraps your main entry function. This combines the existing errors.record logic as well as a new _WorkerServer that exposes handlers via a unix socket specified by Torch_WORKER_SERVER_SOCKET. Example @worker_main() def main(): pass if __name__ == \"__main__\": main() Return type: Generator[None, None, None]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7429,8 +7448,8 @@ exposes handlers via a unix socket specified by
          "@type": "WebPage",
          "@id": "/elastic/control_plane.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "May 30, 2024T00:00:00Z",
+       "dateModified": "Jun 04, 2024T00:00:00Z"
      }
  </script>
   <script>

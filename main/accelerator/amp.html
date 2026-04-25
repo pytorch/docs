@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Automatic Mixed Precision - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3648,6 +3666,7 @@ document.write(`
                   
   <section id="automatic-mixed-precision">
 <h1>Automatic Mixed Precision<a class="headerlink" href="#automatic-mixed-precision" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 30, 2025 | Last Updated On: Sep 30, 2025</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>Automatic Mixed Precision (AMP) enables the use of both single precision (32-bit) and half precision (16-bit) floating point types during training or inference.</p>
@@ -4139,7 +4158,7 @@ document.write(`
        "headline": "Automatic Mixed Precision",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator/amp.html",
-       "articleBody": "Automatic Mixed Precision# Background# Automatic Mixed Precision (AMP) enables the use of both single precision (32-bit) and half precision (16-bit) floating point types during training or inference. Key components include: Autocast: Automatically casts operations to lower-precision (e.g., float16 or bfloat16) to improve performance while maintaining accuracy. Gradient Scaling: Dynamically scales gradients during backpropagation to prevent underflow when training with mixed precision. Design# Casting Strategy# The CastPolicy is used to define type conversion rules. Each enum value represents a set of type conversion requirements for a group of operators, ensuring consistent handling of operations that prioritize either precision or performance. Policy Explanation lower_precision_fp Cast all inputs to lower_precision_fp before execute the op. fp32 Cast all inputs to at::kFloat before running the op. fp32_set_opt_dtype Execution in at::kFloat, while respecting user-specified output dtype if provided. fp32_append_dtype Append at::kFloat to the args and redispatch to the type-aware overload promote Promote all inputs to the \u201cwidest\u201d dtype before execution. Operators Lists# PyTorch defines a general list of operators for each of casting strategies mentioned above, as a reference for developers of new accelerators. Policy Operators List lower_precision_fp List Link fp32 List Link fp32_set_opt_dtype List Link fp32_append_dtype List Link promote List Link Implementation# Python Integration# Implement the get_amp_supported_dtype method to return the data types supported by the new accelerator in the AMP context. 1def get_amp_supported_dtype(): 2 return [torch.float16, torch.bfloat16] 3 4 C++ Integration# This section shows how AMP registers autocast kernels for the AutocastPrivateUse1 dispatch key. Register a fallback that makes unhandled ops fall through to their normal implementations. Register specific aten kernels under AutocastPrivateUse1 using the KERNEL_PRIVATEUSEONE helper macro, which maps an op to the desired precision implementation (with enum at::autocast::CastPolicy) 1TORCH_LIBRARY_IMPL(_, AutocastPrivateUse1, m) { 2 m.fallback(torch::CppFunction::makeFallthrough()); 3} 1TORCH_LIBRARY_IMPL(aten, AutocastPrivateUse1, m) { 2 // lower_precision_fp 3 KERNEL_PRIVATEUSEONE(mm, lower_precision_fp) 4 5 // fp32 6 KERNEL_PRIVATEUSEONE(asin, fp32) 7 8 m.impl( 9 TORCH_SELECTIVE_NAME(\"aten::binary_cross_entropy\"), 10 TORCH_FN((\u0026binary_cross_entropy_banned))); 11}",
+       "articleBody": "Automatic Mixed Precision# Created On: Sep 30, 2025 | Last Updated On: Sep 30, 2025 Background# Automatic Mixed Precision (AMP) enables the use of both single precision (32-bit) and half precision (16-bit) floating point types during training or inference. Key components include: Autocast: Automatically casts operations to lower-precision (e.g., float16 or bfloat16) to improve performance while maintaining accuracy. Gradient Scaling: Dynamically scales gradients during backpropagation to prevent underflow when training with mixed precision. Design# Casting Strategy# The CastPolicy is used to define type conversion rules. Each enum value represents a set of type conversion requirements for a group of operators, ensuring consistent handling of operations that prioritize either precision or performance. Policy Explanation lower_precision_fp Cast all inputs to lower_precision_fp before execute the op. fp32 Cast all inputs to at::kFloat before running the op. fp32_set_opt_dtype Execution in at::kFloat, while respecting user-specified output dtype if provided. fp32_append_dtype Append at::kFloat to the args and redispatch to the type-aware overload promote Promote all inputs to the \u201cwidest\u201d dtype before execution. Operators Lists# PyTorch defines a general list of operators for each of casting strategies mentioned above, as a reference for developers of new accelerators. Policy Operators List lower_precision_fp List Link fp32 List Link fp32_set_opt_dtype List Link fp32_append_dtype List Link promote List Link Implementation# Python Integration# Implement the get_amp_supported_dtype method to return the data types supported by the new accelerator in the AMP context. 1def get_amp_supported_dtype(): 2 return [torch.float16, torch.bfloat16] 3 4 C++ Integration# This section shows how AMP registers autocast kernels for the AutocastPrivateUse1 dispatch key. Register a fallback that makes unhandled ops fall through to their normal implementations. Register specific aten kernels under AutocastPrivateUse1 using the KERNEL_PRIVATEUSEONE helper macro, which maps an op to the desired precision implementation (with enum at::autocast::CastPolicy) 1TORCH_LIBRARY_IMPL(_, AutocastPrivateUse1, m) { 2 m.fallback(torch::CppFunction::makeFallthrough()); 3} 1TORCH_LIBRARY_IMPL(aten, AutocastPrivateUse1, m) { 2 // lower_precision_fp 3 KERNEL_PRIVATEUSEONE(mm, lower_precision_fp) 4 5 // fp32 6 KERNEL_PRIVATEUSEONE(asin, fp32) 7 8 m.impl( 9 TORCH_SELECTIVE_NAME(\"aten::binary_cross_entropy\"), 10 TORCH_FN((\u0026binary_cross_entropy_banned))); 11}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4150,8 +4169,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/accelerator/amp.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Sep 30, 2025T00:00:00Z",
+       "dateModified": "Sep 30, 2025T00:00:00Z"
      }
  </script>
   <script>

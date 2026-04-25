@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.mtia.mtia_graph - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,10 +7029,11 @@ document.write(`
                   
   <section id="torch-mtia-mtia-graph">
 <h1>torch.mtia.mtia_graph<a class="headerlink" href="#torch-mtia-mtia-graph" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 10, 2025 | Last Updated On: Dec 02, 2025</p>
 <p>The MTIA backend is implemented out of the tree, only interfaces are defined here.</p>
 <dl class="py function" id="module-torch.mtia.mtia_graph">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.graph_pool_handle">
-<span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">graph_pool_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.graph_pool_handle" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">graph_pool_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.graph_pool_handle" title="Link to this definition">#</a></dt>
 <dd><p>Return an opaque token representing the id of a graph memory pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7025,7 +7044,7 @@ document.write(`
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">MTIAGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">MTIAGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a MTIA graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7034,7 +7053,7 @@ document.write(`
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.capture_begin">
-<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.capture_begin" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.capture_begin" title="Link to this definition">#</a></dt>
 <dd><p>Begin capturing a MTIA graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -7042,7 +7061,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.capture_end">
-<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.capture_end" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.capture_end" title="Link to this definition">#</a></dt>
 <dd><p>End the capture of a MTIA graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -7050,7 +7069,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.instantiate">
-<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.instantiate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.instantiate" title="Link to this definition">#</a></dt>
 <dd><p>Instantiate the captured MTIA graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -7058,7 +7077,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.pool">
-<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.pool" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.pool" title="Link to this definition">#</a></dt>
 <dd><p>Return an opaque token representing the id of this graph’s memory pool</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7069,7 +7088,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.replay">
-<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.replay" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.replay" title="Link to this definition">#</a></dt>
 <dd><p>Replay the captured MTIA graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -7077,7 +7096,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.MTIAGraph.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.MTIAGraph.reset" title="Link to this definition">#</a></dt>
 <dd><p>Destroy the captured graph and reset the states.</p>
 <dl class="field-list simple">
 </dl>
@@ -7087,7 +7106,7 @@ document.write(`
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.mtia.mtia_graph.graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mtia_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/mtia/mtia_graph.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.graph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.mtia_graph.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mtia_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/mtia/mtia_graph.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.mtia_graph.graph" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -7474,7 +7493,7 @@ document.write(`
        "headline": "torch.mtia.mtia_graph",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mtia.mtia_graph.html",
-       "articleBody": "torch.mtia.mtia_graph# The MTIA backend is implemented out of the tree, only interfaces are defined here. torch.mtia.mtia_graph.graph_pool_handle()[source]# Return an opaque token representing the id of a graph memory pool. Return type: tuple[int, int] class torch.mtia.mtia_graph.MTIAGraph(keep_graph=False)[source]# Wrapper around a MTIA graph. Return type: Self capture_begin(pool)[source]# Begin capturing a MTIA graph. capture_end()[source]# End the capture of a MTIA graph. instantiate()[source]# Instantiate the captured MTIA graph. pool()[source]# Return an opaque token representing the id of this graph\u2019s memory pool Return type: tuple[int, int] replay()[source]# Replay the captured MTIA graph. reset()[source]# Destroy the captured graph and reset the states. class torch.mtia.mtia_graph.graph(mtia_graph, pool=None, stream=None)[source]#",
+       "articleBody": "torch.mtia.mtia_graph# Created On: Nov 10, 2025 | Last Updated On: Dec 02, 2025 The MTIA backend is implemented out of the tree, only interfaces are defined here. torch.mtia.mtia_graph.graph_pool_handle()[source]# Return an opaque token representing the id of a graph memory pool. Return type: tuple[int, int] class torch.mtia.mtia_graph.MTIAGraph(keep_graph=False)[source]# Wrapper around a MTIA graph. Return type: Self capture_begin(pool)[source]# Begin capturing a MTIA graph. capture_end()[source]# End the capture of a MTIA graph. instantiate()[source]# Instantiate the captured MTIA graph. pool()[source]# Return an opaque token representing the id of this graph\u2019s memory pool Return type: tuple[int, int] replay()[source]# Replay the captured MTIA graph. reset()[source]# Destroy the captured graph and reset the states. class torch.mtia.mtia_graph.graph(mtia_graph, pool=None, stream=None)[source]#",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7485,8 +7504,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/mtia.mtia_graph.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Nov 10, 2025T00:00:00Z",
+       "dateModified": "Dec 02, 2025T00:00:00Z"
      }
  </script>
   <script>

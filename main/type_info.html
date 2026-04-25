@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Type Info - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,6 +7029,7 @@ document.write(`
                   
   <section id="type-info">
 <span id="type-info-doc"></span><h1>Type Info<a class="headerlink" href="#type-info" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 06, 2025 | Last Updated On: Aug 14, 2025</p>
 <p>The numerical properties of a <a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> can be accessed through either the <a class="reference internal" href="#torch.torch.finfo" title="torch.torch.finfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.finfo</span></code></a> or the <a class="reference internal" href="#torch.torch.iinfo" title="torch.torch.iinfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.iinfo</span></code></a>.</p>
 <section id="torch-finfo">
 <span id="finfo-doc"></span><h2>torch.finfo<a class="headerlink" href="#torch-finfo" title="Link to this heading">#</a></h2>
@@ -7488,7 +7507,7 @@ This is similar to <a class="reference external" href="https://numpy.org/doc/sta
        "headline": "Type Info",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/type_info.html",
-       "articleBody": "Type Info# The numerical properties of a torch.dtype can be accessed through either the torch.finfo or the torch.iinfo. torch.finfo# class torch.finfo# A torch.finfo is an object that represents the numerical properties of a floating point torch.dtype, (i.e. torch.float32, torch.float64, torch.float16, and torch.bfloat16). This is similar to numpy.finfo. A torch.finfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. eps float The difference between 1.0 and the next smallest representable float larger than 1.0. max float The largest representable number. min float The smallest representable number (typically -max). tiny float The smallest positive normal number. Equivalent to smallest_normal. smallest_normal float The smallest positive normal number. See notes. resolution float The approximate decimal resolution of this type, i.e., 10**-precision. Note The constructor of torch.finfo can be called without argument, in which case the class is created for the pytorch default dtype (as returned by torch.get_default_dtype()). Note smallest_normal returns the smallest normal number, but there are smaller subnormal numbers. See https://en.wikipedia.org/wiki/Denormal_number for more information. torch.iinfo# class torch.iinfo# A torch.iinfo is an object that represents the numerical properties of a integer torch.dtype (i.e. torch.uint8, torch.int8, torch.int16, torch.int32, and torch.int64). This is similar to numpy.iinfo. A torch.iinfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. max int The largest representable number. min int The smallest representable number.",
+       "articleBody": "Type Info# Created On: Jun 06, 2025 | Last Updated On: Aug 14, 2025 The numerical properties of a torch.dtype can be accessed through either the torch.finfo or the torch.iinfo. torch.finfo# class torch.finfo# A torch.finfo is an object that represents the numerical properties of a floating point torch.dtype, (i.e. torch.float32, torch.float64, torch.float16, and torch.bfloat16). This is similar to numpy.finfo. A torch.finfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. eps float The difference between 1.0 and the next smallest representable float larger than 1.0. max float The largest representable number. min float The smallest representable number (typically -max). tiny float The smallest positive normal number. Equivalent to smallest_normal. smallest_normal float The smallest positive normal number. See notes. resolution float The approximate decimal resolution of this type, i.e., 10**-precision. Note The constructor of torch.finfo can be called without argument, in which case the class is created for the pytorch default dtype (as returned by torch.get_default_dtype()). Note smallest_normal returns the smallest normal number, but there are smaller subnormal numbers. See https://en.wikipedia.org/wiki/Denormal_number for more information. torch.iinfo# class torch.iinfo# A torch.iinfo is an object that represents the numerical properties of a integer torch.dtype (i.e. torch.uint8, torch.int8, torch.int16, torch.int32, and torch.int64). This is similar to numpy.iinfo. A torch.iinfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. max int The largest representable number. min int The smallest representable number.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7499,8 +7518,8 @@ This is similar to <a class="reference external" href="https://numpy.org/doc/sta
          "@type": "WebPage",
          "@id": "/type_info.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jun 06, 2025T00:00:00Z",
+       "dateModified": "Aug 14, 2025T00:00:00Z"
      }
  </script>
   <script>

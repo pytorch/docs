@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.accelerator - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,6 +7029,7 @@ document.write(`
                   
   <section id="module-torch.accelerator">
 <span id="torch-accelerator"></span><h1>torch.accelerator<a class="headerlink" href="#module-torch.accelerator" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Apr 13, 2026</p>
 <p>This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -7475,7 +7494,7 @@ document.write(`
        "headline": "torch.accelerator",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator.html",
-       "articleBody": "torch.accelerator# This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. get_device_capability Return the capability of the currently selected device. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index.",
+       "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Apr 13, 2026 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. get_device_capability Return the capability of the currently selected device. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7486,8 +7505,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/accelerator.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Oct 27, 2024T00:00:00Z",
+       "dateModified": "Apr 13, 2026T00:00:00Z"
      }
  </script>
   <script>

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Control Flow - While Loop - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3659,6 +3677,7 @@ document.write(`
                   
   <section id="control-flow-while-loop">
 <span id="while-loop"></span><h1>Control Flow - While Loop<a class="headerlink" href="#control-flow-while-loop" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.while_loop</span></code> is a structured control flow operator that runs a body function while a condition is true.
 It can logically be seen as implemented as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">while_loop</span><span class="p">(</span>
@@ -3740,7 +3759,7 @@ the top-level graph module.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.while_loop.while_loop">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/_higher_order_ops/while_loop.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/_higher_order_ops/while_loop.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">body_fn(*carried_inputs)</span></code> while <code class="docutils literal notranslate"><span class="pre">cond_fn(*carried_inputs)</span></code> returns
 a True scalar tensor. Returns the output of body_fn or initial
 carried_inputs.</p>
@@ -4186,7 +4205,7 @@ carried_inputs, such as module buffers and captured tensors from the enclosing s
        "headline": "Control Flow - While Loop",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/higher_order_ops/while_loop.html",
-       "articleBody": "Control Flow - While Loop# torch.while_loop is a structured control flow operator that runs a body function while a condition is true. It can logically be seen as implemented as follows: def while_loop( cond_fn: Callable[..., bool], body_fn: Callable[..., tuple], carried_inputs: tuple, ): val = carried_inputs while cond_fn(*val): val = body_fn(*val) return val Warning torch.while_loop is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is a basic example that uses while_loop to iterate until a condition is met: import torch from torch._higher_order_ops import while_loop class M(torch.nn.Module): def cond_fn(self, iter_count, x): return iter_count.sum() \u003e 0 def body_fn(self, iter_count, x): return iter_count - 1, x * 2 def forward(self, init_iter, init_x): final_iter, final_x = while_loop(self.cond_fn, self.body_fn, (init_iter, init_x)) return final_iter, final_x m = M() We can eagerly run the model and expect the results vary based on input shape: _, final_x = m(torch.tensor([3]), torch.ones(3)) assert torch.equal(final_x, torch.ones(3) * 2**3) _, final_x = m(torch.tensor([10]), torch.ones(3)) assert torch.equal(final_x, torch.ones(3) * 2**10) We can export the model for further transformations and deployment. This gives us an exported program that preserves the while_loop structure: ep = torch.export.export(M(), (torch.tensor([10]), torch.ones(3))) print(ep) Notice that both the condition and body functions become sub-graph attributes of the top-level graph module. Restrictions# body_fn must return tensors or integers with the same metadata (shape, dtype) as inputs. body_fn and cond_fn must not in-place mutate the carried_inputs. A clone before mutation is required. body_fn and cond_fn must not mutate Python variables (e.g., list/dict) created outside the function. body_fn and cond_fn\u2019s output cannot alias any of the inputs. A clone is required. API Reference# torch._higher_order_ops.while_loop.while_loop(cond_fn, body_fn, carried_inputs)[source]# Run body_fn(*carried_inputs) while cond_fn(*carried_inputs) returns a True scalar tensor. Returns the output of body_fn or initial carried_inputs. Warning torch.while_loop is a prototype feature in PyTorch. It has limited support for input and output types and doesn\u2019t support training currently. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype while_loop is a structured control flow operator. It preserves the loop semantic across the torch.compile and torch.export. while_loop is equivalent to the following: def while_loop(cond_fn, body_fn, carried_inputs): val = carried_inputs while cond_fn(*val): val = body_fn(*val) return val Parameters: cond_fn (Callable) \u2013 A callable function that returns a boolean Scalar tensor or a python boolean. body_fn (Callable) \u2013 A callable function that takes the same inputs as cond_fn and returns a tuple of tensors or ints carried_inputs (Tuple of possibly nested dict/list/tuple of tensors or ints) \u2013 A tuple of inputs to cond_fn and body_fn. It\u2019s also the initial value of states that are carried across iterations. Note that when pass an integer as carry, the corresponding return of while_loop will be another int with unknown values because we don\u2019t know how many iterations while_loop will run. Example 1: def cond_fn(iter, x): return iter.sum() \u003c 10 def body_fn(iter, x): return iter + 1, x.sin() while_loop(cond_fn, body_fn, (torch.zeros(1), torch.randn(3, 4))) Example 2: def cond_fn(int_iter, x): return 2 * int_iter \u003c x.shape[0] def body_fn(int_iter, x): return int_iter + 1, x + int_iter while_loop(cond_fn, body_fn, (0, torch.randn(3, 4))) Restrictions: body_fn must return tensors or int with the same metadata (e.g.shape, dtype) as inputs. body_fn and cond_fn must not in-place mutate the carried_inputs. A clone before the mutation is required. body_fn and cond_fn must not mutate python variables (e.g. list/dict) created outside of the body_fn. body_fn and cond_fn\u2019s output cannot alias any of the inputs. A clone is required. During inference, body_fn and cond_fn can in-place mutate tensors that are not carried_inputs, such as module buffers and captured tensors from the enclosing scope.",
+       "articleBody": "Control Flow - While Loop# Created On: Feb 14, 2026 | Last Updated On: Feb 14, 2026 torch.while_loop is a structured control flow operator that runs a body function while a condition is true. It can logically be seen as implemented as follows: def while_loop( cond_fn: Callable[..., bool], body_fn: Callable[..., tuple], carried_inputs: tuple, ): val = carried_inputs while cond_fn(*val): val = body_fn(*val) return val Warning torch.while_loop is a prototype feature in PyTorch. It has limited support for input and output types. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is a basic example that uses while_loop to iterate until a condition is met: import torch from torch._higher_order_ops import while_loop class M(torch.nn.Module): def cond_fn(self, iter_count, x): return iter_count.sum() \u003e 0 def body_fn(self, iter_count, x): return iter_count - 1, x * 2 def forward(self, init_iter, init_x): final_iter, final_x = while_loop(self.cond_fn, self.body_fn, (init_iter, init_x)) return final_iter, final_x m = M() We can eagerly run the model and expect the results vary based on input shape: _, final_x = m(torch.tensor([3]), torch.ones(3)) assert torch.equal(final_x, torch.ones(3) * 2**3) _, final_x = m(torch.tensor([10]), torch.ones(3)) assert torch.equal(final_x, torch.ones(3) * 2**10) We can export the model for further transformations and deployment. This gives us an exported program that preserves the while_loop structure: ep = torch.export.export(M(), (torch.tensor([10]), torch.ones(3))) print(ep) Notice that both the condition and body functions become sub-graph attributes of the top-level graph module. Restrictions# body_fn must return tensors or integers with the same metadata (shape, dtype) as inputs. body_fn and cond_fn must not in-place mutate the carried_inputs. A clone before mutation is required. body_fn and cond_fn must not mutate Python variables (e.g., list/dict) created outside the function. body_fn and cond_fn\u2019s output cannot alias any of the inputs. A clone is required. API Reference# torch._higher_order_ops.while_loop.while_loop(cond_fn, body_fn, carried_inputs)[source]# Run body_fn(*carried_inputs) while cond_fn(*carried_inputs) returns a True scalar tensor. Returns the output of body_fn or initial carried_inputs. Warning torch.while_loop is a prototype feature in PyTorch. It has limited support for input and output types and doesn\u2019t support training currently. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype while_loop is a structured control flow operator. It preserves the loop semantic across the torch.compile and torch.export. while_loop is equivalent to the following: def while_loop(cond_fn, body_fn, carried_inputs): val = carried_inputs while cond_fn(*val): val = body_fn(*val) return val Parameters: cond_fn (Callable) \u2013 A callable function that returns a boolean Scalar tensor or a python boolean. body_fn (Callable) \u2013 A callable function that takes the same inputs as cond_fn and returns a tuple of tensors or ints carried_inputs (Tuple of possibly nested dict/list/tuple of tensors or ints) \u2013 A tuple of inputs to cond_fn and body_fn. It\u2019s also the initial value of states that are carried across iterations. Note that when pass an integer as carry, the corresponding return of while_loop will be another int with unknown values because we don\u2019t know how many iterations while_loop will run. Example 1: def cond_fn(iter, x): return iter.sum() \u003c 10 def body_fn(iter, x): return iter + 1, x.sin() while_loop(cond_fn, body_fn, (torch.zeros(1), torch.randn(3, 4))) Example 2: def cond_fn(int_iter, x): return 2 * int_iter \u003c x.shape[0] def body_fn(int_iter, x): return int_iter + 1, x + int_iter while_loop(cond_fn, body_fn, (0, torch.randn(3, 4))) Restrictions: body_fn must return tensors or int with the same metadata (e.g.shape, dtype) as inputs. body_fn and cond_fn must not in-place mutate the carried_inputs. A clone before the mutation is required. body_fn and cond_fn must not mutate python variables (e.g. list/dict) created outside of the body_fn. body_fn and cond_fn\u2019s output cannot alias any of the inputs. A clone is required. During inference, body_fn and cond_fn can in-place mutate tensors that are not carried_inputs, such as module buffers and captured tensors from the enclosing scope.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4197,8 +4216,8 @@ carried_inputs, such as module buffers and captured tensors from the enclosing s
          "@type": "WebPage",
          "@id": "/higher_order_ops/while_loop.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Feb 14, 2026T00:00:00Z",
+       "dateModified": "Feb 14, 2026T00:00:00Z"
      }
  </script>
   <script>

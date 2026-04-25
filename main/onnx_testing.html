@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.onnx.testing - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,10 +7038,11 @@ document.write(`
                   
   <section id="module-torch.onnx.testing">
 <span id="torch-onnx-testing"></span><h1>torch.onnx.testing<a class="headerlink" href="#module-torch.onnx.testing" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 10, 2025 | Last Updated On: Sep 10, 2025</p>
 <p>Utilities to aid in testing exported ONNX models.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.testing.assert_onnx_program">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.testing.</span></span><span class="sig-name descname"><span class="pre">assert_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TorchExportNonStrictStrategy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'onnxruntime'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/onnx/_internal/exporter/_testing.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.testing.assert_onnx_program" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.testing.</span></span><span class="sig-name descname"><span class="pre">assert_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TorchExportNonStrictStrategy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'onnxruntime'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/onnx/_internal/exporter/_testing.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.testing.assert_onnx_program" title="Link to this definition">#</a></dt>
 <dd><p>Assert that the ONNX model produces the same output as the PyTorch ExportedProgram.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7417,7 +7436,7 @@ Supported values are “onnxruntime” and “reference”.</p></li>
        "headline": "torch.onnx.testing",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/onnx_testing.html",
-       "articleBody": "torch.onnx.testing# Utilities to aid in testing exported ONNX models. torch.onnx.testing.assert_onnx_program(program, *, rtol=None, atol=None, args=None, kwargs=None, strategy=\u0027TorchExportNonStrictStrategy\u0027, backend=\u0027onnxruntime\u0027)[source]# Assert that the ONNX model produces the same output as the PyTorch ExportedProgram. Parameters: program (_onnx_program.ONNXProgram) \u2013 The ONNXProgram to verify. rtol (float | None) \u2013 Relative tolerance. atol (float | None) \u2013 Absolute tolerance. args (tuple[Any, ...] | None) \u2013 The positional arguments to pass to the program. If None, the default example inputs in the ExportedProgram will be used. kwargs (dict[str, Any] | None) \u2013 The keyword arguments to pass to the program. If None, the default example inputs in the ExportedProgram will be used. strategy (str | None) \u2013 Assert the capture strategy used to export the program. Values can be class names like \u201cTorchExportNonStrictStrategy\u201d. If None, the strategy is not asserted. backend (Literal[\u0027onnxruntime\u0027, \u0027reference\u0027]) \u2013 The backend to use for evaluating the ONNX program. Supported values are \u201connxruntime\u201d and \u201creference\u201d.",
+       "articleBody": "torch.onnx.testing# Created On: Sep 10, 2025 | Last Updated On: Sep 10, 2025 Utilities to aid in testing exported ONNX models. torch.onnx.testing.assert_onnx_program(program, *, rtol=None, atol=None, args=None, kwargs=None, strategy=\u0027TorchExportNonStrictStrategy\u0027, backend=\u0027onnxruntime\u0027)[source]# Assert that the ONNX model produces the same output as the PyTorch ExportedProgram. Parameters: program (_onnx_program.ONNXProgram) \u2013 The ONNXProgram to verify. rtol (float | None) \u2013 Relative tolerance. atol (float | None) \u2013 Absolute tolerance. args (tuple[Any, ...] | None) \u2013 The positional arguments to pass to the program. If None, the default example inputs in the ExportedProgram will be used. kwargs (dict[str, Any] | None) \u2013 The keyword arguments to pass to the program. If None, the default example inputs in the ExportedProgram will be used. strategy (str | None) \u2013 Assert the capture strategy used to export the program. Values can be class names like \u201cTorchExportNonStrictStrategy\u201d. If None, the strategy is not asserted. backend (Literal[\u0027onnxruntime\u0027, \u0027reference\u0027]) \u2013 The backend to use for evaluating the ONNX program. Supported values are \u201connxruntime\u201d and \u201creference\u201d.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7428,8 +7447,8 @@ Supported values are “onnxruntime” and “reference”.</p></li>
          "@type": "WebPage",
          "@id": "/onnx_testing.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Sep 10, 2025T00:00:00Z",
+       "dateModified": "Sep 10, 2025T00:00:00Z"
      }
  </script>
   <script>

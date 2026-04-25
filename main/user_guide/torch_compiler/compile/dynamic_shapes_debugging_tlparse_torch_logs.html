@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Debugging with tlparse and TORCH_LOGS=dynamic - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3671,6 +3689,7 @@ document.write(`
                   
   <section id="debugging-with-tlparse-and-torch-logs-dynamic">
 <span id="debugging-tlparse-torch-logs"></span><h1>Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code><a class="headerlink" href="#debugging-with-tlparse-and-torch-logs-dynamic" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 22, 2025 | Last Updated On: Dec 03, 2025</p>
 <p><code class="docutils literal notranslate"><span class="pre">tlparse</span></code> is a tool used for analyzing and understanding the compilation
 process in PyTorch, particularly when dealing with dynamic shapes. It helps
 identify where guards and specializations occur in your code.</p>
@@ -4132,7 +4151,7 @@ shapes:</p>
        "headline": "Debugging with tlparse and TORCH_LOGS=dynamic",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/dynamic_shapes_debugging_tlparse_torch_logs.html",
-       "articleBody": "Debugging with tlparse and TORCH_LOGS=dynamic# tlparse is a tool used for analyzing and understanding the compilation process in PyTorch, particularly when dealing with dynamic shapes. It helps identify where guards and specializations occur in your code. TORCH_LOGS=dynamic is an environment variable setting that enables detailed logging of dynamic shape operations, providing insights into how symbolic shapes are handled during execution. This section will guide you through using tlparse and TORCH_LOGS=dynamic to troubleshoot dynamic shape issues in your code, including debugging specialization, guards, and more. Debugging Specialization# In the following example, x.shape[0] is dynamic but becomes specialized due to multiplication: import torch @torch.compile def fn(x, y): return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_dynamic(x, 0) fn(x, y) By using TORCH_LOGS=dynamic, you can observe this specialization in the logs: TORCH_LOGS=dynamic python tl.py I0721 11:10:00.950000 845259 torch/fx/experimental/symbolic_shapes.py:3776] [0/0] create_env I0721 11:10:01.030000 845259 torch/fx/experimental/symbolic_shapes.py:5117] [0/0] create_symbol s77 = 5 for L[\u0027x\u0027].size()[0] [2, int_oo] return x * y # tl.py:5 in fn (_dynamo/variables/builder.py:3466 in \u003clambda\u003e), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=\"s77\" or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=\"0\" I0721 11:10:01.038000 845259 torch/fx/experimental/symbolic_shapes.py:7211] [0/0] eval Eq(s77, 5) [guard added] return x * y # tl.py:5 in fn (_subclasses/fake_impls.py:922 in infer_size), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED=\"Eq(s77, 5)\" The line eval Eq(s77, 5) [guard added] return x * y # tl.py:5 indicates the specialization. Debugging Guards# Consider the following code, which may cause recompilations due to dynamic shapes: import torch @torch.compile def fn(x, y): if x.shape[0] \u003c 10: return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_dynamic(x, 0) torch._dynamo.decorators.mark_dynamic(y, 0) fn(x, y) To identify where dynamic shape guards originate, use tlparse. Here is an example tlparse output: By clicking on the dynamo_cpp_guards link, you can view all guards from the compilation, including the symbolic shape guard L[\u0027x\u0027].size()[0] \u003c= 9. Astute readers will notice the 0/1 specialization where we guard on L[\u0027x\u0027].size()[0] \u003e= 2. By modifying the code to use unbacked symbols, this guard is removed: import torch @torch.compile def fn(x, y): # Necessary runtime assert since we can\u0027t guard on unbacked torch._check(x.shape[0] \u003c 10) if x.shape[0] \u003c 10: return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_unbacked(x, 0) torch._dynamo.decorators.mark_unbacked(y, 0) fn(x, y) Now, this compiled region can be used for inputs of size 0 and 1: See also Dynamic Shapes Troubleshooting GuardOnDataDependentSymNode Errors",
+       "articleBody": "Debugging with tlparse and TORCH_LOGS=dynamic# Created On: Sep 22, 2025 | Last Updated On: Dec 03, 2025 tlparse is a tool used for analyzing and understanding the compilation process in PyTorch, particularly when dealing with dynamic shapes. It helps identify where guards and specializations occur in your code. TORCH_LOGS=dynamic is an environment variable setting that enables detailed logging of dynamic shape operations, providing insights into how symbolic shapes are handled during execution. This section will guide you through using tlparse and TORCH_LOGS=dynamic to troubleshoot dynamic shape issues in your code, including debugging specialization, guards, and more. Debugging Specialization# In the following example, x.shape[0] is dynamic but becomes specialized due to multiplication: import torch @torch.compile def fn(x, y): return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_dynamic(x, 0) fn(x, y) By using TORCH_LOGS=dynamic, you can observe this specialization in the logs: TORCH_LOGS=dynamic python tl.py I0721 11:10:00.950000 845259 torch/fx/experimental/symbolic_shapes.py:3776] [0/0] create_env I0721 11:10:01.030000 845259 torch/fx/experimental/symbolic_shapes.py:5117] [0/0] create_symbol s77 = 5 for L[\u0027x\u0027].size()[0] [2, int_oo] return x * y # tl.py:5 in fn (_dynamo/variables/builder.py:3466 in \u003clambda\u003e), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=\"s77\" or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=\"0\" I0721 11:10:01.038000 845259 torch/fx/experimental/symbolic_shapes.py:7211] [0/0] eval Eq(s77, 5) [guard added] return x * y # tl.py:5 in fn (_subclasses/fake_impls.py:922 in infer_size), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED=\"Eq(s77, 5)\" The line eval Eq(s77, 5) [guard added] return x * y # tl.py:5 indicates the specialization. Debugging Guards# Consider the following code, which may cause recompilations due to dynamic shapes: import torch @torch.compile def fn(x, y): if x.shape[0] \u003c 10: return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_dynamic(x, 0) torch._dynamo.decorators.mark_dynamic(y, 0) fn(x, y) To identify where dynamic shape guards originate, use tlparse. Here is an example tlparse output: By clicking on the dynamo_cpp_guards link, you can view all guards from the compilation, including the symbolic shape guard L[\u0027x\u0027].size()[0] \u003c= 9. Astute readers will notice the 0/1 specialization where we guard on L[\u0027x\u0027].size()[0] \u003e= 2. By modifying the code to use unbacked symbols, this guard is removed: import torch @torch.compile def fn(x, y): # Necessary runtime assert since we can\u0027t guard on unbacked torch._check(x.shape[0] \u003c 10) if x.shape[0] \u003c 10: return x * y x = torch.randn(5) y = torch.randn(5) torch._dynamo.decorators.mark_unbacked(x, 0) torch._dynamo.decorators.mark_unbacked(y, 0) fn(x, y) Now, this compiled region can be used for inputs of size 0 and 1: See also Dynamic Shapes Troubleshooting GuardOnDataDependentSymNode Errors",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4143,8 +4162,8 @@ shapes:</p>
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/dynamic_shapes_debugging_tlparse_torch_logs.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Sep 22, 2025T00:00:00Z",
+       "dateModified": "Dec 03, 2025T00:00:00Z"
      }
  </script>
   <script>

@@ -1,0 +1,1434 @@
+# AveragedModel
+
+*class*torch.optim.swa_utils.AveragedModel(*model*, *device=None*, *avg_fn=None*, *multi_avg_fn=None*, *use_buffers=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/swa_utils.py#L165)
+
+Implements averaged model for Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA).
+
+Stochastic Weight Averaging was proposed in [Averaging Weights Leads to
+Wider Optima and Better Generalization](https://arxiv.org/abs/1803.05407) by Pavel Izmailov, Dmitrii
+Podoprikhin, Timur Garipov, Dmitry Vetrov and Andrew Gordon Wilson
+(UAI 2018).
+
+Exponential Moving Average is a variation of [Polyak averaging](https://paperswithcode.com/method/polyak-averaging),
+but using exponential weights instead of equal weights across iterations.
+
+AveragedModel class creates a copy of the provided module `model`
+on the device `device` and allows to compute running averages of the
+parameters of the `model`.
+
+Parameters:
+
+- **model** ([*torch.nn.Module*](torch.nn.Module.html#torch.nn.Module)) - model to use with SWA/EMA
+- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*,**optional*) - if provided, the averaged model will be
+stored on the `device`
+- **avg_fn** (*function**,**optional*) - the averaging function used to update
+parameters; the function must take in the current value of the
+`AveragedModel` parameter, the current value of `model`
+parameter, and the number of models already averaged; if None,
+an equally weighted average is used (default: None)
+- **multi_avg_fn** (*function**,**optional*) - the averaging function used to update
+parameters inplace; the function must take in the current values of the
+`AveragedModel` parameters as a list, the current values of `model`
+parameters as a list, and the number of models already averaged; if None,
+an equally weighted average is used (default: None)
+- **use_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, it will compute running averages for
+both the parameters and the buffers of the model. (default: `False`)
+
+Example
+
+```
+>>> loader, optimizer, model, loss_fn = ...
+>>> swa_model = torch.optim.swa_utils.AveragedModel(model)
+>>> scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
+>>> T_max=300)
+>>> swa_start = 160
+>>> swa_scheduler = SWALR(optimizer, swa_lr=0.05)
+>>> for i in range(300):
+>>> for input, target in loader:
+>>> optimizer.zero_grad()
+>>> loss_fn(model(input), target).backward()
+>>> optimizer.step()
+>>> if i > swa_start:
+>>> swa_model.update_parameters(model)
+>>> swa_scheduler.step()
+>>> else:
+>>> scheduler.step()
+>>>
+>>> # Update bn statistics for the swa_model at the end
+>>> torch.optim.swa_utils.update_bn(loader, swa_model)
+```
+
+You can also use custom averaging functions with the avg_fn or multi_avg_fn parameters.
+If no averaging function is provided, the default is to compute
+equally-weighted average of the weights (SWA).
+
+Example
+
+```
+>>> # Compute exponential moving averages of the weights and buffers
+>>> ema_model = torch.optim.swa_utils.AveragedModel(model,
+>>> torch.optim.swa_utils.get_ema_multi_avg_fn(0.9), use_buffers=True)
+```
+
+Note
+
+When using SWA/EMA with models containing Batch Normalization you may
+need to update the activation statistics for Batch Normalization.
+This can be done either by using the [`torch.optim.swa_utils.update_bn()`](../optim.html#torch.optim.swa_utils.update_bn)
+or by setting `use_buffers` to True. The first approach updates the
+statistics in a post-training step by passing data through the model. The
+second does it during the parameter update phase by averaging all buffers.
+Empirical evidence has shown that updating the statistics in normalization
+layers increases accuracy, but you may wish to empirically test which
+approach yields the best results in your problem.
+
+Note
+
+`avg_fn` and multi_avg_fn are not saved in the `state_dict()` of the model.
+
+Note
+
+When `update_parameters()` is called for the first time (i.e.
+`n_averaged` is 0) the parameters of model are copied
+to the parameters of `AveragedModel`. For every subsequent
+call of `update_parameters()` the function avg_fn is used
+to update the parameters.
+
+add_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L642)
+
+Add a child module to the current module.
+
+The module can be accessed as an attribute using the given name.
+
+Parameters:
+
+- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the child module. The child module can be
+accessed from this module using the given name
+- **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - child module to be added to the module.
+
+apply(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1038)
+
+Apply `fn` recursively to every submodule (as returned by `.children()`) as well as self.
+
+Typical use includes initializing the parameters of a model
+(see also [torch.nn.init](../nn.init.html#nn-init-doc)).
+
+Parameters:
+
+**fn** (`Module` -> None) - function to be applied to each submodule
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+Example:
+
+```
+>>> @torch.no_grad()
+>>> def init_weights(m):
+>>> print(m)
+>>> if type(m) is nn.Linear:
+>>> m.weight.fill_(1.0)
+>>> print(m.weight)
+>>> net = nn.Sequential(nn.Linear(2, 2), nn.Linear(2, 2))
+>>> net.apply(init_weights)
+Linear(in_features=2, out_features=2, bias=True)
+Parameter containing:
+tensor([[1., 1.],
+ [1., 1.]], requires_grad=True)
+Linear(in_features=2, out_features=2, bias=True)
+Parameter containing:
+tensor([[1., 1.],
+ [1., 1.]], requires_grad=True)
+Sequential(
+ (0): Linear(in_features=2, out_features=2, bias=True)
+ (1): Linear(in_features=2, out_features=2, bias=True)
+)
+```
+
+bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1213)
+
+Casts all floating point parameters and buffers to `bfloat16` datatype.
+
+Note
+
+This method modifies the module in-place.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+buffers(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2722)
+
+Return an iterator over module buffers.
+
+Parameters:
+
+**recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, then yields buffers of this module
+and all submodules. Otherwise, yields only buffers that
+are direct members of this module.
+
+Yields:
+
+*torch.Tensor* - module buffer
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[*Tensor*](../tensors.html#torch.Tensor)]
+
+Example:
+
+```
+>>> for buf in model.buffers():
+>>> print(type(buf), buf.size())
+<class 'torch.Tensor'> (20L,)
+<class 'torch.Tensor'> (20L, 1L, 5L, 5L)
+```
+
+children()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2776)
+
+Return an iterator over immediate children modules.
+
+Yields:
+
+*Module* - a child module
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[Module](torch.nn.Module.html#torch.nn.Module)]
+
+compile(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L3044)
+
+Compile this Module's forward using [`torch.compile()`](torch.compile.html#torch.compile).
+
+This Module's __call__ method is compiled and all arguments are passed as-is
+to [`torch.compile()`](torch.compile.html#torch.compile).
+
+See [`torch.compile()`](torch.compile.html#torch.compile) for details on the arguments for this function.
+
+cpu()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1155)
+
+Move all model parameters and buffers to the CPU.
+
+Note
+
+This method modifies the module in-place.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+cuda(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1079)
+
+Move all model parameters and buffers to the GPU.
+
+This also makes associated parameters and buffers different objects. So
+it should be called before constructing the optimizer if the module will
+live on GPU while being optimized.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+**device** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - if specified, all parameters will be
+copied to that device
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+double()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1191)
+
+Casts all floating point parameters and buffers to `double` datatype.
+
+Note
+
+This method modifies the module in-place.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+eval()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2907)
+
+Set the module in evaluation mode.
+
+This has an effect only on certain modules. See the documentation of
+particular modules for details of their behaviors in training/evaluation
+mode, i.e. whether they are affected, e.g. `Dropout`, `BatchNorm`,
+etc.
+
+This is equivalent with [`self.train(False)`](torch.nn.Module.html#torch.nn.Module.train).
+
+See [Locally disabling gradient computation](../notes/autograd.html#locally-disable-grad-doc) for a comparison between
+.eval() and several similar mechanisms that may be confused with it.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2984)
+
+Return the extra representation of the module.
+
+To print customized extra information, you should re-implement
+this method in your own modules. Both single-line and multi-line
+strings are acceptable.
+
+Return type:
+
+[str](https://docs.python.org/3/library/stdtypes.html#str)
+
+float()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1180)
+
+Casts all floating point parameters and buffers to `float` datatype.
+
+Note
+
+This method modifies the module in-place.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/swa_utils.py#L290)
+
+Forward pass.
+
+get_buffer(*target*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L856)
+
+Return the buffer given by `target` if it exists, otherwise throw an error.
+
+See the docstring for `get_submodule` for a more detailed
+explanation of this method's functionality as well as how to
+correctly specify `target`.
+
+Parameters:
+
+**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the buffer
+to look for. (See `get_submodule` for how to specify a
+fully-qualified string.)
+
+Returns:
+
+The buffer referenced by `target`
+
+Return type:
+
+[torch.Tensor](../tensors.html#torch.Tensor)
+
+Raises:
+
+[**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) - If the target string references an invalid
+ path or resolves to something that is not a
+ buffer
+
+get_extra_state()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L892)
+
+Return any extra state to include in the module's state_dict.
+
+Implement this and a corresponding `set_extra_state()` for your module
+if you need to store extra state. This function is called when building the
+module's state_dict().
+
+Note that extra state should be picklable to ensure working serialization
+of the state_dict. We only provide backwards compatibility guarantees
+for serializing Tensors; other objects may break backwards compatibility if
+their serialized pickled form changes.
+
+Returns:
+
+Any extra state to store in the module's state_dict
+
+Return type:
+
+[object](https://docs.python.org/3/library/functions.html#object)
+
+get_parameter(*target*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L820)
+
+Return the parameter given by `target` if it exists, otherwise throw an error.
+
+See the docstring for `get_submodule` for a more detailed
+explanation of this method's functionality as well as how to
+correctly specify `target`.
+
+Parameters:
+
+**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the Parameter
+to look for. (See `get_submodule` for how to specify a
+fully-qualified string.)
+
+Returns:
+
+The Parameter referenced by `target`
+
+Return type:
+
+torch.nn.Parameter
+
+Raises:
+
+[**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) - If the target string references an invalid
+ path or resolves to something that is not an
+ `nn.Parameter`
+
+get_submodule(*target*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L674)
+
+Return the submodule given by `target` if it exists, otherwise throw an error.
+
+For example, let's say you have an `nn.Module` `A` that
+looks like this:
+
+```
+A(
+ (net_b): Module(
+ (net_c): Module(
+ (conv): Conv2d(16, 33, kernel_size=(3, 3), stride=(2, 2))
+ )
+ (linear): Linear(in_features=100, out_features=200, bias=True)
+ )
+)
+```
+
+(The diagram shows an `nn.Module` `A`. `A` which has a nested
+submodule `net_b`, which itself has two submodules `net_c`
+and `linear`. `net_c` then has a submodule `conv`.)
+
+To check whether or not we have the `linear` submodule, we
+would call `get_submodule("net_b.linear")`. To check whether
+we have the `conv` submodule, we would call
+`get_submodule("net_b.net_c.conv")`.
+
+The runtime of `get_submodule` is bounded by the degree
+of module nesting in `target`. A query against
+`named_modules` achieves the same result, but it is O(N) in
+the number of transitive modules. So, for a simple check to see
+if some submodule exists, `get_submodule` should always be
+used.
+
+Parameters:
+
+**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the submodule
+to look for. (See above example for how to specify a
+fully-qualified string.)
+
+Returns:
+
+The submodule referenced by `target`
+
+Return type:
+
+[torch.nn.Module](torch.nn.Module.html#torch.nn.Module)
+
+Raises:
+
+[**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) - If at any point along the path resulting from
+ the target string the (sub)path resolves to a non-existent
+ attribute name or an object that is not an instance of `nn.Module`.
+
+half()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1202)
+
+Casts all floating point parameters and buffers to `half` datatype.
+
+Note
+
+This method modifies the module in-place.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+ipu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1098)
+
+Move all model parameters and buffers to the IPU.
+
+This also makes associated parameters and buffers different objects. So
+it should be called before constructing the optimizer if the module will
+live on IPU while being optimized.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+**device** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - if specified, all parameters will be
+copied to that device
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+load_state_dict(*state_dict*, *strict=True*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2530)
+
+Copy parameters and buffers from `state_dict` into this module and its descendants.
+
+If `strict` is `True`, then
+the keys of `state_dict` must exactly match the keys returned
+by this module's [`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) function.
+
+Warning
+
+If `assign` is `True` the optimizer must be created after
+the call to `load_state_dict` unless
+[`get_swap_module_params_on_conversion()`](../future_mod.html#torch.__future__.get_swap_module_params_on_conversion) is `True`.
+
+Parameters:
+
+- **state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - a dict containing parameters and
+persistent buffers.
+- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to strictly enforce that the keys
+in `state_dict` match the keys returned by this module's
+[`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) function. Default: `True`
+- **assign** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - When set to `False`, the properties of the tensors
+in the current module are preserved whereas setting it to `True` preserves
+properties of the Tensors in the state dict. The only
+exception is the `requires_grad` field of `Parameter`
+for which the value from the module is preserved. Default: `False`
+
+Returns:
+
+- `missing_keys` is a list of str containing any keys that are expected
+
+by this module but missing from the provided `state_dict`.
+- `unexpected_keys` is a list of str containing the keys that are not
+
+expected by this module but present in the provided `state_dict`.
+
+Return type:
+
+`NamedTuple` with `missing_keys` and `unexpected_keys` fields
+
+Note
+
+If a parameter or buffer is registered as `None` and its corresponding key
+exists in `state_dict`, `load_state_dict()` will raise a
+`RuntimeError`.
+
+modules(*remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2805)
+
+Return an iterator over all modules in the network.
+
+Parameters:
+
+**remove_duplicate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to remove the duplicated module instances in the result
+or not.
+
+Yields:
+
+*Module* - a module in the network
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[Module](torch.nn.Module.html#torch.nn.Module)]
+
+Note
+
+Duplicate modules are returned only once by default. In the following
+example, `l` will be returned only once.
+
+Example:
+
+```
+>>> l = nn.Linear(2, 2)
+>>> net = nn.Sequential(l, l)
+>>> for idx, m in enumerate(net.modules()):
+... print(idx, '->', m)
+
+0 -> Sequential(
+ (0): Linear(in_features=2, out_features=2, bias=True)
+ (1): Linear(in_features=2, out_features=2, bias=True)
+)
+1 -> Linear(in_features=2, out_features=2, bias=True)
+```
+
+mtia(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1136)
+
+Move all model parameters and buffers to the MTIA.
+
+This also makes associated parameters and buffers different objects. So
+it should be called before constructing the optimizer if the module will
+live on MTIA while being optimized.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+**device** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - if specified, all parameters will be
+copied to that device
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+named_buffers(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2745)
+
+Return an iterator over module buffers, yielding both the name of the buffer as well as the buffer itself.
+
+Parameters:
+
+- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - prefix to prepend to all buffer names.
+- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, then yields buffers of this module
+and all submodules. Otherwise, yields only buffers that
+are direct members of this module. Defaults to True.
+- **remove_duplicate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to remove the duplicated buffers in the result. Defaults to True.
+
+Yields:
+
+*(str, torch.Tensor)* - Tuple containing the name and buffer
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](../tensors.html#torch.Tensor)]]
+
+Example:
+
+```
+>>> for name, buf in self.named_buffers():
+>>> if name in ['running_var']:
+>>> print(buf.size())
+```
+
+named_children()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2785)
+
+Return an iterator over immediate children modules, yielding both the name of the module as well as the module itself.
+
+Yields:
+
+*(str, Module)* - Tuple containing a name and child module
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [Module](torch.nn.Module.html#torch.nn.Module)]]
+
+Example:
+
+```
+>>> for name, module in model.named_children():
+>>> if name in ['conv4', 'conv5']:
+>>> print(module)
+```
+
+named_modules(*memo=None*, *prefix=''*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2836)
+
+Return an iterator over all modules in the network, yielding both the name of the module as well as the module itself.
+
+Parameters:
+
+- **memo** ([*set*](https://docs.python.org/3/library/stdtypes.html#set)*[*[*Module*](torch.nn.Module.html#torch.nn.Module)*]**|**None*) - a memo to store the set of modules already added to the result
+- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a prefix that will be added to the name of the module
+- **remove_duplicate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to remove the duplicated module instances in the result
+or not
+
+Yields:
+
+*(str, Module)* - Tuple of name and module
+
+Note
+
+Duplicate modules are returned only once. In the following
+example, `l` will be returned only once.
+
+Example:
+
+```
+>>> l = nn.Linear(2, 2)
+>>> net = nn.Sequential(l, l)
+>>> for idx, m in enumerate(net.named_modules()):
+... print(idx, '->', m)
+
+0 -> ('', Sequential(
+ (0): Linear(in_features=2, out_features=2, bias=True)
+ (1): Linear(in_features=2, out_features=2, bias=True)
+))
+1 -> ('0', Linear(in_features=2, out_features=2, bias=True))
+```
+
+named_parameters(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2690)
+
+Return an iterator over module parameters, yielding both the name of the parameter as well as the parameter itself.
+
+Parameters:
+
+- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - prefix to prepend to all parameter names.
+- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, then yields parameters of this module
+and all submodules. Otherwise, yields only parameters that
+are direct members of this module.
+- **remove_duplicate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to remove the duplicated
+parameters in the result. Defaults to True.
+
+Yields:
+
+*(str, Parameter)* - Tuple containing the name and parameter
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Parameter*](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
+
+Example:
+
+```
+>>> for name, param in self.named_parameters():
+>>> if name in ['bias']:
+>>> print(param.size())
+```
+
+parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2665)
+
+Return an iterator over module parameters.
+
+This is typically passed to an optimizer.
+
+Parameters:
+
+**recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, then yields parameters of this module
+and all submodules. Otherwise, yields only parameters that
+are direct members of this module.
+
+Yields:
+
+*Parameter* - module parameter
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[*Parameter*](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]
+
+Example:
+
+```
+>>> for param in model.parameters():
+>>> print(type(param), param.size())
+<class 'torch.Tensor'> (20L,)
+<class 'torch.Tensor'> (20L, 1L, 5L, 5L)
+```
+
+register_backward_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1434)
+
+Register a backward hook on the module.
+
+This function is deprecated in favor of [`register_full_backward_hook()`](torch.nn.Module.html#torch.nn.Module.register_full_backward_hook) and
+the behavior of this function will change in future versions.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_buffer(*name*, *tensor*, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L528)
+
+Add a buffer to the module.
+
+This is typically used to register a buffer that should not be
+considered a model parameter. For example, BatchNorm's `running_mean`
+is not a parameter, but is part of the module's state. Buffers, by
+default, are persistent and will be saved alongside parameters. This
+behavior can be changed by setting `persistent` to `False`. The
+only difference between a persistent buffer and a non-persistent buffer
+is that the latter will not be a part of this module's
+`state_dict`.
+
+Buffers can be accessed as attributes using given names.
+
+Parameters:
+
+- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the buffer. The buffer can be accessed
+from this module using the given name
+- **tensor** ([*Tensor*](../tensors.html#torch.Tensor)*or**None*) - buffer to be registered. If `None`, then operations
+that run on buffers, such as `cuda`, are ignored. If `None`,
+the buffer is **not** included in the module's `state_dict`.
+- **persistent** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether the buffer is part of this module's
+`state_dict`.
+
+Example:
+
+```
+>>> self.register_buffer('running_mean', torch.zeros(num_features))
+```
+
+register_forward_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1687)
+
+Register a forward hook on the module.
+
+The hook will be called every time after `forward()` has computed an output.
+
+If `with_kwargs` is `False` or not specified, the input contains only
+the positional arguments given to the module. Keyword arguments won't be
+passed to the hooks and only to the `forward`. The hook can modify the
+output. It can modify the input inplace but it will not have effect on
+forward since this is called after `forward()` is called. The hook
+should have the following signature:
+
+```
+hook(module, args, output) -> None or modified output
+```
+
+If `with_kwargs` is `True`, the forward hook will be passed the
+`kwargs` given to the forward function and be expected to return the
+output possibly modified. The hook should have the following signature:
+
+```
+hook(module, args, kwargs, output) -> None or modified output
+```
+
+Parameters:
+
+- **hook** (*Callable*) - The user defined hook to be registered.
+- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, the provided `hook` will be fired
+before all existing `forward` hooks on this
+[`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Otherwise, the provided
+`hook` will be fired after all existing `forward` hooks on
+this [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Note that global
+`forward` hooks registered with
+`register_module_forward_hook()` will fire before all hooks
+registered by this method.
+Default: `False`
+- **with_kwargs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, the `hook` will be passed the
+kwargs given to the forward function.
+Default: `False`
+- **always_call** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` the `hook` will be run regardless of
+whether an exception is raised while calling the Module.
+Default: `False`
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_forward_pre_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1624)
+
+Register a forward pre-hook on the module.
+
+The hook will be called every time before `forward()` is invoked.
+
+If `with_kwargs` is false or not specified, the input contains only
+the positional arguments given to the module. Keyword arguments won't be
+passed to the hooks and only to the `forward`. The hook can modify the
+input. User can either return a tuple or a single modified value in the
+hook. We will wrap the value into a tuple if a single value is returned
+(unless that value is already a tuple). The hook should have the
+following signature:
+
+```
+hook(module, args) -> None or modified input
+```
+
+If `with_kwargs` is true, the forward pre-hook will be passed the
+kwargs given to the forward function. And if the hook modifies the
+input, both the args and kwargs should be returned. The hook should have
+the following signature:
+
+```
+hook(module, args, kwargs) -> None or a tuple of modified input and kwargs
+```
+
+Parameters:
+
+- **hook** (*Callable*) - The user defined hook to be registered.
+- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, the provided `hook` will be fired before
+all existing `forward_pre` hooks on this
+[`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Otherwise, the provided
+`hook` will be fired after all existing `forward_pre` hooks
+on this [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Note that global
+`forward_pre` hooks registered with
+`register_module_forward_pre_hook()` will fire before all
+hooks registered by this method.
+Default: `False`
+- **with_kwargs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, the `hook` will be passed the kwargs
+given to the forward function.
+Default: `False`
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_full_backward_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1460)
+
+Register a backward hook on the module.
+
+The hook will be called every time the gradients with respect to a module are computed, and its firing rules are as follows:
+
+> 1. Ordinarily, the hook fires when the gradients are computed with respect to the module inputs.
+> 2. If none of the module inputs require gradients, the hook will fire when the gradients are computed
+> with respect to module outputs.
+> 3. If none of the module outputs require gradients, then the hooks will not fire.
+
+The hook should have the following signature:
+
+```
+hook(module, grad_input, grad_output) -> tuple(Tensor) or None
+```
+
+The `grad_input` and `grad_output` are tuples that contain the gradients
+with respect to the inputs and outputs respectively. The hook should
+not modify its arguments, but it can optionally return a new gradient with
+respect to the input that will be used in place of `grad_input` in
+subsequent computations. `grad_input` will only correspond to the inputs given
+as positional arguments and all kwarg arguments are ignored. Entries
+in `grad_input` and `grad_output` will be `None` for all non-Tensor
+arguments.
+
+For technical reasons, when this hook is applied to a Module, its forward function will
+receive a view of each Tensor passed to the Module. Similarly the caller will receive a view
+of each Tensor returned by the Module's forward function.
+
+Warning
+
+Modifying inputs or outputs inplace is not allowed when using backward hooks and
+will raise an error.
+
+Parameters:
+
+- **hook** (*Callable*) - The user-defined hook to be registered.
+- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, the provided `hook` will be fired before
+all existing `backward` hooks on this
+[`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Otherwise, the provided
+`hook` will be fired after all existing `backward` hooks on
+this [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Note that global
+`backward` hooks registered with
+`register_module_full_backward_hook()` will fire before
+all hooks registered by this method.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_full_backward_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1385)
+
+Register a backward pre-hook on the module.
+
+The hook will be called every time the gradients for the module are computed.
+The hook should have the following signature:
+
+```
+hook(module, grad_output) -> tuple[Tensor, ...], Tensor or None
+```
+
+The `grad_output` is a tuple. The hook should
+not modify its arguments, but it can optionally return a new gradient with
+respect to the output that will be used in place of `grad_output` in
+subsequent computations. Entries in `grad_output` will be `None` for
+all non-Tensor arguments.
+
+For technical reasons, when this hook is applied to a Module, its forward function will
+receive a view of each Tensor passed to the Module. Similarly the caller will receive a view
+of each Tensor returned by the Module's forward function.
+
+Warning
+
+Modifying inputs inplace is not allowed when using backward hooks and
+will raise an error.
+
+Parameters:
+
+- **hook** (*Callable*) - The user-defined hook to be registered.
+- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, the provided `hook` will be fired before
+all existing `backward_pre` hooks on this
+[`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Otherwise, the provided
+`hook` will be fired after all existing `backward_pre` hooks
+on this [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module). Note that global
+`backward_pre` hooks registered with
+`register_module_full_backward_pre_hook()` will fire before
+all hooks registered by this method.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_load_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2316)
+
+Register a post-hook to be run after module's `load_state_dict()` is called.
+
+It should have the following signature::
+
+hook(module, incompatible_keys) -> None
+
+The `module` argument is the current module that this hook is registered
+on, and the `incompatible_keys` argument is a `NamedTuple` consisting
+of attributes `missing_keys` and `unexpected_keys`. `missing_keys`
+is a `list` of `str` containing the missing keys and
+`unexpected_keys` is a `list` of `str` containing the unexpected keys.
+
+The given incompatible_keys can be modified inplace if needed.
+
+Note that the checks performed when calling `load_state_dict()` with
+`strict=True` are affected by modifications the hook makes to
+`missing_keys` or `unexpected_keys`, as expected. Additions to either
+set of keys will result in an error being thrown when `strict=True`, and
+clearing out both missing and unexpected keys will avoid an error.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+register_load_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2304)
+
+Register a pre-hook to be run before module's `load_state_dict()` is called.
+
+It should have the following signature::
+
+hook(module, state_dict, prefix, local_metadata, strict, missing_keys, unexpected_keys, error_msgs) -> None # noqa: B950
+
+Parameters:
+
+**hook** (*Callable*) - Callable hook that will be invoked before
+loading the state dict.
+
+register_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L670)
+
+Alias for `add_module()`.
+
+register_parameter(*name*, *param*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L592)
+
+Add a parameter to the module.
+
+The parameter can be accessed as an attribute using given name.
+
+Parameters:
+
+- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the parameter. The parameter can be accessed
+from this module using the given name
+- **param** ([*Parameter*](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)*or**None*) - parameter to be added to the module. If
+`None`, then operations that run on parameters, such as `cuda`,
+are ignored. If `None`, the parameter is **not** included in the
+module's `state_dict`.
+
+register_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2106)
+
+Register a post-hook for the [`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) method.
+
+It should have the following signature::
+
+hook(module, state_dict, prefix, local_metadata) -> None
+
+The registered hooks can modify the `state_dict` inplace.
+
+register_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2130)
+
+Register a pre-hook for the [`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) method.
+
+It should have the following signature::
+
+hook(module, prefix, keep_vars) -> None
+
+The registered hooks can be used to perform pre-processing before the `state_dict`
+call is made.
+
+requires_grad_(*requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2925)
+
+Change if autograd should record operations on parameters in this module.
+
+This method sets the parameters' `requires_grad` attributes
+in-place.
+
+This method is helpful for freezing part of the module for finetuning
+or training parts of a model individually (e.g., GAN training).
+
+See [Locally disabling gradient computation](../notes/autograd.html#locally-disable-grad-doc) for a comparison between
+.requires_grad_() and several similar mechanisms that may be confused with it.
+
+Parameters:
+
+**requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether autograd should record operations on
+parameters in this module. Default: `True`.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+set_extra_state(*state*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L913)
+
+Set extra state contained in the loaded state_dict.
+
+This function is called from `load_state_dict()` to handle any extra state
+found within the state_dict. Implement this function and a corresponding
+`get_extra_state()` for your module if you need to store extra state within its
+state_dict.
+
+Parameters:
+
+**state** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Extra state from the state_dict
+
+set_submodule(*target*, *module*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L739)
+
+Set the submodule given by `target` if it exists, otherwise throw an error.
+
+Note
+
+If `strict` is set to `False` (default), the method will replace an existing submodule
+or create a new submodule if the parent module exists. If `strict` is set to `True`,
+the method will only attempt to replace an existing submodule and throw an error if
+the submodule does not exist.
+
+For example, let's say you have an `nn.Module` `A` that
+looks like this:
+
+```
+A(
+ (net_b): Module(
+ (net_c): Module(
+ (conv): Conv2d(3, 3, 3)
+ )
+ (linear): Linear(3, 3)
+ )
+)
+```
+
+(The diagram shows an `nn.Module` `A`. `A` has a nested
+submodule `net_b`, which itself has two submodules `net_c`
+and `linear`. `net_c` then has a submodule `conv`.)
+
+To override the `Conv2d` with a new submodule `Linear`, you
+could call `set_submodule("net_b.net_c.conv", nn.Linear(1, 1))`
+where `strict` could be `True` or `False`
+
+To add a new submodule `Conv2d` to the existing `net_b` module,
+you would call `set_submodule("net_b.conv", nn.Conv2d(1, 1, 1))`.
+
+In the above if you set `strict=True` and call
+`set_submodule("net_b.conv", nn.Conv2d(1, 1, 1), strict=True)`, an AttributeError
+will be raised because `net_b` does not have a submodule named `conv`.
+
+Parameters:
+
+- **target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the submodule
+to look for. (See above example for how to specify a
+fully-qualified string.)
+- **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - The module to set the submodule to.
+- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `False`, the method will replace an existing submodule
+or create a new submodule if the parent module exists. If `True`,
+the method will only attempt to replace an existing submodule and throw an error
+if the submodule doesn't already exist.
+
+Raises:
+
+- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If the `target` string is empty or if `module` is not an instance of `nn.Module`.
+- [**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) - If at any point along the path resulting from
+ the `target` string the (sub)path resolves to a non-existent
+ attribute name or an object that is not an instance of `nn.Module`.
+
+share_memory()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2977)
+
+See [`torch.Tensor.share_memory_()`](torch.Tensor.share_memory_.html#torch.Tensor.share_memory_).
+
+Return type:
+
+*Self*
+
+state_dict(**args*, *destination=None*, *prefix=''*, *keep_vars=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2194)
+
+Return a dictionary containing references to the whole state of the module.
+
+Both parameters and persistent buffers (e.g. running averages) are
+included. Keys are corresponding parameter and buffer names.
+Parameters and buffers set to `None` are not included.
+
+Note
+
+The returned object is a shallow copy. It contains references
+to the module's parameters and buffers.
+
+Warning
+
+Currently `state_dict()` also accepts positional arguments for
+`destination`, `prefix` and `keep_vars` in order. However,
+this is being deprecated and keyword arguments will be enforced in
+future releases.
+
+Warning
+
+Please avoid the use of argument `destination` as it is not
+designed for end-users.
+
+Parameters:
+
+- **destination** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - If provided, the state of module will
+be updated into the dict and the same object is returned.
+Otherwise, an `OrderedDict` will be created and returned.
+Default: `None`.
+- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - a prefix added to parameter and buffer
+names to compose the keys in state_dict. Default: `''`.
+- **keep_vars** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - by default the [`Tensor`](../tensors.html#torch.Tensor) s
+returned in the state dict are detached from autograd. If it's
+set to `True`, detaching will not be performed.
+Default: `False`.
+
+Returns:
+
+a dictionary containing a whole state of the module
+
+Return type:
+
+[dict](https://docs.python.org/3/library/stdtypes.html#dict)
+
+Example:
+
+```
+>>> module.state_dict().keys()
+['bias', 'weight']
+```
+
+to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1254)
+
+Move and/or cast the parameters and buffers.
+
+This can be called as
+
+to(*device=None*, *dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1254)
+
+to(*dtype*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1254)
+
+to(*tensor*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1254)
+
+to(*memory_format=torch.channels_last*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1254)
+
+Its signature is similar to [`torch.Tensor.to()`](torch.Tensor.to.html#torch.Tensor.to), but only accepts
+floating point or complex `dtype`s. In addition, this method will
+only cast the floating point or complex parameters and buffers to `dtype`
+(if given). The integral parameters and buffers will be moved
+`device`, if that is given, but with dtypes unchanged. When
+`non_blocking` is set, it tries to convert/move asynchronously
+with respect to the host if possible, e.g., moving CPU Tensors with
+pinned memory to CUDA devices.
+
+See below for examples.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+- **device** ([`torch.device`](../tensor_attributes.html#torch.device)) - the desired device of the parameters
+and buffers in this module
+- **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired floating point or complex dtype of
+the parameters and buffers in this module
+- **tensor** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - Tensor whose dtype and device are the desired
+dtype and device for all parameters and buffers in this module
+- **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format)) - the desired memory
+format for 4D parameters and buffers in this module (keyword
+only argument)
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+Examples:
+
+```
+>>> linear = nn.Linear(2, 2)
+>>> linear.weight
+Parameter containing:
+tensor([[ 0.1913, -0.3420],
+ [-0.5113, -0.2325]])
+>>> linear.to(torch.double)
+Linear(in_features=2, out_features=2, bias=True)
+>>> linear.weight
+Parameter containing:
+tensor([[ 0.1913, -0.3420],
+ [-0.5113, -0.2325]], dtype=torch.float64)
+>>> gpu1 = torch.device("cuda:1")
+>>> linear.to(gpu1, dtype=torch.half, non_blocking=True)
+Linear(in_features=2, out_features=2, bias=True)
+>>> linear.weight
+Parameter containing:
+tensor([[ 0.1914, -0.3420],
+ [-0.5112, -0.2324]], dtype=torch.float16, device='cuda:1')
+>>> cpu = torch.device("cpu")
+>>> linear.to(cpu)
+Linear(in_features=2, out_features=2, bias=True)
+>>> linear.weight
+Parameter containing:
+tensor([[ 0.1914, -0.3420],
+ [-0.5112, -0.2324]], dtype=torch.float16)
+
+>>> linear = nn.Linear(2, 2, bias=None).to(torch.cdouble)
+>>> linear.weight
+Parameter containing:
+tensor([[ 0.3741+0.j, 0.2382+0.j],
+ [ 0.5593+0.j, -0.4443+0.j]], dtype=torch.complex128)
+>>> linear(torch.ones(3, 2, dtype=torch.cdouble))
+tensor([[0.6122+0.j, 0.1150+0.j],
+ [0.6122+0.j, 0.1150+0.j],
+ [0.6122+0.j, 0.1150+0.j]], dtype=torch.complex128)
+```
+
+to_empty(***, *device*, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1224)
+
+Move the parameters and buffers to the specified device without copying storage.
+
+Parameters:
+
+- **device** ([`torch.device`](../tensor_attributes.html#torch.device)) - The desired device of the parameters
+and buffers in this module.
+- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether parameters and buffers of submodules should
+be recursively moved to the specified device.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+train(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2885)
+
+Set the module in training mode.
+
+This has an effect only on certain modules. See the documentation of
+particular modules for details of their behaviors in training/evaluation
+mode, i.e., whether they are affected, e.g. `Dropout`, `BatchNorm`,
+etc.
+
+Parameters:
+
+**mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to set training mode (`True`) or evaluation
+mode (`False`). Default: `True`.
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+type(*dst_type*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1166)
+
+Casts all parameters and buffers to `dst_type`.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+**dst_type** ([*type*](https://docs.python.org/3/library/functions.html#type)*or**string*) - the desired type
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+update_parameters(*model*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/swa_utils.py#L294)
+
+Update model parameters.
+
+xpu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L1117)
+
+Move all model parameters and buffers to the XPU.
+
+This also makes associated parameters and buffers different objects. So
+it should be called before constructing optimizer if the module will
+live on XPU while being optimized.
+
+Note
+
+This method modifies the module in-place.
+
+Parameters:
+
+**device** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - if specified, all parameters will be
+copied to that device
+
+Returns:
+
+self
+
+Return type:
+
+[Module](torch.nn.Module.html#torch.nn.Module)
+
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/module.py#L2948)
+
+Reset gradients of all model parameters.
+
+See similar function under [`torch.optim.Optimizer`](../optim.html#torch.optim.Optimizer) for more context.
+
+Parameters:
+
+**set_to_none** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - instead of setting to zero, set the grads to None.
+See [`torch.optim.Optimizer.zero_grad()`](torch.optim.Optimizer.zero_grad.html#torch.optim.Optimizer.zero_grad) for details.

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.random - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,9 +7029,10 @@ document.write(`
                   
   <section id="module-torch.random">
 <span id="torch-random"></span><h1>torch.random<a class="headerlink" href="#module-torch.random" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 07, 2019 | Last Updated On: Jun 18, 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.fork_rng">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">fork_rng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_caller</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fork_rng'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_devices_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'devices'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.fork_rng" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">fork_rng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_caller</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fork_rng'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_devices_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'devices'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.fork_rng" title="Link to this definition">#</a></dt>
 <dd><p>Forks the RNG, so that when you return, the RNG is reset
 to the state that it was previously in.</p>
 <dl class="field-list simple">
@@ -7039,7 +7058,7 @@ see details in <a class="reference internal" href="torch.html#accelerators"><spa
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.get_rng_state">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">get_rng_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.get_rng_state" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">get_rng_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.get_rng_state" title="Link to this definition">#</a></dt>
 <dd><p>Returns the random number generator state as a <cite>torch.ByteTensor</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -7055,7 +7074,7 @@ see details in <a class="reference internal" href="torch.html#accelerators"><spa
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.initial_seed">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">initial_seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.initial_seed" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">initial_seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.initial_seed" title="Link to this definition">#</a></dt>
 <dd><p>Returns the initial seed for generating random numbers as a
 Python <cite>long</cite>.</p>
 <div class="admonition note">
@@ -7071,7 +7090,7 @@ Python <cite>long</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.manual_seed">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.manual_seed" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.manual_seed" title="Link to this definition">#</a></dt>
 <dd><p>Sets the seed for generating random numbers on all devices. Returns a
 <cite>torch.Generator</cite> object.</p>
 <dl class="field-list simple">
@@ -7089,7 +7108,7 @@ is raised. Negative inputs are remapped to positive values with the formula
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.seed">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.seed" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.seed" title="Link to this definition">#</a></dt>
 <dd><p>Sets the seed for generating random numbers to a non-deterministic
 random number on all devices. Returns a 64 bit number used to seed the RNG.</p>
 <dl class="field-list simple">
@@ -7101,7 +7120,7 @@ random number on all devices. Returns a 64 bit number used to seed the RNG.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.set_rng_state">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">set_rng_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.set_rng_state" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">set_rng_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.set_rng_state" title="Link to this definition">#</a></dt>
 <dd><p>Sets the random number generator state.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -7117,7 +7136,7 @@ random number on all devices. Returns a 64 bit number used to seed the RNG.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.random.thread_safe_generator">
-<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">thread_safe_generator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/random.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.thread_safe_generator" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.random.</span></span><span class="sig-name descname"><span class="pre">thread_safe_generator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/random.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.random.thread_safe_generator" title="Link to this definition">#</a></dt>
 <dd><p>Returns a thread-safe random number generator for use in DataLoader workers.
 This function provides a convenient way for transforms and user code to use
 thread-safe random number generation without manually checking worker context.
@@ -7528,7 +7547,7 @@ returns <code class="docutils literal notranslate"><span class="pre">None</span>
        "headline": "torch.random",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/random.html",
-       "articleBody": "torch.random# torch.random.fork_rng(devices=None, enabled=True, _caller=\u0027fork_rng\u0027, _devices_kw=\u0027devices\u0027, device_type=\u0027cuda\u0027)[source]# Forks the RNG, so that when you return, the RNG is reset to the state that it was previously in. Parameters: devices (iterable of Device IDs) \u2013 devices for which to fork the RNG. CPU RNG state is always forked. By default, fork_rng() operates on all devices, but will emit a warning if your machine has a lot of devices, since this function will run very slowly in that case. If you explicitly specify devices, this warning will be suppressed enabled (bool) \u2013 if False, the RNG is not forked. This is a convenience argument for easily disabling the context manager without having to delete it and unindent your Python code under it. device_type (str) \u2013 device type str, default is cuda. As for supported device, see details in accelerator Return type: Generator torch.random.get_rng_state()[source]# Returns the random number generator state as a torch.ByteTensor. Note The returned state is for the default generator on CPU only. See also: torch.random.fork_rng(). Return type: Tensor torch.random.initial_seed()[source]# Returns the initial seed for generating random numbers as a Python long. Note The returned seed is for the default generator on CPU only. Return type: int torch.random.manual_seed(seed)[source]# Sets the seed for generating random numbers on all devices. Returns a torch.Generator object. Parameters: seed (int) \u2013 The desired seed. Value must be within the inclusive range [-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]. Otherwise, a RuntimeError is raised. Negative inputs are remapped to positive values with the formula 0xffff_ffff_ffff_ffff + seed. Return type: Generator torch.random.seed()[source]# Sets the seed for generating random numbers to a non-deterministic random number on all devices. Returns a 64 bit number used to seed the RNG. Return type: int torch.random.set_rng_state(new_state)[source]# Sets the random number generator state. Note This function only works for CPU. For CUDA, please use torch.manual_seed(), which works for both CPU and CUDA. Parameters: new_state (torch.ByteTensor) \u2013 The desired state torch.random.thread_safe_generator()[source]# Returns a thread-safe random number generator for use in DataLoader workers. This function provides a convenient way for transforms and user code to use thread-safe random number generation without manually checking worker context. When called in a DataLoader thread worker, returns the worker\u2019s thread-local torch.Generator. When called in the main process or process workers, returns None (which causes PyTorch functions to use the default global RNG). :returns: Thread-local generator in thread workers, None otherwise. :rtype: Optional[torch.Generator] Example::\u003e\u003e\u003e from torch.random import thread_safe_generator \u003e\u003e\u003e generator = thread_safe_generator() \u003e\u003e\u003e torch.randint(0, 10, (5,), generator=generator) Example with transforms::\u003e\u003e\u003e from torch.random import thread_safe_generator \u003e\u003e\u003e class MyRandomTransform: ... def __call__(self, img): ... generator = thread_safe_generator() ... offset = torch.randint(0, 10, (2,), generator=generator) ... return img[..., offset[0]:, offset[1]:] Return type: Generator | None",
+       "articleBody": "torch.random# Created On: Aug 07, 2019 | Last Updated On: Jun 18, 2025 torch.random.fork_rng(devices=None, enabled=True, _caller=\u0027fork_rng\u0027, _devices_kw=\u0027devices\u0027, device_type=\u0027cuda\u0027)[source]# Forks the RNG, so that when you return, the RNG is reset to the state that it was previously in. Parameters: devices (iterable of Device IDs) \u2013 devices for which to fork the RNG. CPU RNG state is always forked. By default, fork_rng() operates on all devices, but will emit a warning if your machine has a lot of devices, since this function will run very slowly in that case. If you explicitly specify devices, this warning will be suppressed enabled (bool) \u2013 if False, the RNG is not forked. This is a convenience argument for easily disabling the context manager without having to delete it and unindent your Python code under it. device_type (str) \u2013 device type str, default is cuda. As for supported device, see details in accelerator Return type: Generator torch.random.get_rng_state()[source]# Returns the random number generator state as a torch.ByteTensor. Note The returned state is for the default generator on CPU only. See also: torch.random.fork_rng(). Return type: Tensor torch.random.initial_seed()[source]# Returns the initial seed for generating random numbers as a Python long. Note The returned seed is for the default generator on CPU only. Return type: int torch.random.manual_seed(seed)[source]# Sets the seed for generating random numbers on all devices. Returns a torch.Generator object. Parameters: seed (int) \u2013 The desired seed. Value must be within the inclusive range [-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]. Otherwise, a RuntimeError is raised. Negative inputs are remapped to positive values with the formula 0xffff_ffff_ffff_ffff + seed. Return type: Generator torch.random.seed()[source]# Sets the seed for generating random numbers to a non-deterministic random number on all devices. Returns a 64 bit number used to seed the RNG. Return type: int torch.random.set_rng_state(new_state)[source]# Sets the random number generator state. Note This function only works for CPU. For CUDA, please use torch.manual_seed(), which works for both CPU and CUDA. Parameters: new_state (torch.ByteTensor) \u2013 The desired state torch.random.thread_safe_generator()[source]# Returns a thread-safe random number generator for use in DataLoader workers. This function provides a convenient way for transforms and user code to use thread-safe random number generation without manually checking worker context. When called in a DataLoader thread worker, returns the worker\u2019s thread-local torch.Generator. When called in the main process or process workers, returns None (which causes PyTorch functions to use the default global RNG). :returns: Thread-local generator in thread workers, None otherwise. :rtype: Optional[torch.Generator] Example::\u003e\u003e\u003e from torch.random import thread_safe_generator \u003e\u003e\u003e generator = thread_safe_generator() \u003e\u003e\u003e torch.randint(0, 10, (5,), generator=generator) Example with transforms::\u003e\u003e\u003e from torch.random import thread_safe_generator \u003e\u003e\u003e class MyRandomTransform: ... def __call__(self, img): ... generator = thread_safe_generator() ... offset = torch.randint(0, 10, (2,), generator=generator) ... return img[..., offset[0]:, offset[1]:] Return type: Generator | None",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7539,8 +7558,8 @@ returns <code class="docutils literal notranslate"><span class="pre">None</span>
          "@type": "WebPage",
          "@id": "/random.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Aug 07, 2019T00:00:00Z",
+       "dateModified": "Jun 18, 2025T00:00:00Z"
      }
  </script>
   <script>

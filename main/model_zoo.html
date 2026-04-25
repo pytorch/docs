@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.utils.model_zoo - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,10 +7029,11 @@ document.write(`
                   
   <section id="torch-utils-model-zoo">
 <h1>torch.utils.model_zoo<a class="headerlink" href="#torch-utils-model-zoo" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 09, 2017 | Last Updated On: Jun 11, 2025</p>
 <p>Moved to <code class="docutils literal notranslate"><span class="pre">torch.hub</span></code>.</p>
 <dl class="py function" id="module-torch.utils.model_zoo">
 <dt class="sig sig-object py" id="torch.utils.model_zoo.load_url">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.model_zoo.</span></span><span class="sig-name descname"><span class="pre">load_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/hub.py#L829"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.model_zoo.load_url" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.model_zoo.</span></span><span class="sig-name descname"><span class="pre">load_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/hub.py#L829"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.model_zoo.load_url" title="Link to this definition">#</a></dt>
 <dd><p>Loads the Torch serialized object at the given URL.</p>
 <p>If downloaded file is a zip file, it will be automatically
 decompressed.</p>
@@ -7424,7 +7443,7 @@ Recommended for untrusted sources. See <a class="reference internal" href="gener
        "headline": "torch.utils.model_zoo",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/model_zoo.html",
-       "articleBody": "torch.utils.model_zoo# Moved to torch.hub. torch.utils.model_zoo.load_url(url, model_dir=None, map_location=None, progress=True, check_hash=False, file_name=None, weights_only=False)[source]# Loads the Torch serialized object at the given URL. If downloaded file is a zip file, it will be automatically decompressed. If the object is already present in model_dir, it\u2019s deserialized and returned. The default value of model_dir is \u003chub_dir\u003e/checkpoints where hub_dir is the directory returned by get_dir(). Parameters: url (str) \u2013 URL of the object to download model_dir (str, optional) \u2013 directory in which to save the object map_location (optional) \u2013 a function or a dict specifying how to remap storage locations (see torch.load) progress (bool, optional) \u2013 whether or not to display a progress bar to stderr. Default: True check_hash (bool, optional) \u2013 If True, the filename part of the URL should follow the naming convention filename-\u003csha256\u003e.ext where \u003csha256\u003e is the first eight or more digits of the SHA256 hash of the contents of the file. The hash is used to ensure unique names and to verify the contents of the file. Default: False file_name (str, optional) \u2013 name for the downloaded file. Filename from url will be used if not set. weights_only (bool, optional) \u2013 If True, only weights will be loaded and no complex pickled objects. Recommended for untrusted sources. See load() for more details. Return type: dict[str, Any] Example \u003e\u003e\u003e state_dict = torch.hub.load_state_dict_from_url( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\" ... )",
+       "articleBody": "torch.utils.model_zoo# Created On: Jan 09, 2017 | Last Updated On: Jun 11, 2025 Moved to torch.hub. torch.utils.model_zoo.load_url(url, model_dir=None, map_location=None, progress=True, check_hash=False, file_name=None, weights_only=False)[source]# Loads the Torch serialized object at the given URL. If downloaded file is a zip file, it will be automatically decompressed. If the object is already present in model_dir, it\u2019s deserialized and returned. The default value of model_dir is \u003chub_dir\u003e/checkpoints where hub_dir is the directory returned by get_dir(). Parameters: url (str) \u2013 URL of the object to download model_dir (str, optional) \u2013 directory in which to save the object map_location (optional) \u2013 a function or a dict specifying how to remap storage locations (see torch.load) progress (bool, optional) \u2013 whether or not to display a progress bar to stderr. Default: True check_hash (bool, optional) \u2013 If True, the filename part of the URL should follow the naming convention filename-\u003csha256\u003e.ext where \u003csha256\u003e is the first eight or more digits of the SHA256 hash of the contents of the file. The hash is used to ensure unique names and to verify the contents of the file. Default: False file_name (str, optional) \u2013 name for the downloaded file. Filename from url will be used if not set. weights_only (bool, optional) \u2013 If True, only weights will be loaded and no complex pickled objects. Recommended for untrusted sources. See load() for more details. Return type: dict[str, Any] Example \u003e\u003e\u003e state_dict = torch.hub.load_state_dict_from_url( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\" ... )",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7435,8 +7454,8 @@ Recommended for untrusted sources. See <a class="reference internal" href="gener
          "@type": "WebPage",
          "@id": "/model_zoo.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jan 09, 2017T00:00:00Z",
+       "dateModified": "Jun 11, 2025T00:00:00Z"
      }
  </script>
   <script>

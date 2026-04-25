@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch._logging - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3659,6 +3677,7 @@ document.write(`
                   
   <section id="torch-logging">
 <h1>torch._logging<a class="headerlink" href="#torch-logging" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 24, 2023 | Last Updated On: Jun 17, 2025</p>
 <p>PyTorch has a configurable logging system, where different components can be
 given different log level settings. For instance, one component’s log messages
 can be completely disabled, while another component’s log messages can be
@@ -4111,7 +4130,7 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
        "headline": "torch._logging",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/logging.html",
-       "articleBody": "torch._logging# PyTorch has a configurable logging system, where different components can be given different log level settings. For instance, one component\u2019s log messages can be completely disabled, while another component\u2019s log messages can be set to maximum verbosity. Warning This feature is in beta and may have compatibility breaking changes in the future. Warning This feature has not been expanded to control the log messages of all components in PyTorch yet. There are two ways to configure the logging system: through the environment variable TORCH_LOGS or the python API torch._logging.set_logs. set_logs Sets the log level for individual components and toggles individual log artifact types. The environment variable TORCH_LOGS is a comma-separated list of [+-]\u003ccomponent\u003e pairs, where \u003ccomponent\u003e is a component specified below. The + prefix will decrease the log level of the component, displaying more log messages while the - prefix will increase the log level of the component and display fewer log messages. The default setting is the behavior when a component is not specified in TORCH_LOGS. In addition to components, there are also artifacts. Artifacts are specific pieces of debug information associated with a component that are either displayed or not displayed, so prefixing an artifact with + or - will be a no-op. Since they are associated with a component, enabling that component will typically also enable that artifact, unless that artifact was specified to be off_by_default. This option is specified in _registrations.py for artifacts that are so spammy they should only be displayed when explicitly enabled. The following components and artifacts are configurable through the TORCH_LOGS environment variable (see torch._logging.set_logs for the python API): Components: allSpecial component which configures the default log level of all components. Default: logging.WARN dynamoThe log level for the TorchDynamo component. Default: logging.WARN aotThe log level for the AOTAutograd component. Default: logging.WARN inductorThe log level for the TorchInductor component. Default: logging.WARN your.custom.moduleThe log level for an arbitrary unregistered module. Provide the fully qualified name and the module will be enabled. Default: logging.WARN Artifacts: bytecodeWhether to emit the original and generated bytecode from TorchDynamo. Default: False aot_graphsWhether to emit the graphs generated by AOTAutograd. Default: False aot_joint_graphWhether to emit the joint forward-backward graph generated by AOTAutograd. Default: False compiled_autogradWhether to emit logs from compiled_autograd. Defaults: False ddp_graphsWhether to emit graphs generated by DDPOptimizer. Default: False graphWhether to emit the graph captured by TorchDynamo in tabular format. Default: False graph_codeWhether to emit the python source of the graph captured by TorchDynamo. Default: False graph_breaksWhether to emit a message when a unique graph break is encountered during TorchDynamo tracing. Default: False guardsWhether to emit the guards generated by TorchDynamo for each compiled function. Default: False recompilesWhether to emit a guard failure reason and message every time TorchDynamo recompiles a function. Default: False output_codeWhether to emit the TorchInductor output code. Default: False scheduleWhether to emit the TorchInductor schedule. Default: False Examples:TORCH_LOGS=\"+dynamo,aot\" will set the log level of TorchDynamo to logging.DEBUG and AOT to logging.INFO TORCH_LOGS=\"-dynamo,+inductor\" will set the log level of TorchDynamo to logging.ERROR and TorchInductor to logging.DEBUG TORCH_LOGS=\"aot_graphs\" will enable the aot_graphs artifact TORCH_LOGS=\"+dynamo,schedule\" will enable set the log level of TorchDynamo to logging.DEBUG and enable the schedule artifact TORCH_LOGS=\"+some.random.module,schedule\" will set the log level of some.random.module to logging.DEBUG and enable the schedule artifact",
+       "articleBody": "torch._logging# Created On: Apr 24, 2023 | Last Updated On: Jun 17, 2025 PyTorch has a configurable logging system, where different components can be given different log level settings. For instance, one component\u2019s log messages can be completely disabled, while another component\u2019s log messages can be set to maximum verbosity. Warning This feature is in beta and may have compatibility breaking changes in the future. Warning This feature has not been expanded to control the log messages of all components in PyTorch yet. There are two ways to configure the logging system: through the environment variable TORCH_LOGS or the python API torch._logging.set_logs. set_logs Sets the log level for individual components and toggles individual log artifact types. The environment variable TORCH_LOGS is a comma-separated list of [+-]\u003ccomponent\u003e pairs, where \u003ccomponent\u003e is a component specified below. The + prefix will decrease the log level of the component, displaying more log messages while the - prefix will increase the log level of the component and display fewer log messages. The default setting is the behavior when a component is not specified in TORCH_LOGS. In addition to components, there are also artifacts. Artifacts are specific pieces of debug information associated with a component that are either displayed or not displayed, so prefixing an artifact with + or - will be a no-op. Since they are associated with a component, enabling that component will typically also enable that artifact, unless that artifact was specified to be off_by_default. This option is specified in _registrations.py for artifacts that are so spammy they should only be displayed when explicitly enabled. The following components and artifacts are configurable through the TORCH_LOGS environment variable (see torch._logging.set_logs for the python API): Components: allSpecial component which configures the default log level of all components. Default: logging.WARN dynamoThe log level for the TorchDynamo component. Default: logging.WARN aotThe log level for the AOTAutograd component. Default: logging.WARN inductorThe log level for the TorchInductor component. Default: logging.WARN your.custom.moduleThe log level for an arbitrary unregistered module. Provide the fully qualified name and the module will be enabled. Default: logging.WARN Artifacts: bytecodeWhether to emit the original and generated bytecode from TorchDynamo. Default: False aot_graphsWhether to emit the graphs generated by AOTAutograd. Default: False aot_joint_graphWhether to emit the joint forward-backward graph generated by AOTAutograd. Default: False compiled_autogradWhether to emit logs from compiled_autograd. Defaults: False ddp_graphsWhether to emit graphs generated by DDPOptimizer. Default: False graphWhether to emit the graph captured by TorchDynamo in tabular format. Default: False graph_codeWhether to emit the python source of the graph captured by TorchDynamo. Default: False graph_breaksWhether to emit a message when a unique graph break is encountered during TorchDynamo tracing. Default: False guardsWhether to emit the guards generated by TorchDynamo for each compiled function. Default: False recompilesWhether to emit a guard failure reason and message every time TorchDynamo recompiles a function. Default: False output_codeWhether to emit the TorchInductor output code. Default: False scheduleWhether to emit the TorchInductor schedule. Default: False Examples:TORCH_LOGS=\"+dynamo,aot\" will set the log level of TorchDynamo to logging.DEBUG and AOT to logging.INFO TORCH_LOGS=\"-dynamo,+inductor\" will set the log level of TorchDynamo to logging.ERROR and TorchInductor to logging.DEBUG TORCH_LOGS=\"aot_graphs\" will enable the aot_graphs artifact TORCH_LOGS=\"+dynamo,schedule\" will enable set the log level of TorchDynamo to logging.DEBUG and enable the schedule artifact TORCH_LOGS=\"+some.random.module,schedule\" will set the log level of some.random.module to logging.DEBUG and enable the schedule artifact",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4122,8 +4141,8 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
          "@type": "WebPage",
          "@id": "/logging.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Apr 24, 2023T00:00:00Z",
+       "dateModified": "Jun 17, 2025T00:00:00Z"
      }
  </script>
   <script>

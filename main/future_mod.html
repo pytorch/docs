@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.__future__ - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,9 +7029,10 @@ document.write(`
                   
   <section id="module-torch.__future__">
 <span id="torch-future"></span><h1>torch.__future__<a class="headerlink" href="#module-torch.__future__" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 05, 2024 | Last Updated On: Jun 12, 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.__future__.set_overwrite_module_params_on_conversion">
-<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">set_overwrite_module_params_on_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/__future__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.set_overwrite_module_params_on_conversion" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">set_overwrite_module_params_on_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/__future__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.set_overwrite_module_params_on_conversion" title="Link to this definition">#</a></dt>
 <dd><p>Sets whether to assign new tensors to the parameters instead of changing the
 existing parameters in-place when converting an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.</p>
 <p>When enabled, the following methods will assign new parameters to the module:</p>
@@ -7032,7 +7051,7 @@ existing parameters in-place when converting an <code class="docutils literal no
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.__future__.get_overwrite_module_params_on_conversion">
-<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">get_overwrite_module_params_on_conversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/__future__.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.get_overwrite_module_params_on_conversion" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">get_overwrite_module_params_on_conversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/__future__.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.get_overwrite_module_params_on_conversion" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether to assign new tensors to the parameters instead of changing the
 existing parameters in-place when converting an <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <p>See <a class="reference internal" href="#torch.__future__.set_overwrite_module_params_on_conversion" title="torch.__future__.set_overwrite_module_params_on_conversion"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_overwrite_module_params_on_conversion()</span></code></a> for more information.</p>
@@ -7045,7 +7064,7 @@ existing parameters in-place when converting an <a class="reference internal" hr
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.__future__.set_swap_module_params_on_conversion">
-<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">set_swap_module_params_on_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/__future__.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.set_swap_module_params_on_conversion" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">set_swap_module_params_on_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/__future__.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.set_swap_module_params_on_conversion" title="Link to this definition">#</a></dt>
 <dd><p>Sets whether to use <a class="reference internal" href="generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors" title="torch.utils.swap_tensors"><code class="xref py py-func docutils literal notranslate"><span class="pre">swap_tensors()</span></code></a> instead of setting <code class="docutils literal notranslate"><span class="pre">.data</span></code> to
 change the existing parameters in-place when converting an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> and instead
 of <code class="docutils literal notranslate"><span class="pre">param.copy_(state_dict[key])</span></code> when loading a state dict into an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.</p>
@@ -7078,7 +7097,7 @@ with <code class="docutils literal notranslate"><span class="pre">res</span></co
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.__future__.get_swap_module_params_on_conversion">
-<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">get_swap_module_params_on_conversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/__future__.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.get_swap_module_params_on_conversion" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.__future__.</span></span><span class="sig-name descname"><span class="pre">get_swap_module_params_on_conversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/__future__.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.__future__.get_swap_module_params_on_conversion" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether to use <a class="reference internal" href="generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors" title="torch.utils.swap_tensors"><code class="xref py py-func docutils literal notranslate"><span class="pre">swap_tensors()</span></code></a> instead of setting .data to
 change the existing parameters in-place when converting an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <p>See <a class="reference internal" href="#torch.__future__.set_swap_module_params_on_conversion" title="torch.__future__.set_swap_module_params_on_conversion"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_swap_module_params_on_conversion()</span></code></a> for more information.</p>
@@ -7464,7 +7483,7 @@ change the existing parameters in-place when converting an <code class="docutils
        "headline": "torch.__future__",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/future_mod.html",
-       "articleBody": "torch.__future__# torch.__future__.set_overwrite_module_params_on_conversion(value)[source]# Sets whether to assign new tensors to the parameters instead of changing the existing parameters in-place when converting an nn.Module. When enabled, the following methods will assign new parameters to the module: module.{device}() (e.g. nn.Module.cuda()) for moving a module between devices module.{dtype}() (e.g. nn.Module.float()) for converting a module to a different dtype nn.Module.to() nn.Module.to_empty() Parameters: value (bool) \u2013 Whether to assign new tensors or not. torch.__future__.get_overwrite_module_params_on_conversion()[source]# Returns whether to assign new tensors to the parameters instead of changing the existing parameters in-place when converting an torch.nn.Module. Defaults to False. See set_overwrite_module_params_on_conversion() for more information. Return type: bool torch.__future__.set_swap_module_params_on_conversion(value)[source]# Sets whether to use swap_tensors() instead of setting .data to change the existing parameters in-place when converting an nn.Module and instead of param.copy_(state_dict[key]) when loading a state dict into an nn.Module. Note This function takes precedence over get_overwrite_module_params_on_conversion() When enabled, the following methods will swap the existing parameters in-place: module.{device}() (e.g. nn.Module.cuda()) for moving a module between devices module.{dtype}() (e.g. nn.Module.float()) for converting a module to a different dtype nn.Module.to() nn.Module.to_empty() nn.Module.load_state_dict() The semantics for load_state_dict() when this is set are as follows: For each parameter/buffer, its corresponding state_dict[\u0027key\u0027] is transformed via module_load() (i.e. res = param.module_load(state_dict[\u0027key\u0027])) If necessary, res will be wrapped in an Parameter The parameter/buffer in the module will be swapped via swap_tensors() with res Parameters: value (bool) \u2013 Whether to use swap_tensors() or not. torch.__future__.get_swap_module_params_on_conversion()[source]# Returns whether to use swap_tensors() instead of setting .data to change the existing parameters in-place when converting an nn.Module. Defaults to False. See set_swap_module_params_on_conversion() for more information. Return type: bool",
+       "articleBody": "torch.__future__# Created On: Feb 05, 2024 | Last Updated On: Jun 12, 2025 torch.__future__.set_overwrite_module_params_on_conversion(value)[source]# Sets whether to assign new tensors to the parameters instead of changing the existing parameters in-place when converting an nn.Module. When enabled, the following methods will assign new parameters to the module: module.{device}() (e.g. nn.Module.cuda()) for moving a module between devices module.{dtype}() (e.g. nn.Module.float()) for converting a module to a different dtype nn.Module.to() nn.Module.to_empty() Parameters: value (bool) \u2013 Whether to assign new tensors or not. torch.__future__.get_overwrite_module_params_on_conversion()[source]# Returns whether to assign new tensors to the parameters instead of changing the existing parameters in-place when converting an torch.nn.Module. Defaults to False. See set_overwrite_module_params_on_conversion() for more information. Return type: bool torch.__future__.set_swap_module_params_on_conversion(value)[source]# Sets whether to use swap_tensors() instead of setting .data to change the existing parameters in-place when converting an nn.Module and instead of param.copy_(state_dict[key]) when loading a state dict into an nn.Module. Note This function takes precedence over get_overwrite_module_params_on_conversion() When enabled, the following methods will swap the existing parameters in-place: module.{device}() (e.g. nn.Module.cuda()) for moving a module between devices module.{dtype}() (e.g. nn.Module.float()) for converting a module to a different dtype nn.Module.to() nn.Module.to_empty() nn.Module.load_state_dict() The semantics for load_state_dict() when this is set are as follows: For each parameter/buffer, its corresponding state_dict[\u0027key\u0027] is transformed via module_load() (i.e. res = param.module_load(state_dict[\u0027key\u0027])) If necessary, res will be wrapped in an Parameter The parameter/buffer in the module will be swapped via swap_tensors() with res Parameters: value (bool) \u2013 Whether to use swap_tensors() or not. torch.__future__.get_swap_module_params_on_conversion()[source]# Returns whether to use swap_tensors() instead of setting .data to change the existing parameters in-place when converting an nn.Module. Defaults to False. See set_swap_module_params_on_conversion() for more information. Return type: bool",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7475,8 +7494,8 @@ change the existing parameters in-place when converting an <code class="docutils
          "@type": "WebPage",
          "@id": "/future_mod.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Feb 05, 2024T00:00:00Z",
+       "dateModified": "Jun 12, 2025T00:00:00Z"
      }
  </script>
   <script>

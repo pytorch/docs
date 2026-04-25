@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Where to apply torch.compile? - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3677,6 +3695,7 @@ document.write(`
                   
   <section id="where-to-apply-torch-compile">
 <h1>Where to apply torch.compile?<a class="headerlink" href="#where-to-apply-torch-compile" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
 <p>We recommend applying <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to the highest-level function that doesn’t cause excessive problems.
 Typically, it is:</p>
 <ul class="simple">
@@ -4120,7 +4139,7 @@ there is no need to call <code class="docutils literal notranslate"><span class=
        "headline": "Where to apply torch.compile?",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.where_to_apply_compile.html",
-       "articleBody": "Where to apply torch.compile?# We recommend applying torch.compile to the highest-level function that doesn\u2019t cause excessive problems. Typically, it is: your train or eval step with the optimizer but without the loop, your top-level nn.Module or some sub-nn.Modules. torch.compile specifically doesn\u2019t handle distributed wrapper modules like DDP or FSDP very well, so consider applying torch.compile to the inner module passed to the wrapper. # inference model = ... model.compile() for _ in range(N_ITERS): inp = ... out = model(inp) # training model = ... opt = torch.optim.Adam(model.parameters()) @torch.compile def train(mod, data): opt.zero_grad(True) pred = mod(data[0]) loss = torch.nn.CrossEntropyLoss()(pred, data[1]) loss.backward() opt.step() for _ in range(N_ITERS): inp = ... train(model, inp) # DistributedDataParallel model = ... model.compile() model_ddp = DistributedDataParallel(model, ...) for _ in range(N_ITERS): inp = ... out = model_ddp(inp) compile(model) vs model.compile()# Due to nuances to how torch.compile interacts with nn.Module instances, we advise using the .compile() method of nn.Module instances if you wish to compile them as top-level functions. Nested module calls will be traced correctly - there is no need to call .compile() in that case. # DO NOT DO THIS model = MyModel() model = torch.compile(model) model(inp) # DO THIS model = MyModel() model.compile() model(inp) # this is also acceptable @torch.compile def fn(model, inp): return model(inp) model = MyModel() fn(model, inp)",
+       "articleBody": "Where to apply torch.compile?# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 We recommend applying torch.compile to the highest-level function that doesn\u2019t cause excessive problems. Typically, it is: your train or eval step with the optimizer but without the loop, your top-level nn.Module or some sub-nn.Modules. torch.compile specifically doesn\u2019t handle distributed wrapper modules like DDP or FSDP very well, so consider applying torch.compile to the inner module passed to the wrapper. # inference model = ... model.compile() for _ in range(N_ITERS): inp = ... out = model(inp) # training model = ... opt = torch.optim.Adam(model.parameters()) @torch.compile def train(mod, data): opt.zero_grad(True) pred = mod(data[0]) loss = torch.nn.CrossEntropyLoss()(pred, data[1]) loss.backward() opt.step() for _ in range(N_ITERS): inp = ... train(model, inp) # DistributedDataParallel model = ... model.compile() model_ddp = DistributedDataParallel(model, ...) for _ in range(N_ITERS): inp = ... out = model_ddp(inp) compile(model) vs model.compile()# Due to nuances to how torch.compile interacts with nn.Module instances, we advise using the .compile() method of nn.Module instances if you wish to compile them as top-level functions. Nested module calls will be traced correctly - there is no need to call .compile() in that case. # DO NOT DO THIS model = MyModel() model = torch.compile(model) model(inp) # DO THIS model = MyModel() model.compile() model(inp) # this is also acceptable @torch.compile def fn(model, inp): return model(inp) model = MyModel() fn(model, inp)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4131,8 +4150,8 @@ there is no need to call <code class="docutils literal notranslate"><span class=
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.where_to_apply_compile.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jul 28, 2025T00:00:00Z",
+       "dateModified": "Dec 03, 2025T00:00:00Z"
      }
  </script>
   <script>

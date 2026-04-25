@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.compile Programming Model - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3659,6 +3677,7 @@ document.write(`
                   
   <section id="torch-compile-programming-model">
 <span id="compile-programming-model"></span><h1>torch.compile Programming Model<a class="headerlink" href="#torch-compile-programming-model" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> programming model:</p>
 <ol class="arabic simple">
 <li><p>Clarifies some internal behaviors of <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> so that one can better predict compiler behavior on user code and</p></li>
@@ -4109,7 +4128,7 @@ document.write(`
        "headline": "torch.compile Programming Model",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.html",
-       "articleBody": "torch.compile Programming Model# The torch.compile programming model: Clarifies some internal behaviors of torch.compile so that one can better predict compiler behavior on user code and Provides ways for one to take more fine-grained control over torch.compile. By understanding the torch.compile programming model, one can systematically unblock themselves when encountering issues with torch.compile. Dynamo Core Concepts Dynamo Tracing Graph Breaks Guards Recompilations Dynamic Shapes Working with Graph Breaks Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don\u2019t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions Non-strict Tracing Programming Model Pure Functions Example 1: No explicit input (e.g. accesses global tensor) Example 2: Side effect (printing) Example 3: Side effect (input list mutation) No direct data_ptr manipulation Specialization and Constants Dealing with Recompilations Is Dynamic Shapes Enabled? Wrapping Constants with Tensors Changing the Cache Size Limit Graph Breaking to Reduce Recompilation Costs tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Reporting Issues Ablation Bisecting Creating a reproducer",
+       "articleBody": "torch.compile Programming Model# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 The torch.compile programming model: Clarifies some internal behaviors of torch.compile so that one can better predict compiler behavior on user code and Provides ways for one to take more fine-grained control over torch.compile. By understanding the torch.compile programming model, one can systematically unblock themselves when encountering issues with torch.compile. Dynamo Core Concepts Dynamo Tracing Graph Breaks Guards Recompilations Dynamic Shapes Working with Graph Breaks Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don\u2019t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions Non-strict Tracing Programming Model Pure Functions Example 1: No explicit input (e.g. accesses global tensor) Example 2: Side effect (printing) Example 3: Side effect (input list mutation) No direct data_ptr manipulation Specialization and Constants Dealing with Recompilations Is Dynamic Shapes Enabled? Wrapping Constants with Tensors Changing the Cache Size Limit Graph Breaking to Reduce Recompilation Costs tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Reporting Issues Ablation Bisecting Creating a reproducer",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4120,8 +4139,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/compile/programming_model.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jul 28, 2025T00:00:00Z",
+       "dateModified": "Dec 03, 2025T00:00:00Z"
      }
  </script>
   <script>

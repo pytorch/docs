@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.nn.attention - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,6 +7029,7 @@ document.write(`
                   
   <section id="module-torch.nn.attention">
 <span id="torch-nn-attention"></span><h1>torch.nn.attention<a class="headerlink" href="#module-torch.nn.attention" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Dec 15, 2025</p>
 <p>This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention</p>
 <section id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Link to this heading">#</a></h2>
@@ -7436,7 +7455,7 @@ document.write(`
        "headline": "torch.nn.attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/nn.attention.html",
-       "articleBody": "torch.nn.attention# This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
+       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Dec 15, 2025 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7447,8 +7466,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/nn.attention.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jan 24, 2024T00:00:00Z",
+       "dateModified": "Dec 15, 2025T00:00:00Z"
      }
  </script>
   <script>

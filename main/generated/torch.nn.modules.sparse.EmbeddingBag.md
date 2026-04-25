@@ -1,0 +1,154 @@
+# EmbeddingBag
+
+*class*torch.nn.modules.sparse.EmbeddingBag(*num_embeddings*, *embedding_dim*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *_weight=None*, *include_last_offset=False*, *padding_idx=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/sparse.py#L267)
+
+Compute sums or means of 'bags' of embeddings, without instantiating the intermediate embeddings.
+
+For bags of constant length, no `per_sample_weights`, no indices equal to `padding_idx`,
+and with 2D inputs, this class
+
+> - with `mode="sum"` is equivalent to [`Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) followed by `torch.sum(dim=1)`,
+> - with `mode="mean"` is equivalent to [`Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) followed by `torch.mean(dim=1)`,
+> - with `mode="max"` is equivalent to [`Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) followed by `torch.max(dim=1)`.
+
+However, [`EmbeddingBag`](torch.nn.EmbeddingBag.html#torch.nn.EmbeddingBag) is much more time and memory efficient than using a chain of these
+operations.
+
+EmbeddingBag also supports per-sample weights as an argument to the forward
+pass. This scales the output of the Embedding before performing a weighted
+reduction as specified by `mode`. If `per_sample_weights` is passed, the
+only supported `mode` is `"sum"`, which computes a weighted sum according to
+`per_sample_weights`.
+
+Parameters:
+
+- **num_embeddings** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of the dictionary of embeddings
+- **embedding_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of each embedding vector
+- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
+is renormalized to have norm `max_norm`.
+- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The p of the p-norm to compute for the `max_norm` option. Default `2`.
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if given, this will scale gradients by the inverse of frequency of
+the words in the mini-batch. Default `False`.
+Note: this option is not supported when `mode="max"`.
+- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - `"sum"`, `"mean"` or `"max"`. Specifies the way to reduce the bag.
+`"sum"` computes the weighted sum, taking `per_sample_weights`
+into consideration. `"mean"` computes the average of the values
+in the bag, `"max"` computes the max value over each bag.
+Default: `"mean"`
+- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, gradient w.r.t. `weight` matrix will be a sparse tensor. See
+Notes for more details regarding sparse gradients. Note: this option is not
+supported when `mode="max"`.
+- **include_last_offset** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the size of offsets is equal to the number of bags + 1.
+The last element is the size of the input, or the ending index position
+of the last bag (sequence). This matches the CSR format. Ignored when
+input is 2D. Default `False`.
+- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the
+gradient; therefore, the embedding vector at `padding_idx` is not updated
+during training, i.e. it remains as a fixed "pad". For a newly constructed
+EmbeddingBag, the embedding vector at `padding_idx` will default to all
+zeros, but can be updated to another value to be used as the padding vector.
+Note that the embedding vector at `padding_idx` is excluded from the
+reduction.
+
+Variables:
+
+**weight** ([*Tensor*](../tensors.html#torch.Tensor)) - the learnable weights of the module of shape (num_embeddings, embedding_dim)
+initialized from N(0,1)\mathcal{N}(0, 1)N(0,1).
+
+Examples:
+
+```
+>>> # an EmbeddingBag module containing 10 tensors of size 3
+>>> embedding_sum = nn.EmbeddingBag(10, 3, mode='sum')
+>>> # a batch of 2 samples of 4 indices each
+>>> input = torch.tensor([1, 2, 4, 5, 4, 3, 2, 9], dtype=torch.long)
+>>> offsets = torch.tensor([0, 4], dtype=torch.long)
+>>> embedding_sum(input, offsets)
+tensor([[-0.8861, -5.4350, -0.0523],
+ [ 1.1306, -2.5798, -1.0044]])
+
+>>> # Example with padding_idx
+>>> embedding_sum = nn.EmbeddingBag(10, 3, mode='sum', padding_idx=2)
+>>> input = torch.tensor([2, 2, 2, 2, 4, 3, 2, 9], dtype=torch.long)
+>>> offsets = torch.tensor([0, 4], dtype=torch.long)
+>>> embedding_sum(input, offsets)
+tensor([[ 0.0000, 0.0000, 0.0000],
+ [-0.7082, 3.2145, -2.6251]])
+
+>>> # An EmbeddingBag can be loaded from an Embedding like so
+>>> embedding = nn.Embedding(10, 3, padding_idx=2)
+>>> embedding_sum = nn.EmbeddingBag.from_pretrained(
+ embedding.weight,
+ padding_idx=embedding.padding_idx,
+ mode='sum')
+```
+
+forward(*input*, *offsets=None*, *per_sample_weights=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/sparse.py#L425)
+
+Forward pass of EmbeddingBag.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - Tensor containing bags of indices into the embedding matrix.
+- **offsets** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - Only used when `input` is 1D. `offsets` determines
+the starting index position of each bag (sequence) in `input`.
+- **per_sample_weights** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a tensor of float / double weights, or None
+to indicate all weights should be taken to be `1`. If specified, `per_sample_weights`
+must have exactly the same shape as input and is treated as having the same
+`offsets`, if those are not `None`. Only supported for `mode='sum'`.
+
+Returns:
+
+Tensor output shape of (B, embedding_dim).
+
+Return type:
+
+[*Tensor*](../tensors.html#torch.Tensor)
+
+Note
+
+A few notes about `input` and `offsets`:
+
+- `input` and `offsets` have to be of the same type, either int or long
+- If `input` is 2D of shape (B, N), it will be treated as `B` bags (sequences)
+each of fixed length `N`, and this will return `B` values aggregated in a way
+depending on the `mode`. `offsets` is ignored and required to be `None` in this case.
+- If `input` is 1D of shape (N), it will be treated as a concatenation of
+multiple bags (sequences). `offsets` is required to be a 1D tensor containing the
+starting index positions of each bag in `input`. Therefore, for `offsets` of shape (B),
+`input` will be viewed as having `B` bags. Empty bags (i.e., having 0-length) will have
+returned vectors filled by zeros.
+
+*classmethod*from_pretrained(*embeddings*, *freeze=True*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/sparse.py#L488)
+
+Create EmbeddingBag instance from given 2-dimensional FloatTensor.
+
+Parameters:
+
+- **embeddings** ([*Tensor*](../tensors.html#torch.Tensor)) - FloatTensor containing weights for the EmbeddingBag.
+First dimension is being passed to EmbeddingBag as 'num_embeddings', second as 'embedding_dim'.
+- **freeze** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the tensor does not get updated in the learning process.
+Equivalent to `embeddingbag.weight.requires_grad = False`. Default: `True`
+- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - See module initialization documentation. Default: `None`
+- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - See module initialization documentation. Default `2`.
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - See module initialization documentation. Default `False`.
+- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - See module initialization documentation. Default: `"mean"`
+- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - See module initialization documentation. Default: `False`.
+- **include_last_offset** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - See module initialization documentation. Default: `False`.
+- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - See module initialization documentation. Default: `None`.
+
+Return type:
+
+*EmbeddingBag*
+
+Examples:
+
+```
+>>> # FloatTensor containing pretrained weights
+>>> weight = torch.FloatTensor([[1, 2.3, 3], [4, 5.1, 6.3]])
+>>> embeddingbag = nn.EmbeddingBag.from_pretrained(weight)
+>>> # Get embeddings for index 1
+>>> input = torch.LongTensor([[1, 0]])
+>>> embeddingbag(input)
+tensor([[ 2.5000, 3.7000, 4.6500]])
+```

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="torch.utils.module_tracker - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7011,11 +7029,12 @@ document.write(`
                   
   <section id="module-torch.utils.module_tracker">
 <span id="torch-utils-module-tracker"></span><h1>torch.utils.module_tracker<a class="headerlink" href="#module-torch.utils.module_tracker" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2024 | Last Updated On: Jun 11, 2025</p>
 <p>This utility can be used to track the current position inside an <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a> hierarchy.
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.module_tracker.ModuleTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f91370d8694c1d2b36592430c3f250e66948c74b/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ModuleTracker</span></code> is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being
 executed).</p>
@@ -7417,7 +7436,7 @@ is possible but not done yet, please submit an issue requesting this if you need
        "headline": "torch.utils.module_tracker",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/module_tracker.html",
-       "articleBody": "torch.utils.module_tracker# This utility can be used to track the current position inside an torch.nn.Module hierarchy. It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today. class torch.utils.module_tracker.ModuleTracker[source]# ModuleTracker is a context manager that tracks the nn.Module hierarchy during execution so that other system can query which Module is currently being executed (or its backward is being executed). You can access the parents attribute on this context manager to get the set of all the Modules currently being executed via their fqn (fully qualified name, also used as the key within the state_dict). You can access the is_bw attribute to know if you are currently running in backward or not. Note that parents is never empty and always contains the \u201cGlobal\u201d key. The is_bw flag will remain True after the forward until another Module is executed. If you need it to be more accurate, please submit an issue requesting this. Adding a map from fqn to the module instance is possible but not done yet, please submit an issue requesting this if you need it. Example usage mod = torch.nn.Linear(2, 2) with ModuleTracker() as tracker: # Access anything during the forward pass def my_linear(m1, m2, bias): print(f\"Current modules: {tracker.parents}\") return torch.mm(m1, m2.t()) + bias torch.nn.functional.linear = my_linear mod(torch.rand(2, 2))",
+       "articleBody": "torch.utils.module_tracker# Created On: May 04, 2024 | Last Updated On: Jun 11, 2025 This utility can be used to track the current position inside an torch.nn.Module hierarchy. It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today. class torch.utils.module_tracker.ModuleTracker[source]# ModuleTracker is a context manager that tracks the nn.Module hierarchy during execution so that other system can query which Module is currently being executed (or its backward is being executed). You can access the parents attribute on this context manager to get the set of all the Modules currently being executed via their fqn (fully qualified name, also used as the key within the state_dict). You can access the is_bw attribute to know if you are currently running in backward or not. Note that parents is never empty and always contains the \u201cGlobal\u201d key. The is_bw flag will remain True after the forward until another Module is executed. If you need it to be more accurate, please submit an issue requesting this. Adding a map from fqn to the module instance is possible but not done yet, please submit an issue requesting this if you need it. Example usage mod = torch.nn.Linear(2, 2) with ModuleTracker() as tracker: # Access anything during the forward pass def my_linear(m1, m2, bias): print(f\"Current modules: {tracker.parents}\") return torch.mm(m1, m2.t()) + bias torch.nn.functional.linear = my_linear mod(torch.rand(2, 2))",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7428,8 +7447,8 @@ is possible but not done yet, please submit an issue requesting this if you need
          "@type": "WebPage",
          "@id": "/module_tracker.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "May 04, 2024T00:00:00Z",
+       "dateModified": "Jun 11, 2025T00:00:00Z"
      }
  </script>
   <script>

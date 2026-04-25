@@ -1,0 +1,3 @@
+# torch.fbgemm_linear_int8_weight_fp32_activation
+
+torch.fbgemm_linear_int8_weight_fp32_activation()

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="PYTORCH ProcessGroupNCCL Environment Variables - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,6 +7038,7 @@ document.write(`
                   
   <section id="pytorch-processgroupnccl-environment-variables">
 <span id="torch-nccl-environment-variables"></span><h1>PYTORCH ProcessGroupNCCL Environment Variables<a class="headerlink" href="#pytorch-processgroupnccl-environment-variables" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
 <p>For more information on the environment variables, see <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/csrc/distributed/c10d/ProcessGroupNCCL.hpp">ProcessGroupNCCL Environment Variables</a>.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -7436,7 +7455,7 @@ document.write(`
        "headline": "PYTORCH ProcessGroupNCCL Environment Variables",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch_nccl_environment_variables.html",
-       "articleBody": "PYTORCH ProcessGroupNCCL Environment Variables# For more information on the environment variables, see ProcessGroupNCCL Environment Variables. Variable Description TORCH_NCCL_ASYNC_ERROR_HANDLING Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3. TORCH_NCCL_HIGH_PRIORITY Control whether to use high priority stream for the NCCL communicator. TORCH_NCCL_BLOCKING_WAIT Control whether or not wait() is blocking or non-blocking. TORCH_NCCL_DUMP_ON_TIMEOUT Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0. TORCH_NCCL_DESYNC_DEBUG Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. TORCH_NCCL_ENABLE_MONITORING If set to 1,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. TORCH_NCCL_TRACE_BUFFER_SIZE The maximum number of events we store in the flight recorder\u2019s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump. TORCH_NCCL_TRACE_CPP_STACK Whether to collect cpp stack traces for flight recorder. Default value is False. TORCH_NCCL_COORD_CHECK_MILSEC Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. TORCH_NCCL_DEBUG_INFO_TEMP_FILE The file into which the debugging info would be dumped. TORCH_NCCL_DEBUG_INFO_PIPE_FILE The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK Control whether to enable NAN check for the input, Error would be thrown if NAN is detected.",
+       "articleBody": "PYTORCH ProcessGroupNCCL Environment Variables# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 For more information on the environment variables, see ProcessGroupNCCL Environment Variables. Variable Description TORCH_NCCL_ASYNC_ERROR_HANDLING Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3. TORCH_NCCL_HIGH_PRIORITY Control whether to use high priority stream for the NCCL communicator. TORCH_NCCL_BLOCKING_WAIT Control whether or not wait() is blocking or non-blocking. TORCH_NCCL_DUMP_ON_TIMEOUT Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0. TORCH_NCCL_DESYNC_DEBUG Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. TORCH_NCCL_ENABLE_MONITORING If set to 1,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. TORCH_NCCL_TRACE_BUFFER_SIZE The maximum number of events we store in the flight recorder\u2019s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump. TORCH_NCCL_TRACE_CPP_STACK Whether to collect cpp stack traces for flight recorder. Default value is False. TORCH_NCCL_COORD_CHECK_MILSEC Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. TORCH_NCCL_DEBUG_INFO_TEMP_FILE The file into which the debugging info would be dumped. TORCH_NCCL_DEBUG_INFO_PIPE_FILE The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK Control whether to enable NAN check for the input, Error would be thrown if NAN is detected.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7447,8 +7466,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/torch_nccl_environment_variables.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jun 10, 2025T00:00:00Z",
+       "dateModified": "Jun 10, 2025T00:00:00Z"
      }
  </script>
   <script>

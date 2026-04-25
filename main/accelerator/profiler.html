@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Profiler Integration - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3648,6 +3666,7 @@ document.write(`
                   
   <section id="profiler-integration">
 <h1>Profiler Integration<a class="headerlink" href="#profiler-integration" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 26, 2025 | Last Updated On: Jan 19, 2026</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>PyTorch ships a device-agnostic profiler that instruments CPU-side operator dispatch, coordinates with accelerator collectors, captures Python stacks, and exports aggregated statistics or Chrome/Perfetto traces. For core architecture, see <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/csrc/profiler/README.md" title="PyTorch Profiler README"><code class="docutils literal notranslate"><span class="pre">torch/csrc/profiler/README.md</span></code></a>.</p>
@@ -4152,7 +4171,7 @@ document.write(`
        "headline": "Profiler Integration",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator/profiler.html",
-       "articleBody": "Profiler Integration# Background# PyTorch ships a device-agnostic profiler that instruments CPU-side operator dispatch, coordinates with accelerator collectors, captures Python stacks, and exports aggregated statistics or Chrome/Perfetto traces. For core architecture, see torch/csrc/profiler/README.md. There are two primary integration paths for accelerators: Legacy autograd profiler: Can attach backend-specific hooks via ProfilerStubs to record device events and compute elapsed times. Works without Kineto; suitable for PrivateUse1 backends that want a minimal, self-contained path. Kineto-based timeline: Bridges to Kineto, which aggregates device timelines via vendor libraries (e.g., CUPTI for CUDA). Provides rich activity traces and advanced export/visualization, but requires a Kineto-capable backend. This document focuses on path (1): how a PrivateUse1 accelerator exposes the minimal hooks to plug into the legacy autograd profiler so ATen ops and record_function ranges are correctly attributed to device activity. Design# Architecture overview# Layer Responsibility Source Python control plane Owns profiler lifecycle (prepare \u2192 start \u2192 stop \u2192 step) and exposes user APIs such as torch.autograd.profiler.profile. torch/autograd/profiler.py Profiler stubs Implements torch::profiler::impl::ProfilerStubs so the profiler can record device events, synchronize, iterate devices, and compute elapsed time. torch/csrc/profiler/stubs/ Device runtime Provides streams, events, and device guards used by the stubs; implementation is backend-specific. Backend extension (vendor code) This layering keeps PyTorch device-agnostic: Python brokers the session, ProfilerStubs translate profiler requests into backend runtime calls, and the runtime interacts with the accelerator. Key contracts# Record hooks: record() must capture (optional) device index, allocate a backend event, optionally stash a CPU timestamp, and enqueue the event on the active stream. Elapsed time: elapsed() is responsible for synchronizing individual events and returning durations in microseconds. Synchronization hooks: synchronize() and onEachDevice() guarantee phase transitions (e.g., warmup \u2192 active) are aligned across devices. Annotations: mark, rangePush, and rangePop can be implemented to enrich traces; otherwise they may be left as no-ops. Implementation (Legacy way)# Here we use OpenReg (Open Registration) to illustrate the minimal set of hooks a PrivateUse1 accelerator needs to expose so the profiler can attribute ATen ops, record_function ranges, and user code to device activity. OpenReg keeps upstream code untouched by translating profiler requests into its runtime calls, mirroring what a production accelerator would implement inside an out-of-tree extension. OpenReg currently relies on the legacy profiler (torch.autograd.profiler.profile) interface rather than the modern one (torch.profiler.profile) because the latter enforces use_kineto=True. Profiler stubs (C++)# torch::profiler::impl::OpenRegMethods inherits from ProfilerStubs and wires the hooks described above: Method Purpose record Grabs the current OpenRegStream, creates an orEvent, captures an optional CPU timestamp via c10::getTime(), and records the event on the stream. elapsed Synchronizes both events, calls orEventElapsedTime, and converts milliseconds to microseconds for the profiler. onEachDevice Uses c10::DeviceGuard(DeviceType::PrivateUse1) to iterate over torch.openreg.device_count() so schedulers can run per-device setup or teardown. synchronize Calls orDeviceSynchronize() to align device work with CPU scheduling phases. enabled and annotation shims Report availability and provide placeholder implementations for mark/push/pop. The constructor registers the methods once via registerPrivateUse1Methods(\u0026methods);, making them discoverable whenever the profiler is enabled with use_device=\"openreg\". Python control plane# On the Python side, no new entrypoint is required\u2014developers use the standard autograd profiler: from torch.autograd.profiler import profile as autograd_profile from torch.profiler import record_function with autograd_profile(use_device=\"openreg\", record_shapes=True) as prof: with record_function(\"matmul\"): x = torch.randn(512, 512, device=\"openreg\") y = torch.randn(512, 512, device=\"openreg\") z = x @ y print(prof.key_averages().table(sort_by=\"cpu_time_total\", row_limit=10)) prof.export_chrome_trace(\"openreg_trace.json\") Data capture flow# User code enters autograd_profile(use_device=\"openreg\"). The profiler transitions to ProfilerState.KINETO_PRIVATEUSE1_FALLBACK. The profiler asks the active backend to record() an event. The OpenReg stubs allocate orEvent objects, attach them to the current stream, and stash CPU timestamps. When events end, the profiler calls elapsed() to compute durations.",
+       "articleBody": "Profiler Integration# Created On: Dec 26, 2025 | Last Updated On: Jan 19, 2026 Background# PyTorch ships a device-agnostic profiler that instruments CPU-side operator dispatch, coordinates with accelerator collectors, captures Python stacks, and exports aggregated statistics or Chrome/Perfetto traces. For core architecture, see torch/csrc/profiler/README.md. There are two primary integration paths for accelerators: Legacy autograd profiler: Can attach backend-specific hooks via ProfilerStubs to record device events and compute elapsed times. Works without Kineto; suitable for PrivateUse1 backends that want a minimal, self-contained path. Kineto-based timeline: Bridges to Kineto, which aggregates device timelines via vendor libraries (e.g., CUPTI for CUDA). Provides rich activity traces and advanced export/visualization, but requires a Kineto-capable backend. This document focuses on path (1): how a PrivateUse1 accelerator exposes the minimal hooks to plug into the legacy autograd profiler so ATen ops and record_function ranges are correctly attributed to device activity. Design# Architecture overview# Layer Responsibility Source Python control plane Owns profiler lifecycle (prepare \u2192 start \u2192 stop \u2192 step) and exposes user APIs such as torch.autograd.profiler.profile. torch/autograd/profiler.py Profiler stubs Implements torch::profiler::impl::ProfilerStubs so the profiler can record device events, synchronize, iterate devices, and compute elapsed time. torch/csrc/profiler/stubs/ Device runtime Provides streams, events, and device guards used by the stubs; implementation is backend-specific. Backend extension (vendor code) This layering keeps PyTorch device-agnostic: Python brokers the session, ProfilerStubs translate profiler requests into backend runtime calls, and the runtime interacts with the accelerator. Key contracts# Record hooks: record() must capture (optional) device index, allocate a backend event, optionally stash a CPU timestamp, and enqueue the event on the active stream. Elapsed time: elapsed() is responsible for synchronizing individual events and returning durations in microseconds. Synchronization hooks: synchronize() and onEachDevice() guarantee phase transitions (e.g., warmup \u2192 active) are aligned across devices. Annotations: mark, rangePush, and rangePop can be implemented to enrich traces; otherwise they may be left as no-ops. Implementation (Legacy way)# Here we use OpenReg (Open Registration) to illustrate the minimal set of hooks a PrivateUse1 accelerator needs to expose so the profiler can attribute ATen ops, record_function ranges, and user code to device activity. OpenReg keeps upstream code untouched by translating profiler requests into its runtime calls, mirroring what a production accelerator would implement inside an out-of-tree extension. OpenReg currently relies on the legacy profiler (torch.autograd.profiler.profile) interface rather than the modern one (torch.profiler.profile) because the latter enforces use_kineto=True. Profiler stubs (C++)# torch::profiler::impl::OpenRegMethods inherits from ProfilerStubs and wires the hooks described above: Method Purpose record Grabs the current OpenRegStream, creates an orEvent, captures an optional CPU timestamp via c10::getTime(), and records the event on the stream. elapsed Synchronizes both events, calls orEventElapsedTime, and converts milliseconds to microseconds for the profiler. onEachDevice Uses c10::DeviceGuard(DeviceType::PrivateUse1) to iterate over torch.openreg.device_count() so schedulers can run per-device setup or teardown. synchronize Calls orDeviceSynchronize() to align device work with CPU scheduling phases. enabled and annotation shims Report availability and provide placeholder implementations for mark/push/pop. The constructor registers the methods once via registerPrivateUse1Methods(\u0026methods);, making them discoverable whenever the profiler is enabled with use_device=\"openreg\". Python control plane# On the Python side, no new entrypoint is required\u2014developers use the standard autograd profiler: from torch.autograd.profiler import profile as autograd_profile from torch.profiler import record_function with autograd_profile(use_device=\"openreg\", record_shapes=True) as prof: with record_function(\"matmul\"): x = torch.randn(512, 512, device=\"openreg\") y = torch.randn(512, 512, device=\"openreg\") z = x @ y print(prof.key_averages().table(sort_by=\"cpu_time_total\", row_limit=10)) prof.export_chrome_trace(\"openreg_trace.json\") Data capture flow# User code enters autograd_profile(use_device=\"openreg\"). The profiler transitions to ProfilerState.KINETO_PRIVATEUSE1_FALLBACK. The profiler asks the active backend to record() an event. The OpenReg stubs allocate orEvent objects, attach them to the current stream, and stash CPU timestamps. When events end, the profiler calls elapsed() to compute durations.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4163,8 +4182,8 @@ document.write(`
          "@type": "WebPage",
          "@id": "/accelerator/profiler.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Dec 26, 2025T00:00:00Z",
+       "dateModified": "Jan 19, 2026T00:00:00Z"
      }
  </script>
   <script>

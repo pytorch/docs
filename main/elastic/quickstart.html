@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Quickstart - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,6 +7038,7 @@ document.write(`
                   
   <section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Feb 09, 2023</p>
 <p>To launch a <strong>fault-tolerant</strong> job, run the following on all nodes.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torchrun
 <span class="w">   </span>--nnodes<span class="o">=</span>NUM_NODES
@@ -7435,7 +7454,7 @@ for more powerful customization. Start by taking a look at the
        "headline": "Quickstart",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/quickstart.html",
-       "articleBody": "Quickstart# To launch a fault-tolerant job, run the following on all nodes. torchrun --nnodes=NUM_NODES --nproc-per-node=TRAINERS_PER_NODE --max-restarts=NUM_ALLOWED_FAILURES --rdzv-id=JOB_ID --rdzv-backend=c10d --rdzv-endpoint=HOST_NODE_ADDR YOUR_TRAINING_SCRIPT.py (--arg1 ... train script args...) To launch an elastic job, run the following on at least MIN_SIZE nodes and at most MAX_SIZE nodes. torchrun --nnodes=MIN_SIZE:MAX_SIZE --nproc-per-node=TRAINERS_PER_NODE --max-restarts=NUM_ALLOWED_FAILURES_OR_MEMBERSHIP_CHANGES --rdzv-id=JOB_ID --rdzv-backend=c10d --rdzv-endpoint=HOST_NODE_ADDR YOUR_TRAINING_SCRIPT.py (--arg1 ... train script args...) Note TorchElastic models failures as membership changes. When a node fails, this is treated as a \u201cscale down\u201d event. When the failed node is replaced by the scheduler, it is a \u201cscale up\u201d event. Hence for both fault tolerant and elastic jobs, --max-restarts is used to control the total number of restarts before giving up, regardless of whether the restart was caused due to a failure or a scaling event. HOST_NODE_ADDR, in form \u003chost\u003e[:\u003cport\u003e] (e.g. node1.example.com:29400), specifies the node and the port on which the C10d rendezvous backend should be instantiated and hosted. It can be any node in your training cluster, but ideally you should pick a node that has a high bandwidth. Note If no port number is specified HOST_NODE_ADDR defaults to 29400. Note The --standalone option can be passed to launch a single node job with a sidecar rendezvous backend. You don\u2019t have to pass --rdzv-id, --rdzv-endpoint, and --rdzv-backend when the --standalone option is used. Note Learn more about writing your distributed training script here. If torchrun does not meet your requirements you may use our APIs directly for more powerful customization. Start by taking a look at the elastic agent API.",
+       "articleBody": "Quickstart# Created On: May 04, 2021 | Last Updated On: Feb 09, 2023 To launch a fault-tolerant job, run the following on all nodes. torchrun --nnodes=NUM_NODES --nproc-per-node=TRAINERS_PER_NODE --max-restarts=NUM_ALLOWED_FAILURES --rdzv-id=JOB_ID --rdzv-backend=c10d --rdzv-endpoint=HOST_NODE_ADDR YOUR_TRAINING_SCRIPT.py (--arg1 ... train script args...) To launch an elastic job, run the following on at least MIN_SIZE nodes and at most MAX_SIZE nodes. torchrun --nnodes=MIN_SIZE:MAX_SIZE --nproc-per-node=TRAINERS_PER_NODE --max-restarts=NUM_ALLOWED_FAILURES_OR_MEMBERSHIP_CHANGES --rdzv-id=JOB_ID --rdzv-backend=c10d --rdzv-endpoint=HOST_NODE_ADDR YOUR_TRAINING_SCRIPT.py (--arg1 ... train script args...) Note TorchElastic models failures as membership changes. When a node fails, this is treated as a \u201cscale down\u201d event. When the failed node is replaced by the scheduler, it is a \u201cscale up\u201d event. Hence for both fault tolerant and elastic jobs, --max-restarts is used to control the total number of restarts before giving up, regardless of whether the restart was caused due to a failure or a scaling event. HOST_NODE_ADDR, in form \u003chost\u003e[:\u003cport\u003e] (e.g. node1.example.com:29400), specifies the node and the port on which the C10d rendezvous backend should be instantiated and hosted. It can be any node in your training cluster, but ideally you should pick a node that has a high bandwidth. Note If no port number is specified HOST_NODE_ADDR defaults to 29400. Note The --standalone option can be passed to launch a single node job with a sidecar rendezvous backend. You don\u2019t have to pass --rdzv-id, --rdzv-endpoint, and --rdzv-backend when the --standalone option is used. Note Learn more about writing your distributed training script here. If torchrun does not meet your requirements you may use our APIs directly for more powerful customization. Start by taking a look at the elastic agent API.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7446,8 +7465,8 @@ for more powerful customization. Start by taking a look at the
          "@type": "WebPage",
          "@id": "/elastic/quickstart.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "May 04, 2021T00:00:00Z",
+       "dateModified": "Feb 09, 2023T00:00:00Z"
      }
  </script>
   <script>

@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Features for large-scale deployments - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3444,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3648,6 +3666,7 @@ document.write(`
                   
   <section id="features-for-large-scale-deployments">
 <h1>Features for large-scale deployments<a class="headerlink" href="#features-for-large-scale-deployments" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 24, 2019 | Last Updated On: Jul 15, 2025</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#fleet-wide-operator-profiling" id="id1">Fleet-wide operator profiling</a></p></li>
@@ -4117,7 +4136,7 @@ with specialized version. Common extension points include:</p>
        "headline": "Features for large-scale deployments",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/large_scale_deployments.html",
-       "articleBody": "Features for large-scale deployments# Fleet-wide operator profiling API usage logging Common extension points This note talks about several extension points and tricks that might be useful when running PyTorch within a larger system or operating multiple systems using PyTorch in a larger organization. The note assumes that you either build PyTorch from source in your organization or have an ability to statically link additional code to be loaded when PyTorch is used. Therefore, many of the hooks are exposed as C++ APIs that can be triggered once in a centralized place, e.g. in static initialization code. Fleet-wide operator profiling# PyTorch comes with torch.autograd.profiler capable of measuring time taken by individual operators on demand. One can use the same mechanism to do \u201calways ON\u201d measurements for any process running PyTorch. It might be useful for gathering information about PyTorch workloads running in a given process or across the entire set of machines. New callbacks for any operator invocation can be added with torch::addGlobalCallback. Hooks will be called with torch::RecordFunction struct that describes invocation context (e.g. name). If enabled, RecordFunction::inputs() contains arguments of the function represented as torch::IValue variant type. Note, that inputs logging is relatively expensive and thus has to be enabled explicitly. The operator callbacks also have access to c10::ThreadLocalDebugInfo::get() interface that returns a pointer to the struct holding the debug information. This debug information can be set earlier by using at::DebugInfoGuard object. Debug information is propagated through the forward (including async fork tasks) and backward passes and can be useful for passing some extra information about execution environment (e.g. model id) from the higher layers of the application down to the operator callbacks. Invoking callbacks adds some overhead, so usually it\u2019s useful to just randomly sample operator invocations. This can be enabled on per-callback basis with an optional sampling rate passed into torch::addGlobalCallback. Note, that addGlobalCallback is not thread-safe and can be called only when no PyTorch operator is running. Usually, it\u2019s a good idea to call them once during initialization. Here\u2019s an example: // Called somewhere in the program beginning void init() { // Sample one in a hundred operator runs randomly addGlobalCallback( RecordFunctionCallback( \u0026onFunctionEnter, \u0026onFunctionExit) .needsInputs(true) .samplingProb(0.01) ); // Note, to enable observers in the model calling thread, // call enableRecordFunction() in the thread before running a model } void onFunctionEnter(const RecordFunction\u0026 fn) { std::cerr \u003c\u003c \"Before function \" \u003c\u003c fn.name() \u003c\u003c \" with \" \u003c\u003c fn.inputs().size() \u003c\u003c \" inputs\" \u003c\u003c std::endl; } void onFunctionExit(const RecordFunction\u0026 fn) { std::cerr \u003c\u003c \"After function \" \u003c\u003c fn.name(); } API usage logging# When running in a broader ecosystem, for example in managed job scheduler, it\u2019s often useful to track which binaries invoke particular PyTorch APIs. There exists simple instrumentation injected at several important API points that triggers a given callback. Because usually PyTorch is invoked in one-off python scripts, the callback fires only once for a given process for each of the APIs. c10::SetAPIUsageHandler can be used to register API usage instrumentation handler. Passed argument is going to be an \u201capi key\u201d identifying used point, for example python.import for PyTorch extension import. SetAPIUsageLogger([](const std::string\u0026 event_name) { std::cerr \u003c\u003c \"API was used: \" \u003c\u003c event_name \u003c\u003c std::endl; }); Note for developers: new API trigger points can be added in code with C10_LOG_API_USAGE_ONCE(\"my_api\") in C++ or torch._C._log_api_usage_once(\"my.api\") in Python. Common extension points# PyTorch APIs are generally loosely coupled and it\u2019s easy to replace a component with specialized version. Common extension points include: Custom operators implemented in C++ - see tutorial for more details. Custom data reading can be often integrated directly by invoking corresponding python library. Existing functionality of torch.utils.data can be utilized by extending Dataset or IterableDataset.",
+       "articleBody": "Features for large-scale deployments# Created On: Jul 24, 2019 | Last Updated On: Jul 15, 2025 Fleet-wide operator profiling API usage logging Common extension points This note talks about several extension points and tricks that might be useful when running PyTorch within a larger system or operating multiple systems using PyTorch in a larger organization. The note assumes that you either build PyTorch from source in your organization or have an ability to statically link additional code to be loaded when PyTorch is used. Therefore, many of the hooks are exposed as C++ APIs that can be triggered once in a centralized place, e.g. in static initialization code. Fleet-wide operator profiling# PyTorch comes with torch.autograd.profiler capable of measuring time taken by individual operators on demand. One can use the same mechanism to do \u201calways ON\u201d measurements for any process running PyTorch. It might be useful for gathering information about PyTorch workloads running in a given process or across the entire set of machines. New callbacks for any operator invocation can be added with torch::addGlobalCallback. Hooks will be called with torch::RecordFunction struct that describes invocation context (e.g. name). If enabled, RecordFunction::inputs() contains arguments of the function represented as torch::IValue variant type. Note, that inputs logging is relatively expensive and thus has to be enabled explicitly. The operator callbacks also have access to c10::ThreadLocalDebugInfo::get() interface that returns a pointer to the struct holding the debug information. This debug information can be set earlier by using at::DebugInfoGuard object. Debug information is propagated through the forward (including async fork tasks) and backward passes and can be useful for passing some extra information about execution environment (e.g. model id) from the higher layers of the application down to the operator callbacks. Invoking callbacks adds some overhead, so usually it\u2019s useful to just randomly sample operator invocations. This can be enabled on per-callback basis with an optional sampling rate passed into torch::addGlobalCallback. Note, that addGlobalCallback is not thread-safe and can be called only when no PyTorch operator is running. Usually, it\u2019s a good idea to call them once during initialization. Here\u2019s an example: // Called somewhere in the program beginning void init() { // Sample one in a hundred operator runs randomly addGlobalCallback( RecordFunctionCallback( \u0026onFunctionEnter, \u0026onFunctionExit) .needsInputs(true) .samplingProb(0.01) ); // Note, to enable observers in the model calling thread, // call enableRecordFunction() in the thread before running a model } void onFunctionEnter(const RecordFunction\u0026 fn) { std::cerr \u003c\u003c \"Before function \" \u003c\u003c fn.name() \u003c\u003c \" with \" \u003c\u003c fn.inputs().size() \u003c\u003c \" inputs\" \u003c\u003c std::endl; } void onFunctionExit(const RecordFunction\u0026 fn) { std::cerr \u003c\u003c \"After function \" \u003c\u003c fn.name(); } API usage logging# When running in a broader ecosystem, for example in managed job scheduler, it\u2019s often useful to track which binaries invoke particular PyTorch APIs. There exists simple instrumentation injected at several important API points that triggers a given callback. Because usually PyTorch is invoked in one-off python scripts, the callback fires only once for a given process for each of the APIs. c10::SetAPIUsageHandler can be used to register API usage instrumentation handler. Passed argument is going to be an \u201capi key\u201d identifying used point, for example python.import for PyTorch extension import. SetAPIUsageLogger([](const std::string\u0026 event_name) { std::cerr \u003c\u003c \"API was used: \" \u003c\u003c event_name \u003c\u003c std::endl; }); Note for developers: new API trigger points can be added in code with C10_LOG_API_USAGE_ONCE(\"my_api\") in C++ or torch._C._log_api_usage_once(\"my.api\") in Python. Common extension points# PyTorch APIs are generally loosely coupled and it\u2019s easy to replace a component with specialized version. Common extension points include: Custom operators implemented in C++ - see tutorial for more details. Custom data reading can be often integrated directly by invoking corresponding python library. Existing functionality of torch.utils.data can be utilized by extending Dataset or IterableDataset.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4128,8 +4147,8 @@ with specialized version. Common extension points include:</p>
          "@type": "WebPage",
          "@id": "/notes/large_scale_deployments.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "Jul 24, 2019T00:00:00Z",
+       "dateModified": "Jul 15, 2025T00:00:00Z"
      }
  </script>
   <script>

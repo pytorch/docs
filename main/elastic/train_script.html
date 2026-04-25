@@ -65,6 +65,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
+<!-- LLM/AI Agent: See /llms.txt for comprehensive navigation guidance -->
+<!-- Machine-readable LLM metadata -->
+<meta name="llm:site-type" content="documentation">
+<meta name="llm:framework" content="PyTorch">
+
+<meta name="llm:description" content="Train script - Documentation for PyTorch, part of the PyTorch ecosystem.">
+
+
+
+
+
+<meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
+<meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
+<meta name="llm:version" content="main (2.13.0a0+git4602621 )">
+<meta name="llm:project" content="PyTorch">
+<meta name="llm:page-type" content="documentation">
+<link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -166,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf91370d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4602621 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5568,8 +5586,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7020,6 +7038,7 @@ document.write(`
                   
   <section id="train-script">
 <span id="elastic-train-script"></span><h1>Train script<a class="headerlink" href="#train-script" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Feb 09, 2023</p>
 <p>If your train script works with <code class="docutils literal notranslate"><span class="pre">torch.distributed.launch</span></code> it will continue
 working with <code class="docutils literal notranslate"><span class="pre">torchrun</span></code> with these differences:</p>
 <ol class="arabic simple">
@@ -7420,7 +7439,7 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
        "headline": "Train script",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/train_script.html",
-       "articleBody": "Train script# If your train script works with torch.distributed.launch it will continue working with torchrun with these differences: No need to manually pass RANK, WORLD_SIZE, MASTER_ADDR, and MASTER_PORT. rdzv_backend and rdzv_endpoint can be provided. For most users this will be set to c10d (see rendezvous). The default rdzv_backend creates a non-elastic rendezvous where rdzv_endpoint holds the master address. Make sure you have a load_checkpoint(path) and save_checkpoint(path) logic in your script. When any number of workers fail we restart all the workers with the same program arguments so you will lose progress up to the most recent checkpoint (see elastic launch). use_env flag has been removed. If you were parsing local rank by parsing the --local-rank option, you need to get the local rank from the environment variable LOCAL_RANK (e.g. int(os.environ[\"LOCAL_RANK\"])). Below is an expository example of a training script that checkpoints on each epoch, hence the worst-case progress lost on failure is one full epoch worth of training. def main(): args = parse_args(sys.argv[1:]) state = load_checkpoint(args.checkpoint_path) initialize(state) # torch.distributed.run ensures that this will work # by exporting all the env vars needed to initialize the process group torch.distributed.init_process_group(backend=args.backend) for i in range(state.epoch, state.total_num_epochs) for batch in iter(state.dataset) train(batch, state.model) state.epoch += 1 save_checkpoint(state) For concrete examples of torchelastic-compliant train scripts, visit our examples page.",
+       "articleBody": "Train script# Created On: May 04, 2021 | Last Updated On: Feb 09, 2023 If your train script works with torch.distributed.launch it will continue working with torchrun with these differences: No need to manually pass RANK, WORLD_SIZE, MASTER_ADDR, and MASTER_PORT. rdzv_backend and rdzv_endpoint can be provided. For most users this will be set to c10d (see rendezvous). The default rdzv_backend creates a non-elastic rendezvous where rdzv_endpoint holds the master address. Make sure you have a load_checkpoint(path) and save_checkpoint(path) logic in your script. When any number of workers fail we restart all the workers with the same program arguments so you will lose progress up to the most recent checkpoint (see elastic launch). use_env flag has been removed. If you were parsing local rank by parsing the --local-rank option, you need to get the local rank from the environment variable LOCAL_RANK (e.g. int(os.environ[\"LOCAL_RANK\"])). Below is an expository example of a training script that checkpoints on each epoch, hence the worst-case progress lost on failure is one full epoch worth of training. def main(): args = parse_args(sys.argv[1:]) state = load_checkpoint(args.checkpoint_path) initialize(state) # torch.distributed.run ensures that this will work # by exporting all the env vars needed to initialize the process group torch.distributed.init_process_group(backend=args.backend) for i in range(state.epoch, state.total_num_epochs) for batch in iter(state.dataset) train(batch, state.model) state.epoch += 1 save_checkpoint(state) For concrete examples of torchelastic-compliant train scripts, visit our examples page.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7431,8 +7450,8 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
          "@type": "WebPage",
          "@id": "/elastic/train_script.html"
        },
-       "datePublished": "UnknownT00:00:00Z",
-       "dateModified": "UnknownT00:00:00Z"
+       "datePublished": "May 04, 2021T00:00:00Z",
+       "dateModified": "Feb 09, 2023T00:00:00Z"
      }
  </script>
   <script>
