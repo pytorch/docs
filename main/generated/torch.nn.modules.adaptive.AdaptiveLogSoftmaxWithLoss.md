@@ -1,6 +1,6 @@
 # AdaptiveLogSoftmaxWithLoss
 
-*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/adaptive.py#L21)
+*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/nn/modules/adaptive.py#L21)
 
 Efficient softmax approximation.
 
@@ -92,7 +92,7 @@ Shape:
 - output1: (N)(N)(N) or ()()()
 - output2: `Scalar`
 
-forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/adaptive.py#L186)
+forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/nn/modules/adaptive.py#L186)
 
 Runs the forward pass.
 
@@ -100,7 +100,7 @@ Return type:
 
 *_ASMoutput*
 
-log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/adaptive.py#L288)
+log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/nn/modules/adaptive.py#L288)
 
 Compute log probabilities for all n_classes\texttt{n\_classes}n_classes.
 
@@ -123,7 +123,7 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N,n_classes)(N, \texttt{n\_classes})(N,n_classes)
 
-predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/adaptive.py#L307)
+predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/nn/modules/adaptive.py#L307)
 
 Return the class with the highest probability for each example in the input minibatch.
 
@@ -146,6 +146,6 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N)(N)(N)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/nn/modules/adaptive.py#L177)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/nn/modules/adaptive.py#L177)
 
 Resets parameters based on their initialization used in `__init__`.

@@ -1,6 +1,6 @@
 # CyclicLR
 
-*class*torch.optim.lr_scheduler.CyclicLR(*optimizer*, *base_lr*, *max_lr*, *step_size_up=2000*, *step_size_down=None*, *mode='triangular'*, *gamma=1.0*, *scale_fn=None*, *scale_mode='cycle'*, *cycle_momentum=True*, *base_momentum=0.8*, *max_momentum=0.9*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L1787)
+*class*torch.optim.lr_scheduler.CyclicLR(*optimizer*, *base_lr*, *max_lr*, *step_size_up=2000*, *step_size_down=None*, *mode='triangular'*, *gamma=1.0*, *scale_fn=None*, *scale_mode='cycle'*, *cycle_momentum=True*, *base_momentum=0.8*, *max_momentum=0.9*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L1787)
 
 Sets the learning rate of each parameter group according to cyclical learning rate policy (CLR).
 
@@ -99,7 +99,7 @@ Example
 
 ![../_images/CyclicLR.png](../_images/CyclicLR.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -119,7 +119,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L1999)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L1999)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -158,11 +158,11 @@ Note
 When `cycle_momentum` is `True`, this method has a side
 effect of updating the optimizer's momentum.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L2094)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L2094)
 
 Load the scheduler's state.
 
-scale_fn(*x*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L1980)
+scale_fn(*x*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L1980)
 
 Get the scaling policy.
 
@@ -170,7 +170,7 @@ Return type:
 
 [float](https://docs.python.org/3/library/functions.html#float)
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L2070)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L2070)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -185,7 +185,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/optim/lr_scheduler.py#L238)
+step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/optim/lr_scheduler.py#L238)
 
 Step the scheduler.
 

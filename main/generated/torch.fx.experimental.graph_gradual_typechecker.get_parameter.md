@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.get_parameter
 
-torch.fx.experimental.graph_gradual_typechecker.get_parameter(*traced*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/fx/experimental/graph_gradual_typechecker.py#L1009)
+torch.fx.experimental.graph_gradual_typechecker.get_parameter(*traced*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/fx/experimental/graph_gradual_typechecker.py#L1009)
 
 Returns the parameter given by `target` if it exists,
 otherwise throws an error.

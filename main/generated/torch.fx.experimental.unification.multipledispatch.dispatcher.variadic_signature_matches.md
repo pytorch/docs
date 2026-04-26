@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches(*types*, *full_signature*)[[source]](https://github.com/pytorch/pytorch/blob/460262116930c46e505df88f1fcd347abab536c4/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L121)
+torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches(*types*, *full_signature*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L121)
 
 Return type:
 
