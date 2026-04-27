@@ -18,7 +18,7 @@ when using `elastic_launch`.
 
 See `AffinityMode` for available binding modes.
 
-*class*torch.numa.binding.AffinityMode(*value*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/numa/binding.py#L44)
+*class*torch.numa.binding.AffinityMode(*value*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/numa/binding.py#L44)
 
 An enumeration.
 
@@ -62,7 +62,7 @@ the worker's local rank. Each worker is bound to a different core complex when p
 sharing another) and GPUs 2 and 3, then the worker whose local rank is 2 will be bound to
 cores 0-7, and the worker whose local rank is 3 will be bound to cores 8-15.
 
-*class*torch.numa.binding.NumaOptions(*affinity_mode: torch.numa.binding.AffinityMode*, *should_fall_back_if_binding_fails: [bool](https://docs.python.org/3/library/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/numa/binding.py#L90)
+*class*torch.numa.binding.NumaOptions(*affinity_mode: torch.numa.binding.AffinityMode*, *should_fall_back_if_binding_fails: [bool](https://docs.python.org/3/library/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/numa/binding.py#L90)
 
 affinity_mode*: AffinityMode*
 

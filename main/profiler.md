@@ -12,7 +12,7 @@ An earlier version of the API in [`torch.autograd`](autograd.html#module-torch.a
 
 ## API Reference
 
-*class*torch.profiler.profile(***, *activities=None*, *schedule=None*, *on_trace_ready=None*, *record_shapes=False*, *profile_memory=False*, *with_stack=False*, *with_flops=False*, *with_modules=False*, *experimental_config=None*, *execution_trace_observer=None*, *acc_events=False*, *use_cuda=None*, *custom_trace_id_callback=None*, *post_processing_timeout_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L651)
+*class*torch.profiler.profile(***, *activities=None*, *schedule=None*, *on_trace_ready=None*, *record_shapes=False*, *profile_memory=False*, *with_stack=False*, *with_flops=False*, *with_modules=False*, *experimental_config=None*, *execution_trace_observer=None*, *acc_events=False*, *use_cuda=None*, *custom_trace_id_callback=None*, *post_processing_timeout_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L651)
 
 Profiler context manager.
 
@@ -163,27 +163,27 @@ with torch.profiler.profile(
 You can also refer to test_execution_trace_with_kineto() in tests/profiler/test_profiler.py.
 Note: One can also pass any object satisfying the _ITraceObserver interface.
 
-add_metadata(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L427)
+add_metadata(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L427)
 
 Adds a user defined metadata with a string key and a string value
 into the trace file
 
-add_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L435)
+add_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L435)
 
 Adds a user defined metadata with a string key and a valid json value
 into the trace file
 
-events()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L418)
+events()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L418)
 
 Return the list of unaggregated [`FunctionEvent`](generated/torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent)
 objects, for use in the trace callback or after profiling has finished.
 
-export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L333)
+export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L333)
 
 Exports the collected trace in Chrome JSON format. If kineto is enabled, only
 last cycle in schedule is exported.
 
-export_memory_timeline(*path*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L482)
+export_memory_timeline(*path*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L482)
 
 Export memory event information from the profiler collected
 tree for a given device, and export a timeline plot. There are 3
@@ -208,7 +208,7 @@ Deprecated since version ``export_memory_timeline``: is deprecated and will be r
 Please use `torch.cuda.memory._record_memory_history` and
 `torch.cuda.memory._export_memory_snapshot` instead.
 
-export_stacks(*path*, *metric='self_cpu_time_total'*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L351)
+export_stacks(*path*, *metric='self_cpu_time_total'*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L351)
 
 Save stack traces to a file
 
@@ -217,11 +217,11 @@ Parameters:
 - **path** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - save stacks file to this location;
 - **metric** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - metric to use: "self_cpu_time_total" or "self_cuda_time_total"
 
-get_trace_id()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L985)
+get_trace_id()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L985)
 
 Returns the current trace ID.
 
-key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L395)
+key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L395)
 
 Averages events, grouping them by operator name and (optionally) input shapes, stack
 and overload name.
@@ -233,22 +233,22 @@ Note
 To use shape/stack functionality make sure to set record_shapes/with_stack
 when creating profiler context manager.
 
-preset_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L442)
+preset_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L442)
 
 Preset a user defined metadata when the profiler is not started
 and added into the trace file later.
 Metadata is in the format of a string key and a valid json value
 
-set_custom_trace_id_callback(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L978)
+set_custom_trace_id_callback(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L978)
 
 Set the trace ID generator. Called at the start of each cycle, so updating
 it between cycles yields distinct IDs per cycle.
 
-step()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L956)
+step()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L956)
 
 Signals the profiler that the next profiling step has started.
 
-toggle_collection_dynamic(*enable*, *activities*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L362)
+toggle_collection_dynamic(*enable*, *activities*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L362)
 
 Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops
 (CPU) and CUDA activity supported in Kineto
@@ -278,7 +278,7 @@ print(p.key_averages().table(
  sort_by="self_cuda_time_total", row_limit=-1))
 ```
 
-*class*torch.profiler.ProfilerAction(*value*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L540)
+*class*torch.profiler.ProfilerAction(*value*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L540)
 
 Profiler actions that can be taken at the specified intervals
 
@@ -300,7 +300,7 @@ PrivateUse1
 
 *property*name
 
-torch.profiler.schedule(***, *wait*, *warmup*, *active*, *repeat=0*, *skip_first=0*, *skip_first_wait=0*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L551)
+torch.profiler.schedule(***, *wait*, *warmup*, *active*, *repeat=0*, *skip_first=0*, *skip_first_wait=0*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L551)
 
 Returns a callable that can be used as profiler `schedule` argument. The profiler will skip
 the first `skip_first` steps, then wait for `wait` steps, then do the warmup for the next `warmup` steps,
@@ -319,14 +319,14 @@ Return type:
 
 Callable
 
-torch.profiler.tensorboard_trace_handler(*dir_name*, *worker_name=None*, *use_gzip=False*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L621)
+torch.profiler.tensorboard_trace_handler(*dir_name*, *worker_name=None*, *use_gzip=False*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L621)
 
 Outputs tracing files to directory of `dir_name`, then that directory can be
 directly delivered to tensorboard as logdir.
 `worker_name` should be unique for each worker in distributed scenario,
 it will be set to '[hostname]_[pid]' by default.
 
-torch.profiler.supported_activities()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/profiler.py#L77)
+torch.profiler.supported_activities()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/profiler.py#L77)
 
 Returns a set of supported profiler tracing activities.
 
@@ -339,11 +339,11 @@ but not in the JSON trace.
 
 ## Intel Instrumentation and Tracing Technology APIs
 
-torch.profiler.itt.is_available()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/itt.py#L31)
+torch.profiler.itt.is_available()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/itt.py#L31)
 
 Check if ITT feature is available or not
 
-torch.profiler.itt.mark(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/itt.py#L57)
+torch.profiler.itt.mark(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/itt.py#L57)
 
 Describe an instantaneous event that occurred at some point.
 
@@ -351,7 +351,7 @@ Parameters:
 
 **msg** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - ASCII message to associate with the event.
 
-torch.profiler.itt.range_push(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/itt.py#L38)
+torch.profiler.itt.range_push(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/itt.py#L38)
 
 Pushes a range onto a stack of nested range span. Returns zero-based
 depth of the range that is started.
@@ -360,12 +360,12 @@ Parameters:
 
 **msg** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - ASCII message to associate with range
 
-torch.profiler.itt.range_pop()[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/itt.py#L49)
+torch.profiler.itt.range_pop()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/itt.py#L49)
 
 Pops a range off of a stack of nested range spans. Returns the
 zero-based depth of the range that is ended.
 
-torch.profiler.itt.range(*msg*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/dff44973f3eba04a92de8499c17cd237997140f2/torch/profiler/itt.py#L67)
+torch.profiler.itt.range(*msg*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/profiler/itt.py#L67)
 
 Context manager / decorator that pushes an ITT range at the beginning
 of its scope, and pops it at the end. If extra arguments are given,
