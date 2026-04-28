@@ -1,0 +1,6 @@
+﻿torch.utils.collect\_env.run\_and\_return\_first\_line
+======================================================
+
+.. currentmodule:: torch.utils.collect_env
+
+.. autofunction:: run_and_return_first_line

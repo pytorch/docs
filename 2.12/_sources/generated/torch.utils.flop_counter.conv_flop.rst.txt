@@ -1,0 +1,6 @@
+﻿torch.utils.flop\_counter.conv\_flop
+====================================
+
+.. currentmodule:: torch.utils.flop_counter
+
+.. autofunction:: conv_flop

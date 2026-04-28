@@ -1,0 +1,6 @@
+﻿torch.optim.sgd.sgd
+===================
+
+.. currentmodule:: torch.optim.sgd
+
+.. autofunction:: sgd

@@ -1,0 +1,6 @@
+﻿torch.nn.functional.scaled\_grouped\_mm
+=======================================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: scaled_grouped_mm

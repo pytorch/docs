@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.fetch\_object\_proxy
+========================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: fetch_object_proxy

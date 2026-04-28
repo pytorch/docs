@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.str2bool
+==========================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: str2bool

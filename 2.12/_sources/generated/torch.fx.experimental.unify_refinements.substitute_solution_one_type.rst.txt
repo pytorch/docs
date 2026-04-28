@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unify\_refinements.substitute\_solution\_one\_type
+========================================================================
+
+.. currentmodule:: torch.fx.experimental.unify_refinements
+
+.. autofunction:: substitute_solution_one_type

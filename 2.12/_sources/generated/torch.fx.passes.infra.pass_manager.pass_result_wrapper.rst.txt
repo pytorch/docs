@@ -1,0 +1,6 @@
+﻿torch.fx.passes.infra.pass\_manager.pass\_result\_wrapper
+=========================================================
+
+.. currentmodule:: torch.fx.passes.infra.pass_manager
+
+.. autofunction:: pass_result_wrapper

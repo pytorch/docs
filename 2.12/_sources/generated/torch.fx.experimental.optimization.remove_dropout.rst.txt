@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.remove\_dropout
+==================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: remove_dropout

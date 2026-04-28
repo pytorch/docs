@@ -1,0 +1,6 @@
+﻿torch.accelerator.get\_device\_capability
+=========================================
+
+.. currentmodule:: torch.accelerator
+
+.. autofunction:: get_device_capability

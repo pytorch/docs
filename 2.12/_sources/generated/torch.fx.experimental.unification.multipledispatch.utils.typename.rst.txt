@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.utils.typename
+=================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.utils
+
+.. autofunction:: typename

@@ -1,0 +1,6 @@
+﻿torch.functional.cartesian\_prod
+================================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: cartesian_prod

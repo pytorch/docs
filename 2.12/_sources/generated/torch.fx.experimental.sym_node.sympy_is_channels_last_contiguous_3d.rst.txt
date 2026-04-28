@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.sym\_node.sympy\_is\_channels\_last\_contiguous\_3d
+=========================================================================
+
+.. currentmodule:: torch.fx.experimental.sym_node
+
+.. autofunction:: sympy_is_channels_last_contiguous_3d

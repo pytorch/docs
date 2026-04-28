@@ -1,0 +1,6 @@
+﻿torch.xpu.random.seed\_all
+==========================
+
+.. currentmodule:: torch.xpu.random
+
+.. autofunction:: seed_all

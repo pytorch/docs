@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.extract\_subgraph
+====================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: extract_subgraph

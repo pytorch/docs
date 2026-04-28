@@ -1,0 +1,6 @@
+﻿torch.fx.passes.regional\_inductor.regional\_inductor
+=====================================================
+
+.. currentmodule:: torch.fx.passes.regional_inductor
+
+.. autofunction:: regional_inductor

@@ -1,0 +1,6 @@
+﻿torch.fx.node.map\_aggregate
+============================
+
+.. currentmodule:: torch.fx.node
+
+.. autofunction:: map_aggregate

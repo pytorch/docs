@@ -1,0 +1,29 @@
+# torch.le
+
+torch.le(*input*, *other*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Computes input≤other\text{input} \leq \text{other}input≤other element-wise.
+
+The second argument can be a number or a tensor whose shape is
+[broadcastable](../notes/broadcasting.html#broadcasting-semantics) with the first argument.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to compare
+- **other** ([*Tensor*](../tensors.html#torch.Tensor)*or**Scalar*) - the tensor or value to compare
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Returns:
+
+A boolean tensor that is True where `input` is less than or equal to
+`other` and False elsewhere
+
+Example:
+
+```
+>>> torch.le(torch.tensor([[1, 2], [3, 4]]), torch.tensor([[1, 1], [4, 4]]))
+tensor([[True, False], [True, True]])
+```

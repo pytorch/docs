@@ -1,0 +1,6 @@
+﻿torch.cuda.graphs.graph\_pool\_handle
+=====================================
+
+.. currentmodule:: torch.cuda.graphs
+
+.. autofunction:: graph_pool_handle

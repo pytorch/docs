@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_transformation.is\_dim\_div\_by\_target
+=================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_transformation
+
+.. autofunction:: is_dim_div_by_target

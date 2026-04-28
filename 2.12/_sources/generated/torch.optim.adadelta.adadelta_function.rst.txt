@@ -1,0 +1,6 @@
+﻿torch.optim.adadelta.adadelta
+=============================
+
+.. currentmodule:: torch.optim.adadelta
+
+.. autofunction:: adadelta
