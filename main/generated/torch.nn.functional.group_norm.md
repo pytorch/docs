@@ -1,6 +1,6 @@
 # torch.nn.functional.group_norm
 
-torch.nn.functional.group_norm(*input*, *num_groups*, *weight=None*, *bias=None*, *eps=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/nn/functional.py#L2967)
+torch.nn.functional.group_norm(*input*, *num_groups*, *weight=None*, *bias=None*, *eps=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/functional.py#L2967)
 
 Apply Group Normalization for last certain number of dimensions.
 

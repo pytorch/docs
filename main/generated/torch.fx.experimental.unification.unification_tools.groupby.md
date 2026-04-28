@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.groupby
 
-torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/fx/experimental/unification/unification_tools.py#L420)
+torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/fx/experimental/unification/unification_tools.py#L420)
 
 Group a collection by a key function
 

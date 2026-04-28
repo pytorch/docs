@@ -1,3 +1,3 @@
 # Variable
 
-*class*torch.autograd.variable.Variable[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/autograd/variable.py#L14)
+*class*torch.autograd.variable.Variable[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/autograd/variable.py#L14)

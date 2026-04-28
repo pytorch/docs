@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git22790c5 )">
+<meta name="llm:version" content="main (2.13.0a0+git4ff2d11 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git22790c5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4ff2d11 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4449,6 +4449,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.L1Loss.html">L1Loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.MSELoss.html">MSELoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.CrossEntropyLoss.html">CrossEntropyLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.LinearCrossEntropyLoss.html">LinearCrossEntropyLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.CTCLoss.html">CTCLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.NLLLoss.html">NLLLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.PoissonNLLLoss.html">PoissonNLLLoss</a></li>
@@ -4631,6 +4632,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.hinge_embedding_loss.html">torch.nn.functional.hinge_embedding_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.kl_div.html">torch.nn.functional.kl_div</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.l1_loss.html">torch.nn.functional.l1_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.linear_cross_entropy.html">torch.nn.functional.linear_cross_entropy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.mse_loss.html">torch.nn.functional.mse_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.margin_ranking_loss.html">torch.nn.functional.margin_ranking_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.multilabel_margin_loss.html">torch.nn.functional.multilabel_margin_loss</a></li>
@@ -5586,8 +5588,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7040,7 +7042,7 @@ document.write(`
 <h1>torch.cartesian_prod<a class="headerlink" href="#torch-cartesian-prod" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cartesian_prod">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">cartesian_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/functional.py#L1363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cartesian_prod" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">cartesian_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/functional.py#L1363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cartesian_prod" title="Link to this definition">#</a></dt>
 <dd><p>Do cartesian product of the given sequence of tensors. The behavior is similar to
 python’s <cite>itertools.product</cite>.</p>
 <dl class="field-list simple">

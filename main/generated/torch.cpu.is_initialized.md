@@ -1,6 +1,6 @@
 # torch.cpu.is_initialized
 
-torch.cpu.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/cpu/__init__.py#L247)
+torch.cpu.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/cpu/__init__.py#L247)
 
 Returns True if the CPU is initialized. Always True.
 

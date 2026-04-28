@@ -1,6 +1,6 @@
 # get_pattern_to_input_type_to_index
 
-*class*torch.ao.quantization.backend_config.utils.get_pattern_to_input_type_to_index(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/ao/quantization/backend_config/utils.py#L57)
+*class*torch.ao.quantization.backend_config.utils.get_pattern_to_input_type_to_index(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/ao/quantization/backend_config/utils.py#L57)
 
 Return type:
 

@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CTCLoss" href="torch.nn.CTCLoss.html" />
+    <link rel="next" title="LinearCrossEntropyLoss" href="torch.nn.LinearCrossEntropyLoss.html" />
     <link rel="prev" title="MSELoss" href="torch.nn.MSELoss.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git22790c5 )">
+<meta name="llm:version" content="main (2.13.0a0+git4ff2d11 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git22790c5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git4ff2d11 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4449,6 +4449,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.L1Loss.html">L1Loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.MSELoss.html">MSELoss</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">CrossEntropyLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.LinearCrossEntropyLoss.html">LinearCrossEntropyLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.CTCLoss.html">CTCLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.NLLLoss.html">NLLLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.PoissonNLLLoss.html">PoissonNLLLoss</a></li>
@@ -4631,6 +4632,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.hinge_embedding_loss.html">torch.nn.functional.hinge_embedding_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.kl_div.html">torch.nn.functional.kl_div</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.l1_loss.html">torch.nn.functional.l1_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.linear_cross_entropy.html">torch.nn.functional.linear_cross_entropy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.mse_loss.html">torch.nn.functional.mse_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.margin_ranking_loss.html">torch.nn.functional.margin_ranking_loss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.multilabel_margin_loss.html">torch.nn.functional.multilabel_margin_loss</a></li>
@@ -5586,8 +5588,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7040,7 +7042,7 @@ document.write(`
 <h1>CrossEntropyLoss<a class="headerlink" href="#crossentropyloss" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.CrossEntropyLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CrossEntropyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/nn/modules/loss.py#L1194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CrossEntropyLoss" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">CrossEntropyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/modules/loss.py#L1197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CrossEntropyLoss" title="Link to this definition">#</a></dt>
 <dd><p>This criterion computes the cross entropy loss between input logits
 and target.</p>
 <p>It is useful when training a classification problem with <cite>C</cite> classes.
@@ -7223,7 +7225,7 @@ Providing arbitrary values may yield misleading loss values and unstable gradien
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.CrossEntropyLoss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/nn/modules/loss.py#L1392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CrossEntropyLoss.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/modules/loss.py#L1395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.CrossEntropyLoss.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7288,11 +7290,11 @@ Providing arbitrary values may yield misleading loss values and unstable gradien
       </div>
     </a>
     <a class="right-next"
-       href="torch.nn.CTCLoss.html"
+       href="torch.nn.LinearCrossEntropyLoss.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">CTCLoss</p>
+        <p class="prev-next-title">LinearCrossEntropyLoss</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7327,11 +7329,11 @@ Providing arbitrary values may yield misleading loss values and unstable gradien
       </div>
     </a>
     <a class="right-next"
-       href="torch.nn.CTCLoss.html"
+       href="torch.nn.LinearCrossEntropyLoss.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">CTCLoss</p>
+        <p class="prev-next-title">LinearCrossEntropyLoss</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

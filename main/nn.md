@@ -206,6 +206,7 @@ Global Hooks For Module
 | --- | --- |
 | [`nn.MSELoss`](generated/torch.nn.MSELoss.html#torch.nn.MSELoss) | Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input xxx and target yyy. |
 | [`nn.CrossEntropyLoss`](generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) | This criterion computes the cross entropy loss between input logits and target. |
+| [`nn.LinearCrossEntropyLoss`](generated/torch.nn.LinearCrossEntropyLoss.html#torch.nn.LinearCrossEntropyLoss) | This criterion computes the cross entropy loss between input, linearly transformed to logits, and target. |
 | [`nn.CTCLoss`](generated/torch.nn.CTCLoss.html#torch.nn.CTCLoss) | The Connectionist Temporal Classification loss. |
 | [`nn.NLLLoss`](generated/torch.nn.NLLLoss.html#torch.nn.NLLLoss) | The negative log likelihood loss. |
 | [`nn.PoissonNLLLoss`](generated/torch.nn.PoissonNLLLoss.html#torch.nn.PoissonNLLLoss) | Negative log likelihood loss with Poisson distribution of target. |

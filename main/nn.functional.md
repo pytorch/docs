@@ -132,6 +132,7 @@ scaled_dot_product_attention.
 | [`hinge_embedding_loss`](generated/torch.nn.functional.hinge_embedding_loss.html#torch.nn.functional.hinge_embedding_loss) | Compute the hinge embedding loss. |
 | [`kl_div`](generated/torch.nn.functional.kl_div.html#torch.nn.functional.kl_div) | Compute the KL Divergence loss. |
 | [`l1_loss`](generated/torch.nn.functional.l1_loss.html#torch.nn.functional.l1_loss) | Compute the L1 loss, with optional weighting. |
+| [`linear_cross_entropy`](generated/torch.nn.functional.linear_cross_entropy.html#torch.nn.functional.linear_cross_entropy) | Compute the cross entropy loss between inputs, transformed linearly, and target. |
 | [`mse_loss`](generated/torch.nn.functional.mse_loss.html#torch.nn.functional.mse_loss) | Compute the element-wise mean squared error, with optional weighting. |
 | [`margin_ranking_loss`](generated/torch.nn.functional.margin_ranking_loss.html#torch.nn.functional.margin_ranking_loss) | Compute the margin ranking loss. |
 | [`multilabel_margin_loss`](generated/torch.nn.functional.multilabel_margin_loss.html#torch.nn.functional.multilabel_margin_loss) | Compute the multilabel margin loss. |

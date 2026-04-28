@@ -1,6 +1,6 @@
 # MultiLabelSoftMarginLoss
 
-*class*torch.nn.modules.loss.MultiLabelSoftMarginLoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/nn/modules/loss.py#L1404)
+*class*torch.nn.modules.loss.MultiLabelSoftMarginLoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/modules/loss.py#L1566)
 
 Creates a criterion that optimizes a multi-label one-versus-all
 loss based on max-entropy, between input xxx and target yyy of size
@@ -52,7 +52,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/nn/modules/loss.py#L1453)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/modules/loss.py#L1615)
 
 Runs the forward pass.
 

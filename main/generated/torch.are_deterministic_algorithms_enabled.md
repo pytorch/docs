@@ -1,6 +1,6 @@
 # torch.are_deterministic_algorithms_enabled
 
-torch.are_deterministic_algorithms_enabled()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/__init__.py#L1536)
+torch.are_deterministic_algorithms_enabled()[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/__init__.py#L1536)
 
 Returns True if the global deterministic flag is turned on. Refer to
 [`torch.use_deterministic_algorithms()`](torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) documentation for more details.

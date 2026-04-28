@@ -75,7 +75,7 @@ parameter.
 
 ## Register Communication Hook
 
-torch.distributed.algorithms.ddp_comm_hooks.register_ddp_comm_hook(*comm_hook_type*, *model*, *state=None*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/__init__.py#L127)
+torch.distributed.algorithms.ddp_comm_hooks.register_ddp_comm_hook(*comm_hook_type*, *model*, *state=None*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/__init__.py#L127)
 
 Register `ddp_comm_hooks` to DDP model.
 
@@ -97,7 +97,7 @@ Default communication hooks are simple **stateless** hooks, so the input state
 in `register_comm_hook` is either a process group or `None`.
 The input `bucket` is a `torch.distributed.GradBucket` object.
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.allreduce_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L35)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.allreduce_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L35)
 
 Call `allreduce` using `GradBucket` tensors.
 
@@ -120,7 +120,7 @@ Return type:
 
 [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L96)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L96)
 
 Compress by casting `GradBucket` to `torch.float16` divided by process group size.
 
@@ -140,7 +140,7 @@ Return type:
 
 [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L116)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L116)
 
 Warning: This API is experimental, and it requires NCCL version later than 2.9.6.
 
@@ -164,7 +164,7 @@ Return type:
 Additionally, a communication hook wrapper is provided to support `fp16_compress_hook()` or `bf16_compress_hook()` as a wrapper,
 which can be combined with other communication hooks.
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L137)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L137)
 
 Cast input tensor to `torch.float16`, cast result of hook back to input dtype.
 
@@ -184,7 +184,7 @@ Return type:
 
 [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), *GradBucket*], [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L175)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L175)
 
 Warning: This API is experimental, and it requires NCCL version later than 2.9.6.
 
@@ -216,7 +216,7 @@ and the user needs to provide a state object defined as below.
 
 ### PowerSGD State
 
-*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState(*process_group*, *matrix_approximation_rank=1*, *start_powerSGD_iter=1000*, *min_compression_rate=2*, *use_error_feedback=True*, *warm_start=True*, *orthogonalization_epsilon=0*, *random_seed=0*, *compression_stats_logging_frequency=10000*, *batch_tensors_with_same_shape=False*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
+*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState(*process_group*, *matrix_approximation_rank=1*, *start_powerSGD_iter=1000*, *min_compression_rate=2*, *use_error_feedback=True*, *warm_start=True*, *orthogonalization_epsilon=0*, *random_seed=0*, *compression_stats_logging_frequency=10000*, *batch_tensors_with_same_shape=False*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
 
 Store both the algorithm's hyperparameters and internal state for all gradients during training.
 
@@ -265,7 +265,7 @@ PowerSGD hooks may conflict with [Apex automatic mixed precision package](https:
 Please use PyTorch [native automatic mixed precision package](https://pytorch.org/docs/stable/amp.html)
 instead.
 
-torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L340)
+torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L340)
 
 Implement PowerSGD algorithm.
 
@@ -354,7 +354,7 @@ Example::
 >>> ddp_model.register_comm_hook(state, powerSGD_hook)
 ```
 
-torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.batched_powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L655)
+torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.batched_powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L655)
 
 Implement simplified PowerSGD algorithm.
 
@@ -420,7 +420,7 @@ Warning
 
 Debugging communication hooks do not necessarily output the correct results.
 
-torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks.noop_hook(*_*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/debugging_hooks.py#L10)
+torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks.noop_hook(*_*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/debugging_hooks.py#L10)
 
 Return a future that wraps the input, so it is a no-op that does not incur any communication overheads.
 
@@ -457,16 +457,16 @@ Warning
 
 `PowerSGDState` has `__setstate__` and `__getstate__` implemented and can be used as a reference.
 
-*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
+*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
 
-__getstate__()[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L276)
+__getstate__()[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L276)
 
 Return a `Dict[str, Any]` which will be pickled and saved.
 
 `process_group` is not serializable and excluded from
 a returned state.
 
-__setstate__(*state*)[[source]](https://github.com/pytorch/pytorch/blob/22790c5da3d534b53281c0866537154a47b6a1cf/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L292)
+__setstate__(*state*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L292)
 
 Take a provided `state` and set to this `PowerSGDState` instance.
 
