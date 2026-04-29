@@ -201,7 +201,7 @@ def canonicalize_toc(toc_html, page_relpath):
             return ""
         return f'class="{" ".join(classes)}"'
 
-    result = re.sub(r'\s*class="([^"]*)"', normalize_class, result)
+    result = re.sub(r'class="([^"]*)"', normalize_class, result)
 
     # Clean up tags with trailing space before >
     result = re.sub(r"\s+>", ">", result)
