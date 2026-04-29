@@ -1,6 +1,6 @@
 # torch.accelerator.set_device_idx
 
-torch.accelerator.set_device_idx(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/accelerator/__init__.py#L188)
+torch.accelerator.set_device_idx(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/accelerator/__init__.py#L188)
 
 (Deprecated) Set the current device index to a given device.
 

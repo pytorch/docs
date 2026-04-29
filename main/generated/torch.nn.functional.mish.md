@@ -1,6 +1,6 @@
 # torch.nn.functional.mish
 
-torch.nn.functional.mish(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/functional.py#L2406)
+torch.nn.functional.mish(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/nn/functional.py#L2406)
 
 Apply the Mish function, element-wise.
 

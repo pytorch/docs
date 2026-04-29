@@ -1,6 +1,6 @@
 # GRUCell
 
-*class*torch.nn.modules.rnn.GRUCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/nn/modules/rnn.py#L1769)
+*class*torch.nn.modules.rnn.GRUCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/nn/modules/rnn.py#L1769)
 
 A gated recurrent unit (GRU) cell.
 

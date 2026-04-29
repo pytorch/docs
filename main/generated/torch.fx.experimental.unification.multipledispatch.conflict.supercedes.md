@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.conflict.supercedes
 
-torch.fx.experimental.unification.multipledispatch.conflict.supercedes(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/fx/experimental/unification/multipledispatch/conflict.py#L30)
+torch.fx.experimental.unification.multipledispatch.conflict.supercedes(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/fx/experimental/unification/multipledispatch/conflict.py#L30)
 
 A is consistent and strictly more specific than B
 

@@ -1,6 +1,6 @@
 # torch.xpu.initial_seed
 
-torch.xpu.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/4ff2d1161191378e895e560774c1622dba40076d/torch/xpu/random.py#L154)
+torch.xpu.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/xpu/random.py#L154)
 
 Return the current random seed of the current GPU.
 
