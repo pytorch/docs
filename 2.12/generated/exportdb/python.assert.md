@@ -55,7 +55,7 @@ Range constraints: {}
 
 Note
 
-Tags: python.assert, [python.data-structure](python.data-structure.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [python.data-structure](python.data-structure.html), [torch.dynamic-shape](torch.dynamic-shape.html), python.assert
 
 Support Level: SUPPORTED
 
