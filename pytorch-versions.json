@@ -1,8 +1,13 @@
 [
   {
-    "name": "v2.12.0 (unstable)",
+    "name": "v2.13.0 (unstable)",
     "version": "main",
     "url": "https://docs.pytorch.org/docs/main/"
+  },
+  {
+    "name": "v2.12.0 (RC)",
+    "version": "2.12",
+    "url": "https://docs.pytorch.org/docs/2.12/"
   },
   {
     "name": "v2.11.0 (stable)",
