@@ -1,3 +1,3 @@
 # torch.sym_fresh_size
 
-torch.sym_fresh_size(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/__init__.py#L1041)
+torch.sym_fresh_size(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/__init__.py#L1041)

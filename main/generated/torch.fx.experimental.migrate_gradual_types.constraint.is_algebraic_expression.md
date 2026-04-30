@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression
 
-torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/fx/experimental/migrate_gradual_types/constraint.py#L718)
+torch.fx.experimental.migrate_gradual_types.constraint.is_algebraic_expression(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/fx/experimental/migrate_gradual_types/constraint.py#L718)
 
 Return type:
 

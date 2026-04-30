@@ -82,7 +82,7 @@ place. To initialize the RPC framework we need to use
 `init_rpc()` which would initialize the RPC
 framework, RRef framework and distributed autograd.
 
-torch.distributed.rpc.init_rpc(*name*, *backend=None*, *rank=-1*, *world_size=None*, *rpc_backend_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/__init__.py#L93)
+torch.distributed.rpc.init_rpc(*name*, *backend=None*, *rank=-1*, *world_size=None*, *rpc_backend_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/__init__.py#L93)
 
 Initializes RPC primitives such as the local RPC agent
 and distributed autograd, which immediately makes the current
@@ -112,7 +112,7 @@ meaning that environment variables `MASTER_ADDR` and
 Backends for more information and find which options
 are available.
 
-torch.distributed.rpc.is_available()[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/__init__.py#L24)
+torch.distributed.rpc.is_available()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/__init__.py#L24)
 
 Return type:
 
@@ -127,7 +127,7 @@ device lists on source and destination workers do not match. In such cases,
 applications can always explicitly move the input tensors to CPU on the caller
 and move it to the desired devices on the callee if necessary.
 
-torch.distributed.rpc.rpc_sync(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/api.py#L765)
+torch.distributed.rpc.rpc_sync(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/api.py#L765)
 
 Make a blocking RPC call to run function `func` on worker `to`. RPC
 messages are sent and received in parallel to execution of Python code. This
@@ -206,7 +206,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.rpc_async(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/api.py#L839)
+torch.distributed.rpc.rpc_async(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/api.py#L839)
 
 Make a non-blocking RPC call to run function `func` on worker `to`. RPC
 messages are sent and received in parallel to execution of Python code. This
@@ -307,7 +307,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.remote(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/api.py#L548)
+torch.distributed.rpc.remote(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/api.py#L548)
 
 Make a remote call to run `func` on worker `to` and return an
 `RRef` to the result value immediately.
@@ -414,7 +414,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.get_worker_info(*worker_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/api.py#L421)
+torch.distributed.rpc.get_worker_info(*worker_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/api.py#L421)
 
 Get `WorkerInfo` of a given worker name.
 Use this `WorkerInfo` to avoid passing an
@@ -431,7 +431,7 @@ Returns:
 `worker_name` or `WorkerInfo` of the
 current worker if `worker_name` is `None`.
 
-torch.distributed.rpc.shutdown(*graceful=True*, *timeout=0*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/api.py#L320)
+torch.distributed.rpc.shutdown(*graceful=True*, *timeout=0*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/api.py#L320)
 
 Perform a shutdown of the RPC agent, and then destroy the RPC agent. This
 stops the local agent from accepting outstanding requests, and shuts
@@ -508,7 +508,7 @@ The name of the worker.
 The RPC package also provides decorators which allow applications to specify
 how a given function should be treated on the callee side.
 
-torch.distributed.rpc.functions.async_execution(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/functions.py#L5)
+torch.distributed.rpc.functions.async_execution(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/functions.py#L5)
 
 A decorator for a function indicating that the return value of the function
 is guaranteed to be a [`Future`](futures.html#torch.futures.Future) object and this
@@ -752,7 +752,7 @@ rpc.init_rpc(
 # omitting init_rpc invocation on worker2
 ```
 
-*class*torch.distributed.rpc.TensorPipeRpcBackendOptions(***, *num_worker_threads=16*, *rpc_timeout=60.0*, *init_method='env://'*, *device_maps=None*, *devices=None*, *_transports=None*, *_channels=None*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/options.py#L50)
+*class*torch.distributed.rpc.TensorPipeRpcBackendOptions(***, *num_worker_threads=16*, *rpc_timeout=60.0*, *init_method='env://'*, *device_maps=None*, *devices=None*, *_transports=None*, *_channels=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/options.py#L50)
 
 The backend options for
 `TensorPipeAgent`, derived from
@@ -811,7 +811,7 @@ A float indicating the timeout to use for all
 RPCs. If an RPC does not complete in this timeframe, it will
 complete with an exception indicating that it has timed out.
 
-set_device_map(*to*, *device_map*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/options.py#L111)
+set_device_map(*to*, *device_map*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/options.py#L111)
 
 Set device mapping between each RPC caller and callee pair. This
 function can be called multiple times to incrementally add
@@ -859,7 +859,7 @@ Example
 >>> print(rets[1]) # tensor([2., 2.], device='cuda:1')
 ```
 
-set_devices(*devices*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/rpc/options.py#L169)
+set_devices(*devices*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/rpc/options.py#L169)
 
 Set local devices used by the TensorPipe RPC agent. When processing
 CUDA RPC requests, the TensorPipe RPC agent will properly synchronize
@@ -1164,7 +1164,7 @@ handle to this module and invoke this module similar to a regular nn.Module.
 The invocation however incurs RPC calls to the remote end and can be performed
 asynchronously if needed via additional APIs supported by RemoteModule.
 
-*class*torch.distributed.nn.api.remote_module.RemoteModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/nn/api/remote_module.py#L605)
+*class*torch.distributed.nn.api.remote_module.RemoteModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/nn/api/remote_module.py#L605)
 
 > A RemoteModule instance can only be created after RPC initialization.
 > 
@@ -1259,7 +1259,7 @@ Furthermore, a more practical example that is combined with
 [DistributedDataParallel](https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel) (DDP)
 can be found in this [tutorial](https://pytorch.org/tutorials/advanced/rpc_ddp_tutorial.html).
 
-get_module_rref()[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/nn/api/remote_module.py#L296)
+get_module_rref()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/nn/api/remote_module.py#L296)
 
 Return an `RRef` (`RRef[nn.Module]`) pointing to the remote module.
 
@@ -1267,7 +1267,7 @@ Return type:
 
 *RRef*[[*Module*](generated/torch.nn.Module.html#torch.nn.Module)]
 
-remote_parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/nn/api/remote_module.py#L277)
+remote_parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/nn/api/remote_module.py#L277)
 
 Return a list of `RRef` pointing to the remote module's parameters.
 
@@ -1343,7 +1343,7 @@ Example::
 >>> dist_autograd.backward(context_id, loss)
 ```
 
-*class*torch.distributed.autograd.context[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/autograd/__init__.py#L37)
+*class*torch.distributed.autograd.context[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/autograd/__init__.py#L37)
 
 Context object to wrap forward and backward passes when using
 distributed autograd. The `context_id` generated in the `with`
@@ -1393,7 +1393,7 @@ Example::
 >>> print(grads[t2])
 ```
 
-torch.distributed.autograd.is_available()[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/distributed/autograd/__init__.py#L12)
+torch.distributed.autograd.is_available()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/distributed/autograd/__init__.py#L12)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1393)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1393)
 
 Simulates broadcasting on e1 and e2 and returns the results
 respectively in e11 and e12. Because of gradual types,

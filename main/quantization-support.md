@@ -555,7 +555,7 @@ If you are adding a new entry/functionality, please, add it to the
 appropriate file under the torch/ao/nn/quantized/dynamic,
 while adding an import statement here.
 
-torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/quantization/__init__.py#L14)
+torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/quantization/__init__.py#L14)
 
 Default evaluation function takes a torch.utils.data.Dataset or a list of
 input Tensors and run the model on the dataset

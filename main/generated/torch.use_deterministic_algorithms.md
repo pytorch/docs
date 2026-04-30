@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/__init__.py#L1387)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/__init__.py#L1387)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -112,7 +112,7 @@ that affect numerics. This includes:
 > will use some heuristics to pick the most promising configs rather
 > than do autotuning.
 > - Skip autotuning for reduction in coordinate descent tuning.
-> - Don't benchmarking for the computation/communication reordering pass
+> - Don't benchmark for the computation/communication reordering pass
 > - Disable the feature that dynamically scale down RBLOCK triton config for higher
 > occupancy.
 

@@ -51,7 +51,7 @@ responsible for providing tensor indices that correspond to a
 coalesced tensor. If the `check_invariants` flag is
 False, no error will be raised if the prerequisites are not
 met and this will lead to silently incorrect results. To force
-coalescion please use `coalesce()` on the resulting
+coalescing please use `coalesce()` on the resulting
 Tensor.
 Default: None: except for trivial cases (e.g. nnz < 2) the
 resulting Tensor has is_coalesced set to False`.

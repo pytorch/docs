@@ -1,8 +1,8 @@
 # CallMethodKey
 
-*class*torch.fx.experimental.symbolic_shapes.CallMethodKey(*name: 'str'*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/fx/experimental/symbolic_shapes.py#L1183)
+*class*torch.fx.experimental.symbolic_shapes.CallMethodKey(*name: 'str'*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/fx/experimental/symbolic_shapes.py#L1183)
 
-get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/c7cc4bfa9ed99a2c007afe3e21208bc892c5aa18/torch/fx/experimental/symbolic_shapes.py#L1190)
+get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/fx/experimental/symbolic_shapes.py#L1190)
 
 Call the method on object
 

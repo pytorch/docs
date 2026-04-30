@@ -62,6 +62,9 @@ can be used, which returns `True` if the data type is a floating point data type
 To find out if a `torch.dtype` is a complex data type, the property [`is_complex`](generated/torch.is_complex.html#torch.is_complex)
 can be used, which returns `True` if the data type is a complex data type.
 
+Each `torch.dtype` has an `abbr` property that returns a short abbreviation
+string for the dtype (e.g., `torch.float32.abbr` returns `"f32"`).
+
 When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote
 by finding the minimum dtype that satisfies the following rules:
 
