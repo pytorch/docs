@@ -34,6 +34,7 @@ Usage:
 
 import argparse
 import os
+import shutil
 import sys
 import urllib.parse
 from pathlib import Path
@@ -86,6 +87,12 @@ def iter_alias_html(alias: Path):
     # symlinked subtrees inside alias are skipped instead of accidentally
     # rewriting files outside the alias.
     for root, _, files in os.walk(alias):
+        for name in files:
+            yield Path(root) / name, name
+
+
+def iter_canonical_files(canonical: Path):
+    for root, _, files in os.walk(canonical):
         for name in files:
             yield Path(root) / name, name
 
@@ -157,12 +164,26 @@ def main() -> int:
     bytes_after = 0
 
     if args.mirror_canonical:
-        for canonical_path, name in iter_canonical_html(canonical):
-            if name in keep:
-                skipped_keep += 1
-                continue
+        for canonical_path, name in iter_canonical_files(canonical):
             rel = canonical_path.relative_to(canonical)
             alias_path = alias / rel
+            if name in keep:
+                # Keep-files are byte-copied so external fetchers (intersphinx
+                # objects.inv, full-text searchindex.js, .buildinfo) can still
+                # resolve under the alias URL.
+                old_size = alias_path.stat().st_size if alias_path.is_file() else 0
+                new_size = canonical_path.stat().st_size
+                bytes_before += old_size
+                bytes_after += new_size
+                skipped_keep += 1
+                if not args.dry_run:
+                    alias_path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(canonical_path, alias_path)
+                if not args.quiet:
+                    print(f"  copy: {rel}  ({new_size} bytes, kept)")
+                continue
+            if canonical_path.suffix.lower() != ".html":
+                continue
             stub = make_stub(alias_path, canonical_path, rel, args.url_prefix)
             new_size = len(stub.encode("utf-8"))
             old_size = alias_path.stat().st_size if alias_path.is_file() else 0
