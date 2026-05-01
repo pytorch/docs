@@ -1,6 +1,6 @@
 # Hardswish
 
-*class*torch.ao.nn.quantized.Hardswish(*scale*, *zero_point*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/ao/nn/quantized/modules/activation.py#L59)
+*class*torch.ao.nn.quantized.Hardswish(*scale*, *zero_point*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/ao/nn/quantized/modules/activation.py#L59)
 
 This is the quantized version of [`Hardswish`](torch.nn.Hardswish.html#torch.nn.Hardswish).
 

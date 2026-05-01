@@ -1,6 +1,6 @@
 # QuantizedGraphModule
 
-*class*torch.ao.quantization.fx.graph_module.QuantizedGraphModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/ao/quantization/fx/graph_module.py#L142)
+*class*torch.ao.quantization.fx.graph_module.QuantizedGraphModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/ao/quantization/fx/graph_module.py#L142)
 
 This class is created to make sure PackedParams
 (e.g. LinearPackedParams, Conv2dPackedParams) to appear in state_dict

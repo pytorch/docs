@@ -705,18 +705,18 @@ statements more clearly show whether they are referring to packaged code or not.
 
 ## API Reference
 
-*class*torch.package.PackagingError(*dependency_graph*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L118)
+*class*torch.package.PackagingError(*dependency_graph*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L118)
 
 This exception is raised when there is an issue with exporting a package.
 `PackageExporter` will attempt to gather up all the errors and present
 them to you at once.
 
-*class*torch.package.EmptyMatchError[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L112)
+*class*torch.package.EmptyMatchError[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L112)
 
 This is an exception that is thrown when a mock or extern is marked as
 `allow_empty=False`, and is not matched with any module during packaging.
 
-*class*torch.package.PackageExporter(*f*, *importer=<torch.package.importer._SysImporter object>*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L175)
+*class*torch.package.PackageExporter(*f*, *importer=<torch.package.importer._SysImporter object>*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L175)
 
 Exporters allow you to write packages of code, pickled Python data, and
 arbitrary binary and text resources into a self-contained package.
@@ -742,7 +742,7 @@ for further code dependencies (`dependencies=True`). It looks for import stateme
 resolves relative references to qualified module names, and performs an action specified by the user
 (See: `extern()`, `mock()`, and `intern()`).
 
-__init__(*f*, *importer=<torch.package.importer._SysImporter object>*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L206)
+__init__(*f*, *importer=<torch.package.importer._SysImporter object>*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L206)
 
 Create an exporter.
 
@@ -754,12 +754,12 @@ or a binary I/O object.
 If a sequence of importers are passed, an `OrderedImporter` will be constructed out of them.
 - **debug** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to True, add path of broken modules to PackagingErrors.
 
-add_dependency(*module_name*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L455)
+add_dependency(*module_name*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L455)
 
 Given a module, add it to the dependency graph according to patterns
 specified by the user.
 
-all_paths(*src*, *dst*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1186)
+all_paths(*src*, *dst*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1186)
 
 Return a dot representation of the subgraph
 
@@ -774,7 +774,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1089)
+close()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1089)
 
 Write the package to the filesystem. Any calls after `close()` are now invalid.
 It is preferable to use resource guard syntax instead:
@@ -784,7 +784,7 @@ with PackageExporter("file.zip") as e:
  ...
 ```
 
-denied_modules()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1166)
+denied_modules()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1166)
 
 Return all modules that are currently denied.
 
@@ -797,7 +797,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-deny(*include*, ***, *exclude=()*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L912)
+deny(*include*, ***, *exclude=()*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L912)
 
 Blocklist modules who names match the given glob patterns from the list of modules the package can import.
 If a dependency on any matching packages is found, a `PackagingError` is raised.
@@ -808,7 +808,7 @@ Parameters:
 for the names of the modules to be externed. This can also be a glob-style pattern, as described in `mock()`.
 - **exclude** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) - An optional pattern that excludes some patterns that match the include string.
 
-dependency_graph_string()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1120)
+dependency_graph_string()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1120)
 
 Returns digraph string representation of dependencies in package.
 
@@ -820,7 +820,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-extern(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L881)
+extern(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L881)
 
 Include `module` in the list of external modules the package can import.
 This will prevent dependency discovery from saving
@@ -840,7 +840,7 @@ pattern is added with `allow_empty=False`, and `close()` is called (either expli
 `__exit__`) before any modules match that pattern, an exception is thrown. If `allow_empty=True`,
 no such exception is thrown.
 
-externed_modules()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1139)
+externed_modules()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1139)
 
 Return all modules that are currently externed.
 
@@ -853,7 +853,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-get_rdeps(*module_name*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1175)
+get_rdeps(*module_name*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1175)
 
 Return a list of all modules which depend on the module `module_name`.
 
@@ -865,7 +865,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-get_unique_id()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L319)
+get_unique_id()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L319)
 
 Get an id. This id is guaranteed to only be handed out once for this package.
 
@@ -873,7 +873,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-intern(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L814)
+intern(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L814)
 
 Specify modules that should be packaged. A module must match some `intern` pattern in order to be
 included in the package and have its dependencies processed recursively.
@@ -888,7 +888,7 @@ to the `intern` method must be matched to some module during packaging. If an `i
 pattern is added with `allow_empty=False`, and `close()` is called (either explicitly or via `__exit__`)
 before any modules match that pattern, an exception is thrown. If `allow_empty=True`, no such exception is thrown.
 
-interned_modules()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1148)
+interned_modules()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1148)
 
 Return all modules that are currently interned.
 
@@ -901,7 +901,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-mock(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L840)
+mock(*include*, ***, *exclude=()*, *allow_empty=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L840)
 
 Replace some required modules with a mock implementation. Mocked modules will return a fake
 object for any attribute accessed from it. Because we copy file-by-file, the dependency resolution will sometimes
@@ -934,7 +934,7 @@ to the `mock()` method must be matched to some module during packaging. If a moc
 not been matched to a module used by the package being exported, an exception is thrown.
 If `allow_empty=True`, no such exception is thrown.
 
-mocked_modules()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L1157)
+mocked_modules()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L1157)
 
 Return all modules that are currently mocked.
 
@@ -947,7 +947,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-register_extern_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L757)
+register_extern_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L757)
 
 Registers an extern hook on the exporter.
 
@@ -969,7 +969,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_intern_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L795)
+register_intern_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L795)
 
 Registers an intern hook on the exporter.
 
@@ -991,7 +991,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_mock_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L776)
+register_mock_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L776)
 
 Registers a mock hook on the exporter.
 
@@ -1013,7 +1013,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-save_binary(*package*, *resource*, *binary*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L746)
+save_binary(*package*, *resource*, *binary*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L746)
 
 Save raw bytes to the package.
 
@@ -1023,7 +1023,7 @@ Parameters:
 - **resource** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A unique name for the resource, used to identify it to load.
 - **binary** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The data to save.
 
-save_module(*module_name*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L514)
+save_module(*module_name*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L514)
 
 Save the code for `module` into the package. Code for the module is resolved using the `importers` path to find the
 module object, and then using its `__file__` attribute to find the source code.
@@ -1034,7 +1034,7 @@ Parameters:
 for this package.
 - **dependencies** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, we scan the source for dependencies.
 
-save_pickle(*package*, *resource*, *obj*, *dependencies=True*, *pickle_protocol=3*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L586)
+save_pickle(*package*, *resource*, *obj*, *dependencies=True*, *pickle_protocol=3*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L586)
 
 Save a python object to the archive using pickle. Equivalent to [`torch.save()`](generated/torch.save.html#torch.save) but saving into
 the archive rather than a stand-alone file. Standard pickle does not save the code, only the objects.
@@ -1053,7 +1053,7 @@ Parameters:
 - **obj** (*Any*) - The object to save, must be picklable.
 - **dependencies** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, we scan the source for dependencies.
 
-save_source_file(*module_name*, *file_or_directory*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L265)
+save_source_file(*module_name*, *file_or_directory*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L265)
 
 Adds the local file system `file_or_directory` to the source package to provide the code
 for `module_name`.
@@ -1066,7 +1066,7 @@ are recursively copied using `save_source_file()`. If a file is named `"/__init_
 as a package.
 - **dependencies** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, we scan the source for dependencies.
 
-save_source_string(*module_name*, *src*, *is_package=False*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L374)
+save_source_string(*module_name*, *src*, *is_package=False*, *dependencies=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L374)
 
 Adds `src` as the source code for `module_name` in the exported package.
 
@@ -1078,7 +1078,7 @@ Parameters:
 (e.g. `my_package.my_subpackage.my_subsubpackage`), and resources can be saved inside them. Defaults to `False`.
 - **dependencies** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, we scan the source for dependencies.
 
-save_text(*package*, *resource*, *text*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_exporter.py#L736)
+save_text(*package*, *resource*, *text*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_exporter.py#L736)
 
 Save text data to the package.
 
@@ -1088,7 +1088,7 @@ Parameters:
 - **resource** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A unique name for the resource, used to identify it to load.
 - **text** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The contents to save.
 
-*class*torch.package.PackageImporter(*file_or_buffer*, *module_allowed=<function PackageImporter.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L66)
+*class*torch.package.PackageImporter(*file_or_buffer*, *module_allowed=<function PackageImporter.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L66)
 
 Importers allow you to load code written to packages by `PackageExporter`.
 Code is loaded in a hermetic way, using files from the package
@@ -1102,7 +1102,7 @@ The file `extern_modules` in the zip archive lists all the modules that a packag
 This prevents "implicit" dependencies where the package runs locally because it is importing
 a locally-installed package, but then fails when the package is copied to another machine.
 
-__init__(*file_or_buffer*, *module_allowed=<function PackageImporter.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L86)
+__init__(*file_or_buffer*, *module_allowed=<function PackageImporter.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L86)
 
 Open `file_or_buffer` for importing. This checks that the imported package only requires modules
 allowed by `module_allowed`
@@ -1119,7 +1119,7 @@ Raises:
 
 [**ImportError**](https://docs.python.org/3/library/exceptions.html#ImportError) - If the package will use a disallowed module.
 
-file_structure(***, *include='**'*, *exclude=()*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L326)
+file_structure(***, *include='**'*, *exclude=()*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L326)
 
 Returns a file structure representation of package's zipfile.
 
@@ -1138,7 +1138,7 @@ Return type:
 
 *Directory*
 
-id()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L317)
+id()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L317)
 
 Returns internal identifier that torch.package uses to distinguish `PackageImporter` instances.
 Looks like:
@@ -1147,7 +1147,7 @@ Looks like:
 <torch_package_0>
 ```
 
-import_module(*name*, *package=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L158)
+import_module(*name*, *package=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L158)
 
 Load a module from the package if it hasn't already been loaded, and then return
 the module. Modules are loaded locally
@@ -1166,7 +1166,7 @@ Return type:
 
 [types.ModuleType](https://docs.python.org/3/library/types.html#types.ModuleType)
 
-load_binary(*package*, *resource*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L181)
+load_binary(*package*, *resource*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L181)
 
 Load raw bytes.
 
@@ -1183,7 +1183,7 @@ Return type:
 
 [bytes](https://docs.python.org/3/library/stdtypes.html#bytes)
 
-load_pickle(*package*, *resource*, *map_location=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L216)
+load_pickle(*package*, *resource*, *map_location=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L216)
 
 Unpickles the resource from the package, loading any modules that are needed to construct the objects
 using `import_module()`.
@@ -1202,7 +1202,7 @@ Return type:
 
 Any
 
-load_text(*package*, *resource*, *encoding='utf-8'*, *errors='strict'*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L195)
+load_text(*package*, *resource*, *encoding='utf-8'*, *errors='strict'*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L195)
 
 Load a string.
 
@@ -1221,7 +1221,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-python_version()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/package_importer.py#L345)
+python_version()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/package_importer.py#L345)
 
 Returns the version of python that was used to create this package.
 
@@ -1232,13 +1232,13 @@ Returns:
 
 `str | None` a python version e.g. 3.8.9 or None if no version was stored with this package
 
-*class*torch.package.Directory(*name*, *is_dir*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/file_structure_representation.py#L9)
+*class*torch.package.Directory(*name*, *is_dir*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/file_structure_representation.py#L9)
 
 A file structure representation. Organized as Directory nodes that have lists of
 their Directory children. Directories for a package are created by calling
 `PackageImporter.file_structure()`.
 
-has_file(*filename*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/file_structure_representation.py#L47)
+has_file(*filename*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/file_structure_representation.py#L47)
 
 Checks if a file is present in a `Directory`.
 
@@ -1256,7 +1256,7 @@ Return type:
 
 ## Analysis Utilities
 
-torch.package.analyze.find_first_use_of_broken_modules.find_first_use_of_broken_modules(*exc*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/analyze/find_first_use_of_broken_modules.py#L7)
+torch.package.analyze.find_first_use_of_broken_modules.find_first_use_of_broken_modules(*exc*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/analyze/find_first_use_of_broken_modules.py#L7)
 
 Find all broken modules in a PackagingError, and for each one, return the
 dependency path in which the module was first encountered.
@@ -1275,7 +1275,7 @@ Return type:
 
 Returns: A dict from broken module names to lists of module names in the path.
 
-torch.package.analyze.is_from_package.is_from_package(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/analyze/is_from_package.py#L7)
+torch.package.analyze.is_from_package.is_from_package(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/analyze/is_from_package.py#L7)
 
 Return whether an object was loaded from a package.
 
@@ -1285,7 +1285,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.package.analyze.trace_dependencies.trace_dependencies(*callable*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/package/analyze/trace_dependencies.py#L10)
+torch.package.analyze.trace_dependencies.trace_dependencies(*callable*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/package/analyze/trace_dependencies.py#L10)
 
 Trace the execution of a callable in order to determine which modules it uses.
 

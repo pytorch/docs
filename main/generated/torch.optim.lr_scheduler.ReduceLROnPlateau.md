@@ -1,6 +1,6 @@
 # ReduceLROnPlateau
 
-*class*torch.optim.lr_scheduler.ReduceLROnPlateau(*optimizer*, *mode='min'*, *factor=0.1*, *patience=10*, *threshold=0.0001*, *threshold_mode='rel'*, *cooldown=0*, *min_lr=0*, *eps=1e-08*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L1583)
+*class*torch.optim.lr_scheduler.ReduceLROnPlateau(*optimizer*, *mode='min'*, *factor=0.1*, *patience=10*, *threshold=0.0001*, *threshold_mode='rel'*, *cooldown=0*, *min_lr=0*, *eps=1e-08*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L1583)
 
 Reduce learning rate when a metric has stopped improving.
 
@@ -69,7 +69,7 @@ Example
 
 ![../_images/ReduceLROnPlateau.png](../_images/ReduceLROnPlateau.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -89,7 +89,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L219)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L219)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -114,11 +114,11 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L1778)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L1778)
 
 Load the scheduler's state.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L182)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L182)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -129,6 +129,6 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*metrics*, *epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/optim/lr_scheduler.py#L1695)
+step(*metrics*, *epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/lr_scheduler.py#L1695)
 
 Perform a step.

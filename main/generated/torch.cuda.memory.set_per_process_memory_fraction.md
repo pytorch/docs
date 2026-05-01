@@ -1,6 +1,6 @@
 # torch.cuda.memory.set_per_process_memory_fraction
 
-torch.cuda.memory.set_per_process_memory_fraction(*fraction*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/memory.py#L173)
+torch.cuda.memory.set_per_process_memory_fraction(*fraction*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/memory.py#L173)
 
 Set memory fraction for a process.
 

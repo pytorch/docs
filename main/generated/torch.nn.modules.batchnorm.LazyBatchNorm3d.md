@@ -1,6 +1,6 @@
 # LazyBatchNorm3d
 
-*class*torch.nn.modules.batchnorm.LazyBatchNorm3d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/nn/modules/batchnorm.py#L614)
+*class*torch.nn.modules.batchnorm.LazyBatchNorm3d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/modules/batchnorm.py#L614)
 
 A [`torch.nn.BatchNorm3d`](torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d) module with lazy initialization.
 
@@ -30,6 +30,6 @@ in both training and eval modes. Default: `True`
 - **bias** ([*UninitializedParameter*](torch.nn.parameter.UninitializedParameter.html#torch.nn.parameter.UninitializedParameter)) - If set to `False`, the layer will not learn an additive bias (only relevant if
 `affine` is `True`). Default: `True`
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/nn/modules/batchnorm.py#L535)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/modules/batchnorm.py#L535)
 
 alias of [`BatchNorm3d`](torch.nn.modules.batchnorm.BatchNorm3d.html#torch.nn.modules.batchnorm.BatchNorm3d)

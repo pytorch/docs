@@ -1,6 +1,6 @@
 # get_skipped_module_name_and_classes
 
-*class*torch.ao.quantization.fx.utils.get_skipped_module_name_and_classes(*prepare_custom_config*, *is_standalone_module*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/ao/quantization/fx/utils.py#L473)
+*class*torch.ao.quantization.fx.utils.get_skipped_module_name_and_classes(*prepare_custom_config*, *is_standalone_module*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/ao/quantization/fx/utils.py#L473)
 
 Return type:
 

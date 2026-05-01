@@ -1,6 +1,6 @@
 # Event
 
-*class*torch.cuda.streams.Event(*enable_timing=False*, *blocking=False*, *interprocess=False*, *external=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L159)
+*class*torch.cuda.streams.Event(*enable_timing=False*, *blocking=False*, *interprocess=False*, *external=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L159)
 
 Wrapper around a CUDA event.
 
@@ -22,7 +22,7 @@ Parameters:
 (default: `False`)
 - **external** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicates whether this event should create event record and event wait nodes, or create an internal cross-stream dependency, when captured in a cuda graph. See [cross-stream dependencies](https://docs.nvidia.com/cuda/archive/12.9.0/cuda-c-programming-guide/index.html#cross-stream-dependencies-and-events), [cudaEventRecordExternal](https://docs.nvidia.com/cuda/archive/12.9.0/cuda-runtime-api/group__CUDART__TYPES.html#group__CUDART__TYPES_1g3457b81d1d32c6a00f6132fbc2693d47), and [cudaEventWaitExternal](https://docs.nvidia.com/cuda/archive/12.9.0/cuda-runtime-api/group__CUDART__TYPES.html#group__CUDART__TYPES_1g0c23426b7252eaa9cef695859991304e) for more information about internal vs. external events. (default: `False`)
 
-elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L234)
+elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L234)
 
 Return the time elapsed.
 
@@ -33,17 +33,17 @@ Parameters:
 
 **end_event** (*Event*) - the end event.
 
-*classmethod*from_ipc_handle(*device*, *handle*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L194)
+*classmethod*from_ipc_handle(*device*, *handle*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L194)
 
 Reconstruct an event from an IPC handle on the given device.
 
-ipc_handle()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L256)
+ipc_handle()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L256)
 
 Return an IPC handle of this event.
 
 If not recorded yet, the event will use the current device.
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L225)
+query()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L225)
 
 Check if all work currently captured by event has completed.
 
@@ -52,7 +52,7 @@ Returns:
 A boolean indicating if all work currently captured by event has
 completed.
 
-record(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L199)
+record(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L199)
 
 Record the event in a given stream.
 
@@ -61,7 +61,7 @@ Parameters:
 **stream** ([*Stream*](torch.cuda.streams.Stream.html#torch.cuda.streams.Stream)*,*[*torch.Stream*](torch.Stream.html#torch.Stream)*,**optional*) - Uses `torch.cuda.current_stream()` if no stream is specified.
 The stream's device must match the event's device.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L245)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L245)
 
 Wait for the event to complete.
 
@@ -76,7 +76,7 @@ This prevents the CPU thread from proceeding until the event completes.
 > This is a wrapper around `cudaEventSynchronize()`: see
 > [CUDA Event documentation](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__EVENT.html) for more info.
 
-wait(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/cuda/streams.py#L211)
+wait(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/cuda/streams.py#L211)
 
 Make all future work submitted to the given stream wait for this event.
 

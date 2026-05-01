@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.invert_permutation
 
-torch.nn.utils.rnn.invert_permutation(*permutation*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/nn/utils/rnn.py#L240)
+torch.nn.utils.rnn.invert_permutation(*permutation*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/utils/rnn.py#L240)
 
 Returns the inverse of `permutation`.
 

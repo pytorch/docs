@@ -1,6 +1,6 @@
 # torch.mtia.record_memory_history
 
-torch.mtia.record_memory_history(*enabled='all'*, *stacks='python'*, *max_entries=0*)[[source]](https://github.com/pytorch/pytorch/blob/7e49a76253edc1ab706e08750fcdacd6cfc5e114/torch/mtia/__init__.py#L205)
+torch.mtia.record_memory_history(*enabled='all'*, *stacks='python'*, *max_entries=0*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/mtia/__init__.py#L205)
 
 Enable/Disable the memory profiler on MTIA allocator
 
