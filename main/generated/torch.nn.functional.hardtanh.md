@@ -1,6 +1,6 @@
 # torch.nn.functional.hardtanh
 
-torch.nn.functional.hardtanh(*input*, *min_val=-1.*, *max_val=1.*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/functional.py#L1770)
+torch.nn.functional.hardtanh(*input*, *min_val=-1.*, *max_val=1.*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/nn/functional.py#L1770)
 
 Applies the HardTanh function element-wise. See [`Hardtanh`](torch.nn.Hardtanh.html#torch.nn.Hardtanh) for more
 details.

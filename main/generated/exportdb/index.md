@@ -46,7 +46,7 @@ import torch._dynamo as torchdynamo
 
 class AssumeConstantResult(torch.nn.Module):
  """
- Applying `assume_constant_result` decorator to burn make non-tracable code as constant.
+ Applying `assume_constant_result` decorator to burn make non-traceable code as constant.
  """
 
  @torchdynamo.assume_constant_result
@@ -465,7 +465,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [python.closure](python.closure.html)
+Tags: [python.closure](python.closure.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -682,7 +682,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
+Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
 
 Support Level: SUPPORTED
 
@@ -743,7 +743,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
 
 Note
 
-Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
+Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
 
 Support Level: SUPPORTED
 
@@ -1319,7 +1319,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [torch.dynamic-shape](torch.dynamic-shape.html), [python.assert](python.assert.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.data-structure](python.data-structure.html), [python.assert](python.assert.html)
 
 Support Level: SUPPORTED
 

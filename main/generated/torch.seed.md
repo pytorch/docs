@@ -1,6 +1,6 @@
 # torch.seed
 
-torch.seed()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L89)
+torch.seed()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L89)
 
 Sets the seed for generating random numbers to a non-deterministic
 random number on all devices. Returns a 64 bit number used to seed the RNG.

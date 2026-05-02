@@ -54,7 +54,7 @@ implementations of the parent `api.PContext` class.
 
 ## Starting Multiple Workers
 
-torch.distributed.elastic.multiprocessing.start_processes(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *start_method='spawn'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/__init__.py#L103)
+torch.distributed.elastic.multiprocessing.start_processes(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *start_method='spawn'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/__init__.py#L103)
 
 Start `n` copies of `entrypoint` processes with the provided options.
 
@@ -170,7 +170,7 @@ Return type:
 
 ## Process Context
 
-*class*torch.distributed.elastic.multiprocessing.api.PContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L444)
+*class*torch.distributed.elastic.multiprocessing.api.PContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L444)
 
 The base class that standardizes operations over a set of processes that are launched via different mechanisms.
 
@@ -191,15 +191,15 @@ The log file is aggregated across all ranks selected by `tee`.
 to a file containing only lines that match _any_ of the filter strings.
 The log file is aggregated across all ranks selected by `tee`.
 
-*class*torch.distributed.elastic.multiprocessing.api.MultiprocessContext(*name*, *entrypoint*, *args*, *envs*, *start_method*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L711)
+*class*torch.distributed.elastic.multiprocessing.api.MultiprocessContext(*name*, *entrypoint*, *args*, *envs*, *start_method*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L711)
 
 `PContext` holding worker processes invoked as a function.
 
-*class*torch.distributed.elastic.multiprocessing.api.SubprocessContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L903)
+*class*torch.distributed.elastic.multiprocessing.api.SubprocessContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L903)
 
 `PContext` holding worker processes invoked as a binary.
 
-*class*torch.distributed.elastic.multiprocessing.api.RunProcsResult(*return_values=<factory>*, *failures=<factory>*, *stdouts=<factory>*, *stderrs=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L421)
+*class*torch.distributed.elastic.multiprocessing.api.RunProcsResult(*return_values=<factory>*, *failures=<factory>*, *stdouts=<factory>*, *stderrs=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L421)
 
 Results of a completed run of processes started with `start_processes()`. Returned by `PContext`.
 
@@ -210,14 +210,14 @@ Note the following:
 3. `stdouts` - path to stdout.log (empty string if no redirect)
 4. `stderrs` - path to stderr.log (empty string if no redirect)
 
-*class*torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L245)
+*class*torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L245)
 
 Default LogsSpecs implementation:
 
 - log_dir will be created if it doesn't exist
 - Generates nested folders for each attempt and rank.
 
-reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L283)
+reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L283)
 
 Uses following scheme to build log destination paths:
 
@@ -231,11 +231,11 @@ Return type:
 
 *LogsDest*
 
-*class*torch.distributed.elastic.multiprocessing.api.LogsDest(*stdouts=<factory>*, *stderrs=<factory>*, *tee_stdouts=<factory>*, *tee_stderrs=<factory>*, *error_files=<factory>*, *filtered_stdout=<factory>*, *filtered_stderr=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L183)
+*class*torch.distributed.elastic.multiprocessing.api.LogsDest(*stdouts=<factory>*, *stderrs=<factory>*, *tee_stdouts=<factory>*, *tee_stderrs=<factory>*, *error_files=<factory>*, *filtered_stdout=<factory>*, *filtered_stderr=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L183)
 
 For each log type, holds mapping of local rank ids to file paths.
 
-*class*torch.distributed.elastic.multiprocessing.api.LogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L198)
+*class*torch.distributed.elastic.multiprocessing.api.LogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L198)
 
 Defines logs processing and redirection for each worker process.
 
@@ -249,7 +249,7 @@ by local_rank to selectively redirect.
 Pass a single `Std` enum to duplicate streams for all workers,
 or a mapping keyed by local_rank to selectively duplicate.
 
-*abstract*reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/distributed/elastic/multiprocessing/api.py#L227)
+*abstract*reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/elastic/multiprocessing/api.py#L227)
 
 Given the environment variables, builds destination of log files for each of the local ranks.
 

@@ -1,6 +1,6 @@
 # SoftMarginLoss
 
-*class*torch.nn.modules.loss.SoftMarginLoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/modules/loss.py#L1150)
+*class*torch.nn.modules.loss.SoftMarginLoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/nn/modules/loss.py#L1150)
 
 Creates a criterion that optimizes a two-class classification
 logistic loss between input tensor xxx and target tensor yyy
@@ -44,7 +44,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/nn/modules/loss.py#L1192)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/nn/modules/loss.py#L1192)
 
 Runs the forward pass.
 

@@ -1,6 +1,6 @@
 # get_default_qconfig_propagation_list
 
-*class*torch.ao.quantization.quantization_mappings.get_default_qconfig_propagation_list[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/ao/quantization/quantization_mappings.py#L310)
+*class*torch.ao.quantization.quantization_mappings.get_default_qconfig_propagation_list[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/ao/quantization/quantization_mappings.py#L310)
 
 Get the default list of module types that we'll attach qconfig
 attribute to in prepare

@@ -1,6 +1,6 @@
 # torch.random
 
-torch.random.fork_rng(*devices=None*, *enabled=True*, *_caller='fork_rng'*, *_devices_kw='devices'*, *device_type='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L156)
+torch.random.fork_rng(*devices=None*, *enabled=True*, *_caller='fork_rng'*, *_devices_kw='devices'*, *device_type='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L156)
 
 Forks the RNG, so that when you return, the RNG is reset
 to the state that it was previously in.
@@ -22,7 +22,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)
 
-torch.random.get_rng_state()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L39)
+torch.random.get_rng_state()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L39)
 
 Returns the random number generator state as a torch.ByteTensor.
 
@@ -36,7 +36,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-torch.random.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L144)
+torch.random.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L144)
 
 Returns the initial seed for generating random numbers as a
 Python long.
@@ -49,7 +49,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.random.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L49)
+torch.random.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L49)
 
 Sets the seed for generating random numbers on all devices. Returns a
 torch.Generator object.
@@ -64,7 +64,7 @@ is raised. Negative inputs are remapped to positive values with the formula
 Return type:
 [*Generator*](generated/torch.Generator.html#torch.Generator)
 
-torch.random.seed()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L89)
+torch.random.seed()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L89)
 
 Sets the seed for generating random numbers to a non-deterministic
 random number on all devices. Returns a 64 bit number used to seed the RNG.
@@ -73,7 +73,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.random.set_rng_state(*new_state*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L27)
+torch.random.set_rng_state(*new_state*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L27)
 
 Sets the random number generator state.
 
@@ -86,7 +86,7 @@ Parameters:
 
 **new_state** (*torch.ByteTensor*) - The desired state
 
-torch.random.thread_safe_generator()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/random.py#L237)
+torch.random.thread_safe_generator()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/random.py#L237)
 
 Returns a thread-safe random number generator for use in DataLoader workers.
 This function provides a convenient way for transforms and user code to use

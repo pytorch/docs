@@ -1,6 +1,6 @@
 # torch._logging.set_logs
 
-torch._logging.set_logs(***, *all=None*, *dynamo=None*, *aot=None*, *autograd=None*, *dynamic=None*, *inductor=None*, *distributed=None*, *c10d=None*, *ddp=None*, *fsdp=None*, *dtensor=None*, *onnx=None*, *bytecode=False*, *aot_graphs=False*, *aot_joint_graph=False*, *ddp_graphs=False*, *graph=False*, *graph_code=False*, *graph_code_verbose=False*, *graph_breaks=False*, *side_effects=False*, *graph_sizes=False*, *guards=False*, *recompiles=False*, *recompiles_verbose=False*, *trace_source=False*, *trace_call=False*, *trace_bytecode=False*, *output_code=False*, *kernel_code=False*, *schedule=False*, *perf_hints=False*, *pre_grad_graphs=False*, *post_grad_graphs=False*, *ir_pre_fusion=False*, *ir_post_fusion=False*, *onnx_diagnostics=False*, *fusion=False*, *overlap=False*, *export=None*, *modules=None*, *cudagraphs=False*, *sym_node=False*, *compiled_autograd=False*, *compiled_autograd_verbose=False*, *cudagraph_static_inputs=False*, *benchmarking=False*, *autotuning=False*, *graph_region_expansion=False*, *inductor_metrics=False*, *hierarchical_compile=False*, *compute_dependencies=False*, *caching=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/_logging/_internal.py#L210)
+torch._logging.set_logs(***, *all=None*, *dynamo=None*, *aot=None*, *autograd=None*, *dynamic=None*, *inductor=None*, *distributed=None*, *c10d=None*, *ddp=None*, *fsdp=None*, *dtensor=None*, *onnx=None*, *bytecode=False*, *aot_graphs=False*, *aot_joint_graph=False*, *ddp_graphs=False*, *graph=False*, *graph_code=False*, *graph_code_verbose=False*, *graph_breaks=False*, *side_effects=False*, *graph_sizes=False*, *guards=False*, *recompiles=False*, *recompiles_verbose=False*, *trace_source=False*, *trace_call=False*, *trace_bytecode=False*, *output_code=False*, *kernel_code=False*, *schedule=False*, *perf_hints=False*, *pre_grad_graphs=False*, *post_grad_graphs=False*, *ir_pre_fusion=False*, *ir_post_fusion=False*, *onnx_diagnostics=False*, *fusion=False*, *overlap=False*, *export=None*, *modules=None*, *cudagraphs=False*, *sym_node=False*, *compiled_autograd=False*, *compiled_autograd_verbose=False*, *cudagraph_static_inputs=False*, *benchmarking=False*, *autotuning=False*, *graph_region_expansion=False*, *inductor_metrics=False*, *hierarchical_compile=False*, *compute_dependencies=False*, *caching=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/_logging/_internal.py#L210)
 
 Sets the log level for individual components and toggles individual log
 artifact types.
@@ -87,7 +87,7 @@ corresponding to function call. Python 3.11+ only. Default: `False`
 - **trace_bytecode** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit bytecode instructions and traced stack state as TorchDynamo
 traces bytecode. Default: `False`
 - **output_code** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the TorchInductor output code on a per-graph basis. Default: `False`
-- **kernel_code** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the TorchInductor output code on a per-kernel bases. Default: `False`
+- **kernel_code** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the TorchInductor output code on a per-kernel basis. Default: `False`
 - **schedule** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the TorchInductor schedule. Default: `False`
 - **perf_hints** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the TorchInductor perf hints. Default: `False`
 - **pre_grad_graphs** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the graphs before inductor grad passes. Default: `False`
@@ -97,7 +97,7 @@ traces bytecode. Default: `False`
 - **onnx_diagnostics** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the ONNX exporter diagnostics in logging. Default: `False`
 - **fusion** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit detailed Inductor fusion decisions. Default: `False`
 - **overlap** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit detailed Inductor compute/comm overlap decisions. Default: `False`
-- **sym_node** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit debug info for various SymNode opterations. Default: `False`
+- **sym_node** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit debug info for various SymNode operations. Default: `False`
 - **export** (`Optional[int]`) - The log level for export. Default: `logging.WARN`
 - **benchmarking** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit detailed Inductor benchmarking information. Default: `False`
 - **modules** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - This argument provides an alternate way to specify the above log

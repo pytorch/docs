@@ -20,7 +20,7 @@ Original source code:
     
     class AssumeConstantResult(torch.nn.Module):
         """
-        Applying `assume_constant_result` decorator to burn make non-tracable code as constant.
+        Applying `assume_constant_result` decorator to burn make non-traceable code as constant.
         """
     
         @torchdynamo.assume_constant_result
@@ -64,7 +64,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 
@@ -131,7 +131,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 

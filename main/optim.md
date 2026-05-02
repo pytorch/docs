@@ -130,7 +130,7 @@ for input, target in dataset:
 
 ## Base class
 
-*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/optimizer.py#L339)
+*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/optim/optimizer.py#L339)
 
 Base class for all optimizers.
 
@@ -162,7 +162,7 @@ options (used when a parameter group doesn't specify them).
 
 ## Module-level hooks
 
-torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/optimizer.py#L309)
+torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/optim/optimizer.py#L309)
 
 Register a post hook common to all optimizers.
 
@@ -185,7 +185,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/optimizer.py#L289)
+torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/optim/optimizer.py#L289)
 
 Register a pre hook common to all optimizers.
 
@@ -719,7 +719,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 | [`swa_utils.get_swa_avg_fn`](generated/torch.optim.swa_utils.get_swa_avg_fn.html#torch.optim.swa_utils.get_swa_avg_fn) | Get the function applying stochastic weight average (SWA) across a single param. |
 | [`swa_utils.get_swa_multi_avg_fn`](generated/torch.optim.swa_utils.get_swa_multi_avg_fn.html#torch.optim.swa_utils.get_swa_multi_avg_fn) | Get the function applying stochastic weight average (SWA) across multiple params. |
 
-torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/swa_utils.py#L42)
+torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/optim/swa_utils.py#L42)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -748,7 +748,7 @@ Return type:
 
 Callable
 
-torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/optim/swa_utils.py#L371)
+torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/optim/swa_utils.py#L371)
 
 Update BatchNorm running_mean, running_var buffers in the model.
 

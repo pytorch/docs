@@ -1,6 +1,6 @@
 # get_fuser_method_mapping
 
-*class*torch.ao.quantization.backend_config.utils.get_fuser_method_mapping(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/ao/quantization/backend_config/utils.py#L79)
+*class*torch.ao.quantization.backend_config.utils.get_fuser_method_mapping(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/ao/quantization/backend_config/utils.py#L79)
 
 Return type:
 

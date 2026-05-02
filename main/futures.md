@@ -16,7 +16,7 @@ Warning
 
 GPU support is a beta feature, subject to changes.
 
-add_done_callback(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L168)
+add_done_callback(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L168)
 
 Append the given callback function to this `Future`, which will be run
 when the `Future` is completed. Multiple callbacks can be added to
@@ -63,7 +63,7 @@ This will run after the future has finished.
 5
 ```
 
-done()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L48)
+done()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L48)
 
 Return `True` if this `Future` is done. A `Future` is done if it
 has a result or an exception.
@@ -78,7 +78,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-set_exception(*result*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L253)
+set_exception(*result*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L253)
 
 Set an exception for this `Future`, which will mark this `Future` as
 completed with an error and trigger all attached callbacks. Note that
@@ -100,7 +100,7 @@ Traceback (most recent call last):
 ValueError: foo
 ```
 
-set_result(*result*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L213)
+set_result(*result*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L213)
 
 Set the result for this `Future`, which will mark this `Future` as
 completed and trigger all attached callbacks. Note that a `Future`
@@ -140,7 +140,7 @@ tensor([3., 3.])
 >>> t.join()
 ```
 
-then(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L103)
+then(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L103)
 
 Append the given callback function to this `Future`, which will be run
 when the `Future` is completed. Multiple callbacks can be added to
@@ -212,7 +212,7 @@ RPC return value is 5.
 Chained cb done. None
 ```
 
-value()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L82)
+value()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L82)
 
 Obtain the value of an already-completed future.
 
@@ -236,7 +236,7 @@ Return type:
 
 *T*
 
-wait()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L61)
+wait()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L61)
 
 Block until the value of this `Future` is ready.
 
@@ -260,7 +260,7 @@ Return type:
 
 *T*
 
-torch.futures.collect_all(*futures*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L285)
+torch.futures.collect_all(*futures*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L285)
 
 Collects the provided `Future` objects into a single
 combined `Future` that is completed when all of the
@@ -294,7 +294,7 @@ fut0 result = 0
 fut1 result = 1
 ```
 
-torch.futures.wait_all(*futures*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/futures/__init__.py#L317)
+torch.futures.wait_all(*futures*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/futures/__init__.py#L317)
 
 Waits for all provided futures to be complete, and returns
 the list of completed values. If any of the futures encounters an error,

@@ -1,6 +1,6 @@
 # Stream
 
-*class*torch.xpu.streams.Stream(*device=None*, *priority=0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L17)
+*class*torch.xpu.streams.Stream(*device=None*, *priority=0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L17)
 
 Wrapper around a XPU stream.
 
@@ -20,7 +20,7 @@ If the value falls outside of the allowed priority range, it will automatically 
 mapped to the nearest valid priority (lowest for large positive numbers or
 highest for large negative numbers).
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L78)
+query()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L78)
 
 Check if all the work submitted has been completed.
 
@@ -32,7 +32,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-record_event(*event=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L63)
+record_event(*event=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L63)
 
 Record an event.
 
@@ -45,11 +45,11 @@ Returns:
 
 Recorded event.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L86)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L86)
 
 Wait for all the kernels in this stream to complete.
 
-wait_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L44)
+wait_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L44)
 
 Make all future work submitted to the stream wait for an event.
 
@@ -57,7 +57,7 @@ Parameters:
 
 **event** ([*Event*](torch.xpu.streams.Event.html#torch.xpu.streams.Event)*,*[*torch.Event*](torch.Event.html#torch.Event)) - an event to wait for.
 
-wait_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/fbfd15846f570ac46ff9e34a533162fb2054dbd9/torch/xpu/streams.py#L52)
+wait_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/streams.py#L52)
 
 Synchronize with another stream.
 
