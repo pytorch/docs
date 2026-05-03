@@ -10,7 +10,7 @@ all-new on-device inference library. You can also review
 documentation on [XNNPACK](https://pytorch.org/executorch/stable/native-delegates-executorch-xnnpack-delegate.html)
 and [Vulkan](https://pytorch.org/executorch/stable/native-delegates-executorch-vulkan-delegate.html) delegates.
 
-torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/utils/mobile_optimizer.py#L15)
+torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/utils/mobile_optimizer.py#L15)
 
 Optimize a torch script module for mobile deployment.
 

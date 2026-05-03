@@ -367,9 +367,54 @@ currently applies to `reduce_scatter` and `all_reduce` within the
 supported domains only; other collectives (e.g., `all_gather`) and
 inter-node communication are not affected.
 
+## Rendezvous at Scale
+
+By default, `rendezvous` exchanges metadata via the TCPStore. Each rank in the
+symmetric memory group issues one store set and N-1 store gets (where N is the
+group size, typically 8-72 for NVLink domains). At large world sizes the
+TCPStore (~200k QPS capacity) becomes a bottleneck: for example, with 72-rank
+NVLink groups at 10k total ranks, a single rendezvous takes ~3.6s via TCPStore;
+at 100k ranks this grows to ~36s.
+
+To use the process group's NCCL allgather instead, set
+`use_pg_for_symm_mem_rendezvous` in the process group options:
+
+```
+opts = dist.ProcessGroupNCCL.Options()
+opts.use_pg_for_symm_mem_rendezvous = True
+pg = dist.new_group(ranks, pg_options=opts)
+
+t = symm_mem.empty(size, device=device)
+hdl = symm_mem.rendezvous(t, group=pg)
+```
+
+If the process group is only used for symmetric memory and won't be used for
+regular collectives afterwards (e.g., an expert-parallelism group), you can
+release the NCCL communicator after rendezvous via `abort()`. The symmetric
+memory handle remains usable since it only depends on the mapped memory, not the
+communicator:
+
+```
+opts = dist.ProcessGroupNCCL.Options()
+opts.use_pg_for_symm_mem_rendezvous = True
+ep_pg = dist.new_group(ep_ranks, pg_options=opts)
+
+t = symm_mem.empty(size, device=device)
+hdl = symm_mem.rendezvous(t, group=ep_pg)
+
+# Release the NCCL communicator since ep_pg won't be used for collectives.
+# The symm_mem handle is still usable -- it only needs the mapped memory.
+ep_pg.abort()
+```
+
+Note
+
+Enabling `use_pg_for_symm_mem_rendezvous` will lazily create the NCCL
+communicator for the process group if it doesn't already exist.
+
 ## API Reference
 
-torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L1931)
+torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L1931)
 
 torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)
 
@@ -391,7 +436,7 @@ Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](generated/torch.set_default_device.html#torch.set_default_device)). `device` will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
 
-torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L1979)
+torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L1979)
 
 Establish a symmetric memory tensor among participating processes. This is
 a collective operation.
@@ -408,7 +453,7 @@ Return type:
 
 _SymmetricMemory
 
-torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L2007)
+torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L2007)
 
 Check if NVSHMEM (CUDA) or rocSHMEM (ROCm) is available in the current
 build and usable at runtime. On ROCm, rocSHMEM `VERSION` must be at
@@ -418,7 +463,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L2025)
+torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L2025)
 
 Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
@@ -430,7 +475,7 @@ Parameters:
 **backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
 only "NVSHMEM", "CUDA", "NCCL" are supported.
 
-torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L2039)
+torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L2039)
 
 Get the backend for symmetric memory allocation for a given device. If not
 found, return None.
@@ -443,7 +488,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str) | None
 
-torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/distributed/_symmetric_memory/__init__.py#L2109)
+torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/_symmetric_memory/__init__.py#L2109)
 
 Get the symmetric memory pool for a given device. If not found, create a new
 pool.

@@ -1,6 +1,6 @@
 # get_new_attr_name_with_prefix
 
-*class*torch.ao.quantization.fx.utils.get_new_attr_name_with_prefix(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/ao/quantization/fx/utils.py#L174)
+*class*torch.ao.quantization.fx.utils.get_new_attr_name_with_prefix(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/fx/utils.py#L174)
 
 Return type:
 

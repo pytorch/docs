@@ -1,0 +1,6 @@
+﻿torch.xpu.temperature
+=====================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: temperature

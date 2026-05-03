@@ -3234,6 +3234,7 @@
 - [Event](https://docs.pytorch.org/docs/stable/generated/torch.xpu.streams.Event.md)
 - [Stream](https://docs.pytorch.org/docs/stable/generated/torch.xpu.streams.Stream.md)
 - [torch.xpu.synchronize](https://docs.pytorch.org/docs/stable/generated/torch.xpu.synchronize.md)
+- [torch.xpu.temperature](https://docs.pytorch.org/docs/stable/generated/torch.xpu.temperature.md)
 - [torch.zero_](https://docs.pytorch.org/docs/stable/generated/torch.zero_.md)
 - [torch.zeros](https://docs.pytorch.org/docs/stable/generated/torch.zeros.md)
 - [torch.zeros_like](https://docs.pytorch.org/docs/stable/generated/torch.zeros_like.md)

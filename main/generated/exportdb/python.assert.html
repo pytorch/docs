@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git7b5f32b )">
+<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git7b5f32b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3562,7 +3562,7 @@ document.write(`
 <h2>list_contains<a class="headerlink" href="#list-contains" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="#"><span class="doc">python.assert</span></a></p>
+<p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">python.assert</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3963,7 +3963,7 @@ document.write(`
        "headline": "python.assert",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/python.assert.html",
-       "articleBody": "python.assert# dynamic_shape_assert# Note Tags: python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeAssert(torch.nn.Module): \"\"\" A basic usage of python assertion. \"\"\" def forward(self, x): # assertion with error message assert x.shape[0] \u003e 2, f\"{x.shape[0]} is greater than 2\" # noqa: S101 # assertion without error message assert x.shape[0] \u003e 1 # noqa: S101 return x example_args = (torch.randn(3, 2),) tags = {\"python.assert\"} model = DynamicShapeAssert() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): return (x,) Graph signature: # inputs x: USER_INPUT # outputs x: USER_OUTPUT Range constraints: {} list_contains# Note Tags: torch.dynamic-shape, python.data-structure, python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] # noqa: S101 assert x.size(0) not in [4, 5, 6] # noqa: S101 assert \"monkey\" not in [\"cow\", \"pig\"] # noqa: S101 return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}",
+       "articleBody": "python.assert# dynamic_shape_assert# Note Tags: python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeAssert(torch.nn.Module): \"\"\" A basic usage of python assertion. \"\"\" def forward(self, x): # assertion with error message assert x.shape[0] \u003e 2, f\"{x.shape[0]} is greater than 2\" # noqa: S101 # assertion without error message assert x.shape[0] \u003e 1 # noqa: S101 return x example_args = (torch.randn(3, 2),) tags = {\"python.assert\"} model = DynamicShapeAssert() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): return (x,) Graph signature: # inputs x: USER_INPUT # outputs x: USER_OUTPUT Range constraints: {} list_contains# Note Tags: python.data-structure, torch.dynamic-shape, python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] # noqa: S101 assert x.size(0) not in [4, 5, 6] # noqa: S101 assert \"monkey\" not in [\"cow\", \"pig\"] # noqa: S101 return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

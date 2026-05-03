@@ -1,6 +1,6 @@
 # torch.autograd.graph.Node.name
 
-*abstract*Node.name()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/autograd/graph.py#L57)
+*abstract*Node.name()[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/autograd/graph.py#L57)
 
 Return the name.
 

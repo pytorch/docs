@@ -1,6 +1,6 @@
 # torch.nn.functional.layer_norm
 
-torch.nn.functional.layer_norm(*input*, *normalized_shape*, *weight=None*, *bias=None*, *eps=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/nn/functional.py#L2924)
+torch.nn.functional.layer_norm(*input*, *normalized_shape*, *weight=None*, *bias=None*, *eps=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/functional.py#L2924)
 
 Apply Layer Normalization for last certain number of dimensions.
 

@@ -2,7 +2,7 @@
 
 A set of tools to verify the correctness of ONNX models.
 
-torch.onnx.verification.verify_onnx_program(*onnx_program*, *args=None*, *kwargs=None*, *compare_intermediates=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/onnx/_internal/exporter/_verification.py#L148)
+torch.onnx.verification.verify_onnx_program(*onnx_program*, *args=None*, *kwargs=None*, *compare_intermediates=False*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/onnx/_internal/exporter/_verification.py#L148)
 
 Verify the ONNX model by comparing the values with the expected values from ExportedProgram.
 
@@ -45,7 +45,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 - **expected_dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)) - The data type of the expected value.
 - **actual_dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)) - The data type of the actual value.
 
-asdict()[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/onnx/_internal/exporter/_verification.py#L100)
+asdict()[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/onnx/_internal/exporter/_verification.py#L100)
 
 Convert the VerificationInfo object to a dictionary.
 
@@ -57,7 +57,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*classmethod*from_tensors(*name*, *expected*, *actual*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/onnx/_internal/exporter/_verification.py#L59)
+*classmethod*from_tensors(*name*, *expected*, *actual*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/onnx/_internal/exporter/_verification.py#L59)
 
 Create a VerificationInfo object from two tensors.
 

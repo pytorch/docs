@@ -29,6 +29,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`set_stream`](generated/torch.xpu.set_stream.html#torch.xpu.set_stream) | Set the current stream. This is a wrapper API to set the stream. |
 | [`stream`](generated/torch.xpu.stream_function.html#torch.xpu.stream) | Wrap around the Context-manager StreamContext that selects a given stream. |
 | [`synchronize`](generated/torch.xpu.synchronize.html#torch.xpu.synchronize) | Wait for all kernels in all streams on a XPU device to complete. |
+| [`temperature`](generated/torch.xpu.temperature.html#torch.xpu.temperature) | Return the GPU temperature in degrees Celsius. |
 
 ## Random Number Generator
 
@@ -78,7 +79,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`set_per_process_memory_fraction`](generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction) | Set the memory fraction for a single process on XPU device. |
 | [`MemPool`](generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
 
-*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/xpu/memory.py#L597)
+*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/xpu/memory.py#L597)
 
 A context manager that routes allocations to a given pool.
 

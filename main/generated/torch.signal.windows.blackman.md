@@ -1,6 +1,6 @@
 # torch.signal.windows.blackman
 
-torch.signal.windows.blackman(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b5f32b1c4911f959ed9f61cd0aefb7ed57e0317/torch/signal/windows/windows.py#L538)
+torch.signal.windows.blackman(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/signal/windows/windows.py#L538)
 
 Computes the Blackman window.
 
