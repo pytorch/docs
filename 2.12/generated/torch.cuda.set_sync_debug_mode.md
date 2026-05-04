@@ -1,6 +1,6 @@
 # torch.cuda.set_sync_debug_mode
 
-torch.cuda.set_sync_debug_mode(*debug_mode*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1263)
+torch.cuda.set_sync_debug_mode(*debug_mode*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1265)
 
 Set the debug mode for cuda synchronizing operations.
 

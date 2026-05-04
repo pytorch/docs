@@ -1,6 +1,6 @@
 # StreamContext
 
-*class*torch.cuda.StreamContext(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L716)
+*class*torch.cuda.StreamContext(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L718)
 
 Context-manager that selects a given stream.
 

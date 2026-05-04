@@ -1,6 +1,6 @@
 # torch.cuda.clock_rate
 
-torch.cuda.clock_rate(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1545)
+torch.cuda.clock_rate(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1547)
 
 Return the clock speed of the GPU SM in MHz (megahertz) over the past sample period as given by nvidia-smi.
 

@@ -1,6 +1,6 @@
 # torch.cuda.get_device_properties
 
-torch.cuda.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L685)
+torch.cuda.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L687)
 
 Get the properties of a device.
 

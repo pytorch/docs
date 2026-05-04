@@ -1,6 +1,6 @@
 # torch.cuda.device_count
 
-torch.cuda.device_count()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1110)
+torch.cuda.device_count()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L1112)
 
 Return the number of GPUs available.
 
