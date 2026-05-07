@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyTorch Docathon 2026 Leaderboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+:root {
+    --bg-primary: #000000;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #222832;
+    --border: #30363d;
+    --text-primary: #ffffff;
+    --text-secondary: #8b949e;
+    --text-muted: #6c6c6d;
+    --accent-red: #de3412;
+    --accent-orange: #F2765D;
+    --accent-indigo: #812CE5;
+    --accent-violet: #B932CC;
+    --accent-fuchsia: #CC2FAA;
+    --accent-green: #3fb950;
+    --hover-dark: #711B09;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+.pytorch-logo {
+    margin-bottom: 0.75rem;
+}
+.pytorch-logo svg {
+    height: 48px;
+    width: auto;
+}
+header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+.event-dates {
+    color: var(--accent-orange);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+.updated {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* Stats cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+}
+.stat-icon { font-size: 1.5rem; margin-bottom: 0.25rem; color: var(--text-secondary); }
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.stat-value.orange { color: var(--accent-orange); }
+.stat-value.blue { color: var(--accent-indigo); }
+.stat-value.green { color: var(--accent-green); }
+.stat-value.red { color: var(--accent-red); }
+.stat-value.purple { color: var(--accent-fuchsia); }
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Repo cards */
+.repos-section { margin-bottom: 2.5rem; }
+.repos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1rem;
+}
+.repo-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+.repo-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--accent-orange);
+}
+.repo-name a {
+    color: var(--accent-orange);
+    text-decoration: none;
+}
+.repo-name a:hover { text-decoration: underline; }
+.repo-stats {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+.stat-pill {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 500;
+}
+.stat-pill.merged {
+    background: rgba(240, 136, 62, 0.15);
+    color: var(--accent-orange);
+}
+.stat-pill.open {
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--accent-green);
+}
+.stat-pill.closed {
+    background: rgba(129, 44, 229, 0.15);
+    color: var(--accent-indigo);
+}
+.progress-bar-bg {
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.35rem;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-indigo));
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+.progress-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+.repo-leader {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+.repo-leader-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    font-weight: 600;
+}
+.repo-leader-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+}
+.repo-leader-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+}
+.repo-leader-info a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.repo-leader-info a:hover { color: var(--accent-orange); }
+.repo-leader-pts {
+    color: var(--accent-orange);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-left: auto;
+}
+
+/* Chart */
+.chart-section { margin-bottom: 2.5rem; }
+.chart-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    gap: 0.75rem;
+}
+.chart-label {
+    min-width: 180px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    text-align: right;
+    justify-content: flex-end;
+}
+.chart-label a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+.chart-label a:hover { color: var(--accent-orange); }
+.chart-medal { font-size: 1rem; }
+.chart-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.chart-bar-bg {
+    flex: 1;
+    height: 28px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+.chart-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-red), var(--accent-fuchsia));
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    min-width: 40px;
+    transition: width 0.8s ease;
+}
+.chart-bar.bar-0 {
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+}
+.chart-bar.bar-1 {
+    background: linear-gradient(90deg, #c0c0c0, #a0a0b0);
+}
+.chart-bar.bar-2 {
+    background: linear-gradient(90deg, #cd7f32, #b8722e);
+}
+.chart-value {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--bg-primary);
+}
+
+/* Table */
+.table-section { margin-bottom: 2rem; }
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    background: var(--bg-tertiary);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: var(--hover-dark); }
+tr.rank-0 { background: rgba(255, 215, 0, 0.06); }
+tr.rank-1 { background: rgba(192, 192, 192, 0.06); }
+tr.rank-2 { background: rgba(205, 127, 50, 0.06); }
+.col-rank {
+    width: 70px;
+    text-align: center;
+}
+.rank-num {
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+.rank-medal { font-size: 1rem; margin-left: 0.25rem; vertical-align: middle; }
+.col-author {
+    white-space: nowrap;
+}
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    vertical-align: middle;
+    margin-right: 0.4rem;
+}
+.col-author a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+.col-author a:hover { color: var(--accent-orange); }
+.col-points {
+    font-weight: 700;
+    color: var(--accent-orange);
+    font-size: 1.1rem;
+}
+.col-prs { color: var(--text-secondary); }
+.diff-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+.diff-easy {
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--accent-green);
+}
+.diff-medium {
+    background: rgba(242, 118, 93, 0.15);
+    color: var(--accent-orange);
+}
+.diff-advanced {
+    background: rgba(222, 52, 18, 0.15);
+    color: var(--accent-red);
+}
+.diff-unknown {
+    background: rgba(139, 148, 158, 0.15);
+    color: var(--text-secondary);
+}
+.pr-link {
+    display: inline-block;
+    color: var(--accent-orange);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.35rem;
+}
+.pr-link:hover { text-decoration: underline; }
+
+/* Winners podium */
+.winners-section {
+    margin-bottom: 2.5rem;
+}
+.podium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.podium-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+.podium-gold { border-color: var(--gold); box-shadow: 0 0 20px rgba(255, 215, 0, 0.1); }
+.podium-silver { border-color: var(--silver); box-shadow: 0 0 15px rgba(192, 192, 192, 0.08); }
+.podium-bronze { border-color: var(--bronze); box-shadow: 0 0 15px rgba(205, 127, 50, 0.08); }
+.podium-medal { font-size: 2.5rem; margin-bottom: 0.25rem; }
+.podium-place {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+.podium-people {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+}
+.winner-person {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.winner-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+}
+.podium-gold .winner-avatar { border-color: var(--gold); }
+.podium-silver .winner-avatar { border-color: var(--silver); }
+.podium-bronze .winner-avatar { border-color: var(--bronze); }
+.winner-person a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+.winner-person a:hover { color: var(--accent-orange); }
+.winner-pts {
+    color: var(--accent-orange);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+.mentions-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+.mentions-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--gold);
+}
+.mention-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+}
+.mention-item:last-child { border-bottom: none; }
+.mention-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+.mention-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.mention-info a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+.mention-info a:hover { color: var(--accent-orange); }
+.mention-reason {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+.mention-pts {
+    color: var(--accent-orange);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+footer a { color: var(--text-secondary); text-decoration: none; }
+footer a:hover { color: var(--accent-orange); }
+
+@media (max-width: 640px) {
+    header h1 { font-size: 1.6rem; }
+    .chart-label { min-width: 100px; font-size: 0.75rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="pytorch-logo">
+            <svg viewBox="0.6 539.9 487.3 120.2" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <path fill="#EE4C2C" d="M63.1,567.3l-6.6,6.6c10.8,10.8,10.8,28.2,0,38.8c-10.8,10.8-28.2,10.8-38.8,0c-10.8-10.8-10.8-28.2,0-38.8l0,0l17.1-17.1l2.4-2.4l0,0v-12.9l-25.8,25.8c-14.4,14.4-14.4,37.6,0,52s37.6,14.4,51.7,0C77.5,604.8,77.5,581.7,63.1,567.3z"/>
+                    <circle fill="#EE4C2C" cx="50.2" cy="560.9" r="4.8"/>
+                </g>
+                <g><g>
+                    <path fill="#FFFFFF" d="M129.8,600.3h-11.1v28.5h-8.4v-81.1c0,0,19.2,0,20.4,0c21.3,0,31.5,10.5,31.5,25.2C162.5,591,149.9,600.3,129.8,600.3z M130.7,555.8c-0.9,0-11.7,0-11.7,0v37.3l11.4-0.3c15.3-0.3,23.7-6.3,23.7-18.9C154.1,562.1,145.7,555.8,130.7,555.8z"/>
+                    <path fill="#FFFFFF" d="M199.8,628.5l-4.8,12.9c-5.4,14.4-11.1,18.6-19.2,18.6c-4.5,0-7.8-1.2-11.4-2.7l2.4-7.5c2.7,1.5,5.7,2.7,9,2.7c4.5,0,7.8-2.4,12.3-13.8l3.9-10.5l-23.1-58.6h8.7l18.6,49l18.3-49h8.4L199.8,628.5z"/>
+                    <path fill="#FFFFFF" d="M250.3,555.8v73.3h-8.4v-73.3h-28.5V548h65.2v7.8C278.5,555.8,250.3,555.8,250.3,555.8z"/>
+                    <path fill="#FFFFFF" d="M302.3,630.6c-16.5,0-28.5-12.3-28.5-31.2c0-18.9,12.6-31.5,29.4-31.5s28.5,12.3,28.5,31.2C331.4,618,318.8,630.6,302.3,630.6z M302.6,575.4c-12.6,0-20.7,9.9-20.7,24c0,14.4,8.4,24.3,21,24.3s20.7-9.9,20.7-24C323.6,585,315.2,575.4,302.6,575.4z"/>
+                    <path fill="#FFFFFF" d="M351.8,629.1h-8.1v-59.5l8.1-1.8v12.6c3.9-7.5,9.6-12.6,17.4-12.6c3.9,0,7.5,1.2,10.5,2.7l-2.1,7.5c-2.7-1.5-5.7-2.7-9-2.7c-6.3,0-12,4.8-16.8,15.3V629.1L351.8,629.1z"/>
+                    <path fill="#FFFFFF" d="M411.3,630.6c-18,0-29.1-12.9-29.1-31.2c0-18.6,12.3-31.5,29.1-31.5c7.2,0,13.5,1.8,18.6,5.1l-2.1,7.2c-4.5-3-10.2-4.8-16.5-4.8c-12.9,0-20.7,9.6-20.7,23.7c0,14.4,8.4,24,21,24c6,0,12-1.8,16.5-4.8l1.8,7.5C424.5,628.8,418.2,630.6,411.3,630.6z"/>
+                    <path fill="#FFFFFF" d="M479.5,629.1v-38.5c0-10.5-4.2-15-12.6-15c-6.9,0-13.5,3.6-18.3,8.4v45.1h-8.1v-87.4l8.1-1.8c0,0,0,37.3,0,37.6c6.3-6.3,14.1-9.3,20.7-9.3c11.4,0,18.6,7.5,18.6,20.4v40.6H479.5z"/>
+                </g></g>
+            </svg>
+        </div>
+        <h1>PyTorch Docathon 2026</h1>
+        <p>Leaderboard &mdash; Community documentation contributions</p>
+        <div class="event-dates">May 05, 2026 10:00 AM PT &mdash; May 17, 2026 05:00 PM PT</div>
+        <div class="updated">Updated every 12 hours &mdash; Last updated: 2026-05-07 01:32 PM PT</div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-value blue">14</div>
+            <div class="stat-label">Contributors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-code-pull-request"></i></div>
+            <div class="stat-value orange">51</div>
+            <div class="stat-label">PRs Closed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+            <div class="stat-value purple">110</div>
+            <div class="stat-label">Total Issues</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-value green">35</div>
+            <div class="stat-label">Issues Closed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-circle-dot"></i></div>
+            <div class="stat-value red">75</div>
+            <div class="stat-label">Issues Open</div>
+        </div>
+    </div>
+
+    
+
+    <div class="repos-section">
+        <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="var(--text-secondary)">
+                <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/>
+            </svg>
+            Repositories
+        </div>
+        <div class="repos-grid">
+        <div class="repo-card">
+            <div class="repo-name">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/>
+                </svg>
+                <a href="https://github.com/pytorch/pytorch" target="_blank">
+                    pytorch/pytorch
+                </a>
+            </div>
+            <div class="repo-stats">
+                <span class="stat-pill open">19 PRs open</span>
+                <span class="stat-pill closed">40 PRs closed</span>
+                <span class="stat-pill open">51 issues remaining</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 68%"></div>
+            </div>
+            <div class="progress-label">68% PRs closed</div>
+            <div class="repo-leader">
+                <span class="repo-leader-label"><i class="fa-solid fa-crown"></i> Repo Leader</span>
+                <div class="repo-leader-info">
+                    <img src="https://github.com/ymrohit.png?size=24"
+                         alt="" class="repo-leader-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ymrohit" target="_blank">
+                        ymrohit
+                    </a>
+                    <span class="repo-leader-pts">17 pts</span>
+                </div>
+            </div>
+        </div>
+        <div class="repo-card">
+            <div class="repo-name">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/>
+                </svg>
+                <a href="https://github.com/pytorch/tutorials" target="_blank">
+                    pytorch/tutorials
+                </a>
+            </div>
+            <div class="repo-stats">
+                <span class="stat-pill open">4 PRs open</span>
+                <span class="stat-pill closed">9 PRs closed</span>
+                <span class="stat-pill open">12 issues remaining</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 69%"></div>
+            </div>
+            <div class="progress-label">69% PRs closed</div>
+            <div class="repo-leader">
+                <span class="repo-leader-label"><i class="fa-solid fa-crown"></i> Repo Leader</span>
+                <div class="repo-leader-info">
+                    <img src="https://github.com/omkar-334.png?size=24"
+                         alt="" class="repo-leader-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/omkar-334" target="_blank">
+                        omkar-334
+                    </a>
+                    <span class="repo-leader-pts">4 pts</span>
+                </div>
+            </div>
+        </div>
+        <div class="repo-card">
+            <div class="repo-name">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/>
+                </svg>
+                <a href="https://github.com/pytorch/executorch" target="_blank">
+                    pytorch/executorch
+                </a>
+            </div>
+            <div class="repo-stats">
+                <span class="stat-pill open">0 PRs open</span>
+                <span class="stat-pill closed">2 PRs closed</span>
+                <span class="stat-pill open">12 issues remaining</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 100%"></div>
+            </div>
+            <div class="progress-label">100% PRs closed</div>
+            <div class="repo-leader">
+                <span class="repo-leader-label"><i class="fa-solid fa-crown"></i> Repo Leaders</span>
+                <div class="repo-leader-info">
+                    <img src="https://github.com/XAheli.png?size=24"
+                         alt="" class="repo-leader-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/XAheli" target="_blank">
+                        XAheli
+                    </a>
+                    <span class="repo-leader-pts">2 pts</span>
+                </div>
+                <div class="repo-leader-info">
+                    <img src="https://github.com/ymrohit.png?size=24"
+                         alt="" class="repo-leader-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ymrohit" target="_blank">
+                        ymrohit
+                    </a>
+                    <span class="repo-leader-pts">2 pts</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="var(--text-secondary)">
+                <path d="M1.5 14.25a.75.75 0 010-1.5h13a.75.75 0 010 1.5h-13zm.75-4.5a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v3h-3v-3zm4-2a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v5h-3v-5zm4-3a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v8h-3v-8z"/>
+            </svg>
+            Top Contributors
+        </div>
+        
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"><i class="fa-solid fa-medal" style="color: var(--gold)" title="1st Place"></i></span>
+                    <img src="https://github.com/ymrohit.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ymrohit" target="_blank">
+                        ymrohit
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar bar-0" style="width: 100.0%">
+                        <span class="chart-value">19</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"><i class="fa-solid fa-medal" style="color: var(--silver)" title="2nd Place"></i></span>
+                    <img src="https://github.com/XAheli.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/XAheli" target="_blank">
+                        XAheli
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar bar-1" style="width: 57.9%">
+                        <span class="chart-value">11</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"><i class="fa-solid fa-medal" style="color: var(--bronze)" title="3rd Place"></i></span>
+                    <img src="https://github.com/darknight054.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/darknight054" target="_blank">
+                        darknight054
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar bar-2" style="width: 47.4%">
+                        <span class="chart-value">9</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/JonathanColetti.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/JonathanColetti" target="_blank">
+                        JonathanColetti
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 47.4%">
+                        <span class="chart-value">9</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/AswaniSahoo.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/AswaniSahoo" target="_blank">
+                        AswaniSahoo
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 42.1%">
+                        <span class="chart-value">8</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/PyDevC.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/PyDevC" target="_blank">
+                        PyDevC
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 31.6%">
+                        <span class="chart-value">6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/Suh0161.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Suh0161" target="_blank">
+                        Suh0161
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 31.6%">
+                        <span class="chart-value">6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/kiszk.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/kiszk" target="_blank">
+                        kiszk
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 26.3%">
+                        <span class="chart-value">5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/Nazim-fad.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Nazim-fad" target="_blank">
+                        Nazim-fad
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 21.1%">
+                        <span class="chart-value">4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/Kadermiyanyedi.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Kadermiyanyedi" target="_blank">
+                        Kadermiyanyedi
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 21.1%">
+                        <span class="chart-value">4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/omkar-334.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/omkar-334" target="_blank">
+                        omkar-334
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 21.1%">
+                        <span class="chart-value">4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/spzala.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/spzala" target="_blank">
+                        spzala
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 10.5%">
+                        <span class="chart-value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/ozgecinko.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ozgecinko" target="_blank">
+                        ozgecinko
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 10.5%">
+                        <span class="chart-value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
+                    <img src="https://github.com/saurabhkthakur.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/saurabhkthakur" target="_blank">
+                        saurabhkthakur
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 10.5%">
+                        <span class="chart-value">2</span>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="table-section">
+        <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="var(--text-secondary)">
+                <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75z"/>
+            </svg>
+            Full Leaderboard
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Contributor</th>
+                        <th>Points</th>
+                        <th>PRs</th>
+                        <th>Difficulty</th>
+                        <th>Links</th>
+                    </tr>
+                </thead>
+                <tbody>
+            <tr class="rank-0">
+                
+                <td class="col-author">
+                    <img src="https://github.com/ymrohit.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ymrohit" target="_blank">
+                        ymrohit
+                    </a>
+                </td>
+                <td class="col-points">19</td>
+                <td class="col-prs">8</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x7</span> <span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182681" target="_blank" class="pr-link">#182681</a> <a href="https://github.com/pytorch/pytorch/pull/182680" target="_blank" class="pr-link">#182680</a> <a href="https://github.com/pytorch/pytorch/pull/182589" target="_blank" class="pr-link">#182589</a> <a href="https://github.com/pytorch/pytorch/pull/182588" target="_blank" class="pr-link">#182588</a> <a href="https://github.com/pytorch/pytorch/pull/182559" target="_blank" class="pr-link">#182559</a> <a href="https://github.com/pytorch/pytorch/pull/182556" target="_blank" class="pr-link">#182556</a> <a href="https://github.com/pytorch/pytorch/pull/182543" target="_blank" class="pr-link">#182543</a> <a href="https://github.com/pytorch/executorch/pull/19338" target="_blank" class="pr-link">#19338</a></td>
+            </tr>
+            <tr class="rank-1">
+                
+                <td class="col-author">
+                    <img src="https://github.com/XAheli.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/XAheli" target="_blank">
+                        XAheli
+                    </a>
+                </td>
+                <td class="col-points">11</td>
+                <td class="col-prs">4</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x3</span> <span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182793" target="_blank" class="pr-link">#182793</a> <a href="https://github.com/pytorch/pytorch/pull/182787" target="_blank" class="pr-link">#182787</a> <a href="https://github.com/pytorch/pytorch/pull/182544" target="_blank" class="pr-link">#182544</a> <a href="https://github.com/pytorch/executorch/pull/19325" target="_blank" class="pr-link">#19325</a></td>
+            </tr>
+            <tr class="rank-2">
+                
+                <td class="col-author">
+                    <img src="https://github.com/darknight054.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/darknight054" target="_blank">
+                        darknight054
+                    </a>
+                </td>
+                <td class="col-points">9</td>
+                <td class="col-prs">3</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span> <span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182775" target="_blank" class="pr-link">#182775</a> <a href="https://github.com/pytorch/pytorch/pull/182682" target="_blank" class="pr-link">#182682</a> <a href="https://github.com/pytorch/pytorch/pull/182625" target="_blank" class="pr-link">#182625</a></td>
+            </tr>
+            <tr class="rank-2">
+                
+                <td class="col-author">
+                    <img src="https://github.com/JonathanColetti.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/JonathanColetti" target="_blank">
+                        JonathanColetti
+                    </a>
+                </td>
+                <td class="col-points">9</td>
+                <td class="col-prs">3</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span> <span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182555" target="_blank" class="pr-link">#182555</a> <a href="https://github.com/pytorch/pytorch/pull/182542" target="_blank" class="pr-link">#182542</a> <a href="https://github.com/pytorch/tutorials/pull/3869" target="_blank" class="pr-link">#3869</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/AswaniSahoo.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/AswaniSahoo" target="_blank">
+                        AswaniSahoo
+                    </a>
+                </td>
+                <td class="col-points">8</td>
+                <td class="col-prs">4</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x4</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182626" target="_blank" class="pr-link">#182626</a> <a href="https://github.com/pytorch/pytorch/pull/182608" target="_blank" class="pr-link">#182608</a> <a href="https://github.com/pytorch/pytorch/pull/182562" target="_blank" class="pr-link">#182562</a> <a href="https://github.com/pytorch/pytorch/pull/182557" target="_blank" class="pr-link">#182557</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/PyDevC.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/PyDevC" target="_blank">
+                        PyDevC
+                    </a>
+                </td>
+                <td class="col-points">6</td>
+                <td class="col-prs">3</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x3</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182783" target="_blank" class="pr-link">#182783</a> <a href="https://github.com/pytorch/pytorch/pull/182613" target="_blank" class="pr-link">#182613</a> <a href="https://github.com/pytorch/pytorch/pull/182545" target="_blank" class="pr-link">#182545</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/Suh0161.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Suh0161" target="_blank">
+                        Suh0161
+                    </a>
+                </td>
+                <td class="col-points">6</td>
+                <td class="col-prs">3</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x3</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182550" target="_blank" class="pr-link">#182550</a> <a href="https://github.com/pytorch/pytorch/pull/182548" target="_blank" class="pr-link">#182548</a> <a href="https://github.com/pytorch/pytorch/pull/182538" target="_blank" class="pr-link">#182538</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/kiszk.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/kiszk" target="_blank">
+                        kiszk
+                    </a>
+                </td>
+                <td class="col-points">5</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182637" target="_blank" class="pr-link">#182637</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/Nazim-fad.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Nazim-fad" target="_blank">
+                        Nazim-fad
+                    </a>
+                </td>
+                <td class="col-points">4</td>
+                <td class="col-prs">2</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182694" target="_blank" class="pr-link">#182694</a> <a href="https://github.com/pytorch/pytorch/pull/182569" target="_blank" class="pr-link">#182569</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/Kadermiyanyedi.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/Kadermiyanyedi" target="_blank">
+                        Kadermiyanyedi
+                    </a>
+                </td>
+                <td class="col-points">4</td>
+                <td class="col-prs">2</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182553" target="_blank" class="pr-link">#182553</a> <a href="https://github.com/pytorch/tutorials/pull/3870" target="_blank" class="pr-link">#3870</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/omkar-334.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/omkar-334" target="_blank">
+                        omkar-334
+                    </a>
+                </td>
+                <td class="col-points">4</td>
+                <td class="col-prs">2</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3863" target="_blank" class="pr-link">#3863</a> <a href="https://github.com/pytorch/tutorials/pull/3861" target="_blank" class="pr-link">#3861</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/spzala.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/spzala" target="_blank">
+                        spzala
+                    </a>
+                </td>
+                <td class="col-points">2</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182690" target="_blank" class="pr-link">#182690</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/ozgecinko.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/ozgecinko" target="_blank">
+                        ozgecinko
+                    </a>
+                </td>
+                <td class="col-points">2</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182575" target="_blank" class="pr-link">#182575</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/saurabhkthakur.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/saurabhkthakur" target="_blank">
+                        saurabhkthakur
+                    </a>
+                </td>
+                <td class="col-points">2</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3866" target="_blank" class="pr-link">#3866</a></td>
+            </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+&copy; 2026 PyTorch Foundation
+    </p>
+</footer>
+</body>
+</html>
