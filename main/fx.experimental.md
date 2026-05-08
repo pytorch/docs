@@ -4,7 +4,7 @@ Warning
 
 These APIs are experimental and subject to change without notice.
 
-*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/fx/experimental/sym_node.py#L664)
+*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/fx/experimental/sym_node.py#L664)
 
 User API for marking dynamic integers in torch.compile.
 Intended to be compatible with both compile and eager mode.
@@ -48,9 +48,9 @@ Self
 | [`StrictMinMaxConstraint`](generated/torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html#torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint) | For clients: the size at this dimension must be within 'vr' (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). |
 | [`RelaxedUnspecConstraint`](generated/torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint.html#torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint) | For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. |
 | [`EqualityConstraint`](generated/torch.fx.experimental.symbolic_shapes.EqualityConstraint.html#torch.fx.experimental.symbolic_shapes.EqualityConstraint) | Represent and decide various kinds of equality constraints between input sources. |
-| [`SymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.SymbolicContext.html#torch.fx.experimental.symbolic_shapes.SymbolicContext) | Data structure specifying how we should create symbols in `create_symbolic_sizes_strides_storage_offset`; e.g., should they be static or dynamic. |
-| [`StatelessSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.StatelessSymbolicContext.html#torch.fx.experimental.symbolic_shapes.StatelessSymbolicContext) | Create symbols in `create_symbolic_sizes_strides_storage_offset` via a symbolic_context determination as given by `DimDynamic` and `DimConstraint`. |
-| [`StatefulSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext.html#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext) | Create symbols in `create_symbolic_sizes_strides_storage_offset` via a symbolic_context determination as given by a cache of Source:Symbol. |
+| [`SymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.SymbolicContext.html#torch.fx.experimental.symbolic_shapes.SymbolicContext) | Data structure specifying how we should create symbols in `_create_symbolic_sizes_strides_storage_offset`; e.g., should they be static or dynamic. |
+| [`StatelessSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.StatelessSymbolicContext.html#torch.fx.experimental.symbolic_shapes.StatelessSymbolicContext) | Create symbols in `_create_symbolic_sizes_strides_storage_offset` via a symbolic_context determination as given by `DimDynamic` and `DimConstraint`. |
+| [`StatefulSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext.html#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext) | Create symbols in `_create_symbolic_sizes_strides_storage_offset` via a symbolic_context determination as given by a cache of Source:Symbol. |
 | [`SubclassSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.SubclassSymbolicContext.html#torch.fx.experimental.symbolic_shapes.SubclassSymbolicContext) | The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. |
 | [`SymIntEqByExpr`](generated/torch.fx.experimental.symbolic_shapes.SymIntEqByExpr.html#torch.fx.experimental.symbolic_shapes.SymIntEqByExpr) | This is a wrapper around SymInt which has alternative semantics for equality and pickling. |
 | [`SymIntSymbolicContext`](generated/torch.fx.experimental.symbolic_shapes.SymIntSymbolicContext.html#torch.fx.experimental.symbolic_shapes.SymIntSymbolicContext) | Data structure specifying any constraints on a SymInt input |

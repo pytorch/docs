@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7032,7 +7037,7 @@ document.write(`
                   
   <section id="module-torch.nn.attention">
 <span id="torch-nn-attention"></span><h1>torch.nn.attention<a class="headerlink" href="#module-torch.nn.attention" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Dec 15, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: May 07, 2026</p>
 <p>This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention</p>
 <section id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Link to this heading">#</a></h2>
@@ -7213,7 +7218,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/nn.attention.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/nn.attention.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -7227,7 +7232,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/nn.attention.rst.txt">
+      <a href="_sources/nn.attention.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -7458,7 +7463,7 @@ document.write(`
        "headline": "torch.nn.attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/nn.attention.html",
-       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Dec 15, 2025 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
+       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: May 07, 2026 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7470,7 +7475,7 @@ document.write(`
          "@id": "/nn.attention.html"
        },
        "datePublished": "Jan 24, 2024T00:00:00Z",
-       "dateModified": "Dec 15, 2025T00:00:00Z"
+       "dateModified": "May 07, 2026T00:00:00Z"
      }
  </script>
   <script>

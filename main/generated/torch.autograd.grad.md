@@ -1,6 +1,8 @@
 # torch.autograd.grad
 
-torch.autograd.grad(*outputs*, *inputs*, *grad_outputs=None*, *retain_graph=None*, *create_graph=False*, *only_inputs=True*, *allow_unused=None*, *is_grads_batched=False*, *materialize_grads=False*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/autograd/__init__.py#L392)
+torch.autograd.grad(*outputs: _TensorOrTensorsOrGradEdge*, *inputs: _TensorOrTensorsOrGradEdge*, *grad_outputs: [Tensor](../tensors.html#torch.Tensor) | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *retain_graph: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *create_graph: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *only_inputs: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *allow_unused: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *is_grads_batched: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *materialize_grads: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/autograd/__init__.py#L434)
+
+torch.autograd.grad(*outputs: _TensorOrTensorsOrGradEdge*, *inputs: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [Tensor](../tensors.html#torch.Tensor)]*, *grad_outputs: [Tensor](../tensors.html#torch.Tensor) | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *retain_graph: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *create_graph: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *only_inputs: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *allow_unused: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *is_grads_batched: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *materialize_grads: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [Tensor](../tensors.html#torch.Tensor)]
 
 Compute and return the sum of gradients of outputs with respect to the inputs.
 
@@ -24,8 +26,10 @@ To accumulate gradient for other parts of the graph, please use
 Parameters:
 
 - **outputs** (*sequence**of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)) - outputs of the differentiated function.
-- **inputs** (*sequence**of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)) - Inputs w.r.t. which the gradient will be
-returned (and not accumulated into `.grad`).
+- **inputs** (*sequence**of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)*or*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]*) - Inputs w.r.t. which
+the gradient will be returned (and not accumulated into `.grad`).
+When a dict is provided (e.g. `dict(model.named_parameters())`),
+the result is returned as a dict with matching keys.
 - **grad_outputs** (*sequence**of**[*[*Tensor*](../tensors.html#torch.Tensor)*or**None**] or*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - The "vector" in the
 vector-Jacobian product. Usually gradients w.r.t. each output. None values can be
 specified for scalar Tensors or ones that don't require grad. If a None value would be
@@ -56,7 +60,3 @@ for your use case. Defaults to `False`.
 to zero instead of None. This is useful when computing higher-order derivatives.
 If `materialize_grads` is `True` and `allow_unused` is `False`, an error
 will be raised. Defaults to `False`.
-
-Return type:
-
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), ...]

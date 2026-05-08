@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3572,7 +3572,7 @@ document.write(`
 <h1>leaky_relu<a class="headerlink" href="#leaky-relu" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.quantized.functional.leaky_relu">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.functional.</span></span><span class="sig-name descname"><span class="pre">leaky_relu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negative_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/nn/quantized/functional.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.functional.leaky_relu" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.functional.</span></span><span class="sig-name descname"><span class="pre">leaky_relu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negative_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/nn/quantized/functional.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.functional.leaky_relu" title="Link to this definition">#</a></dt>
 <dd><p>Quantized version of the.
 leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -&gt; Tensor</p>
 <p>Applies element-wise,
@@ -3584,7 +3584,7 @@ leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -&gt; T
 <li><p><strong>negative_slope</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The slope of the negative input</p></li>
 <li><p><strong>inplace</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Inplace modification of the input tensor</p></li>
 <li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – Scale and zero point of the output tensor.</p></li>
-<li><p><strong>zero_point</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Scale and zero point of the output tensor.</p></li>
+<li><p><strong>zero_point</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Scale and zero point of the output tensor.</p></li>
 </ul>
 </dd>
 </dl>
@@ -3947,7 +3947,7 @@ leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -&gt; T
        "headline": "leaky_relu",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.ao.nn.quantized.functional.leaky_relu.html",
-       "articleBody": "leaky_relu# class torch.ao.nn.quantized.functional.leaky_relu(input, negative_slope=0.01, inplace=False, scale=None, zero_point=None)[source]# Quantized version of the. leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -\u003e Tensor Applies element-wise, LeakyReLU(x)=max\u2061(0,x)+negative_slope\u2217min\u2061(0,x)\\text{LeakyReLU}(x) = \\max(0, x) + \\text{negative\\_slope} * \\min(0, x)LeakyReLU(x)=max(0,x)+negative_slope\u2217min(0,x) Parameters: input (Tensor) \u2013 Quantized input negative_slope (float) \u2013 The slope of the negative input inplace (bool) \u2013 Inplace modification of the input tensor scale (float | None) \u2013 Scale and zero point of the output tensor. zero_point (None | int) \u2013 Scale and zero point of the output tensor. See LeakyReLU for more details.",
+       "articleBody": "leaky_relu# class torch.ao.nn.quantized.functional.leaky_relu(input, negative_slope=0.01, inplace=False, scale=None, zero_point=None)[source]# Quantized version of the. leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -\u003e Tensor Applies element-wise, LeakyReLU(x)=max\u2061(0,x)+negative_slope\u2217min\u2061(0,x)\\text{LeakyReLU}(x) = \\max(0, x) + \\text{negative\\_slope} * \\min(0, x)LeakyReLU(x)=max(0,x)+negative_slope\u2217min(0,x) Parameters: input (Tensor) \u2013 Quantized input negative_slope (float) \u2013 The slope of the negative input inplace (bool) \u2013 Inplace modification of the input tensor scale (float | None) \u2013 Scale and zero point of the output tensor. zero_point (int | None) \u2013 Scale and zero point of the output tensor. See LeakyReLU for more details.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

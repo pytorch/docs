@@ -14,10 +14,10 @@ Users can disable MKLDNN backend by:
 torch.backends.mkldnn.enabled = False
 ```
 
-# Bfloat16 (BF16) on MKLDNN backend
+## Bfloat16 (BF16) on MKLDNN backend
 
 Starting in PyTorch 2.9, there is a set of APIs to control the internal computation precision
-for float32 operators.
+for `float32` operators.
 
 ```
 # The flag below controls the internal computation precision for mkldnn matmul. Default ieee is float32.
@@ -87,7 +87,7 @@ at::globalContext().setFloat32Precision("ieee", "mkldnn", "conv");
 at::globalContext().setFloat32Precision("ieee", "mkldnn", "rnn");
 ```
 
-We can override a generic setting for a specific operator or backend if the fp32_precision is set to ieee.
+We can override a generic setting for a specific operator or backend if the fp32_precision is set to `ieee`.
 
 ```
 torch.backends.fp32_precision = "bf16"
@@ -95,5 +95,5 @@ torch.backends.mkldnn.fp32_precision = "ieee"
 torch.backends.mkldnn.matmul.fp32_precision = "ieee"
 ```
 
-For such case, both torch.backends.mkldnn.fp32_precision and torch.backends.mkldnn.matmul.fp32_precision
+For such case, both `torch.backends.mkldnn.fp32_precision` and `torch.backends.mkldnn.matmul.fp32_precision`
 is overridden to bf16.

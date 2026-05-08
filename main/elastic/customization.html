@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7041,7 +7046,7 @@ document.write(`
                   
   <section id="customization">
 <h1>Customization<a class="headerlink" href="#customization" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: May 04, 2021</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: May 07, 2026</p>
 <p>This section describes how to customize TorchElastic to fit your needs.</p>
 <section id="launcher">
 <h2>Launcher<a class="headerlink" href="#launcher" title="Link to this heading">#</a></h2>
@@ -7053,26 +7058,26 @@ shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_launcher.py</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-  <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-  <span class="n">rdzv_handler</span> <span class="o">=</span> <span class="n">RendezvousHandler</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-  <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span>
-      <span class="n">local_world_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">nproc_per_node</span><span class="p">,</span>
-      <span class="n">fn</span><span class="o">=</span><span class="n">trainer_entrypoint_fn</span><span class="p">,</span>
-      <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">trainer_entrypoint_fn</span> <span class="n">args</span><span class="o">.</span><span class="n">fn_args</span><span class="p">,</span><span class="o">...</span><span class="p">),</span>
-      <span class="n">rdzv_handler</span><span class="o">=</span><span class="n">rdzv_handler</span><span class="p">,</span>
-      <span class="n">max_restarts</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_restarts</span><span class="p">,</span>
-      <span class="n">monitor_interval</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">monitor_interval</span><span class="p">,</span>
-  <span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">rdzv_handler</span> <span class="o">=</span> <span class="n">RendezvousHandler</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span>
+        <span class="n">local_world_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">nproc_per_node</span><span class="p">,</span>
+        <span class="n">fn</span><span class="o">=</span><span class="n">trainer_entrypoint_fn</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">trainer_entrypoint_fn</span> <span class="n">args</span><span class="o">.</span><span class="n">fn_args</span><span class="p">,</span><span class="o">...</span><span class="p">),</span>
+        <span class="n">rdzv_handler</span><span class="o">=</span><span class="n">rdzv_handler</span><span class="p">,</span>
+        <span class="n">max_restarts</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_restarts</span><span class="p">,</span>
+        <span class="n">monitor_interval</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">monitor_interval</span><span class="p">,</span>
+    <span class="p">)</span>
 
-  <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">start_method</span><span class="o">=</span><span class="s2">&quot;spawn&quot;</span><span class="p">)</span>
-  <span class="k">try</span><span class="p">:</span>
-      <span class="n">run_result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-      <span class="k">if</span> <span class="n">run_result</span><span class="o">.</span><span class="n">is_failed</span><span class="p">():</span>
-          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 failed with: run_result.failures[0]&quot;</span><span class="p">)</span>
-      <span class="k">else</span><span class="p">:</span>
-          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 return value is: run_result.return_values[0]&quot;</span><span class="p">)</span>
-  <span class="k">except</span> <span class="ne">Exception</span> <span class="n">ex</span><span class="p">:</span>
-      <span class="c1"># handle exception</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">start_method</span><span class="o">=</span><span class="s2">&quot;spawn&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">run_result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">run_result</span><span class="o">.</span><span class="n">is_failed</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 failed with: run_result.failures[0]&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 return value is: run_result.return_values[0]&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="c1"># handle exception</span>
 </pre></div>
 </div>
 </section>
@@ -7100,9 +7105,9 @@ spec when creating the agent.</p>
 <section id="metric-handler">
 <h2>Metric Handler<a class="headerlink" href="#metric-handler" title="Link to this heading">#</a></h2>
 <p>TorchElastic emits platform level metrics (see <a class="reference internal" href="metrics.html#metrics-api"><span class="std std-ref">Metrics</span></a>).
-By default metrics are emitted to <cite>/dev/null</cite> so you will not see them.
+By default metrics are emitted to <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> so you will not see them.
 To have the metrics pushed to a metric handling service in your infrastructure,
-implement a <cite>torch.distributed.elastic.metrics.MetricHandler</cite> and <cite>configure</cite> it in your
+implement a <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.metrics.MetricHandler</span></code> and <code class="docutils literal notranslate"><span class="pre">configure</span></code> it in your
 custom launcher.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_launcher.py</span>
 
@@ -7113,11 +7118,11 @@ custom launcher.</p>
         <span class="c1"># push metric_data to your metric sink</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-  <span class="n">metrics</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyMetricHandler</span><span class="p">())</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyMetricHandler</span><span class="p">())</span>
 
-  <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-  <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-  <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -7126,10 +7131,10 @@ custom launcher.</p>
 <p>TorchElastic supports events recording (see <a class="reference internal" href="events.html#events-api"><span class="std std-ref">Events</span></a>).
 The events module defines API that allows you to record events and
 implement custom EventHandler. EventHandler is used for publishing events
-produced during torchelastic execution to different sources, e.g.  AWS CloudWatch.
-By default it uses <cite>torch.distributed.elastic.events.NullEventHandler</cite> that ignores
+produced during torchelastic execution to different sources, e.g. AWS CloudWatch.
+By default it uses <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.events.NullEventHandler</span></code> that ignores
 events. To configure custom events handler you need to implement
-<cite>torch.distributed.elastic.events.EventHandler</cite> interface and <cite>configure</cite> it
+<code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.events.EventHandler</span></code> interface and <code class="docutils literal notranslate"><span class="pre">configure</span></code> it
 in your custom launcher.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_launcher.py</span>
 
@@ -7140,11 +7145,11 @@ in your custom launcher.</p>
         <span class="c1"># process event</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-  <span class="n">events</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">())</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">())</span>
 
-  <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-  <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-  <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -7278,7 +7283,7 @@ in your custom launcher.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/customization.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/customization.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -7292,7 +7297,7 @@ in your custom launcher.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/elastic/customization.rst.txt">
+      <a href="../_sources/elastic/customization.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -7523,7 +7528,7 @@ in your custom launcher.</p>
        "headline": "Customization",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/customization.html",
-       "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: May 04, 2021 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py if __name__ == \"__main__\": args = parse_args(sys.argv[1:]) rdzv_handler = RendezvousHandler(...) spec = WorkerSpec( local_world_size=args.nproc_per_node, fn=trainer_entrypoint_fn, args=(trainer_entrypoint_fn args.fn_args,...), rdzv_handler=rdzv_handler, max_restarts=args.max_restarts, monitor_interval=args.monitor_interval, ) agent = LocalElasticAgent(spec, start_method=\"spawn\") try: run_result = agent.run() if run_result.is_failed(): print(f\"worker 0 failed with: run_result.failures[0]\") else: print(f\"worker 0 return value is: run_result.return_values[0]\") except Exception ex: # handle exception Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, start_method=start_method) elastic_agent.run(spec.role) Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run() Events Handler# TorchElastic supports events recording (see Events). The events module defines API that allows you to record events and implement custom EventHandler. EventHandler is used for publishing events produced during torchelastic execution to different sources, e.g. AWS CloudWatch. By default it uses torch.distributed.elastic.events.NullEventHandler that ignores events. To configure custom events handler you need to implement torch.distributed.elastic.events.EventHandler interface and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.events as events class MyEventHandler(events.EventHandler): def record(self, event: events.Event): # process event def main(): events.configure(MyEventHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run()",
+       "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: May 07, 2026 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py if __name__ == \"__main__\": args = parse_args(sys.argv[1:]) rdzv_handler = RendezvousHandler(...) spec = WorkerSpec( local_world_size=args.nproc_per_node, fn=trainer_entrypoint_fn, args=(trainer_entrypoint_fn args.fn_args,...), rdzv_handler=rdzv_handler, max_restarts=args.max_restarts, monitor_interval=args.monitor_interval, ) agent = LocalElasticAgent(spec, start_method=\"spawn\") try: run_result = agent.run() if run_result.is_failed(): print(f\"worker 0 failed with: run_result.failures[0]\") else: print(f\"worker 0 return value is: run_result.return_values[0]\") except Exception ex: # handle exception Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, start_method=start_method) elastic_agent.run(spec.role) Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run() Events Handler# TorchElastic supports events recording (see Events). The events module defines API that allows you to record events and implement custom EventHandler. EventHandler is used for publishing events produced during torchelastic execution to different sources, e.g. AWS CloudWatch. By default it uses torch.distributed.elastic.events.NullEventHandler that ignores events. To configure custom events handler you need to implement torch.distributed.elastic.events.EventHandler interface and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.events as events class MyEventHandler(events.EventHandler): def record(self, event: events.Event): # process event def main(): events.configure(MyEventHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run()",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7535,7 +7540,7 @@ in your custom launcher.</p>
          "@id": "/elastic/customization.html"
        },
        "datePublished": "May 04, 2021T00:00:00Z",
-       "dateModified": "May 04, 2021T00:00:00Z"
+       "dateModified": "May 07, 2026T00:00:00Z"
      }
  </script>
   <script>

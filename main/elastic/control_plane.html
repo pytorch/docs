@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7041,12 +7046,12 @@ document.write(`
                   
   <section id="module-torch.distributed.elastic.control_plane">
 <span id="control-plane"></span><h1>Control Plane<a class="headerlink" href="#module-torch.distributed.elastic.control_plane" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 30, 2024 | Last Updated On: Jun 04, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 30, 2024 | Last Updated On: May 06, 2026</p>
 <p>This module contains optional helpers that add extra debug and control handlers
 into your application.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.control_plane.worker_main">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.control_plane.</span></span><span class="sig-name descname"><span class="pre">worker_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/distributed/elastic/control_plane.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.control_plane.worker_main" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.control_plane.</span></span><span class="sig-name descname"><span class="pre">worker_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/distributed/elastic/control_plane.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.control_plane.worker_main" title="Link to this definition">#</a></dt>
 <dd><p>This is a context manager that wraps your main entry function. This combines
 the existing <code class="docutils literal notranslate"><span class="pre">errors.record</span></code> logic as well as a new <code class="docutils literal notranslate"><span class="pre">_WorkerServer</span></code> that
 exposes handlers via a unix socket specified by
@@ -7195,7 +7200,7 @@ exposes handlers via a unix socket specified by
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/control_plane.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/control_plane.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -7209,7 +7214,7 @@ exposes handlers via a unix socket specified by
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/elastic/control_plane.rst.txt">
+      <a href="../_sources/elastic/control_plane.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -7440,7 +7445,7 @@ exposes handlers via a unix socket specified by
        "headline": "Control Plane",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/control_plane.html",
-       "articleBody": "Control Plane# Created On: May 30, 2024 | Last Updated On: Jun 04, 2024 This module contains optional helpers that add extra debug and control handlers into your application. torch.distributed.elastic.control_plane.worker_main()[source]# This is a context manager that wraps your main entry function. This combines the existing errors.record logic as well as a new _WorkerServer that exposes handlers via a unix socket specified by Torch_WORKER_SERVER_SOCKET. Example @worker_main() def main(): pass if __name__ == \"__main__\": main() Return type: Generator[None, None, None]",
+       "articleBody": "Control Plane# Created On: May 30, 2024 | Last Updated On: May 06, 2026 This module contains optional helpers that add extra debug and control handlers into your application. torch.distributed.elastic.control_plane.worker_main()[source]# This is a context manager that wraps your main entry function. This combines the existing errors.record logic as well as a new _WorkerServer that exposes handlers via a unix socket specified by Torch_WORKER_SERVER_SOCKET. Example @worker_main() def main(): pass if __name__ == \"__main__\": main() Return type: Generator[None, None, None]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7452,7 +7457,7 @@ exposes handlers via a unix socket specified by
          "@id": "/elastic/control_plane.html"
        },
        "datePublished": "May 30, 2024T00:00:00Z",
-       "dateModified": "Jun 04, 2024T00:00:00Z"
+       "dateModified": "May 06, 2026T00:00:00Z"
      }
  </script>
   <script>

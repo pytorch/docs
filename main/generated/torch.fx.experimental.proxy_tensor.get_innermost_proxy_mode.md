@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.get_innermost_proxy_mode
 
-torch.fx.experimental.proxy_tensor.get_innermost_proxy_mode()[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/fx/experimental/proxy_tensor.py#L3043)
+torch.fx.experimental.proxy_tensor.get_innermost_proxy_mode()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/fx/experimental/proxy_tensor.py#L3043)
 
 Return type:
 

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7041,21 +7046,21 @@ document.write(`
                   
   <section id="train-script">
 <span id="elastic-train-script"></span><h1>Train script<a class="headerlink" href="#train-script" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Feb 09, 2023</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 06, 2026 | Last Updated On: May 06, 2026</p>
 <p>If your train script works with <code class="docutils literal notranslate"><span class="pre">torch.distributed.launch</span></code> it will continue
 working with <code class="docutils literal notranslate"><span class="pre">torchrun</span></code> with these differences:</p>
 <ol class="arabic simple">
-<li><p>No need to manually pass <code class="docutils literal notranslate"><span class="pre">RANK</span></code>, <code class="docutils literal notranslate"><span class="pre">WORLD_SIZE</span></code>,
-<code class="docutils literal notranslate"><span class="pre">MASTER_ADDR</span></code>, and <code class="docutils literal notranslate"><span class="pre">MASTER_PORT</span></code>.</p></li>
+<li><p>No need to manually pass <code class="docutils literal notranslate"><span class="pre">RANK</span></code>, <code class="docutils literal notranslate"><span class="pre">WORLD_SIZE</span></code>, <code class="docutils literal notranslate"><span class="pre">MASTER_ADDR</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">MASTER_PORT</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">rdzv_backend</span></code> and <code class="docutils literal notranslate"><span class="pre">rdzv_endpoint</span></code> can be provided. For most users
-this will be set to <code class="docutils literal notranslate"><span class="pre">c10d</span></code> (see <a class="reference external" href="rendezvous.html">rendezvous</a>). The default
+this will be set to <code class="docutils literal notranslate"><span class="pre">c10d</span></code> (see <a class="reference internal" href="rendezvous.html"><span class="doc">Rendezvous</span></a>). The default
 <code class="docutils literal notranslate"><span class="pre">rdzv_backend</span></code> creates a non-elastic rendezvous where <code class="docutils literal notranslate"><span class="pre">rdzv_endpoint</span></code> holds
 the master address.</p></li>
 <li><p>Make sure you have a <code class="docutils literal notranslate"><span class="pre">load_checkpoint(path)</span></code> and
 <code class="docutils literal notranslate"><span class="pre">save_checkpoint(path)</span></code> logic in your script. When any number of
 workers fail we restart all the workers with the same program
 arguments so you will lose progress up to the most recent checkpoint
-(see <a class="reference external" href="run.html">elastic launch</a>).</p></li>
+(see <a class="reference internal" href="run.html"><span class="doc">elastic launch</span></a>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_env</span></code> flag has been removed. If you were parsing local rank by parsing
 the <code class="docutils literal notranslate"><span class="pre">--local-rank</span></code> option, you need to get the local rank from the
 environment variable <code class="docutils literal notranslate"><span class="pre">LOCAL_RANK</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">int(os.environ[&quot;LOCAL_RANK&quot;])</span></code>).</p></li>
@@ -7063,25 +7068,25 @@ environment variable <code class="docutils literal notranslate"><span class="pre
 <p>Below is an expository example of a training script that checkpoints on each
 epoch, hence the worst-case progress lost on failure is one full epoch worth
 of training.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-     <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-     <span class="n">state</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="p">)</span>
-     <span class="n">initialize</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+       <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+       <span class="n">state</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="p">)</span>
+       <span class="n">initialize</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
-     <span class="c1"># torch.distributed.run ensures that this will work</span>
-     <span class="c1"># by exporting all the env vars needed to initialize the process group</span>
-     <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">backend</span><span class="p">)</span>
+       <span class="c1"># torch.distributed.run ensures that this will work</span>
+       <span class="c1"># by exporting all the env vars needed to initialize the process group</span>
+       <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">backend</span><span class="p">)</span>
 
-     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">total_num_epochs</span><span class="p">)</span>
-          <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
-              <span class="n">train</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">total_num_epochs</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+                <span class="n">train</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
 
-          <span class="n">state</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span>
-          <span class="n">save_checkpoint</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">save_checkpoint</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For concrete examples of torchelastic-compliant train scripts, visit
-our <a class="reference external" href="examples.html">examples</a> page.</p>
+our <a class="reference internal" href="examples.html"><span class="doc">examples</span></a> page.</p>
 </section>
 
 
@@ -7197,7 +7202,7 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/train_script.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/elastic/train_script.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -7211,7 +7216,7 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/elastic/train_script.rst.txt">
+      <a href="../_sources/elastic/train_script.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -7442,7 +7447,7 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
        "headline": "Train script",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/elastic/train_script.html",
-       "articleBody": "Train script# Created On: May 04, 2021 | Last Updated On: Feb 09, 2023 If your train script works with torch.distributed.launch it will continue working with torchrun with these differences: No need to manually pass RANK, WORLD_SIZE, MASTER_ADDR, and MASTER_PORT. rdzv_backend and rdzv_endpoint can be provided. For most users this will be set to c10d (see rendezvous). The default rdzv_backend creates a non-elastic rendezvous where rdzv_endpoint holds the master address. Make sure you have a load_checkpoint(path) and save_checkpoint(path) logic in your script. When any number of workers fail we restart all the workers with the same program arguments so you will lose progress up to the most recent checkpoint (see elastic launch). use_env flag has been removed. If you were parsing local rank by parsing the --local-rank option, you need to get the local rank from the environment variable LOCAL_RANK (e.g. int(os.environ[\"LOCAL_RANK\"])). Below is an expository example of a training script that checkpoints on each epoch, hence the worst-case progress lost on failure is one full epoch worth of training. def main(): args = parse_args(sys.argv[1:]) state = load_checkpoint(args.checkpoint_path) initialize(state) # torch.distributed.run ensures that this will work # by exporting all the env vars needed to initialize the process group torch.distributed.init_process_group(backend=args.backend) for i in range(state.epoch, state.total_num_epochs) for batch in iter(state.dataset) train(batch, state.model) state.epoch += 1 save_checkpoint(state) For concrete examples of torchelastic-compliant train scripts, visit our examples page.",
+       "articleBody": "Train script# Created On: May 06, 2026 | Last Updated On: May 06, 2026 If your train script works with torch.distributed.launch it will continue working with torchrun with these differences: No need to manually pass RANK, WORLD_SIZE, MASTER_ADDR, and MASTER_PORT. rdzv_backend and rdzv_endpoint can be provided. For most users this will be set to c10d (see Rendezvous). The default rdzv_backend creates a non-elastic rendezvous where rdzv_endpoint holds the master address. Make sure you have a load_checkpoint(path) and save_checkpoint(path) logic in your script. When any number of workers fail we restart all the workers with the same program arguments so you will lose progress up to the most recent checkpoint (see elastic launch). use_env flag has been removed. If you were parsing local rank by parsing the --local-rank option, you need to get the local rank from the environment variable LOCAL_RANK (e.g. int(os.environ[\"LOCAL_RANK\"])). Below is an expository example of a training script that checkpoints on each epoch, hence the worst-case progress lost on failure is one full epoch worth of training. def main(): args = parse_args(sys.argv[1:]) state = load_checkpoint(args.checkpoint_path) initialize(state) # torch.distributed.run ensures that this will work # by exporting all the env vars needed to initialize the process group torch.distributed.init_process_group(backend=args.backend) for i in range(state.epoch, state.total_num_epochs) for batch in iter(state.dataset) train(batch, state.model) state.epoch += 1 save_checkpoint(state) For concrete examples of torchelastic-compliant train scripts, visit our examples page.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7453,8 +7458,8 @@ our <a class="reference external" href="examples.html">examples</a> page.</p>
          "@type": "WebPage",
          "@id": "/elastic/train_script.html"
        },
-       "datePublished": "May 04, 2021T00:00:00Z",
-       "dateModified": "Feb 09, 2023T00:00:00Z"
+       "datePublished": "May 06, 2026T00:00:00Z",
+       "dateModified": "May 06, 2026T00:00:00Z"
      }
  </script>
   <script>

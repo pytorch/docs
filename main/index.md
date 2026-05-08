@@ -132,7 +132,6 @@ The APIs and performance characteristics of these features may change.
 - [LibTorch Stable ABI](notes/libtorch_stable_abi.html)
 - [LocalTensor Tutorial: Single-Process SPMD Debugging](notes/local_tensor_tutorial.html)
 - [MKLDNN backend](notes/mkldnn.html)
-- [Bfloat16 (BF16) on MKLDNN backend](notes/mkldnn.html#bfloat16-bf16-on-mkldnn-backend)
 - [Modules](notes/modules.html)
 - [MPS backend](notes/mps.html)
 - [Multiprocessing best practices](notes/multiprocessing.html)

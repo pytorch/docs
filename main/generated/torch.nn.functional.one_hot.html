@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3681,7 +3681,7 @@ document.write(`
 <h1>torch.nn.functional.one_hot<a class="headerlink" href="#torch-nn-functional-one-hot" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.one_hot">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">one_hot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">LongTensor</span></span></span><a class="headerlink" href="#torch.nn.functional.one_hot" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">one_hot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">LongTensor</span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/functional.py#L5699"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.one_hot" title="Link to this definition">#</a></dt>
 <dd><p>Takes LongTensor with index values of shape <code class="docutils literal notranslate"><span class="pre">(*)</span></code> and returns a tensor
 of shape <code class="docutils literal notranslate"><span class="pre">(*,</span> <span class="pre">num_classes)</span></code> that have zeros everywhere except where the
 index of last dimension matches the corresponding value of the input tensor,
@@ -4082,7 +4082,7 @@ else.</p>
        "headline": "torch.nn.functional.one_hot",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.functional.one_hot.html",
-       "articleBody": "torch.nn.functional.one_hot# torch.nn.functional.one_hot(tensor, num_classes=-1) \u2192 LongTensor# Takes LongTensor with index values of shape (*) and returns a tensor of shape (*, num_classes) that have zeros everywhere except where the index of last dimension matches the corresponding value of the input tensor, in which case it will be 1. See also One-hot on Wikipedia . Parameters: tensor (LongTensor) \u2013 class values of any shape. num_classes (int, optional) \u2013 Total number of classes. If set to -1, the number of classes will be inferred as one greater than the largest class value in the input tensor. Default: -1 Returns: LongTensor that has one more dimension with 1 values at the index of last dimension indicated by the input, and 0 everywhere else. Examples \u003e\u003e\u003e F.one_hot(torch.arange(0, 5) % 3) tensor([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [0, 1, 0]]) \u003e\u003e\u003e F.one_hot(torch.arange(0, 5) % 3, num_classes=5) tensor([[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0]]) \u003e\u003e\u003e F.one_hot(torch.arange(0, 6).view(3,2) % 3) tensor([[[1, 0, 0], [0, 1, 0]], [[0, 0, 1], [1, 0, 0]], [[0, 1, 0], [0, 0, 1]]])",
+       "articleBody": "torch.nn.functional.one_hot# torch.nn.functional.one_hot(tensor, num_classes=-1) \u2192 LongTensor[source]# Takes LongTensor with index values of shape (*) and returns a tensor of shape (*, num_classes) that have zeros everywhere except where the index of last dimension matches the corresponding value of the input tensor, in which case it will be 1. See also One-hot on Wikipedia . Parameters: tensor (LongTensor) \u2013 class values of any shape. num_classes (int, optional) \u2013 Total number of classes. If set to -1, the number of classes will be inferred as one greater than the largest class value in the input tensor. Default: -1 Returns: LongTensor that has one more dimension with 1 values at the index of last dimension indicated by the input, and 0 everywhere else. Examples \u003e\u003e\u003e F.one_hot(torch.arange(0, 5) % 3) tensor([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [0, 1, 0]]) \u003e\u003e\u003e F.one_hot(torch.arange(0, 5) % 3, num_classes=5) tensor([[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0]]) \u003e\u003e\u003e F.one_hot(torch.arange(0, 6).view(3,2) % 3) tensor([[[1, 0, 0], [0, 1, 0]], [[0, 0, 1], [1, 0, 0]], [[0, 1, 0], [0, 0, 1]]])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -1,6 +1,6 @@
 # DistributedDataParallel
 
-*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=True*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/parallel/distributed.py#L466)
+*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/distributed.py#L466)
 
 Implement distributed data parallelism based on `torch.distributed` at module level.
 
@@ -173,7 +173,7 @@ parameters in the checkpointed model.
 Note
 
 To let a non-DDP model load a state dict from a DDP model,
-`consume_prefix_in_state_dict_if_present()`
+[`consume_prefix_in_state_dict_if_present()`](../nn.aliases.html#torch.nn.modules.utils.consume_prefix_in_state_dict_if_present)
 needs to be applied to strip the prefix "module." in the DDP state dict before loading.
 
 Warning
@@ -260,11 +260,18 @@ single-device CUDA modules. For multi-device modules and
 CPU modules, it must be `None`, and the module itself
 dictates the output location. (default: `device_ids[0]`
 for single-device modules)
-- **broadcast_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag that enables syncing (broadcasting)
+- **broadcast_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) -
+
+Flag that enables syncing (broadcasting)
 buffers of the module at beginning of the `forward`
-function. (default: `True`)
+function. (default: `None`)
+
+Deprecated since version 2.13: Use `forward_sync_buffers` instead.
 - **init_sync** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to sync during initialization to verify param
 shapes and broadcast parameters and buffers.
+Note: the deprecated `broadcast_buffers=False`
+excludes buffers from this init sync. The replacement
+`forward_sync_buffers` does not affect init sync.
 WARNING: if this is set to False the user is required
 to ensure themselves that the weights are the same on
 all ranks.
@@ -357,6 +364,14 @@ optimization is most effective with
 `gradient_as_bucket_view` alone cannot avoid copies because
 the bucket view alias is destroyed every iteration.
 (default: `False`)
+- **forward_sync_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) - Flag that enables syncing
+(broadcasting) buffers of the module at runtime, including
+at the beginning of `forward` and after uneven-input
+joins. Does not affect initialization sync (see
+`init_sync`); buffers are always synced at init
+regardless of this flag. Replaces the deprecated
+`broadcast_buffers` argument. When `None`, defaults
+to `True`. (default: `None`)
 
 Variables:
 
@@ -369,7 +384,7 @@ Example:
 >>> net = torch.nn.parallel.DistributedDataParallel(model)
 ```
 
-join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/parallel/distributed.py#L1931)
+join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/distributed.py#L1989)
 
 Context manager for training with uneven inputs across processes in DDP.
 
@@ -465,7 +480,7 @@ Example:
 >>> torch.cuda.synchronize(device=rank)
 ```
 
-join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/parallel/distributed.py#L2037)
+join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/distributed.py#L2095)
 
 DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.
 
@@ -489,7 +504,7 @@ unevenness is small but can be set to `False` in extreme
 cases for possibly better results.
 Default is `True`.
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/parallel/distributed.py#L1600)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/distributed.py#L1658)
 
 Context manager to disable gradient synchronizations across DDP processes.
 
@@ -512,7 +527,7 @@ Warning
 The forward pass should be included inside the context manager, or
 else gradients will still be synchronized.
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/nn/parallel/distributed.py#L2120)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/distributed.py#L2178)
 
 Register communication hook for user-defined DDP aggregation of gradients across multiple workers.
 

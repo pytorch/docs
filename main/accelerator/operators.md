@@ -357,7 +357,7 @@ Use `TORCH_LIBRARY_IMPL` to register the `wrapper_custom_abs` implementation for
 PYTHON
 
 ```
-1lib = torch.library.Library("openreg", "IMPL", "Meta") # noqa: TOR901
+1lib = torch.library.Library("openreg", "IMPL", "Meta") # noqa: SCOPED_LIBRARY
 2
 3
 4@torch.library.impl(lib, "custom_abs")

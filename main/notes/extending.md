@@ -54,10 +54,11 @@ effect, consider registering a
 ### How to use
 
 Take the following steps:
+
 1. Subclass [`Function`](../autograd.html#torch.autograd.Function) and implement the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward),
 (optional) `setup_context()` and
 [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward) methods.
-2. Call the proper methods on the ctx argument.
+2. Call the proper methods on the `ctx` argument.
 3. Declare whether your function supports
 [double backward](https://pytorch.org/tutorials/intermediate/custom_function_double_backward_tutorial.html).
 4. Validate whether your gradients are correct using gradcheck.
@@ -106,6 +107,7 @@ directly on `ctx`). You cannot use `save_for_backward` for non-tensors;
 you should store those directly on `ctx`.
 
 Saving tensors via `save_for_backward`:
+
 1. Allows the autograd engine to clear
 them as soon as the backward computation of the `autograd.Function` completes.
 (If a tensor is stored directly on `ctx`
@@ -476,7 +478,7 @@ method, before the `apply()` returns.
 
 [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) has a few subtle differences with the [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward) function:
 
-- You can use the ctx to pass any data from the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) to the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
+- You can use the `ctx` to pass any data from the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) to the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
 If that state will not be needed for the [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward),
 you can explicitly free it by doing `del ctx.foo` at the end of the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
 - The implementation of [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) must be backward differentiable or explicitly check that
@@ -488,7 +490,7 @@ a view of the given `k` th input gradient.
 - Because the user cannot specify which gradient needs to be computed, the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function should
 always compute gradients for all the outputs.
 - The forward mode gradients do respect the flag set by [`set_materialize_grads()`](../generated/torch.autograd.function.FunctionCtx.set_materialize_grads.html#torch.autograd.function.FunctionCtx.set_materialize_grads)
-and you can get None input gradients when this is disabled.
+and you can get `None` input gradients when this is disabled.
 
 ### [`torch.func`](../func.api.html#module-torch.func) transforms and/or [`torch.vmap()`](../generated/torch.vmap.html#torch.vmap)
 
@@ -817,7 +819,7 @@ through operations in the [`torch`](../torch.html#module-torch) API.
 The `__torch_function__` protocol is designed for full coverage of the API,
 partial coverage may lead to undesirable results, in particular, certain
 functions raising a `TypeError`. This is especially true for subclasses,
-where all three of torch.add, torch.Tensor.__add__ and torch.Tensor.add
+where all three of `torch.add`, `torch.Tensor.__add__` and `torch.Tensor.add`
 must be covered, even if they return exactly the same result. Failing to do
 this may also lead to infinite recursion. If one requires the implementation
 of a function from `torch.Tensor` subclasses, they must use
@@ -1040,7 +1042,7 @@ In a similar way where `__torch_function__` is able to interpose on all of torch
 Most of these functions are defined in `native_functions.yaml` which specifies the properties of these functions as well as their backend implementation. Their implementation alongside specified features are then automatically registered via codegen.
 Some more exotic functions or features are also registered in other places in the C++ codebase or in user-defined C++ extensions.
 
-It is also possible to add new native functions using [`torch.library`](../library.html#module-torch.library). This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions.
+It is also possible to add `new` native functions using [`torch.library`](../library.html#module-torch.library). This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions.
 
 You can find many examples of `__torch_dispatch__`-based subclasses in the [subclass zoo](https://github.com/albanD/subclass_zoo) repo.
 

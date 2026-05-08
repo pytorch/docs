@@ -1,6 +1,6 @@
 # HistogramObserver
 
-*class*torch.ao.quantization.observer.HistogramObserver(*bins=2048*, *dtype=torch.quint8*, *qscheme=torch.per_tensor_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/observer.py#L987)
+*class*torch.ao.quantization.observer.HistogramObserver(*bins=2048*, *dtype=torch.quint8*, *qscheme=torch.per_tensor_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/observer.py#L987)
 
 The module records the running histogram of tensor values along with
 min/max values. `calculate_qparams` will calculate scale and zero_point.

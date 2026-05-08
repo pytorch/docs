@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3528,7 +3528,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notes/local_tensor_tutorial.html">LocalTensor Tutorial: Single-Process SPMD Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notes/mkldnn.html">MKLDNN backend</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../notes/modules.html">Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -3677,7 +3676,7 @@ document.write(`
                   
   <section id="torchinductor-and-aotinductor-provenance-tracking">
 <span id="torchinductor-provenance"></span><h1>TorchInductor and AOTInductor Provenance Tracking<a class="headerlink" href="#torchinductor-and-aotinductor-provenance-tracking" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 09, 2025 | Last Updated On: Dec 03, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 06, 2026 | Last Updated On: May 06, 2026</p>
 <p>This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in <code class="docutils literal notranslate"><span class="pre">tlparse</span></code>.
 Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation.</p>
 <p>Some example screenshots of the provenance tracking tool are shown below.
@@ -3685,12 +3684,10 @@ The tool visualizes the mapping between nodes in the input graph (panel 1), the 
 <p>The <strong>bolded</strong> lines represent nodes/kernels covered by the current provenance tracing functionality.
 We currently cover triton kernels, cpp kernels, and combo kernels.
 The yellow highlighting shows the provenance of the nodes/kernels.</p>
-<dl>
-<dt>Example screenshot of the provenance tracking tool for TorchInductor:</dt><dd><img alt="../../_images/provenance_jit_inductor.png" src="../../_images/provenance_jit_inductor.png" />
-</dd>
-<dt>Example screenshot of the provenance tracking tool for AOTInductor:</dt><dd><img alt="../../_images/provenance_aot_inductor.png" src="../../_images/provenance_aot_inductor.png" />
-</dd>
-</dl>
+<p>Example screenshot of the provenance tracking tool for TorchInductor:</p>
+<img alt="../../_images/provenance_jit_inductor.png" src="../../_images/provenance_jit_inductor.png" />
+<p>Example screenshot of the provenance tracking tool for AOTInductor:</p>
+<img alt="../../_images/provenance_aot_inductor.png" src="../../_images/provenance_aot_inductor.png" />
 <section id="using-the-provenance-tracking-highlighter">
 <h2>Using the Provenance Tracking Highlighter<a class="headerlink" href="#using-the-provenance-tracking-highlighter" title="Link to this heading">#</a></h2>
 <p>Follow these steps to enable and use provenance tracking in your PyTorch project:</p>
@@ -3706,50 +3703,40 @@ The yellow highlighting shows the provenance of the nodes/kernels.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tlparse<span class="w"> </span>log_file_name.log<span class="w"> </span>--inductor-provenance
 </pre></div>
 </div>
-<ul>
+<ul class="simple">
 <li><p>Even if you don’t add the <code class="docutils literal notranslate"><span class="pre">--inductor-provenance</span></code> flag, you should be able to see the mapping in json format in the <code class="docutils literal notranslate"><span class="pre">inductor_provenance_tracking_node_mappings_&lt;number&gt;.json</span></code> file in the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> tlparse output.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">tlpare</span></code> directly on the log file. It might not work if you run “tlparse parse &lt;folder_name&gt;  –inductor-provenance”.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> artifacts used by the provenance tracking highlighter are:</p>
-<blockquote>
-<div><ul class="simple">
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">before_pre_grad_graph.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">after_post_grad_graph.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">inductor_aot_wrapper_code.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">inductor_output_code.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">inductor_provenance_tracking_node_mappings.json</span></code></p></li>
 </ul>
-</div></blockquote>
 </li>
 </ul>
 </li>
 </ol>
 <p>After running <code class="docutils literal notranslate"><span class="pre">tlparse</span> <span class="pre">&lt;file_name&gt;</span> <span class="pre">--inductor-provenance</span></code>, you should see an additional “Provenance Tracking” section in the tlparse output. Clicking into the link(s) to access the provenance tracking tool.
-For a demo, see: <a class="github reference external" href="https://github.com/pytorch/tlparse/pull/93">pytorch/tlparse#93</a></p>
-<blockquote>
-<div><img alt="../../_images/index.png" src="../../_images/index.png" />
-</div></blockquote>
+For a demo, see: https://github.com/pytorch/tlparse/pull/93</p>
+<img alt="../../_images/index.png" src="../../_images/index.png" />
 </section>
 <section id="source-code-corresponding-to-each-inductor-kernel">
 <h2>Source code corresponding to each Inductor kernel<a class="headerlink" href="#source-code-corresponding-to-each-inductor-kernel" title="Link to this heading">#</a></h2>
 <p>With <code class="docutils literal notranslate"><span class="pre">INDUCTOR_PROVENANCE=1</span></code>, you can also view the source code corresponding to each Inductor kernel in tlparse. To access it, click the “readable_html” link next to “inductor_provenance_tracking_kernel_stack_traces.json” in the tlparse output.</p>
-<blockquote>
-<div><img alt="../../_images/index_2.png" src="../../_images/index_2.png" />
-</div></blockquote>
+<img alt="../../_images/index_2.png" src="../../_images/index_2.png" />
 <p>Below are some example screenshots. The <code class="docutils literal notranslate"><span class="pre">:1</span></code> and <code class="docutils literal notranslate"><span class="pre">:467</span></code> suffixes at the end of the kernel names are used to distinguish different calls to the same kernel. We refer to these suffixes as debug handles.</p>
-<blockquote>
-<div><img alt="../../_images/kernel_source_1.png" src="../../_images/kernel_source_1.png" />
+<img alt="../../_images/kernel_source_1.png" src="../../_images/kernel_source_1.png" />
 <img alt="../../_images/kernel_source_2.png" src="../../_images/kernel_source_2.png" />
-</div></blockquote>
 <p>You can also find the debug handle in the comments within the kernel source code.</p>
-<blockquote>
-<div><img alt="../../_images/kernel_source_3.png" src="../../_images/kernel_source_3.png" />
-</div></blockquote>
+<img alt="../../_images/kernel_source_3.png" src="../../_images/kernel_source_3.png" />
 </section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">tlparse</span></code> is a tool written in Rust.</p>
 <ul class="simple">
-<li><p>Link to the tlparse GitHub repo: <a class="github reference external" href="https://github.com/pytorch/tlparse">pytorch/tlparse</a></p></li>
+<li><p>Link to the tlparse GitHub repo: https://github.com/pytorch/tlparse</p></li>
 <li><p>Learn more about <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> at <a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">torch.compile Troubleshooting</span></a></p></li>
 </ul>
 </section>
@@ -3882,7 +3869,7 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/user_guide/torch_compiler/torch.compiler_inductor_provenance.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/user_guide/torch_compiler/torch.compiler_inductor_provenance.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -3896,7 +3883,7 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../../_sources/user_guide/torch_compiler/torch.compiler_inductor_provenance.rst.txt">
+      <a href="../../_sources/user_guide/torch_compiler/torch.compiler_inductor_provenance.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4127,7 +4114,7 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
        "headline": "TorchInductor and AOTInductor Provenance Tracking",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_inductor_provenance.html",
-       "articleBody": "TorchInductor and AOTInductor Provenance Tracking# Created On: May 09, 2025 | Last Updated On: Dec 03, 2025 This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in tlparse. Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation. Some example screenshots of the provenance tracking tool are shown below. The tool visualizes the mapping between nodes in the input graph (panel 1), the post grad graph (panel 2), and the Inductor generated code (panel 3). The bolded lines represent nodes/kernels covered by the current provenance tracing functionality. We currently cover triton kernels, cpp kernels, and combo kernels. The yellow highlighting shows the provenance of the nodes/kernels. Example screenshot of the provenance tracking tool for TorchInductor: Example screenshot of the provenance tracking tool for AOTInductor: Using the Provenance Tracking Highlighter# Follow these steps to enable and use provenance tracking in your PyTorch project: Install tlparse by cargo install tlparse. If you don\u2019t have cargo, see The Cargo Book for instructions to install. Run your program with required flags: TORCH_TRACE=~/my_trace_log_dir INDUCTOR_PROVENANCE=1 python your_program.py This will generate a log file in ~/my_trace_log_dir. The log file will be used by tlparse to generate the provenance tracking highlighter. Run tlparse on the log with --inductor-provenance flag. For example: tlparse log_file_name.log --inductor-provenance Even if you don\u2019t add the --inductor-provenance flag, you should be able to see the mapping in json format in the inductor_provenance_tracking_node_mappings_\u003cnumber\u003e.json file in the index.html tlparse output. Run tlpare directly on the log file. It might not work if you run \u201ctlparse parse \u003cfolder_name\u003e \u2013inductor-provenance\u201d. The tlparse artifacts used by the provenance tracking highlighter are: before_pre_grad_graph.txt after_post_grad_graph.txt inductor_aot_wrapper_code.txt inductor_output_code.txt inductor_provenance_tracking_node_mappings.json After running tlparse \u003cfile_name\u003e --inductor-provenance, you should see an additional \u201cProvenance Tracking\u201d section in the tlparse output. Clicking into the link(s) to access the provenance tracking tool. For a demo, see: pytorch/tlparse#93 Source code corresponding to each Inductor kernel# With INDUCTOR_PROVENANCE=1, you can also view the source code corresponding to each Inductor kernel in tlparse. To access it, click the \u201creadable_html\u201d link next to \u201cinductor_provenance_tracking_kernel_stack_traces.json\u201d in the tlparse output. Below are some example screenshots. The :1 and :467 suffixes at the end of the kernel names are used to distinguish different calls to the same kernel. We refer to these suffixes as debug handles. You can also find the debug handle in the comments within the kernel source code. See Also# tlparse is a tool written in Rust. Link to the tlparse GitHub repo: pytorch/tlparse Learn more about tlparse at torch.compile Troubleshooting",
+       "articleBody": "TorchInductor and AOTInductor Provenance Tracking# Created On: May 06, 2026 | Last Updated On: May 06, 2026 This section describes how to use the provenance tracking feature for TorchInductor and AOTInductor in tlparse. Provenance tracking helps you visualize the relationships between the input GraphModule to (AOT)Inductor and the optimized code generated. This feature allows you to trace how your original operations are transformed during compilation. Some example screenshots of the provenance tracking tool are shown below. The tool visualizes the mapping between nodes in the input graph (panel 1), the post grad graph (panel 2), and the Inductor generated code (panel 3). The bolded lines represent nodes/kernels covered by the current provenance tracing functionality. We currently cover triton kernels, cpp kernels, and combo kernels. The yellow highlighting shows the provenance of the nodes/kernels. Example screenshot of the provenance tracking tool for TorchInductor: Example screenshot of the provenance tracking tool for AOTInductor: Using the Provenance Tracking Highlighter# Follow these steps to enable and use provenance tracking in your PyTorch project: Install tlparse by cargo install tlparse. If you don\u2019t have cargo, see The Cargo Book for instructions to install. Run your program with required flags: TORCH_TRACE=~/my_trace_log_dir INDUCTOR_PROVENANCE=1 python your_program.py This will generate a log file in ~/my_trace_log_dir. The log file will be used by tlparse to generate the provenance tracking highlighter. Run tlparse on the log with --inductor-provenance flag. For example: tlparse log_file_name.log --inductor-provenance Even if you don\u2019t add the --inductor-provenance flag, you should be able to see the mapping in json format in the inductor_provenance_tracking_node_mappings_\u003cnumber\u003e.json file in the index.html tlparse output. Run tlpare directly on the log file. It might not work if you run \u201ctlparse parse \u003cfolder_name\u003e \u2013inductor-provenance\u201d. The tlparse artifacts used by the provenance tracking highlighter are: before_pre_grad_graph.txt after_post_grad_graph.txt inductor_aot_wrapper_code.txt inductor_output_code.txt inductor_provenance_tracking_node_mappings.json After running tlparse \u003cfile_name\u003e --inductor-provenance, you should see an additional \u201cProvenance Tracking\u201d section in the tlparse output. Clicking into the link(s) to access the provenance tracking tool. For a demo, see: https://github.com/pytorch/tlparse/pull/93 Source code corresponding to each Inductor kernel# With INDUCTOR_PROVENANCE=1, you can also view the source code corresponding to each Inductor kernel in tlparse. To access it, click the \u201creadable_html\u201d link next to \u201cinductor_provenance_tracking_kernel_stack_traces.json\u201d in the tlparse output. Below are some example screenshots. The :1 and :467 suffixes at the end of the kernel names are used to distinguish different calls to the same kernel. We refer to these suffixes as debug handles. You can also find the debug handle in the comments within the kernel source code. See Also# tlparse is a tool written in Rust. Link to the tlparse GitHub repo: https://github.com/pytorch/tlparse Learn more about tlparse at torch.compile Troubleshooting",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4138,8 +4125,8 @@ For a demo, see: <a class="github reference external" href="https://github.com/p
          "@type": "WebPage",
          "@id": "/user_guide/torch_compiler/torch.compiler_inductor_provenance.html"
        },
-       "datePublished": "May 09, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "datePublished": "May 06, 2026T00:00:00Z",
+       "dateModified": "May 06, 2026T00:00:00Z"
      }
  </script>
   <script>

@@ -57,7 +57,7 @@ All gradients produced by `scaler.scale(loss).backward()` are scaled. If you wis
 the parameters' `.grad` attributes between `backward()` and `scaler.step(optimizer)`, you should
 unscale them first. For example, gradient clipping manipulates a set of gradients such that their global norm
 (see [`torch.nn.utils.clip_grad_norm_()`](../generated/torch.nn.utils.clip_grad_norm_.html#torch.nn.utils.clip_grad_norm_)) or maximum magnitude (see [`torch.nn.utils.clip_grad_value_()`](../generated/torch.nn.utils.clip_grad_value_.html#torch.nn.utils.clip_grad_value_))
-is <=<=<= some user-imposed threshold. If you attempted to clip *without* unscaling, the gradients' norm/maximum
+is $<=$ some user-imposed threshold. If you attempted to clip *without* unscaling, the gradients' norm/maximum
 magnitude would also be scaled, so your requested threshold (which was meant to be the threshold for *unscaled*
 gradients) would be invalid.
 
@@ -364,7 +364,7 @@ Apply [`custom_fwd(device_type='cuda', cast_inputs=torch.float32)`](../amp.html#
 and [`custom_bwd(device_type='cuda')`](../amp.html#torch.amp.custom_bwd) to `backward`.
 If `forward` runs in an autocast-enabled region, the decorators cast floating-point Tensor
 inputs to `float32` on designated device assigned by the argument [device_type](../amp.html),
-CUDA in this example, and locally disable autocast during `forward` and `backward`:
+`CUDA` in this example, and locally disable autocast during `forward` and `backward`:
 
 ```
 class MyFloat32Func(torch.autograd.Function):

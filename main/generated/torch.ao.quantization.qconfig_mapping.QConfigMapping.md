@@ -1,6 +1,6 @@
 # QConfigMapping
 
-*class*torch.ao.quantization.qconfig_mapping.QConfigMapping[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L205)
+*class*torch.ao.quantization.qconfig_mapping.QConfigMapping[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L205)
 
 Mapping from model ops to `torch.ao.quantization.QConfig` s.
 
@@ -43,7 +43,7 @@ qconfig_mapping = QConfigMapping()
  .set_module_name_object_type_order("foo.bar", torch.nn.functional.linear, 0, qconfig3)
 ```
 
-*classmethod*from_dict(*qconfig_dict*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L351)
+*classmethod*from_dict(*qconfig_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L351)
 
 Create a `QConfigMapping` from a dictionary with the following keys (all optional):
 
@@ -75,7 +75,7 @@ Return type:
 
 *QConfigMapping*
 
-set_global(*global_qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L248)
+set_global(*global_qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L248)
 
 Set the global (default) QConfig.
 
@@ -83,7 +83,7 @@ Return type:
 
 *QConfigMapping*
 
-set_module_name(*module_name*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L288)
+set_module_name(*module_name*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L288)
 
 Set the QConfig for modules matching the given module name.
 If the QConfig for an existing module name was already set, the new QConfig will override the old one.
@@ -92,7 +92,7 @@ Return type:
 
 *QConfigMapping*
 
-set_module_name_object_type_order(*module_name*, *object_type*, *index*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L296)
+set_module_name_object_type_order(*module_name*, *object_type*, *index*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L296)
 
 Set the QConfig for modules matching a combination of the given module name, object type,
 and the index at which the module appears.
@@ -104,7 +104,7 @@ Return type:
 
 QConfigMapping
 
-set_module_name_regex(*module_name_regex*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L265)
+set_module_name_regex(*module_name_regex*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L265)
 
 Set the QConfig for modules matching the given regex string.
 
@@ -128,7 +128,7 @@ Return type:
 
 *QConfigMapping*
 
-set_object_type(*object_type*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L255)
+set_object_type(*object_type*, *qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L255)
 
 Set the QConfig for a given module type, function, or method name.
 If the QConfig for an existing object type was already set, the new QConfig will override the old one.
@@ -137,7 +137,7 @@ Return type:
 
 QConfigMapping
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/ao/quantization/qconfig_mapping.py#L324)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/qconfig_mapping.py#L324)
 
 Convert this `QConfigMapping` to a dictionary with the following keys:
 

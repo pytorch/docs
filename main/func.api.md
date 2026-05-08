@@ -13,6 +13,7 @@
 | [`jacfwd`](generated/torch.func.jacfwd.html#torch.func.jacfwd) | Computes the Jacobian of `func` with respect to the arg(s) at index `argnum` using forward-mode autodiff |
 | [`hessian`](generated/torch.func.hessian.html#torch.func.hessian) | Computes the Hessian of `func` with respect to the arg(s) at index `argnum` via a forward-over-reverse strategy. |
 | [`functionalize`](generated/torch.func.functionalize.html#torch.func.functionalize) | functionalize is a transform that can be used to remove (intermediate) mutations and aliasing from a function, while preserving the function's semantics. |
+| [`rearrange`](generated/torch.func.rearrange.html#torch.func.rearrange) | A native implementation of einops.rearrange, a reader-friendly smart element reordering for multidimensional tensors. |
 
 ## Utilities for working with torch.nn.Modules
 

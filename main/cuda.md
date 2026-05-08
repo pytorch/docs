@@ -127,7 +127,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/cuda/memory.py#L1320)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/cuda/memory.py#L1320)
 
 A context manager that routes allocations to a given pool.
 
@@ -145,6 +145,20 @@ This context manager makes only current thread's allocations route to
 the given pool. If a new thread is spawned inside the context manager
 (e.g. by calling backward) the allocations in that thread will not
 route to the given pool.
+
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/cuda/nccl.py#L35)
+
+Returns the version of the NCCL.
+
+This function returns a tuple containing the major, minor, and patch version numbers of the NCCL.
+The suffix is also included in the tuple if a version suffix exists.
+:returns: The version information of the NCCL.
+:rtype: tuple
+
+| [`profile`](generated/torch.cuda.profiler.profile.html#torch.cuda.profiler.profile) | Enable profiling. |
+| --- | --- |
+| [`start`](generated/torch.cuda.profiler.start.html#torch.cuda.profiler.start) | Starts cuda profiler data collection. |
+| [`stop`](generated/torch.cuda.profiler.stop.html#torch.cuda.profiler.stop) | Stops cuda profiler data collection. |
 
 ## NVIDIA Tools Extension (NVTX)
 
@@ -210,6 +224,6 @@ See the docs for [`GreenContext`](generated/torch.cuda.green_contexts.GreenConte
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

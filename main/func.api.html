@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7041,7 +7046,7 @@ document.write(`
                   
   <section id="module-torch.func">
 <span id="torch-func-api-reference"></span><h1>torch.func API Reference<a class="headerlink" href="#module-torch.func" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: May 04, 2026</p>
 <section id="function-transforms">
 <h2>Function Transforms<a class="headerlink" href="#function-transforms" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -7075,6 +7080,9 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p><p id="torch.func.functionalize"/><p id="torch.func.functionalize"/><a class="reference internal" href="generated/torch.func.functionalize.html#torch.func.functionalize" title="torch.func.functionalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functionalize</span></code></a></p></td>
 <td><p>functionalize is a transform that can be used to remove (intermediate) mutations and aliasing from a function, while preserving the function's semantics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.func.rearrange"/><p id="torch.func.rearrange"/><a class="reference internal" href="generated/torch.func.rearrange.html#torch.func.rearrange" title="torch.func.rearrange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rearrange</span></code></a></p></td>
+<td><p>A native implementation of <cite>einops.rearrange</cite>, a reader-friendly smart element reordering for multidimensional tensors.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7515,7 +7523,7 @@ guidance here</p>
        "headline": "torch.func API Reference",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/func.api.html",
-       "articleBody": "torch.func API Reference# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 Function Transforms# vmap vmap is the vectorizing map; vmap(func) returns a new function that maps func over some dimension of the inputs. grad grad operator helps computing gradients of func with respect to the input(s) specified by argnums. grad_and_value Returns a function to compute a tuple of the gradient and primal, or forward, computation. vjp Standing for the vector-Jacobian product, returns a tuple containing the results of func applied to primals and a function that, when given cotangents, computes the reverse-mode Jacobian of func with respect to primals times cotangents. jvp Standing for the Jacobian-vector product, returns a tuple containing the output of func(*primals) and the \"Jacobian of func evaluated at primals\" times tangents. linearize Returns the value of func at primals and linear approximation at primals. jacrev Computes the Jacobian of func with respect to the arg(s) at index argnum using reverse mode autodiff jacfwd Computes the Jacobian of func with respect to the arg(s) at index argnum using forward-mode autodiff hessian Computes the Hessian of func with respect to the arg(s) at index argnum via a forward-over-reverse strategy. functionalize functionalize is a transform that can be used to remove (intermediate) mutations and aliasing from a function, while preserving the function\u0027s semantics. Utilities for working with torch.nn.Modules# In general, you can transform over a function that calls a torch.nn.Module. For example, the following is an example of computing a jacobian of a function that takes three values and returns three values: model = torch.nn.Linear(3, 3) def f(x): return model(x) x = torch.randn(3) jacobian = jacrev(f)(x) assert jacobian.shape == (3, 3) However, if you want to do something like compute a jacobian over the parameters of the model, then there needs to be a way to construct a function where the parameters are the inputs to the function. That\u2019s what functional_call() is for: it accepts an nn.Module, the transformed parameters, and the inputs to the Module\u2019s forward pass. It returns the value of running the Module\u2019s forward pass with the replaced parameters. Here\u2019s how we would compute the Jacobian over the parameters model = torch.nn.Linear(3, 3) def f(params, x): return torch.func.functional_call(model, params, x) x = torch.randn(3) jacobian = jacrev(f)(dict(model.named_parameters()), x) functional_call Performs a functional call on the module by replacing the module parameters and buffers with the provided ones. stack_module_state Prepares a list of torch.nn.Modules for ensembling with vmap(). replace_all_batch_norm_modules_ In place updates root by setting the running_mean and running_var to be None and setting track_running_stats to be False for any nn.BatchNorm module in root If you\u2019re looking for information on fixing Batch Norm modules, please follow the guidance here Patching Batch Norm Debug utilities# debug_unwrap Unwraps a functorch tensor (e.g. BatchedTensor, GradTrackingTensor) to its underlying tensor.",
+       "articleBody": "torch.func API Reference# Created On: Jun 11, 2025 | Last Updated On: May 04, 2026 Function Transforms# vmap vmap is the vectorizing map; vmap(func) returns a new function that maps func over some dimension of the inputs. grad grad operator helps computing gradients of func with respect to the input(s) specified by argnums. grad_and_value Returns a function to compute a tuple of the gradient and primal, or forward, computation. vjp Standing for the vector-Jacobian product, returns a tuple containing the results of func applied to primals and a function that, when given cotangents, computes the reverse-mode Jacobian of func with respect to primals times cotangents. jvp Standing for the Jacobian-vector product, returns a tuple containing the output of func(*primals) and the \"Jacobian of func evaluated at primals\" times tangents. linearize Returns the value of func at primals and linear approximation at primals. jacrev Computes the Jacobian of func with respect to the arg(s) at index argnum using reverse mode autodiff jacfwd Computes the Jacobian of func with respect to the arg(s) at index argnum using forward-mode autodiff hessian Computes the Hessian of func with respect to the arg(s) at index argnum via a forward-over-reverse strategy. functionalize functionalize is a transform that can be used to remove (intermediate) mutations and aliasing from a function, while preserving the function\u0027s semantics. rearrange A native implementation of einops.rearrange, a reader-friendly smart element reordering for multidimensional tensors. Utilities for working with torch.nn.Modules# In general, you can transform over a function that calls a torch.nn.Module. For example, the following is an example of computing a jacobian of a function that takes three values and returns three values: model = torch.nn.Linear(3, 3) def f(x): return model(x) x = torch.randn(3) jacobian = jacrev(f)(x) assert jacobian.shape == (3, 3) However, if you want to do something like compute a jacobian over the parameters of the model, then there needs to be a way to construct a function where the parameters are the inputs to the function. That\u2019s what functional_call() is for: it accepts an nn.Module, the transformed parameters, and the inputs to the Module\u2019s forward pass. It returns the value of running the Module\u2019s forward pass with the replaced parameters. Here\u2019s how we would compute the Jacobian over the parameters model = torch.nn.Linear(3, 3) def f(params, x): return torch.func.functional_call(model, params, x) x = torch.randn(3) jacobian = jacrev(f)(dict(model.named_parameters()), x) functional_call Performs a functional call on the module by replacing the module parameters and buffers with the provided ones. stack_module_state Prepares a list of torch.nn.Modules for ensembling with vmap(). replace_all_batch_norm_modules_ In place updates root by setting the running_mean and running_var to be None and setting track_running_stats to be False for any nn.BatchNorm module in root If you\u2019re looking for information on fixing Batch Norm modules, please follow the guidance here Patching Batch Norm Debug utilities# debug_unwrap Unwraps a functorch tensor (e.g. BatchedTensor, GradTrackingTensor) to its underlying tensor.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7527,7 +7535,7 @@ guidance here</p>
          "@id": "/func.api.html"
        },
        "datePublished": "Jun 11, 2025T00:00:00Z",
-       "dateModified": "Jun 11, 2025T00:00:00Z"
+       "dateModified": "May 04, 2026T00:00:00Z"
      }
  </script>
   <script>

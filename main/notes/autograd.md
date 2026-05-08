@@ -34,7 +34,7 @@ launch the training - what you run is what you differentiate.
 
 Some operations need intermediary results to be saved during the forward pass
 in order to execute the backward pass. For example, the function
-x↦x2x\mapsto x^2x↦x2 saves the input xxx to compute the gradient.
+$x\mapsto x^2$ saves the input $x$ to compute the gradient.
 
 When defining a custom Python [`Function`](../autograd.html#torch.autograd.Function), you can use
 `save_for_backward()` to save
@@ -54,7 +54,7 @@ print(x.equal(y.grad_fn._saved_self)) # True
 print(x is y.grad_fn._saved_self) # True
 ```
 
-In the previous code, `y.grad_fn._saved_self` refers to the same Tensor object as x.
+In the previous code, `y.grad_fn._saved_self` refers to the same Tensor object as `x`.
 But that may not always be the case. For instance:
 
 ```
@@ -70,7 +70,7 @@ tensor you get from accessing `y.grad_fn._saved_result` is a different tensor
 object than `y` (but they still share the same storage).
 
 Whether a tensor will be packed into a different tensor object depends on
-whether it is an output of its own grad_fn, which is an implementation detail
+whether it is an output of its own `grad_fn`, which is an implementation detail
 subject to change and that users should not rely on.
 
 You can control how PyTorch does packing / unpacking with Hooks for saved tensors.
@@ -83,7 +83,7 @@ To try and reduce the impact of functions that are non-differentiable, we define
 
 1. If the function is differentiable and thus a gradient exists at the current point, use it.
 2. If the function is convex (at least locally), use the sub-gradient of minimum norm.
-3. If the function is concave (at least locally), use the super-gradient of minimum norm (consider -f(x) and apply the previous point).
+3. If the function is concave (at least locally), use the super-gradient of minimum norm (consider `-f(x)` and apply the previous point).
 4. If the function is defined, define the gradient at the current point by continuity (note that `inf` is possible here, for example for `sqrt(0)`). If multiple values are possible, pick one arbitrarily.
 5. If the function is not defined (`sqrt(-1)`, `log(-1)` or most functions when the input is `NaN`, for example) then the value used as the gradient is arbitrary (we might also raise an error but that is not guaranteed). Most functions will use `NaN` as the gradient, but for performance reasons, some functions will use other values (`log(-1)`, for example).
 6. If the function is not a deterministic mapping (i.e. it is not a [mathematical function](https://en.wikipedia.org/wiki/Function_%28mathematics%29)), it will be marked as non-differentiable. This will make it error out in the backward if used on tensors that require grad outside of a `no_grad` environment.
@@ -392,9 +392,9 @@ Since Autograd allows the caller thread to drive its backward execution for
 potential parallelism, it's important that we ensure thread safety on CPU with
 parallel `backward()` calls that share part/whole of the GraphTask.
 
-Custom Python `autograd.Function`s are automatically thread safe because of GIL.
+Custom Python `autograd.Function`\s are automatically thread safe because of GIL.
 For built-in C++ Autograd Nodes (e.g. AccumulateGrad, CopySlices) and custom
-`autograd::Function`s, the Autograd Engine uses thread mutex locking to ensure
+`autograd::Function`\s, the Autograd Engine uses thread mutex locking to ensure
 thread safety on autograd Nodes that might have state write/read.
 
 ### No thread safety on C++ hooks
@@ -407,15 +407,15 @@ proper thread locking code to ensure the hooks are thread safe.
 
 The short version:
 
-- When you use PyTorch to differentiate any function f(z)f(z)f(z) with complex domain and/or codomain,
+- When you use PyTorch to differentiate any function $f(z)$ with complex domain and/or codomain,
 the gradients are computed under the assumption that the function is a part of a larger real-valued
-loss function g(input)=Lg(input)=Lg(input)=L. The gradient computed is ∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​
+loss function $g(input)=L$. The gradient computed is $\frac{\partial L}{\partial z^*}$
 (note the conjugation of z), the negative of which is precisely the direction of steepest descent
 used in Gradient Descent algorithm. Thus, there is a viable path in making the existing optimizers
 work out of the box with complex parameters.
 - This convention matches TensorFlow's convention for complex
 differentiation, but is different from JAX (which computes
-∂L∂z\frac{\partial L}{\partial z}∂z∂L​).
+$\frac{\partial L}{\partial z}$).
 - If you have a real-to-real function which internally uses complex
 operations, the convention here doesn't matter: you will always get
 the same result that you would have gotten if it had been implemented
@@ -428,24 +428,20 @@ to define complex derivatives in PyTorch, read on.
 
 The mathematical definition of complex-differentiability takes the
 limit definition of a derivative and generalizes it to operate on
-complex numbers. Consider a function f:C→Cf: ℂ → ℂf:C→C,
+complex numbers. Consider a function $f: ℂ → ℂ$,
 
-> f(z=x+yj)=u(x,y)+v(x,y)jf(z=x+yj) = u(x, y) + v(x, y)j
-> 
-> f(z=x+yj)=u(x,y)+v(x,y)j
+f(z=x+yj)=u(x,y)+v(x,y)j f(z=x+yj) = u(x, y) + v(x, y)jf(z=x+yj)=u(x,y)+v(x,y)j
 
-where uuu and vvv are two variable real valued functions
-and jjj is the imaginary unit.
+where $u$ and $v$ are two variable real valued functions
+and $j$ is the imaginary unit.
 
 Using the derivative definition, we can write:
 
-> f′(z)=lim⁡h→0,h∈Cf(z+h)−f(z)hf'(z) = \lim_{h \to 0, h \in C} \frac{f(z+h) - f(z)}{h}
-> 
-> f′(z)=h→0,h∈Clim​hf(z+h)−f(z)​
+f′(z)=lim⁡h→0,h∈Cf(z+h)−f(z)h f'(z) = \lim_{h \to 0, h \in C} \frac{f(z+h) - f(z)}{h}f′(z)=h→0,h∈Clim​hf(z+h)−f(z)​
 
-In order for this limit to exist, not only must uuu and vvv must be
-real differentiable, but fff must also satisfy the Cauchy-Riemann [equations](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Riemann_equations). In
-other words: the limit computed for real and imaginary steps (hhh)
+In order for this limit to exist, not only must $u$ and $v$ must be
+real differentiable, but $f$ must also satisfy the [Cauchy-Riemann equations](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Riemann_equations). In
+other words: the limit computed for real and imaginary steps ($h$)
 must be equal. This is a more restrictive condition.
 
 The complex differentiable functions are commonly known as holomorphic
@@ -464,163 +460,141 @@ used for optimization and most people therefore use the Wirtinger calculus.
 So, we have this great theory of complex differentiability and
 holomorphic functions, and we can't use any of it at all, because many
 of the commonly used functions are not holomorphic. What's a poor
-mathematician to do? Well, Wirtinger observed that even if f(z)f(z)f(z)
+mathematician to do? Well, Wirtinger observed that even if $f(z)$
 isn't holomorphic, one could rewrite it as a two variable function
-f(z,z∗)f(z, z*)f(z,z∗) which is always holomorphic. This is because real and
-imaginary of the components of zzz can be expressed in terms of
-zzz and z∗z^*z∗ as:
+$f(z, z*)$ which is always holomorphic. This is because real and
+imaginary of the components of $z$ can be expressed in terms of
+$z$ and $z^*$ as:
 
-> Re(z)=z+z∗2Im(z)=z−z∗2j\begin{aligned}
-> \mathrm{Re}(z) &= \frac {z + z^*}{2} \\
-> \mathrm{Im}(z) &= \frac {z - z^*}{2j}
-> \end{aligned}
-> 
-> Re(z)Im(z)​=2z+z∗​=2jz−z∗​​
+Re(z)=z+z∗2Im(z)=z−z∗2j \begin{aligned}
+ \mathrm{Re}(z) &= \frac {z + z^*}{2} \\
+ \mathrm{Im}(z) &= \frac {z - z^*}{2j}
+ \end{aligned}Re(z)Im(z)​=2z+z∗​=2jz−z∗​​
 
-Wirtinger calculus suggests to study f(z,z∗)f(z, z^*)f(z,z∗) instead, which is
-guaranteed to be holomorphic if fff was real differentiable (another
-way to think of it is as a change of coordinate system, from f(x,y)f(x, y)f(x,y)
-to f(z,z∗)f(z, z^*)f(z,z∗).) This function has partial derivatives
-∂∂z\frac{\partial }{\partial z}∂z∂​ and ∂∂z∗\frac{\partial}{\partial z^{*}}∂z∗∂​.
+Wirtinger calculus suggests to study $f(z, z^*)$ instead, which is
+guaranteed to be holomorphic if $f$ was real differentiable (another
+way to think of it is as a change of coordinate system, from $f(x, y)$
+to $f(z, z^*)$.) This function has partial derivatives
+$\frac{\partial }{\partial z}$ and $\frac{\partial}{\partial z^{*}}$.
 We can use the chain rule to establish a
 relationship between these partial derivatives and the partial
-derivatives w.r.t., the real and imaginary components of zzz.
+derivatives w.r.t., the real and imaginary components of $z$.
 
-> ∂∂x=∂z∂x∗∂∂z+∂z∗∂x∗∂∂z∗=∂∂z+∂∂z∗∂∂y=∂z∂y∗∂∂z+∂z∗∂y∗∂∂z∗=1j∗(∂∂z−∂∂z∗)\begin{aligned}
-> \frac{\partial }{\partial x} &= \frac{\partial z}{\partial x} * \frac{\partial }{\partial z} + \frac{\partial z^*}{\partial x} * \frac{\partial }{\partial z^*} \\
-> &= \frac{\partial }{\partial z} + \frac{\partial }{\partial z^*} \\
-> \\
-> \frac{\partial }{\partial y} &= \frac{\partial z}{\partial y} * \frac{\partial }{\partial z} + \frac{\partial z^*}{\partial y} * \frac{\partial }{\partial z^*} \\
-> &= 1j * \left(\frac{\partial }{\partial z} - \frac{\partial }{\partial z^*}\right)
-> \end{aligned}
-> 
-> ∂x∂​∂y∂​​=∂x∂z​∗∂z∂​+∂x∂z∗​∗∂z∗∂​=∂z∂​+∂z∗∂​=∂y∂z​∗∂z∂​+∂y∂z∗​∗∂z∗∂​=1j∗(∂z∂​−∂z∗∂​)​
+∂∂x=∂z∂x∗∂∂z+∂z∗∂x∗∂∂z∗=∂∂z+∂∂z∗∂∂y=∂z∂y∗∂∂z+∂z∗∂y∗∂∂z∗=1j∗(∂∂z−∂∂z∗) \begin{aligned}
+ \frac{\partial }{\partial x} &= \frac{\partial z}{\partial x} * \frac{\partial }{\partial z} + \frac{\partial z^*}{\partial x} * \frac{\partial }{\partial z^*} \\
+ &= \frac{\partial }{\partial z} + \frac{\partial }{\partial z^*} \\
+ \\
+ \frac{\partial }{\partial y} &= \frac{\partial z}{\partial y} * \frac{\partial }{\partial z} + \frac{\partial z^*}{\partial y} * \frac{\partial }{\partial z^*} \\
+ &= 1j * \left(\frac{\partial }{\partial z} - \frac{\partial }{\partial z^*}\right)
+ \end{aligned}∂x∂​∂y∂​​=∂x∂z​∗∂z∂​+∂x∂z∗​∗∂z∗∂​=∂z∂​+∂z∗∂​=∂y∂z​∗∂z∂​+∂y∂z∗​∗∂z∗∂​=1j∗(∂z∂​−∂z∗∂​)​
 
 From the above equations, we get:
 
-> ∂∂z=1/2∗(∂∂x−1j∗∂∂y)∂∂z∗=1/2∗(∂∂x+1j∗∂∂y)\begin{aligned}
-> \frac{\partial }{\partial z} &= 1/2 * \left(\frac{\partial }{\partial x} - 1j * \frac{\partial }{\partial y}\right) \\
-> \frac{\partial }{\partial z^*} &= 1/2 * \left(\frac{\partial }{\partial x} + 1j * \frac{\partial }{\partial y}\right)
-> \end{aligned}
-> 
-> ∂z∂​∂z∗∂​​=1/2∗(∂x∂​−1j∗∂y∂​)=1/2∗(∂x∂​+1j∗∂y∂​)​
+∂∂z=1/2∗(∂∂x−1j∗∂∂y)∂∂z∗=1/2∗(∂∂x+1j∗∂∂y) \begin{aligned}
+ \frac{\partial }{\partial z} &= 1/2 * \left(\frac{\partial }{\partial x} - 1j * \frac{\partial }{\partial y}\right) \\
+ \frac{\partial }{\partial z^*} &= 1/2 * \left(\frac{\partial }{\partial x} + 1j * \frac{\partial }{\partial y}\right)
+ \end{aligned}∂z∂​∂z∗∂​​=1/2∗(∂x∂​−1j∗∂y∂​)=1/2∗(∂x∂​+1j∗∂y∂​)​
 
 which is the classic definition of Wirtinger calculus that you would find on [Wikipedia](https://en.wikipedia.org/wiki/Wirtinger_derivatives).
 
 There are a lot of beautiful consequences of this change.
 
-- For one, the Cauchy-Riemann equations translate into simply saying that ∂f∂z∗=0\frac{\partial f}{\partial z^*} = 0∂z∗∂f​=0 (that is to say, the function fff can be written
-entirely in terms of zzz, without making reference to z∗z^*z∗).
+- For one, the Cauchy-Riemann equations translate into simply saying that $\frac{\partial f}{\partial z^*} = 0$ (that is to say, the function $f$ can be written
+entirely in terms of $z$, without making reference to $z^*$).
 - Another important (and somewhat counterintuitive) result, as we'll see later, is that when we do optimization on a real-valued loss, the step we should
-take while making variable update is given by ∂Loss∂z∗\frac{\partial Loss}{\partial z^*}∂z∗∂Loss​ (not ∂Loss∂z\frac{\partial Loss}{\partial z}∂z∂Loss​).
+take while making variable update is given by $\frac{\partial Loss}{\partial z^*}$ (not $\frac{\partial Loss}{\partial z}$).
 
-For more reading, check out: [https://arxiv.org/pdf/0906.4835.pdf](https://arxiv.org/pdf/0906.4835.pdf)
+For more reading, check out: https://arxiv.org/pdf/0906.4835.pdf
 
 ### How is Wirtinger Calculus useful in optimization?
 
 Researchers in audio and other fields, more commonly, use gradient
 descent to optimize real valued loss functions with complex variables.
 Typically, these people treat the real and imaginary values as separate
-channels that can be updated. For a step size α/2\alpha/2α/2 and loss
-LLL, we can write the following equations in R2ℝ^2R2:
+channels that can be updated. For a step size $\alpha/2$ and loss
+$L$, we can write the following equations in $ℝ^2$:
 
-> xn+1=xn−(α/2)∗∂L∂xyn+1=yn−(α/2)∗∂L∂y\begin{aligned}
-> x_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} \\
-> y_{n+1} &= y_n - (\alpha/2) * \frac{\partial L}{\partial y}
-> \end{aligned}
-> 
-> xn+1​yn+1​​=xn​−(α/2)∗∂x∂L​=yn​−(α/2)∗∂y∂L​​
+xn+1=xn−(α/2)∗∂L∂xyn+1=yn−(α/2)∗∂L∂y \begin{aligned}
+ x_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} \\
+ y_{n+1} &= y_n - (\alpha/2) * \frac{\partial L}{\partial y}
+ \end{aligned}xn+1​yn+1​​=xn​−(α/2)∗∂x∂L​=yn​−(α/2)∗∂y∂L​​
 
-How do these equations translate into complex space CℂC?
+How do these equations translate into complex space $ℂ$?
 
-> zn+1=xn−(α/2)∗∂L∂x+1j∗(yn−(α/2)∗∂L∂y)=zn−α∗1/2∗(∂L∂x+j∂L∂y)=zn−α∗∂L∂z∗\begin{aligned}
-> z_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} + 1j * (y_n - (\alpha/2) * \frac{\partial L}{\partial y}) \\
-> &= z_n - \alpha * 1/2 * \left(\frac{\partial L}{\partial x} + j \frac{\partial L}{\partial y}\right) \\
-> &= z_n - \alpha * \frac{\partial L}{\partial z^*}
-> \end{aligned}
-> 
-> zn+1​​=xn​−(α/2)∗∂x∂L​+1j∗(yn​−(α/2)∗∂y∂L​)=zn​−α∗1/2∗(∂x∂L​+j∂y∂L​)=zn​−α∗∂z∗∂L​​
+zn+1=xn−(α/2)∗∂L∂x+1j∗(yn−(α/2)∗∂L∂y)=zn−α∗1/2∗(∂L∂x+j∂L∂y)=zn−α∗∂L∂z∗ \begin{aligned}
+ z_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} + 1j * (y_n - (\alpha/2) * \frac{\partial L}{\partial y}) \\
+ &= z_n - \alpha * 1/2 * \left(\frac{\partial L}{\partial x} + j \frac{\partial L}{\partial y}\right) \\
+ &= z_n - \alpha * \frac{\partial L}{\partial z^*}
+ \end{aligned}zn+1​​=xn​−(α/2)∗∂x∂L​+1j∗(yn​−(α/2)∗∂y∂L​)=zn​−α∗1/2∗(∂x∂L​+j∂y∂L​)=zn​−α∗∂z∗∂L​​
 
 Something very interesting has happened: Wirtinger calculus tells us
 that we can simplify the complex variable update formula above to only
 refer to the conjugate Wirtinger derivative
-∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​, giving us exactly the step we take in optimization.
+$\frac{\partial L}{\partial z^*}$, giving us exactly the step we take in optimization.
 
 Because the conjugate Wirtinger derivative gives us exactly the correct step for a real valued loss function, PyTorch gives you this derivative
 when you differentiate a function with a real valued loss.
 
 ### How does PyTorch compute the conjugate Wirtinger derivative?
 
-Typically, our derivative formulas take in grad_output as an input,
+Typically, our derivative formulas take in `grad_output` as an input,
 representing the incoming Vector-Jacobian product that we've already
-computed, aka, ∂L∂s∗\frac{\partial L}{\partial s^*}∂s∗∂L​, where LLL
+computed, aka, $\frac{\partial L}{\partial s^*}$, where $L$
 is the loss of the entire computation (producing a real loss) and
-sss is the output of our function. The goal here is to compute
-∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​, where zzz is the input of
+$s$ is the output of our function. The goal here is to compute
+$\frac{\partial L}{\partial z^*}$, where $z$ is the input of
 the function. It turns out that in the case of real loss, we can
-get away with *only* calculating ∂L∂s∗\frac{\partial L}{\partial s^*}∂s∗∂L​,
+get away with *only* calculating $\frac{\partial L}{\partial s^*}$,
 even though the chain rule implies that we also need to
-have access to ∂L∂s\frac{\partial L}{\partial s}∂s∂L​. If you want
+have access to $\frac{\partial L}{\partial s}$. If you want
 to skip this derivation, look at the last equation in this section
 and then skip to the next section.
 
-Let's continue working with f:C→Cf: ℂ → ℂf:C→C defined as
-f(z)=f(x+yj)=u(x,y)+v(x,y)jf(z) = f(x+yj) = u(x, y) + v(x, y)jf(z)=f(x+yj)=u(x,y)+v(x,y)j. As discussed above,
+Let's continue working with $f: ℂ → ℂ$ defined as
+$f(z) = f(x+yj) = u(x, y) + v(x, y)j$. As discussed above,
 autograd's gradient convention is centered around optimization for real
-valued loss functions, so let's assume fff is a part of larger
-real valued loss function ggg. Using chain rule, we can write:
+valued loss functions, so let's assume $f$ is a part of larger
+real valued loss function $g$. Using chain rule, we can write:
 
-> (1)∂L∂z∗=∂L∂u∗∂u∂z∗+∂L∂v∗∂v∂z∗\frac{\partial L}{\partial z^*} = \frac{\partial L}{\partial u} * \frac{\partial u}{\partial z^*} + \frac{\partial L}{\partial v} * \frac{\partial v}{\partial z^*}
-> 
-> ∂z∗∂L​=∂u∂L​∗∂z∗∂u​+∂v∂L​∗∂z∗∂v​
+(1)∂L∂z∗=∂L∂u∗∂u∂z∗+∂L∂v∗∂v∂z∗ \frac{\partial L}{\partial z^*} = \frac{\partial L}{\partial u} * \frac{\partial u}{\partial z^*} + \frac{\partial L}{\partial v} * \frac{\partial v}{\partial z^*}∂z∗∂L​=∂u∂L​∗∂z∗∂u​+∂v∂L​∗∂z∗∂v​
 
 Now using Wirtinger derivative definition, we can write:
 
-> ∂L∂s=1/2∗(∂L∂u−∂L∂vj)∂L∂s∗=1/2∗(∂L∂u+∂L∂vj)\begin{aligned}
-> \frac{\partial L}{\partial s} = 1/2 * \left(\frac{\partial L}{\partial u} - \frac{\partial L}{\partial v} j\right) \\
-> \frac{\partial L}{\partial s^*} = 1/2 * \left(\frac{\partial L}{\partial u} + \frac{\partial L}{\partial v} j\right)
-> \end{aligned}
-> 
-> ∂s∂L​=1/2∗(∂u∂L​−∂v∂L​j)∂s∗∂L​=1/2∗(∂u∂L​+∂v∂L​j)​
+∂L∂s=1/2∗(∂L∂u−∂L∂vj)∂L∂s∗=1/2∗(∂L∂u+∂L∂vj) \begin{aligned}
+ \frac{\partial L}{\partial s} = 1/2 * \left(\frac{\partial L}{\partial u} - \frac{\partial L}{\partial v} j\right) \\
+ \frac{\partial L}{\partial s^*} = 1/2 * \left(\frac{\partial L}{\partial u} + \frac{\partial L}{\partial v} j\right)
+ \end{aligned}∂s∂L​=1/2∗(∂u∂L​−∂v∂L​j)∂s∗∂L​=1/2∗(∂u∂L​+∂v∂L​j)​
 
-It should be noted here that since uuu and vvv are real
-functions, and LLL is real by our assumption that fff is a
+It should be noted here that since $u$ and $v$ are real
+functions, and $L$ is real by our assumption that $f$ is a
 part of a real valued function, we have:
 
-> (2)(∂L∂s)∗=∂L∂s∗\left( \frac{\partial L}{\partial s} \right)^* = \frac{\partial L}{\partial s^*}
-> 
-> (∂s∂L​)∗=∂s∗∂L​
+(2)(∂L∂s)∗=∂L∂s∗ \left( \frac{\partial L}{\partial s} \right)^* = \frac{\partial L}{\partial s^*}(∂s∂L​)∗=∂s∗∂L​
 
-i.e., ∂L∂s\frac{\partial L}{\partial s}∂s∂L​ equals to grad_output∗grad\_output^*grad_output∗.
+i.e., $\frac{\partial L}{\partial s}$ equals to $grad_output^*$.
 
-Solving the above equations for ∂L∂u\frac{\partial L}{\partial u}∂u∂L​ and ∂L∂v\frac{\partial L}{\partial v}∂v∂L​, we get:
+Solving the above equations for $\frac{\partial L}{\partial u}$ and $\frac{\partial L}{\partial v}$, we get:
 
-> (3)∂L∂u=∂L∂s+∂L∂s∗∂L∂v=1j∗(∂L∂s−∂L∂s∗)\begin{aligned}
-> \frac{\partial L}{\partial u} = \frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*} \\
-> \frac{\partial L}{\partial v} = 1j * \left(\frac{\partial L}{\partial s} - \frac{\partial L}{\partial s^*}\right)
-> \end{aligned}
-> 
-> ∂u∂L​=∂s∂L​+∂s∗∂L​∂v∂L​=1j∗(∂s∂L​−∂s∗∂L​)​
+(3)∂L∂u=∂L∂s+∂L∂s∗∂L∂v=1j∗(∂L∂s−∂L∂s∗) \begin{aligned}
+ \frac{\partial L}{\partial u} = \frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*} \\
+ \frac{\partial L}{\partial v} = 1j * \left(\frac{\partial L}{\partial s} - \frac{\partial L}{\partial s^*}\right)
+ \end{aligned}∂u∂L​=∂s∂L​+∂s∗∂L​∂v∂L​=1j∗(∂s∂L​−∂s∗∂L​)​
 
 Substituting (3) in (1), we get:
 
-> ∂L∂z∗=(∂L∂s+∂L∂s∗)∗∂u∂z∗+1j∗(∂L∂s−∂L∂s∗)∗∂v∂z∗=∂L∂s∗(∂u∂z∗+∂v∂z∗j)+∂L∂s∗∗(∂u∂z∗−∂v∂z∗j)=∂L∂s∗∂(u+vj)∂z∗+∂L∂s∗∗∂(u+vj)∗∂z∗=∂L∂s∗∂s∂z∗+∂L∂s∗∗∂s∗∂z∗\begin{aligned}
-> \frac{\partial L}{\partial z^*} &= \left(\frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*}\right) * \frac{\partial u}{\partial z^*} + 1j * \left(\frac{\partial L}{\partial s} - \frac{\partial L}{\partial s^*}\right) * \frac{\partial v}{\partial z^*} \\
-> &= \frac{\partial L}{\partial s} * \left(\frac{\partial u}{\partial z^*} + \frac{\partial v}{\partial z^*} j\right) + \frac{\partial L}{\partial s^*} * \left(\frac{\partial u}{\partial z^*} - \frac{\partial v}{\partial z^*} j\right) \\
-> &= \frac{\partial L}{\partial s} * \frac{\partial (u + vj)}{\partial z^*} + \frac{\partial L}{\partial s^*} * \frac{\partial (u + vj)^*}{\partial z^*} \\
-> &= \frac{\partial L}{\partial s} * \frac{\partial s}{\partial z^*} + \frac{\partial L}{\partial s^*} * \frac{\partial s^*}{\partial z^*} \\
-> \end{aligned}
-> 
-> ∂z∗∂L​​=(∂s∂L​+∂s∗∂L​)∗∂z∗∂u​+1j∗(∂s∂L​−∂s∗∂L​)∗∂z∗∂v​=∂s∂L​∗(∂z∗∂u​+∂z∗∂v​j)+∂s∗∂L​∗(∂z∗∂u​−∂z∗∂v​j)=∂s∂L​∗∂z∗∂(u+vj)​+∂s∗∂L​∗∂z∗∂(u+vj)∗​=∂s∂L​∗∂z∗∂s​+∂s∗∂L​∗∂z∗∂s∗​​
+∂L∂z∗=(∂L∂s+∂L∂s∗)∗∂u∂z∗+1j∗(∂L∂s−∂L∂s∗)∗∂v∂z∗=∂L∂s∗(∂u∂z∗+∂v∂z∗j)+∂L∂s∗∗(∂u∂z∗−∂v∂z∗j)=∂L∂s∗∂(u+vj)∂z∗+∂L∂s∗∗∂(u+vj)∗∂z∗=∂L∂s∗∂s∂z∗+∂L∂s∗∗∂s∗∂z∗ \begin{aligned}
+ \frac{\partial L}{\partial z^*} &= \left(\frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*}\right) * \frac{\partial u}{\partial z^*} + 1j * \left(\frac{\partial L}{\partial s} - \frac{\partial L}{\partial s^*}\right) * \frac{\partial v}{\partial z^*} \\
+ &= \frac{\partial L}{\partial s} * \left(\frac{\partial u}{\partial z^*} + \frac{\partial v}{\partial z^*} j\right) + \frac{\partial L}{\partial s^*} * \left(\frac{\partial u}{\partial z^*} - \frac{\partial v}{\partial z^*} j\right) \\
+ &= \frac{\partial L}{\partial s} * \frac{\partial (u + vj)}{\partial z^*} + \frac{\partial L}{\partial s^*} * \frac{\partial (u + vj)^*}{\partial z^*} \\
+ &= \frac{\partial L}{\partial s} * \frac{\partial s}{\partial z^*} + \frac{\partial L}{\partial s^*} * \frac{\partial s^*}{\partial z^*} \\
+ \end{aligned}∂z∗∂L​​=(∂s∂L​+∂s∗∂L​)∗∂z∗∂u​+1j∗(∂s∂L​−∂s∗∂L​)∗∂z∗∂v​=∂s∂L​∗(∂z∗∂u​+∂z∗∂v​j)+∂s∗∂L​∗(∂z∗∂u​−∂z∗∂v​j)=∂s∂L​∗∂z∗∂(u+vj)​+∂s∗∂L​∗∂z∗∂(u+vj)∗​=∂s∂L​∗∂z∗∂s​+∂s∗∂L​∗∂z∗∂s∗​​
 
 Using (2), we get:
 
-> (4)∂L∂z∗=(∂L∂s∗)∗∗∂s∂z∗+∂L∂s∗∗(∂s∂z)∗=(grad_output)∗∗∂s∂z∗+grad_output∗(∂s∂z)∗\begin{aligned}
-> \frac{\partial L}{\partial z^*} &= \left(\frac{\partial L}{\partial s^*}\right)^* * \frac{\partial s}{\partial z^*} + \frac{\partial L}{\partial s^*} * \left(\frac{\partial s}{\partial z}\right)^* \\
-> &= \boxed{ (grad\_output)^* * \frac{\partial s}{\partial z^*} + grad\_output * \left(\frac{\partial s}{\partial z}\right)^* } \\
-> \end{aligned}
-> 
-> ∂z∗∂L​​=(∂s∗∂L​)∗∗∂z∗∂s​+∂s∗∂L​∗(∂z∂s​)∗=(grad_output)∗∗∂z∗∂s​+grad_output∗(∂z∂s​)∗​​
+(4)∂L∂z∗=(∂L∂s∗)∗∗∂s∂z∗+∂L∂s∗∗(∂s∂z)∗=(grad_output)∗∗∂s∂z∗+grad_output∗(∂s∂z)∗ \begin{aligned}
+ \frac{\partial L}{\partial z^*} &= \left(\frac{\partial L}{\partial s^*}\right)^* * \frac{\partial s}{\partial z^*} + \frac{\partial L}{\partial s^*} * \left(\frac{\partial s}{\partial z}\right)^* \\
+ &= \boxed{ (grad\_output)^* * \frac{\partial s}{\partial z^*} + grad\_output * \left(\frac{\partial s}{\partial z}\right)^* } \\
+ \end{aligned}∂z∗∂L​​=(∂s∗∂L​)∗∗∂z∗∂s​+∂s∗∂L​∗(∂z∂s​)∗=(grad_output)∗∗∂z∗∂s​+grad_output∗(∂z∂s​)∗​​
 
 This last equation is the important one for writing your own gradients,
 as it decomposes our derivative formula into a simpler one that is easy
@@ -630,16 +604,18 @@ to compute by hand.
 
 The above boxed equation gives us the general formula for all
 derivatives on complex functions. However, we still need to
-compute ∂s∂z\frac{\partial s}{\partial z}∂z∂s​ and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​.
+compute $\frac{\partial s}{\partial z}$ and $\frac{\partial s}{\partial z^*}$.
 There are two ways you could do this:
 
-> - The first way is to just use the definition of Wirtinger derivatives directly and calculate ∂s∂z\frac{\partial s}{\partial z}∂z∂s​ and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​ by
-> using ∂s∂x\frac{\partial s}{\partial x}∂x∂s​ and ∂s∂y\frac{\partial s}{\partial y}∂y∂s​
-> (which you can compute in the normal way).
-> - The second way is to use the change of variables trick and rewrite f(z)f(z)f(z) as a two variable function f(z,z∗)f(z, z^*)f(z,z∗), and compute
-> the conjugate Wirtinger derivatives by treating zzz and z∗z^*z∗ as independent variables. This is often easier; for example, if the function in question is holomorphic, only zzz will be used (and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​ will be zero).
+```
+- The first way is to just use the definition of Wirtinger derivatives directly and calculate $\frac{\partial s}{\partial z}$ and $\frac{\partial s}{\partial z^*}$ by
+ using $\frac{\partial s}{\partial x}$ and $\frac{\partial s}{\partial y}$
+ (which you can compute in the normal way).
+- The second way is to use the change of variables trick and rewrite $f(z)$ as a two variable function $f(z, z^*)$, and compute
+ the conjugate Wirtinger derivatives by treating $z$ and $z^*$ as independent variables. This is often easier; for example, if the function in question is holomorphic, only $z$ will be used (and $\frac{\partial s}{\partial z^*}$ will be zero).
+```
 
-Let's consider the function f(z=x+yj)=c∗z=c∗(x+yj)f(z = x + yj) = c * z = c * (x+yj)f(z=x+yj)=c∗z=c∗(x+yj) as an example, where c∈Rc \in ℝc∈R.
+Let's consider the function $f(z = x + yj) = c * z = c * (x+yj)$ as an example, where $c \in ℝ$.
 
 Using the first way to compute the Wirtinger derivatives, we have.
 
@@ -652,28 +628,22 @@ Using the first way to compute the Wirtinger derivatives, we have.
  \frac{\partial s}{\partial z^*} &= 1/2 * \left(\frac{\partial s}{\partial x} + \frac{\partial s}{\partial y} j\right) \\
  &= 1/2 * (c + (c * 1j) * 1j) \\
  &= 0 \\
-\end{aligned}
+\end{aligned}∂z∂s​∂z∗∂s​​=1/2∗(∂x∂s​−∂y∂s​j)=1/2∗(c−(c∗1j)∗1j)=c=1/2∗(∂x∂s​+∂y∂s​j)=1/2∗(c+(c∗1j)∗1j)=0​
 
-∂z∂s​∂z∗∂s​​=1/2∗(∂x∂s​−∂y∂s​j)=1/2∗(c−(c∗1j)∗1j)=c=1/2∗(∂x∂s​+∂y∂s​j)=1/2∗(c+(c∗1j)∗1j)=0​
+Using (4), and `grad\_output = 1.0` (which is the default grad output value used when `backward()` is called on a scalar output in PyTorch), we get:
 
-Using (4), and grad_output = 1.0 (which is the default grad output value used when `backward()` is called on a scalar output in PyTorch), we get:
-
-> ∂L∂z∗=1∗0+1∗c=c\frac{\partial L}{\partial z^*} = 1 * 0 + 1 * c = c
-> 
-> ∂z∗∂L​=1∗0+1∗c=c
+∂L∂z∗=1∗0+1∗c=c \frac{\partial L}{\partial z^*} = 1 * 0 + 1 * c = c∂z∗∂L​=1∗0+1∗c=c
 
 Using the second way to compute Wirtinger derivatives, we directly get:
 
-> ∂s∂z=∂(c∗z)∂z=c∂s∂z∗=∂(c∗z)∂z∗=0\begin{aligned}
-> \frac{\partial s}{\partial z} &= \frac{\partial (c*z)}{\partial z} \\
-> &= c \\
-> \frac{\partial s}{\partial z^*} &= \frac{\partial (c*z)}{\partial z^*} \\
-> &= 0
-> \end{aligned}
-> 
-> ∂z∂s​∂z∗∂s​​=∂z∂(c∗z)​=c=∂z∗∂(c∗z)​=0​
+∂s∂z=∂(c∗z)∂z=c∂s∂z∗=∂(c∗z)∂z∗=0 \begin{aligned}
+ \frac{\partial s}{\partial z} &= \frac{\partial (c*z)}{\partial z} \\
+ &= c \\
+ \frac{\partial s}{\partial z^*} &= \frac{\partial (c*z)}{\partial z^*} \\
+ &= 0
+ \end{aligned}∂z∂s​∂z∗∂s​​=∂z∂(c∗z)​=c=∂z∗∂(c∗z)​=0​
 
-And using (4) again, we get ∂L∂z∗=c\frac{\partial L}{\partial z^*} = c∂z∗∂L​=c. As you can see, the second way involves lesser calculations, and comes
+And using (4) again, we get $\frac{\partial L}{\partial z^*} = c$. As you can see, the second way involves lesser calculations, and comes
 in more handy for faster calculations.
 
 ### What about cross-domain functions?
@@ -682,22 +652,12 @@ Some functions map from complex inputs to real outputs, or vice versa.
 These functions form a special case of (4), which we can derive using the
 chain rule:
 
-> - For f:C→Rf: ℂ → ℝf:C→R, we get:
-> 
-> 
-> 
-> 
-> > ∂L∂z∗=2∗grad_output∗∂s∂z∗\frac{\partial L}{\partial z^*} = 2 * grad\_output * \frac{\partial s}{\partial z^{*}}
-> > 
-> > ∂z∗∂L​=2∗grad_output∗∂z∗∂s​
-> - For f:R→Cf: ℝ → ℂf:R→C, we get:
-> 
-> 
-> 
-> 
-> > ∂L∂z∗=2∗Re(grad_output∗∗∂s∂z∗)\frac{\partial L}{\partial z^*} = 2 * \mathrm{Re}(grad\_output^* * \frac{\partial s}{\partial z^{*}})
-> > 
-> > ∂z∗∂L​=2∗Re(grad_output∗∗∂z∗∂s​)
+- For $f: ℂ → ℝ$, we get:
+
+∂L∂z∗=2∗grad_output∗∂s∂z∗\frac{\partial L}{\partial z^*} = 2 * grad\_output * \frac{\partial s}{\partial z^{*}}∂z∗∂L​=2∗grad_output∗∂z∗∂s​
+- For $f: ℝ → ℂ$, we get:
+
+∂L∂z∗=2∗Re(grad_output∗∗∂s∂z∗)\frac{\partial L}{\partial z^*} = 2 * \mathrm{Re}(grad\_output^* * \frac{\partial s}{\partial z^{*}})∂z∗∂L​=2∗Re(grad_output∗∗∂z∗∂s​)
 
 ## Hooks for saved tensors
 
@@ -732,9 +692,9 @@ def unpack_hook(temp_file):
 
 Notice that the `unpack_hook` should not delete the temporary file because it
 might be called multiple times: the temporary file should be alive for as long
-as the returned SelfDeletingTempFile object is alive. In the above example,
+as the returned `SelfDeletingTempFile` object is alive. In the above example,
 we prevent leaking the temporary file by closing it when it is no longer needed
-(on deletion of the SelfDeletingTempFile object).
+(on deletion of the `SelfDeletingTempFile` object).
 
 Note
 
@@ -813,13 +773,13 @@ net = nn.DataParallel(model)
 
 The hooks defined with this context manager are thread-local.
 Hence, the following code will not produce the desired effects because the hooks do not go
-through DataParallel.
+through `DataParallel`.
 
 ```
 # Example what NOT to do
 
-net = nn.DataParallel(model)
-with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook):
+ net = nn.DataParallel(model)
+ with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook):
  output = net(input)
 ```
 
@@ -834,8 +794,8 @@ with torch.autograd.graph.saved_tensors_hooks(lambda x: x.detach(), lambda x: x)
 
 Without the hooks, `x`, `y.grad_fn._saved_self` and
 `y.grad_fn._saved_other` all refer to the same tensor object.
-With the hooks, PyTorch will pack and unpack x into two new tensor objects
-that share the same storage with the original x (no copy performed).
+With the hooks, PyTorch will pack and unpack `x` into two new tensor objects
+that share the same storage with the original `x` (no copy performed).
 
 ## Backward Hooks execution
 
@@ -862,7 +822,7 @@ are run as gradients are being computed, hooks registered via [`torch.Tensor.reg
 are only triggered once the Tensor's grad field is updated by autograd at the end of
 the backward pass. Thus, post-accumulate-grad hooks can only be registered for leaf
 Tensors. Registering a hook via [`torch.Tensor.register_post_accumulate_grad_hook()`](../generated/torch.Tensor.register_post_accumulate_grad_hook.html#torch.Tensor.register_post_accumulate_grad_hook)
-on a non-leaf Tensor will error, even if you call backward(retain_graph=True).
+on a non-leaf Tensor will error, even if you call `backward(retain_graph=True)`.
 
 Hooks registered to `torch.autograd.graph.Node` using
 [`torch.autograd.graph.Node.register_hook()`](../generated/torch.autograd.graph.Node.register_hook.html#torch.autograd.graph.Node.register_hook) or
@@ -876,7 +836,7 @@ Node corresponding to a Tensor that you are passing to [`torch.autograd.grad()`]
 [`torch.autograd.backward()`](../generated/torch.autograd.backward.html#torch.autograd.backward) as part of the `inputs` argument.
 
 If you are using [`torch.autograd.backward()`](../generated/torch.autograd.backward.html#torch.autograd.backward), all of the above mentioned hooks will be executed,
-whether or not you specified the `inputs` argument. This is because .backward() executes all
+whether or not you specified the `inputs` argument. This is because `.backward()` executes all
 Nodes, even if they correspond to a Tensor specified as an input.
 (Note that the execution of this additional Node corresponding to Tensors passed as `inputs`
 is usually unnecessary, but done anyway. This behavior is subject to change;

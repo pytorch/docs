@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7032,7 +7037,7 @@ document.write(`
                   
   <section id="torch-utils-mobile-optimizer">
 <h1>torch.utils.mobile_optimizer<a class="headerlink" href="#torch-utils-mobile-optimizer" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: May 06, 2026</p>
 <p>PyTorch Mobile is no longer actively supported. Redirecting to <a class="reference external" href="https://docs.pytorch.org/executorch">ExecuTorch documentation</a>.</p>
 <meta http-equiv="Refresh" content="0; url='https://docs.pytorch.org/executorch'" /><div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -7044,7 +7049,7 @@ and <a class="reference external" href="https://pytorch.org/executorch/stable/na
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.mobile_optimizer.optimize_for_mobile">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/474b9649dd111ae9b0c31728da812cc3dda2c4ae/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Link to this definition">#</a></dt>
 <dd><p>Optimize a torch script module for mobile deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7062,6 +7067,23 @@ method will run the optimization pass that is not included inside optimization_b
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>RecursiveScriptModule</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.utils.mobile_optimizer.generate_mobile_module_lints">
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">generate_mobile_module_lints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/utils/mobile_optimizer.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.generate_mobile_module_lints" title="Link to this definition">#</a></dt>
+<dd><p>Generate a list of lints for a given torch script module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>script_module</strong> (<em>ScriptModule</em>) – An instance of torch script module with type of ScriptModule.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionary that contains modules lints</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>lint_map</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7186,6 +7208,7 @@ method will run the optimization pass that is not included inside optimization_b
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.mobile_optimizer.optimize_for_mobile"><code class="docutils literal notranslate"><span class="pre">optimize_for_mobile()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.mobile_optimizer.generate_mobile_module_lints"><code class="docutils literal notranslate"><span class="pre">generate_mobile_module_lints()</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -7438,7 +7461,7 @@ method will run the optimization pass that is not included inside optimization_b
        "headline": "torch.utils.mobile_optimizer",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mobile_optimizer.html",
-       "articleBody": "torch.utils.mobile_optimizer# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 PyTorch Mobile is no longer actively supported. Redirecting to ExecuTorch documentation. Warning PyTorch Mobile is no longer actively supported. Please check out ExecuTorch, PyTorch\u2019s all-new on-device inference library. You can also review documentation on XNNPACK and Vulkan delegates. torch.utils.mobile_optimizer.optimize_for_mobile(script_module, optimization_blocklist=None, preserved_methods=None, backend=\u0027CPU\u0027)[source]# Optimize a torch script module for mobile deployment. Parameters: script_module (ScriptModule) \u2013 An instance of torch script module with type of ScriptModule. optimization_blocklist (set[_MobileOptimizerType] | None) \u2013 A set with type of MobileOptimizerType. When set is not passed, optimization method will run all the optimizer pass; otherwise, optimizer method will run the optimization pass that is not included inside optimization_blocklist. preserved_methods (list[AnyStr] | None) \u2013 A list of methods that needed to be preserved when freeze_module pass is invoked backend (str) \u2013 Device type to use for running the result model (\u2018CPU\u2019(default), \u2018Vulkan\u2019 or \u2018Metal\u2019). Returns: A new optimized torch script module Return type: RecursiveScriptModule",
+       "articleBody": "torch.utils.mobile_optimizer# Created On: Jun 11, 2025 | Last Updated On: May 06, 2026 PyTorch Mobile is no longer actively supported. Redirecting to ExecuTorch documentation. Warning PyTorch Mobile is no longer actively supported. Please check out ExecuTorch, PyTorch\u2019s all-new on-device inference library. You can also review documentation on XNNPACK and Vulkan delegates. torch.utils.mobile_optimizer.optimize_for_mobile(script_module, optimization_blocklist=None, preserved_methods=None, backend=\u0027CPU\u0027)[source]# Optimize a torch script module for mobile deployment. Parameters: script_module (ScriptModule) \u2013 An instance of torch script module with type of ScriptModule. optimization_blocklist (set[_MobileOptimizerType] | None) \u2013 A set with type of MobileOptimizerType. When set is not passed, optimization method will run all the optimizer pass; otherwise, optimizer method will run the optimization pass that is not included inside optimization_blocklist. preserved_methods (list[AnyStr] | None) \u2013 A list of methods that needed to be preserved when freeze_module pass is invoked backend (str) \u2013 Device type to use for running the result model (\u2018CPU\u2019(default), \u2018Vulkan\u2019 or \u2018Metal\u2019). Returns: A new optimized torch script module Return type: RecursiveScriptModule torch.utils.mobile_optimizer.generate_mobile_module_lints(script_module)[source]# Generate a list of lints for a given torch script module. Parameters: script_module (ScriptModule) \u2013 An instance of torch script module with type of ScriptModule. Returns: A list of dictionary that contains modules lints Return type: lint_map",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7450,7 +7473,7 @@ method will run the optimization pass that is not included inside optimization_b
          "@id": "/mobile_optimizer.html"
        },
        "datePublished": "Jun 11, 2025T00:00:00Z",
-       "dateModified": "Jun 11, 2025T00:00:00Z"
+       "dateModified": "May 06, 2026T00:00:00Z"
      }
  </script>
   <script>

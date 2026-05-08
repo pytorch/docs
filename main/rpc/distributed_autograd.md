@@ -64,7 +64,7 @@ we attach an appropriate `send-recv` pair for the tensors involved.
 As an example, this is what the autograd graph for our example above would look
 like (t5.sum() excluded for simplicity):
 
-![../_images/send_recv_functions.png](../_images/send_recv_functions.png)
+![send and recv functions](../_images/send_recv_functions.png)
 
 ## Distributed Autograd Context
 
@@ -122,12 +122,12 @@ b = torch.rand((3, 3), requires_grad=True)
 c = torch.rand((3, 3), requires_grad=True)
 d = a + b
 e = b * c
-d.sum.().backward()
+d.sum().backward()
 ```
 
 This is what the autograd graph for the code above would look like:
 
-[![../_images/local_dependencies.png](../_images/local_dependencies.png)](../_images/local_dependencies.png)
+![local dependencies](../_images/local_dependencies.png)
 
 The first step the autograd engine performs as part of the backward pass is
 computing the number of dependencies for each node in the autograd graph. This
@@ -157,7 +157,7 @@ loss = d.sum()
 
 The associated autograd graph for the code above would be:
 
-![../_images/distributed_dependencies.png](../_images/distributed_dependencies.png)
+![distributed dependencies](../_images/distributed_dependencies.png)
 
 Computing dependencies of this distributed autograd graph is much more
 challenging and requires some overhead (either in terms of computation or
@@ -174,7 +174,7 @@ described in detail below.
 In the general case it might not be necessary that every `send` and `recv`
 function is valid as part of the backward pass. To address this, we have
 proposed a SMART mode algorithm which is described in a later section.
-Please note that currently, only the FAST mode algorithm is implemented.
+Please note that currently, only the `FAST` mode algorithm is implemented.
 
 ### FAST mode algorithm
 
@@ -250,7 +250,7 @@ with dist_autograd.context() as context_id:
 
 The distributed autograd graph with dependencies would be as follows (t5.sum() excluded for simplicity):
 
-![../_images/distributed_dependencies_computed.png](../_images/distributed_dependencies_computed.png)
+![distributed dependencies computed](../_images/distributed_dependencies_computed.png)
 
 The FAST mode algorithm applied to the above example would be as follows:
 
@@ -303,7 +303,7 @@ parameters on a worker, these updates are serialized via a lock.
 
 Putting it all together, the following is a simple end to end example using
 distributed autograd and the distributed optimizer. If the code is placed into a
-file called "dist_autograd_simple.py", it can be run with the command
+file called `dist_autograd_simple.py`, it can be run with the command
 `MASTER_ADDR="localhost" MASTER_PORT=29500 python dist_autograd_simple.py`:
 
 ```

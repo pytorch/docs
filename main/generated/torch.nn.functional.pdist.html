@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3681,7 +3681,7 @@ document.write(`
 <h1>torch.nn.functional.pdist<a class="headerlink" href="#torch-nn-functional-pdist" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.pdist">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">pdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.nn.functional.pdist" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">pdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/functional.py#L5640"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.pdist" title="Link to this definition">#</a></dt>
 <dd><p>Computes the p-norm distance between every pair of row vectors in the input.
 This is identical to the upper triangular portion, excluding the diagonal, of
 <cite>torch.norm(input[:, None] - input, dim=2, p=p)</cite>. This function will be faster
@@ -4060,7 +4060,7 @@ When <span class="math"><span class="katex"><span class="katex-mathml"><math xml
        "headline": "torch.nn.functional.pdist",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.functional.pdist.html",
-       "articleBody": "torch.nn.functional.pdist# torch.nn.functional.pdist(input, p=2) \u2192 Tensor# Computes the p-norm distance between every pair of row vectors in the input. This is identical to the upper triangular portion, excluding the diagonal, of torch.norm(input[:, None] - input, dim=2, p=p). This function will be faster if the rows are contiguous. If input has shape N\u00d7MN \\times MN\u00d7M then the output will have shape 12N(N\u22121)\\frac{1}{2} N (N - 1)21\u200bN(N\u22121). This function is equivalent to scipy.spatial.distance.pdist(input, \u0027minkowski\u0027, p=p) if p\u2208(0,\u221e)p \\in (0, \\infty)p\u2208(0,\u221e). When p=0p = 0p=0 it is equivalent to scipy.spatial.distance.pdist(input, \u0027hamming\u0027) * M. When p=\u221ep = \\inftyp=\u221e, the closest scipy function is scipy.spatial.distance.pdist(xn, lambda x, y: np.abs(x - y).max()). Parameters: input \u2013 input tensor of shape N\u00d7MN \\times MN\u00d7M. p \u2013 p value for the p-norm distance to calculate between each vector pair \u2208[0,\u221e]\\in [0, \\infty]\u2208[0,\u221e].",
+       "articleBody": "torch.nn.functional.pdist# torch.nn.functional.pdist(input, p=2) \u2192 Tensor[source]# Computes the p-norm distance between every pair of row vectors in the input. This is identical to the upper triangular portion, excluding the diagonal, of torch.norm(input[:, None] - input, dim=2, p=p). This function will be faster if the rows are contiguous. If input has shape N\u00d7MN \\times MN\u00d7M then the output will have shape 12N(N\u22121)\\frac{1}{2} N (N - 1)21\u200bN(N\u22121). This function is equivalent to scipy.spatial.distance.pdist(input, \u0027minkowski\u0027, p=p) if p\u2208(0,\u221e)p \\in (0, \\infty)p\u2208(0,\u221e). When p=0p = 0p=0 it is equivalent to scipy.spatial.distance.pdist(input, \u0027hamming\u0027) * M. When p=\u221ep = \\inftyp=\u221e, the closest scipy function is scipy.spatial.distance.pdist(xn, lambda x, y: np.abs(x - y).max()). Parameters: input \u2013 input tensor of shape N\u00d7MN \\times MN\u00d7M. p \u2013 p value for the p-norm distance to calculate between each vector pair \u2208[0,\u221e]\\in [0, \\infty]\u2208[0,\u221e].",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

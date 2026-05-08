@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/mtia.memory.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.mtia.memory.max_memory_allocated" href="generated/torch.mtia.memory.max_memory_allocated.html" />
+    <link rel="next" title="torch.mtia.memory.reset_peak_memory_stats" href="generated/torch.mtia.memory.reset_peak_memory_stats.html" />
     <link rel="prev" title="Stream" href="generated/torch.mtia.Stream_class.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474b964 )">
+<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474b964 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5389,6 +5389,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.start.html">torch.cuda.profiler.start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.profiler.stop.html">torch.cuda.profiler.stop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.nvtx.range_pop.html">torch.cuda.nvtx.range_pop</a></li>
@@ -5564,6 +5567,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">torch.mtia.memory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.reset_peak_memory_stats.html">torch.mtia.memory.reset_peak_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html">torch.mtia.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
@@ -5755,6 +5759,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.jacfwd.html">torch.func.jacfwd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.hessian.html">torch.func.hessian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functionalize.html">torch.func.functionalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.func.rearrange.html">torch.func.rearrange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.functional_call.html">torch.func.functional_call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.stack_module_state.html">torch.func.stack_module_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.func.replace_all_batch_norm_modules_.html">torch.func.replace_all_batch_norm_modules_</a></li>
@@ -7032,18 +7037,21 @@ document.write(`
                   
   <section id="torch-mtia-memory">
 <h1>torch.mtia.memory<a class="headerlink" href="#torch-mtia-memory" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 09, 2024 | Last Updated On: Apr 24, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 09, 2024 | Last Updated On: May 06, 2026</p>
 <p>The MTIA backend is implemented out of the tree, only interfaces are defined here.</p>
 <p id="module-torch.mtia.memory">This package adds support for device memory management implemented in MTIA.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.mtia.memory.max_memory_allocated"/><p id="torch.mtia.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html#torch.mtia.memory.max_memory_allocated" title="torch.mtia.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.memory.reset_peak_memory_stats"/><p id="torch.mtia.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.mtia.memory.reset_peak_memory_stats.html#torch.mtia.memory.reset_peak_memory_stats" title="torch.mtia.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
+<td><p>Reset the peak memory stats for a given device.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.mtia.memory.max_memory_allocated"/><p id="torch.mtia.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.mtia.memory.max_memory_allocated.html#torch.mtia.memory.max_memory_allocated" title="torch.mtia.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
 <td><p>Return the maximum memory allocated in bytes for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.memory.memory_stats"/><p id="torch.mtia.memory.memory_stats"/><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html#torch.mtia.memory.memory_stats" title="torch.mtia.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.memory.memory_stats"/><p id="torch.mtia.memory.memory_stats"/><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html#torch.mtia.memory.memory_stats" title="torch.mtia.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
 <td><p>Return a dictionary of MTIA memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.memory.memory_allocated"/><p id="torch.mtia.memory.memory_allocated"/><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html#torch.mtia.memory.memory_allocated" title="torch.mtia.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.memory.memory_allocated"/><p id="torch.mtia.memory.memory_allocated"/><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html#torch.mtia.memory.memory_allocated" title="torch.mtia.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
 <td><p>Return the current MTIA memory occupied by tensors in bytes for a given device.</p></td>
 </tr>
 </tbody>
@@ -7103,11 +7111,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.mtia.memory.max_memory_allocated.html"
+       href="generated/torch.mtia.memory.reset_peak_memory_stats.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.mtia.memory.max_memory_allocated</p>
+        <p class="prev-next-title">torch.mtia.memory.reset_peak_memory_stats</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7142,11 +7150,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.mtia.memory.max_memory_allocated.html"
+       href="generated/torch.mtia.memory.reset_peak_memory_stats.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.mtia.memory.max_memory_allocated</p>
+        <p class="prev-next-title">torch.mtia.memory.reset_peak_memory_stats</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7409,7 +7417,7 @@ document.write(`
        "headline": "torch.mtia.memory",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mtia.memory.html",
-       "articleBody": "torch.mtia.memory# Created On: Dec 09, 2024 | Last Updated On: Apr 24, 2026 The MTIA backend is implemented out of the tree, only interfaces are defined here. This package adds support for device memory management implemented in MTIA. max_memory_allocated Return the maximum memory allocated in bytes for a given device. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. memory_allocated Return the current MTIA memory occupied by tensors in bytes for a given device.",
+       "articleBody": "torch.mtia.memory# Created On: Dec 09, 2024 | Last Updated On: May 06, 2026 The MTIA backend is implemented out of the tree, only interfaces are defined here. This package adds support for device memory management implemented in MTIA. reset_peak_memory_stats Reset the peak memory stats for a given device. max_memory_allocated Return the maximum memory allocated in bytes for a given device. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. memory_allocated Return the current MTIA memory occupied by tensors in bytes for a given device.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7421,7 +7429,7 @@ document.write(`
          "@id": "/mtia.memory.html"
        },
        "datePublished": "Dec 09, 2024T00:00:00Z",
-       "dateModified": "Apr 24, 2026T00:00:00Z"
+       "dateModified": "May 06, 2026T00:00:00Z"
      }
  </script>
   <script>
