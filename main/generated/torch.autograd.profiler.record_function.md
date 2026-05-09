@@ -1,6 +1,6 @@
 # record_function
 
-*class*torch.autograd.profiler.record_function(*name*, *args=None*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/autograd/profiler.py#L820)
+*class*torch.autograd.profiler.record_function(*name*, *args=None*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/autograd/profiler.py#L820)
 
 Context manager/function decorator that adds a label to a code block/function when running autograd profiler.
 Label will only appear if CPU activity tracing is enabled.

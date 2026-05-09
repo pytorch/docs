@@ -1,6 +1,6 @@
 # Embedding
 
-*class*torch.ao.nn.quantized.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/nn/quantized/modules/embedding_ops.py#L97)
+*class*torch.ao.nn.quantized.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/nn/quantized/modules/embedding_ops.py#L97)
 
 A quantized Embedding module with quantized packed weights as inputs.
 We adopt the same interface as torch.nn.Embedding, please see
@@ -24,7 +24,7 @@ Examples::
 torch.Size([9, 12])
 ```
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/nn/quantized/modules/embedding_ops.py#L192)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/nn/quantized/modules/embedding_ops.py#L192)
 
 Create a quantized embedding module from a float module
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.torch.nn.parallel.data_parallel
 
-torch.nn.parallel.data_parallel(*module*, *inputs*, *device_ids=None*, *output_device=None*, *dim=0*, *module_kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/data_parallel.py#L221)
+torch.nn.parallel.data_parallel(*module*, *inputs*, *device_ids=None*, *output_device=None*, *dim=0*, *module_kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/parallel/data_parallel.py#L221)
 
 Evaluate module(input) in parallel across the GPUs given in device_ids.
 

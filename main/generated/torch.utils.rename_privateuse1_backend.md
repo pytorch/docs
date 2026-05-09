@@ -1,6 +1,6 @@
 # torch.utils.rename_privateuse1_backend
 
-torch.utils.rename_privateuse1_backend(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/utils/backend_registration.py#L49)
+torch.utils.rename_privateuse1_backend(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/utils/backend_registration.py#L49)
 
 Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs.
 

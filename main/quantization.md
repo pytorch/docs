@@ -22,8 +22,8 @@ The [Quantization API Reference](quantization-support.html) contains documentati
 of quantization APIs, such as quantization passes, quantized tensor operations,
 and supported quantized modules and functions.
 
-torch.ao.ns.fx.utils.compute_sqnr(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_sqnr(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/ns/fx/utils.py#L441)
 
-torch.ao.ns.fx.utils.compute_normalized_l2_error(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_normalized_l2_error(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/ns/fx/utils.py#L441)
 
-torch.ao.ns.fx.utils.compute_cosine_similarity(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_cosine_similarity(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/ns/fx/utils.py#L441)

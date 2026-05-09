@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_summary
 
-torch.cuda.memory.memory_summary(*device=None*, *abbreviated=False*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/cuda/memory.py#L637)
+torch.cuda.memory.memory_summary(*device=None*, *abbreviated=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/cuda/memory.py#L637)
 
 Return a human-readable printout of the current memory allocator statistics for a given device.
 

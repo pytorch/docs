@@ -1,6 +1,6 @@
 # LocalResponseNorm
 
-*class*torch.nn.LocalResponseNorm(*size*, *alpha=0.0001*, *beta=0.75*, *k=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/normalization.py#L16)
+*class*torch.nn.LocalResponseNorm(*size*, *alpha=0.0001*, *beta=0.75*, *k=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/normalization.py#L16)
 
 Applies local response normalization over an input signal.
 
@@ -33,11 +33,11 @@ Examples:
 >>> output_4d = lrn(signal_4d)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/normalization.py#L67)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/normalization.py#L67)
 
 Return the extra representation of the module.
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/normalization.py#L61)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/normalization.py#L61)
 
 Runs the forward pass.
 

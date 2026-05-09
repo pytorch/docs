@@ -1,6 +1,6 @@
 # LeakyReLU
 
-*class*torch.nn.LeakyReLU(*negative_slope=0.01*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/activation.py#L874)
+*class*torch.nn.LeakyReLU(*negative_slope=0.01*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/activation.py#L874)
 
 Applies the LeakyReLU function element-wise.
 
@@ -39,7 +39,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/activation.py#L924)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/activation.py#L924)
 
 Return the extra representation of the module.
 
@@ -47,7 +47,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/activation.py#L918)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/activation.py#L918)
 
 Run forward pass.
 

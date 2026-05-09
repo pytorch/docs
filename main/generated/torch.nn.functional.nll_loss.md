@@ -1,6 +1,6 @@
 # torch.nn.functional.nll_loss
 
-torch.nn.functional.nll_loss(*input*, *target*, *weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/functional.py#L3132)
+torch.nn.functional.nll_loss(*input*, *target*, *weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/functional.py#L3132)
 
 Compute the negative log likelihood loss.
 

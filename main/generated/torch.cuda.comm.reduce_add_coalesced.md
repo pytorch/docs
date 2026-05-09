@@ -1,6 +1,6 @@
 # torch.cuda.comm.reduce_add_coalesced
 
-torch.cuda.comm.reduce_add_coalesced(*inputs*, *destination=None*, *buffer_size=10485760*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/parallel/comm.py#L124)
+torch.cuda.comm.reduce_add_coalesced(*inputs*, *destination=None*, *buffer_size=10485760*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/parallel/comm.py#L124)
 
 Sum tensors from multiple GPUs.
 

@@ -1,6 +1,6 @@
 # torch.load
 
-torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/serialization.py#L1316)
+torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/serialization.py#L1316)
 
 Loads an object saved with [`torch.save()`](torch.save.html#torch.save) from a file.
 

@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/__init__.py#L1387)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/__init__.py#L1387)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when

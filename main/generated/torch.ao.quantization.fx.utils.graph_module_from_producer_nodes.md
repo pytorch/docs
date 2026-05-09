@@ -1,6 +1,6 @@
 # graph_module_from_producer_nodes
 
-*class*torch.ao.quantization.fx.utils.graph_module_from_producer_nodes(*root*, *producer_nodes*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/ao/quantization/fx/utils.py#L221)
+*class*torch.ao.quantization.fx.utils.graph_module_from_producer_nodes(*root*, *producer_nodes*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/ao/quantization/fx/utils.py#L221)
 
 Construct a graph module from extracted producer nodes
 from collect_producer_nodes function

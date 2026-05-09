@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git3565a49 )">
+<meta name="llm:version" content="main (2.13.0a0+gitb14e6fb )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3565a49 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitb14e6fb )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5593,8 +5593,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7154,7 +7154,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/optim/optimizer.py#L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/optim/optimizer.py#L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Link to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -7217,7 +7217,7 @@ options (used when a parameter group doesn’t specify them).</p></li>
 <h2>Module-level hooks<a class="headerlink" href="#module-level-hooks" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.optimizer.register_optimizer_step_post_hook">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.optimizer.</span></span><span class="sig-name descname"><span class="pre">register_optimizer_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/optim/optimizer.py#L309"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.optimizer.register_optimizer_step_post_hook" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.optimizer.</span></span><span class="sig-name descname"><span class="pre">register_optimizer_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/optim/optimizer.py#L309"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.optimizer.register_optimizer_step_post_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a post hook common to all optimizers.</p>
 <p>The hook should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -7239,7 +7239,7 @@ options (used when a parameter group doesn’t specify them).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.optimizer.register_optimizer_step_pre_hook">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.optimizer.</span></span><span class="sig-name descname"><span class="pre">register_optimizer_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/optim/optimizer.py#L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.optimizer.register_optimizer_step_pre_hook" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.optimizer.</span></span><span class="sig-name descname"><span class="pre">register_optimizer_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/optim/optimizer.py#L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.optimizer.register_optimizer_step_pre_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a pre hook common to all optimizers.</p>
 <p>The hook should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span>
@@ -7957,7 +7957,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/optim/swa_utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/optim/swa_utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Link to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 <p>The EMA is computed as:</p>
 <div class="math">
@@ -7984,7 +7984,7 @@ and <span class="math"><span class="katex"><span class="katex-mathml"><math xmln
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/optim/swa_utils.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/optim/swa_utils.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Link to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.more.unifiable
 
-torch.fx.experimental.unification.more.unifiable(*cls*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/fx/experimental/unification/more.py#L21)
+torch.fx.experimental.unification.more.unifiable(*cls*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/fx/experimental/unification/more.py#L21)
 
 Register standard unify and reify operations on class
 This uses the type and __dict__ or __slots__ attributes to define the

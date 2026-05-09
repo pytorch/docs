@@ -1,6 +1,6 @@
 # torch.nn.attention.bias.CausalBias
 
-*class*torch.nn.attention.bias.CausalBias(*variant*, *seq_len_q*, *seq_len_kv*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/attention/bias.py#L86)
+*class*torch.nn.attention.bias.CausalBias(*variant*, *seq_len_q*, *seq_len_kv*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/attention/bias.py#L86)
 
 A bias representing causal attention patterns. For an overview of the bias structure, see the [`CausalVariant`](torch.nn.attention.bias.CausalVariant.html#torch.nn.attention.bias.CausalVariant) enum.
 

@@ -1,6 +1,6 @@
 # PoissonNLLLoss
 
-*class*torch.nn.modules.loss.PoissonNLLLoss(*log_input=True*, *full=False*, *size_average=None*, *eps=1e-08*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/loss.py#L286)
+*class*torch.nn.modules.loss.PoissonNLLLoss(*log_input=True*, *full=False*, *size_average=None*, *eps=1e-08*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/loss.py#L286)
 
 Negative log likelihood loss with Poisson distribution of target.
 
@@ -63,7 +63,7 @@ Shape:
 - Output: scalar by default. If `reduction` is `'none'`, then (∗)(*)(∗),
 the same shape as the input.
 
-forward(*log_input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/3565a492def04bf126af9d46958533d16fb88274/torch/nn/modules/loss.py#L362)
+forward(*log_input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nn/modules/loss.py#L362)
 
 Runs the forward pass.
 
