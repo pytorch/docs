@@ -1,6 +1,6 @@
 # torch.sym_float
 
-torch.sym_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/__init__.py#L860)
+torch.sym_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/__init__.py#L860)
 
 SymInt-aware utility for float casting.
 

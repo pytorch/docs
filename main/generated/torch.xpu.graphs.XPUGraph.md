@@ -1,6 +1,6 @@
 # XPUGraph
 
-*class*torch.xpu.graphs.XPUGraph(*keep_graph=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L53)
+*class*torch.xpu.graphs.XPUGraph(*keep_graph=False*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L53)
 
 Wrapper around a XPU graph.
 
@@ -21,7 +21,7 @@ Return type:
 
 Self
 
-capture_begin(*pool=None*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L73)
+capture_begin(*pool=None*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L73)
 
 Begin capturing XPU work on the current xpu stream.
 
@@ -34,7 +34,7 @@ Parameters:
 [`other_Graph_instance.pool()`](torch.xpu.XPUGraph.html#torch.xpu.XPUGraph.pool)) that hints this graph may share memory
 with the indicated pool.
 
-capture_end()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L86)
+capture_end()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L86)
 
 End XPU graph capture on the current stream.
 
@@ -43,7 +43,7 @@ After `capture_end`, `replay` may be called on this instance.
 Typically, you shouldn't call `capture_end` yourself.
 Use [`graph`](torch.xpu.graph.html#torch.xpu.graph), which call `capture_end` internally.
 
-debug_dump(*debug_path*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L125)
+debug_dump(*debug_path*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L125)
 
 Parameters:
 
@@ -52,11 +52,11 @@ Parameters:
 Calls a debugging function to dump the graph if the debugging is
 enabled via XPUGraph.enable_debug_mode()
 
-enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L121)
+enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L121)
 
 Enable debugging mode for XPUGraph.debug_dump.
 
-instantiate()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L96)
+instantiate()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L96)
 
 Instantiate the XPU graph. Will be called by
 `capture_end` if `keep_graph=False`, or by `replay` if
@@ -64,7 +64,7 @@ Instantiate the XPU graph. Will be called by
 explicitly called. Does not destroy the xpu modify command graph returned
 by `raw_xpu_graph`.
 
-pool()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L113)
+pool()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L113)
 
 Return an opaque token representing the id of this graph's memory pool.
 
@@ -75,7 +75,7 @@ Return type:
 
 _POOL_HANDLE
 
-raw_xpu_graph()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L135)
+raw_xpu_graph()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L135)
 
 Returns the underlying xpuGraph_t. `keep_graph` must be True.
 
@@ -85,7 +85,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-raw_xpu_graph_exec()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L142)
+raw_xpu_graph_exec()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L142)
 
 Returns the underlying xpuGraphExec_t. `instantiate` must have been called if `keep_graph` is True, or `capture_end` must have been called if `keep_graph` is False. If you call `instantiate()` after `raw_xpu_graph_exec()`, the previously returned xpuGraphExec_t will be destroyed. It is your responsibility not to use this object after destruction.
 
@@ -95,10 +95,10 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-replay()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L105)
+replay()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L105)
 
 Replay the XPU work captured by this graph.
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/xpu/graphs.py#L109)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L109)
 
 Delete the graph currently held by this instance.

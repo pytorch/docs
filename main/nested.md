@@ -482,7 +482,7 @@ intermediate.
 
 ## Detailed Docs for Construction and Conversion Functions
 
-torch.nested.nested_tensor(*tensor_list*, ***, *dtype=None*, *layout=None*, *device=None*, *requires_grad=False*, *pin_memory=False*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L216)
+torch.nested.nested_tensor(*tensor_list*, ***, *dtype=None*, *layout=None*, *device=None*, *requires_grad=False*, *pin_memory=False*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L216)
 
 Constructs a nested tensor with no autograd history (also known as a "leaf tensor", see
 [Autograd mechanics](notes/autograd.html#autograd-mechanics)) from `tensor_list` a list of tensors.
@@ -519,7 +519,7 @@ Example:
 True
 ```
 
-torch.nested.nested_tensor_from_jagged(*values*, *offsets=None*, *lengths=None*, *jagged_dim=None*, *min_seqlen=None*, *max_seqlen=None*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L365)
+torch.nested.nested_tensor_from_jagged(*values*, *offsets=None*, *lengths=None*, *jagged_dim=None*, *min_seqlen=None*, *max_seqlen=None*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L365)
 
 Constructs a jagged layout nested tensor from the given jagged components. The jagged layout
 consists of a required values buffer with the jagged dimension packed into a single dimension.
@@ -593,7 +593,7 @@ True
 True
 ```
 
-torch.nested.as_nested_tensor(*ts*, *dtype=None*, *device=None*, *layout=None*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L27)
+torch.nested.as_nested_tensor(*ts*, *dtype=None*, *device=None*, *layout=None*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L27)
 
 Constructs a nested tensor preserving autograd history from a tensor or a list / tuple of
 tensors.
@@ -645,7 +645,7 @@ tensor([0., 0., 0., 0., 0.])
 >>> nt2 = torch.nested.as_nested_tensor(c)
 ```
 
-torch.nested.to_padded_tensor(*input*, *padding*, *output_size=None*, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L160)
+torch.nested.to_padded_tensor(*input*, *padding*, *output_size=None*, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L160)
 
 Returns a new (non-nested) Tensor by padding the `input` nested tensor.
 The leading entries will be filled with the nested data,
@@ -698,7 +698,7 @@ tensor([[[ 1.6862, -1.1282, 1.1031, 0.0464, -1.3276, 1.0000],
 RuntimeError: Value in output_size is less than NestedTensor padded size. Truncation is not supported.
 ```
 
-torch.nested.masked_select(*tensor*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L476)
+torch.nested.masked_select(*tensor*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L476)
 
 Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor
 will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is
@@ -734,7 +734,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-torch.nested.narrow(*tensor*, *dim*, *start*, *length*, *layout=torch.strided*)[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/nested/__init__.py#L287)
+torch.nested.narrow(*tensor*, *dim*, *start*, *length*, *layout=torch.strided*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nested/__init__.py#L287)
 
 Constructs a nested tensor (which might be a view) from `tensor`, a strided tensor. This follows
 similar semantics to torch.Tensor.narrow, where in the `dim`-th dimension the new nested tensor

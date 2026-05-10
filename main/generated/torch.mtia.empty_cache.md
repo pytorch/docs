@@ -1,5 +1,5 @@
 # torch.mtia.empty_cache
 
-torch.mtia.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/b14e6fb508b03fc0a98fefe9b0750ba0d63500da/torch/mtia/__init__.py#L253)
+torch.mtia.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/mtia/__init__.py#L253)
 
 Empty the MTIA device cache.
