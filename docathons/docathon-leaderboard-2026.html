@@ -70,6 +70,46 @@ header p {
     font-weight: 500;
     margin-top: 0.5rem;
 }
+.countdown {
+    margin-top: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.countdown .time-part {
+    display: inline-block;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+    margin: 0 0.15rem;
+    min-width: 3.2rem;
+    text-align: center;
+}
+.countdown .time-value {
+    color: var(--accent-orange);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.countdown .time-label {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+.countdown .countdown-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+}
+.countdown .ended-msg {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
 .updated {
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -530,18 +570,19 @@ footer a:hover { color: var(--accent-orange); }
         <h1>PyTorch Docathon 2026</h1>
         <p>Leaderboard &mdash; Community documentation contributions</p>
         <div class="event-dates">May 05, 2026 10:00 AM PT &mdash; May 17, 2026 05:00 PM PT</div>
-        <div class="updated">Updated every 12 hours &mdash; Last updated: 2026-05-11 05:55 AM PT</div>
+        <div class="countdown" id="countdown"></div>
+        <div class="updated">Updated every 12 hours &mdash; Last updated: 2026-05-11 10:32 AM PT</div>
     </header>
 
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-            <div class="stat-value blue">20</div>
+            <div class="stat-value blue">23</div>
             <div class="stat-label">Contributors</div>
         </div>
         <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-code-pull-request"></i></div>
-            <div class="stat-value orange">77</div>
+            <div class="stat-value orange">82</div>
             <div class="stat-label">PRs Closed</div>
         </div>
         <div class="stat-card">
@@ -551,12 +592,12 @@ footer a:hover { color: var(--accent-orange); }
         </div>
         <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="stat-value green">55</div>
+            <div class="stat-value green">62</div>
             <div class="stat-label">Issues Closed</div>
         </div>
         <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-circle-dot"></i></div>
-            <div class="stat-value red">63</div>
+            <div class="stat-value red">56</div>
             <div class="stat-label">Issues Open</div>
         </div>
     </div>
@@ -582,13 +623,13 @@ footer a:hover { color: var(--accent-orange); }
             </div>
             <div class="repo-stats">
                 <span class="stat-pill open">22 PRs open</span>
-                <span class="stat-pill closed">61 PRs closed</span>
-                <span class="stat-pill open">43 issues remaining</span>
+                <span class="stat-pill closed">65 PRs closed</span>
+                <span class="stat-pill open">36 issues remaining</span>
             </div>
             <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 73%"></div>
+                <div class="progress-bar-fill" style="width: 75%"></div>
             </div>
-            <div class="progress-label">73% PRs closed</div>
+            <div class="progress-label">75% PRs closed</div>
             <div class="repo-leader">
                 <span class="repo-leader-label"><i class="fa-solid fa-crown"></i> Repo Leader</span>
                 <div class="repo-leader-info">
@@ -612,14 +653,14 @@ footer a:hover { color: var(--accent-orange); }
                 </a>
             </div>
             <div class="repo-stats">
-                <span class="stat-pill open">3 PRs open</span>
-                <span class="stat-pill closed">14 PRs closed</span>
+                <span class="stat-pill open">4 PRs open</span>
+                <span class="stat-pill closed">15 PRs closed</span>
                 <span class="stat-pill open">9 issues remaining</span>
             </div>
             <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 82%"></div>
+                <div class="progress-bar-fill" style="width: 79%"></div>
             </div>
-            <div class="progress-label">82% PRs closed</div>
+            <div class="progress-label">79% PRs closed</div>
             <div class="repo-leader">
                 <span class="repo-leader-label"><i class="fa-solid fa-crown"></i> Repo Leader</span>
                 <div class="repo-leader-info">
@@ -629,7 +670,7 @@ footer a:hover { color: var(--accent-orange); }
                     <a href="https://github.com/saurabhkthakur" target="_blank">
                         saurabhkthakur
                     </a>
-                    <span class="repo-leader-pts">6 pts</span>
+                    <span class="repo-leader-pts">11 pts</span>
                 </div>
             </div>
         </div>
@@ -767,6 +808,22 @@ footer a:hover { color: var(--accent-orange); }
             <div class="chart-row">
                 <div class="chart-label">
                     <span class="chart-medal"></span>
+                    <img src="https://github.com/saurabhkthakur.png?size=24"
+                         alt="" class="chart-avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/saurabhkthakur" target="_blank">
+                        saurabhkthakur
+                    </a>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar " style="width: 47.8%">
+                        <span class="chart-value">11</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">
+                    <span class="chart-medal"></span>
                     <img src="https://github.com/AswaniSahoo.png?size=24"
                          alt="" class="chart-avatar"
                          onerror="this.style.display='none'">
@@ -820,22 +877,6 @@ footer a:hover { color: var(--accent-orange); }
                          onerror="this.style.display='none'">
                     <a href="https://github.com/Suh0161" target="_blank">
                         Suh0161
-                    </a>
-                </div>
-                <div class="chart-bar-bg">
-                    <div class="chart-bar " style="width: 26.1%">
-                        <span class="chart-value">6</span>
-                    </div>
-                </div>
-            </div>
-            <div class="chart-row">
-                <div class="chart-label">
-                    <span class="chart-medal"></span>
-                    <img src="https://github.com/saurabhkthakur.png?size=24"
-                         alt="" class="chart-avatar"
-                         onerror="this.style.display='none'">
-                    <a href="https://github.com/saurabhkthakur" target="_blank">
-                        saurabhkthakur
                     </a>
                 </div>
                 <div class="chart-bar-bg">
@@ -911,11 +952,11 @@ footer a:hover { color: var(--accent-orange); }
             <div class="chart-row">
                 <div class="chart-label">
                     <span class="chart-medal"></span>
-                    <img src="https://github.com/wntrsnw130.png?size=24"
+                    <img src="https://github.com/akshayavb99.png?size=24"
                          alt="" class="chart-avatar"
                          onerror="this.style.display='none'">
-                    <a href="https://github.com/wntrsnw130" target="_blank">
-                        wntrsnw130
+                    <a href="https://github.com/akshayavb99" target="_blank">
+                        akshayavb99
                     </a>
                 </div>
                 <div class="chart-bar-bg">
@@ -1024,6 +1065,21 @@ footer a:hover { color: var(--accent-orange); }
             <tr class="">
                 
                 <td class="col-author">
+                    <img src="https://github.com/saurabhkthakur.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/saurabhkthakur" target="_blank">
+                        saurabhkthakur
+                    </a>
+                </td>
+                <td class="col-points">11</td>
+                <td class="col-prs">4</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x3</span> <span class="diff-badge diff-medium">medium x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3882" target="_blank" class="pr-link">#3882</a> <a href="https://github.com/pytorch/tutorials/pull/3874" target="_blank" class="pr-link">#3874</a> <a href="https://github.com/pytorch/tutorials/pull/3873" target="_blank" class="pr-link">#3873</a> <a href="https://github.com/pytorch/tutorials/pull/3866" target="_blank" class="pr-link">#3866</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
                     <img src="https://github.com/AswaniSahoo.png?size=32"
                          alt="" class="avatar"
                          onerror="this.style.display='none'">
@@ -1084,21 +1140,6 @@ footer a:hover { color: var(--accent-orange); }
             <tr class="">
                 
                 <td class="col-author">
-                    <img src="https://github.com/saurabhkthakur.png?size=32"
-                         alt="" class="avatar"
-                         onerror="this.style.display='none'">
-                    <a href="https://github.com/saurabhkthakur" target="_blank">
-                        saurabhkthakur
-                    </a>
-                </td>
-                <td class="col-points">6</td>
-                <td class="col-prs">4</td>
-                <td class="col-diff"><span class="diff-badge diff-easy">easy x3</span> <span class="diff-badge diff-unknown">unknown x1</span></td>
-                <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3882" target="_blank" class="pr-link">#3882</a> <a href="https://github.com/pytorch/tutorials/pull/3874" target="_blank" class="pr-link">#3874</a> <a href="https://github.com/pytorch/tutorials/pull/3873" target="_blank" class="pr-link">#3873</a> <a href="https://github.com/pytorch/tutorials/pull/3866" target="_blank" class="pr-link">#3866</a></td>
-            </tr>
-            <tr class="">
-                
-                <td class="col-author">
                     <img src="https://github.com/kiszk.png?size=32"
                          alt="" class="avatar"
                          onerror="this.style.display='none'">
@@ -1155,6 +1196,21 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-prs">2</td>
                 <td class="col-diff"><span class="diff-badge diff-easy">easy x2</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3863" target="_blank" class="pr-link">#3863</a> <a href="https://github.com/pytorch/tutorials/pull/3861" target="_blank" class="pr-link">#3861</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/akshayavb99.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/akshayavb99" target="_blank">
+                        akshayavb99
+                    </a>
+                </td>
+                <td class="col-points">2</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-easy">easy x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182939" target="_blank" class="pr-link">#182939</a></td>
             </tr>
             <tr class="">
                 
@@ -1246,6 +1302,36 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-diff"><span class="diff-badge diff-easy">easy x1</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182620" target="_blank" class="pr-link">#182620</a></td>
             </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/champion254.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/champion254" target="_blank">
+                        champion254
+                    </a>
+                </td>
+                <td class="col-points">0</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-unknown">unknown x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182713" target="_blank" class="pr-link">#182713</a></td>
+            </tr>
+            <tr class="">
+                
+                <td class="col-author">
+                    <img src="https://github.com/skt0725.png?size=32"
+                         alt="" class="avatar"
+                         onerror="this.style.display='none'">
+                    <a href="https://github.com/skt0725" target="_blank">
+                        skt0725
+                    </a>
+                </td>
+                <td class="col-points">0</td>
+                <td class="col-prs">1</td>
+                <td class="col-diff"><span class="diff-badge diff-unknown">unknown x1</span></td>
+                <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3887" target="_blank" class="pr-link">#3887</a></td>
+            </tr>
                 </tbody>
             </table>
         </div>
@@ -1257,5 +1343,38 @@ footer a:hover { color: var(--accent-orange); }
 &copy; 2026 PyTorch Foundation
     </p>
 </footer>
+<script>
+(function() {
+    var start = new Date("2026-05-05T17:00:00Z").getTime();
+    var end = new Date("2026-05-18T00:00:00Z").getTime();
+    var el = document.getElementById("countdown");
+    function pad(n) { return n < 10 ? "0" + n : n; }
+    function render() {
+        var now = Date.now();
+        if (now < start) {
+            update(start - now, "Event starts in");
+        } else if (now < end) {
+            update(end - now, "");
+        } else {
+            el.innerHTML = '<span class="ended-msg">Event has ended &mdash; new PRs won\u2019t be accepted, but PRs submitted before the deadline will still be reviewed and merged</span>';
+            return;
+        }
+        setTimeout(render, 1000);
+    }
+    function update(ms, prefix) {
+        var d = Math.floor(ms / 86400000);
+        var h = Math.floor((ms % 86400000) / 3600000);
+        var m = Math.floor((ms % 3600000) / 60000);
+        var s = Math.floor((ms % 60000) / 1000);
+        var parts = '<span class="time-part"><span class="time-value">' + pad(d) + '</span><span class="time-label">days</span></span>'
+            + '<span class="time-part"><span class="time-value">' + pad(h) + '</span><span class="time-label">hours</span></span>'
+            + '<span class="time-part"><span class="time-value">' + pad(m) + '</span><span class="time-label">min</span></span>'
+            + '<span class="time-part"><span class="time-value">' + pad(s) + '</span><span class="time-label">sec</span></span>';
+        var label = prefix ? prefix : "Time Remaining";
+        el.innerHTML = '<div class="countdown-label">' + label + '</div>' + parts;
+    }
+    render();
+})();
+</script>
 </body>
 </html>
