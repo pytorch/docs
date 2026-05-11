@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git063b516 )">
+<meta name="llm:version" content="main (2.13.0a0+gitc15e977 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git063b516 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitc15e977 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3611,7 +3611,7 @@ document.write(`
 <h1>CodeGen<a class="headerlink" href="#codegen" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.graph.</span></span><span class="sig-name descname"><span class="pre">CodeGen</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L354"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.graph.</span></span><span class="sig-name descname"><span class="pre">CodeGen</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen" title="Link to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is experimental and is <em>NOT</em> backward-compatible.</p>
@@ -3620,7 +3620,7 @@ document.write(`
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen.additional_globals">
-<span class="sig-name descname"><span class="pre">additional_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.additional_globals" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">additional_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.additional_globals" title="Link to this definition">#</a></dt>
 <dd><p>If your codegen uses extra global values, add tuples of (identifier,reference to the value) here.
 For example, return [‘List’, typing.List] if you need <code class="docutils literal notranslate"><span class="pre">List</span></code> in the global context.</p>
 <dl class="field-list simple">
@@ -3632,7 +3632,7 @@ For example, return [‘List’, typing.List] if you need <code class="docutils 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen.gen_fn_def">
-<span class="sig-name descname"><span class="pre">gen_fn_def</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_return_annotation</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expanded_def</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.gen_fn_def" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">gen_fn_def</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_return_annotation</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expanded_def</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.gen_fn_def" title="Link to this definition">#</a></dt>
 <dd><p>Given the free variables and a return annotation, generates the beginning of the FX function.
 By default, <cite>gen_fn_def([‘a’, ‘b’], ‘’) == ‘def {self._func_name}(a, b):’</cite></p>
 <dl class="field-list simple">
@@ -3644,7 +3644,7 @@ By default, <cite>gen_fn_def([‘a’, ‘b’], ‘’) == ‘def {self._func_n
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen.generate_output">
-<span class="sig-name descname"><span class="pre">generate_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repr_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.generate_output" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repr_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.generate_output" title="Link to this definition">#</a></dt>
 <dd><p>Given the output arguments, generates the return statement of the FX function.
 Note: The returned statement should not be indented.</p>
 <dl class="field-list simple">
@@ -3656,7 +3656,7 @@ Note: The returned statement should not be indented.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen.process_inputs">
-<span class="sig-name descname"><span class="pre">process_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.process_inputs" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.process_inputs" title="Link to this definition">#</a></dt>
 <dd><p>Transforms the inputs so that the graph can take them as arguments, as
 non-default codegen may result in the inputs to the function being
 different from the inputs to the graph.</p>
@@ -3671,7 +3671,7 @@ different from the inputs to the graph.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.graph.CodeGen.process_outputs">
-<span class="sig-name descname"><span class="pre">process_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/graph.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.process_outputs" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/graph.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.graph.CodeGen.process_outputs" title="Link to this definition">#</a></dt>
 <dd><p>Transforms the outputs of the graph to be identical to the codegen.</p>
 <p>See <code class="docutils literal notranslate"><span class="pre">process_inputs</span></code> for more details.</p>
 <dl class="field-list simple">

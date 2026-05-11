@@ -1,6 +1,6 @@
 # torch.cpu.device_count
 
-torch.cpu.device_count()[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/cpu/__init__.py#L224)
+torch.cpu.device_count()[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/cpu/__init__.py#L224)
 
 Returns number of CPU devices (not cores). Always 1.
 

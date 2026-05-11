@@ -1,6 +1,6 @@
 # torch.nn.functional.conv_transpose2d
 
-torch.nn.functional.conv_transpose2d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nn/functional.py#L241)
+torch.nn.functional.conv_transpose2d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/functional.py#L241)
 
 Applies a 2D transposed convolution operator over an input image
 composed of several input planes, sometimes also called "deconvolution".

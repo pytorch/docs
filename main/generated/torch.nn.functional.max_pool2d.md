@@ -1,6 +1,6 @@
 # torch.nn.functional.max_pool2d
 
-torch.nn.functional.max_pool2d(*input*, *kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *ceil_mode=False*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/_jit_internal.py#L627)
+torch.nn.functional.max_pool2d(*input*, *kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *ceil_mode=False*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/_jit_internal.py#L627)
 
 Applies a 2D max pooling over an input signal composed of several input
 planes.

@@ -1,6 +1,6 @@
 # torch.xpu.memory.reset_peak_memory_stats
 
-torch.xpu.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/memory.py#L39)
+torch.xpu.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/memory.py#L39)
 
 Reset the "peak" stats tracked by the XPU memory allocator.
 

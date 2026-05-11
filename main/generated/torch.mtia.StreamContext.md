@@ -1,6 +1,6 @@
 # StreamContext
 
-*class*torch.mtia.StreamContext(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/mtia/__init__.py#L318)
+*class*torch.mtia.StreamContext(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/mtia/__init__.py#L318)
 
 Context-manager that selects a given stream.
 

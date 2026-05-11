@@ -1,6 +1,6 @@
 # torch.nn.attention.bias.causal_lower_right
 
-torch.nn.attention.bias.causal_lower_right(**size*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nn/attention/bias.py#L342)
+torch.nn.attention.bias.causal_lower_right(**size*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/attention/bias.py#L342)
 
 Creates a lower-right triangular causal bias.
 

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git063b516 )">
+<meta name="llm:version" content="main (2.13.0a0+gitc15e977 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git063b516 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitc15e977 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3616,7 +3616,7 @@ document.write(`
 <h1>XPUGraph<a class="headerlink" href="#xpugraph" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">XPUGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">XPUGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a XPU graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3637,7 +3637,7 @@ prevent increased latency on the first call to <code class="docutils literal not
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.capture_begin">
-<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.capture_begin" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.capture_begin" title="Link to this definition">#</a></dt>
 <dd><p>Begin capturing XPU work on the current xpu stream.</p>
 <p>Typically, you shouldn’t call <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code> yourself.
 Use <a class="reference internal" href="torch.xpu.graph.html#torch.xpu.graph" title="torch.xpu.graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">graph</span></code></a>, which call <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code> internally.</p>
@@ -3652,7 +3652,7 @@ with the indicated pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.capture_end">
-<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.capture_end" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.capture_end" title="Link to this definition">#</a></dt>
 <dd><p>End XPU graph capture on the current stream.</p>
 <p>After <code class="docutils literal notranslate"><span class="pre">capture_end</span></code>, <code class="docutils literal notranslate"><span class="pre">replay</span></code> may be called on this instance.</p>
 <p>Typically, you shouldn’t call <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> yourself.
@@ -3663,7 +3663,7 @@ Use <a class="reference internal" href="torch.xpu.graph.html#torch.xpu.graph" ti
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.debug_dump">
-<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.debug_dump" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.debug_dump" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>debug_path</strong> (<em>required</em>) – Path to dump the graph to.</p>
@@ -3675,7 +3675,7 @@ enabled via XPUGraph.enable_debug_mode()</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.enable_debug_mode">
-<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.enable_debug_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.enable_debug_mode" title="Link to this definition">#</a></dt>
 <dd><p>Enable debugging mode for XPUGraph.debug_dump.</p>
 <dl class="field-list simple">
 </dl>
@@ -3683,7 +3683,7 @@ enabled via XPUGraph.enable_debug_mode()</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.instantiate">
-<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.instantiate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.instantiate" title="Link to this definition">#</a></dt>
 <dd><p>Instantiate the XPU graph. Will be called by
 <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> if <code class="docutils literal notranslate"><span class="pre">keep_graph=False</span></code>, or by <code class="docutils literal notranslate"><span class="pre">replay</span></code> if
 <code class="docutils literal notranslate"><span class="pre">keep_graph=True</span></code> and <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> has not already been
@@ -3695,7 +3695,7 @@ by <code class="docutils literal notranslate"><span class="pre">raw_xpu_graph</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.pool">
-<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.pool" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.pool" title="Link to this definition">#</a></dt>
 <dd><p>Return an opaque token representing the id of this graph’s memory pool.</p>
 <p>This id can optionally be passed to another graph’s <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code>,
 which hints the other graph may share the same memory pool.</p>
@@ -3708,7 +3708,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.raw_xpu_graph">
-<span class="sig-name descname"><span class="pre">raw_xpu_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.raw_xpu_graph" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">raw_xpu_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.raw_xpu_graph" title="Link to this definition">#</a></dt>
 <dd><p>Returns the underlying xpuGraph_t. <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> must be True.</p>
 <p>XPU doesn’t provide APIs to manipulate this object.</p>
 <dl class="field-list simple">
@@ -3720,7 +3720,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.raw_xpu_graph_exec">
-<span class="sig-name descname"><span class="pre">raw_xpu_graph_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.raw_xpu_graph_exec" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">raw_xpu_graph_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.raw_xpu_graph_exec" title="Link to this definition">#</a></dt>
 <dd><p>Returns the underlying xpuGraphExec_t. <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> must have been called if <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> is True, or <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> must have been called if <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> is False. If you call <code class="docutils literal notranslate"><span class="pre">instantiate()</span></code> after <code class="docutils literal notranslate"><span class="pre">raw_xpu_graph_exec()</span></code>, the previously returned xpuGraphExec_t will be destroyed. It is your responsibility not to use this object after destruction.</p>
 <p>XPU doesn’t provide APIs to manipulate this object.</p>
 <dl class="field-list simple">
@@ -3732,7 +3732,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.replay">
-<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.replay" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.replay" title="Link to this definition">#</a></dt>
 <dd><p>Replay the XPU work captured by this graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -3740,7 +3740,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.XPUGraph.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/xpu/graphs.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/xpu/graphs.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.XPUGraph.reset" title="Link to this definition">#</a></dt>
 <dd><p>Delete the graph currently held by this instance.</p>
 <dl class="field-list simple">
 </dl>

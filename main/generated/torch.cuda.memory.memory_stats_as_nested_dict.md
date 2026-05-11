@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_stats_as_nested_dict
 
-torch.cuda.memory.memory_stats_as_nested_dict(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/cuda/memory.py#L338)
+torch.cuda.memory.memory_stats_as_nested_dict(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/cuda/memory.py#L338)
 
 Return the result of `memory_stats()` as a nested dictionary.
 

@@ -1,6 +1,6 @@
 # L1Loss
 
-*class*torch.nn.modules.loss.L1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nn/modules/loss.py#L65)
+*class*torch.nn.modules.loss.L1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/modules/loss.py#L65)
 
 Creates a criterion that measures the mean absolute error (MAE) between each element in
 the input xxx and target yyy.
@@ -67,7 +67,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/nn/modules/loss.py#L128)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/modules/loss.py#L128)
 
 Runs the forward pass.
 

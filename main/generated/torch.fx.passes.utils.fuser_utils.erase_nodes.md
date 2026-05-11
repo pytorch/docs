@@ -1,6 +1,6 @@
 # torch.fx.passes.utils.fuser_utils.erase_nodes
 
-torch.fx.passes.utils.fuser_utils.erase_nodes(*gm*, *nodes*)[[source]](https://github.com/pytorch/pytorch/blob/063b516448b60c5818cfe255e27825810710849a/torch/fx/passes/utils/fuser_utils.py#L270)
+torch.fx.passes.utils.fuser_utils.erase_nodes(*gm*, *nodes*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/passes/utils/fuser_utils.py#L270)
 
 Warning
 
