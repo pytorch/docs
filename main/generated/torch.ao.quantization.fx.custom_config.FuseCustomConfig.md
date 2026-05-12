@@ -1,6 +1,6 @@
 # FuseCustomConfig
 
-*class*torch.ao.quantization.fx.custom_config.FuseCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/ao/quantization/fx/custom_config.py#L471)
+*class*torch.ao.quantization.fx.custom_config.FuseCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/fx/custom_config.py#L471)
 
 Custom configuration for [`fuse_fx()`](torch.ao.quantization.quantize_fx.fuse_fx.html#torch.ao.quantization.quantize_fx.fuse_fx).
 
@@ -12,7 +12,7 @@ fuse_custom_config = FuseCustomConfig().set_preserved_attributes(
 )
 ```
 
-*classmethod*from_dict(*fuse_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/ao/quantization/fx/custom_config.py#L498)
+*classmethod*from_dict(*fuse_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/fx/custom_config.py#L498)
 
 Create a `ConvertCustomConfig` from a dictionary with the following items:
 
@@ -24,7 +24,7 @@ Return type:
 
 *FuseCustomConfig*
 
-set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/ao/quantization/fx/custom_config.py#L489)
+set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/fx/custom_config.py#L489)
 
 Set the names of the attributes that will persist in the graph module even if they are not used in
 the model's `forward` method.
@@ -33,7 +33,7 @@ Return type:
 
 *FuseCustomConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/ao/quantization/fx/custom_config.py#L513)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/fx/custom_config.py#L513)
 
 Convert this `FuseCustomConfig` to a dictionary with the items described in
 [`from_dict()`](torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict).

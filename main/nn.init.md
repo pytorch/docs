@@ -6,7 +6,7 @@ All the functions in this module are intended to be used to initialize neural ne
 parameters, so they all run in [`torch.no_grad()`](generated/torch.no_grad.html#torch.no_grad) mode and will not be taken into
 account by autograd.
 
-torch.nn.init.calculate_gain(*nonlinearity*, *param=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L173)
+torch.nn.init.calculate_gain(*nonlinearity*, *param=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L173)
 
 Return the recommended gain value for the given nonlinearity function.
 
@@ -48,7 +48,7 @@ Examples
 ... ) # leaky_relu with negative_slope=0.2
 ```
 
-torch.nn.init.uniform_(*tensor*, *a=0.0*, *b=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L247)
+torch.nn.init.uniform_(*tensor*, *a=0.0*, *b=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L247)
 
 Fill the input Tensor with values drawn from the uniform distribution.
 
@@ -72,7 +72,7 @@ Examples
 >>> nn.init.uniform_(w)
 ```
 
-torch.nn.init.normal_(*tensor*, *mean=0.0*, *std=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L274)
+torch.nn.init.normal_(*tensor*, *mean=0.0*, *std=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L274)
 
 Fill the input Tensor with values drawn from the normal distribution.
 
@@ -96,7 +96,7 @@ Examples
 >>> nn.init.normal_(w)
 ```
 
-torch.nn.init.constant_(*tensor*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L337)
+torch.nn.init.constant_(*tensor*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L337)
 
 Fill the input Tensor with the value val\text{val}val.
 
@@ -116,7 +116,7 @@ Examples
 >>> nn.init.constant_(w, 0.3)
 ```
 
-torch.nn.init.ones_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L355)
+torch.nn.init.ones_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L355)
 
 Fill the input Tensor with the scalar value 1.
 
@@ -135,7 +135,7 @@ Examples
 >>> nn.init.ones_(w)
 ```
 
-torch.nn.init.zeros_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L368)
+torch.nn.init.zeros_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L368)
 
 Fill the input Tensor with the scalar value 0.
 
@@ -154,7 +154,7 @@ Examples
 >>> nn.init.zeros_(w)
 ```
 
-torch.nn.init.eye_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L381)
+torch.nn.init.eye_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L381)
 
 Fill the 2-dimensional input Tensor with the identity matrix.
 
@@ -176,7 +176,7 @@ Examples
 >>> nn.init.eye_(w)
 ```
 
-torch.nn.init.dirac_(*tensor*, *groups=1*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L402)
+torch.nn.init.dirac_(*tensor*, *groups=1*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L402)
 
 Fill the {3, 4, 5}-dimensional input Tensor with the Dirac delta function.
 
@@ -202,7 +202,7 @@ Examples
 >>> nn.init.dirac_(w, 3)
 ```
 
-torch.nn.init.xavier_uniform_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L479)
+torch.nn.init.xavier_uniform_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L479)
 
 Fill the input Tensor with values using a Xavier uniform distribution.
 
@@ -234,7 +234,7 @@ Examples
 >>> nn.init.xavier_uniform_(w, gain=nn.init.calculate_gain("relu"))
 ```
 
-torch.nn.init.xavier_normal_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L512)
+torch.nn.init.xavier_normal_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L512)
 
 Fill the input Tensor with values using a Xavier normal distribution.
 
@@ -265,7 +265,7 @@ Examples
 >>> nn.init.xavier_normal_(w)
 ```
 
-torch.nn.init.kaiming_uniform_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L554)
+torch.nn.init.kaiming_uniform_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L554)
 
 Fill the input Tensor with values using a Kaiming uniform distribution.
 
@@ -313,7 +313,7 @@ This is important for correct initialization.
 If you plan to use `x @ w`, where `w.shape = [fan_in, fan_out]`,
 pass in a transposed weight matrix, i.e. `nn.init.kaiming_uniform_(w.T, ...)`.
 
-torch.nn.init.kaiming_normal_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L619)
+torch.nn.init.kaiming_normal_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L619)
 
 Fill the input Tensor with values using a Kaiming normal distribution.
 
@@ -361,7 +361,7 @@ This is important for correct initialization.
 If you plan to use `x @ w`, where `w.shape = [fan_in, fan_out]`,
 pass in a transposed weight matrix, i.e. `nn.init.kaiming_normal_(w.T, ...)`.
 
-torch.nn.init.trunc_normal_(*tensor*, *mean=0.0*, *std=1.0*, *a=-2.0*, *b=2.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L301)
+torch.nn.init.trunc_normal_(*tensor*, *mean=0.0*, *std=1.0*, *a=-2.0*, *b=2.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L301)
 
 Fill the input Tensor with values drawn from a truncated normal distribution.
 
@@ -396,7 +396,7 @@ Examples
 >>> nn.init.trunc_normal_(w)
 ```
 
-torch.nn.init.orthogonal_(*tensor*, *gain=1*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L672)
+torch.nn.init.orthogonal_(*tensor*, *gain=1*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L672)
 
 Fill the input Tensor with a (semi) orthogonal matrix.
 
@@ -422,7 +422,7 @@ Examples
 >>> nn.init.orthogonal_(w)
 ```
 
-torch.nn.init.sparse_(*tensor*, *sparsity*, *std=0.01*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/nn/init.py#L723)
+torch.nn.init.sparse_(*tensor*, *sparsity*, *std=0.01*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/init.py#L723)
 
 Fill the 2D input Tensor as a sparse matrix.
 

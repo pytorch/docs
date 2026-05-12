@@ -58,6 +58,52 @@ Utils shared by different modes of quantization (eager/graph)
 
 This module contains FX graph mode quantization APIs (prototype).
 
+torch.ao.quantization.quantize_fx.attach_preserved_attrs_to_model(*model*, *preserved_attrs*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/quantize_fx.py#L25)
+
+Store preserved attributes to the model.meta so that it can be preserved during deepcopy
+
+torch.ao.quantization.quantize_fx.convert_to_reference_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/quantize_fx.py#L636)
+
+Convert a calibrated or trained model to a reference quantized model,
+see [pytorch/rfcs](https://github.com/pytorch/rfcs/blob/master/RFC-0019-Extending-PyTorch-Quantization-to-Custom-Backends.md) for more details,
+reference quantized model is a standard representation of a quantized model provided
+by FX Graph Mode Quantization, it can be further lowered to run on the target
+hardware, like accelerators
+
+Parameters:
+
+- **graph_module** (***) - A prepared and calibrated/trained model (GraphModule)
+- **convert_custom_config** (***) - custom configurations for convert function.
+See [`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+- **_remove_qconfig** (***) - Option to remove the qconfig attributes in the model after convert.
+- **qconfig_mapping** (***) -
+
+config for specifying how to convert a model for quantization.
+
+See [`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+
+- backend_config (BackendConfig): A configuration for the backend which describes how
+
+operators should be quantized in the backend. See
+[`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+
+Returns:
+
+A reference quantized model (GraphModule)
+
+Return type:
+
+[*GraphModule*](fx.html#torch.fx.GraphModule)
+
+Example:
+
+```
+# prepared_model: the model after prepare_fx/prepare_qat_fx and calibration/training
+# TODO: add backend_config after we split the backend_config for fbgemm and qnnpack
+# e.g. backend_config = get_default_backend_config("fbgemm")
+reference_quantized_model = convert_to_reference_fx(prepared_model)
+```
+
 | [`prepare_fx`](generated/torch.ao.quantization.quantize_fx.prepare_fx.html#torch.ao.quantization.quantize_fx.prepare_fx) | Prepare a model for post training quantization |
 | --- | --- |
 | [`prepare_qat_fx`](generated/torch.ao.quantization.quantize_fx.prepare_qat_fx.html#torch.ao.quantization.quantize_fx.prepare_qat_fx) | Prepare a model for quantization aware training |
@@ -85,6 +131,27 @@ Quantization to work with this as well.
 | [`DTypeConfig`](generated/torch.ao.quantization.backend_config.DTypeConfig.html#torch.ao.quantization.backend_config.DTypeConfig) | Config object that specifies the supported data types passed as arguments to quantize ops in the reference model spec, for input and output activations, weights, and biases. |
 | [`DTypeWithConstraints`](generated/torch.ao.quantization.backend_config.DTypeWithConstraints.html#torch.ao.quantization.backend_config.DTypeWithConstraints) | Config for specifying additional constraints for a given dtype, such as quantization value ranges, scale value ranges, and fixed quantization params, to be used in [`DTypeConfig`](generated/torch.ao.quantization.backend_config.DTypeConfig.html#torch.ao.quantization.backend_config.DTypeConfig). |
 | [`ObservationType`](generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType) | An enum that represents different ways of how an operator/operator pattern should be observed |
+
+torch.ao.quantization.backend_config.executorch.get_executorch_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/backend_config/executorch.py#L485)
+
+Return the BackendConfig for backends PyTorch lowers to through the Executorch stack.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
+
+torch.ao.quantization.backend_config.fbgemm.get_fbgemm_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/backend_config/fbgemm.py#L85)
+
+Return the BackendConfig for PyTorch's native FBGEMM backend.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
+
+torch.ao.quantization.backend_config.onednn.get_onednn_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/backend_config/onednn.py#L613)
+
+Return the BackendConfig for PyTorch's native ONEDNN backend.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
 
 ## torch.ao.quantization.backend_config.utils
 
@@ -262,6 +329,37 @@ during QAT.
 
 This module defines `QConfig` objects which are used
 to configure quantization settings for individual ops.
+
+torch.ao.quantization.qconfig.get_default_qat_qconfig(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/qconfig.py#L374)
+
+Returns the default QAT qconfig for the specified backend.
+
+Parameters:
+
+- **backend** (***) - a string representing the target backend. Currently supports
+x86 (default), fbgemm, qnnpack and onednn.
+- **version** (***) - version, for backwards compatibility. Can be None or 1.
+
+Returns:
+
+qconfig
+
+torch.ao.quantization.qconfig.get_default_qconfig(*backend='x86'*, *version=0*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/qconfig.py#L259)
+
+Returns the default PTQ qconfig for the specified backend.
+
+Parameters:
+
+**backend** (***) - a string representing the target backend. Currently supports
+x86 (default), fbgemm, qnnpack and onednn.
+
+Returns:
+
+qconfig
+
+torch.ao.quantization.qconfig.qconfig_equals(*q1*, *q2*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/ao/quantization/qconfig.py#L663)
+
+Returns True if q1 equals q2, and False otherwise.
 
 | [`QConfig`](generated/torch.ao.quantization.qconfig.QConfig.html#torch.ao.quantization.qconfig.QConfig) | Describes how to quantize a layer or a part of the network by providing settings (observer classes) for activations and weights respectively. |
 | --- | --- |
@@ -555,7 +653,7 @@ If you are adding a new entry/functionality, please, add it to the
 appropriate file under the torch/ao/nn/quantized/dynamic,
 while adding an import statement here.
 
-torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/quantization/__init__.py#L14)
+torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/quantization/__init__.py#L14)
 
 Default evaluation function takes a torch.utils.data.Dataset or a list of
 input Tensors and run the model on the dataset

@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.relu_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.relu_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/c15e9774278597951aa402693c1bbcb6c8c7b9e8/torch/fx/experimental/graph_gradual_typechecker.py#L460)
+torch.fx.experimental.graph_gradual_typechecker.relu_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/fx/experimental/graph_gradual_typechecker.py#L460)
 
 Input and output shapes should be equal.
 
