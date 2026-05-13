@@ -1,0 +1,20 @@
+# torch.Tensor.imag
+
+Tensor.imag
+
+Returns a new tensor containing imaginary values of the `self` tensor.
+The returned tensor and `self` share the same underlying storage.
+
+Warning
+
+[`imag()`](torch.imag.html#torch.imag) is only supported for tensors with complex dtypes.
+
+Example:
+
+```
+>>> x=torch.randn(4, dtype=torch.cfloat)
+>>> x
+tensor([(0.3100+0.3553j), (-0.5445-0.7896j), (-1.6492-0.0633j), (-0.0638-0.8119j)])
+>>> x.imag
+tensor([ 0.3553, -0.7896, -0.0633, -0.8119])
+```

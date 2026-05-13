@@ -1,0 +1,48 @@
+# torch.func.linearize
+
+torch.func.linearize(*func*, **primals*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/_functorch/eager_transforms.py#L1811)
+
+Returns the value of `func` at `primals` and linear approximation
+at `primals`.
+
+Parameters:
+
+- **func** (*Callable**[**...**,**Any**]*) - A Python function that takes one or more arguments.
+- **primals** (*Tensors*) - Positional arguments to `func` that must all be
+Tensors. These are the values at which the function is linearly approximated.
+
+Returns:
+
+Returns a `(output, jvp_fn)` tuple containing the output of `func`
+applied to `primals` and a function that computes the jvp of
+`func` evaluated at `primals`.
+
+Return type:
+
+[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Callable[..., Any]]
+
+linearize is useful if jvp is to be computed multiple times at `primals`. However,
+to achieve this, linearize saves intermediate computation and has higher memory requirements
+than directly applying jvp. So, if all the `tangents` are known, it maybe more efficient
+to compute vmap(jvp) instead of using linearize.
+
+Note
+
+linearize evaluates `func` twice. Please file an issue for an implementation
+with a single evaluation.
+
+Example:
+
+```
+>>> import torch
+>>> from torch.func import linearize
+>>> def fn(x):
+... return x.sin()
+...
+>>> output, jvp_fn = linearize(fn, torch.zeros(3, 3))
+>>> jvp_fn(torch.ones(3, 3))
+tensor([[1., 1., 1.],
+ [1., 1., 1.],
+ [1., 1., 1.]])
+>>>
+```

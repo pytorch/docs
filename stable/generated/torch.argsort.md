@@ -1,0 +1,40 @@
+# torch.argsort
+
+torch.argsort(*input*, *dim=-1*, *descending=False*, ***, *stable=False*) → [Tensor](../tensors.html#torch.Tensor)
+
+Returns the indices that sort a tensor along a given dimension in ascending
+order by value.
+
+This is the second value returned by [`torch.sort()`](torch.sort.html#torch.sort). See its documentation
+for the exact semantics of this method.
+
+If `stable` is `True` then the sorting routine becomes stable, preserving
+the order of equivalent elements. If `False`, the relative order of values
+which compare equal is not guaranteed. `True` is slower.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to sort along
+- **descending** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls the sorting order (ascending or descending)
+
+Keyword Arguments:
+
+**stable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls the relative order of equivalent elements
+
+Example:
+
+```
+>>> a = torch.randn(4, 4)
+>>> a
+tensor([[ 0.0785, 1.5267, -0.8521, 0.4065],
+ [ 0.1598, 0.0788, -0.0745, -1.2700],
+ [ 1.2208, 1.0722, -0.7064, 1.2564],
+ [ 0.0669, -0.2318, -0.8229, -0.9280]])
+
+>>> torch.argsort(a, dim=1)
+tensor([[2, 0, 3, 1],
+ [3, 2, 1, 0],
+ [2, 1, 0, 3],
+ [3, 2, 1, 0]])
+```
