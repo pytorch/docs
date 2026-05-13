@@ -6,7 +6,7 @@ protocol. See [Extending torch Python API](notes/extending.html#extending-torch-
 
 ## Functions
 
-torch.overrides.get_ignored_functions()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L102)
+torch.overrides.get_ignored_functions()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L103)
 
 Return public functions that cannot be overridden by `__torch_function__`.
 
@@ -29,7 +29,7 @@ True
 False
 ```
 
-torch.overrides.get_overridable_functions()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1950)
+torch.overrides.get_overridable_functions()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1951)
 
 List functions that are overridable via __torch_function__
 
@@ -42,7 +42,7 @@ Return type:
 
 Dict[Any, List[Callable]]
 
-torch.overrides.resolve_name(*f*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1963)
+torch.overrides.resolve_name(*f*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1964)
 
 Get a human readable string name for a function passed to
 __torch_function__
@@ -60,7 +60,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch.overrides.get_testing_overrides()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L421)
+torch.overrides.get_testing_overrides()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L422)
 
 Return a dict containing dummy overrides for all overridable functions
 
@@ -84,7 +84,7 @@ Examples
 <Signature (input, other, out=None)>
 ```
 
-torch.overrides.handle_torch_function(*public_api*, *relevant_args*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1727)
+torch.overrides.handle_torch_function(*public_api*, *relevant_args*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1728)
 
 Implement a function with checks for `__torch_function__` overrides.
 
@@ -120,7 +120,7 @@ Example
 ... return a + 0
 ```
 
-torch.overrides.has_torch_function()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1816)
+torch.overrides.has_torch_function()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1817)
 
 Check for __torch_function__ implementations in the elements of an iterable
 or if a __torch_function__ mode is enabled. Considers exact `Tensor` s
@@ -145,7 +145,7 @@ See also
 
 Checks if something is a Tensor-like, including an exact `Tensor`.
 
-torch.overrides.is_tensor_like(*inp*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L2018)
+torch.overrides.is_tensor_like(*inp*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L2019)
 
 Returns `True` if the passed-in input is a Tensor-like.
 
@@ -185,7 +185,7 @@ But, they can be made Tensor-like by implementing __torch_function__.
 True
 ```
 
-torch.overrides.is_tensor_method_or_property(*func*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1992)
+torch.overrides.is_tensor_method_or_property(*func*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1993)
 
 Returns True if the function passed in is a handler for a
 method or property belonging to `torch.Tensor`, as passed
@@ -214,7 +214,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.overrides.wrap_torch_function(*dispatcher*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/overrides.py#L1606)
+torch.overrides.wrap_torch_function(*dispatcher*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L1607)
 
 Wraps a given function with `__torch_function__` -related functionality.
 
@@ -241,4 +241,76 @@ Examples
 >>> @torch.overrides.wrap_torch_function(dispatcher)
 >>> def func(a): # This will make func dispatchable by __torch_function__
 ... return a + 0
+```
+
+torch.overrides.redispatch_function(*func*, *types*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/overrides.py#L2174)
+
+Skip one level of `__torch_function__` dispatch and call the function.
+
+This is primarily useful for **Tensor subclasses** that want to call into
+a function's implementation while still intercepting PyTorch operations
+inside that function.
+
+Example with Tensor subclass. Only ops whose inputs include a
+`LoggingTensor` are intercepted; once `redispatch_function` returns
+a plain `torch.Tensor`, subsequent ops (here `+ 1`) are not logged.
+
+```
+>>> from torch.overrides import has_torch_function, handle_torch_function
+>>> class LoggingTensor(torch.Tensor):
+... depth = 0
+...
+... @classmethod
+... def __torch_function__(cls, func, types, args, kwargs=None):
+... print(f"{' ' * cls.depth}Calling {func.__name__}")
+... cls.depth += 1
+... r = torch.overrides.redispatch_function(func, types, args, kwargs)
+... cls.depth -= 1
+... return r
+>>> def scaled_mul(a, b):
+... if has_torch_function((a, b)):
+... return handle_torch_function(scaled_mul, (a, b), a, b)
+... return a * b + 1
+>>> x = LoggingTensor(torch.tensor([3.0]))
+>>> y = LoggingTensor(torch.tensor([4.0]))
+>>> result = scaled_mul(x, y)
+Calling scaled_mul
+ Calling mul
+>>> result
+tensor([13.])
+```
+
+Note that only `mul` is logged, not `add`: `redispatch_function`
+returns a plain `torch.Tensor`, so the `+ 1` inside `scaled_mul`
+no longer sees a `LoggingTensor` input and `__torch_function__` is
+not triggered.
+
+With `TorchFunctionMode` the mode stays active across all inner ops,
+so the `+ 1` is now visible too. Use `with self:` after
+`redispatch_function` to re-enable the mode for those inner calls.
+
+```
+>>> from torch.overrides import TorchFunctionMode
+>>> class LoggingMode(TorchFunctionMode):
+... def __init__(self):
+... self.depth = 0
+...
+... def __torch_function__(self, func, types, args, kwargs=None):
+... print(f"{' ' * self.depth}Calling {func.__name__}")
+... self.depth += 1
+... with self:
+... r = torch.overrides.redispatch_function(
+... func, types, args, kwargs
+... )
+... self.depth -= 1
+... return r
+>>> a = torch.tensor([3.0])
+>>> b = torch.tensor([4.0])
+>>> with LoggingMode():
+... result = scaled_mul(a, b)
+Calling scaled_mul
+ Calling mul
+ Calling add
+>>> result
+tensor([13.])
 ```

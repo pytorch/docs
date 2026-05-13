@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L118)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_transpose(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L118)
 
 Similar to a sequence of two index-selects
 

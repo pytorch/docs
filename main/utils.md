@@ -1,11 +1,34 @@
 # torch.utils
 
-| [`rename_privateuse1_backend`](generated/torch.utils.rename_privateuse1_backend.html#torch.utils.rename_privateuse1_backend) | Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. |
-| --- | --- |
-| [`generate_methods_for_privateuse1_backend`](generated/torch.utils.generate_methods_for_privateuse1_backend.html#torch.utils.generate_methods_for_privateuse1_backend) | Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. |
 | [`get_cpp_backtrace`](generated/torch.utils.get_cpp_backtrace.html#torch.utils.get_cpp_backtrace) | Return a string containing the C++ stack trace of the current thread. |
+| --- | --- |
 | [`set_module`](generated/torch.utils.set_module.html#torch.utils.set_module) | Set the module attribute on a python object for a given object for nicer printing |
 | [`swap_tensors`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) | This function swaps the content of the two Tensor objects. |
+
+# torch.utils.backend_registration
+
+| [`generate_methods_for_privateuse1_backend`](generated/torch.utils.backend_registration.generate_methods_for_privateuse1_backend.html#torch.utils.backend_registration.generate_methods_for_privateuse1_backend) | Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. |
+| --- | --- |
+| [`rename_privateuse1_backend`](generated/torch.utils.backend_registration.rename_privateuse1_backend.html#torch.utils.backend_registration.rename_privateuse1_backend) | Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. |
+
+# torch.utils.hooks
+
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/utils/hooks.py#L72)
+
+Mark a function as an unserializable hook with this decorator.
+
+This suppresses warnings that would otherwise arise if you attempt
+to serialize a tensor that has a hook.
+
+# torch.utils.throughput_benchmark
+
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/utils/throughput_benchmark.py#L6)
+
+Define time formatting.
+
+Return type:
+
+[str](https://docs.python.org/3/library/stdtypes.html#str)
 
 # torch.utils.collect_env
 

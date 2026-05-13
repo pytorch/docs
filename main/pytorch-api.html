@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git8df6103 )">
+<meta name="llm:version" content="main (2.13.0a0+git95bac51 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8df6103 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git95bac51 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6883,13 +6883,14 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="utils.html">torch.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.rename_privateuse1_backend.html">torch.utils.rename_privateuse1_backend</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.generate_methods_for_privateuse1_backend.html">torch.utils.generate_methods_for_privateuse1_backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.get_cpp_backtrace.html">torch.utils.get_cpp_backtrace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.set_module.html">torch.utils.set_module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.swap_tensors.html">torch.utils.swap_tensors</a></li>
 </ul>
 </details></li>
+
+
+
 
 
 
@@ -7101,6 +7102,9 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html#torch-utils-backend-registration">torch.utils.backend_registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html#torch-utils-hooks">torch.utils.hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html#torch-utils-throughput-benchmark">torch.utils.throughput_benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html#module-torch.utils.collect_env">torch.utils.collect_env</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html#module-torch.utils.flop_counter">torch.utils.flop_counter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html#module-torch.utils.hipify.hipify_python">torch.utils.hipify.hipify_python</a></li>
@@ -7487,7 +7491,7 @@ document.write(`
        "headline": "Reference API",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/pytorch-api.html",
-       "articleBody": "Reference API# Created On: Apr 16, 2025 | Last Updated On: Jan 24, 2026 C++ Python API torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info Named Tensors Named Tensors operator coverage torch.__config__ torch.__future__ torch._logging Torch Environment Variables",
+       "articleBody": "Reference API# Created On: Apr 16, 2025 | Last Updated On: Jan 24, 2026 C++ Python API torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.backend_registration torch.utils.hooks torch.utils.throughput_benchmark torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info Named Tensors Named Tensors operator coverage torch.__config__ torch.__future__ torch._logging Torch Environment Variables",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

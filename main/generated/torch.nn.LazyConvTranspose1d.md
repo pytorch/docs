@@ -1,6 +1,6 @@
 # LazyConvTranspose1d
 
-*class*torch.nn.LazyConvTranspose1d(*out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/modules/conv.py#L1709)
+*class*torch.nn.LazyConvTranspose1d(*out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/nn/modules/conv.py#L1709)
 
 A [`torch.nn.ConvTranspose1d`](torch.nn.ConvTranspose1d.html#torch.nn.ConvTranspose1d) module with lazy initialization of the `in_channels` argument.
 
@@ -28,6 +28,6 @@ See also
 
 [`torch.nn.ConvTranspose1d`](torch.nn.ConvTranspose1d.html#torch.nn.ConvTranspose1d) and [`torch.nn.modules.lazy.LazyModuleMixin`](torch.nn.modules.lazy.LazyModuleMixin.html#torch.nn.modules.lazy.LazyModuleMixin)
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/nn/modules/conv.py#L832)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/nn/modules/conv.py#L832)
 
 alias of [`ConvTranspose1d`](torch.nn.modules.conv.ConvTranspose1d.html#torch.nn.modules.conv.ConvTranspose1d)

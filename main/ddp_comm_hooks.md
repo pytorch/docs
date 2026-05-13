@@ -75,7 +75,7 @@ parameter.
 
 ## Register Communication Hook
 
-torch.distributed.algorithms.ddp_comm_hooks.register_ddp_comm_hook(*comm_hook_type*, *model*, *state=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/__init__.py#L127)
+torch.distributed.algorithms.ddp_comm_hooks.register_ddp_comm_hook(*comm_hook_type*, *model*, *state=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/__init__.py#L127)
 
 Register `ddp_comm_hooks` to DDP model.
 
@@ -91,13 +91,216 @@ Example::
 >>> register_ddp_comm_hook(DDPCommHookType.FP16_COMPRESS, model, state)
 ```
 
+torch.distributed.algorithms.ddp_comm_hooks.post_localSGD_hook.post_localSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/post_localSGD_hook.py#L69)
+
+Run post-localSGD algorithm.
+
+This DDP communication hook is used for running post-localSGD algorithm,
+by combining with a model averaging component (e.g.,
+`PeriodicModelAverager`)
+that runs after the optimizer step.
+
+Parameters:
+
+- **state** (*PostLocalSGDState*) - State information to run post-localSGD.
+Users mainly need to tune `start_localSGD_iter` to determine when to start local SGD.
+- **bucket** (*dist.GradBucket*) - Bucket that stores a 1D flattened gradient tensor that batches multiple per-variable tensors.
+Note that since DDP comm hook only supports single process single device mode,
+only exactly one tensor is stored in this bucket.
+
+Returns:
+
+Future handler of the communication, which updates the gradients in place.
+
+Return type:
+
+[*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
+
+Example::
+
+```
+>>> state = PostLocalSGDState(process_group=process_group, subgroup=subgroup,
+ start_localSGD_iter=10)
+>>> ddp_model.register_comm_hook(state, post_localSGD_hook)
+>>> # Also need to establish a model averaging module and run model averaging after ``optimizer.step()``.
+>>> # Please refer to the examples in ``torch.distributed.algorithms.model_averaging.averagers`` module.
+```
+
+torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook.hook_with_zero_step(*hook*, *ddp*, *zero*, *shard_buckets=False*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/ddp_zero_hook.py#L183)
+
+Modify `hook` to overlap `ZeroRedundancyOptimizer` optimizer step with `DistributedDataParallel` backward pass.
+
+This approach overlaps the optimizer computation and communication with the
+backward communication. In particular, the backward computation proceeds
+contiguously, and the optimizer computation follows, overlapping with
+outstanding backward communication (i.e. all-reduces) and possibly other
+optimizer communication (i.e. broadcasts).
+The optimizer step computation begins after the last gradient bucket computation has finished.
+
+This approach may be preferred over `hook_with_zero_step_interleaved()`
+if communication is relatively slow compared to computation.
+
+Parameters:
+
+- **hook** (*Callable**[**[**Any**,**dist.GradBucket**]**,*[*torch.futures.Future*](futures.html#torch.futures.Future)*]*) - the hook
+to modify.
+- **ddp** ([*DistributedDataParallel*](generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel)) - the `DistributedDataParallel`
+instance to use.
+- **zero** ([*ZeroRedundancyOptimizer*](distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer)) - the `ZeroRedundancyOptimizer`
+instance to use.
+- **shard_buckets** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, then the assignment of each
+`DistributedDataParallel` bucket is partitioned across
+possibly multiple `ZeroRedundancyOptimizer` instances (i.e.
+across possibly multiple ranks) to approximate uniformity; if
+`False`, then each bucket is wholly assigned to a single
+`ZeroRedundancyOptimizer` instance (i.e. to a single rank).
+
+Returns:
+
+The modified hook.
+
+Raises:
+
+- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if `zero` was constructed with `overlap_with_ddp=False`.
+- [**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if using any backend other than NCCL/HCCL since currently
+ Gloo may hang.
+
+Return type:
+
+[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), *GradBucket*], [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]]
+
+Warning
+
+Given the way that overlapping `DistributedDataParallel` with
+`ZeroRedundancyOptimizer` is currently implemented, the first
+two or three training iterations do not perform parameter updates in
+the optimizer step, depending on if `static_graph=False` or
+`static_graph=True`, respectively. This is because it needs
+information about the gradient bucketing strategy used by
+`DistributedDataParallel`, which is not finalized until the
+second forward pass if `static_graph=False` or until the third
+forward pass if `static_graph=True`.
+
+torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook.hook_with_zero_step_interleaved(*hook*, *ddp*, *zero*, *shard_buckets=False*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/ddp_zero_hook.py#L344)
+
+Modify `hook` to overlap `ZeroRedundancyOptimizer` optimizer step with `DistributedDataParallel` backward pass
+
+This approach overlaps the optimizer computation and communication with the
+backward computation and communication. In particular, once a bucket's
+gradients have been computed, the optimizer computation using those
+gradients is launched (though the actual computation must wait for the
+bucket's all-reduce to complete). This yields an interleaving of all-
+reduces and broadcasts in the communication stream.
+
+This approach may be preferred over `hook_with_zero_step()` if
+communication is relatively fast compared to computation.
+
+Parameters:
+
+- **hook** (*Any * dist.GradBucket -> torch.futures.Future*) - the hook to
+modify.
+- **ddp** ([*DistributedDataParallel*](generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel)) - the `DistributedDataParallel`
+instance to use.
+- **zero** ([*ZeroRedundancyOptimizer*](distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer)) - the `ZeroRedundancyOptimizer`
+instance to use.
+- **shard_buckets** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, then the assignment of each
+`DistributedDataParallel` bucket is partitioned across
+possibly multiple `ZeroRedundancyOptimizer` instances (i.e.
+across possibly multiple ranks) to approximate uniformity; if
+`False`, then each bucket is wholly assigned to a single
+`ZeroRedundancyOptimizer` instance (i.e. to a single rank).
+
+Returns:
+
+The modified hook.
+
+Raises:
+
+- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if `zero` was constructed with `overlap_with_ddp=False`.
+- [**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if using any backend other than NCCL since currently
+ Gloo may hang.
+
+Return type:
+
+[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), *GradBucket*], [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]]
+
+Warning
+
+Given the way that overlapping `DistributedDataParallel` with
+`ZeroRedundancyOptimizer` is currently implemented, the first
+two or three training iterations do not perform parameter updates in
+the optimizer step, depending on if `static_graph=False` or
+`static_graph=True`, respectively. This is because it needs
+information about the gradient bucketing strategy used by
+`DistributedDataParallel`, which is not finalized until the
+second forward pass if `static_graph=False` or until the third
+forward pass if `static_graph=True`.
+
+torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks.quantization_perchannel_hook(*process_group*, *bucket*, *bucket_size=512*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/quantization_hooks.py#L122)
+
+Apply``torch.quantize_per_channel`` logic to DDP using `allgather` protocol.
+
+Compared to per-tensor, the main motivation of per-channel is
+for considerably large tensors such as a tensor that contains 6 million
+elements quantizing per a bucket size of 512 (or 128) elements may significantly
+increase the resolution.
+
+It first splits `GradBucket` tensor into multiple chunks (channels) of `bucket_size`
+elements. Then, workers allgather the scales and zero points of their own
+`GradBucket` prior to the quantization. After all workers have that information,
+the first `then` callback called `quantize_and_allgather` quantizes worker's
+own gradient tensor, and uses `allgather` to communicate these across all workers.
+The final `then` callback called `dequantize_and_aggregate`, dequantizes, flattens, and
+aggregates each quantized gradient tensor locally and returns the mean.
+
+Warning
+
+This is experimental, and uses `allgather` protocol which is considerably slower than
+`allreduce` protocol. It works only with flattened grads.
+
+Example::
+
+```
+>>> ddp_model.register_comm_hook(process_group, quantization_perchannel_hook)
+```
+
+Return type:
+
+[*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
+
+torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks.quantization_pertensor_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/quantization_hooks.py#L46)
+
+Apply `torch.quantize_per_tensor` logic to DDP using `allgather` protocol.
+
+Workers first allgather the scale and zero point of their own
+`GradBucket` prior to the quantization. After all workers have that information,
+the first `then` callback called `quantize_and_allgather` quantizes worker's
+own gradient tensor, and uses `allgather` to communicate these across all workers.
+The final `then` callback called `dequantize_and_aggregate`, dequantizes and
+aggregates each quantized gradient tensor locally and returns the mean.
+
+Warning
+
+This is experimental, and uses `allgather` protocol which is considerably slower than
+`allreduce` protocol. It works only with flattened grads.
+
+Example::
+
+```
+>>> ddp_model.register_comm_hook(process_group, quantization_pertensor_hook)
+```
+
+Return type:
+
+[*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
+
 ## Default Communication Hooks
 
 Default communication hooks are simple **stateless** hooks, so the input state
 in `register_comm_hook` is either a process group or `None`.
 The input `bucket` is a `torch.distributed.GradBucket` object.
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.allreduce_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L35)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.allreduce_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L35)
 
 Call `allreduce` using `GradBucket` tensors.
 
@@ -120,7 +323,7 @@ Return type:
 
 [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L96)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L96)
 
 Compress by casting `GradBucket` to `torch.float16` divided by process group size.
 
@@ -140,7 +343,7 @@ Return type:
 
 [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L116)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_hook(*process_group*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L116)
 
 Warning: This API is experimental, and it requires NCCL version later than 2.9.6.
 
@@ -164,7 +367,7 @@ Return type:
 Additionally, a communication hook wrapper is provided to support `fp16_compress_hook()` or `bf16_compress_hook()` as a wrapper,
 which can be combined with other communication hooks.
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L137)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L137)
 
 Cast input tensor to `torch.float16`, cast result of hook back to input dtype.
 
@@ -184,7 +387,7 @@ Return type:
 
 [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), *GradBucket*], [*Future*](futures.html#torch.futures.Future)[[*Tensor*](tensors.html#torch.Tensor)]]
 
-torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L175)
+torch.distributed.algorithms.ddp_comm_hooks.default_hooks.bf16_compress_wrapper(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/default_hooks.py#L175)
 
 Warning: This API is experimental, and it requires NCCL version later than 2.9.6.
 
@@ -216,7 +419,7 @@ and the user needs to provide a state object defined as below.
 
 ### PowerSGD State
 
-*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState(*process_group*, *matrix_approximation_rank=1*, *start_powerSGD_iter=1000*, *min_compression_rate=2*, *use_error_feedback=True*, *warm_start=True*, *orthogonalization_epsilon=0*, *random_seed=0*, *compression_stats_logging_frequency=10000*, *batch_tensors_with_same_shape=False*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
+*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState(*process_group*, *matrix_approximation_rank=1*, *start_powerSGD_iter=1000*, *min_compression_rate=2*, *use_error_feedback=True*, *warm_start=True*, *orthogonalization_epsilon=0*, *random_seed=0*, *compression_stats_logging_frequency=10000*, *batch_tensors_with_same_shape=False*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
 
 Store both the algorithm's hyperparameters and internal state for all gradients during training.
 
@@ -265,7 +468,7 @@ PowerSGD hooks may conflict with [Apex automatic mixed precision package](https:
 Please use PyTorch [native automatic mixed precision package](https://pytorch.org/docs/stable/amp.html)
 instead.
 
-torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L340)
+torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L340)
 
 Implement PowerSGD algorithm.
 
@@ -354,7 +557,7 @@ Example::
 >>> ddp_model.register_comm_hook(state, powerSGD_hook)
 ```
 
-torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.batched_powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L655)
+torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.batched_powerSGD_hook(*state*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L655)
 
 Implement simplified PowerSGD algorithm.
 
@@ -420,7 +623,7 @@ Warning
 
 Debugging communication hooks do not necessarily output the correct results.
 
-torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks.noop_hook(*_*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/debugging_hooks.py#L10)
+torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks.noop_hook(*_*, *bucket*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/debugging_hooks.py#L10)
 
 Return a future that wraps the input, so it is a no-op that does not incur any communication overheads.
 
@@ -457,16 +660,16 @@ Warning
 
 `PowerSGDState` has `__setstate__` and `__getstate__` implemented and can be used as a reference.
 
-*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
+*class*torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L122)
 
-__getstate__()[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L276)
+__getstate__()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L276)
 
 Return a `Dict[str, Any]` which will be pickled and saved.
 
 `process_group` is not serializable and excluded from
 a returned state.
 
-__setstate__(*state*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L292)
+__setstate__(*state*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/distributed/algorithms/ddp_comm_hooks/powerSGD_hook.py#L292)
 
 Take a provided `state` and set to this `PowerSGDState` instance.
 

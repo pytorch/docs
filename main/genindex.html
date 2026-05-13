@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git8df6103 )">
+<meta name="llm:version" content="main (2.13.0a0+git95bac51 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8df6103 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git95bac51 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4257,6 +4257,8 @@ document.write(`
         <li><a href="generated/torch.nn.modules.dropout.AlphaDropout.html#torch.nn.modules.dropout.AlphaDropout">(class in torch.nn.modules.dropout)</a>
 </li>
       </ul></li>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.always_wrap_policy">always_wrap_policy() (in module torch.distributed.fsdp.wrap)</a>
+</li>
       <li><a href="generated/torch.amax.html#torch.amax">amax() (in module torch)</a>
 
       <ul>
@@ -6337,8 +6339,6 @@ document.write(`
 </li>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.api.ConsoleMetricHandler">ConsoleMetricHandler (class in torch.distributed.elastic.metrics.api)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">consolidate_state_dict() (torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.const_data_ptr">const_data_ptr() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -6349,6 +6349,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
@@ -6861,6 +6863,8 @@ document.write(`
         <li><a href="fx.html#torch.fx.Tracer.create_arg">(torch.fx.Tracer method)</a>
 </li>
       </ul></li>
+      <li><a href="backends.html#torch.backends.xeon.run_cpu.create_args">create_args() (in module torch.backends.xeon.run_cpu)</a>
+</li>
       <li><a href="fx.html#torch.fx.Tracer.create_args_for_root">create_args_for_root() (torch.fx.Tracer method)</a>
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend">create_backend() (in module torch.distributed.elastic.rendezvous.c10d_rendezvous_backend)</a>
@@ -6872,6 +6876,12 @@ document.write(`
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_block_mask">create_block_mask() (in module torch.nn.attention.flex_attention)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.create_contiguous.html#torch.fx.experimental.symbolic_shapes.create_contiguous">create_contiguous() (in module torch.fx.experimental.symbolic_shapes)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.default_planner.create_default_global_load_plan">create_default_global_load_plan() (in module torch.distributed.checkpoint.default_planner)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.default_planner.create_default_global_save_plan">create_default_global_save_plan() (in module torch.distributed.checkpoint.default_planner)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.default_planner.create_default_local_save_plan">create_default_local_save_plan() (in module torch.distributed.checkpoint.default_planner)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting.html#torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting">create_equality_constraints_for_broadcasting() (in module torch.fx.experimental.migrate_gradual_types.constraint_transformation)</a>
 </li>
@@ -6913,6 +6923,8 @@ document.write(`
         <li><a href="fx.html#torch.fx.Tracer.create_proxy">(torch.fx.Tracer method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.planner_helpers.create_read_items_for_chunk_list">create_read_items_for_chunk_list() (in module torch.distributed.checkpoint.planner_helpers)</a>
+</li>
       <li><a href="checkpoint.html#torch.utils.checkpoint.create_selective_checkpoint_contexts">create_selective_checkpoint_contexts() (in module torch.utils.checkpoint)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbol">create_symbol() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
@@ -8065,6 +8077,8 @@ document.write(`
 </li>
       <li><a href="backends.html#torch.backends.python_native.enable_operations">enable_operations() (in module torch.backends.python_native)</a>
 </li>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.enable_wrap">enable_wrap() (in module torch.distributed.fsdp.wrap)</a>
+</li>
       <li><a href="backends.html#torch.backends.cudnn.enabled">enabled (in module torch.backends.cudnn)</a>
 
       <ul>
@@ -9186,6 +9200,8 @@ document.write(`
 </li>
       <li><a href="fx.html#torch.fx.Node.format_node">format_node() (torch.fx.Node method)</a>
 </li>
+      <li><a href="utils.html#torch.utils.throughput_benchmark.format_time">format_time() (in module torch.utils.throughput_benchmark)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler_util.FormattedTimesMixin.html#torch.autograd.profiler_util.FormattedTimesMixin">FormattedTimesMixin (class in torch.autograd.profiler_util)</a>
 </li>
       <li><a href="generated/torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.html#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward">forward() (torch.ao.nn.intrinsic.modules.fused.ConvAdd2d method)</a>
@@ -10168,7 +10184,7 @@ document.write(`
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.debug.CommDebugMode.generate_json_dump">generate_json_dump() (torch.distributed.tensor.debug.CommDebugMode method)</a>
 </li>
-      <li><a href="generated/torch.utils.generate_methods_for_privateuse1_backend.html#torch.utils.generate_methods_for_privateuse1_backend">generate_methods_for_privateuse1_backend() (in module torch.utils)</a>
+      <li><a href="generated/torch.utils.backend_registration.generate_methods_for_privateuse1_backend.html#torch.utils.backend_registration.generate_methods_for_privateuse1_backend">generate_methods_for_privateuse1_backend() (in module torch.utils.backend_registration)</a>
 </li>
       <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.generate_mobile_module_lints">generate_mobile_module_lints() (in module torch.utils.mobile_optimizer)</a>
 </li>
@@ -11402,6 +11418,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.observer.HistogramObserver.html#torch.ao.quantization.observer.HistogramObserver">HistogramObserver (class in torch.ao.quantization.observer)</a>
 </li>
+      <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook.hook_with_zero_step">hook_with_zero_step() (in module torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook)</a>
+</li>
+      <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook.hook_with_zero_step_interleaved">hook_with_zero_step_interleaved() (in module torch.distributed.algorithms.ddp_comm_hooks.ddp_zero_hook)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.TCPStore.host">host (torch.distributed.TCPStore property)</a>
 </li>
       <li><a href="generated/torch.cuda.memory.host_memory_stats.html#torch.cuda.memory.host_memory_stats">host_memory_stats() (in module torch.cuda.memory)</a>
@@ -11843,6 +11863,8 @@ document.write(`
       <li><a href="onnx_export.html#torch.onnx.ExportableModule.input_names">input_names() (torch.onnx.ExportableModule method)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType.INPUT_OUTPUT_NOT_OBSERVED">INPUT_OUTPUT_NOT_OBSERVED (torch.ao.quantization.backend_config.ObservationType attribute)</a>
+</li>
+      <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.input_reshard.input_reshard">input_reshard() (in module torch.distributed.tensor.parallel.input_reshard)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.input_specs">input_specs (torch.export.graph_signature.ExportGraphSignature attribute)</a>
 </li>
@@ -12846,6 +12868,8 @@ document.write(`
 </li>
       <li><a href="special.html#torch.special.laguerre_polynomial_l">laguerre_polynomial_l() (in module torch.special)</a>
 </li>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.lambda_auto_wrap_policy">lambda_auto_wrap_policy() (in module torch.distributed.fsdp.wrap)</a>
+</li>
       <li><a href="generated/torch.optim.lr_scheduler.LambdaLR.html#torch.optim.lr_scheduler.LambdaLR">LambdaLR (class in torch.optim.lr_scheduler)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.laplace.Laplace">Laplace (class in torch.distributions.laplace)</a>
@@ -13255,6 +13279,8 @@ document.write(`
       <li><a href="package.html#torch.package.PackageImporter.load_pickle">load_pickle() (torch.package.PackageImporter method)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive._package.load_pt2">load_pt2() (in module torch.export.pt2_archive._package)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.optimizer.load_sharded_optimizer_state_dict">load_sharded_optimizer_state_dict() (in module torch.distributed.checkpoint.optimizer)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load_state_dict">load_state_dict() (in module torch.distributed.checkpoint.state_dict_loader)</a>
 
@@ -13827,7 +13853,11 @@ document.write(`
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.OutputKind.LOSS_OUTPUT">LOSS_OUTPUT (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
       <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.loss_parallel">loss_parallel() (in module torch.distributed.tensor.parallel)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.loss.loss_parallel">(in module torch.distributed.tensor.parallel.loss)</a>
 </li>
+      </ul></li>
       <li><a href="distributions.html#torch.distributions.transforms.LowerCholeskyTransform">LowerCholeskyTransform (class in torch.distributions.transforms)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal">LowRankMultivariateNormal (class in torch.distributions.lowrank_multivariate_normal)</a>
@@ -17348,7 +17378,11 @@ document.write(`
       <li><a href="config_mod.html#torch.__config__.parallel_info">parallel_info() (in module torch.__config__)</a>
 </li>
       <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.parallelize_module">parallelize_module() (in module torch.distributed.tensor.parallel)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.api.parallelize_module">(in module torch.distributed.tensor.parallel.api)</a>
 </li>
+      </ul></li>
       <li><a href="distributions.html#torch.distributions.bernoulli.Bernoulli.param_shape">param_shape (torch.distributions.bernoulli.Bernoulli property)</a>
 
       <ul>
@@ -17678,6 +17712,8 @@ document.write(`
       <li><a href="distributions.html#torch.distributions.transforms.PositiveDefiniteTransform">PositiveDefiniteTransform (class in torch.distributions.transforms)</a>
 </li>
       <li><a href="distributed.algorithms.join.html#torch.distributed.algorithms.JoinHook.post_hook">post_hook() (torch.distributed.algorithms.JoinHook method)</a>
+</li>
+      <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.post_localSGD_hook.post_localSGD_hook">post_localSGD_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.post_localSGD_hook)</a>
 </li>
       <li><a href="distributed.optim.html#torch.distributed.optim.PostLocalSGDOptimizer">PostLocalSGDOptimizer (class in torch.distributed.optim)</a>
 </li>
@@ -18069,6 +18105,10 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks.quantization_perchannel_hook">quantization_perchannel_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks)</a>
+</li>
+      <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks.quantization_pertensor_hook">quantization_pertensor_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.quantization_hooks)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.quantize.html#torch.ao.quantization.quantize">quantize (class in torch.ao.quantization)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.quantize_dynamic.html#torch.ao.quantization.quantize_dynamic">quantize_dynamic (class in torch.ao.quantization)</a>
@@ -18430,6 +18470,8 @@ document.write(`
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.recv_anysource">recv_anysource() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.recv_object_list">recv_object_list() (in module torch.distributed)</a>
+</li>
+      <li><a href="torch.overrides.html#torch.overrides.redispatch_function">redispatch_function() (in module torch.overrides)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.redistribute">redistribute() (torch.distributed.tensor.DTensor method)</a>
 </li>
@@ -19179,7 +19221,7 @@ document.write(`
       </ul></li>
       <li><a href="onnx_export.html#torch.onnx.ONNXProgram.rename_axes">rename_axes() (torch.onnx.ONNXProgram method)</a>
 </li>
-      <li><a href="generated/torch.utils.rename_privateuse1_backend.html#torch.utils.rename_privateuse1_backend">rename_privateuse1_backend() (in module torch.utils)</a>
+      <li><a href="generated/torch.utils.backend_registration.rename_privateuse1_backend.html#torch.utils.backend_registration.rename_privateuse1_backend">rename_privateuse1_backend() (in module torch.utils.backend_registration)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html#torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.render">render() (torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint method)</a>
 </li>
@@ -20825,6 +20867,8 @@ document.write(`
         <li><a href="storage.html#torch.UntypedStorage.size">(torch.UntypedStorage method)</a>
 </li>
       </ul></li>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.size_based_auto_wrap_policy">size_based_auto_wrap_policy() (in module torch.distributed.fsdp.wrap)</a>
+</li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.size_hint">size_hint() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.size_inference_rule.html#torch.fx.experimental.migrate_gradual_types.constraint_generator.size_inference_rule">size_inference_rule() (in module torch.fx.experimental.migrate_gradual_types.constraint_generator)</a>
@@ -28257,6 +28301,8 @@ document.write(`
         <li><a href="generated/torch.nn.modules.transformer.Transformer.html#torch.nn.modules.transformer.Transformer">(class in torch.nn.modules.transformer)</a>
 </li>
       </ul></li>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.transformer_auto_wrap_policy">transformer_auto_wrap_policy() (in module torch.distributed.fsdp.wrap)</a>
+</li>
       <li><a href="generated/torch.nn.TransformerDecoder.html#torch.nn.TransformerDecoder">TransformerDecoder (class in torch.nn)</a>
 
       <ul>
@@ -28639,6 +28685,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#torch.utils.hooks.unserializable_hook">unserializable_hook() (in module torch.utils.hooks)</a>
+</li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle">UnshardHandle (class in torch.distributed.fsdp)</a>
@@ -29193,8 +29241,12 @@ document.write(`
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.WorkerState">WorkerState (class in torch.distributed.elastic.agent.server)</a>
 </li>
-      <li><a href="fx.html#torch.fx.wrap">wrap() (in module torch.fx)</a>
+      <li><a href="fsdp.html#torch.distributed.fsdp.wrap.wrap">wrap() (in module torch.distributed.fsdp.wrap)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.wrap">(in module torch.fx)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.compiler.wrap_numpy.html#torch.compiler.wrap_numpy">wrap_numpy() (in module torch.compiler)</a>
 </li>
       <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.wrap_top_frame">wrap_top_frame (in module torch.compiler.config)</a>

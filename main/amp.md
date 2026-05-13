@@ -22,7 +22,7 @@ Warning
 
 ## Autocasting
 
-torch.amp.autocast_mode.is_autocast_available(*device_type*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/amp/autocast_mode.py#L28)
+torch.amp.autocast_mode.is_autocast_available(*device_type*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/amp/autocast_mode.py#L28)
 
 Return a bool indicating if autocast is available on `device_type`.
 
@@ -36,7 +36,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch.autocast(*device_type*, *dtype=None*, *enabled=True*, *cache_enabled=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/amp/autocast_mode.py#L52)
+*class*torch.autocast(*device_type*, *dtype=None*, *enabled=True*, *cache_enabled=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/amp/autocast_mode.py#L52)
 
 Instances of `autocast` serve as context managers or decorators that
 allow regions of your script to run in mixed precision.
@@ -218,7 +218,7 @@ Default: `None`
 - **cache_enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether the weight cache inside autocast should be enabled.
 Default: `True`
 
-torch.amp.custom_fwd(*fwd=None*, ***, *device_type*, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/amp/autocast_mode.py#L441)
+torch.amp.custom_fwd(*fwd=None*, ***, *device_type*, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/amp/autocast_mode.py#L441)
 
 Create a helper decorator for `forward` methods of custom autograd functions.
 
@@ -241,7 +241,7 @@ Note
 If the decorated `forward` is called outside an autocast-enabled region,
 `custom_fwd` is a no-op and `cast_inputs` has no effect.
 
-torch.amp.custom_bwd(*bwd=None*, ***, *device_type*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/amp/autocast_mode.py#L500)
+torch.amp.custom_bwd(*bwd=None*, ***, *device_type*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/amp/autocast_mode.py#L500)
 
 Create a helper decorator for backward methods of custom autograd functions.
 
@@ -255,23 +255,23 @@ Parameters:
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
 
-*class*torch.cuda.amp.autocast(*enabled=True*, *dtype=torch.float16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cuda/amp/autocast_mode.py#L13)
+*class*torch.cuda.amp.autocast(*enabled=True*, *dtype=torch.float16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/amp/autocast_mode.py#L13)
 
 See `torch.autocast`.
 
 `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast("cuda", args...)` instead.
 
-torch.cuda.amp.custom_fwd(*fwd=None*, ***, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cuda/amp/autocast_mode.py#L85)
+torch.cuda.amp.custom_fwd(*fwd=None*, ***, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/amp/autocast_mode.py#L85)
 
 `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use
 `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
 
-torch.cuda.amp.custom_bwd(*bwd*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cuda/amp/autocast_mode.py#L100)
+torch.cuda.amp.custom_bwd(*bwd*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/amp/autocast_mode.py#L100)
 
 `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use
 `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
 
-*class*torch.cpu.amp.autocast(*enabled=True*, *dtype=torch.bfloat16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cpu/amp/autocast_mode.py#L12)
+*class*torch.cpu.amp.autocast(*enabled=True*, *dtype=torch.bfloat16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cpu/amp/autocast_mode.py#L12)
 
 See `torch.autocast`.
 `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast("cpu", args...)` instead.
@@ -300,12 +300,12 @@ representable in the fp16 dynamic range. While one may expect the scale to alway
 GradScaler does NOT make this guarantee to maintain performance. If you encounter NaNs in your loss
 or gradients when running with AMP/fp16, verify your model is compatible.
 
-*class*torch.cuda.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cuda/amp/grad_scaler.py#L12)
+*class*torch.cuda.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/amp/grad_scaler.py#L12)
 
 See `torch.amp.GradScaler`.
 `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler("cuda", args...)` instead.
 
-*class*torch.cpu.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/8df61039f8235b92b0ca250355cc296020f46e2d/torch/cpu/amp/grad_scaler.py#L9)
+*class*torch.cpu.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cpu/amp/grad_scaler.py#L9)
 
 See `torch.amp.GradScaler`.
 `torch.cpu.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler("cpu", args...)` instead.

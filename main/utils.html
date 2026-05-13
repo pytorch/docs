@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/utils.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.utils.rename_privateuse1_backend" href="generated/torch.utils.rename_privateuse1_backend.html" />
+    <link rel="next" title="torch.utils.get_cpp_backtrace" href="generated/torch.utils.get_cpp_backtrace.html" />
     <link rel="prev" title="torch.testing" href="testing.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git8df6103 )">
+<meta name="llm:version" content="main (2.13.0a0+git95bac51 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8df6103 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git95bac51 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6883,13 +6883,14 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">torch.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.rename_privateuse1_backend.html">torch.utils.rename_privateuse1_backend</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.generate_methods_for_privateuse1_backend.html">torch.utils.generate_methods_for_privateuse1_backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.get_cpp_backtrace.html">torch.utils.get_cpp_backtrace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.set_module.html">torch.utils.set_module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.swap_tensors.html">torch.utils.swap_tensors</a></li>
 </ul>
 </details></li>
+
+
+
 
 
 
@@ -7037,15 +7038,9 @@ document.write(`
                   
   <section id="module-torch.utils">
 <span id="torch-utils"></span><h1>torch.utils<a class="headerlink" href="#module-torch.utils" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 21, 2023 | Last Updated On: Apr 24, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 21, 2023 | Last Updated On: May 12, 2026</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.utils.rename_privateuse1_backend"/><p id="torch.utils.rename_privateuse1_backend"/><a class="reference internal" href="generated/torch.utils.rename_privateuse1_backend.html#torch.utils.rename_privateuse1_backend" title="torch.utils.rename_privateuse1_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_privateuse1_backend</span></code></a></p></td>
-<td><p>Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.utils.generate_methods_for_privateuse1_backend"/><p id="torch.utils.generate_methods_for_privateuse1_backend"/><a class="reference internal" href="generated/torch.utils.generate_methods_for_privateuse1_backend.html#torch.utils.generate_methods_for_privateuse1_backend" title="torch.utils.generate_methods_for_privateuse1_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_methods_for_privateuse1_backend</span></code></a></p></td>
-<td><p>Automatically generate attributes and methods for the custom backend after rename privateuse1 backend.</p></td>
-</tr>
 <tr class="row-odd"><td><p><p id="torch.utils.get_cpp_backtrace"/><p id="torch.utils.get_cpp_backtrace"/><a class="reference internal" href="generated/torch.utils.get_cpp_backtrace.html#torch.utils.get_cpp_backtrace" title="torch.utils.get_cpp_backtrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cpp_backtrace</span></code></a></p></td>
 <td><p>Return a string containing the C++ stack trace of the current thread.</p></td>
 </tr>
@@ -7058,6 +7053,45 @@ document.write(`
 </tbody>
 </table>
 </div>
+</section>
+<section id="torch-utils-backend-registration">
+<h1>torch.utils.backend_registration<a class="headerlink" href="#torch-utils-backend-registration" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.utils.backend_registration.generate_methods_for_privateuse1_backend"/><p id="torch.utils.backend_registration.generate_methods_for_privateuse1_backend"/><a class="reference internal" href="generated/torch.utils.backend_registration.generate_methods_for_privateuse1_backend.html#torch.utils.backend_registration.generate_methods_for_privateuse1_backend" title="torch.utils.backend_registration.generate_methods_for_privateuse1_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_methods_for_privateuse1_backend</span></code></a></p></td>
+<td><p>Automatically generate attributes and methods for the custom backend after rename privateuse1 backend.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.utils.backend_registration.rename_privateuse1_backend"/><p id="torch.utils.backend_registration.rename_privateuse1_backend"/><a class="reference internal" href="generated/torch.utils.backend_registration.rename_privateuse1_backend.html#torch.utils.backend_registration.rename_privateuse1_backend" title="torch.utils.backend_registration.rename_privateuse1_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_privateuse1_backend</span></code></a></p></td>
+<td><p>Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="torch-utils-hooks">
+<h1>torch.utils.hooks<a class="headerlink" href="#torch-utils-hooks" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.utils.hooks.unserializable_hook">
+<span class="sig-prename descclassname"><span class="pre">torch.utils.hooks.</span></span><span class="sig-name descname"><span class="pre">unserializable_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/utils/hooks.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hooks.unserializable_hook" title="Link to this definition">#</a></dt>
+<dd><p>Mark a function as an unserializable hook with this decorator.</p>
+<p>This suppresses warnings that would otherwise arise if you attempt
+to serialize a tensor that has a hook.</p>
+</dd></dl>
+
+</section>
+<section id="torch-utils-throughput-benchmark">
+<h1>torch.utils.throughput_benchmark<a class="headerlink" href="#torch-utils-throughput-benchmark" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.utils.throughput_benchmark.format_time">
+<span class="sig-prename descclassname"><span class="pre">torch.utils.throughput_benchmark.</span></span><span class="sig-name descname"><span class="pre">format_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_us</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/utils/throughput_benchmark.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.throughput_benchmark.format_time" title="Link to this definition">#</a></dt>
+<dd><p>Define time formatting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-torch.utils.collect_env">
 <span id="torch-utils-collect-env"></span><h1>torch.utils.collect_env<a class="headerlink" href="#module-torch.utils.collect_env" title="Link to this heading">#</a></h1>
@@ -7304,11 +7338,11 @@ for tracking purposes -->
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.utils.rename_privateuse1_backend.html"
+       href="generated/torch.utils.get_cpp_backtrace.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.utils.rename_privateuse1_backend</p>
+        <p class="prev-next-title">torch.utils.get_cpp_backtrace</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7343,11 +7377,11 @@ for tracking purposes -->
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.utils.rename_privateuse1_backend.html"
+       href="generated/torch.utils.get_cpp_backtrace.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.utils.rename_privateuse1_backend</p>
+        <p class="prev-next-title">torch.utils.get_cpp_backtrace</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7370,6 +7404,15 @@ for tracking purposes -->
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">torch.utils</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-utils-backend-registration">torch.utils.backend_registration</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-utils-hooks">torch.utils.hooks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.hooks.unserializable_hook"><code class="docutils literal notranslate"><span class="pre">unserializable_hook()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-utils-throughput-benchmark">torch.utils.throughput_benchmark</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.throughput_benchmark.format_time"><code class="docutils literal notranslate"><span class="pre">format_time()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.utils.collect_env">torch.utils.collect_env</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.utils.flop_counter">torch.utils.flop_counter</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.utils.hipify.hipify_python">torch.utils.hipify.hipify_python</a><ul class="visible nav section-nav flex-column">
@@ -7628,7 +7671,7 @@ for tracking purposes -->
        "headline": "torch.utils",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/utils.html",
-       "articleBody": "torch.utils# Created On: Jul 21, 2023 | Last Updated On: Apr 24, 2026 rename_privateuse1_backend Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. generate_methods_for_privateuse1_backend Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. get_cpp_backtrace Return a string containing the C++ stack trace of the current thread. set_module Set the module attribute on a python object for a given object for nicer printing swap_tensors This function swaps the content of the two Tensor objects. torch.utils.collect_env# check_release_file is_xnnpack_available main pretty_str run Return (return-code, stdout, stderr). run_and_parse_first_match Run command using run_lambda, returns the first regex match if it exists. run_and_read_all Run command using run_lambda; reads and returns entire output if rc is 0. run_and_return_first_line Run command using run_lambda and returns first line if output is not empty. torch.utils.flop_counter# baddbmm_flop Count flops for the baddbmm operation. bmm_flop Count flops for the bmm operation. conv_backward_flop conv_flop Count flops for convolution. conv_flop_count Count flops for convolution. register_flop_formula sdpa_backward_flop Count flops for self-attention backward. sdpa_backward_flop_count sdpa_flop Count flops for self-attention. sdpa_flop_count Count flops for self-attention. shape_wrapper torch.utils.hipify.hipify_python# The Python Hipify script. ## # Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved. # 2017-2018 Advanced Micro Devices, Inc. and # Facebook Inc. All rights reserved. # # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documentation files (the \u201cSoftware\u201d), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to whom the Software is # furnished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. add_dim3 adds dim3() to the second and third arguments in the kernel launch compute_stats extract_arguments Return the list of arguments in the upcoming function parameter closure. file_add_header file_specific_replacement find_bracket_group Finds the first balanced parentheses. find_closure_group Generalization for finding a balancing closure group find_parentheses_group Finds the first balanced bracket. fix_static_global_kernels Static global kernels in HIP results in a compilation error. get_hip_file_path Returns the new name of the hipified file hip_header_magic If the file makes kernel builtin calls and does not include the cuda_runtime.h header, then automatically add an #include to match the \"magic\" includes provided by NVCC. hipify is_caffe2_gpu_file is_cusparse_file is_out_of_place is_pytorch_file is_special_file match_extensions Helper method to see if filename ends with certain extension matched_files_iter openf preprocess_file_and_save_result preprocessor Executes the CUDA -\u003e HIP conversion on the specified file. processKernelLaunches Replace the CUDA style Kernel launches with the HIP style kernel launches. replace_extern_shared Match \u0027extern __shared__ type foo[];\u0027 syntax and use HIP_DYNAMIC_SHARED() MACRO instead. replace_math_functions FIXME: Temporarily replace std:: invocations of math functions with non-std:: versions to prevent linker errors NOTE: This can lead to correctness issues when running tests, since the correct version of the math function (exp/expf) might not get called. str2bool ArgumentParser doesn\u0027t support type=bool. TensorWeakRef Wrapper around a weak ref of a Tensor that handles the _fix_weakref() call required when unwrapping a Tensor weakref.",
+       "articleBody": "torch.utils# Created On: Jul 21, 2023 | Last Updated On: May 12, 2026 get_cpp_backtrace Return a string containing the C++ stack trace of the current thread. set_module Set the module attribute on a python object for a given object for nicer printing swap_tensors This function swaps the content of the two Tensor objects. torch.utils.backend_registration# generate_methods_for_privateuse1_backend Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. rename_privateuse1_backend Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. torch.utils.hooks# torch.utils.hooks.unserializable_hook(f)[source]# Mark a function as an unserializable hook with this decorator. This suppresses warnings that would otherwise arise if you attempt to serialize a tensor that has a hook. torch.utils.throughput_benchmark# torch.utils.throughput_benchmark.format_time(time_us=None, time_ms=None, time_s=None)[source]# Define time formatting. Return type: str torch.utils.collect_env# check_release_file is_xnnpack_available main pretty_str run Return (return-code, stdout, stderr). run_and_parse_first_match Run command using run_lambda, returns the first regex match if it exists. run_and_read_all Run command using run_lambda; reads and returns entire output if rc is 0. run_and_return_first_line Run command using run_lambda and returns first line if output is not empty. torch.utils.flop_counter# baddbmm_flop Count flops for the baddbmm operation. bmm_flop Count flops for the bmm operation. conv_backward_flop conv_flop Count flops for convolution. conv_flop_count Count flops for convolution. register_flop_formula sdpa_backward_flop Count flops for self-attention backward. sdpa_backward_flop_count sdpa_flop Count flops for self-attention. sdpa_flop_count Count flops for self-attention. shape_wrapper torch.utils.hipify.hipify_python# The Python Hipify script. ## # Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved. # 2017-2018 Advanced Micro Devices, Inc. and # Facebook Inc. All rights reserved. # # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documentation files (the \u201cSoftware\u201d), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to whom the Software is # furnished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. add_dim3 adds dim3() to the second and third arguments in the kernel launch compute_stats extract_arguments Return the list of arguments in the upcoming function parameter closure. file_add_header file_specific_replacement find_bracket_group Finds the first balanced parentheses. find_closure_group Generalization for finding a balancing closure group find_parentheses_group Finds the first balanced bracket. fix_static_global_kernels Static global kernels in HIP results in a compilation error. get_hip_file_path Returns the new name of the hipified file hip_header_magic If the file makes kernel builtin calls and does not include the cuda_runtime.h header, then automatically add an #include to match the \"magic\" includes provided by NVCC. hipify is_caffe2_gpu_file is_cusparse_file is_out_of_place is_pytorch_file is_special_file match_extensions Helper method to see if filename ends with certain extension matched_files_iter openf preprocess_file_and_save_result preprocessor Executes the CUDA -\u003e HIP conversion on the specified file. processKernelLaunches Replace the CUDA style Kernel launches with the HIP style kernel launches. replace_extern_shared Match \u0027extern __shared__ type foo[];\u0027 syntax and use HIP_DYNAMIC_SHARED() MACRO instead. replace_math_functions FIXME: Temporarily replace std:: invocations of math functions with non-std:: versions to prevent linker errors NOTE: This can lead to correctness issues when running tests, since the correct version of the math function (exp/expf) might not get called. str2bool ArgumentParser doesn\u0027t support type=bool. TensorWeakRef Wrapper around a weak ref of a Tensor that handles the _fix_weakref() call required when unwrapping a Tensor weakref.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7640,7 +7683,7 @@ for tracking purposes -->
          "@id": "/utils.html"
        },
        "datePublished": "Jul 21, 2023T00:00:00Z",
-       "dateModified": "Apr 24, 2026T00:00:00Z"
+       "dateModified": "May 12, 2026T00:00:00Z"
      }
  </script>
   <script>
