@@ -1,6 +1,6 @@
 # torch.functional.atleast_1d
 
-torch.functional.atleast_1d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/functional.py#L1545)
+torch.functional.atleast_1d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/functional.py#L1545)
 
 Returns a 1-dimensional view of each input tensor with zero dimensions.
 Input tensors with one or more dimensions are returned as-is.

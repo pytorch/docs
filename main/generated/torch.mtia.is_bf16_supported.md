@@ -1,5 +1,5 @@
 # torch.mtia.is_bf16_supported
 
-torch.mtia.is_bf16_supported(*including_emulation=True*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/mtia/__init__.py#L237)
+torch.mtia.is_bf16_supported(*including_emulation=True*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/mtia/__init__.py#L237)
 
 Return a bool indicating if the current MTIA device supports dtype bfloat16.

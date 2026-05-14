@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L118)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.register_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L118)
 
 Return type:
 

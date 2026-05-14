@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.utils.expand_tuples
 
-torch.fx.experimental.unification.multipledispatch.utils.expand_tuples(*L*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/fx/experimental/unification/multipledispatch/utils.py#L27)
+torch.fx.experimental.unification.multipledispatch.utils.expand_tuples(*L*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fx/experimental/unification/multipledispatch/utils.py#L27)
 
 ```
 >>> expand_tuples([1, (2, 3)])

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git95bac51 )">
+<meta name="llm:version" content="main (2.13.0a0+git8e57bf1 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git95bac51 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8e57bf1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3462,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3665,10 +3665,10 @@ document.write(`
                   
   <section id="numerical-accuracy">
 <span id="id1"></span><h1>Numerical accuracy<a class="headerlink" href="#numerical-accuracy" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 13, 2021 | Last Updated On: May 06, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 13, 2026 | Last Updated On: May 13, 2026</p>
 <p>In modern computers, floating point numbers are represented using IEEE 754 standard.
 For more details on floating point arithmetic and IEEE 754 standard, please see
-<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Floating point arithmetic</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Floating point arithmetic</a>.
 In particular, note that floating point provides limited accuracy (about 7 decimal digits
 for single precision floating point numbers, about 16 decimal digits for double precision
 floating point numbers) and that floating point addition and multiplication are not
@@ -3680,102 +3680,147 @@ PyTorch releases, individual commits, or different platforms. In particular, CPU
 results can be different even for bitwise-identical inputs and even after controlling for
 the sources of randomness.</p>
 <section id="batched-computations-or-slice-computations">
-<h2>Batched computations or slice computations<a class="headerlink" href="#batched-computations-or-slice-computations" title="Link to this heading">#</a></h2>
+<span id="id2"></span><h2>Batched computations or slice computations<a class="headerlink" href="#batched-computations-or-slice-computations" title="Link to this heading">#</a></h2>
 <p>Many operations in PyTorch support batched computation, where the same operation is performed
-for the elements of the batches of inputs. An example of this is <a class="reference internal" href="../generated/torch.mm.html#torch.mm" title="torch.mm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.mm()</span></code></a> and
-<a class="reference internal" href="../generated/torch.bmm.html#torch.bmm" title="torch.bmm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.bmm()</span></code></a>. It is possible to implement batched computation as a loop over batch elements,
-and apply the necessary math operations to the individual batch elements, for efficiency reasons
-we are not doing that, and typically perform computation for the whole batch. The mathematical
-libraries that we are calling, and PyTorch internal implementations of operations can produce
-slightly different results in this case, compared to non-batched computations. In particular,
-let <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> be 3D tensors with the dimensions suitable for batched matrix multiplication.
-Then <code class="docutils literal notranslate"><span class="pre">(A&#64;B)[0]</span></code> (the first element of the batched result) is not guaranteed to be bitwise
-identical to <code class="docutils literal notranslate"><span class="pre">A[0]&#64;B[0]</span></code> (the matrix product of the first elements of the input batches)
-even though mathematically it’s an identical computation.</p>
-<p>Similarly, an operation applied to a tensor slice is not guaranteed to produce results that are
-identical to the slice of the result of the same operation applied to the full tensor. E.g. let
-<code class="docutils literal notranslate"><span class="pre">A</span></code> be a 2-dimensional tensor. <code class="docutils literal notranslate"><span class="pre">A.sum(-1)[0]</span></code> is not guaranteed to be bitwise equal to
-<code class="docutils literal notranslate"><span class="pre">A[:,0].sum()</span></code>.</p>
+for the elements of the batches of inputs. An example of this is <a class="reference internal" href="../generated/torch.mm.html#torch.mm" title="torch.mm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.mm()</span></code></a> and
+<a class="reference internal" href="../generated/torch.bmm.html#torch.bmm" title="torch.bmm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.bmm()</span></code></a>. It is possible to implement batched computation as a loop over batch
+elements, and apply the necessary math operations to the individual batch elements, for
+efficiency reasons we are not doing that, and typically perform computation for the whole
+batch. The mathematical libraries that we are calling, and PyTorch internal implementations
+of operations can produce slightly different results in this case, compared to non-batched
+computations. In particular, let <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> be 3D tensors with the dimensions suitable for
+batched matrix multiplication. Then <code class="docutils literal notranslate"><span class="pre">(A&#64;B)[0]</span></code> (the first element of the batched result) is
+not guaranteed to be bitwise identical to <code class="docutils literal notranslate"><span class="pre">A[0]&#64;B[0]</span></code> (the matrix product of the first
+elements of the input batches) even though mathematically it’s an identical computation.</p>
+<p>Similarly, an operation applied to a tensor slice is not guaranteed to produce results that
+are identical to the slice of the result of the same operation applied to the full tensor.
+E.g. let <code class="docutils literal notranslate"><span class="pre">A</span></code> be a 2-dimensional tensor. <code class="docutils literal notranslate"><span class="pre">A.sum(-1)[0]</span></code> is not guaranteed to be bitwise
+equal to <code class="docutils literal notranslate"><span class="pre">A[:,0].sum()</span></code>.</p>
 </section>
 <section id="extremal-values">
-<h2>Extremal values<a class="headerlink" href="#extremal-values" title="Link to this heading">#</a></h2>
+<span id="id3"></span><h2>Extremal values<a class="headerlink" href="#extremal-values" title="Link to this heading">#</a></h2>
 <p>When inputs contain large values such that intermediate results may overflow the range of the
-used datatype, the end result may overflow too, even though it is representable in the original
-datatype. E.g.:</p>
+used datatype, the end result may overflow too, even though it is representable in the
+original datatype. E.g.:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-<span class="n">a</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1e20</span><span class="p">,</span> <span class="mf">1e20</span><span class="p">])</span> <span class="c1"># fp32 type by default</span>
-<span class="n">a</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span> <span class="c1"># produces tensor(inf)</span>
-<span class="n">a</span><span class="o">.</span><span class="n">double</span><span class="p">()</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span> <span class="c1"># produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1e20</span><span class="p">,</span> <span class="mf">1e20</span><span class="p">])</span>  <span class="c1"># fp32 type by default</span>
+<span class="n">a</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>  <span class="c1"># produces tensor(inf)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">double</span><span class="p">()</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>  <span class="c1"># produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32</span>
 </pre></div>
 </div>
 <p>Different backends may use different algorithms, reduction orders, or accumulation
 precision for the same operation. As a result, finite inputs near the limits of a
-dtype may produce finite results on one backend and non-finite results, such as
-<code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, on another backend, such as when moving a computation between
-CPU and CUDA. A value being representable in a dtype does not guarantee that all
-intermediate or output values of an operation will remain finite. For workflows
-that are sensitive to non-finite values, consider normalizing or clamping extremal
-inputs and using <a class="reference internal" href="../generated/torch.isfinite.html#torch.isfinite" title="torch.isfinite"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.isfinite()</span></code></a> to detect them.</p>
+dtype may produce finite results on one backend and non-finite results, such as <code class="docutils literal notranslate"><span class="pre">inf</span></code> or
+<code class="docutils literal notranslate"><span class="pre">NaN</span></code>, on another backend, such as when moving a computation between CPU and CUDA. A value
+being representable in a dtype does not guarantee that all intermediate or output values of
+an operation will remain finite. For workflows that are sensitive to non-finite values,
+consider normalizing or clamping extremal inputs and using <a class="reference internal" href="../generated/torch.isfinite.html#torch.isfinite" title="torch.isfinite"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.isfinite()</span></code></a> to detect
+them.</p>
 </section>
 <section id="linear-algebra-torch-linalg">
 <span id="linear-algebra-stability"></span><h2>Linear algebra (<code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code>)<a class="headerlink" href="#linear-algebra-torch-linalg" title="Link to this heading">#</a></h2>
 <section id="non-finite-values">
-<h3>Non-finite values<a class="headerlink" href="#non-finite-values" title="Link to this heading">#</a></h3>
-<p>The external libraries (backends) that <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> uses provide no guarantees on their behaviour
-when the inputs have non-finite values like <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. As such, neither does PyTorch.
-The operations may return a tensor with non-finite values, or raise an exception, or even segfault.</p>
-<p>Consider using <a class="reference internal" href="../generated/torch.isfinite.html#torch.isfinite" title="torch.isfinite"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.isfinite()</span></code></a> before calling these functions to detect this situation.</p>
+<span id="id4"></span><h3>Non-finite values<a class="headerlink" href="#non-finite-values" title="Link to this heading">#</a></h3>
+<p>The external libraries (backends) that <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> uses provide no guarantees on their
+behaviour when the inputs have non-finite values like <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. As such, neither does
+PyTorch. The operations may return a tensor with non-finite values, or raise an exception,
+or even segfault.</p>
+<p>Consider using <a class="reference internal" href="../generated/torch.isfinite.html#torch.isfinite" title="torch.isfinite"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.isfinite()</span></code></a> before calling these functions to detect this
+situation.</p>
 </section>
 <section id="extremal-values-in-linalg">
-<h3>Extremal values in linalg<a class="headerlink" href="#extremal-values-in-linalg" title="Link to this heading">#</a></h3>
-<p>Functions within <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> have more <a class="reference internal" href="#extremal-values">Extremal Values</a> than other PyTorch functions.</p>
-<p><a class="reference internal" href="../linalg.html#linalg-solvers"><span class="std std-ref">Solvers</span></a> and <a class="reference internal" href="../linalg.html#linalg-inverses"><span class="std std-ref">Inverses</span></a> assume that the input matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is invertible. If it is close to
-being non-invertible (for example, if it has a very small singular value), then these algorithms may silently return
-incorrect results. These matrices are said to be <a class="reference external" href="https://nhigham.com/2020/03/19/what-is-a-condition-number/">ill-conditioned</a>.
-If provided with ill-conditioned inputs, the result of these functions they may vary when using the same inputs on different
-devices or when using different backends via the keyword <code class="docutils literal notranslate"><span class="pre">driver</span></code>.</p>
-<p>Spectral operations like <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">eig</span></code>, and <code class="docutils literal notranslate"><span class="pre">eigh</span></code> may also return incorrect results (and their gradients may be infinite)
-when their inputs have singular values that are close to each other. This is because the algorithms used to compute these decompositions
-struggle to converge for these inputs.</p>
-<p>Running the computation in <code class="docutils literal notranslate"><span class="pre">float64</span></code> (as NumPy does by default) often helps, but it does not solve these issues in all cases.
-Analyzing the spectrum of the inputs via <a class="reference internal" href="../generated/torch.linalg.svdvals.html#torch.linalg.svdvals" title="torch.linalg.svdvals"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.svdvals()</span></code></a> or their condition number via <a class="reference internal" href="../generated/torch.linalg.cond.html#torch.linalg.cond" title="torch.linalg.cond"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.cond()</span></code></a>
-may help to detect these issues.</p>
+<span id="id5"></span><h3>Extremal values in linalg<a class="headerlink" href="#extremal-values-in-linalg" title="Link to this heading">#</a></h3>
+<p>Functions within <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> have more <a class="reference internal" href="#extremal-values"><span class="std std-ref">extremal values</span></a> than
+other PyTorch functions.</p>
+<p><a class="reference internal" href="../linalg.html#linalg-solvers"><span class="std std-ref">linalg solvers</span></a> and <a class="reference internal" href="../linalg.html#linalg-inverses"><span class="std std-ref">linalg inverses</span></a> assume
+that the input matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is invertible. If it is close to being non-invertible (for
+example, if it has a very small singular value), then these algorithms may silently return
+incorrect results. These matrices are said to be
+<a class="reference external" href="https://nhigham.com/2020/03/19/what-is-a-condition-number/">ill-conditioned</a>.
+If provided with ill-conditioned inputs, the result of these functions they may vary when
+using the same inputs on different devices or when using different backends via the keyword
+<code class="docutils literal notranslate"><span class="pre">driver</span></code>.</p>
+<p>Spectral operations like <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">eig</span></code>, and <code class="docutils literal notranslate"><span class="pre">eigh</span></code> may also return incorrect results (and
+their gradients may be infinite) when their inputs have singular values that are close to
+each other. This is because the algorithms used to compute these decompositions struggle to
+converge for these inputs.</p>
+<p>Running the computation in <code class="docutils literal notranslate"><span class="pre">float64</span></code> (as NumPy does by default) often helps, but it does
+not solve these issues in all cases. Analyzing the spectrum of the inputs via
+<a class="reference internal" href="../generated/torch.linalg.svdvals.html#torch.linalg.svdvals" title="torch.linalg.svdvals"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.svdvals()</span></code></a> or their condition number via <a class="reference internal" href="../generated/torch.linalg.cond.html#torch.linalg.cond" title="torch.linalg.cond"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.cond()</span></code></a> may
+help to detect these issues.</p>
 </section>
 </section>
 <section id="tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">
-<h2>TensorFloat-32(TF32) on Nvidia Ampere (and later) devices<a class="headerlink" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices" title="Link to this heading">#</a></h2>
-<p>On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up mathematically intensive operations, in particular matrix multiplications and convolutions.
-When an operation is performed using TF32 tensor cores, only the first 10 bits of the input mantissa are read.
-This may reduce accuracy and produce surprising results (e.g., multiplying a matrix by the identity matrix may produce results that are different from the input).
-By default, TF32 tensor cores are disabled for matrix multiplications and enabled for convolutions, although most neural network workloads have the same convergence behavior when using TF32 as they have with fp32.
-We recommend enabling TF32 tensor cores for matrix multiplications with <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;tf32&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">`torch.backends.cuda.matmul.allow_tf32</span> <span class="pre">=</span> <span class="pre">True</span></code> is going to be deprecated) if your network does not need full float32 precision.
-If your network needs full float32 precision for both matrix multiplications and convolutions, then TF32 tensor cores can also be disabled for convolutions with <code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.conv.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;ieee&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.allow_tf32</span> <span class="pre">=</span> <span class="pre">False</span></code> is going to be deprecated).</p>
+<span id="tf32-on-ampere"></span><h2>TensorFloat-32 (TF32) on Nvidia Ampere (and later) devices<a class="headerlink" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices" title="Link to this heading">#</a></h2>
+<p>On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up
+mathematically intensive operations, in particular matrix multiplications and convolutions.
+When an operation is performed using TF32 tensor cores, only the first 10 bits of the input
+mantissa are read. This may reduce accuracy and produce surprising results (e.g., multiplying
+a matrix by the identity matrix may produce results that are different from the input).
+By default, TF32 tensor cores are disabled for matrix multiplications and enabled for
+convolutions, although most neural network workloads have the same convergence behavior when
+using TF32 as they have with fp32.
+We recommend enabling TF32 tensor cores for matrix multiplications with
+<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;tf32&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_tf32</span> <span class="pre">=</span> <span class="pre">True</span></code>
+is going to be deprecated) if your network does not need full float32 precision.
+If your network needs full float32 precision for both matrix multiplications and convolutions,
+then TF32 tensor cores can also be disabled for convolutions with
+<code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.conv.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;ieee&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.allow_tf32</span> <span class="pre">=</span> <span class="pre">False</span></code>
+is going to be deprecated).</p>
 <p>For more information see <a class="reference internal" href="cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat32</span></a>.</p>
 </section>
 <section id="reduced-precision-reduction-for-fp16-and-bf16-gemms">
 <h2>Reduced Precision Reduction for FP16 and BF16 GEMMs<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-gemms" title="Link to this heading">#</a></h2>
-<p>Half-precision GEMM operations are typically done with intermediate accumulations (reduction) in single-precision for numerical accuracy and improved resilience to overflow. For performance, certain GPU architectures, especially more recent ones, allow a few truncations of the intermediate accumulation results to the reduced precision (e.g., half-precision). This change is often benign from the perspective of model convergence, though it may lead to unexpected results (e.g., <code class="docutils literal notranslate"><span class="pre">inf</span></code> values when the final result should be be representable in half-precision).
+<p>Half-precision GEMM operations are typically done with intermediate accumulations (reduction)
+in single-precision for numerical accuracy and improved resilience to overflow. For
+performance, certain GPU architectures, especially more recent ones, allow a few truncations
+of the intermediate accumulation results to the reduced precision (e.g., half-precision).
+This change is often benign from the perspective of model convergence, though it may lead to
+unexpected results (e.g., <code class="docutils literal notranslate"><span class="pre">inf</span></code> values when the final result should be representable in
+half-precision).
 If reduced-precision reductions are problematic, they can be turned off with
-<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
 <p>A similar flag exists for BF16 GEMM operations and is turned on by default. If BF16
 reduced-precision reductions are problematic, they can be turned off with
-<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
-<p>For more information see <a class="reference internal" href="cuda.html#fp16reducedprecision"><span class="std std-ref">allow_fp16_reduced_precision_reduction</span></a> and <a class="reference internal" href="cuda.html#bf16reducedprecision"><span class="std std-ref">allow_bf16_reduced_precision_reduction</span></a></p>
+<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+<p>For more information see <a class="reference internal" href="cuda.html#fp16reducedprecision"><span class="std std-ref">allow_fp16_reduced_precision_reduction</span></a>
+and <a class="reference internal" href="cuda.html#bf16reducedprecision"><span class="std std-ref">allow_bf16_reduced_precision_reduction</span></a>.</p>
 </section>
 <section id="reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">
 <h2>Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa" title="Link to this heading">#</a></h2>
-<p>A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs, but increases memory usages and may cause the performance regressions in the math backend as computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul.</p>
-<p>For scenarios where reduced-precision reductions are preferred for speed, they can be enabled with the following setting:
-<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True)</span></code></p>
+<p>A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical
+errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the
+default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed
+in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will
+improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs,
+but increases memory usage and may cause performance regressions in the math backend as
+computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul.</p>
+<p>For scenarios where reduced-precision reductions are preferred for speed, they can be enabled
+with the following setting: <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True)</span></code>.</p>
 </section>
 <section id="reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">
 <span id="fp16-on-mi200"></span><h2>Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices<a class="headerlink" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices" title="Link to this heading">#</a></h2>
-<p>On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not flush input and output denormal values to zero. The affected instructions are only used by rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not encounter this behavior. All other supported AMD GPUs will not encounter this behavior.</p>
-<p>rocBLAS and MIOpen provide alternate implementations for affected FP16 operations. Alternate implementations for BF16 operations are not provided; BF16 numbers have a larger dynamic range than FP16 numbers and are less likely to encounter denormal values. For the FP16 alternate implementations, FP16 input values are cast to an intermediate BF16 value and then cast back to FP16 output after the accumulate FP32 operations. In this way, the input and output types are unchanged.</p>
-<p>When training using FP16 precision, some models may fail to converge with FP16 denorms flushed to zero. Denormal values more frequently occur in the backward pass of training during gradient calculation. PyTorch by default will use the rocBLAS and MIOpen alternate implementations during the backward pass. The default behavior can be overridden using environment variables, ROCBLAS_INTERNAL_FP16_ALT_IMPL and MIOPEN_DEBUG_CONVOLUTION_ATTRIB_FP16_ALT_IMPL. The behavior of these environment variables is as follows:</p>
+<p>On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush
+input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not
+flush input and output denormal values to zero. The affected instructions are only used by
+rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not
+encounter this behavior. All other supported AMD GPUs will not encounter this behavior.</p>
+<p>rocBLAS and MIOpen provide alternate implementations for affected FP16 operations. Alternate
+implementations for BF16 operations are not provided; BF16 numbers have a larger dynamic
+range than FP16 numbers and are less likely to encounter denormal values. For the FP16
+alternate implementations, FP16 input values are cast to an intermediate BF16 value and then
+cast back to FP16 output after the accumulate FP32 operations. In this way, the input and
+output types are unchanged.</p>
+<p>When training using FP16 precision, some models may fail to converge with FP16 denorms
+flushed to zero. Denormal values more frequently occur in the backward pass of training
+during gradient calculation. PyTorch by default will use the rocBLAS and MIOpen alternate
+implementations during the backward pass. The default behavior can be overridden using
+environment variables, <code class="docutils literal notranslate"><span class="pre">ROCBLAS_INTERNAL_FP16_ALT_IMPL</span></code> and
+<code class="docutils literal notranslate"><span class="pre">MIOPEN_DEBUG_CONVOLUTION_ATTRIB_FP16_ALT_IMPL</span></code>. The behavior of these environment
+variables is as follows:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"></th>
+<tr class="row-odd"><th class="head"><p></p></th>
 <th class="head"><p>forward</p></th>
 <th class="head"><p>backward</p></th>
 </tr>
@@ -3798,32 +3843,32 @@ reduced-precision reductions are problematic, they can be turned off with
 </div>
 <p>The following is the list of operations where rocBLAS may be used:</p>
 <ul class="simple">
-<li><p>torch.addbmm</p></li>
-<li><p>torch.addmm</p></li>
-<li><p>torch.baddbmm</p></li>
-<li><p>torch.bmm</p></li>
-<li><p>torch.mm</p></li>
-<li><p>torch.nn.GRUCell</p></li>
-<li><p>torch.nn.LSTMCell</p></li>
-<li><p>torch.nn.Linear</p></li>
-<li><p>torch.sparse.addmm</p></li>
-<li><p>the following torch._C._ConvBackend implementations:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.addbmm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.addmm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.baddbmm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.bmm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.mm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.nn.GRUCell</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.nn.LSTMCell</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Linear</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.sparse.addmm</span></code></p></li>
+<li><p>the following <code class="docutils literal notranslate"><span class="pre">torch._C._ConvBackend</span></code> implementations:</p>
 <ul>
-<li><p>slowNd</p></li>
-<li><p>slowNd_transposed</p></li>
-<li><p>slowNd_dilated</p></li>
-<li><p>slowNd_dilated_transposed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slowNd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slowNd_transposed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slowNd_dilated</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slowNd_dilated_transposed</span></code></p></li>
 </ul>
 </li>
 </ul>
 <p>The following is the list of operations where MIOpen may be used:</p>
 <ul class="simple">
-<li><p>torch.nn.Conv[Transpose]Nd</p></li>
-<li><p>the following torch._C._ConvBackend implementations:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Conv[Transpose]Nd</span></code></p></li>
+<li><p>the following <code class="docutils literal notranslate"><span class="pre">torch._C._ConvBackend</span></code> implementations:</p>
 <ul>
-<li><p>ConvBackend::Miopen</p></li>
-<li><p>ConvBackend::MiopenDepthwise</p></li>
-<li><p>ConvBackend::MiopenTranspose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConvBackend::Miopen</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConvBackend::MiopenDepthwise</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConvBackend::MiopenTranspose</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -3954,7 +3999,7 @@ reduced-precision reductions are problematic, they can be turned off with
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extremal-values-in-linalg">Extremal values in linalg</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">TensorFloat-32(TF32) on Nvidia Ampere (and later) devices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">TensorFloat-32 (TF32) on Nvidia Ampere (and later) devices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-reduction-for-fp16-and-bf16-gemms">Reduced Precision Reduction for FP16 and BF16 GEMMs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices</a></li>
@@ -3965,7 +4010,7 @@ reduced-precision reductions are problematic, they can be turned off with
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/notes/numerical_accuracy.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/notes/numerical_accuracy.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -3979,7 +4024,7 @@ reduced-precision reductions are problematic, they can be turned off with
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/notes/numerical_accuracy.rst.txt">
+      <a href="../_sources/notes/numerical_accuracy.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4210,7 +4255,7 @@ reduced-precision reductions are problematic, they can be turned off with
        "headline": "Numerical accuracy",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/numerical_accuracy.html",
-       "articleBody": "Numerical accuracy# Created On: Oct 13, 2021 | Last Updated On: May 06, 2026 In modern computers, floating point numbers are represented using IEEE 754 standard. For more details on floating point arithmetic and IEEE 754 standard, please see Floating point arithmetic In particular, note that floating point provides limited accuracy (about 7 decimal digits for single precision floating point numbers, about 16 decimal digits for double precision floating point numbers) and that floating point addition and multiplication are not associative, so the order of the operations affects the results. Because of this, PyTorch is not guaranteed to produce bitwise identical results for floating point computations that are mathematically identical. Similarly, bitwise identical results are not guaranteed across PyTorch releases, individual commits, or different platforms. In particular, CPU and GPU results can be different even for bitwise-identical inputs and even after controlling for the sources of randomness. Batched computations or slice computations# Many operations in PyTorch support batched computation, where the same operation is performed for the elements of the batches of inputs. An example of this is torch.mm() and torch.bmm(). It is possible to implement batched computation as a loop over batch elements, and apply the necessary math operations to the individual batch elements, for efficiency reasons we are not doing that, and typically perform computation for the whole batch. The mathematical libraries that we are calling, and PyTorch internal implementations of operations can produce slightly different results in this case, compared to non-batched computations. In particular, let A and B be 3D tensors with the dimensions suitable for batched matrix multiplication. Then (A@B)[0] (the first element of the batched result) is not guaranteed to be bitwise identical to A[0]@B[0] (the matrix product of the first elements of the input batches) even though mathematically it\u2019s an identical computation. Similarly, an operation applied to a tensor slice is not guaranteed to produce results that are identical to the slice of the result of the same operation applied to the full tensor. E.g. let A be a 2-dimensional tensor. A.sum(-1)[0] is not guaranteed to be bitwise equal to A[:,0].sum(). Extremal values# When inputs contain large values such that intermediate results may overflow the range of the used datatype, the end result may overflow too, even though it is representable in the original datatype. E.g.: import torch a=torch.tensor([1e20, 1e20]) # fp32 type by default a.norm() # produces tensor(inf) a.double().norm() # produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32 Different backends may use different algorithms, reduction orders, or accumulation precision for the same operation. As a result, finite inputs near the limits of a dtype may produce finite results on one backend and non-finite results, such as inf or NaN, on another backend, such as when moving a computation between CPU and CUDA. A value being representable in a dtype does not guarantee that all intermediate or output values of an operation will remain finite. For workflows that are sensitive to non-finite values, consider normalizing or clamping extremal inputs and using torch.isfinite() to detect them. Linear algebra (torch.linalg)# Non-finite values# The external libraries (backends) that torch.linalg uses provide no guarantees on their behaviour when the inputs have non-finite values like inf or NaN. As such, neither does PyTorch. The operations may return a tensor with non-finite values, or raise an exception, or even segfault. Consider using torch.isfinite() before calling these functions to detect this situation. Extremal values in linalg# Functions within torch.linalg have more Extremal Values than other PyTorch functions. Solvers and Inverses assume that the input matrix A is invertible. If it is close to being non-invertible (for example, if it has a very small singular value), then these algorithms may silently return incorrect results. These matrices are said to be ill-conditioned. If provided with ill-conditioned inputs, the result of these functions they may vary when using the same inputs on different devices or when using different backends via the keyword driver. Spectral operations like svd, eig, and eigh may also return incorrect results (and their gradients may be infinite) when their inputs have singular values that are close to each other. This is because the algorithms used to compute these decompositions struggle to converge for these inputs. Running the computation in float64 (as NumPy does by default) often helps, but it does not solve these issues in all cases. Analyzing the spectrum of the inputs via torch.linalg.svdvals() or their condition number via torch.linalg.cond() may help to detect these issues. TensorFloat-32(TF32) on Nvidia Ampere (and later) devices# On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up mathematically intensive operations, in particular matrix multiplications and convolutions. When an operation is performed using TF32 tensor cores, only the first 10 bits of the input mantissa are read. This may reduce accuracy and produce surprising results (e.g., multiplying a matrix by the identity matrix may produce results that are different from the input). By default, TF32 tensor cores are disabled for matrix multiplications and enabled for convolutions, although most neural network workloads have the same convergence behavior when using TF32 as they have with fp32. We recommend enabling TF32 tensor cores for matrix multiplications with torch.backends.cuda.matmul.fp32_precision = \"tf32\" (`torch.backends.cuda.matmul.allow_tf32 = True is going to be deprecated) if your network does not need full float32 precision. If your network needs full float32 precision for both matrix multiplications and convolutions, then TF32 tensor cores can also be disabled for convolutions with torch.backends.cudnn.conv.fp32_precision = \"ieee\" (torch.backends.cudnn.allow_tf32 = False is going to be deprecated). For more information see TensorFloat32. Reduced Precision Reduction for FP16 and BF16 GEMMs# Half-precision GEMM operations are typically done with intermediate accumulations (reduction) in single-precision for numerical accuracy and improved resilience to overflow. For performance, certain GPU architectures, especially more recent ones, allow a few truncations of the intermediate accumulation results to the reduced precision (e.g., half-precision). This change is often benign from the perspective of model convergence, though it may lead to unexpected results (e.g., inf values when the final result should be be representable in half-precision). If reduced-precision reductions are problematic, they can be turned off with torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False A similar flag exists for BF16 GEMM operations and is turned on by default. If BF16 reduced-precision reductions are problematic, they can be turned off with torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False For more information see allow_fp16_reduced_precision_reduction and allow_bf16_reduced_precision_reduction Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)# A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs, but increases memory usages and may cause the performance regressions in the math backend as computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul. For scenarios where reduced-precision reductions are preferred for speed, they can be enabled with the following setting: torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True) Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices# On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not flush input and output denormal values to zero. The affected instructions are only used by rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not encounter this behavior. All other supported AMD GPUs will not encounter this behavior. rocBLAS and MIOpen provide alternate implementations for affected FP16 operations. Alternate implementations for BF16 operations are not provided; BF16 numbers have a larger dynamic range than FP16 numbers and are less likely to encounter denormal values. For the FP16 alternate implementations, FP16 input values are cast to an intermediate BF16 value and then cast back to FP16 output after the accumulate FP32 operations. In this way, the input and output types are unchanged. When training using FP16 precision, some models may fail to converge with FP16 denorms flushed to zero. Denormal values more frequently occur in the backward pass of training during gradient calculation. PyTorch by default will use the rocBLAS and MIOpen alternate implementations during the backward pass. The default behavior can be overridden using environment variables, ROCBLAS_INTERNAL_FP16_ALT_IMPL and MIOPEN_DEBUG_CONVOLUTION_ATTRIB_FP16_ALT_IMPL. The behavior of these environment variables is as follows: forward backward Env unset original alternate Env set to 1 alternate alternate Env set to 0 original original The following is the list of operations where rocBLAS may be used: torch.addbmm torch.addmm torch.baddbmm torch.bmm torch.mm torch.nn.GRUCell torch.nn.LSTMCell torch.nn.Linear torch.sparse.addmm the following torch._C._ConvBackend implementations: slowNd slowNd_transposed slowNd_dilated slowNd_dilated_transposed The following is the list of operations where MIOpen may be used: torch.nn.Conv[Transpose]Nd the following torch._C._ConvBackend implementations: ConvBackend::Miopen ConvBackend::MiopenDepthwise ConvBackend::MiopenTranspose",
+       "articleBody": "Numerical accuracy# Created On: May 13, 2026 | Last Updated On: May 13, 2026 In modern computers, floating point numbers are represented using IEEE 754 standard. For more details on floating point arithmetic and IEEE 754 standard, please see Floating point arithmetic. In particular, note that floating point provides limited accuracy (about 7 decimal digits for single precision floating point numbers, about 16 decimal digits for double precision floating point numbers) and that floating point addition and multiplication are not associative, so the order of the operations affects the results. Because of this, PyTorch is not guaranteed to produce bitwise identical results for floating point computations that are mathematically identical. Similarly, bitwise identical results are not guaranteed across PyTorch releases, individual commits, or different platforms. In particular, CPU and GPU results can be different even for bitwise-identical inputs and even after controlling for the sources of randomness. Batched computations or slice computations# Many operations in PyTorch support batched computation, where the same operation is performed for the elements of the batches of inputs. An example of this is torch.mm() and torch.bmm(). It is possible to implement batched computation as a loop over batch elements, and apply the necessary math operations to the individual batch elements, for efficiency reasons we are not doing that, and typically perform computation for the whole batch. The mathematical libraries that we are calling, and PyTorch internal implementations of operations can produce slightly different results in this case, compared to non-batched computations. In particular, let A and B be 3D tensors with the dimensions suitable for batched matrix multiplication. Then (A@B)[0] (the first element of the batched result) is not guaranteed to be bitwise identical to A[0]@B[0] (the matrix product of the first elements of the input batches) even though mathematically it\u2019s an identical computation. Similarly, an operation applied to a tensor slice is not guaranteed to produce results that are identical to the slice of the result of the same operation applied to the full tensor. E.g. let A be a 2-dimensional tensor. A.sum(-1)[0] is not guaranteed to be bitwise equal to A[:,0].sum(). Extremal values# When inputs contain large values such that intermediate results may overflow the range of the used datatype, the end result may overflow too, even though it is representable in the original datatype. E.g.: import torch a = torch.tensor([1e20, 1e20]) # fp32 type by default a.norm() # produces tensor(inf) a.double().norm() # produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32 Different backends may use different algorithms, reduction orders, or accumulation precision for the same operation. As a result, finite inputs near the limits of a dtype may produce finite results on one backend and non-finite results, such as inf or NaN, on another backend, such as when moving a computation between CPU and CUDA. A value being representable in a dtype does not guarantee that all intermediate or output values of an operation will remain finite. For workflows that are sensitive to non-finite values, consider normalizing or clamping extremal inputs and using torch.isfinite() to detect them. Linear algebra (torch.linalg)# Non-finite values# The external libraries (backends) that torch.linalg uses provide no guarantees on their behaviour when the inputs have non-finite values like inf or NaN. As such, neither does PyTorch. The operations may return a tensor with non-finite values, or raise an exception, or even segfault. Consider using torch.isfinite() before calling these functions to detect this situation. Extremal values in linalg# Functions within torch.linalg have more extremal values than other PyTorch functions. linalg solvers and linalg inverses assume that the input matrix A is invertible. If it is close to being non-invertible (for example, if it has a very small singular value), then these algorithms may silently return incorrect results. These matrices are said to be ill-conditioned. If provided with ill-conditioned inputs, the result of these functions they may vary when using the same inputs on different devices or when using different backends via the keyword driver. Spectral operations like svd, eig, and eigh may also return incorrect results (and their gradients may be infinite) when their inputs have singular values that are close to each other. This is because the algorithms used to compute these decompositions struggle to converge for these inputs. Running the computation in float64 (as NumPy does by default) often helps, but it does not solve these issues in all cases. Analyzing the spectrum of the inputs via torch.linalg.svdvals() or their condition number via torch.linalg.cond() may help to detect these issues. TensorFloat-32 (TF32) on Nvidia Ampere (and later) devices# On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up mathematically intensive operations, in particular matrix multiplications and convolutions. When an operation is performed using TF32 tensor cores, only the first 10 bits of the input mantissa are read. This may reduce accuracy and produce surprising results (e.g., multiplying a matrix by the identity matrix may produce results that are different from the input). By default, TF32 tensor cores are disabled for matrix multiplications and enabled for convolutions, although most neural network workloads have the same convergence behavior when using TF32 as they have with fp32. We recommend enabling TF32 tensor cores for matrix multiplications with torch.backends.cuda.matmul.fp32_precision = \"tf32\" (torch.backends.cuda.matmul.allow_tf32 = True is going to be deprecated) if your network does not need full float32 precision. If your network needs full float32 precision for both matrix multiplications and convolutions, then TF32 tensor cores can also be disabled for convolutions with torch.backends.cudnn.conv.fp32_precision = \"ieee\" (torch.backends.cudnn.allow_tf32 = False is going to be deprecated). For more information see TensorFloat32. Reduced Precision Reduction for FP16 and BF16 GEMMs# Half-precision GEMM operations are typically done with intermediate accumulations (reduction) in single-precision for numerical accuracy and improved resilience to overflow. For performance, certain GPU architectures, especially more recent ones, allow a few truncations of the intermediate accumulation results to the reduced precision (e.g., half-precision). This change is often benign from the perspective of model convergence, though it may lead to unexpected results (e.g., inf values when the final result should be representable in half-precision). If reduced-precision reductions are problematic, they can be turned off with torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False. A similar flag exists for BF16 GEMM operations and is turned on by default. If BF16 reduced-precision reductions are problematic, they can be turned off with torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False. For more information see allow_fp16_reduced_precision_reduction and allow_bf16_reduced_precision_reduction. Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)# A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs, but increases memory usage and may cause performance regressions in the math backend as computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul. For scenarios where reduced-precision reductions are preferred for speed, they can be enabled with the following setting: torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True). Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices# On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not flush input and output denormal values to zero. The affected instructions are only used by rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not encounter this behavior. All other supported AMD GPUs will not encounter this behavior. rocBLAS and MIOpen provide alternate implementations for affected FP16 operations. Alternate implementations for BF16 operations are not provided; BF16 numbers have a larger dynamic range than FP16 numbers and are less likely to encounter denormal values. For the FP16 alternate implementations, FP16 input values are cast to an intermediate BF16 value and then cast back to FP16 output after the accumulate FP32 operations. In this way, the input and output types are unchanged. When training using FP16 precision, some models may fail to converge with FP16 denorms flushed to zero. Denormal values more frequently occur in the backward pass of training during gradient calculation. PyTorch by default will use the rocBLAS and MIOpen alternate implementations during the backward pass. The default behavior can be overridden using environment variables, ROCBLAS_INTERNAL_FP16_ALT_IMPL and MIOPEN_DEBUG_CONVOLUTION_ATTRIB_FP16_ALT_IMPL. The behavior of these environment variables is as follows: forward backward Env unset original alternate Env set to 1 alternate alternate Env set to 0 original original The following is the list of operations where rocBLAS may be used: torch.addbmm torch.addmm torch.baddbmm torch.bmm torch.mm torch.nn.GRUCell torch.nn.LSTMCell torch.nn.Linear torch.sparse.addmm the following torch._C._ConvBackend implementations: slowNd slowNd_transposed slowNd_dilated slowNd_dilated_transposed The following is the list of operations where MIOpen may be used: torch.nn.Conv[Transpose]Nd the following torch._C._ConvBackend implementations: ConvBackend::Miopen ConvBackend::MiopenDepthwise ConvBackend::MiopenTranspose",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4221,8 +4266,8 @@ reduced-precision reductions are problematic, they can be turned off with
          "@type": "WebPage",
          "@id": "/notes/numerical_accuracy.html"
        },
-       "datePublished": "Oct 13, 2021T00:00:00Z",
-       "dateModified": "May 06, 2026T00:00:00Z"
+       "datePublished": "May 13, 2026T00:00:00Z",
+       "dateModified": "May 13, 2026T00:00:00Z"
      }
  </script>
   <script>

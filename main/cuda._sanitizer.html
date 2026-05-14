@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git95bac51 )">
+<meta name="llm:version" content="main (2.13.0a0+git8e57bf1 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git95bac51 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8e57bf1 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5593,8 +5593,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7047,7 +7047,7 @@ document.write(`
                   
   <section id="cuda-stream-sanitizer">
 <h1>CUDA Stream Sanitizer<a class="headerlink" href="#cuda-stream-sanitizer" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 09, 2022 | Last Updated On: Feb 24, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 13, 2026 | Last Updated On: May 13, 2026</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a prototype feature, which means it is at an early stage
@@ -7066,7 +7066,7 @@ environment variable.</p>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
 <p>Here is an example of a simple synchronization error in PyTorch:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 
@@ -7079,11 +7079,11 @@ methods, modified on a new stream. The two kernels will run concurrently on the 
 which might cause the second kernel to read uninitialized data before the first one was able
 to write it, or the first kernel might overwrite part of the result of the second.
 When this script is run on the commandline with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TORCH_CUDA_SANITIZER</span><span class="o">=</span><span class="mi">1</span> <span class="n">python</span> <span class="n">example_error</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">TORCH_CUDA_SANITIZER</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>example_error.py
 </pre></div>
 </div>
 <p>the following output is printed by CSAN:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>============================
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>============================
 CSAN detected a possible data race on tensor with data pointer 139719969079296
 Access by stream 94646435460352 during kernel:
 aten::mul.out(Tensor self, Tensor other, *, Tensor(a!) out) -&gt; Tensor(a!)
@@ -7117,13 +7117,11 @@ Tensor was allocated with stack trace:
 <ul class="simple">
 <li><p>A tensor was incorrectly accessed from streams with ids: 0 (default stream) and 94646435460352 (new stream)</p></li>
 <li><p>The tensor was allocated by invoking <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">torch.rand(10000,</span> <span class="pre">device=&quot;cuda&quot;)</span></code></p></li>
-<li><dl class="simple">
-<dt>The faulty accesses were caused by operators</dt><dd><ul>
+<li><p>The faulty accesses were caused by operators</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">torch.rand(10000,</span> <span class="pre">device=&quot;cuda&quot;)</span></code> on stream 0</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">torch.mul(a,</span> <span class="pre">5,</span> <span class="pre">out=a)</span></code> on stream 94646435460352</p></li>
 </ul>
-</dd>
-</dl>
 </li>
 <li><p>The error message also displays the schemas of the invoked operators, along with a note
 showing which arguments of the operators correspond to the affected tensor.</p>
@@ -7139,7 +7137,7 @@ and the <code class="docutils literal notranslate"><span class="pre">output</spa
 <a class="reference internal" href="torch.html"><span class="doc">here</span></a>.</p>
 </div>
 <p>The bug can be fixed by forcing the new stream to wait for the default stream:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Stream</span><span class="p">()):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Stream</span><span class="p">()):</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_stream</span><span class="p">()</span><span class="o">.</span><span class="n">wait_stream</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">default_stream</span><span class="p">())</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
@@ -7150,7 +7148,7 @@ and the <code class="docutils literal notranslate"><span class="pre">output</spa
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.enable_cuda_sanitizer">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">enable_cuda_sanitizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/cuda/_sanitizer.py#L659"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.enable_cuda_sanitizer" title="Link to this definition">#</a></dt>
 <dd><p>Enable CUDA Sanitizer.</p>
 <p>The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions
 for synchronization errors. All data races found will be printed to the standard
@@ -7160,7 +7158,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_arguments">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/_sanitizer.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_arguments" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/cuda/_sanitizer.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_arguments" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>Argument</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
@@ -7170,7 +7168,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda._sanitizer.zip_by_key">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/cuda/_sanitizer.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_by_key" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda._sanitizer.</span></span><span class="sig-name descname"><span class="pre">zip_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/cuda/_sanitizer.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda._sanitizer.zip_by_key" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>TK</em>, <em>TVa</em>, <em>TVb</em>]]</p>
@@ -7313,7 +7311,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/cuda._sanitizer.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/cuda._sanitizer.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -7327,7 +7325,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/cuda._sanitizer.rst.txt">
+      <a href="_sources/cuda._sanitizer.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -7558,7 +7556,7 @@ sanitizer should be enabled at the very beginning of the program.</p>
        "headline": "CUDA Stream Sanitizer",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/cuda._sanitizer.html",
-       "articleBody": "CUDA Stream Sanitizer# Created On: Sep 09, 2022 | Last Updated On: Feb 24, 2026 Note This is a prototype feature, which means it is at an early stage for feedback and testing, and its components are subject to change. Overview# This module introduces CUDA Sanitizer, a tool for detecting synchronization errors between kernels ran on different streams. It stores information on accesses to tensors to determine if they are synchronized or not. When enabled in a python program and a possible data race is detected, a detailed warning will be printed and the program will exit. It can be enabled either by importing this module and calling enable_cuda_sanitizer() or by exporting the TORCH_CUDA_SANITIZER environment variable. Usage# Here is an example of a simple synchronization error in PyTorch: import torch a = torch.rand(4, 2, device=\"cuda\") with torch.cuda.stream(torch.cuda.Stream()): torch.mul(a, 5, out=a) The a tensor is initialized on the default stream and, without any synchronization methods, modified on a new stream. The two kernels will run concurrently on the same tensor, which might cause the second kernel to read uninitialized data before the first one was able to write it, or the first kernel might overwrite part of the result of the second. When this script is run on the commandline with: TORCH_CUDA_SANITIZER=1 python example_error.py the following output is printed by CSAN: ============================ CSAN detected a possible data race on tensor with data pointer 139719969079296 Access by stream 94646435460352 during kernel: aten::mul.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) writing to argument(s) self, out, and to the output With stack trace: File \"example_error.py\", line 6, in \u003cmodule\u003e torch.mul(a, 5, out=a) ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Previous access by stream 0 during kernel: aten::rand(int[] size, *, int? dtype=None, Device? device=None) -\u003e Tensor writing to the output With stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Tensor was allocated with stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 420, in _handle_memory_allocation traceback.StackSummary.extract( This gives extensive insight into the origin of the error: A tensor was incorrectly accessed from streams with ids: 0 (default stream) and 94646435460352 (new stream) The tensor was allocated by invoking a = torch.rand(10000, device=\"cuda\") The faulty accesses were caused by operators a = torch.rand(10000, device=\"cuda\") on stream 0 torch.mul(a, 5, out=a) on stream 94646435460352 The error message also displays the schemas of the invoked operators, along with a note showing which arguments of the operators correspond to the affected tensor. In the example, it can be seen that tensor a corresponds to arguments self, out and the output value of the invoked operator torch.mul. See also The list of supported torch operators and their schemas can be viewed here. The bug can be fixed by forcing the new stream to wait for the default stream: with torch.cuda.stream(torch.cuda.Stream()): torch.cuda.current_stream().wait_stream(torch.cuda.default_stream()) torch.mul(a, 5, out=a) When the script is run again, there are no errors reported. API Reference# torch.cuda._sanitizer.enable_cuda_sanitizer()[source]# Enable CUDA Sanitizer. The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions for synchronization errors. All data races found will be printed to the standard error output along with stack traces of suspected causes. For best results, the sanitizer should be enabled at the very beginning of the program. torch.cuda._sanitizer.zip_arguments(schema, args, kwargs)[source]# Return type: Iterator[tuple[Argument, Any]] torch.cuda._sanitizer.zip_by_key(a, b)[source]# Return type: Iterator[tuple[TK, TVa, TVb]]",
+       "articleBody": "CUDA Stream Sanitizer# Created On: May 13, 2026 | Last Updated On: May 13, 2026 Note This is a prototype feature, which means it is at an early stage for feedback and testing, and its components are subject to change. Overview# This module introduces CUDA Sanitizer, a tool for detecting synchronization errors between kernels ran on different streams. It stores information on accesses to tensors to determine if they are synchronized or not. When enabled in a python program and a possible data race is detected, a detailed warning will be printed and the program will exit. It can be enabled either by importing this module and calling enable_cuda_sanitizer() or by exporting the TORCH_CUDA_SANITIZER environment variable. Usage# Here is an example of a simple synchronization error in PyTorch: import torch a = torch.rand(4, 2, device=\"cuda\") with torch.cuda.stream(torch.cuda.Stream()): torch.mul(a, 5, out=a) The a tensor is initialized on the default stream and, without any synchronization methods, modified on a new stream. The two kernels will run concurrently on the same tensor, which might cause the second kernel to read uninitialized data before the first one was able to write it, or the first kernel might overwrite part of the result of the second. When this script is run on the commandline with: TORCH_CUDA_SANITIZER=1 python example_error.py the following output is printed by CSAN: ============================ CSAN detected a possible data race on tensor with data pointer 139719969079296 Access by stream 94646435460352 during kernel: aten::mul.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) writing to argument(s) self, out, and to the output With stack trace: File \"example_error.py\", line 6, in \u003cmodule\u003e torch.mul(a, 5, out=a) ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Previous access by stream 0 during kernel: aten::rand(int[] size, *, int? dtype=None, Device? device=None) -\u003e Tensor writing to the output With stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 364, in _handle_kernel_launch stack_trace = traceback.StackSummary.extract( Tensor was allocated with stack trace: File \"example_error.py\", line 3, in \u003cmodule\u003e a = torch.rand(10000, device=\"cuda\") ... File \"pytorch/torch/cuda/_sanitizer.py\", line 420, in _handle_memory_allocation traceback.StackSummary.extract( This gives extensive insight into the origin of the error: A tensor was incorrectly accessed from streams with ids: 0 (default stream) and 94646435460352 (new stream) The tensor was allocated by invoking a = torch.rand(10000, device=\"cuda\") The faulty accesses were caused by operators a = torch.rand(10000, device=\"cuda\") on stream 0 torch.mul(a, 5, out=a) on stream 94646435460352 The error message also displays the schemas of the invoked operators, along with a note showing which arguments of the operators correspond to the affected tensor. In the example, it can be seen that tensor a corresponds to arguments self, out and the output value of the invoked operator torch.mul. See also The list of supported torch operators and their schemas can be viewed here. The bug can be fixed by forcing the new stream to wait for the default stream: with torch.cuda.stream(torch.cuda.Stream()): torch.cuda.current_stream().wait_stream(torch.cuda.default_stream()) torch.mul(a, 5, out=a) When the script is run again, there are no errors reported. API Reference# torch.cuda._sanitizer.enable_cuda_sanitizer()[source]# Enable CUDA Sanitizer. The sanitizer will begin to analyze low-level CUDA calls invoked by torch functions for synchronization errors. All data races found will be printed to the standard error output along with stack traces of suspected causes. For best results, the sanitizer should be enabled at the very beginning of the program. torch.cuda._sanitizer.zip_arguments(schema, args, kwargs)[source]# Return type: Iterator[tuple[Argument, Any]] torch.cuda._sanitizer.zip_by_key(a, b)[source]# Return type: Iterator[tuple[TK, TVa, TVb]]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7569,8 +7567,8 @@ sanitizer should be enabled at the very beginning of the program.</p>
          "@type": "WebPage",
          "@id": "/cuda._sanitizer.html"
        },
-       "datePublished": "Sep 09, 2022T00:00:00Z",
-       "dateModified": "Feb 24, 2026T00:00:00Z"
+       "datePublished": "May 13, 2026T00:00:00Z",
+       "dateModified": "May 13, 2026T00:00:00Z"
      }
  </script>
   <script>

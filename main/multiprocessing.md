@@ -25,15 +25,15 @@ to you.
 
 ## Strategy management
 
-torch.multiprocessing.get_all_sharing_strategies()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/__init__.py#L82)
+torch.multiprocessing.get_all_sharing_strategies()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/__init__.py#L82)
 
 Return a set of sharing strategies supported on a current system.
 
-torch.multiprocessing.get_sharing_strategy()[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/__init__.py#L77)
+torch.multiprocessing.get_sharing_strategy()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/__init__.py#L77)
 
 Return the current strategy for sharing CPU tensors.
 
-torch.multiprocessing.set_sharing_strategy(*new_strategy*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/__init__.py#L61)
+torch.multiprocessing.set_sharing_strategy(*new_strategy*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/__init__.py#L61)
 
 Set the strategy for sharing CPU tensors.
 
@@ -179,7 +179,7 @@ The `spawn` function below addresses these concerns and takes care
 of error propagation, out of order termination, and will actively
 terminate processes upon detecting an error in one of them.
 
-torch.multiprocessing.spawn.spawn(*fn*, *args=()*, *nprocs=1*, *join=True*, *daemon=False*, *start_method='spawn'*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/spawn.py#L300)
+torch.multiprocessing.spawn.spawn(*fn*, *args=()*, *nprocs=1*, *join=True*, *daemon=False*, *start_method='spawn'*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/spawn.py#L300)
 
 Spawns `nprocs` processes that run `fn` with `args`.
 
@@ -215,11 +215,11 @@ Returns:
 None if `join` is `True`,
 `ProcessContext` if `join` is `False`
 
-*class*torch.multiprocessing.SpawnContext[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/spawn.py#L214)
+*class*torch.multiprocessing.SpawnContext[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/spawn.py#L214)
 
 Returned by `spawn()` when called with `join=False`.
 
-join(*timeout=None*, *grace_period=None*)[[source]](https://github.com/pytorch/pytorch/blob/95bac518a2d5467f21c9fc6906d33d1766a40e33/torch/multiprocessing/spawn.py#L118)
+join(*timeout=None*, *grace_period=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/multiprocessing/spawn.py#L118)
 
 Join one or more processes within spawn context.
 
