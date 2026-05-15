@@ -1,6 +1,6 @@
 # torch.nn.functional.hinge_embedding_loss
 
-torch.nn.functional.hinge_embedding_loss(*input*, *target*, *margin=1.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/functional.py#L4172)
+torch.nn.functional.hinge_embedding_loss(*input*, *target*, *margin=1.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/functional.py#L4172)
 
 Compute the hinge embedding loss.
 

@@ -1,6 +1,6 @@
 # torch.autograd.backward
 
-torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/autograd/__init__.py#L255)
+torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/autograd/__init__.py#L255)
 
 Compute the sum of gradients of given tensors with respect to graph leaves.
 
@@ -35,7 +35,7 @@ in a user-specified CUDA stream context, see
 Note
 
 When `inputs` are provided and a given input is not a leaf,
-the current implementation will call its grad_fn (even though it is not strictly needed to get this gradients).
+the current implementation will call its grad_fn (even though it is not strictly needed to get these gradients).
 It is an implementation detail on which the user should not rely.
 See [pytorch/pytorch#60521](https://github.com/pytorch/pytorch/pull/60521#issuecomment-867061780) for more details.
 

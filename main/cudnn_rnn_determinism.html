@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=6977116a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=ace20255" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
@@ -76,7 +76,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git8e57bf1 )">
+<meta name="llm:version" content="main (2.13.0a0+git211c614 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -182,7 +182,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8e57bf1 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git211c614 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3436,9 +3436,7 @@ document.write(`
 <p class="admonition-title">Warning</p>
 <p>There are known non-determinism issues for RNN functions on some versions of cuDNN and CUDA.
 You can enforce deterministic behavior by setting the following environment variables:</p>
-<p>On CUDA 10.1, set environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_LAUNCH_BLOCKING=1</span></code>.
-This may affect performance.</p>
-<p>On CUDA 10.2 or later, set environment variable
+<p>Set environment variable
 (note the leading colon symbol)
 <code class="docutils literal notranslate"><span class="pre">CUBLAS_WORKSPACE_CONFIG=:16:8</span></code>
 or
@@ -3780,7 +3778,7 @@ or
        "headline": "\u003cno title\u003e",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/cudnn_rnn_determinism.html",
-       "articleBody": "Warning There are known non-determinism issues for RNN functions on some versions of cuDNN and CUDA. You can enforce deterministic behavior by setting the following environment variables: On CUDA 10.1, set environment variable CUDA_LAUNCH_BLOCKING=1. This may affect performance. On CUDA 10.2 or later, set environment variable (note the leading colon symbol) CUBLAS_WORKSPACE_CONFIG=:16:8 or CUBLAS_WORKSPACE_CONFIG=:4096:2. See the cuDNN 8 Release Notes for more information.",
+       "articleBody": "Warning There are known non-determinism issues for RNN functions on some versions of cuDNN and CUDA. You can enforce deterministic behavior by setting the following environment variables: Set environment variable (note the leading colon symbol) CUBLAS_WORKSPACE_CONFIG=:16:8 or CUBLAS_WORKSPACE_CONFIG=:4096:2. See the cuDNN 8 Release Notes for more information.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -3792,7 +3790,7 @@ or
          "@id": "/cudnn_rnn_determinism.html"
        },
        "datePublished": "Jul 21, 2020T00:00:00Z",
-       "dateModified": "Apr 27, 2025T00:00:00Z"
+       "dateModified": "May 14, 2026T00:00:00Z"
      }
  </script>
   <script>

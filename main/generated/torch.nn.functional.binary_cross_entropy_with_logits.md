@@ -1,6 +1,6 @@
 # torch.nn.functional.binary_cross_entropy_with_logits
 
-torch.nn.functional.binary_cross_entropy_with_logits(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/functional.py#L3586)
+torch.nn.functional.binary_cross_entropy_with_logits(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/functional.py#L3586)
 
 Compute Binary Cross Entropy between target and input logits.
 

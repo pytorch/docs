@@ -1,6 +1,6 @@
 # DTypeWithConstraints
 
-*class*torch.ao.quantization.backend_config.DTypeWithConstraints(*dtype=None*, *quant_min_lower_bound=None*, *quant_max_upper_bound=None*, *scale_min_lower_bound=None*, *scale_max_upper_bound=None*, *scale_exact_match=None*, *zero_point_exact_match=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/ao/quantization/backend_config/backend_config.py#L78)
+*class*torch.ao.quantization.backend_config.DTypeWithConstraints(*dtype=None*, *quant_min_lower_bound=None*, *quant_max_upper_bound=None*, *scale_min_lower_bound=None*, *scale_max_upper_bound=None*, *scale_exact_match=None*, *zero_point_exact_match=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/ao/quantization/backend_config/backend_config.py#L78)
 
 Config for specifying additional constraints for a given dtype, such as quantization
 value ranges, scale value ranges, and fixed quantization params, to be used in

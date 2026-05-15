@@ -1,6 +1,6 @@
 # torch.compiler.reset
 
-torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/compiler/__init__.py#L60)
+torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/compiler/__init__.py#L60)
 
 This function clears all compilation caches and restores the system to its initial state.
 It is recommended to call this function, especially after using operations like torch.compile(...)

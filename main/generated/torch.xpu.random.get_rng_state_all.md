@@ -1,6 +1,6 @@
 # torch.xpu.random.get_rng_state_all
 
-torch.xpu.random.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/xpu/random.py#L32)
+torch.xpu.random.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/xpu/random.py#L32)
 
 Return a list of ByteTensor representing the random number states of all devices.
 

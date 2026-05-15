@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=6977116a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=ace20255" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git8e57bf1 )">
+<meta name="llm:version" content="main (2.13.0a0+git211c614 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git8e57bf1 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git211c614 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3892,7 +3892,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.free_symbols<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-free-symbols" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.free_symbols">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">free_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fx/experimental/symbolic_shapes.py#L1036"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.free_symbols" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">free_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/fx/experimental/symbolic_shapes.py#L1036"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.free_symbols" title="Link to this definition">#</a></dt>
 <dd><p>Recursively collect all free symbols from a value.</p>
 <p>This function traverses various data structures (tensors, lists, tuples, etc.) and extracts
 all sympy symbols contained within them. It’s useful for finding all symbolic variables

@@ -1,6 +1,6 @@
 # torch.fft.fftfreq
 
-torch.fft.fftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fft/__init__.py#L1231)
+torch.fft.fftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/fft/__init__.py#L1231)
 
 Computes the discrete Fourier Transform sample frequencies for a signal of size `n`.
 

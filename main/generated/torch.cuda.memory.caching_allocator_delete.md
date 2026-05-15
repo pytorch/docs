@@ -1,6 +1,6 @@
 # torch.cuda.memory.caching_allocator_delete
 
-torch.cuda.memory.caching_allocator_delete(*mem_ptr*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/cuda/memory.py#L138)
+torch.cuda.memory.caching_allocator_delete(*mem_ptr*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/cuda/memory.py#L138)
 
 Delete memory allocated using the CUDA memory allocator.
 

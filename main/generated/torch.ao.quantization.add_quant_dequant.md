@@ -1,6 +1,6 @@
 # add_quant_dequant
 
-*class*torch.ao.quantization.add_quant_dequant(*module*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/ao/quantization/quantize.py#L316)
+*class*torch.ao.quantization.add_quant_dequant(*module*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/ao/quantization/quantize.py#L316)
 
 Wrap the leaf child module in QuantWrapper if it has a valid qconfig
 Note that this function will modify the children of module inplace and it

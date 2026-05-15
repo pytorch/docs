@@ -1,5 +1,5 @@
 # torch.utils.collect_env.run
 
-torch.utils.collect_env.run(*command*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/utils/collect_env.py#L120)
+torch.utils.collect_env.run(*command*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/utils/collect_env.py#L120)
 
 Return (return-code, stdout, stderr).

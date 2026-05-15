@@ -1,6 +1,6 @@
 # QuantWrapper
 
-*class*torch.ao.quantization.QuantWrapper(*module*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/ao/quantization/stubs.py#L47)
+*class*torch.ao.quantization.QuantWrapper(*module*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/ao/quantization/stubs.py#L47)
 
 A wrapper class that wraps the input module, adds QuantStub and
 DeQuantStub and surround the call to module with call to quant and dequant

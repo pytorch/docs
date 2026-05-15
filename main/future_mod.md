@@ -1,6 +1,6 @@
 # torch.__future__
 
-torch.__future__.set_overwrite_module_params_on_conversion(*value*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/__future__.py#L5)
+torch.__future__.set_overwrite_module_params_on_conversion(*value*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/__future__.py#L5)
 
 Sets whether to assign new tensors to the parameters instead of changing the
 existing parameters in-place when converting an `nn.Module`.
@@ -16,7 +16,7 @@ Parameters:
 
 **value** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to assign new tensors or not.
 
-torch.__future__.get_overwrite_module_params_on_conversion()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/__future__.py#L25)
+torch.__future__.get_overwrite_module_params_on_conversion()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/__future__.py#L25)
 
 Returns whether to assign new tensors to the parameters instead of changing the
 existing parameters in-place when converting an [`torch.nn.Module`](generated/torch.nn.Module.html#torch.nn.Module). Defaults to `False`.
@@ -27,7 +27,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.__future__.set_swap_module_params_on_conversion(*value*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/__future__.py#L35)
+torch.__future__.set_swap_module_params_on_conversion(*value*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/__future__.py#L35)
 
 Sets whether to use [`swap_tensors()`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) instead of setting `.data` to
 change the existing parameters in-place when converting an `nn.Module` and instead
@@ -57,7 +57,7 @@ Parameters:
 
 **value** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to use [`swap_tensors()`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) or not.
 
-torch.__future__.get_swap_module_params_on_conversion()[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/__future__.py#L68)
+torch.__future__.get_swap_module_params_on_conversion()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/__future__.py#L68)
 
 Returns whether to use [`swap_tensors()`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) instead of setting .data to
 change the existing parameters in-place when converting an `nn.Module`. Defaults to `False`.

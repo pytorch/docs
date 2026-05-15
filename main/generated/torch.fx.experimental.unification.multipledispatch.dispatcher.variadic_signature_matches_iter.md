@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter(*types*, *full_signature*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L77)
+torch.fx.experimental.unification.multipledispatch.dispatcher.variadic_signature_matches_iter(*types*, *full_signature*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L77)
 
 Check if a set of input types matches a variadic signature.
 

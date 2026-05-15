@@ -75,8 +75,7 @@ Note
 
 The implementation of [`torch.linalg.svd()`](torch.linalg.svd.html#torch.linalg.svd) on CPU uses LAPACK's routine ?gesdd
 (a divide-and-conquer algorithm) instead of ?gesvd for speed. Analogously,
-on GPU, it uses cuSOLVER's routines gesvdj and gesvdjBatched on CUDA 10.1.243
-and later, and MAGMA's routine gesdd on earlier versions of CUDA.
+on GPU, it uses cuSOLVER's routines gesvdj and gesvdjBatched.
 
 Note
 

@@ -1,6 +1,6 @@
 # torch.fx.subgraph_rewriter.replace_pattern
 
-torch.fx.subgraph_rewriter.replace_pattern(*gm*, *pattern*, *replacement*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/fx/subgraph_rewriter.py#L95)
+torch.fx.subgraph_rewriter.replace_pattern(*gm*, *pattern*, *replacement*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/fx/subgraph_rewriter.py#L95)
 
 Matches all possible non-overlapping sets of operators and their
 data dependencies (`pattern`) in the Graph of a GraphModule

@@ -1,6 +1,6 @@
 # LPPool3d
 
-*class*torch.nn.LPPool3d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/modules/pooling.py#L1232)
+*class*torch.nn.LPPool3d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/pooling.py#L1232)
 
 Applies a 3D power-average pooling over an input signal composed of several input planes.
 
@@ -62,7 +62,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/modules/pooling.py#L1289)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/pooling.py#L1289)
 
 Runs the forward pass.
 

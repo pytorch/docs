@@ -1,6 +1,6 @@
 # torch.cpu.synchronize
 
-torch.cpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/cpu/__init__.py#L126)
+torch.cpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/cpu/__init__.py#L126)
 
 Waits for all kernels in all streams on the CPU device to complete.
 

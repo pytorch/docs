@@ -1,6 +1,6 @@
 # TransformerDecoder
 
-*class*torch.nn.modules.transformer.TransformerDecoder(*decoder_layer*, *num_layers*, *norm=None*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/modules/transformer.py#L554)
+*class*torch.nn.modules.transformer.TransformerDecoder(*decoder_layer*, *num_layers*, *norm=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/transformer.py#L554)
 
 TransformerDecoder is a stack of N decoder layers.
 
@@ -34,7 +34,7 @@ Examples
 >>> out = transformer_decoder(tgt, memory)
 ```
 
-forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/nn/modules/transformer.py#L597)
+forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/transformer.py#L597)
 
 Pass the inputs (and mask) through the decoder layer in turn.
 

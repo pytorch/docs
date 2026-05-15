@@ -1,6 +1,6 @@
 # torch.optim.adamax.adamax
 
-torch.optim.adamax.adamax(*params*, *grads*, *exp_avgs*, *exp_infs*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *eps*, *beta1*, *beta2*, *lr*, *weight_decay*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/optim/adamax.py#L424)
+torch.optim.adamax.adamax(*params*, *grads*, *exp_avgs*, *exp_infs*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *eps*, *beta1*, *beta2*, *lr*, *weight_decay*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/optim/adamax.py#L424)
 
 Functional API that performs adamax algorithm computation.
 

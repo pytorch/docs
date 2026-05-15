@@ -62,9 +62,8 @@ np.random.seed(0)
 ```
 
 However, some applications and libraries may use NumPy Random Generator objects,
-not the global RNG
-([https://numpy.org/doc/stable/reference/random/generator.html](https://numpy.org/doc/stable/reference/random/generator.html)), and those will
-need to be seeded consistently as well.
+not the global RNG ([https://numpy.org/doc/stable/reference/random/generator.html](https://numpy.org/doc/stable/reference/random/generator.html)),
+and those will need to be seeded consistently as well.
 
 If you are using any other libraries that use random number generators, refer to
 the documentation for those libraries to see how to set consistent seeds for them.
@@ -101,7 +100,7 @@ Please check the documentation for [`torch.use_deterministic_algorithms()`](../g
 for a full list of affected operations. If an operation does not act correctly
 according to the documentation, or if you need a deterministic implementation
 of an operation that does not have one, please submit an issue:
-[pytorch/pytorch#issues](https://github.com/pytorch/pytorch/issues?q=label:%22module:%20determinism%22)
+[https://github.com/pytorch/pytorch/issues?q=label:"module: determinism"](https://github.com/pytorch/pytorch/issues?q=label:%22module:%20determinism%22)
 
 For example, running the nondeterministic CUDA implementation of [`torch.Tensor.index_add_()`](../generated/torch.Tensor.index_add_.html#torch.Tensor.index_add_)
 will throw an error:
@@ -215,8 +214,8 @@ operation, then this setting can be turned off for better performance.
 
 ## DataLoader
 
-DataLoader will reseed workers following [Randomness in multi-process data loading](../data.html#data-loading-randomness) algorithm.
-Use `worker_init_fn()` and generator to preserve reproducibility:
+DataLoader will reseed workers following the [Randomness in multi-process data loading](../data.html#data-loading-randomness) algorithm.
+Use `worker_init_fn()` and `generator` to preserve reproducibility:
 
 ```
 def seed_worker(worker_id):

@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_load_state_dict_pre_hook
 
-Optimizer.register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/optim/optimizer.py#L805)
+Optimizer.register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/optim/optimizer.py#L805)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the

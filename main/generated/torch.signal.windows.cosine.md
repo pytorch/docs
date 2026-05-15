@@ -1,6 +1,6 @@
 # torch.signal.windows.cosine
 
-torch.signal.windows.cosine(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/8e57bf150e06e0d3c3fa0bd28964c572270d2c4c/torch/signal/windows/windows.py#L178)
+torch.signal.windows.cosine(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/signal/windows/windows.py#L178)
 
 Computes a window with a simple cosine waveform, following the same implementation as SciPy.
 This window is also known as the sine window.
