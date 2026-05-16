@@ -1,6 +1,6 @@
 # torch.nn.functional.softsign
 
-torch.nn.functional.softsign(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/functional.py#L2055)
+torch.nn.functional.softsign(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/functional.py#L2055)
 
 Applies element-wise, the function SoftSign(x)=x1+∣x∣\text{SoftSign}(x) = \frac{x}{1 + |x|}SoftSign(x)=1+∣x∣x​
 

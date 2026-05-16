@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git211c614 )">
+<meta name="llm:version" content="main (2.13.0a0+gitdf83f06 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git211c614 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitdf83f06 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3462,8 +3462,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3676,7 +3676,7 @@ document.write(`
                   
   <section id="torch-logging">
 <h1>torch._logging<a class="headerlink" href="#torch-logging" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 24, 2023 | Last Updated On: Jun 17, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 24, 2023 | Last Updated On: May 15, 2026</p>
 <p>PyTorch has a configurable logging system, where different components can be
 given different log level settings. For instance, one component’s log messages
 can be completely disabled, while another component’s log messages can be
@@ -3711,56 +3711,122 @@ so prefixing an artifact with <code class="docutils literal notranslate"><span c
 unless that artifact was specified to be <code class="docutils literal notranslate"><span class="pre">off_by_default</span></code>. This option is specified in _registrations.py for artifacts that are so spammy they should only be displayed when explicitly enabled.
 The following components and artifacts are configurable through the <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> environment
 variable (see torch._logging.set_logs for the python API):</p>
-<dl class="simple">
-<dt>Components:</dt><dd><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">all</span></code></dt><dd><p>Special component which configures the default log level of all components. Default: <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">dynamo</span></code></dt><dd><p>The log level for the TorchDynamo component. Default: <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">aot</span></code></dt><dd><p>The log level for the AOTAutograd component. Default: <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">inductor</span></code></dt><dd><p>The log level for the TorchInductor component. Default: <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">your.custom.module</span></code></dt><dd><p>The log level for an arbitrary unregistered module. Provide the fully qualified name and the module will be enabled. Default: <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code></p>
-</dd>
-</dl>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Artifacts:</dt><dd><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">bytecode</span></code></dt><dd><p>Whether to emit the original and generated bytecode from TorchDynamo.
-Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">aot_graphs</span></code></dt><dd><p>Whether to emit the graphs generated by AOTAutograd. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">aot_joint_graph</span></code></dt><dd><p>Whether to emit the joint forward-backward graph generated by AOTAutograd. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">compiled_autograd</span></code></dt><dd><p>Whether to emit logs from compiled_autograd. Defaults: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">ddp_graphs</span></code></dt><dd><p>Whether to emit graphs generated by DDPOptimizer. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">graph</span></code></dt><dd><p>Whether to emit the graph captured by TorchDynamo in tabular format.
-Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">graph_code</span></code></dt><dd><p>Whether to emit the python source of the graph captured by TorchDynamo.
-Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">graph_breaks</span></code></dt><dd><p>Whether to emit a message when a unique graph break is encountered during
-TorchDynamo tracing. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">guards</span></code></dt><dd><p>Whether to emit the guards generated by TorchDynamo for each compiled
-function. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">recompiles</span></code></dt><dd><p>Whether to emit a guard failure reason and message every time
-TorchDynamo recompiles a function. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">output_code</span></code></dt><dd><p>Whether to emit the TorchInductor output code. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">schedule</span></code></dt><dd><p>Whether to emit the TorchInductor schedule. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-</dl>
-</dd>
-</dl>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h2>
+<p>Component names set the log level for a group of related loggers. Each
+component defaults to <code class="docutils literal notranslate"><span class="pre">logging.WARN</span></code> unless configured.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>: Special component which configures the default log level of all
+components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aot</span></code>: The log level for the AOTAutograd component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">async_compile</span></code>: The log level for Inductor async compile workers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autograd</span></code>: The log level for autograd.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c10d</span></code>: The log level for c10d communication operations in PyTorch
+Distributed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code>: The log level for Inductor cache components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ddp</span></code>: The log level for <code class="docutils literal notranslate"><span class="pre">DistributedDataParallel</span></code> components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">distributed</span></code>: The log level for PyTorch Distributed components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dtensor</span></code>: The log level for <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code>: The log level for dynamic shapes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dynamo</span></code>: The log level for the TorchDynamo component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export</span></code>: The log level for export.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fake_tensor</span></code>: The log level for FakeTensor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fsdp</span></code>: The log level for <code class="docutils literal notranslate"><span class="pre">FullyShardedDataParallel</span></code> components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inductor</span></code>: The log level for the TorchInductor component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onnx</span></code>: The log level for the ONNX exporter component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pp</span></code>: The log level for distributed pipelining.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch</span></code>: The log level for the top-level <code class="docutils literal notranslate"><span class="pre">torch</span></code> component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">your.custom.module</span></code>: The log level for an arbitrary unregistered module.
+Provide the fully qualified name and the module will be enabled.</p></li>
+</ul>
+</section>
+<section id="artifacts">
+<h2>Artifacts<a class="headerlink" href="#artifacts" title="Link to this heading">#</a></h2>
+<p>Artifacts emit specific debug information. Each artifact defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+unless configured. Artifacts marked “off by default” are not enabled just by
+setting the log level of their parent component and must be explicitly enabled.
+Internal test-only artifacts are omitted.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aot_graphs</span></code>: Prints the FX forward and backward graph generated by
+AOTDispatch, after partitioning.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aot_graphs_effects</span></code>: Prints the FX forward and backward graph generated by
+AOTDispatch, useful for debugging effects processing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aot_joint_graph</span></code>: Prints the FX joint graph from AOTAutograd, prior to
+partitioning.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation</span></code>: Logs detailed steps of creating annotations on graph nodes.
+Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autotuning</span></code>: Logs autotuning choices, such as kernel source, performance,
+and tuning parameters. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto_chunker</span></code>: Logs related to the auto chunker. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">benchmarking</span></code>: Logs detailed Inductor benchmarking information. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bytecode</span></code>: Prints the original and modified bytecode from Dynamo. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">caching</span></code>: Logs detailed Inductor caching information. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compiled_autograd</span></code>: Prints compiled autograd logs, including graphs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compiled_autograd_verbose</span></code>: Prints compiled autograd logs with C++ info,
+such as autograd node to FX node mappings. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute_dependencies</span></code>: Logs Inductor compute dependency information. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cudagraphs</span></code>: Logs information from wrapping Inductor generated code with
+CUDA graphs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cudagraph_static_inputs</span></code>: Logs static input handling in Dynamo, AOT, and
+CUDA graphs. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ddp_graphs</span></code>: Prints individual graphs generated when DDPOptimizer splits
+graphs to trigger communication early.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fusion</span></code>: Logs detailed Inductor fusion decisions. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph</span></code>: Prints the Dynamo-traced graph before AOTDispatch in tabular format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_breaks</span></code>: Prints whenever Dynamo decides that it needs to graph break.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_code</span></code>: Prints the Python code for the Dynamo-traced graph.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_code_verbose</span></code>: Prints verbose FX pass logs, such as
+<code class="docutils literal notranslate"><span class="pre">tensorify_python_scalars</span></code> and <code class="docutils literal notranslate"><span class="pre">runtime_assert</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_region_expansion</span></code>: Logs detailed steps of the duplicate graph region
+tracker expansion algorithm. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_sizes</span></code>: Prints the sizes of all FX nodes in the Dynamo graph.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">guards</span></code>: Prints the guards for every compiled Dynamo frame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hierarchical_compile</span></code>: Logs debug info for hierarchical compilation. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">incremental</span></code>: Logs incremental autotuning information. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inductor_metrics</span></code>: Logs Inductor metrics, such as <code class="docutils literal notranslate"><span class="pre">num_bytes</span></code>,
+<code class="docutils literal notranslate"><span class="pre">nodes_num_elem</span></code>, and <code class="docutils literal notranslate"><span class="pre">node_runtimes</span></code>. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ir_post_fusion</span></code>: Prints the IR after Inductor fusion passes. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ir_pre_fusion</span></code>: Prints the IR before Inductor fusion passes. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel_code</span></code>: Prints Inductor-generated code on a per-kernel basis. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loop_ordering</span></code>: Logs related to loop ordering. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loop_tiling</span></code>: Logs related to loop tiling. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_runtime_estimation</span></code>: Logs node runtime estimation for compile-time
+optimization decisions. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">not_implemented</span></code>: Prints log messages whenever a multi-dispatch returns
+<code class="docutils literal notranslate"><span class="pre">NotImplemented</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onnx_diagnostics</span></code>: Logs ONNX exporter diagnostics. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_code</span></code>: Prints the code that Inductor generates, either Triton or C++.
+Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overlap</span></code>: Logs detailed Inductor compute/communication overlap decisions.
+Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overlap_scheduling</span></code>: Logs detailed Inductor overlap scheduling pass
+information. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">perf_hints</span></code>: Logs Inductor performance hints. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">post_grad_graphs</span></code>: Prints the FX graph generated after Inductor post-grad
+passes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pre_grad_graphs</span></code>: Prints the FX graph before Inductor pre-grad passes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recompiles</span></code>: Prints the reason why Dynamo recompiled a graph.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recompiles_verbose</span></code>: Prints all guard checks that fail during a
+recompilation. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">schedule</span></code>: Logs Inductor scheduler information. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">side_effects</span></code>: Prints side effects that Dynamo code-generates, including
+mutations to variables, attributes, cells, and globals.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sym_node</span></code>: Logs extra information for various <code class="docutils literal notranslate"><span class="pre">SymNode</span></code> operations. Off by
+default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trace_bytecode</span></code>: Prints the instruction and current stack as Dynamo traces
+bytecode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trace_call</span></code>: Prints per-expression tracing detail when available.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trace_shape_events</span></code>: Logs traces for every <code class="docutils literal notranslate"><span class="pre">ShapeEnv</span></code> operation recorded for
+replay. Off by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trace_source</span></code>: Prints the file name, line number, and source code as Dynamo
+executes bytecode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose_guards</span></code>: Prints verbose guard information. Off by default.</p></li>
+</ul>
 <dl>
 <dt>Examples:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;+dynamo,aot&quot;</span></code> will set the log level of TorchDynamo to <code class="docutils literal notranslate"><span class="pre">logging.DEBUG</span></code> and  AOT to <code class="docutils literal notranslate"><span class="pre">logging.INFO</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;-dynamo,+inductor&quot;</span></code> will set the log level of TorchDynamo to <code class="docutils literal notranslate"><span class="pre">logging.ERROR</span></code> and  TorchInductor to <code class="docutils literal notranslate"><span class="pre">logging.DEBUG</span></code></p>
@@ -3769,6 +3835,7 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
 <p><code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;+some.random.module,schedule&quot;</span></code> will set the log level of some.random.module to <code class="docutils literal notranslate"><span class="pre">logging.DEBUG</span></code> and enable the <code class="docutils literal notranslate"><span class="pre">schedule</span></code> artifact</p>
 </dd>
 </dl>
+</section>
 </section>
 
 
@@ -3879,6 +3946,19 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
               
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artifacts">Artifacts</a></li>
+</ul>
+  </nav></div>
     
        <div class="sidebar-secondary-item">
 
@@ -4129,7 +4209,7 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
        "headline": "torch._logging",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/logging.html",
-       "articleBody": "torch._logging# Created On: Apr 24, 2023 | Last Updated On: Jun 17, 2025 PyTorch has a configurable logging system, where different components can be given different log level settings. For instance, one component\u2019s log messages can be completely disabled, while another component\u2019s log messages can be set to maximum verbosity. Warning This feature is in beta and may have compatibility breaking changes in the future. Warning This feature has not been expanded to control the log messages of all components in PyTorch yet. There are two ways to configure the logging system: through the environment variable TORCH_LOGS or the python API torch._logging.set_logs. set_logs Sets the log level for individual components and toggles individual log artifact types. The environment variable TORCH_LOGS is a comma-separated list of [+-]\u003ccomponent\u003e pairs, where \u003ccomponent\u003e is a component specified below. The + prefix will decrease the log level of the component, displaying more log messages while the - prefix will increase the log level of the component and display fewer log messages. The default setting is the behavior when a component is not specified in TORCH_LOGS. In addition to components, there are also artifacts. Artifacts are specific pieces of debug information associated with a component that are either displayed or not displayed, so prefixing an artifact with + or - will be a no-op. Since they are associated with a component, enabling that component will typically also enable that artifact, unless that artifact was specified to be off_by_default. This option is specified in _registrations.py for artifacts that are so spammy they should only be displayed when explicitly enabled. The following components and artifacts are configurable through the TORCH_LOGS environment variable (see torch._logging.set_logs for the python API): Components: allSpecial component which configures the default log level of all components. Default: logging.WARN dynamoThe log level for the TorchDynamo component. Default: logging.WARN aotThe log level for the AOTAutograd component. Default: logging.WARN inductorThe log level for the TorchInductor component. Default: logging.WARN your.custom.moduleThe log level for an arbitrary unregistered module. Provide the fully qualified name and the module will be enabled. Default: logging.WARN Artifacts: bytecodeWhether to emit the original and generated bytecode from TorchDynamo. Default: False aot_graphsWhether to emit the graphs generated by AOTAutograd. Default: False aot_joint_graphWhether to emit the joint forward-backward graph generated by AOTAutograd. Default: False compiled_autogradWhether to emit logs from compiled_autograd. Defaults: False ddp_graphsWhether to emit graphs generated by DDPOptimizer. Default: False graphWhether to emit the graph captured by TorchDynamo in tabular format. Default: False graph_codeWhether to emit the python source of the graph captured by TorchDynamo. Default: False graph_breaksWhether to emit a message when a unique graph break is encountered during TorchDynamo tracing. Default: False guardsWhether to emit the guards generated by TorchDynamo for each compiled function. Default: False recompilesWhether to emit a guard failure reason and message every time TorchDynamo recompiles a function. Default: False output_codeWhether to emit the TorchInductor output code. Default: False scheduleWhether to emit the TorchInductor schedule. Default: False Examples:TORCH_LOGS=\"+dynamo,aot\" will set the log level of TorchDynamo to logging.DEBUG and AOT to logging.INFO TORCH_LOGS=\"-dynamo,+inductor\" will set the log level of TorchDynamo to logging.ERROR and TorchInductor to logging.DEBUG TORCH_LOGS=\"aot_graphs\" will enable the aot_graphs artifact TORCH_LOGS=\"+dynamo,schedule\" will enable set the log level of TorchDynamo to logging.DEBUG and enable the schedule artifact TORCH_LOGS=\"+some.random.module,schedule\" will set the log level of some.random.module to logging.DEBUG and enable the schedule artifact",
+       "articleBody": "torch._logging# Created On: Apr 24, 2023 | Last Updated On: May 15, 2026 PyTorch has a configurable logging system, where different components can be given different log level settings. For instance, one component\u2019s log messages can be completely disabled, while another component\u2019s log messages can be set to maximum verbosity. Warning This feature is in beta and may have compatibility breaking changes in the future. Warning This feature has not been expanded to control the log messages of all components in PyTorch yet. There are two ways to configure the logging system: through the environment variable TORCH_LOGS or the python API torch._logging.set_logs. set_logs Sets the log level for individual components and toggles individual log artifact types. The environment variable TORCH_LOGS is a comma-separated list of [+-]\u003ccomponent\u003e pairs, where \u003ccomponent\u003e is a component specified below. The + prefix will decrease the log level of the component, displaying more log messages while the - prefix will increase the log level of the component and display fewer log messages. The default setting is the behavior when a component is not specified in TORCH_LOGS. In addition to components, there are also artifacts. Artifacts are specific pieces of debug information associated with a component that are either displayed or not displayed, so prefixing an artifact with + or - will be a no-op. Since they are associated with a component, enabling that component will typically also enable that artifact, unless that artifact was specified to be off_by_default. This option is specified in _registrations.py for artifacts that are so spammy they should only be displayed when explicitly enabled. The following components and artifacts are configurable through the TORCH_LOGS environment variable (see torch._logging.set_logs for the python API): Components# Component names set the log level for a group of related loggers. Each component defaults to logging.WARN unless configured. all: Special component which configures the default log level of all components. aot: The log level for the AOTAutograd component. async_compile: The log level for Inductor async compile workers. autograd: The log level for autograd. c10d: The log level for c10d communication operations in PyTorch Distributed. cache: The log level for Inductor cache components. ddp: The log level for DistributedDataParallel components. distributed: The log level for PyTorch Distributed components. dtensor: The log level for DTensor components. dynamic: The log level for dynamic shapes. dynamo: The log level for the TorchDynamo component. export: The log level for export. fake_tensor: The log level for FakeTensor. fsdp: The log level for FullyShardedDataParallel components. inductor: The log level for the TorchInductor component. onnx: The log level for the ONNX exporter component. pp: The log level for distributed pipelining. torch: The log level for the top-level torch component. your.custom.module: The log level for an arbitrary unregistered module. Provide the fully qualified name and the module will be enabled. Artifacts# Artifacts emit specific debug information. Each artifact defaults to False unless configured. Artifacts marked \u201coff by default\u201d are not enabled just by setting the log level of their parent component and must be explicitly enabled. Internal test-only artifacts are omitted. aot_graphs: Prints the FX forward and backward graph generated by AOTDispatch, after partitioning. aot_graphs_effects: Prints the FX forward and backward graph generated by AOTDispatch, useful for debugging effects processing. aot_joint_graph: Prints the FX joint graph from AOTAutograd, prior to partitioning. annotation: Logs detailed steps of creating annotations on graph nodes. Off by default. autotuning: Logs autotuning choices, such as kernel source, performance, and tuning parameters. Off by default. auto_chunker: Logs related to the auto chunker. Off by default. benchmarking: Logs detailed Inductor benchmarking information. Off by default. bytecode: Prints the original and modified bytecode from Dynamo. Off by default. caching: Logs detailed Inductor caching information. Off by default. compiled_autograd: Prints compiled autograd logs, including graphs. compiled_autograd_verbose: Prints compiled autograd logs with C++ info, such as autograd node to FX node mappings. Off by default. compute_dependencies: Logs Inductor compute dependency information. Off by default. cudagraphs: Logs information from wrapping Inductor generated code with CUDA graphs. cudagraph_static_inputs: Logs static input handling in Dynamo, AOT, and CUDA graphs. Off by default. ddp_graphs: Prints individual graphs generated when DDPOptimizer splits graphs to trigger communication early. fusion: Logs detailed Inductor fusion decisions. Off by default. graph: Prints the Dynamo-traced graph before AOTDispatch in tabular format. graph_breaks: Prints whenever Dynamo decides that it needs to graph break. graph_code: Prints the Python code for the Dynamo-traced graph. graph_code_verbose: Prints verbose FX pass logs, such as tensorify_python_scalars and runtime_assert. graph_region_expansion: Logs detailed steps of the duplicate graph region tracker expansion algorithm. Off by default. graph_sizes: Prints the sizes of all FX nodes in the Dynamo graph. guards: Prints the guards for every compiled Dynamo frame. hierarchical_compile: Logs debug info for hierarchical compilation. Off by default. incremental: Logs incremental autotuning information. Off by default. inductor_metrics: Logs Inductor metrics, such as num_bytes, nodes_num_elem, and node_runtimes. Off by default. ir_post_fusion: Prints the IR after Inductor fusion passes. Off by default. ir_pre_fusion: Prints the IR before Inductor fusion passes. Off by default. kernel_code: Prints Inductor-generated code on a per-kernel basis. Off by default. loop_ordering: Logs related to loop ordering. Off by default. loop_tiling: Logs related to loop tiling. Off by default. node_runtime_estimation: Logs node runtime estimation for compile-time optimization decisions. Off by default. not_implemented: Prints log messages whenever a multi-dispatch returns NotImplemented. onnx_diagnostics: Logs ONNX exporter diagnostics. Off by default. output_code: Prints the code that Inductor generates, either Triton or C++. Off by default. overlap: Logs detailed Inductor compute/communication overlap decisions. Off by default. overlap_scheduling: Logs detailed Inductor overlap scheduling pass information. Off by default. perf_hints: Logs Inductor performance hints. Off by default. post_grad_graphs: Prints the FX graph generated after Inductor post-grad passes. pre_grad_graphs: Prints the FX graph before Inductor pre-grad passes. recompiles: Prints the reason why Dynamo recompiled a graph. recompiles_verbose: Prints all guard checks that fail during a recompilation. Off by default. schedule: Logs Inductor scheduler information. Off by default. side_effects: Prints side effects that Dynamo code-generates, including mutations to variables, attributes, cells, and globals. sym_node: Logs extra information for various SymNode operations. Off by default. trace_bytecode: Prints the instruction and current stack as Dynamo traces bytecode. trace_call: Prints per-expression tracing detail when available. trace_shape_events: Logs traces for every ShapeEnv operation recorded for replay. Off by default. trace_source: Prints the file name, line number, and source code as Dynamo executes bytecode. verbose_guards: Prints verbose guard information. Off by default. Examples:TORCH_LOGS=\"+dynamo,aot\" will set the log level of TorchDynamo to logging.DEBUG and AOT to logging.INFO TORCH_LOGS=\"-dynamo,+inductor\" will set the log level of TorchDynamo to logging.ERROR and TorchInductor to logging.DEBUG TORCH_LOGS=\"aot_graphs\" will enable the aot_graphs artifact TORCH_LOGS=\"+dynamo,schedule\" will enable set the log level of TorchDynamo to logging.DEBUG and enable the schedule artifact TORCH_LOGS=\"+some.random.module,schedule\" will set the log level of some.random.module to logging.DEBUG and enable the schedule artifact",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4141,7 +4221,7 @@ TorchDynamo recompiles a function. Default: <code class="docutils literal notran
          "@id": "/logging.html"
        },
        "datePublished": "Apr 24, 2023T00:00:00Z",
-       "dateModified": "Jun 17, 2025T00:00:00Z"
+       "dateModified": "May 15, 2026T00:00:00Z"
      }
  </script>
   <script>

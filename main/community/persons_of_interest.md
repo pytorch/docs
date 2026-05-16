@@ -9,9 +9,9 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Maintain public user and development documentation
 - Run meetings and share minutes plus roadmap on a half or quarterly basis
 
-## Lead Core Maintainer (BDFL)
+## Lead Core Maintainer
 
-- Soumith Chintala ([soumith](https://github.com/soumith))
+- Alban Desmaison ([albanD](https://github.com/albanD))
 
 ## Core Maintainers
 
@@ -19,7 +19,6 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Edward Yang ([ezyang](https://github.com/ezyang))
 - Greg Chanan ([gchanan](https://github.com/gchanan))
 - Nikita Shulga ([malfet](https://github.com/malfet))
-- Alban Desmaison ([albanD](https://github.com/albanD))
 - Piotr Bialecki ([ptrblck](https://github.com/ptrblck))
 - Natalia Gimelshein ([ngimel](https://github.com/ngimel))
 - Horace He ([Chillee](https://github.com/Chillee))

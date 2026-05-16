@@ -1,6 +1,6 @@
 # torch.linalg.tensorinv
 
-torch.linalg.tensorinv(*A*, *ind=2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/linalg/__init__.py#L2689)
+torch.linalg.tensorinv(*A*, *ind=2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/linalg/__init__.py#L2689)
 
 Computes the multiplicative inverse of [`torch.tensordot()`](torch.tensordot.html#torch.tensordot).
 

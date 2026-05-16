@@ -1,6 +1,6 @@
 # ModuleList
 
-*class*torch.nn.ModuleList(*modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/container.py#L335)
+*class*torch.nn.ModuleList(*modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/container.py#L335)
 
 Holds submodules in a list.
 
@@ -27,7 +27,7 @@ class MyModule(nn.Module):
  return x
 ```
 
-append(*module*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/container.py#L472)
+append(*module*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/container.py#L472)
 
 Append a given module to the end of the list.
 
@@ -39,7 +39,7 @@ Return type:
 
 *Self*
 
-extend(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/container.py#L486)
+extend(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/container.py#L486)
 
 Append modules from a Python iterable to the end of the list.
 
@@ -51,7 +51,7 @@ Return type:
 
 Self
 
-insert(*index*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/nn/modules/container.py#L461)
+insert(*index*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/container.py#L461)
 
 Insert a given module before a given index in the list.
 

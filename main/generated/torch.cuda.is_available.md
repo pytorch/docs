@@ -1,6 +1,6 @@
 # torch.cuda.is_available
 
-torch.cuda.is_available()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/cuda/__init__.py#L169)
+torch.cuda.is_available()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/cuda/__init__.py#L169)
 
 Return a bool indicating if CUDA is currently available.
 

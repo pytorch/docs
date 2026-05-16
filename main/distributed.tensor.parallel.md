@@ -10,7 +10,7 @@ Tensor Parallelism APIs are experimental and subject to change.
 
 The entrypoint to parallelize your `nn.Module` using Tensor Parallelism is:
 
-torch.distributed.tensor.parallel.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/api.py#L14)
+torch.distributed.tensor.parallel.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/api.py#L14)
 
 Apply Tensor Parallelism in PyTorch by parallelizing modules or sub-modules based on a user-specified plan.
 
@@ -68,7 +68,7 @@ For complex module architecture like Attention, MLP layers, we recommend composi
 different ParallelStyles together (i.e. `ColwiseParallel` and `RowwiseParallel`) and pass
 as a parallelize_plan, to achieve the desired sharding computation.
 
-torch.distributed.tensor.parallel.api.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/api.py#L14)
+torch.distributed.tensor.parallel.api.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/api.py#L14)
 
 Apply Tensor Parallelism in PyTorch by parallelizing modules or sub-modules based on a user-specified plan.
 
@@ -128,7 +128,7 @@ as a parallelize_plan, to achieve the desired sharding computation.
 
 Tensor Parallelism supports the following parallel styles:
 
-*class*torch.distributed.tensor.parallel.ColwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L45)
+*class*torch.distributed.tensor.parallel.ColwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L45)
 
 Partition a compatible nn.Module in a column-wise fashion. Currently supports nn.Linear and nn.Embedding.
 Users can compose it together with RowwiseParallel to achieve the sharding of more complicated modules.
@@ -168,7 +168,7 @@ By default `ColwiseParallel` output is sharded on the last dimension if the `out
 specified, if there're operators that require specific tensor shape (i.e. before the paired `RowwiseParallel`),
 keep in mind that if the output is sharded the operator might need to be adjusted to the sharded size.
 
-*class*torch.distributed.tensor.parallel.RowwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L186)
+*class*torch.distributed.tensor.parallel.RowwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L186)
 
 Partition a compatible nn.Module in a row-wise fashion. Currently supports nn.Linear and nn.Embedding.
 Users can compose it with ColwiseParallel to achieve the sharding of more complicated modules.
@@ -202,7 +202,7 @@ Example::
 >>> ...
 ```
 
-*class*torch.distributed.tensor.parallel.SequenceParallel(***, *sequence_dim=1*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L339)
+*class*torch.distributed.tensor.parallel.SequenceParallel(***, *sequence_dim=1*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L339)
 
 SequenceParallel replicates a compatible `nn.Module` parameters and runs the sharded computation with
 input sharded on the sequence dimension. This currently supports `nn.LayerNorm`, `nn.Dropout`, and the
@@ -256,7 +256,7 @@ and perform necessary layout redistributions, without distribute the module
 parameters to DTensors, the following `ParallelStyle` s can be used in
 the `parallelize_plan` when calling `parallelize_module`:
 
-*class*torch.distributed.tensor.parallel.PrepareModuleInput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L442)
+*class*torch.distributed.tensor.parallel.PrepareModuleInput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L442)
 
 Configure the nn.Module's inputs to convert the input tensors of the nn.Module to DTensors at runtime according to
 `input_layouts`, and perform layout redistribution according to the `desired_input_layouts`.
@@ -302,7 +302,7 @@ Example::
 >>> )
 ```
 
-*class*torch.distributed.tensor.parallel.PrepareModuleOutput(***, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L607)
+*class*torch.distributed.tensor.parallel.PrepareModuleOutput(***, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L607)
 
 Configure the nn.Module's outputs to convert the output tensors of the nn.Module to DTensors at runtime according to
 `output_layouts`, and perform layout redistribution according to the `desired_output_layouts`.
@@ -341,7 +341,7 @@ Example::
 >>> )
 ```
 
-*class*torch.distributed.tensor.parallel.PrepareModuleInputOutput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_input=False*, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/style.py#L717)
+*class*torch.distributed.tensor.parallel.PrepareModuleInputOutput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_input=False*, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/style.py#L717)
 
 Configure the nn.Module's inputs (and outputs) to convert the input tensors (and output tensors, respectively) of the nn.Module
 to DTensors at runtime according to `input_layouts` (and output_layouts, respectively), and perform layout redistribution
@@ -412,7 +412,7 @@ sharding for the entire model (i.e. Attention and MLP).
 
 Parallelized cross-entropy loss computation (loss parallelism), is supported via the following context manager:
 
-torch.distributed.tensor.parallel.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/loss.py#L30)
+torch.distributed.tensor.parallel.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/loss.py#L30)
 
 A context manager that enables loss parallelism, where efficient parallelized loss computation
 can be performed when the input is sharded on the class dimension. Currently only the cross-entropy
@@ -422,17 +422,66 @@ Within this context manager, one can use [`cross_entropy()`](generated/torch.nn.
 [`CrossEntropyLoss`](generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) as usual, with the following assumptions on the input parameters.
 The corresponding `backward()` call, if any, also needs to happen under this context manager.
 
+Both one-dimensional and multi-dimensional `DeviceMesh` are supported. On a
+multi-dimensional mesh, exactly one mesh dim must shard the class dimension --
+that dim is treated as the "TP" dim and can be in any position (not necessarily
+last). The remaining mesh dims may be `Shard` (e.g. batch-sharded for DP/CP)
+or `Replicate`.
+
 Parameters:
 
-- **input** (`DTensor`) - Input logits. Assumed to be sharded on the class dimension.
-- **target** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`]) - Must be ground truth class indices (class probabilities currently not supported).
-Assumed to be replicated across the `DeviceMesh`.
+- **input** (`DTensor`) - Input logits. Assumed to be sharded on the class dimension on exactly
+one mesh dim.
+- **target** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`]) -
+
+Must be ground truth class indices (class probabilities currently not
+supported). Its placements are derived from `input`'s placements by
+(1) replacing the TP dim's `Shard(class_dim)` with `Replicate` and
+(2) shifting any other `Shard(d)` with `d > class_dim` down by one
+(since the class tensor dim is removed from the output):
+
+```
+input tensor shape input placements target shape target placements
+---------------------- -------------------------- --------------- ------------------------
+(batch, class) (Shard(0), Shard(1)) (batch,) (Shard(0), Replicate())
+(batch, class) (Replicate(), Shard(1)) (batch,) (Replicate(), Replicate())
+(batch, class, seq) (Shard(2), Shard(1)) (batch, seq) (Shard(1), Replicate())
+(batch, class, seq) (Shard(0), Shard(1)) (batch, seq) (Shard(0), Replicate())
+```
+
+A plain [`torch.Tensor`](tensors.html#torch.Tensor) is only accepted when the derived target
+placements are all `Replicate` (e.g. on a one-dimensional mesh);
+otherwise a `DTensor` must be passed explicitly so that the
+intended sharding is unambiguous.
 - **weight** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`], optional) - If given, assumed to be replicated across the `DeviceMesh`.
 - **label_smoothing** - Currently not supported.
 
 Returns:
 
-A replicated `DTensor`.
+- `reduction="none"` -- per-sample loss; inherits the `target`
+placements (`Shard` on batch-parallel dims, `Replicate` on TP).
+- `reduction="sum"` -- scalar; `Replicate` on the TP dim (the custom
+all-reduce makes each rank's local value globally correct over TP),
+`Partial("sum")` on every other `Shard` mesh dim so that the
+cross-rank reduction happens lazily on materialization/redistribution,
+and `Replicate` on `Replicate` mesh dims.
+- `reduction="mean"` -- only supported on a one-dimensional mesh; returns
+a fully replicated `DTensor`.
+
+On a one-dimensional mesh all three cases simplify to a fully replicated
+`DTensor` (the original behavior).
+
+Return type:
+
+A `DTensor` whose placements depend on `reduction`
+
+Note
+
+`reduction="mean"` is only supported on a one-dimensional `DeviceMesh`.
+On a multi-dimensional mesh the per-rank division by `total_weight` uses a
+local count, so aggregating across non-TP dims does not yield the correct
+global mean; use `reduction="sum"` or `"none"` instead and divide by the
+global count yourself if needed.
 
 Example
 
@@ -459,7 +508,7 @@ Warning
 The loss_parallel API is experimental and subject to change.
 ```
 
-torch.distributed.tensor.parallel.loss.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/loss.py#L30)
+torch.distributed.tensor.parallel.loss.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/loss.py#L30)
 
 A context manager that enables loss parallelism, where efficient parallelized loss computation
 can be performed when the input is sharded on the class dimension. Currently only the cross-entropy
@@ -469,17 +518,66 @@ Within this context manager, one can use [`cross_entropy()`](generated/torch.nn.
 [`CrossEntropyLoss`](generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) as usual, with the following assumptions on the input parameters.
 The corresponding `backward()` call, if any, also needs to happen under this context manager.
 
+Both one-dimensional and multi-dimensional `DeviceMesh` are supported. On a
+multi-dimensional mesh, exactly one mesh dim must shard the class dimension --
+that dim is treated as the "TP" dim and can be in any position (not necessarily
+last). The remaining mesh dims may be `Shard` (e.g. batch-sharded for DP/CP)
+or `Replicate`.
+
 Parameters:
 
-- **input** (`DTensor`) - Input logits. Assumed to be sharded on the class dimension.
-- **target** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`]) - Must be ground truth class indices (class probabilities currently not supported).
-Assumed to be replicated across the `DeviceMesh`.
+- **input** (`DTensor`) - Input logits. Assumed to be sharded on the class dimension on exactly
+one mesh dim.
+- **target** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`]) -
+
+Must be ground truth class indices (class probabilities currently not
+supported). Its placements are derived from `input`'s placements by
+(1) replacing the TP dim's `Shard(class_dim)` with `Replicate` and
+(2) shifting any other `Shard(d)` with `d > class_dim` down by one
+(since the class tensor dim is removed from the output):
+
+```
+input tensor shape input placements target shape target placements
+---------------------- -------------------------- --------------- ------------------------
+(batch, class) (Shard(0), Shard(1)) (batch,) (Shard(0), Replicate())
+(batch, class) (Replicate(), Shard(1)) (batch,) (Replicate(), Replicate())
+(batch, class, seq) (Shard(2), Shard(1)) (batch, seq) (Shard(1), Replicate())
+(batch, class, seq) (Shard(0), Shard(1)) (batch, seq) (Shard(0), Replicate())
+```
+
+A plain [`torch.Tensor`](tensors.html#torch.Tensor) is only accepted when the derived target
+placements are all `Replicate` (e.g. on a one-dimensional mesh);
+otherwise a `DTensor` must be passed explicitly so that the
+intended sharding is unambiguous.
 - **weight** (Union[[`torch.Tensor`](tensors.html#torch.Tensor), `DTensor`], optional) - If given, assumed to be replicated across the `DeviceMesh`.
 - **label_smoothing** - Currently not supported.
 
 Returns:
 
-A replicated `DTensor`.
+- `reduction="none"` -- per-sample loss; inherits the `target`
+placements (`Shard` on batch-parallel dims, `Replicate` on TP).
+- `reduction="sum"` -- scalar; `Replicate` on the TP dim (the custom
+all-reduce makes each rank's local value globally correct over TP),
+`Partial("sum")` on every other `Shard` mesh dim so that the
+cross-rank reduction happens lazily on materialization/redistribution,
+and `Replicate` on `Replicate` mesh dims.
+- `reduction="mean"` -- only supported on a one-dimensional mesh; returns
+a fully replicated `DTensor`.
+
+On a one-dimensional mesh all three cases simplify to a fully replicated
+`DTensor` (the original behavior).
+
+Return type:
+
+A `DTensor` whose placements depend on `reduction`
+
+Note
+
+`reduction="mean"` is only supported on a one-dimensional `DeviceMesh`.
+On a multi-dimensional mesh the per-rank division by `total_weight` uses a
+local count, so aggregating across non-TP dims does not yield the correct
+global mean; use `reduction="sum"` or `"none"` instead and divide by the
+global count yourself if needed.
 
 Example
 
@@ -500,7 +598,7 @@ In practice, it is usually the output of a TP module.
 >>> ...
 ```
 
-torch.distributed.tensor.parallel.input_reshard.input_reshard(*module*, *tp_device_mesh*, *input_reshard_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/parallel/input_reshard.py#L15)
+torch.distributed.tensor.parallel.input_reshard.input_reshard(*module*, *tp_device_mesh*, *input_reshard_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/parallel/input_reshard.py#L15)
 
 Register hooks to an nn.Module for input resharding, enabling sharding and restoration during backward computation.
 

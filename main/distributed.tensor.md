@@ -61,7 +61,7 @@ Directly using the Tensor subclass constructor here is not the recommended way t
 (i.e. it does not handle autograd correctly hence is not the public API). Please refer to the create_dtensor
 section to see how to create a `DTensor`.
 
-__create_chunk_list__()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L796)
+__create_chunk_list__()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L796)
 
 Return a list of ChunkStorageMetadata, which is a dataclass that describes the size/offset of the local shard/replica
 on current rank. For DTensor, each rank will have a single local shard/replica, so the returned list usually only
@@ -73,7 +73,7 @@ Returns:
 
 A List[`ChunkStorageMetadata`] object that represents the shard size/offset on the current rank.
 
-*static*from_local(*local_tensor*, *device_mesh=None*, *placements=None*, ***, *run_check=False*, *shape=None*, *stride=None*, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L449)
+*static*from_local(*local_tensor*, *device_mesh=None*, *placements=None*, ***, *run_check=False*, *shape=None*, *stride=None*, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L449)
 
 Create a `DTensor` from a local torch.Tensor on each rank
 according to the `device_mesh` and `placements` specified.
@@ -149,7 +149,7 @@ When the forward placement is `Partial`, we always redistribute the gradient
 to `Replicate` instead of keeping it `Partial`. This may not be the most
 efficient option, but it avoids ambiguity and provides clearer gradient semantics to users.
 
-full_tensor(***, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L720)
+full_tensor(***, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L720)
 
 Return the full tensor of this DTensor. It will perform necessary collectives
 to gather the local tensors from other ranks in its DeviceMesh and concatenate
@@ -180,7 +180,7 @@ Note
 
 `full_tensor` is differentiable.
 
-redistribute(*device_mesh=None*, *placements=None*, ***, *async_op=False*, *forward_dtype=None*, *backward_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L613)
+redistribute(*device_mesh=None*, *placements=None*, ***, *async_op=False*, *forward_dtype=None*, *backward_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L613)
 
 `redistribute` performs necessary collective operations that redistribute the current
 DTensor from its current placements to a new placements, or from its current DeviceMesh
@@ -243,7 +243,7 @@ Note
 `redistribute` currently only supports redistributing DTensor on the same DeviceMesh,
 Please file an issue if you need to redistribute DTensor to different DeviceMesh.
 
-to_local(***, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L576)
+to_local(***, *grad_placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L576)
 
 Get the local tensor of this DTensor on its current rank. For sharding it returns
 a local shard of the logical tensor view, for replication it returns the replica on
@@ -304,7 +304,7 @@ please refer to the [DeviceMesh recipe](https://pytorch.org/tutorials/recipes/di
 
 DTensor supports the following types of `Placement` on each `DeviceMesh` dimension:
 
-*class*torch.distributed.tensor.placement_types.Shard[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L49)
+*class*torch.distributed.tensor.placement_types.Shard[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L49)
 
 The `Shard(dim)` placement describes the DTensor sharding on tensor dimension
 `dim` over a corresponding `DeviceMesh` dimension, where each rank on the
@@ -330,7 +330,7 @@ When checking whether a placement is shard-like, use
 `_is_shard_like()` instead of `isinstance(p, Shard)` to also
 match `_StridedShard`.
 
-*static*local_shard_size_and_offset(*curr_local_size*, *num_chunks*, *rank*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L217)
+*static*local_shard_size_and_offset(*curr_local_size*, *num_chunks*, *rank*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L217)
 
 Given the size of the current local tensor (which may already be sharded on some dimensions),
 computes the new local shard size and offset given the desired number of chunks
@@ -345,7 +345,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*_RankTypeT*, *_RankTypeT*]
 
-*class*torch.distributed.tensor.placement_types._StridedShard[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L662)
+*class*torch.distributed.tensor.placement_types._StridedShard[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L662)
 
 _StridedShard is only introduced to support 2D FSDP2 + TP sharding where the tensor
 is sharded on the TP mesh dimension first, then sharded on the FSDP mesh dimension.
@@ -417,7 +417,7 @@ split_factor of the _StridedShard placement on "dp" dim is 2.
 
 TODO: we should remove _StridedShard placement once we can unify it with Shard
 
-local_shard_size_and_offset(*curr_local_size*, *num_chunks*, *rank*, *return_first_offset=True*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L1120)
+local_shard_size_and_offset(*curr_local_size*, *num_chunks*, *rank*, *return_first_offset=True*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L1120)
 
 Compute the local shard size and offset(s) for a _StridedShard placement.
 
@@ -447,14 +447,14 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)
 
-*class*torch.distributed.tensor.placement_types.Replicate[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L1192)
+*class*torch.distributed.tensor.placement_types.Replicate[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L1192)
 
 The `Replicate()` placement describes the DTensor replicating on a corresponding
 `DeviceMesh` dimension, where each rank on the DeviceMesh dimension holds a
 replica of the global Tensor. The `Replicate` placement can be used by all
 DTensor APIs (i.e. `distribute_tensor`, `DTensor.from_local`, etc.)
 
-*class*torch.distributed.tensor.placement_types.Partial[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L1257)
+*class*torch.distributed.tensor.placement_types.Partial[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L1257)
 
 ALL_REDUCE_OPS*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), ...]**= ('sum', 'avg', 'min', 'max', 'product')*
 
@@ -492,7 +492,7 @@ and can only be used by the `DTensor.from_local` API.
 
 LINEAR_REDUCE_OPS*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), ...]**= ('sum', 'avg')*
 
-*class*torch.distributed.tensor.placement_types._MaskPartial(*reduce_op=None*, *mask_buffer=None*, *offset_shape=None*, *offset_dim=0*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/placement_types.py#L1386)
+*class*torch.distributed.tensor.placement_types._MaskPartial(*reduce_op=None*, *mask_buffer=None*, *offset_shape=None*, *offset_dim=0*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/placement_types.py#L1386)
 
 A partial mask placement devised for rowwise sharded embedding op, where we need
 to mask and adjust the indices to the local embedding shard, embedding masking
@@ -548,7 +548,7 @@ on GPU if enough memory).
 where it would create a DTensor from the "logical" Tensor on each process. This would empower the created
 `DTensor` s to comply with the single device semantic, which is critical for **numerical correctness**.
 
-torch.distributed.tensor.distribute_tensor(*tensor*, *device_mesh=None*, *placements=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L829)
+torch.distributed.tensor.distribute_tensor(*tensor*, *device_mesh=None*, *placements=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L829)
 
 Distribute a leaf `torch.Tensor` (i.e. nn.Parameter/buffers) to the `device_mesh` according
 to the `placements` specified. The rank of `device_mesh` and `placements` must be the
@@ -605,7 +605,7 @@ for more details. The XLA integration is experimental and subject to change.
 Along with `distribute_tensor()`, DTensor also offers a `distribute_module()` API to allow easier
 sharding on the `nn.Module` level
 
-torch.distributed.tensor.distribute_module(*module*, *device_mesh=None*, *partition_fn=None*, *input_fn=None*, *output_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1041)
+torch.distributed.tensor.distribute_module(*module*, *device_mesh=None*, *partition_fn=None*, *input_fn=None*, *output_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1041)
 
 This function expose three functions to control the parameters/inputs/outputs of the module:
 
@@ -650,7 +650,7 @@ DTensor also provides dedicated tensor factory functions to allow creating `DTen
 using torch.Tensor like factory function APIs (i.e. torch.ones, torch.empty, etc), by additionally
 specifying the `DeviceMesh` and `Placement` for the `DTensor` created:
 
-torch.distributed.tensor.zeros(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1488)
+torch.distributed.tensor.zeros(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1488)
 
 Returns a `DTensor` filled with the scalar value 0.
 
@@ -679,7 +679,7 @@ Return type:
 
 *DTensor*
 
-torch.distributed.tensor.ones(**size*, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1267)
+torch.distributed.tensor.ones(**size*, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1267)
 
 Returns a `DTensor` filled with the scalar value 1, with the shape defined
 by the variable argument `size`.
@@ -709,7 +709,7 @@ Return type:
 
 *DTensor*
 
-torch.distributed.tensor.empty(**size*, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1310)
+torch.distributed.tensor.empty(**size*, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1310)
 
 Returns a `DTensor` filled with uninitialized data. The shape of the `DTensor`
 is defined by the variable argument `size`.
@@ -738,7 +738,7 @@ Return type:
 
 *DTensor*
 
-torch.distributed.tensor.full(*size*, *fill_value*, ***, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1353)
+torch.distributed.tensor.full(*size*, *fill_value*, ***, *dtype=None*, *layout=torch.strided*, *requires_grad=False*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1353)
 
 Returns a `DTensor` filled with `fill_value` according to `device_mesh` and
 `placements`, with the shape defined by the argument `size`.
@@ -769,7 +769,7 @@ Return type:
 
 *DTensor*
 
-torch.distributed.tensor.rand(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1400)
+torch.distributed.tensor.rand(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1400)
 
 Returns a `DTensor` filled with random numbers from a uniform distribution
 on the interval `[0, 1)`. The shape of the tensor is defined by the variable
@@ -800,7 +800,7 @@ Return type:
 
 *DTensor*
 
-torch.distributed.tensor.randn(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/_api.py#L1444)
+torch.distributed.tensor.randn(**size*, *requires_grad=False*, *dtype=None*, *layout=torch.strided*, *device_mesh=None*, *placements=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/_api.py#L1444)
 
 Returns a `DTensor` filled with random numbers from a normal distribution
 with mean 0 and variance 1. The shape of the tensor is defined by the variable
@@ -879,7 +879,7 @@ with comm_mode:
 print(comm_mode.get_comm_counts())
 ```
 
-generate_comm_debug_tracing_table(*noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L404)
+generate_comm_debug_tracing_table(*noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L404)
 
 Generates detailed table displaying operations and collective tracing information
 on a module level. Amount of information is dependent on noise_level
@@ -889,7 +889,7 @@ on a module level. Amount of information is dependent on noise_level
 3. prints operations not included in trivial operations
 4. prints all operations
 
-generate_json_dump(*file_name='comm_mode_log.json'*, *noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L256)
+generate_json_dump(*file_name='comm_mode_log.json'*, *noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L256)
 
 Creates json file used to build browser visual
 0. prints module-level collective counts
@@ -897,7 +897,7 @@ Creates json file used to build browser visual
 2. prints operations not included in trivial operations
 3. prints all operations
 
-get_comm_counts()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L572)
+get_comm_counts()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L572)
 
 Returns the communication counts as a dictionary.
 
@@ -909,31 +909,31 @@ Return type:
 
 Dict[Any, [int](https://docs.python.org/3/library/functions.html#int)]
 
-get_parameter_info()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L580)
+get_parameter_info()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L580)
 
 Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
 
-get_sharding_info()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L583)
+get_sharding_info()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L583)
 
 Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
 
-get_total_counts()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L569)
+get_total_counts()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L569)
 
 Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-log_comm_debug_tracing_table_to_file(*file_name='comm_mode_log.txt'*, *noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_comm_mode.py#L604)
+log_comm_debug_tracing_table_to_file(*file_name='comm_mode_log.txt'*, *noise_level=3*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_comm_mode.py#L604)
 
 Alternative to console CommDebugMode output, writes to file specified by the user
 
 To visualize the sharding of a DTensor that have less than 3 dimensions, DTensor provides `visualize_sharding()`:
 
-torch.distributed.tensor.debug.visualize_sharding(*dtensor*, *header=''*, *use_rich=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/debug/_visualize_sharding.py#L155)
+torch.distributed.tensor.debug.visualize_sharding(*dtensor*, *header=''*, *use_rich=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/debug/_visualize_sharding.py#L155)
 
 Visualizes sharding in the terminal for `DTensor` that are 1D or 2D.
 
@@ -948,7 +948,7 @@ No sharding info will be printed for empty tensors
 functionality is done and but looking for user feedbacks. Please submit a issue to PyTorch if you have feedbacks to
 these features.
 
-torch.distributed.tensor.experimental.context_parallel(*mesh*, ***, *buffers=None*, *buffer_seq_dims=None*, *no_restore_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/experimental/_context_parallel/_attention.py#L1513)
+torch.distributed.tensor.experimental.context_parallel(*mesh*, ***, *buffers=None*, *buffer_seq_dims=None*, *no_restore_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/experimental/_context_parallel/_attention.py#L1513)
 
 `context_parallel` is an experimental API to enable context
 parallelism (CP). This API performs two actions: 1) patch the SDPA
@@ -983,7 +983,7 @@ Warning
 torch.distributed.tensor.experimental.context_parallel is a
 prototype feature in PyTorch. The API is subject to change.
 
-torch.distributed.tensor.experimental.local_map(*func=None*, *out_placements=None*, *in_placements=None*, *in_grad_placements=None*, *device_mesh=None*, ***, *redistribute_inputs=False*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/experimental/_func_map.py#L25)
+torch.distributed.tensor.experimental.local_map(*func=None*, *out_placements=None*, *in_placements=None*, *in_grad_placements=None*, *device_mesh=None*, ***, *redistribute_inputs=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/experimental/_func_map.py#L25)
 
 `local_map()` is an experimental API that allows users to pass `DTensor` s
 to a function that is written to be applied on `torch.Tensor` s. It is done by extracting
@@ -1086,7 +1086,7 @@ Note
 
 This API is currently experimental and subject to change
 
-torch.distributed.tensor.experimental.register_sharding(*op*)[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/experimental/_register_sharding.py#L23)
+torch.distributed.tensor.experimental.register_sharding(*op*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/experimental/_register_sharding.py#L23)
 
 `register_sharding()` is an experimental API that allows users to register sharding
 strategies for an operator when the tensor inputs and outputs are DTensor.
@@ -1135,7 +1135,7 @@ Note
 
 This API is currently experimental and subject to change
 
-torch.distributed.tensor.experimental.implicit_replication()[[source]](https://github.com/pytorch/pytorch/blob/211c61413d1f81c4a6ec8f1820328bef5cb24d86/torch/distributed/tensor/experimental/__init__.py#L14)
+torch.distributed.tensor.experimental.implicit_replication()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/distributed/tensor/experimental/__init__.py#L14)
 
 This context manager allows `DTensor` to implicitly treat all non-DTensors (`torch.Tensor`)
 in the program be replicate `DTensor` s during the operator computation.
