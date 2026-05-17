@@ -1,6 +1,6 @@
 # torch.nn.functional.binary_cross_entropy
 
-torch.nn.functional.binary_cross_entropy(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/functional.py#L3524)
+torch.nn.functional.binary_cross_entropy(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/functional.py#L3524)
 
 Compute Binary Cross Entropy between the target and input probabilities.
 

@@ -1,6 +1,6 @@
 # torch.nn.utils.skip_init
 
-torch.nn.utils.skip_init(*module_cls*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/utils/init.py#L7)
+torch.nn.utils.skip_init(*module_cls*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/utils/init.py#L7)
 
 Given a module class object and args / kwargs, instantiate the module without initializing parameters / buffers.
 

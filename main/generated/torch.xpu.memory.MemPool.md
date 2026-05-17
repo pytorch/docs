@@ -1,6 +1,6 @@
 # MemPool
 
-*class*torch.xpu.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/xpu/memory.py#L550)
+*class*torch.xpu.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/memory.py#L550)
 
 MemPool represents a pool of memory in a caching allocator. Currently,
 it's just the ID of the pool object maintained in the XPUCachingAllocator.
@@ -24,7 +24,7 @@ Returns the allocator this MemPool routes allocations to.
 
 Returns the ID of this pool as a tuple of two ints.
 
-snapshot()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/xpu/memory.py#L586)
+snapshot()[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/memory.py#L586)
 
 Return a snapshot of the XPU memory allocator pool state across all
 devices.
@@ -32,7 +32,7 @@ devices.
 Interpreting the output of this function requires familiarity with the
 memory allocator internals.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/xpu/memory.py#L582)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/memory.py#L582)
 
 Returns the reference count of this pool.
 

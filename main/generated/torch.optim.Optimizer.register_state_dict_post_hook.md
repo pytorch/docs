@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_state_dict_post_hook
 
-Optimizer.register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/optim/optimizer.py#L646)
+Optimizer.register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/optim/optimizer.py#L646)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 

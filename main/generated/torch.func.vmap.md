@@ -1,6 +1,6 @@
 # torch.func.vmap
 
-torch.func.vmap(*func*, *in_dims=0*, *out_dims=0*, *randomness='error'*, ***, *chunk_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/_functorch/apis.py#L41)
+torch.func.vmap(*func*, *in_dims=0*, *out_dims=0*, *randomness='error'*, ***, *chunk_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/_functorch/apis.py#L41)
 
 vmap is the vectorizing map; `vmap(func)` returns a new function that
 maps `func` over some dimension of the inputs. Semantically, vmap

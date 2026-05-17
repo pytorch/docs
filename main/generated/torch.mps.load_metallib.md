@@ -1,6 +1,6 @@
 # torch.mps.load_metallib
 
-torch.mps.load_metallib(*source*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/mps/__init__.py#L166)
+torch.mps.load_metallib(*source*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/mps/__init__.py#L166)
 
 Loads a precompiled Metal library (.metallib) and returns a shader
 library object that allows invoking kernels defined in it.

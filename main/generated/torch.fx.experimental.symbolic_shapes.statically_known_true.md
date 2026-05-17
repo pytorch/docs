@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.statically_known_true
 
-torch.fx.experimental.symbolic_shapes.statically_known_true(*x*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/symbolic_shapes.py#L1640)
+torch.fx.experimental.symbolic_shapes.statically_known_true(*x*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/symbolic_shapes.py#L1640)
 
 Returns True if x can be simplified to a constant and is true.
 

@@ -1,6 +1,6 @@
 # torch.utils.backend_registration.generate_methods_for_privateuse1_backend
 
-torch.utils.backend_registration.generate_methods_for_privateuse1_backend(*for_tensor=True*, *for_module=True*, *for_packed_sequence=True*, *for_storage=False*, *unsupported_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/utils/backend_registration.py#L381)
+torch.utils.backend_registration.generate_methods_for_privateuse1_backend(*for_tensor=True*, *for_module=True*, *for_packed_sequence=True*, *for_storage=False*, *unsupported_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/utils/backend_registration.py#L381)
 
 Automatically generate attributes and methods for the custom backend after rename privateuse1 backend.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.accelerator_partitioner.check_dependency
 
-torch.fx.experimental.accelerator_partitioner.check_dependency(*partition*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/accelerator_partitioner.py#L271)
+torch.fx.experimental.accelerator_partitioner.check_dependency(*partition*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/accelerator_partitioner.py#L271)
 
 Given a partition,check if there is a circular dependency on
 this partition using bfs

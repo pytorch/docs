@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.core.reify
 
-torch.fx.experimental.unification.core.reify(*e*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/unification/core.py#L65)
+torch.fx.experimental.unification.core.reify(*e*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/unification/core.py#L65)
 
 Replace variables of expression with substitution
 >>> x, y = var(), var()

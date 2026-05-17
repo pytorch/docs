@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.broadcast_dim
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.broadcast_dim(*tensor_input1*, *tensor_input2*, *res1*, *res2*, *index*, *padding=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1070)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.broadcast_dim(*tensor_input1*, *tensor_input2*, *res1*, *res2*, *index*, *padding=False*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1070)
 
 Apply broadcasting to the 'index' dimension of tensor_input1.
 :param tensor_input1: should represent [d1, ..., d_index, ...] where d_index = 1

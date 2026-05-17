@@ -1,6 +1,6 @@
 # torch.set_printoptions
 
-torch.set_printoptions(*precision=None*, *threshold=None*, *edgeitems=None*, *linewidth=None*, *profile=None*, *sci_mode=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/_tensor_str.py#L25)
+torch.set_printoptions(*precision=None*, *threshold=None*, *edgeitems=None*, *linewidth=None*, *profile=None*, *sci_mode=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/_tensor_str.py#L25)
 
 Set options for printing. Items shamelessly taken from NumPy
 

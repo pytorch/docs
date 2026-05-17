@@ -1,6 +1,6 @@
 # torch.from_dlpack
 
-torch.from_dlpack(*ext_tensor*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/utils/dlpack.py#L58)
+torch.from_dlpack(*ext_tensor*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/utils/dlpack.py#L58)
 
 Converts a tensor from an external library into a `torch.Tensor`.
 

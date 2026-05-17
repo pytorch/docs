@@ -1,6 +1,6 @@
 # torch.cuda.get_sync_debug_mode
 
-torch.cuda.get_sync_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/cuda/__init__.py#L1326)
+torch.cuda.get_sync_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/cuda/__init__.py#L1326)
 
 Return current value of debug mode for cuda synchronizing operations.
 

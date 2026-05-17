@@ -1,6 +1,6 @@
 # torch.sparse.spsolve
 
-torch.sparse.spsolve(*input*, *other*, ***, *left=True*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/sparse/__init__.py#L317)
+torch.sparse.spsolve(*input*, *other*, ***, *left=True*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/sparse/__init__.py#L317)
 
 Computes the solution of a square system of linear equations with
 a unique solution. Its purpose is similar to [`torch.linalg.solve()`](torch.linalg.solve.html#torch.linalg.solve),

@@ -164,7 +164,7 @@ unregister_event_handler unregisters the `EventHandlerHandle` returned
 after calling `register_event_handler`. After this returns the event
 handler will no longer receive events.
 
-*class*torch.monitor.TensorboardEventHandler(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/monitor/__init__.py#L13)
+*class*torch.monitor.TensorboardEventHandler(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/monitor/__init__.py#L13)
 
 TensorboardEventHandler is an event handler that will write known events to
 the provided SummaryWriter.
@@ -181,6 +181,6 @@ Example
 >>> register_event_handler(TensorboardEventHandler(writer))
 ```
 
-__init__(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/monitor/__init__.py#L30)
+__init__(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/monitor/__init__.py#L30)
 
 Constructs the `TensorboardEventHandler`.

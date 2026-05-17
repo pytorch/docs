@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.xpu.graphs.graph(*xpu_graph*, *pool=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/xpu/graphs.py#L150)
+*class*torch.xpu.graphs.graph(*xpu_graph*, *pool=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/graphs.py#L150)
 
 Context-manager that captures XPU work into a [`torch.xpu.XPUGraph`](torch.xpu.XPUGraph.html#torch.xpu.XPUGraph) object for later replay.
 

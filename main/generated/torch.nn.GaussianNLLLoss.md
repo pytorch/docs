@@ -1,6 +1,6 @@
 # GaussianNLLLoss
 
-*class*torch.nn.GaussianNLLLoss(***, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/loss.py#L376)
+*class*torch.nn.GaussianNLLLoss(***, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/modules/loss.py#L376)
 
 Gaussian negative log likelihood loss.
 
@@ -77,7 +77,7 @@ target probability distribution", Proceedings of 1994 IEEE International
 Conference on Neural Networks (ICNN'94), Orlando, FL, USA, 1994, pp. 55-60
 vol.1, doi: 10.1109/ICNN.1994.374138.
 
-forward(*input*, *target*, *var*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/loss.py#L454)
+forward(*input*, *target*, *var*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/modules/loss.py#L454)
 
 Runs the forward pass.
 

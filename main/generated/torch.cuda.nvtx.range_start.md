@@ -1,6 +1,6 @@
 # torch.cuda.nvtx.range_start
 
-torch.cuda.nvtx.range_start(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/cuda/nvtx.py#L42)
+torch.cuda.nvtx.range_start(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/cuda/nvtx.py#L42)
 
 Mark the start of a range with string message. It returns an unique handle
 for this range to pass to the corresponding call to rangeEnd().

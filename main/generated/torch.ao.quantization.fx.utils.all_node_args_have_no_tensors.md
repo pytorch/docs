@@ -1,6 +1,6 @@
 # all_node_args_have_no_tensors
 
-*class*torch.ao.quantization.fx.utils.all_node_args_have_no_tensors(*node*, *modules*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/ao/quantization/fx/utils.py#L285)
+*class*torch.ao.quantization.fx.utils.all_node_args_have_no_tensors(*node*, *modules*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/ao/quantization/fx/utils.py#L285)
 
 If we know for sure that all of this node's args have no
 tensors (are primitives), return True. If we either

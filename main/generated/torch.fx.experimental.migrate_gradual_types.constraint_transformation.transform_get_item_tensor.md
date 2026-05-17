@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L235)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item_tensor(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L235)
 
 When the index is a tuple, then the output will be a tensor
 TODO: we have to check if this is the case for all HF models

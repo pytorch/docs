@@ -1,6 +1,6 @@
 # torch.functional.stft
 
-torch.functional.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/functional.py#L508)
+torch.functional.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/functional.py#L508)
 
 Short-time Fourier transform (STFT).
 

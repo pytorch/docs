@@ -1,6 +1,6 @@
 # torch.nn.attention.sdpa_kernel
 
-torch.nn.attention.sdpa_kernel(*backends*, *set_priority=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/attention/__init__.py#L113)
+torch.nn.attention.sdpa_kernel(*backends*, *set_priority=False*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/attention/__init__.py#L113)
 
 Context manager to select which backend to use for scaled dot product attention.
 

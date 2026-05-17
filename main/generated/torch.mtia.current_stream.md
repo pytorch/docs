@@ -1,6 +1,6 @@
 # torch.mtia.current_stream
 
-torch.mtia.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/mtia/__init__.py#L180)
+torch.mtia.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/mtia/__init__.py#L180)
 
 Return the currently selected [`Stream`](torch.mtia.Stream_class.html#torch.mtia.Stream) for a given device.
 

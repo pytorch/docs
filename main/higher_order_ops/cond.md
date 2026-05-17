@@ -124,7 +124,7 @@ There are several useful invariants for `torch.ops.higher_order.cond`:
 
 ## API Reference
 
-torch._higher_order_ops.cond.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/_higher_order_ops/cond.py#L95)
+torch._higher_order_ops.cond.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/_higher_order_ops/cond.py#L95)
 
 Conditionally applies true_fn or false_fn.
 

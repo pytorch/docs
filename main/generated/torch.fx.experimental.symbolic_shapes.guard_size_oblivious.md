@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_size_oblivious
 
-torch.fx.experimental.symbolic_shapes.guard_size_oblivious(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/experimental/symbolic_shapes.py#L525)
+torch.fx.experimental.symbolic_shapes.guard_size_oblivious(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/symbolic_shapes.py#L525)
 
 Perform a guard on a symbolic boolean expression in a size oblivious way.
 This is typically used when a non-oblivious test would result in a guard

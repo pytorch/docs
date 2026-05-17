@@ -1,6 +1,6 @@
 # validate_qmin_qmax
 
-*class*torch.ao.quantization.utils.validate_qmin_qmax(*quant_min*, *quant_max*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/ao/quantization/utils.py#L615)
+*class*torch.ao.quantization.utils.validate_qmin_qmax(*quant_min*, *quant_max*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/ao/quantization/utils.py#L615)
 
 Validates that the user-specified quantization range is properly initialized
 and within the given bound supported by the observer dtype.

@@ -1,6 +1,6 @@
 # torch.broadcast_shapes
 
-torch.broadcast_shapes(**shapes*) → [Size](../size.html#torch.Size)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/functional.py#L80)
+torch.broadcast_shapes(**shapes*) → [Size](../size.html#torch.Size)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/functional.py#L80)
 
 Similar to [`broadcast_tensors()`](torch.broadcast_tensors.html#torch.broadcast_tensors) but for shapes.
 

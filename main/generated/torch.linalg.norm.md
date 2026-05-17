@@ -1,6 +1,6 @@
 # torch.linalg.norm
 
-torch.linalg.norm(*A*, *ord=None*, *dim=None*, *keepdim=False*, ***, *out=None*, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/linalg/__init__.py#L1353)
+torch.linalg.norm(*input*, *ord=None*, *dim=None*, *keepdim=False*, ***, *out=None*, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/linalg/__init__.py#L1353)
 
 Computes a vector or matrix norm.
 
@@ -11,8 +11,8 @@ Whether this function computes a vector or matrix norm is determined as follows:
 - If `dim` is an int, the vector norm will be computed.
 - If `dim` is a 2-tuple, the matrix norm will be computed.
 - If `dim`= None and `ord`= None,
-`A` will be flattened to 1D and the 2-norm of the resulting vector will be computed.
-- If `dim`= None and `ord` != None, `A` must be 1D or 2D.
+`input` will be flattened to 1D and the 2-norm of the resulting vector will be computed.
+- If `dim`= None and `ord` != None, `input` must be 1D or 2D.
 
 `ord` defines the norm that is computed. The following norms are supported:
 
@@ -39,13 +39,13 @@ See also
 [`torch.linalg.matrix_norm()`](torch.linalg.matrix_norm.html#torch.linalg.matrix_norm) computes a matrix norm.
 
 The above functions are often clearer and more flexible than using `torch.linalg.norm()`.
-For example, torch.linalg.norm(A, ord=1, dim=(0, 1)) always
-computes a matrix norm, but with torch.linalg.vector_norm(A, ord=1, dim=(0, 1)) it is possible
+For example, torch.linalg.norm(input, ord=1, dim=(0, 1)) always
+computes a matrix norm, but with torch.linalg.vector_norm(input, ord=1, dim=(0, 1)) it is possible
 to compute a vector norm over the two dimensions.
 
 Parameters:
 
-- **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n) or (*, m, n) where * is zero or more batch dimensions
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n) or (*, m, n) where * is zero or more batch dimensions
 - **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: None
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute
 the vector or matrix norm. See above for the behavior when `dim`= None.
@@ -62,7 +62,7 @@ will be `dtype`. Default: None
 
 Returns:
 
-A real-valued tensor, even when `A` is complex.
+A real-valued tensor, even when `input` is complex.
 
 Examples:
 

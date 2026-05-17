@@ -1,6 +1,6 @@
 # torch.fx.node.map_aggregate
 
-torch.fx.node.map_aggregate(*a*, *fn*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/fx/node.py#L909)
+torch.fx.node.map_aggregate(*a*, *fn*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/node.py#L909)
 
 Apply fn recursively to each object appearing in arg.
 

@@ -1,6 +1,6 @@
 # FractionalMaxPool2d
 
-*class*torch.nn.modules.pooling.FractionalMaxPool2d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/pooling.py#L913)
+*class*torch.nn.modules.pooling.FractionalMaxPool2d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/modules/pooling.py#L913)
 
 Applies a 2D fractional max pooling over an input signal composed of several input planes.
 

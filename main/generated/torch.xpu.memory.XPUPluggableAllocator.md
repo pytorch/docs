@@ -1,6 +1,6 @@
 # XPUPluggableAllocator
 
-*class*torch.xpu.memory.XPUPluggableAllocator(*path_to_lib_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/xpu/memory.py#L487)
+*class*torch.xpu.memory.XPUPluggableAllocator(*path_to_lib_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/memory.py#L487)
 
 XPU memory allocator loaded dynamically from a shared library.
 

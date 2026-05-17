@@ -1,6 +1,6 @@
 # torch.cuda.memory.max_memory_cached
 
-torch.cuda.memory.max_memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/cuda/memory.py#L602)
+torch.cuda.memory.max_memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/cuda/memory.py#L602)
 
 Deprecated; see `max_memory_reserved()`.
 

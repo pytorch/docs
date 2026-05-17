@@ -1,6 +1,6 @@
 # torch.compiler.allow_in_graph
 
-torch.compiler.allow_in_graph(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/compiler/__init__.py#L71)
+torch.compiler.allow_in_graph(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/compiler/__init__.py#L71)
 
 Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function
 and instead directly write it to the graph when encountered.

@@ -1,6 +1,6 @@
 # ReLU6
 
-*class*torch.nn.modules.activation.ReLU6(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/activation.py#L304)
+*class*torch.nn.modules.activation.ReLU6(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/modules/activation.py#L304)
 
 Applies the ReLU6 function element-wise.
 
@@ -26,7 +26,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/modules/activation.py#L329)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/modules/activation.py#L329)
 
 Return the extra representation of the module.
 

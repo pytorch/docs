@@ -1,6 +1,6 @@
 # torch.nn.functional.feature_alpha_dropout
 
-torch.nn.functional.feature_alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/df83f06a8c49a667b9408934fa9eaae1aaf32d04/torch/nn/functional.py#L1639)
+torch.nn.functional.feature_alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/nn/functional.py#L1639)
 
 Randomly masks out entire channels (a channel is a feature map).
 
