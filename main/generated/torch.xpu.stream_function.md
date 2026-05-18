@@ -1,6 +1,6 @@
 # torch.xpu.stream
 
-torch.xpu.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/xpu/__init__.py#L599)
+torch.xpu.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/xpu/__init__.py#L599)
 
 Wrap around the Context-manager StreamContext that selects a given stream.
 

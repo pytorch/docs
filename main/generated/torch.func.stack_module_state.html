@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+gitda74fec )">
+<meta name="llm:version" content="main (2.13.0a0+git6e3cf2e )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitda74fec )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git6e3cf2e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3578,7 +3578,7 @@ document.write(`
 <h1>torch.func.stack_module_state<a class="headerlink" href="#torch-func-stack-module-state" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.stack_module_state">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">stack_module_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">params</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">buffers</span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/_functorch/functional_call.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.stack_module_state" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">stack_module_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">params</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">buffers</span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/_functorch/functional_call.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.stack_module_state" title="Link to this definition">#</a></dt>
 <dd><p>Prepares a list of torch.nn.Modules for ensembling with <a class="reference internal" href="torch.func.vmap.html#torch.func.vmap" title="torch.func.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a>.</p>
 <p>Given a list of <code class="docutils literal notranslate"><span class="pre">M</span></code> <code class="docutils literal notranslate"><span class="pre">nn.Modules</span></code> of the same class, returns two dictionaries
 that stack all of their parameters and buffers together, indexed by name.

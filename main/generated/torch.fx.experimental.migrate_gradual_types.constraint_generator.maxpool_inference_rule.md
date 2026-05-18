@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.maxpool_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.maxpool_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/da74fecc24c85f9694061e961858303c44be4338/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1678)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.maxpool_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1678)
 
 Return type:
 
