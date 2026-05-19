@@ -45,4 +45,5 @@ Next, we will delve into each chapter of this guide. Each chapter focuses on a k
 - [Operator Registration](operators.html)
 - [Automatic Mixed Precision](amp.html)
 - [Profiler Integration](profiler.html)
+- [Distributed Training Integration](distributed.html)
 - [CI Integration](ci.html)

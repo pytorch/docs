@@ -15,6 +15,7 @@ It is lazily initialized, so you can always import it, and use
 | [`can_device_access_peer`](generated/torch.cuda.can_device_access_peer.html#torch.cuda.can_device_access_peer) | Check if peer access between two devices is possible. |
 | [`check_error`](generated/torch.cuda.check_error.html#torch.cuda.check_error) | Raise an error if the result of a CUDA runtime API call is not success. |
 | [`current_blas_handle`](generated/torch.cuda.current_blas_handle.html#torch.cuda.current_blas_handle) | Return cublasHandle_t pointer to current cuBLAS handle |
+| [`current_solver_handle`](generated/torch.cuda.current_solver_handle.html#torch.cuda.current_solver_handle) | Return cusolverDnHandle_t pointer to current cuSOLVER handle |
 | [`current_device`](generated/torch.cuda.current_device.html#torch.cuda.current_device) | Return the index of a currently selected device. |
 | [`current_stream`](generated/torch.cuda.current_stream.html#torch.cuda.current_stream) | Return the currently selected [`Stream`](generated/torch.cuda.Stream_class.html#torch.cuda.Stream) for a given device. |
 | [`cudart`](generated/torch.cuda.cudart.html#torch.cuda.cudart) | Retrieves the CUDA runtime API module. |
@@ -127,7 +128,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/cuda/memory.py#L1320)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/cuda/memory.py#L1334)
 
 A context manager that routes allocations to a given pool.
 
@@ -146,7 +147,7 @@ the given pool. If a new thread is spawned inside the context manager
 (e.g. by calling backward) the allocations in that thread will not
 route to the given pool.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -224,6 +225,6 @@ See the docs for [`GreenContext`](generated/torch.cuda.green_contexts.GreenConte
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/6e3cf2e4280672104341718ea51a55799bb3aca4/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.
