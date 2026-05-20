@@ -1,5 +1,5 @@
 # torch.sym_min
 
-torch.sym_min(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/__init__.py#L938)
+torch.sym_min(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/__init__.py#L937)
 
 SymInt-aware utility for min().

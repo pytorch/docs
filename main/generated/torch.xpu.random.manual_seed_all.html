@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git2700915 )">
+<meta name="llm:version" content="main (2.13.0a0+git3f8cf8d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git2700915 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3f8cf8d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3372,11 +3372,13 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.clock_rate.html">torch.xpu.clock_rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device_count.html">torch.xpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device_of.html">device_of</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.device_memory_used.html">torch.xpu.device_memory_used</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_arch_list.html">torch.xpu.get_arch_list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_device_capability.html">torch.xpu.get_device_capability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_device_name.html">torch.xpu.get_device_name</a></li>
@@ -3388,11 +3390,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory_usage.html">torch.xpu.memory_usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.power_draw.html">torch.xpu.power_draw</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.temperature.html">torch.xpu.temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.utilization.html">torch.xpu.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.initial_seed.html">torch.xpu.initial_seed</a></li>
@@ -3630,7 +3635,7 @@ document.write(`
 <h1>torch.xpu.random.manual_seed_all<a class="headerlink" href="#torch-xpu-random-manual-seed-all" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.xpu.random.manual_seed_all">
-<span class="sig-prename descclassname"><span class="pre">torch.xpu.random.</span></span><span class="sig-name descname"><span class="pre">manual_seed_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/xpu/random.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.random.manual_seed_all" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.xpu.random.</span></span><span class="sig-name descname"><span class="pre">manual_seed_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/xpu/random.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.random.manual_seed_all" title="Link to this definition">#</a></dt>
 <dd><p>Set the seed for generating random numbers on all GPUs.</p>
 <p>It’s safe to call this function if XPU is not available; in that case, it is silently ignored.</p>
 <dl class="field-list simple">

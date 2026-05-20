@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.xpu.device_of.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.xpu.get_arch_list" href="torch.xpu.get_arch_list.html" />
+    <link rel="next" title="torch.xpu.device_memory_used" href="torch.xpu.device_memory_used.html" />
     <link rel="prev" title="torch.xpu.device_count" href="torch.xpu.device_count.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git2700915 )">
+<meta name="llm:version" content="main (2.13.0a0+git3f8cf8d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git2700915 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3f8cf8d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3372,11 +3372,13 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.clock_rate.html">torch.xpu.clock_rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device_count.html">torch.xpu.device_count</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">device_of</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.device_memory_used.html">torch.xpu.device_memory_used</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_arch_list.html">torch.xpu.get_arch_list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_device_capability.html">torch.xpu.get_device_capability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_device_name.html">torch.xpu.get_device_name</a></li>
@@ -3388,11 +3390,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory_usage.html">torch.xpu.memory_usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.power_draw.html">torch.xpu.power_draw</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.temperature.html">torch.xpu.temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.utilization.html">torch.xpu.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.initial_seed.html">torch.xpu.initial_seed</a></li>
@@ -3619,7 +3624,7 @@ document.write(`
 <h1>device_of<a class="headerlink" href="#device-of" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.device_of">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">device_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2700915a75e05f161593ddd3bb8f6c01c29b8777/torch/xpu/__init__.py#L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.device_of" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">device_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/xpu/__init__.py#L415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.device_of" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that changes the current device to that of given object.</p>
 <p>You can use both tensors and storages as arguments. If a given object is
 not allocated on a XPU, this is a no-op.</p>
@@ -3684,11 +3689,11 @@ not allocated on a XPU, this is a no-op.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.xpu.get_arch_list.html"
+       href="torch.xpu.device_memory_used.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.xpu.get_arch_list</p>
+        <p class="prev-next-title">torch.xpu.device_memory_used</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3723,11 +3728,11 @@ not allocated on a XPU, this is a no-op.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.xpu.get_arch_list.html"
+       href="torch.xpu.device_memory_used.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.xpu.get_arch_list</p>
+        <p class="prev-next-title">torch.xpu.device_memory_used</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
