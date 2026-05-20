@@ -141,6 +141,11 @@ header p {
 .stat-value.green { color: var(--accent-green); }
 .stat-value.red { color: var(--accent-red); }
 .stat-value.purple { color: var(--accent-fuchsia); }
+.stat-pct {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
 .stat-label {
     color: var(--text-secondary);
     font-size: 0.85rem;
@@ -427,6 +432,12 @@ tr.rank-2 { background: rgba(205, 127, 50, 0.06); }
 .winners-section {
     margin-bottom: 2.5rem;
 }
+.winners-note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
 .podium-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -484,51 +495,85 @@ tr.rank-2 { background: rgba(205, 127, 50, 0.06); }
     font-size: 0.85rem;
 }
 .mentions-section {
+    margin-top: 1.5rem;
+}
+.mentions-header {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.mentions-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.mention-card {
+    flex: 0 1 300px;
+}
+@media (max-width: 480px) {
+    .mention-card {
+        flex: 1 1 100%;
+    }
+}
+.mention-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1.25rem;
+    text-align: center;
+    transition: border-color 0.2s;
 }
-.mentions-title {
-    font-size: 1rem;
+.mention-card:hover {
+    border-color: var(--mention-color, var(--accent-orange));
+}
+.mention-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--mention-color, var(--accent-orange));
+}
+.mention-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mention-color, var(--accent-orange));
     font-weight: 600;
     margin-bottom: 0.75rem;
-    color: var(--gold);
 }
-.mention-item {
+.mention-person {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
-.mention-item:last-child { border-bottom: none; }
 .mention-avatar {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
+    border: 2px solid var(--mention-color, var(--accent-orange));
 }
-.mention-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.mention-info a {
+.mention-person a {
     color: var(--text-primary);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 }
-.mention-info a:hover { color: var(--accent-orange); }
+.mention-person a:hover { color: var(--accent-orange); }
 .mention-reason {
     font-size: 0.8rem;
     color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
 }
 .mention-pts {
     color: var(--accent-orange);
     font-weight: 700;
     font-size: 0.85rem;
 }
-
 footer {
     text-align: center;
     padding: 2rem 0;
@@ -571,7 +616,7 @@ footer a:hover { color: var(--accent-orange); }
         <p>Leaderboard &mdash; Community documentation contributions</p>
         <div class="event-dates">May 05, 2026 10:00 AM PT &mdash; May 17, 2026 05:00 PM PT</div>
         <div class="countdown" id="countdown"></div>
-        <div class="updated">Updated every 12 hours &mdash; Last updated: 2026-05-19 05:30 PM PT</div>
+        <div class="updated">Updated every 12 hours &mdash; Last updated: 2026-05-19 09:06 PM PT</div>
     </header>
 
     <div class="stats-grid">
@@ -582,27 +627,208 @@ footer a:hover { color: var(--accent-orange); }
         </div>
         <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-code-pull-request"></i></div>
-            <div class="stat-value orange">154</div>
+            <div class="stat-value orange">154<span class="stat-pct">/154 (100%)</span></div>
             <div class="stat-label">PRs Closed</div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-            <div class="stat-value purple">117</div>
-            <div class="stat-label">Total Issues</div>
-        </div>
-        <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="stat-value green">115</div>
+            <div class="stat-value green">115<span class="stat-pct">/117 (98%)</span></div>
             <div class="stat-label">Issues Closed</div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon"><i class="fa-solid fa-circle-dot"></i></div>
-            <div class="stat-value red">2</div>
-            <div class="stat-label">Issues Open</div>
+            <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+            <div class="stat-value purple">3</div>
+            <div class="stat-label">Repositories</div>
         </div>
     </div>
 
     
+    <div class="winners-section">
+        <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="var(--text-secondary)">
+                <path d="M8 0a1 1 0 011 1v.75h2a1 1 0 011 1v1.5a3.5 3.5 0 01-2.5 3.36A3.99 3.99 0 018 11a3.99 3.99 0 01-1.5-3.39A3.5 3.5 0 014 4.25v-1.5a1 1 0 011-1h2V1a1 1 0 011-1zM5.5 3.25v1a2 2 0 001.435 1.92L7.5 6.34V9.5a2.5 2.5 0 005 0V6.34l.565-.17A2 2 0 0014.5 4.25v-1h-2v1a.5.5 0 01-.5.5H8a.5.5 0 01-.5-.5v-1h-2z"/>
+            </svg>
+            Winners
+        </div>
+        <div class="winners-note">Tied and near-tied contributors may share places</div>
+        <div class="podium-grid">
+                <div class="podium-card podium-gold">
+                    <div class="podium-medal"><i class="fa-solid fa-trophy" style="color: var(--gold)"></i></div>
+                    <div class="podium-place">1st Place</div>
+                    <div class="podium-people">
+                    <div class="winner-person">
+                        <img src="https://github.com/ymrohit.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/ymrohit" target="_blank">
+                            ymrohit
+                        </a>
+                        <span class="winner-pts">47 pts</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="podium-card podium-silver">
+                    <div class="podium-medal"><i class="fa-solid fa-trophy" style="color: var(--silver)"></i></div>
+                    <div class="podium-place">2nd Place</div>
+                    <div class="podium-people">
+                    <div class="winner-person">
+                        <img src="https://github.com/XAheli.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/XAheli" target="_blank">
+                            XAheli
+                        </a>
+                        <span class="winner-pts">32 pts</span>
+                    </div>
+                    <div class="winner-person">
+                        <img src="https://github.com/PyDevC.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/PyDevC" target="_blank">
+                            PyDevC
+                        </a>
+                        <span class="winner-pts">30 pts</span>
+                    </div>
+                    <div class="winner-person">
+                        <img src="https://github.com/darknight054.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/darknight054" target="_blank">
+                            darknight054
+                        </a>
+                        <span class="winner-pts">29 pts</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="podium-card podium-bronze">
+                    <div class="podium-medal"><i class="fa-solid fa-trophy" style="color: var(--bronze)"></i></div>
+                    <div class="podium-place">3rd Place</div>
+                    <div class="podium-people">
+                    <div class="winner-person">
+                        <img src="https://github.com/JonathanColetti.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/JonathanColetti" target="_blank">
+                            JonathanColetti
+                        </a>
+                        <span class="winner-pts">25 pts</span>
+                    </div>
+                    <div class="winner-person">
+                        <img src="https://github.com/Kadermiyanyedi.png?size=64"
+                             alt="" class="winner-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/Kadermiyanyedi" target="_blank">
+                            Kadermiyanyedi
+                        </a>
+                        <span class="winner-pts">20 pts</span>
+                    </div>
+                    </div>
+                </div>
+        </div>
+            <div class="mentions-section">
+                <div class="mentions-header"><i class="fa-solid fa-star"></i> Honorable Mentions</div>
+                <div class="mentions-grid">
+                <div class="mention-card" style="--mention-color: #40e0d0">
+                    <div class="mention-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="mention-title">First-timer</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/AswaniSahoo.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/AswaniSahoo" target="_blank">
+                            AswaniSahoo
+                        </a>
+                    </div>
+                    <div class="mention-reason">7 PRs across pytorch and executorch</div>
+                    <span class="mention-pts">17 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: var(--accent-violet)">
+                    <div class="mention-icon"><i class="fa-solid fa-gem"></i></div>
+                    <div class="mention-title">Quality contributor</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/Vasanthadithya-mundrathi.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/Vasanthadithya-mundrathi" target="_blank">
+                            Vasanthadithya-mundrathi
+                        </a>
+                    </div>
+                    <div class="mention-reason">advanced difficulty across all 3 repos</div>
+                    <span class="mention-pts">14 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: #40e0d0">
+                    <div class="mention-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="mention-title">First-timer</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/Nazim-fad.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/Nazim-fad" target="_blank">
+                            Nazim-fad
+                        </a>
+                    </div>
+                    <div class="mention-reason">contributed to both pytorch and executorch</div>
+                    <span class="mention-pts">13 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: var(--gold)">
+                    <div class="mention-icon"><i class="fa-solid fa-star"></i></div>
+                    <div class="mention-title">Rising star</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/ozgecinko.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/ozgecinko" target="_blank">
+                            ozgecinko
+                        </a>
+                    </div>
+                    <div class="mention-reason">tackling medium-difficulty issues</div>
+                    <span class="mention-pts">14 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: var(--accent-fuchsia)">
+                    <div class="mention-icon"><i class="fa-solid fa-arrows-spin"></i></div>
+                    <div class="mention-title">Consistent contributor</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/kiszk.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/kiszk" target="_blank">
+                            kiszk
+                        </a>
+                    </div>
+                    <div class="mention-reason">4th docathon, pytorch core</div>
+                    <span class="mention-pts">9 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: var(--accent-green)">
+                    <div class="mention-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <div class="mention-title">Returning contributor</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/saurabhkthakur.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/saurabhkthakur" target="_blank">
+                            saurabhkthakur
+                        </a>
+                    </div>
+                    <div class="mention-reason">2nd docathon, tutorials specialist (4 PRs)</div>
+                    <span class="mention-pts">11 pts</span>
+                </div>
+                <div class="mention-card" style="--mention-color: #ff6b35">
+                    <div class="mention-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <div class="mention-title">Returning contributor</div>
+                    <div class="mention-person">
+                        <img src="https://github.com/spzala.png?size=48"
+                             alt="" class="mention-avatar"
+                             onerror="this.style.display='none'">
+                        <a href="https://github.com/spzala" target="_blank">
+                            spzala
+                        </a>
+                    </div>
+                    <div class="mention-reason">5th docathon, fastest PR turnaround at 5.4h</div>
+                    <span class="mention-pts">6 pts</span>
+                </div>
+                </div>
+            </div>
+    </div>
 
     <div class="repos-section">
         <div class="section-title">
@@ -978,7 +1204,7 @@ footer a:hover { color: var(--accent-orange); }
             <table>
                 <thead>
                     <tr>
-                        
+                        <th>Rank</th>
                         <th>Contributor</th>
                         <th>Points</th>
                         <th>PRs</th>
@@ -988,7 +1214,9 @@ footer a:hover { color: var(--accent-orange); }
                 </thead>
                 <tbody>
             <tr class="rank-0">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--gold)" title="1st Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/ymrohit.png?size=32"
                          alt="" class="avatar"
@@ -1003,7 +1231,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183460" target="_blank" class="pr-link">#183460</a> <a href="https://github.com/pytorch/pytorch/pull/183352" target="_blank" class="pr-link">#183352</a> <a href="https://github.com/pytorch/pytorch/pull/183338" target="_blank" class="pr-link">#183338</a> <a href="https://github.com/pytorch/pytorch/pull/183332" target="_blank" class="pr-link">#183332</a> <a href="https://github.com/pytorch/pytorch/pull/183331" target="_blank" class="pr-link">#183331</a> <a href="https://github.com/pytorch/pytorch/pull/182958" target="_blank" class="pr-link">#182958</a> <a href="https://github.com/pytorch/pytorch/pull/182708" target="_blank" class="pr-link">#182708</a> <a href="https://github.com/pytorch/pytorch/pull/182681" target="_blank" class="pr-link">#182681</a> <a href="https://github.com/pytorch/pytorch/pull/182680" target="_blank" class="pr-link">#182680</a> <a href="https://github.com/pytorch/pytorch/pull/182589" target="_blank" class="pr-link">#182589</a> <a href="https://github.com/pytorch/pytorch/pull/182588" target="_blank" class="pr-link">#182588</a> <a href="https://github.com/pytorch/pytorch/pull/182559" target="_blank" class="pr-link">#182559</a> <a href="https://github.com/pytorch/pytorch/pull/182556" target="_blank" class="pr-link">#182556</a> <a href="https://github.com/pytorch/pytorch/pull/182543" target="_blank" class="pr-link">#182543</a> <a href="https://github.com/pytorch/tutorials/pull/3881" target="_blank" class="pr-link">#3881</a> <a href="https://github.com/pytorch/executorch/pull/19518" target="_blank" class="pr-link">#19518</a> <a href="https://github.com/pytorch/executorch/pull/19385" target="_blank" class="pr-link">#19385</a> <a href="https://github.com/pytorch/executorch/pull/19338" target="_blank" class="pr-link">#19338</a> <a href="https://github.com/pytorch/pytorch.github.io/pull/2074" target="_blank" class="pr-link">#2074</a></td>
             </tr>
             <tr class="rank-1">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--silver)" title="2nd Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/XAheli.png?size=32"
                          alt="" class="avatar"
@@ -1017,8 +1247,10 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-diff"><span class="diff-badge diff-advanced">advanced x1</span> <span class="diff-badge diff-easy">easy x6</span> <span class="diff-badge diff-medium">medium x2</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/184112" target="_blank" class="pr-link">#184112</a> <a href="https://github.com/pytorch/pytorch/pull/183426" target="_blank" class="pr-link">#183426</a> <a href="https://github.com/pytorch/pytorch/pull/183422" target="_blank" class="pr-link">#183422</a> <a href="https://github.com/pytorch/pytorch/pull/182793" target="_blank" class="pr-link">#182793</a> <a href="https://github.com/pytorch/pytorch/pull/182787" target="_blank" class="pr-link">#182787</a> <a href="https://github.com/pytorch/pytorch/pull/182551" target="_blank" class="pr-link">#182551</a> <a href="https://github.com/pytorch/pytorch/pull/182544" target="_blank" class="pr-link">#182544</a> <a href="https://github.com/pytorch/executorch/pull/19392" target="_blank" class="pr-link">#19392</a> <a href="https://github.com/pytorch/executorch/pull/19325" target="_blank" class="pr-link">#19325</a></td>
             </tr>
-            <tr class="rank-2">
-                
+            <tr class="rank-1">
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--silver)" title="2nd Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/PyDevC.png?size=32"
                          alt="" class="avatar"
@@ -1032,8 +1264,10 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-diff"><span class="diff-badge diff-advanced">advanced x1</span> <span class="diff-badge diff-easy">easy x5</span> <span class="diff-badge diff-medium">medium x2</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/184080" target="_blank" class="pr-link">#184080</a> <a href="https://github.com/pytorch/pytorch/pull/183918" target="_blank" class="pr-link">#183918</a> <a href="https://github.com/pytorch/pytorch/pull/183454" target="_blank" class="pr-link">#183454</a> <a href="https://github.com/pytorch/pytorch/pull/182847" target="_blank" class="pr-link">#182847</a> <a href="https://github.com/pytorch/pytorch/pull/182783" target="_blank" class="pr-link">#182783</a> <a href="https://github.com/pytorch/pytorch/pull/182613" target="_blank" class="pr-link">#182613</a> <a href="https://github.com/pytorch/pytorch/pull/182547" target="_blank" class="pr-link">#182547</a> <a href="https://github.com/pytorch/pytorch/pull/182545" target="_blank" class="pr-link">#182545</a></td>
             </tr>
-            <tr class="">
-                
+            <tr class="rank-1">
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--silver)" title="2nd Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/darknight054.png?size=32"
                          alt="" class="avatar"
@@ -1047,8 +1281,10 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-diff"><span class="diff-badge diff-advanced">advanced x1</span> <span class="diff-badge diff-easy">easy x2</span> <span class="diff-badge diff-medium">medium x3</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182887" target="_blank" class="pr-link">#182887</a> <a href="https://github.com/pytorch/pytorch/pull/182876" target="_blank" class="pr-link">#182876</a> <a href="https://github.com/pytorch/pytorch/pull/182775" target="_blank" class="pr-link">#182775</a> <a href="https://github.com/pytorch/pytorch/pull/182682" target="_blank" class="pr-link">#182682</a> <a href="https://github.com/pytorch/pytorch/pull/182625" target="_blank" class="pr-link">#182625</a> <a href="https://github.com/pytorch/executorch/pull/19460" target="_blank" class="pr-link">#19460</a></td>
             </tr>
-            <tr class="">
-                
+            <tr class="rank-2">
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--bronze)" title="3rd Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/JonathanColetti.png?size=32"
                          alt="" class="avatar"
@@ -1062,8 +1298,10 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-diff"><span class="diff-badge diff-advanced">advanced x1</span> <span class="diff-badge diff-easy">easy x5</span> <span class="diff-badge diff-medium">medium x1</span></td>
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183807" target="_blank" class="pr-link">#183807</a> <a href="https://github.com/pytorch/pytorch/pull/183793" target="_blank" class="pr-link">#183793</a> <a href="https://github.com/pytorch/pytorch/pull/182926" target="_blank" class="pr-link">#182926</a> <a href="https://github.com/pytorch/pytorch/pull/182866" target="_blank" class="pr-link">#182866</a> <a href="https://github.com/pytorch/pytorch/pull/182555" target="_blank" class="pr-link">#182555</a> <a href="https://github.com/pytorch/pytorch/pull/182542" target="_blank" class="pr-link">#182542</a> <a href="https://github.com/pytorch/tutorials/pull/3869" target="_blank" class="pr-link">#3869</a></td>
             </tr>
-            <tr class="">
-                
+            <tr class="rank-2">
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-medal" style="color: var(--bronze)" title="3rd Place"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Kadermiyanyedi.png?size=32"
                          alt="" class="avatar"
@@ -1078,7 +1316,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183349" target="_blank" class="pr-link">#183349</a> <a href="https://github.com/pytorch/pytorch/pull/182991" target="_blank" class="pr-link">#182991</a> <a href="https://github.com/pytorch/pytorch/pull/182933" target="_blank" class="pr-link">#182933</a> <a href="https://github.com/pytorch/pytorch/pull/182860" target="_blank" class="pr-link">#182860</a> <a href="https://github.com/pytorch/pytorch/pull/182574" target="_blank" class="pr-link">#182574</a> <a href="https://github.com/pytorch/pytorch/pull/182553" target="_blank" class="pr-link">#182553</a> <a href="https://github.com/pytorch/tutorials/pull/3870" target="_blank" class="pr-link">#3870</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/AswaniSahoo.png?size=32"
                          alt="" class="avatar"
@@ -1093,7 +1333,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182925" target="_blank" class="pr-link">#182925</a> <a href="https://github.com/pytorch/pytorch/pull/182626" target="_blank" class="pr-link">#182626</a> <a href="https://github.com/pytorch/pytorch/pull/182608" target="_blank" class="pr-link">#182608</a> <a href="https://github.com/pytorch/pytorch/pull/182562" target="_blank" class="pr-link">#182562</a> <a href="https://github.com/pytorch/pytorch/pull/182557" target="_blank" class="pr-link">#182557</a> <a href="https://github.com/pytorch/executorch/pull/19387" target="_blank" class="pr-link">#19387</a> <a href="https://github.com/pytorch/executorch/pull/19386" target="_blank" class="pr-link">#19386</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Vasanthadithya-mundrathi.png?size=32"
                          alt="" class="avatar"
@@ -1108,7 +1350,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183498" target="_blank" class="pr-link">#183498</a> <a href="https://github.com/pytorch/tutorials/pull/3895" target="_blank" class="pr-link">#3895</a> <a href="https://github.com/pytorch/executorch/pull/19565" target="_blank" class="pr-link">#19565</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/ozgecinko.png?size=32"
                          alt="" class="avatar"
@@ -1123,7 +1367,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182944" target="_blank" class="pr-link">#182944</a> <a href="https://github.com/pytorch/pytorch/pull/182905" target="_blank" class="pr-link">#182905</a> <a href="https://github.com/pytorch/pytorch/pull/182575" target="_blank" class="pr-link">#182575</a> <a href="https://github.com/pytorch/executorch/pull/19444" target="_blank" class="pr-link">#19444</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Nazim-fad.png?size=32"
                          alt="" class="avatar"
@@ -1138,7 +1384,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183936" target="_blank" class="pr-link">#183936</a> <a href="https://github.com/pytorch/pytorch/pull/183393" target="_blank" class="pr-link">#183393</a> <a href="https://github.com/pytorch/pytorch/pull/182694" target="_blank" class="pr-link">#182694</a> <a href="https://github.com/pytorch/pytorch/pull/182569" target="_blank" class="pr-link">#182569</a> <a href="https://github.com/pytorch/executorch/pull/19441" target="_blank" class="pr-link">#19441</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/saurabhkthakur.png?size=32"
                          alt="" class="avatar"
@@ -1153,7 +1401,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3882" target="_blank" class="pr-link">#3882</a> <a href="https://github.com/pytorch/tutorials/pull/3874" target="_blank" class="pr-link">#3874</a> <a href="https://github.com/pytorch/tutorials/pull/3873" target="_blank" class="pr-link">#3873</a> <a href="https://github.com/pytorch/tutorials/pull/3866" target="_blank" class="pr-link">#3866</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/somelamedude-git.png?size=32"
                          alt="" class="avatar"
@@ -1168,7 +1418,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183464" target="_blank" class="pr-link">#183464</a> <a href="https://github.com/pytorch/pytorch/pull/183411" target="_blank" class="pr-link">#183411</a> <a href="https://github.com/pytorch/pytorch/pull/182871" target="_blank" class="pr-link">#182871</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/kiszk.png?size=32"
                          alt="" class="avatar"
@@ -1183,7 +1435,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182938" target="_blank" class="pr-link">#182938</a> <a href="https://github.com/pytorch/pytorch/pull/182820" target="_blank" class="pr-link">#182820</a> <a href="https://github.com/pytorch/pytorch/pull/182637" target="_blank" class="pr-link">#182637</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/omkar-334.png?size=32"
                          alt="" class="avatar"
@@ -1198,7 +1452,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3863" target="_blank" class="pr-link">#3863</a> <a href="https://github.com/pytorch/tutorials/pull/3861" target="_blank" class="pr-link">#3861</a> <a href="https://github.com/pytorch/executorch/pull/19611" target="_blank" class="pr-link">#19611</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/champion254.png?size=32"
                          alt="" class="avatar"
@@ -1213,7 +1469,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182956" target="_blank" class="pr-link">#182956</a> <a href="https://github.com/pytorch/pytorch/pull/182713" target="_blank" class="pr-link">#182713</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/jvz37.png?size=32"
                          alt="" class="avatar"
@@ -1228,7 +1486,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3885" target="_blank" class="pr-link">#3885</a> <a href="https://github.com/pytorch/tutorials/pull/3867" target="_blank" class="pr-link">#3867</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-star" style="color: var(--gold)" title="Honorable Mention"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/spzala.png?size=32"
                          alt="" class="avatar"
@@ -1243,7 +1503,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182858" target="_blank" class="pr-link">#182858</a> <a href="https://github.com/pytorch/pytorch/pull/182690" target="_blank" class="pr-link">#182690</a> <a href="https://github.com/pytorch/tutorials/pull/3884" target="_blank" class="pr-link">#3884</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Suh0161.png?size=32"
                          alt="" class="avatar"
@@ -1258,7 +1520,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182550" target="_blank" class="pr-link">#182550</a> <a href="https://github.com/pytorch/pytorch/pull/182548" target="_blank" class="pr-link">#182548</a> <a href="https://github.com/pytorch/pytorch/pull/182538" target="_blank" class="pr-link">#182538</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/srini047.png?size=32"
                          alt="" class="avatar"
@@ -1273,7 +1537,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183084" target="_blank" class="pr-link">#183084</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/feiji111.png?size=32"
                          alt="" class="avatar"
@@ -1288,7 +1554,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183351" target="_blank" class="pr-link">#183351</a> <a href="https://github.com/pytorch/pytorch/pull/182776" target="_blank" class="pr-link">#182776</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/akshayavb99.png?size=32"
                          alt="" class="avatar"
@@ -1303,7 +1571,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183341" target="_blank" class="pr-link">#183341</a> <a href="https://github.com/pytorch/pytorch/pull/182939" target="_blank" class="pr-link">#182939</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Ashish-Soni08.png?size=32"
                          alt="" class="avatar"
@@ -1318,7 +1588,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182807" target="_blank" class="pr-link">#182807</a> <a href="https://github.com/pytorch/executorch/pull/14251" target="_blank" class="pr-link">#14251</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/Priyanshu-byte-coder.png?size=32"
                          alt="" class="avatar"
@@ -1333,7 +1605,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183279" target="_blank" class="pr-link">#183279</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/rdharshinir.png?size=32"
                          alt="" class="avatar"
@@ -1348,7 +1622,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183089" target="_blank" class="pr-link">#183089</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/lauhemahfus.png?size=32"
                          alt="" class="avatar"
@@ -1363,7 +1639,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/183048" target="_blank" class="pr-link">#183048</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/wntrsnw130.png?size=32"
                          alt="" class="avatar"
@@ -1378,7 +1656,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182930" target="_blank" class="pr-link">#182930</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/mokashang.png?size=32"
                          alt="" class="avatar"
@@ -1393,7 +1673,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182923" target="_blank" class="pr-link">#182923</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/reuteelf.png?size=32"
                          alt="" class="avatar"
@@ -1408,7 +1690,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182877" target="_blank" class="pr-link">#182877</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/rwtarpit.png?size=32"
                          alt="" class="avatar"
@@ -1423,7 +1707,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182865" target="_blank" class="pr-link">#182865</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/praneethhere.png?size=32"
                          alt="" class="avatar"
@@ -1438,7 +1724,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/pytorch/pull/182620" target="_blank" class="pr-link">#182620</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/thesteve0.png?size=32"
                          alt="" class="avatar"
@@ -1453,7 +1741,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3896" target="_blank" class="pr-link">#3896</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/scinqyz.png?size=32"
                          alt="" class="avatar"
@@ -1468,7 +1758,9 @@ footer a:hover { color: var(--accent-orange); }
                 <td class="col-links"><a href="https://github.com/pytorch/tutorials/pull/3883" target="_blank" class="pr-link">#3883</a></td>
             </tr>
             <tr class="">
-                
+                <td class="col-rank">
+                    <span class="rank-medal"><i class="fa-solid fa-user-check" style="color: var(--accent-green)" title="Participant"></i></span>
+                </td>
                 <td class="col-author">
                     <img src="https://github.com/madhesh60.png?size=32"
                          alt="" class="avatar"
