@@ -29,7 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=ace20255" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=a6c16915" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git3f8cf8d )">
+<meta name="llm:version" content="main (2.13.0a0+git1af0b90 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git3f8cf8d )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git1af0b90 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3684,7 +3684,7 @@ document.write(`
 <h1>graph<a class="headerlink" href="#graph" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.graphs.graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.graphs.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuda_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/cuda/graphs.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graphs.graph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.graphs.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuda_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_input_liveness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/cuda/graphs.py#L365"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graphs.graph" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that captures CUDA work into a <a class="reference internal" href="torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph" title="torch.cuda.CUDAGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.CUDAGraph</span></code></a> object for later replay.</p>
 <p>See <a class="reference internal" href="../notes/cuda.html#cuda-graph-semantics"><span class="std std-ref">CUDA Graphs</span></a> for a general introduction,
 detailed use, and constraints.</p>
@@ -3708,6 +3708,15 @@ recording on entry and automatically calls
 the capture ends.  Annotations are <strong>not</strong> cleared on exit so that multiple
 graphs in the same workload can accumulate annotations.
 Requires <code class="docutils literal notranslate"><span class="pre">cuda.bindings</span></code> package and cuda-compat &gt;= 13.1 or CUDA driver &gt;= 13.1.</p></li>
+<li><p><strong>check_input_liveness</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, tracks external tensor inputs during graph capture and
+raises an error if any are deallocated before replay. This helps debug “use after free” errors
+where input tensors are garbage collected between capture and replay. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Custom CUDA kernels added outside PyTorch (e.g., via cuLaunchKernel or DLPack) are not
+tracked by this mechanism.</p>
+</div>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -4078,7 +4087,7 @@ used an explicit <code class="docutils literal notranslate"><span class="pre">st
        "headline": "graph",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graphs.graph.html",
-       "articleBody": "graph# class torch.cuda.graphs.graph(cuda_graph, pool=None, stream=None, capture_error_mode=\u0027global\u0027, enable_annotations=False)[source]# Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. See CUDA Graphs for a general introduction, detailed use, and constraints. Parameters: cuda_graph (torch.cuda.CUDAGraph) \u2013 Graph object used for capture. pool (optional) \u2013 Opaque token (returned by a call to graph_pool_handle() or other_Graph_instance.pool()) hinting this graph\u2019s capture may share memory from the specified pool. See Graph memory management. stream (torch.cuda.Stream, optional) \u2013 If supplied, will be set as the current stream in the context. If not supplied, graph sets its own internal side stream as the current stream in the context. capture_error_mode (str, optional) \u2013 specifies the cudaStreamCaptureMode for the graph capture stream. Can be \u201cglobal\u201d, \u201cthread_local\u201d or \u201crelaxed\u201d. During cuda graph capture, some actions, such as cudaMalloc, may be unsafe. \u201cglobal\u201d will error on actions in other threads, \u201cthread_local\u201d will only error for actions in the current thread, and \u201crelaxed\u201d will not error on actions. Do NOT change this setting unless you\u2019re familiar with cudaStreamCaptureMode enable_annotations (bool, optional) \u2013 If True, enables kernel annotation recording on entry and automatically calls resolve_pending_annotations() before the capture ends. Annotations are not cleared on exit so that multiple graphs in the same workload can accumulate annotations. Requires cuda.bindings package and cuda-compat \u003e= 13.1 or CUDA driver \u003e= 13.1. Note For effective memory sharing, if you pass a pool used by a previous capture and the previous capture used an explicit stream argument, you should pass the same stream argument to this capture. Warning This API is in beta and may change in future releases.",
+       "articleBody": "graph# class torch.cuda.graphs.graph(cuda_graph, pool=None, stream=None, capture_error_mode=\u0027global\u0027, enable_annotations=False, check_input_liveness=False)[source]# Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. See CUDA Graphs for a general introduction, detailed use, and constraints. Parameters: cuda_graph (torch.cuda.CUDAGraph) \u2013 Graph object used for capture. pool (optional) \u2013 Opaque token (returned by a call to graph_pool_handle() or other_Graph_instance.pool()) hinting this graph\u2019s capture may share memory from the specified pool. See Graph memory management. stream (torch.cuda.Stream, optional) \u2013 If supplied, will be set as the current stream in the context. If not supplied, graph sets its own internal side stream as the current stream in the context. capture_error_mode (str, optional) \u2013 specifies the cudaStreamCaptureMode for the graph capture stream. Can be \u201cglobal\u201d, \u201cthread_local\u201d or \u201crelaxed\u201d. During cuda graph capture, some actions, such as cudaMalloc, may be unsafe. \u201cglobal\u201d will error on actions in other threads, \u201cthread_local\u201d will only error for actions in the current thread, and \u201crelaxed\u201d will not error on actions. Do NOT change this setting unless you\u2019re familiar with cudaStreamCaptureMode enable_annotations (bool, optional) \u2013 If True, enables kernel annotation recording on entry and automatically calls resolve_pending_annotations() before the capture ends. Annotations are not cleared on exit so that multiple graphs in the same workload can accumulate annotations. Requires cuda.bindings package and cuda-compat \u003e= 13.1 or CUDA driver \u003e= 13.1. check_input_liveness (bool, optional) \u2013 If True, tracks external tensor inputs during graph capture and raises an error if any are deallocated before replay. This helps debug \u201cuse after free\u201d errors where input tensors are garbage collected between capture and replay. Default: False. Note Custom CUDA kernels added outside PyTorch (e.g., via cuLaunchKernel or DLPack) are not tracked by this mechanism. Note For effective memory sharing, if you pass a pool used by a previous capture and the previous capture used an explicit stream argument, you should pass the same stream argument to this capture. Warning This API is in beta and may change in future releases.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

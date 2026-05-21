@@ -1,5 +1,5 @@
 # torch.cuda.memory.caching_allocator_enable
 
-torch.cuda.memory.caching_allocator_enable(*value=True*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/cuda/memory.py#L155)
+torch.cuda.memory.caching_allocator_enable(*value=True*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/cuda/memory.py#L155)
 
 Enable or disable the CUDA memory allocator. On by default.

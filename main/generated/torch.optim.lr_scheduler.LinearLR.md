@@ -1,6 +1,6 @@
 # LinearLR
 
-*class*torch.optim.lr_scheduler.LinearLR(*optimizer*, *start_factor=0.3333333333333333*, *end_factor=1.0*, *total_iters=5*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L877)
+*class*torch.optim.lr_scheduler.LinearLR(*optimizer*, *start_factor=0.3333333333333333*, *end_factor=1.0*, *total_iters=5*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L877)
 
 Decays the learning rate of each parameter group by linearly changing small multiplicative factor.
 
@@ -39,7 +39,7 @@ Example
 
 ![../_images/LinearLR.png](../_images/LinearLR.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -59,7 +59,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L936)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L936)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -89,7 +89,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L192)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L192)
 
 Load the scheduler's state.
 
@@ -98,7 +98,7 @@ Parameters:
 **state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - scheduler state. Should be an object returned
 from a call to `state_dict()`.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L182)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L182)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -109,7 +109,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/optim/lr_scheduler.py#L238)
+step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L238)
 
 Step the scheduler.
 

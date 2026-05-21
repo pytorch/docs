@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*)[[source]](https://github.com/pytorch/pytorch/blob/3f8cf8d55cb309421fc5433c518b11b5f9c7a0a0/torch/cuda/graphs.py#L326)
+*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/cuda/graphs.py#L365)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -26,6 +26,16 @@ recording on entry and automatically calls
 the capture ends. Annotations are **not** cleared on exit so that multiple
 graphs in the same workload can accumulate annotations.
 Requires `cuda.bindings` package and cuda-compat >= 13.1 or CUDA driver >= 13.1.
+- **check_input_liveness** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
+
+If `True`, tracks external tensor inputs during graph capture and
+raises an error if any are deallocated before replay. This helps debug "use after free" errors
+where input tensors are garbage collected between capture and replay. Default: `False`.
+
+Note
+
+Custom CUDA kernels added outside PyTorch (e.g., via cuLaunchKernel or DLPack) are not
+tracked by this mechanism.
 
 Note
 
