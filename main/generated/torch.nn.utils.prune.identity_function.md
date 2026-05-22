@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.identity
 
-torch.nn.utils.prune.identity(*module*, *name*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/utils/prune.py#L836)
+torch.nn.utils.prune.identity(*module*, *name*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/utils/prune.py#L836)
 
 Apply pruning reparameterization without pruning any units.
 

@@ -1,6 +1,6 @@
 # torch.linalg.eigvals
 
-torch.linalg.eigvals(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/linalg/__init__.py#L584)
+torch.linalg.eigvals(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/linalg/__init__.py#L584)
 
 Computes the eigenvalues of a square matrix.
 

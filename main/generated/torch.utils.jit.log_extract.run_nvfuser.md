@@ -1,6 +1,6 @@
 # torch.utils.jit.log_extract.run_nvfuser
 
-torch.utils.jit.log_extract.run_nvfuser(*ir*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/utils/jit/log_extract.py#L116)
+torch.utils.jit.log_extract.run_nvfuser(*ir*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/utils/jit/log_extract.py#L116)
 
 Return type:
 

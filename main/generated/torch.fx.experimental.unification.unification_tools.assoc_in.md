@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.assoc_in
 
-torch.fx.experimental.unification.unification_tools.assoc_in(*d*, *keys*, *value*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/fx/experimental/unification/unification_tools.py#L272)
+torch.fx.experimental.unification.unification_tools.assoc_in(*d*, *keys*, *value*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/fx/experimental/unification/unification_tools.py#L272)
 
 Return a new dict with new, potentially nested, key value pair
 

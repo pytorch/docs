@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.rebind_unbacked
 
-torch.fx.experimental.symbolic_shapes.rebind_unbacked(*shape_env*, *n*, *result*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/fx/experimental/symbolic_shapes.py#L598)
+torch.fx.experimental.symbolic_shapes.rebind_unbacked(*shape_env*, *n*, *result*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/fx/experimental/symbolic_shapes.py#L598)
 
 Suppose we are retracing a pre-existing FX graph that previously had
 fake tensor propagation (and therefore unbacked SymInts). When we retrace,

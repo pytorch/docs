@@ -1,6 +1,6 @@
 # get_default_float_to_quantized_operator_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/ao/quantization/quantization_mappings.py#L339)
+*class*torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/quantization_mappings.py#L339)
 
 Return type:
 

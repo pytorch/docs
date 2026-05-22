@@ -1,6 +1,6 @@
 # LinearCrossEntropyLoss
 
-*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/loss.py#L1407)
+*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/loss.py#L1407)
 
 This criterion computes the cross entropy loss between input,
 linearly transformed to logits, and target.
@@ -83,7 +83,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/loss.py#L1540)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/loss.py#L1540)
 
 Runs the forward pass.
 

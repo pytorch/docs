@@ -1,6 +1,6 @@
 # torch.cuda.temperature
 
-torch.cuda.temperature(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/cuda/__init__.py#L1547)
+torch.cuda.temperature(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/cuda/__init__.py#L1547)
 
 Return the average temperature of the GPU sensor in Degrees C (Centigrades).
 

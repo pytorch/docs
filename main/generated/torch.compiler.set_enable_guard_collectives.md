@@ -1,6 +1,6 @@
 # torch.compiler.set_enable_guard_collectives
 
-torch.compiler.set_enable_guard_collectives(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/compiler/__init__.py#L382)
+torch.compiler.set_enable_guard_collectives(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/compiler/__init__.py#L382)
 
 Enables use of collectives *during* guard evaluation to synchronize behavior
 across ranks. This is expensive: we have to issue a collective every time

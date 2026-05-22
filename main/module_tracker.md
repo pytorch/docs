@@ -3,7 +3,7 @@
 This utility can be used to track the current position inside an [`torch.nn.Module`](generated/torch.nn.Module.html#torch.nn.Module) hierarchy.
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.
 
-*class*torch.utils.module_tracker.ModuleTracker[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/utils/module_tracker.py#L25)
+*class*torch.utils.module_tracker.ModuleTracker[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/utils/module_tracker.py#L25)
 
 `ModuleTracker` is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being

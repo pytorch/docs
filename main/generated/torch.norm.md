@@ -1,6 +1,6 @@
 # torch.norm
 
-torch.norm(*input*, *p='fro'*, *dim=None*, *keepdim=False*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/functional.py#L1735)
+torch.norm(*input*, *p='fro'*, *dim=None*, *keepdim=False*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/functional.py#L1735)
 
 Returns the matrix norm or vector norm of a given tensor.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.linear
 
-torch.nn.functional.linear(*input*, *weight*, *bias=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/functional.py#L2334)
+torch.nn.functional.linear(*input*, *weight*, *bias=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/functional.py#L2334)
 
 Applies a linear transformation to the incoming data: y=xAT+by = xA^T + by=xAT+b.
 

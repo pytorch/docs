@@ -1,6 +1,6 @@
 # torch.mtia.get_rng_state
 
-torch.mtia.get_rng_state(*device='mtia'*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/mtia/__init__.py#L398)
+torch.mtia.get_rng_state(*device='mtia'*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/mtia/__init__.py#L398)
 
 Returns the random number generator state of the specified MTIA device as a ByteTensor.
 

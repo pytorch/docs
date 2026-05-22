@@ -1,6 +1,6 @@
 # torch.cuda.comm.gather
 
-torch.cuda.comm.gather(*tensors*, *dim=0*, *destination=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/parallel/comm.py#L222)
+torch.cuda.comm.gather(*tensors*, *dim=0*, *destination=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/parallel/comm.py#L222)
 
 Gathers tensors from multiple GPU devices.
 

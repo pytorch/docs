@@ -1,6 +1,6 @@
 # CosineAnnealingWarmRestarts
 
-*class*torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(*optimizer*, *T_0*, *T_mult=1*, *eta_min=0.0*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L2104)
+*class*torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(*optimizer*, *T_0*, *T_mult=1*, *eta_min=0.0*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L2104)
 
 Set the learning rate of each parameter group using a cosine annealing schedule.
 
@@ -42,7 +42,7 @@ Example
 
 ![../_images/CosineAnnealingWarmRestarts.png](../_images/CosineAnnealingWarmRestarts.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -62,7 +62,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L2168)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L2168)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -101,7 +101,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L192)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L192)
 
 Load the scheduler's state.
 
@@ -110,7 +110,7 @@ Parameters:
 **state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - scheduler state. Should be an object returned
 from a call to `state_dict()`.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L182)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L182)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -121,7 +121,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/optim/lr_scheduler.py#L2209)
+step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/optim/lr_scheduler.py#L2209)
 
 Step could be called after every batch update.
 

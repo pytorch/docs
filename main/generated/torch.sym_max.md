@@ -1,6 +1,6 @@
 # torch.sym_max
 
-torch.sym_max(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/__init__.py#L890)
+torch.sym_max(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/__init__.py#L891)
 
 SymInt-aware utility for max which avoids branching on a < b.
 Unlike builtins.max(), this only works for int/float, and it always

@@ -1,6 +1,6 @@
 # enable_grad
 
-*class*torch.enable_grad(*orig_func: F*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/autograd/grad_mode.py#L89)
+*class*torch.enable_grad(*orig_func: F*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/autograd/grad_mode.py#L89)
 
 *class*torch.enable_grad(*orig_func: [None](https://docs.python.org/3/library/constants.html#None) = None*)
 

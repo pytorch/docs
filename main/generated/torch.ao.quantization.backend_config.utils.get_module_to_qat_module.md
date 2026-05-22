@@ -1,6 +1,6 @@
 # get_module_to_qat_module
 
-*class*torch.ao.quantization.backend_config.utils.get_module_to_qat_module(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/ao/quantization/backend_config/utils.py#L93)
+*class*torch.ao.quantization.backend_config.utils.get_module_to_qat_module(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/backend_config/utils.py#L93)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # ChannelShuffle
 
-*class*torch.nn.ChannelShuffle(*groups*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/channelshuffle.py#L10)
+*class*torch.nn.ChannelShuffle(*groups*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/channelshuffle.py#L10)
 
 Divides and rearranges the channels in a tensor.
 
@@ -38,7 +38,7 @@ tensor([[[[ 1., 2.],
  [15., 16.]]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/channelshuffle.py#L58)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/channelshuffle.py#L58)
 
 Return the extra representation of the module.
 
@@ -46,7 +46,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/channelshuffle.py#L52)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/channelshuffle.py#L52)
 
 Runs the forward pass.
 

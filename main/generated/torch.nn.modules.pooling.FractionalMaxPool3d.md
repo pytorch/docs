@@ -1,6 +1,6 @@
 # FractionalMaxPool3d
 
-*class*torch.nn.modules.pooling.FractionalMaxPool3d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/nn/modules/pooling.py#L1002)
+*class*torch.nn.modules.pooling.FractionalMaxPool3d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/nn/modules/pooling.py#L1002)
 
 Applies a 3D fractional max pooling over an input signal composed of several input planes.
 

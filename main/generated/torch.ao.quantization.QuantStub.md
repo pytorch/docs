@@ -1,6 +1,6 @@
 # QuantStub
 
-*class*torch.ao.quantization.QuantStub(*qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/1af0b90bbfa06b98936ac35f25070579cffc8d74/torch/ao/quantization/stubs.py#L11)
+*class*torch.ao.quantization.QuantStub(*qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/stubs.py#L11)
 
 Quantize stub module, before calibration, this is same as an observer,
 it will be swapped as nnq.Quantize in convert.
