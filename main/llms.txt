@@ -3313,6 +3313,7 @@
 - [Out Notes](https://docs.pytorch.org/docs/stable/notes/out.md)
 - [Reproducibility](https://docs.pytorch.org/docs/stable/notes/randomness.md)
 - [Serialization semantics](https://docs.pytorch.org/docs/stable/notes/serialization.md)
+- [TensorIterator (Python)](https://docs.pytorch.org/docs/stable/notes/tensor_iterator.md)
 - [Windows FAQ](https://docs.pytorch.org/docs/stable/notes/windows.md)
 - [torch.onnx](https://docs.pytorch.org/docs/stable/onnx.md)
 - [torch.export-based ONNX Exporter](https://docs.pytorch.org/docs/stable/onnx_export.md)

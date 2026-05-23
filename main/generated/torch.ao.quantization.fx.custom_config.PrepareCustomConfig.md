@@ -1,6 +1,6 @@
 # PrepareCustomConfig
 
-*class*torch.ao.quantization.fx.custom_config.PrepareCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L46)
+*class*torch.ao.quantization.fx.custom_config.PrepareCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L46)
 
 Custom configuration for [`prepare_fx()`](torch.ao.quantization.quantize_fx.prepare_fx.html#torch.ao.quantization.quantize_fx.prepare_fx) and
 [`prepare_qat_fx()`](torch.ao.quantization.quantize_fx.prepare_qat_fx.html#torch.ao.quantization.quantize_fx.prepare_qat_fx).
@@ -11,7 +11,7 @@ Example usage:
 prepare_custom_config = PrepareCustomConfig() .set_standalone_module_name("module1", qconfig_mapping, example_inputs, child_prepare_custom_config, backend_config) .set_standalone_module_class(MyStandaloneModule, qconfig_mapping, example_inputs, child_prepare_custom_config, backend_config) .set_float_to_observed_mapping(FloatCustomModule, ObservedCustomModule) .set_non_traceable_module_names(["module2", "module3"]) .set_non_traceable_module_classes([NonTraceableModule1, NonTraceableModule2]) .set_input_quantized_indexes([0]) .set_output_quantized_indexes([0]) .set_preserved_attributes(["attr1", "attr2"])
 ```
 
-*classmethod*from_dict(*prepare_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L184)
+*classmethod*from_dict(*prepare_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L184)
 
 Create a `PrepareCustomConfig` from a dictionary with the following items:
 
@@ -46,7 +46,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_float_to_observed_mapping(*float_class*, *observed_class*, *quant_type=QuantType.STATIC*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L120)
+set_float_to_observed_mapping(*float_class*, *observed_class*, *quant_type=QuantType.STATIC*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L120)
 
 Set the mapping from a custom float module class to a custom observed module class.
 
@@ -57,7 +57,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_input_quantized_indexes(*indexes*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L159)
+set_input_quantized_indexes(*indexes*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L159)
 
 Set the indexes of the inputs of the graph that should be quantized.
 Inputs are otherwise assumed to be in fp32 by default instead.
@@ -66,7 +66,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_non_traceable_module_classes(*module_classes*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L150)
+set_non_traceable_module_classes(*module_classes*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L150)
 
 Set the modules that are not symbolically traceable, identified by class.
 
@@ -74,7 +74,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_non_traceable_module_names(*module_names*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L141)
+set_non_traceable_module_names(*module_names*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L141)
 
 Set the modules that are not symbolically traceable, identified by name.
 
@@ -82,7 +82,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_output_quantized_indexes(*indexes*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L167)
+set_output_quantized_indexes(*indexes*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L167)
 
 Set the indexes of the outputs of the graph that should be quantized.
 Outputs are otherwise assumed to be in fp32 by default instead.
@@ -91,7 +91,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L175)
+set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L175)
 
 Set the names of the attributes that will persist in the graph module even if they are not used in
 the model's `forward` method.
@@ -100,7 +100,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_standalone_module_class(*module_class*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config*, *backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L100)
+set_standalone_module_class(*module_class*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config*, *backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L100)
 
 Set the configuration for running a standalone module identified by `module_class`.
 
@@ -112,7 +112,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-set_standalone_module_name(*module_name*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config*, *backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L80)
+set_standalone_module_name(*module_name*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config*, *backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L80)
 
 Set the configuration for running a standalone module identified by `module_name`.
 
@@ -124,7 +124,7 @@ Return type:
 
 *PrepareCustomConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/54541f51bee1b9b66a0ecb11e69067a677a60487/torch/ao/quantization/fx/custom_config.py#L320)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/ao/quantization/fx/custom_config.py#L320)
 
 Convert this `PrepareCustomConfig` to a dictionary with the items described in
 `from_dict()`.

@@ -77,7 +77,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git54541f5 )">
+<meta name="llm:version" content="main (2.13.0a0+git2f69647 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -183,7 +183,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git54541f5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git2f69647 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1235,6 +1235,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="notes/serialization.html">
                   Serialization semantics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/tensor_iterator.html">
+                  TensorIterator (Python)
                 </a>
               </li>
             
@@ -2690,6 +2696,12 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="notes/tensor_iterator.html">
+                  TensorIterator (Python)
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="notes/windows.html">
                   Windows FAQ
                 </a>
@@ -3527,6 +3539,7 @@ The APIs and performance characteristics of these features may change.</p>
 <li class="toctree-l2"><a class="reference internal" href="notes/out.html">Out Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes/randomness.html">Reproducibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notes/tensor_iterator.html">TensorIterator (Python)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes/windows.html">Windows FAQ</a></li>
 </ul>
 </li>
@@ -3842,7 +3855,7 @@ The APIs and performance characteristics of these features may change.</p>
        "headline": "PyTorch documentation",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/index.html",
-       "articleBody": "PyTorch documentation# PyTorch is an optimized tensor library for deep learning using GPUs and CPUs. Features described in this documentation are classified by release status: Stable (API-Stable): These features will be maintained long-term and there should generally be no major performance limitations or gaps in documentation. We also expect to maintain backwards compatibility (although breaking changes can happen and notice will be given one release ahead of time). Unstable (API-Unstable): Encompasses all features that are under active development where APIs may change based on user feedback, requisite performance improvements or because coverage across operators is not yet complete. The APIs and performance characteristics of these features may change. Install PyTorch User Guide Pytorch Overview Get Started Learn the Basics PyTorch Main Components Torch.compile Torch.export Developer Notes Accelerator Integration Reference API C++ torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.backend_registration torch.utils.hooks torch.utils.throughput_benchmark torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info Named Tensors Named Tensors operator coverage torch.__config__ torch.__future__ torch._logging Torch Environment Variables Developer Notes Automatic Mixed Precision examples Autograd mechanics Broadcasting semantics CPU threading and TorchScript inference CUDA semantics PyTorch Custom Operators Landing Page Distributed Data Parallel Extending PyTorch Extending torch.func with autograd.Function Frequently Asked Questions Getting Started on Intel GPU Gradcheck mechanics HIP (ROCm) semantics Features for large-scale deployments LibTorch Stable ABI LocalTensor Tutorial: Single-Process SPMD Debugging MKLDNN backend Modules MPS backend Multiprocessing best practices Numerical accuracy Out Notes Reproducibility Serialization semantics Windows FAQ Community The Ultimate Guide to PyTorch Contributions PyTorch Governance | Build + CI PyTorch Contribution Guide PyTorch Design Philosophy PyTorch Governance | Mechanics PyTorch Governance | Maintainers Indices and tables# Index Module Index",
+       "articleBody": "PyTorch documentation# PyTorch is an optimized tensor library for deep learning using GPUs and CPUs. Features described in this documentation are classified by release status: Stable (API-Stable): These features will be maintained long-term and there should generally be no major performance limitations or gaps in documentation. We also expect to maintain backwards compatibility (although breaking changes can happen and notice will be given one release ahead of time). Unstable (API-Unstable): Encompasses all features that are under active development where APIs may change based on user feedback, requisite performance improvements or because coverage across operators is not yet complete. The APIs and performance characteristics of these features may change. Install PyTorch User Guide Pytorch Overview Get Started Learn the Basics PyTorch Main Components Torch.compile Torch.export Developer Notes Accelerator Integration Reference API C++ torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.backend_registration torch.utils.hooks torch.utils.throughput_benchmark torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info Named Tensors Named Tensors operator coverage torch.__config__ torch.__future__ torch._logging Torch Environment Variables Developer Notes Automatic Mixed Precision examples Autograd mechanics Broadcasting semantics CPU threading and TorchScript inference CUDA semantics PyTorch Custom Operators Landing Page Distributed Data Parallel Extending PyTorch Extending torch.func with autograd.Function Frequently Asked Questions Getting Started on Intel GPU Gradcheck mechanics HIP (ROCm) semantics Features for large-scale deployments LibTorch Stable ABI LocalTensor Tutorial: Single-Process SPMD Debugging MKLDNN backend Modules MPS backend Multiprocessing best practices Numerical accuracy Out Notes Reproducibility Serialization semantics TensorIterator (Python) Windows FAQ Community The Ultimate Guide to PyTorch Contributions PyTorch Governance | Build + CI PyTorch Contribution Guide PyTorch Design Philosophy PyTorch Governance | Mechanics PyTorch Governance | Maintainers Indices and tables# Index Module Index",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

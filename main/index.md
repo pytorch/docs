@@ -142,6 +142,7 @@ The APIs and performance characteristics of these features may change.
 - [Out Notes](notes/out.html)
 - [Reproducibility](notes/randomness.html)
 - [Serialization semantics](notes/serialization.html)
+- [TensorIterator (Python)](notes/tensor_iterator.html)
 - [Windows FAQ](notes/windows.html)
 - [Community](community/index.html)
 
