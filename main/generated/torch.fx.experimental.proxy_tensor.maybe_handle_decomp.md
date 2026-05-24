@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.maybe_handle_decomp
 
-torch.fx.experimental.proxy_tensor.maybe_handle_decomp(*proxy_mode*, *op*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2f696474dc8fe614670ddb889f4ae1c75d1a11e6/torch/fx/experimental/proxy_tensor.py#L3095)
+torch.fx.experimental.proxy_tensor.maybe_handle_decomp(*proxy_mode*, *op*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/fx/experimental/proxy_tensor.py#L3095)
 
 Return type:
 

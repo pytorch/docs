@@ -1370,7 +1370,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 
