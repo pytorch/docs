@@ -1,6 +1,6 @@
 # EventList
 
-*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/autograd/profiler_util.py#L29)
+*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/autograd/profiler_util.py#L29)
 
 A list of profiling events with helper methods for analysis and visualization.
 
@@ -92,7 +92,7 @@ count(*value*, */*)
 
 Return number of occurrences of value.
 
-export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/autograd/profiler_util.py#L288)
+export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/autograd/profiler_util.py#L288)
 
 Export an EventList as a Chrome tracing tools file.
 
@@ -116,7 +116,7 @@ insert(*index*, *object*, */*)
 
 Insert object before index.
 
-key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/autograd/profiler_util.py#L376)
+key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/autograd/profiler_util.py#L376)
 
 Averages all function events over their keys.
 
@@ -163,7 +163,7 @@ ascending or descending, according to their function values.
 
 The reverse flag can be set to sort in descending order.
 
-table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/autograd/profiler_util.py#L242)
+table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/autograd/profiler_util.py#L242)
 
 Print an EventList as a nicely formatted table.
 
@@ -188,7 +188,7 @@ Returns:
 
 A string containing the table.
 
-total_average()[[source]](https://github.com/pytorch/pytorch/blob/15e96b281415c58d3acf5d63d86df9d68744ee16/torch/autograd/profiler_util.py#L444)
+total_average()[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/autograd/profiler_util.py#L444)
 
 Compute aggregate statistics across all events.
 
