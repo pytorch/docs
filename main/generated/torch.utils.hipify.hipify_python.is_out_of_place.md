@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.is_out_of_place
 
-torch.utils.hipify.hipify_python.is_out_of_place(*rel_filepath*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/utils/hipify/hipify_python.py#L619)
+torch.utils.hipify.hipify_python.is_out_of_place(*rel_filepath*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/utils/hipify/hipify_python.py#L619)
 
 Return type:
 

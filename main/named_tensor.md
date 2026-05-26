@@ -287,7 +287,7 @@ Warning
 
 The named tensor API is experimental and subject to change.
 
-rename(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/_tensor.py#L1475)
+rename(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/_tensor.py#L1475)
 
 Renames dimension names of `self`.
 
@@ -324,11 +324,11 @@ Warning
 
 The named tensor API is experimental and subject to change.
 
-rename_(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/_tensor.py#L1460)
+rename_(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/_tensor.py#L1460)
 
 In-place version of `rename()`.
 
-refine_names(**names*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/_tensor.py#L1353)
+refine_names(**names*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/_tensor.py#L1353)
 
 Refines the dimension names of `self` according to `names`.
 
@@ -413,7 +413,7 @@ Warning
 
 The named tensor API is experimental and subject to change.
 
-align_to(**names*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/_tensor.py#L1395)
+align_to(**names*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/_tensor.py#L1395)
 
 Permutes the dimensions of the `self` tensor to match the order
 specified in `names`, adding size-one dims for any new names.

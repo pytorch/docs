@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.linear_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.linear_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/69bbaeafe0b3f1e423be17b25ca11b149845b521/torch/fx/experimental/graph_gradual_typechecker.py#L538)
+torch.fx.experimental.graph_gradual_typechecker.linear_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/fx/experimental/graph_gradual_typechecker.py#L538)
 
 Applies the shape information to the input then gets the greatest upper bound
 of the resulting type and the existing type
