@@ -1,6 +1,6 @@
 # torch.cuda.set_rng_state
 
-torch.cuda.set_rng_state(*new_state*, *device='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/cuda/random.py#L51)
+torch.cuda.set_rng_state(*new_state*, *device='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/cuda/random.py#L51)
 
 Set the random number generator state of the specified GPU.
 

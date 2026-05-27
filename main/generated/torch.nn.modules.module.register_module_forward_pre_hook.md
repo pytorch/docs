@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_forward_pre_hook
 
-torch.nn.modules.module.register_module_forward_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/09c9b1ec9c2e88520d11a9c64b206359e8ca912b/torch/nn/modules/module.py#L217)
+torch.nn.modules.module.register_module_forward_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/nn/modules/module.py#L217)
 
 Register a forward pre-hook common to all modules.
 
