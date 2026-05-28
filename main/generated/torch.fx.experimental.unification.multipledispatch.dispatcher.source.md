@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.source
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.source(*func*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L430)
+torch.fx.experimental.unification.multipledispatch.dispatcher.source(*func*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L430)
 
 Return type:
 

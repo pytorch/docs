@@ -1,16 +1,16 @@
 # ShapeEnv
 
-*class*torch.fx.experimental.symbolic_shapes.ShapeEnv(***, *should_record_events=None*, *tracked_fakes=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L3812)
+*class*torch.fx.experimental.symbolic_shapes.ShapeEnv(***, *should_record_events=None*, *tracked_fakes=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L3812)
 
-add_backed_var_to_val(*expr*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5742)
+add_backed_var_to_val(*expr*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5756)
 
 Adds a new symbol to the symbolic environment.
 
-add_var_to_val(*expr*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5758)
+add_var_to_val(*expr*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5772)
 
 Deprecated: use add_backed_var_to_val instead.
 
-bind_symbols(*placeholders*, *args*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6818)
+bind_symbols(*placeholders*, *args*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6832)
 
 Given a paired list of placeholders (fake tensors with
 symbolic sizes) and concrete arguments (regular tensors
@@ -31,7 +31,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[sympy.Symbol, [int](https://docs.python.org/3/library/functions.html#int)]
 
-bound_sympy(*expr*, *size_oblivious=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6893)
+bound_sympy(*expr*, *size_oblivious=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6907)
 
 Given a sympy expression, computes a ValueRanges bound for what values it can be
 
@@ -39,18 +39,18 @@ Return type:
 
 *ValueRanges*[*Expr*]
 
-check_equal(*other*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4226)
+check_equal(*other*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4226)
 
 Compare another ShapeEnv for equivalence
 
-cleanup()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L8497)
+cleanup()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L8511)
 
 Break reference cycles.
 
 This destroys the stacks. If you really want to keep them, we
 just need some way to break references on code objects.
 
-create_symbol(*val*, *source*, *dynamic_dim=DimDynamic.DUCK*, *constraint_dim=None*, *positive=True*, *do_not_specialize_zero_one=False*, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5425)
+create_symbol(*val*, *source*, *dynamic_dim=DimDynamic.DUCK*, *constraint_dim=None*, *positive=True*, *do_not_specialize_zero_one=False*, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5443)
 
 Create a new symbol which is tracked by this ShapeEnv
 
@@ -58,7 +58,7 @@ Return type:
 
 sympy.Expr
 
-create_symbolic_sizes_strides_storage_offset(*ex*, *source*, ***, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4739)
+create_symbolic_sizes_strides_storage_offset(*ex*, *source*, ***, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4739)
 
 Create symbolic sizes/strides/offset for a tensor.
 
@@ -69,7 +69,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[IntLikeType, ...], [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[IntLikeType, ...], IntLikeType]
 
-create_symboolnode(*sym*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5268)
+create_symboolnode(*sym*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5268)
 
 Create a SymBool object from a sympy boolean expression
 
@@ -77,7 +77,7 @@ Return type:
 
 [*SymBool*](../torch.html#torch.SymBool)
 
-create_symfloatnode(*sym*, ***, *hint*, *source=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5200)
+create_symfloatnode(*sym*, ***, *hint*, *source=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5200)
 
 Create a SymFloat value from a symbolic expression
 
@@ -85,7 +85,7 @@ Return type:
 
 FloatLikeType
 
-create_symintnode(*sym*, ***, *hint*, *source=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5154)
+create_symintnode(*sym*, ***, *hint*, *source=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5154)
 
 Create a SymInt value from a symbolic expression
 
@@ -97,7 +97,7 @@ Return type:
 
 IntLikeType
 
-create_unbacked_symbool()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5368)
+create_unbacked_symbool()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5386)
 
 Create a symbolic boolean without a hint value
 
@@ -105,7 +105,7 @@ Return type:
 
 [*SymBool*](../torch.html#torch.SymBool)
 
-create_unbacked_symfloat()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5311)
+create_unbacked_symfloat()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5311)
 
 Create a symbolic float without a hint value
 
@@ -113,7 +113,7 @@ Return type:
 
 [*SymFloat*](../torch.html#torch.SymFloat)
 
-create_unbacked_symint(*source=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5338)
+create_unbacked_symint(*source=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5338)
 
 Create a symbolic integer without a hint value
 
@@ -121,7 +121,7 @@ Return type:
 
 [*SymInt*](../torch.html#torch.SymInt)
 
-create_unspecified_symbol(*val*, *source*, *dynamic_dim=DimDynamic.DUCK*, *constraint_dim=None*, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5395)
+create_unspecified_symbol(*val*, *source*, *dynamic_dim=DimDynamic.DUCK*, *constraint_dim=None*, *symbolic_context=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5413)
 
 Create a symbol with an unspecified value
 
@@ -132,7 +132,7 @@ Return type:
 
 *Expr*
 
-create_unspecified_symint_and_symbol(*value*, *source*, *dynamic_dim*, *excluded_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5246)
+create_unspecified_symint_and_symbol(*value*, *source*, *dynamic_dim*, *excluded_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5246)
 
 Create a SymInt wrapping a new unspecified symbol
 
@@ -140,7 +140,7 @@ Return type:
 
 IntLikeType
 
-deserialize_symexpr(*code*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6773)
+deserialize_symexpr(*code*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6787)
 
 To be used by compile_fx to deserialize symexprs
 
@@ -148,7 +148,7 @@ Return type:
 
 [*SymInt*](../torch.html#torch.SymInt) | [*SymFloat*](../torch.html#torch.SymFloat) | [*SymBool*](../torch.html#torch.SymBool)
 
-error_on_new_guards()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4607)
+error_on_new_guards()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4607)
 
 Context manager that raises _ShapeEnvGuardError if a guard is attempted.
 
@@ -160,7 +160,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-evaluate_expr(*orig_expr*, *hint=None*, *fx_node=None*, *size_oblivious=False*, *fallback_value=None*, ***, *forcing_spec=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L8132)
+evaluate_expr(*orig_expr*, *hint=None*, *fx_node=None*, *size_oblivious=False*, *fallback_value=None*, ***, *forcing_spec=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L8146)
 
 Given an expression, evaluates it, adding guards if necessary
 When fallback_value is not None the function return fallback_value instead of failing with data dependent error.
@@ -169,7 +169,7 @@ Return type:
 
 *Basic*
 
-evaluate_guards_expression(*code*, *args*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6783)
+evaluate_guards_expression(*code*, *args*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6797)
 
 Expected to be used with produce_guards_expression(). Evaluates an expression
 generated by produce_guards_expression for the given concrete args.
@@ -178,7 +178,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-evaluate_guards_for_args(*placeholders*, *args*, ***, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6791)
+evaluate_guards_for_args(*placeholders*, *args*, ***, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6805)
 
 Generate guards for a graph's placeholder values and evaluate the guards with args
 
@@ -186,7 +186,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-evaluate_sym_node(*sym_node*, *size_oblivious=False*, *fallback_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L8042)
+evaluate_sym_node(*sym_node*, *size_oblivious=False*, *fallback_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L8056)
 
 Given a SymNode, evaluates sym_node.expr, adding guards if necessary.
 
@@ -194,7 +194,7 @@ Return type:
 
 *Basic*
 
-evaluate_symexpr(*code*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6766)
+evaluate_symexpr(*code*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6780)
 
 To be used by compile_fx to evaluate symexprs
 
@@ -202,7 +202,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool)
 
-format_guards(*verbose=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6885)
+format_guards(*verbose=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6899)
 
 Format this shape env's guard expressions with optional traceback info if verbose
 
@@ -210,14 +210,14 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-freeze()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4464)
+freeze()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4464)
 
 Freeze this ShapeEnv to stop accumulating guards
 
 A frozen ShapeEnv will ignore any further guards generated on it and
 only emit a warning which may lead to accuracy problems.
 
-freeze_runtime_asserts()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4473)
+freeze_runtime_asserts()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4473)
 
 Freeze this ShapeEnv to stop adding deferred runtime asserts.
 
@@ -226,7 +226,7 @@ frozen. This would indicate a lowering violation, or perhaps something
 we know statically is already True but we are checking it again in a way
 that is not clearly dischargeable.
 
-get_axioms(*symbols=None*, *compute_hint=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6911)
+get_axioms(*symbols=None*, *compute_hint=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6925)
 
 Given the symbols in an expression, it returns all the runtime asserts that have those symbols
 concatenated with all the guards.
@@ -236,7 +236,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[sympy.logic.boolalg.Boolean, ...]
 
-get_implications(*e*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6942)
+get_implications(*e*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6956)
 
 Given a expression, it returns a list of predicates that follow from it
 
@@ -244,7 +244,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[sympy.logic.boolalg.Boolean, *BooleanAtom*], ...]
 
-get_nontrivial_guards()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6874)
+get_nontrivial_guards()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6888)
 
 Returns a list of guard expressions that aren't statically known (i.e. not trivial)
 
@@ -252,7 +252,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[sympy.logic.boolalg.Boolean]
 
-get_pruned_guards(*symints*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6804)
+get_pruned_guards(*symints*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6818)
 
 Get a list of guards, but pruned so it only provides guards that
 reference symints from the passed in input
@@ -261,7 +261,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[*ShapeGuard*]
 
-guard_or_defer_runtime_assert(*orig_expr*, *msg*, *fx_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L8533)
+guard_or_defer_runtime_assert(*orig_expr*, *msg*, *fx_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L8547)
 
 Adds a guard that orig_expr is True if we can or fall back to adding an assert
 that is checked at runtime.
@@ -277,7 +277,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-guarding_hint_or_throw(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L7308)
+guarding_hint_or_throw(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L7322)
 
 Return a concrete hint for an expression.
 
@@ -288,7 +288,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int) | [bool](https://docs.python.org/3/library/functions.html#bool)
 
-ignore_fresh_unbacked_symbols()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4452)
+ignore_fresh_unbacked_symbols()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4452)
 
 Indicates that the newly allocated unbacked SymInts are being
 discarded
@@ -297,7 +297,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-is_unbacked_symint(*symbol*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5364)
+is_unbacked_symint(*symbol*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5364)
 
 Check if a sympy symbol matches the naming convention for unbacked symbols
 
@@ -305,7 +305,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-optimization_hint(*expr*, *fallback=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L7326)
+optimization_hint(*expr*, *fallback=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L7340)
 
 Return a concrete integer hint for an expression.
 
@@ -327,7 +327,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-patch_source_specialization(*source*, *check_fn*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4180)
+patch_source_specialization(*source*, *check_fn*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4180)
 
 Temporarily add symbol-level axioms to the ShapeEnv. This is useful when you want to "fork"
 and have parallel universes of ShapeEnvs. For example, we use this when doing multi-graph
@@ -346,7 +346,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-produce_guards(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5792)
+produce_guards(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5806)
 
 Like produce_guards_verbose, but only returns the non-verbose python guard expressions
 (no verbose guards produced.)
@@ -355,7 +355,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-produce_guards_expression(*placeholders*, ***, *guards=None*, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L6741)
+produce_guards_expression(*placeholders*, ***, *guards=None*, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L6755)
 
 Expected to be used with evaluate_guards_expression(). Produces the guards
 for the given placeholders and returns a string expression to be evaluated
@@ -365,7 +365,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str) | None
 
-produce_guards_verbose(*placeholders*, *sources*, *source_ref=<function ShapeEnv.<lambda>>*, ***, *guards=None*, *input_contexts=None*, *equalities_inputs=None*, *_simplified=False*, *ignore_static=True*, *langs=('python'*, *'verbose_python')*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L5799)
+produce_guards_verbose(*placeholders*, *sources*, *source_ref=<function ShapeEnv.<lambda>>*, ***, *guards=None*, *input_contexts=None*, *equalities_inputs=None*, *_simplified=False*, *ignore_static=True*, *langs=('python'*, *'verbose_python')*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L5813)
 
 Generates a list of guards strings which, when evaluated in a context that
 defines tensors for all the sources, returns True or False depending
@@ -390,7 +390,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[_ShapeGuardsHelper]
 
-replace(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L7140)
+replace(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L7154)
 
 Apply symbol replacements to any symbols in the given expression.
 
@@ -404,12 +404,12 @@ Return type:
 
 *_SympyT*
 
-set_real_tensor_prop_unbacked_vals(*k*, *v*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4324)
+set_real_tensor_prop_unbacked_vals(*k*, *v*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4324)
 
 Used only when propagate_real_tensors; registers a value for an
 unbacked symbol, which can be used last resort to resolve hints.
 
-simplify(*expr*, *size_oblivious=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L7178)
+simplify(*expr*, *size_oblivious=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L7192)
 
 Use known constraints and replacements to simplify the given expr
 
@@ -417,7 +417,7 @@ Return type:
 
 *_SympyT*
 
-size_hint(*expr*, ***, *allow_none=False*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L7258)
+size_hint(*expr*, ***, *allow_none=False*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L7272)
 
 Gets a size hint for a given expression from the underlying shapes we had.
 Does not introduce a guard, so only use this when you can guarantee that
@@ -427,7 +427,7 @@ Return type:
 
 *Basic* | None
 
-suppress_guards()[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4603)
+suppress_guards()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4603)
 
 Context manager to ignore all guards generated inside.
 
@@ -435,7 +435,7 @@ Return type:
 
 *_GeneratorContextManager*[None]
 
-transfer_symbols_from_foreign_shape_env(*sizes*, *strides*, *storage_offset*, *source*, ***, *symbolic_context=None*, *hint_overrides=None*)[[source]](https://github.com/pytorch/pytorch/blob/34424f27313fbcddaafe4a1a855000f17e05a260/torch/fx/experimental/symbolic_shapes.py#L4773)
+transfer_symbols_from_foreign_shape_env(*sizes*, *strides*, *storage_offset*, *source*, ***, *symbolic_context=None*, *hint_overrides=None*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L4773)
 
 Transfer symbolic sizes/strides/offset from a foreign ShapeEnv
 into this one.
