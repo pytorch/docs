@@ -1,6 +1,6 @@
 # torch.xpu.set_device
 
-torch.xpu.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/xpu/__init__.py#L430)
+torch.xpu.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/xpu/__init__.py#L430)
 
 Set the current device.
 

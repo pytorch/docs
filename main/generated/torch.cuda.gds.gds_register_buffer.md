@@ -1,6 +1,6 @@
 # torch.cuda.gds.gds_register_buffer
 
-torch.cuda.gds.gds_register_buffer(*s*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/cuda/gds.py#L53)
+torch.cuda.gds.gds_register_buffer(*s*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/cuda/gds.py#L53)
 
 Registers a storage on a CUDA device as a cufile buffer.
 

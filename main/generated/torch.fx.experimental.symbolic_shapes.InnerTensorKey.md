@@ -1,8 +1,8 @@
 # InnerTensorKey
 
-*class*torch.fx.experimental.symbolic_shapes.InnerTensorKey(*inner_name: 'str'*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L1195)
+*class*torch.fx.experimental.symbolic_shapes.InnerTensorKey(*inner_name: 'str'*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/fx/experimental/symbolic_shapes.py#L1195)
 
-get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/symbolic_shapes.py#L1202)
+get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/fx/experimental/symbolic_shapes.py#L1202)
 
 Get the inner tensor attribute
 

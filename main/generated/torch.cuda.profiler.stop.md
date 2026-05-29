@@ -1,6 +1,6 @@
 # torch.cuda.profiler.stop
 
-torch.cuda.profiler.stop()[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/cuda/profiler.py#L29)
+torch.cuda.profiler.stop()[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/cuda/profiler.py#L29)
 
 Stops cuda profiler data collection.
 

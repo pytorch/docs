@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.relu_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.relu_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/fd6d216e3e8bf07c470716dfbf022d82fadd521d/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1379)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.relu_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1379)
 
 Input and output shapes should be equal.
 
