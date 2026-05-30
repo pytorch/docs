@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.aliases.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.functional.align_tensors" href="generated/torch.functional.align_tensors.html" />
+    <link rel="next" title="torch.functional.atleast_1d" href="generated/torch.functional.atleast_1d.html" />
     <link rel="prev" title="StorageType" href="generated/torch.serialization.StorageType.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git516f64b )">
+<meta name="llm:version" content="main (2.13.0a0+gite5aa132 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git516f64b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite5aa132 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1042,18 +1042,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2497,18 +2485,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -4120,7 +4096,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.utils.model_dump.get_model_info.html">torch.utils.model_dump.get_model_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.serialization.StorageType.html">StorageType</a></li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Aliases in torch</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.functional.align_tensors.html">torch.functional.align_tensors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.functional.atleast_1d.html">torch.functional.atleast_1d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.functional.atleast_2d.html">torch.functional.atleast_2d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.functional.atleast_3d.html">torch.functional.atleast_3d</a></li>
@@ -4462,6 +4437,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.MSELoss.html">MSELoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.CrossEntropyLoss.html">CrossEntropyLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.LinearCrossEntropyLoss.html">LinearCrossEntropyLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.LinearCrossEntropyOptions.html">LinearCrossEntropyOptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.CTCLoss.html">CTCLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.NLLLoss.html">NLLLoss</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.PoissonNLLLoss.html">PoissonNLLLoss</a></li>
@@ -6931,8 +6907,6 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_tracker.html">torch.utils.module_tracker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7071,64 +7045,61 @@ in which they are defined. Feel free to use either the top-level version in <cod
 (e.g. <code class="docutils literal notranslate"><span class="pre">torch.broadcast_tensors()</span></code>) or the nested version <code class="docutils literal notranslate"><span class="pre">torch.functional.broadcast_tensors()</span></code>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.functional.align_tensors"/><p id="torch.functional.align_tensors"/><a class="reference internal" href="generated/torch.functional.align_tensors.html#torch.functional.align_tensors" title="torch.functional.align_tensors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">align_tensors</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.functional.atleast_1d"/><p id="torch.functional.atleast_1d"/><a class="reference internal" href="generated/torch.functional.atleast_1d.html#torch.functional.atleast_1d" title="torch.functional.atleast_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.atleast_1d"/><p id="torch.functional.atleast_1d"/><a class="reference internal" href="generated/torch.functional.atleast_1d.html#torch.functional.atleast_1d" title="torch.functional.atleast_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_1d</span></code></a></p></td>
 <td><p>Returns a 1-dimensional view of each input tensor with zero dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.atleast_2d"/><p id="torch.functional.atleast_2d"/><a class="reference internal" href="generated/torch.functional.atleast_2d.html#torch.functional.atleast_2d" title="torch.functional.atleast_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_2d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.atleast_2d"/><p id="torch.functional.atleast_2d"/><a class="reference internal" href="generated/torch.functional.atleast_2d.html#torch.functional.atleast_2d" title="torch.functional.atleast_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_2d</span></code></a></p></td>
 <td><p>Returns a 2-dimensional view of each input tensor with zero dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.atleast_3d"/><p id="torch.functional.atleast_3d"/><a class="reference internal" href="generated/torch.functional.atleast_3d.html#torch.functional.atleast_3d" title="torch.functional.atleast_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.atleast_3d"/><p id="torch.functional.atleast_3d"/><a class="reference internal" href="generated/torch.functional.atleast_3d.html#torch.functional.atleast_3d" title="torch.functional.atleast_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_3d</span></code></a></p></td>
 <td><p>Returns a 3-dimensional view of each input tensor with zero dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.block_diag"/><p id="torch.functional.block_diag"/><a class="reference internal" href="generated/torch.functional.block_diag.html#torch.functional.block_diag" title="torch.functional.block_diag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_diag</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.block_diag"/><p id="torch.functional.block_diag"/><a class="reference internal" href="generated/torch.functional.block_diag.html#torch.functional.block_diag" title="torch.functional.block_diag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_diag</span></code></a></p></td>
 <td><p>Create a block diagonal matrix from provided tensors.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.broadcast_shapes"/><p id="torch.functional.broadcast_shapes"/><a class="reference internal" href="generated/torch.functional.broadcast_shapes.html#torch.functional.broadcast_shapes" title="torch.functional.broadcast_shapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">broadcast_shapes</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.broadcast_shapes"/><p id="torch.functional.broadcast_shapes"/><a class="reference internal" href="generated/torch.functional.broadcast_shapes.html#torch.functional.broadcast_shapes" title="torch.functional.broadcast_shapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">broadcast_shapes</span></code></a></p></td>
 <td><p>Similar to <a class="reference internal" href="generated/torch.functional.broadcast_tensors.html#torch.functional.broadcast_tensors" title="torch.functional.broadcast_tensors"><code class="xref py py-func docutils literal notranslate"><span class="pre">broadcast_tensors()</span></code></a> but for shapes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.broadcast_tensors"/><p id="torch.functional.broadcast_tensors"/><a class="reference internal" href="generated/torch.functional.broadcast_tensors.html#torch.functional.broadcast_tensors" title="torch.functional.broadcast_tensors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">broadcast_tensors</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.broadcast_tensors"/><p id="torch.functional.broadcast_tensors"/><a class="reference internal" href="generated/torch.functional.broadcast_tensors.html#torch.functional.broadcast_tensors" title="torch.functional.broadcast_tensors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">broadcast_tensors</span></code></a></p></td>
 <td><p>Broadcasts the given tensors according to <a class="reference internal" href="notes/broadcasting.html#broadcasting-semantics"><span class="std std-ref">Broadcasting semantics</span></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.cartesian_prod"/><p id="torch.functional.cartesian_prod"/><a class="reference internal" href="generated/torch.functional.cartesian_prod.html#torch.functional.cartesian_prod" title="torch.functional.cartesian_prod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cartesian_prod</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.cartesian_prod"/><p id="torch.functional.cartesian_prod"/><a class="reference internal" href="generated/torch.functional.cartesian_prod.html#torch.functional.cartesian_prod" title="torch.functional.cartesian_prod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cartesian_prod</span></code></a></p></td>
 <td><p>Do cartesian product of the given sequence of tensors.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.cdist"/><p id="torch.functional.cdist"/><a class="reference internal" href="generated/torch.functional.cdist.html#torch.functional.cdist" title="torch.functional.cdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cdist</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.cdist"/><p id="torch.functional.cdist"/><a class="reference internal" href="generated/torch.functional.cdist.html#torch.functional.cdist" title="torch.functional.cdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cdist</span></code></a></p></td>
 <td><p>Computes batched the p-norm distance between each pair of the two collections of row vectors.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.chain_matmul"/><p id="torch.functional.chain_matmul"/><a class="reference internal" href="generated/torch.functional.chain_matmul.html#torch.functional.chain_matmul" title="torch.functional.chain_matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chain_matmul</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.chain_matmul"/><p id="torch.functional.chain_matmul"/><a class="reference internal" href="generated/torch.functional.chain_matmul.html#torch.functional.chain_matmul" title="torch.functional.chain_matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chain_matmul</span></code></a></p></td>
 <td><p>Returns the matrix product of the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> 2-D tensors.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.einsum"/><p id="torch.functional.einsum"/><a class="reference internal" href="generated/torch.functional.einsum.html#torch.functional.einsum" title="torch.functional.einsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">einsum</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.einsum"/><p id="torch.functional.einsum"/><a class="reference internal" href="generated/torch.functional.einsum.html#torch.functional.einsum" title="torch.functional.einsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">einsum</span></code></a></p></td>
 <td><p>Sums the product of the elements of the input <code class="xref py py-attr docutils literal notranslate"><span class="pre">operands</span></code> along dimensions specified using a notation based on the Einstein summation convention.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.lu"/><p id="torch.functional.lu"/><a class="reference internal" href="generated/torch.functional.lu.html#torch.functional.lu" title="torch.functional.lu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.lu"/><p id="torch.functional.lu"/><a class="reference internal" href="generated/torch.functional.lu.html#torch.functional.lu" title="torch.functional.lu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu</span></code></a></p></td>
 <td><p>Computes the LU factorization of a matrix or batches of matrices <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.meshgrid"/><p id="torch.functional.meshgrid"/><a class="reference internal" href="generated/torch.functional.meshgrid.html#torch.functional.meshgrid" title="torch.functional.meshgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meshgrid</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.meshgrid"/><p id="torch.functional.meshgrid"/><a class="reference internal" href="generated/torch.functional.meshgrid.html#torch.functional.meshgrid" title="torch.functional.meshgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meshgrid</span></code></a></p></td>
 <td><p>Creates grids of coordinates specified by the 1D inputs in <cite>attr</cite>:tensors.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.norm"/><p id="torch.functional.norm"/><a class="reference internal" href="generated/torch.functional.norm.html#torch.functional.norm" title="torch.functional.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.norm"/><p id="torch.functional.norm"/><a class="reference internal" href="generated/torch.functional.norm.html#torch.functional.norm" title="torch.functional.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a></p></td>
 <td><p>Returns the matrix norm or vector norm of a given tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.split"/><p id="torch.functional.split"/><a class="reference internal" href="generated/torch.functional.split.html#torch.functional.split" title="torch.functional.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.split"/><p id="torch.functional.split"/><a class="reference internal" href="generated/torch.functional.split.html#torch.functional.split" title="torch.functional.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a></p></td>
 <td><p>Splits the tensor into chunks.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.stft"/><p id="torch.functional.stft"/><a class="reference internal" href="generated/torch.functional.stft.html#torch.functional.stft" title="torch.functional.stft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stft</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.stft"/><p id="torch.functional.stft"/><a class="reference internal" href="generated/torch.functional.stft.html#torch.functional.stft" title="torch.functional.stft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stft</span></code></a></p></td>
 <td><p>Short-time Fourier transform (STFT).</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.tensordot"/><p id="torch.functional.tensordot"/><a class="reference internal" href="generated/torch.functional.tensordot.html#torch.functional.tensordot" title="torch.functional.tensordot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensordot</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.tensordot"/><p id="torch.functional.tensordot"/><a class="reference internal" href="generated/torch.functional.tensordot.html#torch.functional.tensordot" title="torch.functional.tensordot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensordot</span></code></a></p></td>
 <td><p>Returns a contraction of a and b over multiple dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.unique"/><p id="torch.functional.unique"/><a class="reference internal" href="generated/torch.functional.unique.html#torch.functional.unique" title="torch.functional.unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.unique"/><p id="torch.functional.unique"/><a class="reference internal" href="generated/torch.functional.unique.html#torch.functional.unique" title="torch.functional.unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code></a></p></td>
 <td><p>Returns the unique elements of the input tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.functional.unique_consecutive"/><p id="torch.functional.unique_consecutive"/><a class="reference internal" href="generated/torch.functional.unique_consecutive.html#torch.functional.unique_consecutive" title="torch.functional.unique_consecutive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_consecutive</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.functional.unique_consecutive"/><p id="torch.functional.unique_consecutive"/><a class="reference internal" href="generated/torch.functional.unique_consecutive.html#torch.functional.unique_consecutive" title="torch.functional.unique_consecutive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_consecutive</span></code></a></p></td>
 <td><p>Eliminates all but the first element from every consecutive group of equivalent elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.functional.unravel_index"/><p id="torch.functional.unravel_index"/><a class="reference internal" href="generated/torch.functional.unravel_index.html#torch.functional.unravel_index" title="torch.functional.unravel_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unravel_index</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.functional.unravel_index"/><p id="torch.functional.unravel_index"/><a class="reference internal" href="generated/torch.functional.unravel_index.html#torch.functional.unravel_index" title="torch.functional.unravel_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unravel_index</span></code></a></p></td>
 <td><p>Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape.</p></td>
 </tr>
 </tbody>
@@ -7188,11 +7159,11 @@ in which they are defined. Feel free to use either the top-level version in <cod
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.functional.align_tensors.html"
+       href="generated/torch.functional.atleast_1d.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.functional.align_tensors</p>
+        <p class="prev-next-title">torch.functional.atleast_1d</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7227,11 +7198,11 @@ in which they are defined. Feel free to use either the top-level version in <cod
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.functional.align_tensors.html"
+       href="generated/torch.functional.atleast_1d.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.functional.align_tensors</p>
+        <p class="prev-next-title">torch.functional.atleast_1d</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -7494,7 +7465,7 @@ in which they are defined. Feel free to use either the top-level version in <cod
        "headline": "Aliases in torch",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch.aliases.html",
-       "articleBody": "Aliases in torch# Created On: Jul 22, 2025 | Last Updated On: May 28, 2026 The following are aliases in torch to their counterparts in the nested namespaces in which they are defined. Feel free to use either the top-level version in torch (e.g. torch.broadcast_tensors()) or the nested version torch.functional.broadcast_tensors(). align_tensors atleast_1d Returns a 1-dimensional view of each input tensor with zero dimensions. atleast_2d Returns a 2-dimensional view of each input tensor with zero dimensions. atleast_3d Returns a 3-dimensional view of each input tensor with zero dimensions. block_diag Create a block diagonal matrix from provided tensors. broadcast_shapes Similar to broadcast_tensors() but for shapes. broadcast_tensors Broadcasts the given tensors according to Broadcasting semantics. cartesian_prod Do cartesian product of the given sequence of tensors. cdist Computes batched the p-norm distance between each pair of the two collections of row vectors. chain_matmul Returns the matrix product of the NNN 2-D tensors. einsum Sums the product of the elements of the input operands along dimensions specified using a notation based on the Einstein summation convention. lu Computes the LU factorization of a matrix or batches of matrices A. meshgrid Creates grids of coordinates specified by the 1D inputs in attr:tensors. norm Returns the matrix norm or vector norm of a given tensor. split Splits the tensor into chunks. stft Short-time Fourier transform (STFT). tensordot Returns a contraction of a and b over multiple dimensions. unique Returns the unique elements of the input tensor. unique_consecutive Eliminates all but the first element from every consecutive group of equivalent elements. unravel_index Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape.",
+       "articleBody": "Aliases in torch# Created On: Jul 22, 2025 | Last Updated On: May 28, 2026 The following are aliases in torch to their counterparts in the nested namespaces in which they are defined. Feel free to use either the top-level version in torch (e.g. torch.broadcast_tensors()) or the nested version torch.functional.broadcast_tensors(). atleast_1d Returns a 1-dimensional view of each input tensor with zero dimensions. atleast_2d Returns a 2-dimensional view of each input tensor with zero dimensions. atleast_3d Returns a 3-dimensional view of each input tensor with zero dimensions. block_diag Create a block diagonal matrix from provided tensors. broadcast_shapes Similar to broadcast_tensors() but for shapes. broadcast_tensors Broadcasts the given tensors according to Broadcasting semantics. cartesian_prod Do cartesian product of the given sequence of tensors. cdist Computes batched the p-norm distance between each pair of the two collections of row vectors. chain_matmul Returns the matrix product of the NNN 2-D tensors. einsum Sums the product of the elements of the input operands along dimensions specified using a notation based on the Einstein summation convention. lu Computes the LU factorization of a matrix or batches of matrices A. meshgrid Creates grids of coordinates specified by the 1D inputs in attr:tensors. norm Returns the matrix norm or vector norm of a given tensor. split Splits the tensor into chunks. stft Short-time Fourier transform (STFT). tensordot Returns a contraction of a and b over multiple dimensions. unique Returns the unique elements of the input tensor. unique_consecutive Eliminates all but the first element from every consecutive group of equivalent elements. unravel_index Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

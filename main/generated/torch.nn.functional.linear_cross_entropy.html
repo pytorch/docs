@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git516f64b )">
+<meta name="llm:version" content="main (2.13.0a0+gite5aa132 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git516f64b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite5aa132 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1042,18 +1042,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2501,18 +2489,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
-                  Named Tensors operator coverage
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
                   torch.config
                 </a>
@@ -3575,8 +3551,6 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../tensorboard.html">torch.utils.tensorboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_tracker.html">torch.utils.module_tracker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../type_info.html">Type Info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../named_tensor.html">Named Tensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../config_mod.html">torch.__config__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logging.html">torch._logging</a></li>
@@ -3696,7 +3670,7 @@ document.write(`
 <h1>torch.nn.functional.linear_cross_entropy<a class="headerlink" href="#torch-nn-functional-linear-cross-entropy" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.linear_cross_entropy">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">linear_cross_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/nn/functional.py#L3656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.linear_cross_entropy" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">linear_cross_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/functional.py#L3658"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.linear_cross_entropy" title="Link to this definition">#</a></dt>
 <dd><p>Compute the cross entropy loss between inputs, transformed linearly, and target.</p>
 <p>The statement:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">linear_cross_entropy</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">linear_weight</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -3741,12 +3715,44 @@ mixture of the original ground truth and a uniform
 distribution as described in <a class="reference external" href="https://arxiv.org/abs/1512.00567">Rethinking the Inception
 Architecture for Computer Vision</a>.
 Default: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.0</mn></mrow><annotation encoding="application/x-tex">0.0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0</span></span></span></span></span>.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions" title="torch.nn.LinearCrossEntropyOptions"><em>LinearCrossEntropyOptions</em></a><em>, </em><em>optional</em>) – Specify
+chunking strategy options, see
+<a class="reference internal" href="torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions" title="torch.nn.LinearCrossEntropyOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions</span></code></a>
+for more details. Enabling chunking will decrease the
+memory usage.  To enable reference implementation of
+<code class="docutils literal notranslate"><span class="pre">linear_cross_entropy</span></code>, use <cite>options=None</cite>. Default:
+<code class="docutils literal notranslate"><span class="pre">None</span></code>. See the autograd / compile note below for
+which higher-level APIs (<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>,
+<code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.func.vmap(grad(...))</span></code>,
+higher-order or forward-mode AD) only work on the
+<code class="docutils literal notranslate"><span class="pre">options=None</span></code> reference path.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Limitations of the chunked path</strong> (<code class="docutils literal notranslate"><span class="pre">options</span></code> not <code class="docutils literal notranslate"><span class="pre">None</span></code>).
+The chunked op precomputes gradients inside forward and consumes
+them via in-place backward mutation, which puts it outside the
+standard autograd contract:</p>
+<ul class="simple">
+<li><p>Higher-order AD (<code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code>, <code class="docutils literal notranslate"><span class="pre">hessian</span></code>) is
+unsupported.</p></li>
+<li><p>Forward-mode AD (<code class="docutils literal notranslate"><span class="pre">jvp</span></code>, <code class="docutils literal notranslate"><span class="pre">jacfwd</span></code>) is unsupported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code> / <code class="docutils literal notranslate"><span class="pre">vmap(grad(...))</span></code> does not work, but
+plain <code class="docutils literal notranslate"><span class="pre">output.backward()</span></code> does.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> falls back to eager at the chunked op;
+<code class="docutils literal notranslate"><span class="pre">allow_retain_graph=True</span></code> is forced internally to keep
+double-backward correct (with a warning).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code> falls back to the reference path with a
+warning.</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions</span></code> is not TorchScript-scriptable.</p></li>
+</ul>
+<p>The reference path (<code class="docutils literal notranslate"><span class="pre">options=None</span></code>) supports all of the above.</p>
+</div>
 <dl>
 <dt>Shape:</dt><dd><ul class="simple">
 <li><p>Input: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><msub><mi>n</mi><mi>f</mi></msub><mi>e</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>r</mi><mi>e</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(in_features)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">u</span><span class="mord mathnormal">res</span><span class="mclose">)</span></span></span></span></span> or <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>i</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>f</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>r</mi><mi>e</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, in\_features)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">in</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">e</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">u</span><span class="mord mathnormal">res</span><span class="mclose">)</span></span></span></span></span>.</p></li>
@@ -4135,7 +4141,7 @@ shape of the input. Otherwise, scalar.</p></li>
        "headline": "torch.nn.functional.linear_cross_entropy",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.functional.linear_cross_entropy.html",
-       "articleBody": "torch.nn.functional.linear_cross_entropy# torch.nn.functional.linear_cross_entropy(input, linear_weight, target, *, weight=None, reduction=\u0027mean\u0027, ignore_index=None, label_smoothing=0.0)[source]# Compute the cross entropy loss between inputs, transformed linearly, and target. The statement: loss = linear_cross_entropy(input, linear_weight, target, **kwargs) is equivalent to the following reference implementation of linear_cross_entropy: logits = linear(input, linear_weight) loss = cross_entropy(logits, target, **kwargs) provided that ignore_index is not explicitly set to None in kwargs (since cross_entropy() does not accept None for ignore_index). See Linear and CrossEntropyLoss for details. Parameters: input (Tensor) \u2013 input samples. linear_weight (Tensor) \u2013 linear weight. target (Tensor) \u2013 Ground truth class indices or class probabilities; weight (Tensor, optional) \u2013 a manual rescaling weight given to each class. reduction (str, optional) \u2013 Specifies the reduction to apply to the output: \u0027none\u0027 | \u0027mean\u0027 | \u0027sum\u0027. \u0027none\u0027: no reduction will be applied, \u0027mean\u0027: the sum of the output will be divided by the number of elements in the output, \u0027sum\u0027: the output will be summed. Default: \u0027mean\u0027. ignore_index (int, optional) \u2013 Specifies a target value that is ignored and does not contribute to the input gradient. Note that ignore_index is only applicable when the target contains class indices. Default: None. When target contains class indices, the default value is mapped to -100. Note: the default ignore_index in cross_entropy is -100 for both target types. label_smoothing (float, optional) \u2013 A float in [0.0, 1.0]. Specifies the amount of smoothing when computing the loss, where 0.0 means no smoothing. The targets become a mixture of the original ground truth and a uniform distribution as described in Rethinking the Inception Architecture for Computer Vision. Default: 0.00.00.0. Return type: Tensor Shape: Input: (infeatures)(in_features)(inf\u200beatures) or (N,in_features)(N, in\\_features)(N,in_features). Linear weight: (C,in_features)(C, in\\_features)(C,in_features) or (C,d1,...,dK,in_features)(C, d_1, ..., d_K, in\\_features)(C,d1\u200b,...,dK\u200b,in_features) with K\u22651K \\geq 1K\u22651 in the case of K-dimensional loss. Note: multi-dimensional weights (K \u003e 0) require batched input (N,in_features)(N, in\\_features)(N,in_features). Target: If containing class indices, ()()(), (N)(N)(N), or (N,d1,d2,...,dK)(N, d_1, d_2, ..., d_K)(N,d1\u200b,d2\u200b,...,dK\u200b) when K\u22651K\\geq 1K\u22651, where each value should be between [0,C)[0, C)[0,C). The target data type is required to be long when using class indices. If containing class probabilities, the target must have shape (C)(C)(C), (N,C)(N, C)(N,C), or (N,C,d1,d2,...,dK)(N, C, d_1, d_2, ..., d_K)(N,C,d1\u200b,d2\u200b,...,dK\u200b) when K\u22651K\\geq 1K\u22651, and each value should be between [0,1][0, 1][0,1]. This means the target data type is required to be float when using class probabilities. Note that PyTorch does not strictly enforce probability constraints on the class probabilities and that it is the user\u2019s responsibility to ensure target contains valid probability distributions. Weight: (C)(C)(C). Output: If reduction is \u2018none\u2019, shape ()()(), (N)(N)(N) or (N,d1,d2,...,dK)(N, d_1, d_2, ..., d_K)(N,d1\u200b,d2\u200b,...,dK\u200b) with K\u22651K\\geq 1K\u22651 in the case of K-dimensional loss, depending on the shape of the input. Otherwise, scalar. where NNN is batch size and CCC is number of classes.",
+       "articleBody": "torch.nn.functional.linear_cross_entropy# torch.nn.functional.linear_cross_entropy(input, linear_weight, target, *, weight=None, reduction=\u0027mean\u0027, ignore_index=None, label_smoothing=0.0, options=None)[source]# Compute the cross entropy loss between inputs, transformed linearly, and target. The statement: loss = linear_cross_entropy(input, linear_weight, target, **kwargs) is equivalent to the following reference implementation of linear_cross_entropy: logits = linear(input, linear_weight) loss = cross_entropy(logits, target, **kwargs) provided that ignore_index is not explicitly set to None in kwargs (since cross_entropy() does not accept None for ignore_index). See Linear and CrossEntropyLoss for details. Parameters: input (Tensor) \u2013 input samples. linear_weight (Tensor) \u2013 linear weight. target (Tensor) \u2013 Ground truth class indices or class probabilities; weight (Tensor, optional) \u2013 a manual rescaling weight given to each class. reduction (str, optional) \u2013 Specifies the reduction to apply to the output: \u0027none\u0027 | \u0027mean\u0027 | \u0027sum\u0027. \u0027none\u0027: no reduction will be applied, \u0027mean\u0027: the sum of the output will be divided by the number of elements in the output, \u0027sum\u0027: the output will be summed. Default: \u0027mean\u0027. ignore_index (int, optional) \u2013 Specifies a target value that is ignored and does not contribute to the input gradient. Note that ignore_index is only applicable when the target contains class indices. Default: None. When target contains class indices, the default value is mapped to -100. Note: the default ignore_index in cross_entropy is -100 for both target types. label_smoothing (float, optional) \u2013 A float in [0.0, 1.0]. Specifies the amount of smoothing when computing the loss, where 0.0 means no smoothing. The targets become a mixture of the original ground truth and a uniform distribution as described in Rethinking the Inception Architecture for Computer Vision. Default: 0.00.00.0. options (LinearCrossEntropyOptions, optional) \u2013 Specify chunking strategy options, see LinearCrossEntropyOptions for more details. Enabling chunking will decrease the memory usage. To enable reference implementation of linear_cross_entropy, use options=None. Default: None. See the autograd / compile note below for which higher-level APIs (torch.compile, torch.func.grad, torch.func.vmap(grad(...)), higher-order or forward-mode AD) only work on the options=None reference path. Return type: Tensor Note Limitations of the chunked path (options not None). The chunked op precomputes gradients inside forward and consumes them via in-place backward mutation, which puts it outside the standard autograd contract: Higher-order AD (create_graph=True, hessian) is unsupported. Forward-mode AD (jvp, jacfwd) is unsupported. torch.func.grad / vmap(grad(...)) does not work, but plain output.backward() does. torch.compile falls back to eager at the chunked op; allow_retain_graph=True is forced internally to keep double-backward correct (with a warning). torch.jit.trace falls back to the reference path with a warning. LinearCrossEntropyOptions is not TorchScript-scriptable. The reference path (options=None) supports all of the above. Shape: Input: (infeatures)(in_features)(inf\u200beatures) or (N,in_features)(N, in\\_features)(N,in_features). Linear weight: (C,in_features)(C, in\\_features)(C,in_features) or (C,d1,...,dK,in_features)(C, d_1, ..., d_K, in\\_features)(C,d1\u200b,...,dK\u200b,in_features) with K\u22651K \\geq 1K\u22651 in the case of K-dimensional loss. Note: multi-dimensional weights (K \u003e 0) require batched input (N,in_features)(N, in\\_features)(N,in_features). Target: If containing class indices, ()()(), (N)(N)(N), or (N,d1,d2,...,dK)(N, d_1, d_2, ..., d_K)(N,d1\u200b,d2\u200b,...,dK\u200b) when K\u22651K\\geq 1K\u22651, where each value should be between [0,C)[0, C)[0,C). The target data type is required to be long when using class indices. If containing class probabilities, the target must have shape (C)(C)(C), (N,C)(N, C)(N,C), or (N,C,d1,d2,...,dK)(N, C, d_1, d_2, ..., d_K)(N,C,d1\u200b,d2\u200b,...,dK\u200b) when K\u22651K\\geq 1K\u22651, and each value should be between [0,1][0, 1][0,1]. This means the target data type is required to be float when using class probabilities. Note that PyTorch does not strictly enforce probability constraints on the class probabilities and that it is the user\u2019s responsibility to ensure target contains valid probability distributions. Weight: (C)(C)(C). Output: If reduction is \u2018none\u2019, shape ()()(), (N)(N)(N) or (N,d1,d2,...,dK)(N, d_1, d_2, ..., d_K)(N,d1\u200b,d2\u200b,...,dK\u200b) with K\u22651K\\geq 1K\u22651 in the case of K-dimensional loss, depending on the shape of the input. Otherwise, scalar. where NNN is batch size and CCC is number of classes.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -504,7 +504,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.dynamic-shape, [torch.map](torch.map.html)
+Tags: [torch.map](torch.map.html), torch.dynamic-shape
 
 Support Level: SUPPORTED
 
@@ -640,7 +640,7 @@ ExportedProgram:
  class GraphModule(torch.nn.Module):
  def forward(self, x: "f32[3, 2]"):
  slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 1); x = None
- slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, None, 2); slice_1 = None
+ slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2); slice_1 = None
  return (slice_2,)
 
 Graph signature:
@@ -710,7 +710,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.dynamic-shape, [python.data-structure](python.data-structure.html), [python.assert](python.assert.html)
+Tags: [python.data-structure](python.data-structure.html), [python.assert](python.assert.html), torch.dynamic-shape
 
 Support Level: SUPPORTED
 

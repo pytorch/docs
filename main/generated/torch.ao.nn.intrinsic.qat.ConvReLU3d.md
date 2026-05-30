@@ -1,6 +1,6 @@
 # ConvReLU3d
 
-*class*torch.ao.nn.intrinsic.qat.ConvReLU3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L887)
+*class*torch.ao.nn.intrinsic.qat.ConvReLU3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L887)
 
 A ConvReLU3d module is a fused module of Conv3d and ReLU, attached with
 FakeQuantize modules for weight for
@@ -13,10 +13,10 @@ Variables:
 
 **weight_fake_quant** - fake quant module for weight
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L936)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L936)
 
 Performs forward pass through fused Conv3d and ReLU.
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L942)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L942)
 
 Creates a QAT module from a floating point module.

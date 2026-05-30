@@ -1,6 +1,6 @@
 # LinearCrossEntropyLoss
 
-*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/nn/modules/loss.py#L1407)
+*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/modules/loss.py#L1408)
 
 This criterion computes the cross entropy loss between input,
 linearly transformed to logits, and target.
@@ -42,6 +42,29 @@ of the original ground truth and a uniform distribution as
 described in [Rethinking the Inception Architecture for
 Computer Vision](https://arxiv.org/abs/1512.00567).
 Default: 0.00.00.0.
+- **options** ([*LinearCrossEntropyOptions*](torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions)*,**optional*) - Specify
+chunking strategy options, see
+[`LinearCrossEntropyOptions`](torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions)
+for more details. To enable reference implementation of
+linear_cross_entropy with chunking disabled, use
+options=None. Note: passing a non-`None` `options`
+makes the module incompatible with
+`torch.jit.script()`; see the note below.
+
+Warning
+
+With non-`None` `options`, the chunked path consumes its
+precomputed gradients in-place, so any second `backward()`
+call raises (even with `retain_graph=True`). Use
+`LinearCrossEntropyOptions(allow_retain_graph=True)` to allow
+repeated backward (one extra gradient-sized allocation per call).
+
+Note
+
+`options=None` is scriptable; an `options` instance is not.
+The chunked path does not support higher-order AD, forward-mode
+AD, `torch.func.grad` / `vmap(grad(...))`, or Inductor
+lowering; see [`torch.nn.functional.linear_cross_entropy()`](torch.nn.functional.linear_cross_entropy.html#torch.nn.functional.linear_cross_entropy).
 
 Shape:
 
@@ -83,7 +106,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/516f64b797cf7645a973e20d856d3e0ddec79948/torch/nn/modules/loss.py#L1540)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/modules/loss.py#L1566)
 
 Runs the forward pass.
 

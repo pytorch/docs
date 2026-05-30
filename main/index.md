@@ -110,8 +110,6 @@ The APIs and performance characteristics of these features may change.
 - [torch.utils.tensorboard](tensorboard.html)
 - [torch.utils.module_tracker](module_tracker.html)
 - [Type Info](type_info.html)
-- [Named Tensors](named_tensor.html)
-- [Named Tensors operator coverage](name_inference.html)
 - [torch.__config__](config_mod.html)
 - [torch.__future__](future_mod.html)
 - [torch._logging](logging.html)
