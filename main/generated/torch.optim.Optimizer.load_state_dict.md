@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.load_state_dict
 
-Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/optim/optimizer.py#L880)
+Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/optim/optimizer.py#L880)
 
 Load the optimizer state.
 
@@ -29,25 +29,24 @@ the optimizer `param_names` will remain unchanged.
 Example
 
 ```
->>> model = torch.nn.Linear(10, 10)
->>> optim = torch.optim.SGD(model.parameters(), lr=3e-4)
+>>> optimizer = ... # initialized optimizer matching the saved state
 >>> scheduler1 = torch.optim.lr_scheduler.LinearLR(
-... optim,
+... optimizer,
 ... start_factor=0.1,
 ... end_factor=1,
 ... total_iters=20,
 ... )
 >>> scheduler2 = torch.optim.lr_scheduler.CosineAnnealingLR(
-... optim,
+... optimizer,
 ... T_max=80,
 ... eta_min=3e-5,
 ... )
 >>> lr = torch.optim.lr_scheduler.SequentialLR(
-... optim,
+... optimizer,
 ... schedulers=[scheduler1, scheduler2],
 ... milestones=[20],
 ... )
 >>> lr.load_state_dict(torch.load("./save_seq.pt"))
 >>> # now load the optimizer checkpoint after loading the LRScheduler
->>> optim.load_state_dict(torch.load("./save_optim.pt"))
+>>> optimizer.load_state_dict(torch.load("./save_optim.pt"))
 ```

@@ -1,6 +1,6 @@
 # InstanceNorm1d
 
-*class*torch.nn.modules.instancenorm.InstanceNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/modules/instancenorm.py#L136)
+*class*torch.nn.modules.instancenorm.InstanceNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/instancenorm.py#L136)
 
 Applies Instance Normalization.
 
@@ -40,7 +40,7 @@ have some subtle differences. `InstanceNorm1d` is applied
 on each channel of channeled data like multidimensional time series, but
 `LayerNorm` is usually applied on entire sample and often in NLP
 tasks. Additionally, `LayerNorm` applies elementwise affine
-transform, while `InstanceNorm1d` usually don't apply affine
+transform, while `InstanceNorm1d` usually doesn't apply affine
 transform.
 
 Parameters:

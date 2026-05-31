@@ -1,6 +1,6 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/functional.py#L3658)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/functional.py#L3656)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
@@ -52,42 +52,10 @@ mixture of the original ground truth and a uniform
 distribution as described in [Rethinking the Inception
 Architecture for Computer Vision](https://arxiv.org/abs/1512.00567).
 Default: 0.00.00.0.
-- **options** ([*LinearCrossEntropyOptions*](torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions)*,**optional*) - Specify
-chunking strategy options, see
-[`LinearCrossEntropyOptions`](torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions)
-for more details. Enabling chunking will decrease the
-memory usage. To enable reference implementation of
-`linear_cross_entropy`, use options=None. Default:
-`None`. See the autograd / compile note below for
-which higher-level APIs (`torch.compile`,
-`torch.func.grad`, `torch.func.vmap(grad(...))`,
-higher-order or forward-mode AD) only work on the
-`options=None` reference path.
 
 Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
-
-Note
-
-**Limitations of the chunked path** (`options` not `None`).
-The chunked op precomputes gradients inside forward and consumes
-them via in-place backward mutation, which puts it outside the
-standard autograd contract:
-
-- Higher-order AD (`create_graph=True`, `hessian`) is
-unsupported.
-- Forward-mode AD (`jvp`, `jacfwd`) is unsupported.
-- `torch.func.grad` / `vmap(grad(...))` does not work, but
-plain `output.backward()` does.
-- `torch.compile` falls back to eager at the chunked op;
-`allow_retain_graph=True` is forced internally to keep
-double-backward correct (with a warning).
-- `torch.jit.trace` falls back to the reference path with a
-warning.
-- `LinearCrossEntropyOptions` is not TorchScript-scriptable.
-
-The reference path (`options=None`) supports all of the above.
 
 Shape:
 

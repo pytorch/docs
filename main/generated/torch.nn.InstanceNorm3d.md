@@ -1,6 +1,6 @@
 # InstanceNorm3d
 
-*class*torch.nn.InstanceNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/modules/instancenorm.py#L375)
+*class*torch.nn.InstanceNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/instancenorm.py#L375)
 
 Applies Instance Normalization.
 
@@ -40,7 +40,7 @@ have some subtle differences. `InstanceNorm3d` is applied
 on each channel of channeled data like 3D models with RGB color, but
 [`LayerNorm`](torch.nn.LayerNorm.html#torch.nn.LayerNorm) is usually applied on entire sample and often in NLP
 tasks. Additionally, [`LayerNorm`](torch.nn.LayerNorm.html#torch.nn.LayerNorm) applies elementwise affine
-transform, while `InstanceNorm3d` usually don't apply affine
+transform, while `InstanceNorm3d` usually doesn't apply affine
 transform.
 
 Parameters:

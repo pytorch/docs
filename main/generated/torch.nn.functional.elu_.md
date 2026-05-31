@@ -1,5 +1,5 @@
 # torch.nn.functional.elu_
 
-torch.nn.functional.elu_(*input*, *alpha=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/functional.py#L1837)
+torch.nn.functional.elu_(*input*, *alpha=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/functional.py#L1835)
 
 In-place version of [`elu()`](torch.nn.functional.elu.html#torch.nn.functional.elu).

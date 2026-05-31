@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>LinearCrossEntropyOptions &#8212; PyTorch main documentation</title>
+    <title>torch.Tensor.nonzero_static &#8212; PyTorch main documentation</title>
   
   
   
@@ -49,18 +49,18 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=940804e7"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.nn.LinearCrossEntropyOptions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.Tensor.nonzero_static';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.LinearCrossEntropyOptions.html" />
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.Tensor.nonzero_static.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CTCLoss" href="torch.nn.CTCLoss.html" />
-    <link rel="prev" title="LinearCrossEntropyLoss" href="torch.nn.LinearCrossEntropyLoss.html" />
+    <link rel="next" title="torch.Tensor.norm" href="torch.Tensor.norm.html" />
+    <link rel="prev" title="torch.Tensor.nonzero" href="torch.Tensor.nonzero.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -70,7 +70,7 @@
 <meta name="llm:site-type" content="documentation">
 <meta name="llm:framework" content="PyTorch">
 
-<meta name="llm:description" content="LinearCrossEntropyOptions - Documentation for PyTorch, part of the PyTorch ecosystem.">
+<meta name="llm:description" content="torch.Tensor.nonzero_static - Documentation for PyTorch, part of the PyTorch ecosystem.">
 
 
 
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+gite5aa132 )">
+<meta name="llm:version" content="main (2.13.0a0+gitf7811aa )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite5aa132 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf7811aa )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3344,241 +3344,539 @@ document.write(`
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../torch.html">torch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.aliases.html">Aliases in torch.nn</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../nn.html">torch.nn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parameter.Buffer.html">Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parameter.Parameter.html">Parameter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parameter.UninitializedParameter.html">UninitializedParameter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parameter.UninitializedBuffer.html">UninitializedBuffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Module.html">Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Sequential.html">Sequential</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ModuleList.html">ModuleList</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ModuleDict.html">ModuleDict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ParameterList.html">ParameterList</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ParameterDict.html">ParameterDict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_forward_pre_hook.html">torch.nn.modules.module.register_module_forward_pre_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_forward_hook.html">torch.nn.modules.module.register_module_forward_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_backward_hook.html">torch.nn.modules.module.register_module_backward_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_full_backward_pre_hook.html">torch.nn.modules.module.register_module_full_backward_pre_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_full_backward_hook.html">torch.nn.modules.module.register_module_full_backward_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_buffer_registration_hook.html">torch.nn.modules.module.register_module_buffer_registration_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_module_registration_hook.html">torch.nn.modules.module.register_module_module_registration_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.module.register_module_parameter_registration_hook.html">torch.nn.modules.module.register_module_parameter_registration_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Conv1d.html">Conv1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Conv2d.html">Conv2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Conv3d.html">Conv3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConvTranspose1d.html">ConvTranspose1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConvTranspose2d.html">ConvTranspose2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConvTranspose3d.html">ConvTranspose3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConv1d.html">LazyConv1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConv2d.html">LazyConv2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConv3d.html">LazyConv3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConvTranspose1d.html">LazyConvTranspose1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConvTranspose2d.html">LazyConvTranspose2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyConvTranspose3d.html">LazyConvTranspose3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Unfold.html">Unfold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Fold.html">Fold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxPool1d.html">MaxPool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxPool2d.html">MaxPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxPool3d.html">MaxPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxUnpool1d.html">MaxUnpool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxUnpool2d.html">MaxUnpool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MaxUnpool3d.html">MaxUnpool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AvgPool1d.html">AvgPool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AvgPool2d.html">AvgPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AvgPool3d.html">AvgPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.FractionalMaxPool2d.html">FractionalMaxPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.FractionalMaxPool3d.html">FractionalMaxPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LPPool1d.html">LPPool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LPPool2d.html">LPPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LPPool3d.html">LPPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveMaxPool1d.html">AdaptiveMaxPool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveMaxPool2d.html">AdaptiveMaxPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveMaxPool3d.html">AdaptiveMaxPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveAvgPool1d.html">AdaptiveAvgPool1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveAvgPool2d.html">AdaptiveAvgPool2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveAvgPool3d.html">AdaptiveAvgPool3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReflectionPad1d.html">ReflectionPad1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReflectionPad2d.html">ReflectionPad2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReflectionPad3d.html">ReflectionPad3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReplicationPad1d.html">ReplicationPad1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReplicationPad2d.html">ReplicationPad2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReplicationPad3d.html">ReplicationPad3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ZeroPad1d.html">ZeroPad1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ZeroPad2d.html">ZeroPad2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ZeroPad3d.html">ZeroPad3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConstantPad1d.html">ConstantPad1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConstantPad2d.html">ConstantPad2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ConstantPad3d.html">ConstantPad3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CircularPad1d.html">CircularPad1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CircularPad2d.html">CircularPad2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CircularPad3d.html">CircularPad3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ELU.html">ELU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Hardshrink.html">Hardshrink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Hardsigmoid.html">Hardsigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Hardtanh.html">Hardtanh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Hardswish.html">Hardswish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LeakyReLU.html">LeakyReLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LogSigmoid.html">LogSigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MultiheadAttention.html">MultiheadAttention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.PReLU.html">PReLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReLU.html">ReLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ReLU6.html">ReLU6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.RReLU.html">RReLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.SELU.html">SELU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CELU.html">CELU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GELU.html">GELU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Sigmoid.html">Sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.SiLU.html">SiLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Mish.html">Mish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softplus.html">Softplus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softshrink.html">Softshrink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softsign.html">Softsign</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Tanh.html">Tanh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Tanhshrink.html">Tanhshrink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Threshold.html">Threshold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GLU.html">GLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softmin.html">Softmin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softmax.html">Softmax</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Softmax2d.html">Softmax2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LogSoftmax.html">LogSoftmax</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AdaptiveLogSoftmaxWithLoss.html">AdaptiveLogSoftmaxWithLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.BatchNorm1d.html">BatchNorm1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.BatchNorm2d.html">BatchNorm2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.BatchNorm3d.html">BatchNorm3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyBatchNorm1d.html">LazyBatchNorm1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyBatchNorm2d.html">LazyBatchNorm2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyBatchNorm3d.html">LazyBatchNorm3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GroupNorm.html">GroupNorm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.SyncBatchNorm.html">SyncBatchNorm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.InstanceNorm1d.html">InstanceNorm1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.InstanceNorm2d.html">InstanceNorm2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.InstanceNorm3d.html">InstanceNorm3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyInstanceNorm1d.html">LazyInstanceNorm1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyInstanceNorm2d.html">LazyInstanceNorm2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyInstanceNorm3d.html">LazyInstanceNorm3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LayerNorm.html">LayerNorm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LocalResponseNorm.html">LocalResponseNorm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.RMSNorm.html">RMSNorm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.RNNBase.html">RNNBase</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.RNN.html">RNN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LSTM.html">LSTM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GRU.html">GRU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.RNNCell.html">RNNCell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LSTMCell.html">LSTMCell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GRUCell.html">GRUCell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Transformer.html">Transformer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TransformerEncoder.html">TransformerEncoder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TransformerDecoder.html">TransformerDecoder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TransformerEncoderLayer.html">TransformerEncoderLayer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TransformerDecoderLayer.html">TransformerDecoderLayer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Identity.html">Identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Linear.html">Linear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Bilinear.html">Bilinear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LazyLinear.html">LazyLinear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Dropout.html">Dropout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Dropout1d.html">Dropout1d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Dropout2d.html">Dropout2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Dropout3d.html">Dropout3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.AlphaDropout.html">AlphaDropout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.FeatureAlphaDropout.html">FeatureAlphaDropout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Embedding.html">Embedding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.EmbeddingBag.html">EmbeddingBag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CosineSimilarity.html">CosineSimilarity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.PairwiseDistance.html">PairwiseDistance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.L1Loss.html">L1Loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MSELoss.html">MSELoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CrossEntropyLoss.html">CrossEntropyLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.LinearCrossEntropyLoss.html">LinearCrossEntropyLoss</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">LinearCrossEntropyOptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CTCLoss.html">CTCLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.NLLLoss.html">NLLLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.PoissonNLLLoss.html">PoissonNLLLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.GaussianNLLLoss.html">GaussianNLLLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.KLDivLoss.html">KLDivLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.BCELoss.html">BCELoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.BCEWithLogitsLoss.html">BCEWithLogitsLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MarginRankingLoss.html">MarginRankingLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.HingeEmbeddingLoss.html">HingeEmbeddingLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MultiLabelMarginLoss.html">MultiLabelMarginLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.HuberLoss.html">HuberLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.SmoothL1Loss.html">SmoothL1Loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.SoftMarginLoss.html">SoftMarginLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MultiLabelSoftMarginLoss.html">MultiLabelSoftMarginLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.CosineEmbeddingLoss.html">CosineEmbeddingLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.MultiMarginLoss.html">MultiMarginLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TripletMarginLoss.html">TripletMarginLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.TripletMarginWithDistanceLoss.html">TripletMarginWithDistanceLoss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.PixelShuffle.html">PixelShuffle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.PixelUnshuffle.html">PixelUnshuffle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.Upsample.html">Upsample</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.UpsamplingNearest2d.html">UpsamplingNearest2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.UpsamplingBilinear2d.html">UpsamplingBilinear2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.ChannelShuffle.html">ChannelShuffle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.DataParallel.html">DataParallel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parallel.DistributedDataParallel.html">DistributedDataParallel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.clip_grad_norm_.html">torch.nn.utils.clip_grad_norm_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.clip_grad_norm.html">torch.nn.utils.clip_grad_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.clip_grad_value_.html">torch.nn.utils.clip_grad_value_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.get_total_norm.html">torch.nn.utils.get_total_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.clip_grads_with_norm_.html">torch.nn.utils.clip_grads_with_norm_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parameters_to_vector.html">torch.nn.utils.parameters_to_vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.vector_to_parameters.html">torch.nn.utils.vector_to_parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.fuse_conv_bn_eval.html">torch.nn.utils.fuse_conv_bn_eval</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.fuse_conv_bn_weights.html">torch.nn.utils.fuse_conv_bn_weights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.fuse_linear_bn_eval.html">torch.nn.utils.fuse_linear_bn_eval</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.fuse_linear_bn_weights.html">torch.nn.utils.fuse_linear_bn_weights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.convert_conv2d_weight_memory_format.html">torch.nn.utils.convert_conv2d_weight_memory_format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.convert_conv3d_weight_memory_format.html">torch.nn.utils.convert_conv3d_weight_memory_format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.weight_norm.html">torch.nn.utils.weight_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.remove_weight_norm.html">torch.nn.utils.remove_weight_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.spectral_norm.html">torch.nn.utils.spectral_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.remove_spectral_norm.html">torch.nn.utils.remove_spectral_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.Identity_class.html">Identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.ln_structured.html">torch.nn.utils.prune.ln_structured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.global_unstructured.html">torch.nn.utils.prune.global_unstructured</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.custom_from_mask.html">torch.nn.utils.prune.custom_from_mask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.remove.html">torch.nn.utils.prune.remove</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.is_pruned.html">torch.nn.utils.prune.is_pruned</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrizations.orthogonal.html">torch.nn.utils.parametrizations.orthogonal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrizations.weight_norm.html">torch.nn.utils.parametrizations.weight_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrizations.spectral_norm.html">torch.nn.utils.parametrizations.spectral_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.register_parametrization.html">torch.nn.utils.parametrize.register_parametrization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.remove_parametrizations.html">torch.nn.utils.parametrize.remove_parametrizations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.cached.html">torch.nn.utils.parametrize.cached</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.is_parametrized.html">torch.nn.utils.parametrize.is_parametrized</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.transfer_parametrizations_and_params.html">torch.nn.utils.parametrize.transfer_parametrizations_and_params</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.type_before_parametrizations.html">torch.nn.utils.parametrize.type_before_parametrizations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.parametrize.ParametrizationList.html">ParametrizationList</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.stateless.functional_call.html">torch.nn.utils.stateless.functional_call</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.PackedSequence.html">PackedSequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.pack_padded_sequence.html">torch.nn.utils.rnn.pack_padded_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.pad_packed_sequence.html">torch.nn.utils.rnn.pad_packed_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.pad_sequence.html">torch.nn.utils.rnn.pad_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.pack_sequence.html">torch.nn.utils.rnn.pack_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.unpack_sequence.html">torch.nn.utils.rnn.unpack_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.unpad_sequence.html">torch.nn.utils.rnn.unpad_sequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.rnn.invert_permutation.html">torch.nn.utils.rnn.invert_permutation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.parameter.is_lazy.html">torch.nn.parameter.is_lazy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.factory_kwargs.html">torch.nn.factory_kwargs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.flatten.Flatten.html">Flatten</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.flatten.Unflatten.html">Unflatten</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.modules.lazy.LazyModuleMixin.html">LazyModuleMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../tensors.html">torch.Tensor</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.new_tensor.html">torch.Tensor.new_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.new_full.html">torch.Tensor.new_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.new_empty.html">torch.Tensor.new_empty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.new_ones.html">torch.Tensor.new_ones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.new_zeros.html">torch.Tensor.new_zeros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_cuda.html">torch.Tensor.is_cuda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_quantized.html">torch.Tensor.is_quantized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_meta.html">torch.Tensor.is_meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.device.html">torch.Tensor.device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.grad.html">torch.Tensor.grad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ndim.html">torch.Tensor.ndim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.real.html">torch.Tensor.real</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.imag.html">torch.Tensor.imag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nbytes.html">torch.Tensor.nbytes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.itemsize.html">torch.Tensor.itemsize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.abs.html">torch.Tensor.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.abs_.html">torch.Tensor.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.absolute.html">torch.Tensor.absolute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.absolute_.html">torch.Tensor.absolute_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.acos.html">torch.Tensor.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.acos_.html">torch.Tensor.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arccos.html">torch.Tensor.arccos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arccos_.html">torch.Tensor.arccos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.add.html">torch.Tensor.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.add_.html">torch.Tensor.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addbmm.html">torch.Tensor.addbmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addbmm_.html">torch.Tensor.addbmm_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addcdiv.html">torch.Tensor.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addcdiv_.html">torch.Tensor.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addcmul.html">torch.Tensor.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addcmul_.html">torch.Tensor.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addmm.html">torch.Tensor.addmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addmm_.html">torch.Tensor.addmm_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sspaddmm.html">torch.Tensor.sspaddmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addmv.html">torch.Tensor.addmv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addmv_.html">torch.Tensor.addmv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addr.html">torch.Tensor.addr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.addr_.html">torch.Tensor.addr_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.adjoint.html">torch.Tensor.adjoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.allclose.html">torch.Tensor.allclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.amax.html">torch.Tensor.amax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.amin.html">torch.Tensor.amin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.aminmax.html">torch.Tensor.aminmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.angle.html">torch.Tensor.angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.apply_.html">torch.Tensor.apply_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.argmax.html">torch.Tensor.argmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.argmin.html">torch.Tensor.argmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.argsort.html">torch.Tensor.argsort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.argwhere.html">torch.Tensor.argwhere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.asin.html">torch.Tensor.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.asin_.html">torch.Tensor.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arcsin.html">torch.Tensor.arcsin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arcsin_.html">torch.Tensor.arcsin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atan.html">torch.Tensor.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atan_.html">torch.Tensor.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctan.html">torch.Tensor.arctan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctan_.html">torch.Tensor.arctan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atan2.html">torch.Tensor.atan2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atan2_.html">torch.Tensor.atan2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctan2.html">torch.Tensor.arctan2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctan2_.html">torch.Tensor.arctan2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.all.html">torch.Tensor.all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.any.html">torch.Tensor.any</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.backward.html">torch.Tensor.backward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.baddbmm.html">torch.Tensor.baddbmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.baddbmm_.html">torch.Tensor.baddbmm_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bernoulli.html">torch.Tensor.bernoulli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bernoulli_.html">torch.Tensor.bernoulli_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bfloat16.html">torch.Tensor.bfloat16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bincount.html">torch.Tensor.bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_not.html">torch.Tensor.bitwise_not</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_not_.html">torch.Tensor.bitwise_not_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_and.html">torch.Tensor.bitwise_and</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_and_.html">torch.Tensor.bitwise_and_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_or.html">torch.Tensor.bitwise_or</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_or_.html">torch.Tensor.bitwise_or_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_xor.html">torch.Tensor.bitwise_xor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_xor_.html">torch.Tensor.bitwise_xor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_left_shift.html">torch.Tensor.bitwise_left_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_left_shift_.html">torch.Tensor.bitwise_left_shift_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_right_shift.html">torch.Tensor.bitwise_right_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bitwise_right_shift_.html">torch.Tensor.bitwise_right_shift_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bmm.html">torch.Tensor.bmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.bool.html">torch.Tensor.bool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.byte.html">torch.Tensor.byte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.broadcast_to.html">torch.Tensor.broadcast_to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cauchy_.html">torch.Tensor.cauchy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ceil.html">torch.Tensor.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ceil_.html">torch.Tensor.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.char.html">torch.Tensor.char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cholesky.html">torch.Tensor.cholesky</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cholesky_inverse.html">torch.Tensor.cholesky_inverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cholesky_solve.html">torch.Tensor.cholesky_solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.chunk.html">torch.Tensor.chunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.clamp.html">torch.Tensor.clamp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.clamp_.html">torch.Tensor.clamp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.clip.html">torch.Tensor.clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.clip_.html">torch.Tensor.clip_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.clone.html">torch.Tensor.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.contiguous.html">torch.Tensor.contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.copy_.html">torch.Tensor.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.conj.html">torch.Tensor.conj</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.conj_physical.html">torch.Tensor.conj_physical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.conj_physical_.html">torch.Tensor.conj_physical_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.resolve_conj.html">torch.Tensor.resolve_conj</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.resolve_neg.html">torch.Tensor.resolve_neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.copysign.html">torch.Tensor.copysign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.copysign_.html">torch.Tensor.copysign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cos.html">torch.Tensor.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cos_.html">torch.Tensor.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cosh.html">torch.Tensor.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cosh_.html">torch.Tensor.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.corrcoef.html">torch.Tensor.corrcoef</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.count_nonzero.html">torch.Tensor.count_nonzero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cov.html">torch.Tensor.cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.acosh.html">torch.Tensor.acosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.acosh_.html">torch.Tensor.acosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arccosh.html">torch.Tensor.arccosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arccosh_.html">torch.Tensor.arccosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cpu.html">torch.Tensor.cpu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cross.html">torch.Tensor.cross</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cuda.html">torch.Tensor.cuda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logcumsumexp.html">torch.Tensor.logcumsumexp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cummax.html">torch.Tensor.cummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cummin.html">torch.Tensor.cummin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cumprod.html">torch.Tensor.cumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cumprod_.html">torch.Tensor.cumprod_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cumsum.html">torch.Tensor.cumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cumsum_.html">torch.Tensor.cumsum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.chalf.html">torch.Tensor.chalf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cfloat.html">torch.Tensor.cfloat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.cdouble.html">torch.Tensor.cdouble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.const_data_ptr.html">torch.Tensor.const_data_ptr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.data_ptr.html">torch.Tensor.data_ptr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.deg2rad.html">torch.Tensor.deg2rad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dequantize.html">torch.Tensor.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.det.html">torch.Tensor.det</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dense_dim.html">torch.Tensor.dense_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.detach.html">torch.Tensor.detach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.detach_.html">torch.Tensor.detach_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diag.html">torch.Tensor.diag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diag_embed.html">torch.Tensor.diag_embed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diagflat.html">torch.Tensor.diagflat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diagonal.html">torch.Tensor.diagonal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diagonal_scatter.html">torch.Tensor.diagonal_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fill_diagonal_.html">torch.Tensor.fill_diagonal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fmax.html">torch.Tensor.fmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fmin.html">torch.Tensor.fmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.diff.html">torch.Tensor.diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.digamma.html">torch.Tensor.digamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.digamma_.html">torch.Tensor.digamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dim.html">torch.Tensor.dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dim_order.html">torch.Tensor.dim_order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dist.html">torch.Tensor.dist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.div.html">torch.Tensor.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.div_.html">torch.Tensor.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.divide.html">torch.Tensor.divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.divide_.html">torch.Tensor.divide_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dot.html">torch.Tensor.dot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.double.html">torch.Tensor.double</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.dsplit.html">torch.Tensor.dsplit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.element_size.html">torch.Tensor.element_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.eq.html">torch.Tensor.eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.eq_.html">torch.Tensor.eq_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.equal.html">torch.Tensor.equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erf.html">torch.Tensor.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erf_.html">torch.Tensor.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erfc.html">torch.Tensor.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erfc_.html">torch.Tensor.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erfinv.html">torch.Tensor.erfinv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.erfinv_.html">torch.Tensor.erfinv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.exp.html">torch.Tensor.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.exp_.html">torch.Tensor.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.expm1.html">torch.Tensor.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.expm1_.html">torch.Tensor.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.expand.html">torch.Tensor.expand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.expand_as.html">torch.Tensor.expand_as</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.exponential_.html">torch.Tensor.exponential_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fix.html">torch.Tensor.fix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fix_.html">torch.Tensor.fix_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fill_.html">torch.Tensor.fill_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.flatten.html">torch.Tensor.flatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.flip.html">torch.Tensor.flip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fliplr.html">torch.Tensor.fliplr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.flipud.html">torch.Tensor.flipud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.float.html">torch.Tensor.float</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.float_power.html">torch.Tensor.float_power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.float_power_.html">torch.Tensor.float_power_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.floor.html">torch.Tensor.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.floor_.html">torch.Tensor.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.floor_divide.html">torch.Tensor.floor_divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.floor_divide_.html">torch.Tensor.floor_divide_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fmod.html">torch.Tensor.fmod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.fmod_.html">torch.Tensor.fmod_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.frac.html">torch.Tensor.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.frac_.html">torch.Tensor.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.frexp.html">torch.Tensor.frexp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.gather.html">torch.Tensor.gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.gcd.html">torch.Tensor.gcd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.gcd_.html">torch.Tensor.gcd_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ge.html">torch.Tensor.ge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ge_.html">torch.Tensor.ge_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.greater_equal.html">torch.Tensor.greater_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.greater_equal_.html">torch.Tensor.greater_equal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.geometric_.html">torch.Tensor.geometric_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.geqrf.html">torch.Tensor.geqrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ger.html">torch.Tensor.ger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.get_device.html">torch.Tensor.get_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.gt.html">torch.Tensor.gt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.gt_.html">torch.Tensor.gt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.greater.html">torch.Tensor.greater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.greater_.html">torch.Tensor.greater_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.half.html">torch.Tensor.half</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.hardshrink.html">torch.Tensor.hardshrink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.heaviside.html">torch.Tensor.heaviside</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.histc.html">torch.Tensor.histc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.histogram.html">torch.Tensor.histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.hsplit.html">torch.Tensor.hsplit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.hypot.html">torch.Tensor.hypot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.hypot_.html">torch.Tensor.hypot_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.i0.html">torch.Tensor.i0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.i0_.html">torch.Tensor.i0_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.igamma.html">torch.Tensor.igamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.igamma_.html">torch.Tensor.igamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.igammac.html">torch.Tensor.igammac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.igammac_.html">torch.Tensor.igammac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_add_.html">torch.Tensor.index_add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_add.html">torch.Tensor.index_add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_copy_.html">torch.Tensor.index_copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_copy.html">torch.Tensor.index_copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_fill_.html">torch.Tensor.index_fill_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_fill.html">torch.Tensor.index_fill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_put_.html">torch.Tensor.index_put_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_put.html">torch.Tensor.index_put</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_reduce_.html">torch.Tensor.index_reduce_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_reduce.html">torch.Tensor.index_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.index_select.html">torch.Tensor.index_select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.indices.html">torch.Tensor.indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.inner.html">torch.Tensor.inner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.int.html">torch.Tensor.int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.int_repr.html">torch.Tensor.int_repr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.inverse.html">torch.Tensor.inverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isclose.html">torch.Tensor.isclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isfinite.html">torch.Tensor.isfinite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isinf.html">torch.Tensor.isinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isposinf.html">torch.Tensor.isposinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isneginf.html">torch.Tensor.isneginf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isnan.html">torch.Tensor.isnan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_contiguous.html">torch.Tensor.is_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_complex.html">torch.Tensor.is_complex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_conj.html">torch.Tensor.is_conj</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_floating_point.html">torch.Tensor.is_floating_point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_inference.html">torch.Tensor.is_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_leaf.html">torch.Tensor.is_leaf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_pinned.html">torch.Tensor.is_pinned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_set_to.html">torch.Tensor.is_set_to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_shared.html">torch.Tensor.is_shared</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_signed.html">torch.Tensor.is_signed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.is_sparse.html">torch.Tensor.is_sparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.istft.html">torch.Tensor.istft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.isreal.html">torch.Tensor.isreal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.item.html">torch.Tensor.item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.kthvalue.html">torch.Tensor.kthvalue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lcm.html">torch.Tensor.lcm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lcm_.html">torch.Tensor.lcm_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ldexp.html">torch.Tensor.ldexp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ldexp_.html">torch.Tensor.ldexp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.le.html">torch.Tensor.le</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.le_.html">torch.Tensor.le_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.less_equal.html">torch.Tensor.less_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.less_equal_.html">torch.Tensor.less_equal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lerp.html">torch.Tensor.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lerp_.html">torch.Tensor.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lgamma.html">torch.Tensor.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lgamma_.html">torch.Tensor.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log.html">torch.Tensor.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log_.html">torch.Tensor.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logdet.html">torch.Tensor.logdet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log10.html">torch.Tensor.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log10_.html">torch.Tensor.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log1p.html">torch.Tensor.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log1p_.html">torch.Tensor.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log2.html">torch.Tensor.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log2_.html">torch.Tensor.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.log_normal_.html">torch.Tensor.log_normal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logaddexp.html">torch.Tensor.logaddexp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logaddexp2.html">torch.Tensor.logaddexp2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logsumexp.html">torch.Tensor.logsumexp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_and.html">torch.Tensor.logical_and</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_and_.html">torch.Tensor.logical_and_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_not.html">torch.Tensor.logical_not</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_not_.html">torch.Tensor.logical_not_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_or.html">torch.Tensor.logical_or</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_or_.html">torch.Tensor.logical_or_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_xor.html">torch.Tensor.logical_xor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logical_xor_.html">torch.Tensor.logical_xor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logit.html">torch.Tensor.logit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.logit_.html">torch.Tensor.logit_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.long.html">torch.Tensor.long</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lt.html">torch.Tensor.lt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lt_.html">torch.Tensor.lt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.less.html">torch.Tensor.less</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.less_.html">torch.Tensor.less_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lu.html">torch.Tensor.lu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.lu_solve.html">torch.Tensor.lu_solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.as_subclass.html">torch.Tensor.as_subclass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.map_.html">torch.Tensor.map_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.masked_scatter_.html">torch.Tensor.masked_scatter_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.masked_scatter.html">torch.Tensor.masked_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.masked_fill_.html">torch.Tensor.masked_fill_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.masked_fill.html">torch.Tensor.masked_fill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.masked_select.html">torch.Tensor.masked_select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.matmul.html">torch.Tensor.matmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.matrix_power.html">torch.Tensor.matrix_power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.matrix_exp.html">torch.Tensor.matrix_exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.max.html">torch.Tensor.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.maximum.html">torch.Tensor.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mean.html">torch.Tensor.mean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.module_load.html">torch.Tensor.module_load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nanmean.html">torch.Tensor.nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.median.html">torch.Tensor.median</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nanmedian.html">torch.Tensor.nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.min.html">torch.Tensor.min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.minimum.html">torch.Tensor.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mm.html">torch.Tensor.mm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.smm.html">torch.Tensor.smm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mode.html">torch.Tensor.mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.movedim.html">torch.Tensor.movedim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.moveaxis.html">torch.Tensor.moveaxis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.msort.html">torch.Tensor.msort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mul.html">torch.Tensor.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mul_.html">torch.Tensor.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.multiply.html">torch.Tensor.multiply</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.multiply_.html">torch.Tensor.multiply_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.multinomial.html">torch.Tensor.multinomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mv.html">torch.Tensor.mv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mvlgamma.html">torch.Tensor.mvlgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.mvlgamma_.html">torch.Tensor.mvlgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nansum.html">torch.Tensor.nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.narrow.html">torch.Tensor.narrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.narrow_copy.html">torch.Tensor.narrow_copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ndimension.html">torch.Tensor.ndimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nan_to_num.html">torch.Tensor.nan_to_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nan_to_num_.html">torch.Tensor.nan_to_num_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ne.html">torch.Tensor.ne</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ne_.html">torch.Tensor.ne_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.not_equal.html">torch.Tensor.not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.not_equal_.html">torch.Tensor.not_equal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.neg.html">torch.Tensor.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.neg_.html">torch.Tensor.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.negative.html">torch.Tensor.negative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.negative_.html">torch.Tensor.negative_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nelement.html">torch.Tensor.nelement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nextafter.html">torch.Tensor.nextafter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nextafter_.html">torch.Tensor.nextafter_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nonzero.html">torch.Tensor.nonzero</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.Tensor.nonzero_static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.norm.html">torch.Tensor.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.normal_.html">torch.Tensor.normal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.numel.html">torch.Tensor.numel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.numpy.html">torch.Tensor.numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.orgqr.html">torch.Tensor.orgqr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ormqr.html">torch.Tensor.ormqr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.outer.html">torch.Tensor.outer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.permute.html">torch.Tensor.permute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.pin_memory.html">torch.Tensor.pin_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.pinverse.html">torch.Tensor.pinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.polygamma.html">torch.Tensor.polygamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.polygamma_.html">torch.Tensor.polygamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.positive.html">torch.Tensor.positive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.pow.html">torch.Tensor.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.pow_.html">torch.Tensor.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.prod.html">torch.Tensor.prod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.put_.html">torch.Tensor.put_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.qr.html">torch.Tensor.qr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.qscheme.html">torch.Tensor.qscheme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.quantile.html">torch.Tensor.quantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nanquantile.html">torch.Tensor.nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.q_scale.html">torch.Tensor.q_scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.q_zero_point.html">torch.Tensor.q_zero_point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.q_per_channel_scales.html">torch.Tensor.q_per_channel_scales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.q_per_channel_zero_points.html">torch.Tensor.q_per_channel_zero_points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.q_per_channel_axis.html">torch.Tensor.q_per_channel_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.rad2deg.html">torch.Tensor.rad2deg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.random_.html">torch.Tensor.random_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.ravel.html">torch.Tensor.ravel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.reciprocal.html">torch.Tensor.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.reciprocal_.html">torch.Tensor.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.record_stream.html">torch.Tensor.record_stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.register_hook.html">torch.Tensor.register_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.register_post_accumulate_grad_hook.html">torch.Tensor.register_post_accumulate_grad_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.remainder.html">torch.Tensor.remainder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.remainder_.html">torch.Tensor.remainder_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.renorm.html">torch.Tensor.renorm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.renorm_.html">torch.Tensor.renorm_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.repeat.html">torch.Tensor.repeat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.repeat_interleave.html">torch.Tensor.repeat_interleave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.requires_grad.html">torch.Tensor.requires_grad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.requires_grad_.html">torch.Tensor.requires_grad_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.reshape.html">torch.Tensor.reshape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.reshape_as.html">torch.Tensor.reshape_as</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.resize_.html">torch.Tensor.resize_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.resize_as_.html">torch.Tensor.resize_as_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.retain_grad.html">torch.Tensor.retain_grad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.retains_grad.html">torch.Tensor.retains_grad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.roll.html">torch.Tensor.roll</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.rot90.html">torch.Tensor.rot90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.round.html">torch.Tensor.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.round_.html">torch.Tensor.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.rsqrt.html">torch.Tensor.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.rsqrt_.html">torch.Tensor.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter.html">torch.Tensor.scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter_.html">torch.Tensor.scatter_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter_add_.html">torch.Tensor.scatter_add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter_add.html">torch.Tensor.scatter_add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter_reduce_.html">torch.Tensor.scatter_reduce_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.scatter_reduce.html">torch.Tensor.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.select.html">torch.Tensor.select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.select_scatter.html">torch.Tensor.select_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.set_.html">torch.Tensor.set_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.share_memory_.html">torch.Tensor.share_memory_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.short.html">torch.Tensor.short</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sigmoid.html">torch.Tensor.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sigmoid_.html">torch.Tensor.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sign.html">torch.Tensor.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sign_.html">torch.Tensor.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.signbit.html">torch.Tensor.signbit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sgn.html">torch.Tensor.sgn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sgn_.html">torch.Tensor.sgn_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sin.html">torch.Tensor.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sin_.html">torch.Tensor.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sinc.html">torch.Tensor.sinc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sinc_.html">torch.Tensor.sinc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sinh.html">torch.Tensor.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sinh_.html">torch.Tensor.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.asinh.html">torch.Tensor.asinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.asinh_.html">torch.Tensor.asinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arcsinh.html">torch.Tensor.arcsinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arcsinh_.html">torch.Tensor.arcsinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.shape.html">torch.Tensor.shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.size.html">torch.Tensor.size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.slogdet.html">torch.Tensor.slogdet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.slice_scatter.html">torch.Tensor.slice_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.softmax.html">torch.Tensor.softmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sort.html">torch.Tensor.sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.split.html">torch.Tensor.split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sparse_mask.html">torch.Tensor.sparse_mask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sparse_dim.html">torch.Tensor.sparse_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sqrt.html">torch.Tensor.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sqrt_.html">torch.Tensor.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.square.html">torch.Tensor.square</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.square_.html">torch.Tensor.square_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.squeeze.html">torch.Tensor.squeeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.squeeze_.html">torch.Tensor.squeeze_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.std.html">torch.Tensor.std</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.stft.html">torch.Tensor.stft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.storage.html">torch.Tensor.storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.untyped_storage.html">torch.Tensor.untyped_storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.storage_offset.html">torch.Tensor.storage_offset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.storage_type.html">torch.Tensor.storage_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.stride.html">torch.Tensor.stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sub.html">torch.Tensor.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sub_.html">torch.Tensor.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.subtract.html">torch.Tensor.subtract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.subtract_.html">torch.Tensor.subtract_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sum.html">torch.Tensor.sum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.sum_to_size.html">torch.Tensor.sum_to_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.svd.html">torch.Tensor.svd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.swapaxes.html">torch.Tensor.swapaxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.swapdims.html">torch.Tensor.swapdims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.t.html">torch.Tensor.t</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.t_.html">torch.Tensor.t_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tensor_split.html">torch.Tensor.tensor_split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tile.html">torch.Tensor.tile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to.html">torch.Tensor.to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_mkldnn.html">torch.Tensor.to_mkldnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.take.html">torch.Tensor.take</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.take_along_dim.html">torch.Tensor.take_along_dim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tan.html">torch.Tensor.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tan_.html">torch.Tensor.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tanh.html">torch.Tensor.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tanh_.html">torch.Tensor.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atanh.html">torch.Tensor.atanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.atanh_.html">torch.Tensor.atanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctanh.html">torch.Tensor.arctanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.arctanh_.html">torch.Tensor.arctanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tolist.html">torch.Tensor.tolist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.topk.html">torch.Tensor.topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_dense.html">torch.Tensor.to_dense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_sparse.html">torch.Tensor.to_sparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_sparse_csr.html">torch.Tensor.to_sparse_csr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_sparse_csc.html">torch.Tensor.to_sparse_csc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_sparse_bsr.html">torch.Tensor.to_sparse_bsr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.to_sparse_bsc.html">torch.Tensor.to_sparse_bsc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.trace.html">torch.Tensor.trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.transpose.html">torch.Tensor.transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.transpose_.html">torch.Tensor.transpose_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.triangular_solve.html">torch.Tensor.triangular_solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tril.html">torch.Tensor.tril</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.tril_.html">torch.Tensor.tril_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.triu.html">torch.Tensor.triu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.triu_.html">torch.Tensor.triu_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.true_divide.html">torch.Tensor.true_divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.true_divide_.html">torch.Tensor.true_divide_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.trunc.html">torch.Tensor.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.trunc_.html">torch.Tensor.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.type.html">torch.Tensor.type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.type_as.html">torch.Tensor.type_as</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unbind.html">torch.Tensor.unbind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unflatten.html">torch.Tensor.unflatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unfold.html">torch.Tensor.unfold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.uniform_.html">torch.Tensor.uniform_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unique.html">torch.Tensor.unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unique_consecutive.html">torch.Tensor.unique_consecutive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unsqueeze.html">torch.Tensor.unsqueeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.unsqueeze_.html">torch.Tensor.unsqueeze_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.values.html">torch.Tensor.values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.var.html">torch.Tensor.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.vdot.html">torch.Tensor.vdot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.view.html">torch.Tensor.view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.view_as.html">torch.Tensor.view_as</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.vsplit.html">torch.Tensor.vsplit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.where.html">torch.Tensor.where</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.xlogy.html">torch.Tensor.xlogy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.xlogy_.html">torch.Tensor.xlogy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.xpu.html">torch.Tensor.xpu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.zero_.html">torch.Tensor.zero_</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.functional.html">torch.nn.functional</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensors.html">torch.Tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor_attributes.html">Tensor Attributes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor_view.html">Tensor Views</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.amp</a></li>
@@ -3705,9 +4003,9 @@ document.write(`
     <li class="breadcrumb-item"><a href="../pytorch-api.html" class="nav-link">Reference API</a></li>
     
     
-    <li class="breadcrumb-item"><a href="../nn.html" class="nav-link">torch.nn</a></li>
+    <li class="breadcrumb-item"><a href="../tensors.html" class="nav-link">torch.Tensor</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">LinearCrossE...</li>
+    <li class="breadcrumb-item active" aria-current="page">torch.Tensor...</li>
   </ul>
 </nav>
 </div>
@@ -3755,13 +4053,13 @@ document.write(`
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <link itemprop="item" href="../nn.html">
-      <meta itemprop="name" content="torch.nn">
+      <link itemprop="item" href="../tensors.html">
+      <meta itemprop="name" content="torch.Tensor">
       <meta itemprop="position" content="2">
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <meta itemprop="name" content="LinearCrossEntropyOptions">
+      <meta itemprop="name" content="torch.Tensor.nonzero_static">
       <meta itemprop="position" content="3">
     </div>
   </div>
@@ -3775,119 +4073,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="linearcrossentropyoptions">
-<h1>LinearCrossEntropyOptions<a class="headerlink" href="#linearcrossentropyoptions" title="Link to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LinearCrossEntropyOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allow_retain_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunking_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e5aa1320b162fc3b9d0d53207fe340a6d3aa03d1/torch/nn/modules/linear_cross_entropy_options.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions" title="Link to this definition">#</a></dt>
-<dd><p>Configuration for the chunked implementation of
-<code class="xref py py-func docutils literal notranslate"><span class="pre">linear_cross_entropy()</span></code>.</p>
-<p>The chunked implementation processes the batch dimension in pieces, so
-the full <code class="docutils literal notranslate"><span class="pre">(num_batches,</span> <span class="pre">num_classes)</span></code> logits tensor is never
-materialized – useful when <code class="docutils literal notranslate"><span class="pre">num_classes</span></code> is much larger than
-<code class="docutils literal notranslate"><span class="pre">in_features</span></code> (e.g. LLM vocabulary heads). Pass <code class="docutils literal notranslate"><span class="pre">options=None</span></code> to
-use the reference path; pass an instance of this class to opt in.</p>
-<p>Zero-argument <code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions()</span></code> leaves
-<a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_policy" title="torch.nn.LinearCrossEntropyOptions.acc_policy"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_policy</span></code></a> and <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.chunking_method" title="torch.nn.LinearCrossEntropyOptions.chunking_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chunking_method</span></code></a> set to <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>,
-resolved at call time from <code class="xref py py-data docutils literal notranslate"><span class="pre">_AUTO_DEFAULTS</span></code> (per-(device, dtype)
-picks measured on A100 / x86 CPU); unlisted pairs fall back to
-<code class="docutils literal notranslate"><span class="pre">(&quot;compact&quot;,</span> <span class="pre">&quot;aspect_ratio:2&quot;)</span></code>.</p>
-<p>Supports a subset of <code class="xref py py-func docutils literal notranslate"><span class="pre">linear_cross_entropy()</span></code>; unsupported
-configurations fall through to the reference path with a warning.</p>
-<p>Chunking is a win when <code class="docutils literal notranslate"><span class="pre">num_batches</span> <span class="pre">&gt;=</span> <span class="pre">in_features</span></code> and
-<code class="docutils literal notranslate"><span class="pre">num_classes</span> <span class="pre">&gt;</span> <span class="pre">in_features</span></code>; below that, the reference path is
-cheaper.</p>
-<dl class="field-list simple">
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions.acc_dtype">
-<span class="sig-name descname"><span class="pre">acc_dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../tensor_attributes.html#torch.dtype" title="torch.dtype"><span class="pre">dtype</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="Link to this definition">#</a></dt>
-<dd><p>Dtype for internal accumulation. <code class="docutils literal notranslate"><span class="pre">None</span></code> resolves at call time
-to <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> under <code class="docutils literal notranslate"><span class="pre">acc_policy=&quot;auto&quot;</span></code> with fp16/bf16
-input on hardware with mixed-precision mm (CUDA SM 7.0+ for fp16,
-SM 8.0+ for bf16, and CPU); otherwise to the input dtype.
-Mixed-precision currently requires fp16/bf16 input with
-<code class="docutils literal notranslate"><span class="pre">acc_dtype=torch.float32</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions.acc_policy">
-<span class="sig-name descname"><span class="pre">acc_policy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'accurate'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'balanced'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'compact'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions.acc_policy" title="Link to this definition">#</a></dt>
-<dd><p>Precision/memory trade-off for the chunked path. Controls which
-intermediates are kept in <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_dtype</span></code></a> vs. the input dtype, and
-whether the per-chunk weight-gradient scratch buffer is materialized.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> (default) – per-(device, dtype) pick from
-<code class="xref py py-data docutils literal notranslate"><span class="pre">_AUTO_DEFAULTS</span></code>; unlisted pairs fall back to <code class="docutils literal notranslate"><span class="pre">&quot;compact&quot;</span></code>.
-The fallback assumes a CUDA-like backend with hardware-native
-low-precision matmul; pass <code class="docutils literal notranslate"><span class="pre">&quot;accurate&quot;</span></code> explicitly on backends
-that emulate fp16/bf16 GEMMs via fp32 upcast.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;accurate&quot;</span></code> – broadest use of <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_dtype</span></code></a>; noticeably
-better input-grad accuracy when chunk size is large relative to
-<code class="docutils literal notranslate"><span class="pre">num_classes</span></code>. Highest peak memory and slowest of the chunked
-policies on CUDA. Only chunked policy whose weight-grad matmul
-runs in fp32 on CPU (other policies hit CPU’s emulated
-low-precision path, ~20-50x slower).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code> – <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_dtype</span></code></a> only where needed for gradient
-correctness; keeps a <code class="docutils literal notranslate"><span class="pre">(num_classes,</span> <span class="pre">in_features)</span></code>
-<a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_dtype</span></code></a> scratch for cross-chunk weight-grad accumulation.
-Same precision as <code class="docutils literal notranslate"><span class="pre">&quot;accurate&quot;</span></code> in bf16, slightly looser in fp16,
-faster than <code class="docutils literal notranslate"><span class="pre">&quot;accurate&quot;</span></code> in both.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;compact&quot;</span></code> – like <code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code> but drops the weight-grad
-scratch and accumulates per-chunk directly via <code class="docutils literal notranslate"><span class="pre">addmm_</span></code> (cuBLAS
-uses an fp32 internal accumulator, so bulk precision matches
-<code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code>). Saves <code class="docutils literal notranslate"><span class="pre">num_classes</span> <span class="pre">*</span> <span class="pre">in_features</span> <span class="pre">*</span>
-<span class="pre">sizeof(acc_dtype)</span></code> – typically several hundred MB for an LLM
-head. On non-CUDA mixed-precision falls back to <code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code>.</p></li>
-</ul>
-<p>Policy effects (<code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code> vs <code class="docutils literal notranslate"><span class="pre">&quot;accurate&quot;</span></code>) are visible only
-when <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype" title="torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="xref py py-attr docutils literal notranslate"><span class="pre">acc_dtype</span></code></a> differs from the input dtype; <code class="docutils literal notranslate"><span class="pre">&quot;compact&quot;</span></code>
-saves memory in both regimes.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions.allow_retain_graph">
-<span class="sig-name descname"><span class="pre">allow_retain_graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions.allow_retain_graph" title="Link to this definition">#</a></dt>
-<dd><p>Allow <code class="docutils literal notranslate"><span class="pre">retain_graph=True</span></code> on backward.</p>
-<p>When <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), backward consumes pre-computed gradient
-buffers in place; a second <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
-<p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, the buffers are preserved at the cost of one extra
-gradient-sized allocation per call.</p>
-<p>Higher-order autograd (gradgrad, forward-mode AD) is unsupported.</p>
-<p>Under <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> this field is auto-promoted to <code class="docutils literal notranslate"><span class="pre">True</span></code>
-because the default-mode second-backward guard relies on a ctx
-mutation Dynamo doesn’t preserve; the wrapper warns on the promotion.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions.batch_chunk_size">
-<span class="sig-name descname"><span class="pre">batch_chunk_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions.batch_chunk_size" title="Link to this definition">#</a></dt>
-<dd><p>Batch rows per chunk. The op loops over
-<code class="docutils literal notranslate"><span class="pre">ceil(num_batches</span> <span class="pre">/</span> <span class="pre">batch_chunk_size)</span></code> chunks; smaller values cut
-peak memory but launch more kernels. Default <code class="docutils literal notranslate"><span class="pre">None</span></code> means a single
-chunk. Cannot be combined with <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.chunking_method" title="torch.nn.LinearCrossEntropyOptions.chunking_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chunking_method</span></code></a> – if both are
-set and disagree, <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is raised.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.nn.LinearCrossEntropyOptions.chunking_method">
-<span class="sig-name descname"><span class="pre">chunking_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.LinearCrossEntropyOptions.chunking_method" title="Link to this definition">#</a></dt>
-<dd><p>Heuristic for picking <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.batch_chunk_size" title="torch.nn.LinearCrossEntropyOptions.batch_chunk_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_chunk_size</span></code></a>.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> (default) – resolves to a per-(device, dtype) pick from
-<code class="xref py py-data docutils literal notranslate"><span class="pre">_AUTO_DEFAULTS</span></code> at call time; falls back to
-<code class="docutils literal notranslate"><span class="pre">&quot;aspect_ratio:2&quot;</span></code> for unlisted pairs.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;aspect_ratio&quot;</span></code> – sizes each chunk so its
-<code class="docutils literal notranslate"><span class="pre">(batch_chunk_size,</span> <span class="pre">num_classes)</span></code> logits buffer matches the
-<code class="docutils literal notranslate"><span class="pre">(num_batches,</span> <span class="pre">in_features)</span></code> input in memory:
-<code class="docutils literal notranslate"><span class="pre">next_pow2(ceil(num_batches</span> <span class="pre">/</span> <span class="pre">ceil(num_classes</span> <span class="pre">/</span> <span class="pre">in_features)))</span></code>.
-Best when <code class="docutils literal notranslate"><span class="pre">num_classes</span> <span class="pre">&gt;&gt;</span> <span class="pre">in_features</span></code> (LLM vocab heads).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;aspect_ratio:N&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">&gt;=</span> <span class="pre">1</span></code>) – same, divided by <code class="docutils literal notranslate"><span class="pre">N</span></code>.
-~N times less peak memory at the cost of N times more chunks.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> – disables the heuristic; uses <a class="reference internal" href="#torch.nn.LinearCrossEntropyOptions.batch_chunk_size" title="torch.nn.LinearCrossEntropyOptions.batch_chunk_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_chunk_size</span></code></a>.</p></li>
-</ul>
-</dd></dl>
-
+  <section id="torch-tensor-nonzero-static">
+<h1>torch.Tensor.nonzero_static<a class="headerlink" href="#torch-tensor-nonzero-static" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.Tensor.nonzero_static">
+<span class="sig-prename descclassname"><span class="pre">Tensor.</span></span><span class="sig-name descname"><span class="pre">nonzero_static</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">LongTensor</span></span></span><a class="headerlink" href="#torch.Tensor.nonzero_static" title="Link to this definition">#</a></dt>
+<dd><p>See <a class="reference internal" href="torch.nonzero_static.html#torch.nonzero_static" title="torch.nonzero_static"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nonzero_static()</span></code></a></p>
 </dd></dl>
 
 </section>
@@ -3935,20 +4126,20 @@ Best when <code class="docutils literal notranslate"><span class="pre">num_class
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.nn.LinearCrossEntropyLoss.html"
+       href="torch.Tensor.nonzero.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">LinearCrossEntropyLoss</p>
+        <p class="prev-next-title">torch.Tensor.nonzero</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.nn.CTCLoss.html"
+       href="torch.Tensor.norm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">CTCLoss</p>
+        <p class="prev-next-title">torch.Tensor.norm</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3974,20 +4165,20 @@ Best when <code class="docutils literal notranslate"><span class="pre">num_class
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.nn.LinearCrossEntropyLoss.html"
+       href="torch.Tensor.nonzero.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">LinearCrossEntropyLoss</p>
+        <p class="prev-next-title">torch.Tensor.nonzero</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.nn.CTCLoss.html"
+       href="torch.Tensor.norm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">CTCLoss</p>
+        <p class="prev-next-title">torch.Tensor.norm</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4009,20 +4200,13 @@ Best when <code class="docutils literal notranslate"><span class="pre">num_class
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions.acc_dtype"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions.acc_dtype</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions.acc_policy"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions.acc_policy</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions.allow_retain_graph"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions.allow_retain_graph</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions.batch_chunk_size"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions.batch_chunk_size</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.LinearCrossEntropyOptions.chunking_method"><code class="docutils literal notranslate"><span class="pre">LinearCrossEntropyOptions.chunking_method</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.Tensor.nonzero_static"><code class="docutils literal notranslate"><span class="pre">Tensor.nonzero_static()</span></code></a></li>
 </ul>
   </nav></div>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/generated/torch.nn.LinearCrossEntropyOptions.rst.txt">
+      <a href="../_sources/generated/torch.Tensor.nonzero_static.rst.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4249,11 +4433,11 @@ Best when <code class="docutils literal notranslate"><span class="pre">num_class
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "LinearCrossEntropyOptions",
-       "headline": "LinearCrossEntropyOptions",
+       "name": "torch.Tensor.nonzero_static",
+       "headline": "torch.Tensor.nonzero_static",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
-       "url": "/generated/torch.nn.LinearCrossEntropyOptions.html",
-       "articleBody": "LinearCrossEntropyOptions# class torch.nn.LinearCrossEntropyOptions(allow_retain_graph=False, batch_chunk_size=None, chunking_method=\u0027auto\u0027, acc_policy=\u0027auto\u0027, acc_dtype=None)[source]# Configuration for the chunked implementation of linear_cross_entropy(). The chunked implementation processes the batch dimension in pieces, so the full (num_batches, num_classes) logits tensor is never materialized \u2013 useful when num_classes is much larger than in_features (e.g. LLM vocabulary heads). Pass options=None to use the reference path; pass an instance of this class to opt in. Zero-argument LinearCrossEntropyOptions() leaves acc_policy and chunking_method set to \"auto\", resolved at call time from _AUTO_DEFAULTS (per-(device, dtype) picks measured on A100 / x86 CPU); unlisted pairs fall back to (\"compact\", \"aspect_ratio:2\"). Supports a subset of linear_cross_entropy(); unsupported configurations fall through to the reference path with a warning. Chunking is a win when num_batches \u003e= in_features and num_classes \u003e in_features; below that, the reference path is cheaper. acc_dtype: dtype | None# Dtype for internal accumulation. None resolves at call time to torch.float32 under acc_policy=\"auto\" with fp16/bf16 input on hardware with mixed-precision mm (CUDA SM 7.0+ for fp16, SM 8.0+ for bf16, and CPU); otherwise to the input dtype. Mixed-precision currently requires fp16/bf16 input with acc_dtype=torch.float32. acc_policy: Literal[\u0027accurate\u0027, \u0027balanced\u0027, \u0027compact\u0027, \u0027auto\u0027]# Precision/memory trade-off for the chunked path. Controls which intermediates are kept in acc_dtype vs. the input dtype, and whether the per-chunk weight-gradient scratch buffer is materialized. \"auto\" (default) \u2013 per-(device, dtype) pick from _AUTO_DEFAULTS; unlisted pairs fall back to \"compact\". The fallback assumes a CUDA-like backend with hardware-native low-precision matmul; pass \"accurate\" explicitly on backends that emulate fp16/bf16 GEMMs via fp32 upcast. \"accurate\" \u2013 broadest use of acc_dtype; noticeably better input-grad accuracy when chunk size is large relative to num_classes. Highest peak memory and slowest of the chunked policies on CUDA. Only chunked policy whose weight-grad matmul runs in fp32 on CPU (other policies hit CPU\u2019s emulated low-precision path, ~20-50x slower). \"balanced\" \u2013 acc_dtype only where needed for gradient correctness; keeps a (num_classes, in_features) acc_dtype scratch for cross-chunk weight-grad accumulation. Same precision as \"accurate\" in bf16, slightly looser in fp16, faster than \"accurate\" in both. \"compact\" \u2013 like \"balanced\" but drops the weight-grad scratch and accumulates per-chunk directly via addmm_ (cuBLAS uses an fp32 internal accumulator, so bulk precision matches \"balanced\"). Saves num_classes * in_features * sizeof(acc_dtype) \u2013 typically several hundred MB for an LLM head. On non-CUDA mixed-precision falls back to \"balanced\". Policy effects (\"balanced\" vs \"accurate\") are visible only when acc_dtype differs from the input dtype; \"compact\" saves memory in both regimes. allow_retain_graph: bool# Allow retain_graph=True on backward. When False (default), backward consumes pre-computed gradient buffers in place; a second .backward() raises RuntimeError. When True, the buffers are preserved at the cost of one extra gradient-sized allocation per call. Higher-order autograd (gradgrad, forward-mode AD) is unsupported. Under torch.compile() this field is auto-promoted to True because the default-mode second-backward guard relies on a ctx mutation Dynamo doesn\u2019t preserve; the wrapper warns on the promotion. batch_chunk_size: int | None# Batch rows per chunk. The op loops over ceil(num_batches / batch_chunk_size) chunks; smaller values cut peak memory but launch more kernels. Default None means a single chunk. Cannot be combined with chunking_method \u2013 if both are set and disagree, ValueError is raised. chunking_method: str | None# Heuristic for picking batch_chunk_size. \"auto\" (default) \u2013 resolves to a per-(device, dtype) pick from _AUTO_DEFAULTS at call time; falls back to \"aspect_ratio:2\" for unlisted pairs. \"aspect_ratio\" \u2013 sizes each chunk so its (batch_chunk_size, num_classes) logits buffer matches the (num_batches, in_features) input in memory: next_pow2(ceil(num_batches / ceil(num_classes / in_features))). Best when num_classes \u003e\u003e in_features (LLM vocab heads). \"aspect_ratio:N\" (N \u003e= 1) \u2013 same, divided by N. ~N times less peak memory at the cost of N times more chunks. None \u2013 disables the heuristic; uses batch_chunk_size.",
+       "url": "/generated/torch.Tensor.nonzero_static.html",
+       "articleBody": "torch.Tensor.nonzero_static# Tensor.nonzero_static(*, size, fill_value=-1) \u2192 LongTensor# See torch.nonzero_static()",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4262,7 +4446,7 @@ Best when <code class="docutils literal notranslate"><span class="pre">num_class
        "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "/generated/torch.nn.LinearCrossEntropyOptions.html"
+         "@id": "/generated/torch.Tensor.nonzero_static.html"
        },
        "datePublished": "2023-01-01T00:00:00Z",
        "dateModified": "2023-01-01T00:00:00Z"

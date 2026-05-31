@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+gite5aa132 )">
+<meta name="llm:version" content="main (2.13.0a0+gitf7811aa )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite5aa132 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitf7811aa )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3704,6 +3704,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nextafter.html">torch.Tensor.nextafter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nextafter_.html">torch.Tensor.nextafter_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nonzero.html">torch.Tensor.nonzero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.Tensor.nonzero_static.html">torch.Tensor.nonzero_static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.norm.html">torch.Tensor.norm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.normal_.html">torch.Tensor.normal_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.Tensor.numel.html">torch.Tensor.numel</a></li>
@@ -4089,6 +4090,12 @@ new view on the existing tensor where a dimension of size one is
 expanded to a larger size by setting the <code class="docutils literal notranslate"><span class="pre">stride</span></code> to 0. Any dimension
 of size 1 can be expanded to an arbitrary value without allocating new
 memory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Operations on an expanded view may still allocate memory if they need to
+materialize the expanded values. For example, changing dtype after
+<a class="reference internal" href="#torch.Tensor.expand" title="torch.Tensor.expand"><code class="xref py py-meth docutils literal notranslate"><span class="pre">expand()</span></code></a> can allocate memory for the full expanded shape.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>*size</strong> (<a class="reference internal" href="../size.html#torch.Size" title="torch.Size"><em>torch.Size</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – the desired expanded size</p>
@@ -4473,7 +4480,7 @@ to the tensors, please clone them first.</p>
        "headline": "torch.Tensor.expand",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.Tensor.expand.html",
-       "articleBody": "torch.Tensor.expand# Tensor.expand(*size) \u2192 Tensor# Returns a new view of the self tensor with singleton dimensions expanded to a larger size. Passing -1 as the size for a dimension means not changing the size of that dimension. Tensor can be also expanded to a larger number of dimensions, and the new ones will be appended at the front. For the new dimensions, the size cannot be set to -1. Expanding a tensor does not allocate new memory, but only creates a new view on the existing tensor where a dimension of size one is expanded to a larger size by setting the stride to 0. Any dimension of size 1 can be expanded to an arbitrary value without allocating new memory. Parameters: *size (torch.Size or int...) \u2013 the desired expanded size Warning More than one element of an expanded tensor may refer to a single memory location. As a result, in-place operations (especially ones that are vectorized) may result in incorrect behavior. If you need to write to the tensors, please clone them first. Example: \u003e\u003e\u003e x = torch.tensor([[1], [2], [3]]) \u003e\u003e\u003e x.size() torch.Size([3, 1]) \u003e\u003e\u003e x.expand(3, 4) tensor([[ 1, 1, 1, 1], [ 2, 2, 2, 2], [ 3, 3, 3, 3]]) \u003e\u003e\u003e x.expand(-1, 4) # -1 means not changing the size of that dimension tensor([[ 1, 1, 1, 1], [ 2, 2, 2, 2], [ 3, 3, 3, 3]])",
+       "articleBody": "torch.Tensor.expand# Tensor.expand(*size) \u2192 Tensor# Returns a new view of the self tensor with singleton dimensions expanded to a larger size. Passing -1 as the size for a dimension means not changing the size of that dimension. Tensor can be also expanded to a larger number of dimensions, and the new ones will be appended at the front. For the new dimensions, the size cannot be set to -1. Expanding a tensor does not allocate new memory, but only creates a new view on the existing tensor where a dimension of size one is expanded to a larger size by setting the stride to 0. Any dimension of size 1 can be expanded to an arbitrary value without allocating new memory. Note Operations on an expanded view may still allocate memory if they need to materialize the expanded values. For example, changing dtype after expand() can allocate memory for the full expanded shape. Parameters: *size (torch.Size or int...) \u2013 the desired expanded size Warning More than one element of an expanded tensor may refer to a single memory location. As a result, in-place operations (especially ones that are vectorized) may result in incorrect behavior. If you need to write to the tensors, please clone them first. Example: \u003e\u003e\u003e x = torch.tensor([[1], [2], [3]]) \u003e\u003e\u003e x.size() torch.Size([3, 1]) \u003e\u003e\u003e x.expand(3, 4) tensor([[ 1, 1, 1, 1], [ 2, 2, 2, 2], [ 3, 3, 3, 3]]) \u003e\u003e\u003e x.expand(-1, 4) # -1 means not changing the size of that dimension tensor([[ 1, 1, 1, 1], [ 2, 2, 2, 2], [ 3, 3, 3, 3]])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

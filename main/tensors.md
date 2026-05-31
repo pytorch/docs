@@ -555,6 +555,7 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.nextafter`](generated/torch.Tensor.nextafter.html#torch.Tensor.nextafter) | See [`torch.nextafter()`](generated/torch.nextafter.html#torch.nextafter) |
 | [`Tensor.nextafter_`](generated/torch.Tensor.nextafter_.html#torch.Tensor.nextafter_) | In-place version of [`nextafter()`](generated/torch.Tensor.nextafter.html#torch.Tensor.nextafter) |
 | [`Tensor.nonzero`](generated/torch.Tensor.nonzero.html#torch.Tensor.nonzero) | See [`torch.nonzero()`](generated/torch.nonzero.html#torch.nonzero) |
+| [`Tensor.nonzero_static`](generated/torch.Tensor.nonzero_static.html#torch.Tensor.nonzero_static) | See [`torch.nonzero_static()`](generated/torch.nonzero_static.html#torch.nonzero_static) |
 | [`Tensor.norm`](generated/torch.Tensor.norm.html#torch.Tensor.norm) | See [`torch.linalg.norm()`](generated/torch.linalg.norm.html#torch.linalg.norm) |
 | [`Tensor.normal_`](generated/torch.Tensor.normal_.html#torch.Tensor.normal_) | Fills `self` tensor with elements samples from the normal distribution parameterized by [`mean`](generated/torch.mean.html#torch.mean) and [`std`](generated/torch.std.html#torch.std). |
 | [`Tensor.numel`](generated/torch.Tensor.numel.html#torch.Tensor.numel) | See [`torch.numel()`](generated/torch.numel.html#torch.numel) |
