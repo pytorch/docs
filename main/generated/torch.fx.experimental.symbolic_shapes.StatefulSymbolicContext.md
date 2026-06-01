@@ -1,6 +1,6 @@
 # StatefulSymbolicContext
 
-*class*torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext(*dynamic_sizes*, *dynamic_strides=None*, *constraint_sizes=None*, *constraint_strides=None*, *specialize_on=None*, *view_base_context=None*, *shape_ids=None*, *unbacked_bounds=None*, ***, *tensor_source*, *shape_env_to_source_to_symbol_cache=<factory>*, *excluded_sizes=None*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/fx/experimental/symbolic_shapes.py#L2326)
+*class*torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext(*dynamic_sizes*, *dynamic_strides=None*, *constraint_sizes=None*, *constraint_strides=None*, *specialize_on=None*, *view_base_context=None*, *shape_ids=None*, *unbacked_bounds=None*, ***, *tensor_source*, *shape_env_to_source_to_symbol_cache=<factory>*, *excluded_sizes=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/fx/experimental/symbolic_shapes.py#L2326)
 
 Create symbols in `_create_symbolic_sizes_strides_storage_offset` via
 a symbolic_context determination as given by a cache of Source:Symbol. A cache hit

@@ -1,6 +1,6 @@
 # LSTM
 
-*class*torch.ao.nn.quantizable.modules.rnn.LSTM(*input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*, ***, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/ao/nn/quantizable/modules/rnn.py#L411)
+*class*torch.ao.nn.quantizable.modules.rnn.LSTM(*input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*, ***, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/ao/nn/quantizable/modules/rnn.py#L411)
 
 A quantizable long short-term memory (LSTM).
 

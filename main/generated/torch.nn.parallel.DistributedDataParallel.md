@@ -1,6 +1,6 @@
 # DistributedDataParallel
 
-*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/parallel/distributed.py#L466)
+*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/parallel/distributed.py#L466)
 
 Implement distributed data parallelism based on `torch.distributed` at module level.
 
@@ -384,7 +384,7 @@ Example:
 >>> net = torch.nn.parallel.DistributedDataParallel(model)
 ```
 
-join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/parallel/distributed.py#L1989)
+join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/parallel/distributed.py#L1989)
 
 Context manager for training with uneven inputs across processes in DDP.
 
@@ -480,7 +480,7 @@ Example:
 >>> torch.cuda.synchronize(device=rank)
 ```
 
-join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/parallel/distributed.py#L2095)
+join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/parallel/distributed.py#L2095)
 
 DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.
 
@@ -504,7 +504,7 @@ unevenness is small but can be set to `False` in extreme
 cases for possibly better results.
 Default is `True`.
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/parallel/distributed.py#L1658)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/parallel/distributed.py#L1658)
 
 Context manager to disable gradient synchronizations across DDP processes.
 
@@ -527,7 +527,7 @@ Warning
 The forward pass should be included inside the context manager, or
 else gradients will still be synchronized.
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/parallel/distributed.py#L2178)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/parallel/distributed.py#L2178)
 
 Register communication hook for user-defined DDP aggregation of gradients across multiple workers.
 

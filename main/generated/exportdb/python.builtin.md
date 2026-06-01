@@ -4,7 +4,7 @@
 
 Note
 
-Tags: python.builtin, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), python.builtin
 
 Support Level: NOT_SUPPORTED_YET
 

@@ -1,6 +1,6 @@
 # pattern_to_human_readable
 
-*class*torch.ao.quantization.backend_config.utils.pattern_to_human_readable(*p*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/ao/quantization/backend_config/utils.py#L179)
+*class*torch.ao.quantization.backend_config.utils.pattern_to_human_readable(*p*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/ao/quantization/backend_config/utils.py#L179)
 
 Return type:
 

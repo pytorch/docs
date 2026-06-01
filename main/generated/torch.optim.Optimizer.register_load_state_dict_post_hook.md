@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_load_state_dict_post_hook
 
-Optimizer.register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/optim/optimizer.py#L844)
+Optimizer.register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/optim/optimizer.py#L844)
 
 Register a load_state_dict post-hook which will be called after
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the

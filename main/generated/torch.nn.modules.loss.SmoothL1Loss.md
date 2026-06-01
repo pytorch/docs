@@ -1,6 +1,6 @@
 # SmoothL1Loss
 
-*class*torch.nn.modules.loss.SmoothL1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/loss.py#L987)
+*class*torch.nn.modules.loss.SmoothL1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/loss.py#L987)
 
 Creates a criterion that uses a squared term if the absolute
 element-wise error falls below beta and an L1 term otherwise.
@@ -87,7 +87,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/loss.py#L1075)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/loss.py#L1075)
 
 Runs the forward pass.
 

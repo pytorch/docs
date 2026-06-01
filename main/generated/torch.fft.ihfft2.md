@@ -1,6 +1,6 @@
 # torch.fft.ihfft2
 
-torch.fft.ihfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/fft/__init__.py#L1003)
+torch.fft.ihfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/fft/__init__.py#L1003)
 
 Computes the 2-dimensional inverse discrete Fourier transform of real
 `input`. Equivalent to [`ihfftn()`](torch.fft.ihfftn.html#torch.fft.ihfftn) but transforms only the

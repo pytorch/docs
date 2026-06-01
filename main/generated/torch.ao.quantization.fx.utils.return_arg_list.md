@@ -1,6 +1,6 @@
 # return_arg_list
 
-*class*torch.ao.quantization.fx.utils.return_arg_list(*arg_indices*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/ao/quantization/fx/utils.py#L376)
+*class*torch.ao.quantization.fx.utils.return_arg_list(*arg_indices*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/ao/quantization/fx/utils.py#L376)
 
 Constructs a function that takes a node as arg and returns the arg_indices
 that are valid for node.args

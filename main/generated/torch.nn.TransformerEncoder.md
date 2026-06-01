@@ -1,6 +1,6 @@
 # TransformerEncoder
 
-*class*torch.nn.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/transformer.py#L318)
+*class*torch.nn.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/transformer.py#L318)
 
 TransformerEncoder is a stack of N encoder layers.
 
@@ -36,7 +36,7 @@ Examples
 >>> out = transformer_encoder(src)
 ```
 
-forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/f7811aa3c052ace6751fbc2f6bc93908b9ea6b9f/torch/nn/modules/transformer.py#L405)
+forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/transformer.py#L405)
 
 Pass the input through the encoder layers in turn.
 
