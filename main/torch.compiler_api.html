@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git5cd392b )">
+<meta name="llm:version" content="main (2.13.0a0+gitc42e39b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git5cd392b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitc42e39b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1042,6 +1042,18 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="type_info.html">
                   Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2489,6 +2501,18 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="config_mod.html">
                   torch.config
                 </a>
@@ -3450,8 +3474,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3674,7 +3698,7 @@ document.write(`
 <td><p>See <a class="reference internal" href="generated/torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> for details on the arguments for this function.</p></td>
 </tr>
 <tr class="row-even"><td><p><p id="torch.compiler.reset"/><p id="torch.compiler.reset"/><a class="reference internal" href="generated/torch.compiler.reset.html#torch.compiler.reset" title="torch.compiler.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a></p></td>
-<td><p>This function clears all compilation caches and restores the system to its initial state.</p></td>
+<td><p>Reset the in-process compiler state.</p></td>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.compiler.allow_in_graph"/><p id="torch.compiler.allow_in_graph"/><a class="reference internal" href="generated/torch.compiler.allow_in_graph.html#torch.compiler.allow_in_graph" title="torch.compiler.allow_in_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allow_in_graph</span></code></a></p></td>
 <td><p>Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered.</p></td>
@@ -4111,7 +4135,7 @@ document.write(`
        "headline": "torch.compiler API reference",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch.compiler_api.html",
-       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Apr 24, 2026 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_default_backend Set the default backend for torch.compile when no backend argument is specified. get_default_backend Return the current default backend for torch.compile. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. load_cache_artifacts Hot loads cache artifacts that were previously serialized via save_cache_artifacts load_compiled_function Load an aot-compiled function from a file. save_cache_artifacts Serializes all the cache artifacts that were created during the compilation wrap_numpy Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors.",
+       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Apr 24, 2026 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset Reset the in-process compiler state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_default_backend Set the default backend for torch.compile when no backend argument is specified. get_default_backend Return the current default backend for torch.compile. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. load_cache_artifacts Hot loads cache artifacts that were previously serialized via save_cache_artifacts load_compiled_function Load an aot-compiled function from a file. save_cache_artifacts Serializes all the cache artifacts that were created during the compilation wrap_numpy Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

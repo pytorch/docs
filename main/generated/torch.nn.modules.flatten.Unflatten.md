@@ -1,12 +1,14 @@
 # Unflatten
 
-*class*torch.nn.modules.flatten.Unflatten(*dim*, *unflattened_size*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/flatten.py#L64)
+*class*torch.nn.modules.flatten.Unflatten(*dim*, *unflattened_size*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/nn/modules/flatten.py#L64)
 
 Unflattens a tensor dim expanding it to a desired shape. For use with `Sequential`.
 
-- `dim` specifies the dimension of the input tensor to be unflattened.
+- `dim` specifies the dimension of the input tensor to be unflattened, and it can
+be either int or str when Tensor or NamedTensor is used, respectively.
 - `unflattened_size` is the new shape of the unflattened dimension of the tensor and it can be
-a tuple of ints or a list of ints or torch.Size for Tensor input.
+a tuple of ints or a list of ints or torch.Size for Tensor input; a NamedShape
+(tuple of (name, size) tuples) for NamedTensor input.
 
 Shape:
 
@@ -17,8 +19,8 @@ dimension `dim` and ∗*∗ means any number of dimensions including none.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Dimension to be unflattened
-- **unflattened_size** (*Union**[*[*torch.Size*](../size.html#torch.Size)*,**Tuple**,**List**]*) - New shape of the unflattened dimension
+- **dim** (*Union**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - Dimension to be unflattened
+- **unflattened_size** (*Union**[*[*torch.Size*](../size.html#torch.Size)*,**Tuple**,**List**,**NamedShape**]*) - New shape of the unflattened dimension
 
 Examples
 
@@ -40,9 +42,19 @@ torch.Size([2, 2, 5, 5])
 >>> output = m(input)
 >>> output.size()
 torch.Size([2, 2, 5, 5])
+>>> # With namedshape (tuple of tuples)
+>>> input = torch.randn(2, 50, names=("N", "features"))
+>>> unflatten = nn.Unflatten("features", (("C", 2), ("H", 5), ("W", 5)))
+>>> output = unflatten(input)
+>>> output.size()
+torch.Size([2, 2, 5, 5])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/flatten.py#L132)
+NamedShape
+
+alias of [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple)[[`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`int`](https://docs.python.org/3/library/functions.html#int)]]
+
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/nn/modules/flatten.py#L163)
 
 Returns the extra representation of the module.
 
@@ -50,7 +62,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/modules/flatten.py#L126)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/nn/modules/flatten.py#L157)
 
 Runs the forward pass.
 

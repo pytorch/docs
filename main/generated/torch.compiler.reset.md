@@ -1,7 +1,9 @@
 # torch.compiler.reset
 
-torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/compiler/__init__.py#L60)
+torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/compiler/__init__.py#L60)
 
-This function clears all compilation caches and restores the system to its initial state.
-It is recommended to call this function, especially after using operations like torch.compile(...)
-to ensure a clean state before another unrelated compilation
+Reset the in-process compiler state.
+
+This function clears Dynamo's in-memory compilation caches and related
+process-local state used by [`torch.compile()`](torch.compile.html#torch.compile). It does not delete
+filesystem caches, such as Inductor's disk cache.

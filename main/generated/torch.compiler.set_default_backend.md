@@ -1,6 +1,6 @@
 # torch.compiler.set_default_backend
 
-torch.compiler.set_default_backend(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/compiler/__init__.py#L263)
+torch.compiler.set_default_backend(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/compiler/__init__.py#L265)
 
 Set the default backend for `torch.compile` when no `backend` argument is specified.
 

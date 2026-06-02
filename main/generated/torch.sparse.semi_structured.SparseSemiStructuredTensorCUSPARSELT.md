@@ -1,6 +1,6 @@
 # SparseSemiStructuredTensorCUSPARSELT
 
-*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/sparse/semi_structured.py#L548)
+*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/sparse/semi_structured.py#L548)
 
 The cuSPARSELt backend expects the specified elements and the metadata to be stored in a single tensor:
 packed = [ specified elements of original tensor | metadata ]
@@ -136,6 +136,88 @@ In-place version of `addr()`
 adjoint() → [Tensor](../tensors.html#torch.Tensor)
 
 Alias for `adjoint()`
+
+align_as(*other*) → [Tensor](../tensors.html#torch.Tensor)
+
+Permutes the dimensions of the `self` tensor to match the dimension order
+in the `other` tensor, adding size-one dims for any new names.
+
+This operation is useful for explicit broadcasting by names (see examples).
+
+All of the dims of `self` must be named in order to use this method.
+The resulting tensor is a view on the original tensor.
+
+All dimension names of `self` must be present in `other.names`.
+`other` may contain named dimensions that are not in `self.names`;
+the output tensor has a size-one dimension for each of those new names.
+
+To align a tensor to a specific order, use `align_to()`.
+
+Examples:
+
+```
+# Example 1: Applying a mask
+>>> mask = torch.randint(2, [127, 128], dtype=torch.bool).refine_names('W', 'H')
+>>> imgs = torch.randn(32, 128, 127, 3, names=('N', 'H', 'W', 'C'))
+>>> imgs.masked_fill_(mask.align_as(imgs), 0)
+
+# Example 2: Applying a per-channel-scale
+>>> def scale_channels(input, scale):
+>>> scale = scale.refine_names('C')
+>>> return input * scale.align_as(input)
+
+>>> num_channels = 3
+>>> scale = torch.randn(num_channels, names=('C',))
+>>> imgs = torch.rand(32, 128, 128, num_channels, names=('N', 'H', 'W', 'C'))
+>>> more_imgs = torch.rand(32, num_channels, 128, 128, names=('N', 'C', 'H', 'W'))
+>>> videos = torch.randn(3, num_channels, 128, 128, 128, names=('N', 'C', 'H', 'W', 'D'))
+
+# scale_channels is agnostic to the dimension order of the input
+>>> scale_channels(imgs, scale)
+>>> scale_channels(more_imgs, scale)
+>>> scale_channels(videos, scale)
+```
+
+Warning
+
+The named tensor API is experimental and subject to change.
+
+align_to(**names*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1395)
+
+Permutes the dimensions of the `self` tensor to match the order
+specified in `names`, adding size-one dims for any new names.
+
+All of the dims of `self` must be named in order to use this method.
+The resulting tensor is a view on the original tensor.
+
+All dimension names of `self` must be present in `names`.
+`names` may contain additional names that are not in `self.names`;
+the output tensor has a size-one dimension for each of those new names.
+
+`names` may contain up to one Ellipsis (`...`).
+The Ellipsis is expanded to be equal to all dimension names of `self`
+that are not mentioned in `names`, in the order that they appear
+in `self`.
+
+Parameters:
+
+**names** (*iterable**of*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The desired dimension ordering of the
+output tensor. May contain up to one Ellipsis that is expanded
+to all unmentioned dim names of `self`.
+
+Examples:
+
+```
+>>> tensor = torch.randn(2, 2, 2, 2, 2, 2)
+>>> named_tensor = tensor.refine_names('A', 'B', 'C', 'D', 'E', 'F')
+
+# Move the F and E dims to the front while keeping the rest in order
+>>> named_tensor.align_to('F', 'E', ...)
+```
+
+Warning
+
+The named tensor API is experimental and subject to change.
 
 all(*dim=None*, *keepdim=False*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -311,7 +393,7 @@ atanh_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `atanh()`
 
-backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L566)
+backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L576)
 
 Computes the gradient of current tensor wrt graph leaves.
 
@@ -857,7 +939,7 @@ dim() → [int](https://docs.python.org/3/library/functions.html#int)
 
 Returns the number of dimensions of `self` tensor.
 
-dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1371)
+dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1530)
 
 Returns the uniquely determined tuple of int describing the dim order or
 physical layout of `self`.
@@ -1352,6 +1434,10 @@ hardshrink(*lambd=0.5*) → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.nn.functional.hardshrink()`](torch.nn.functional.hardshrink.html#torch.nn.functional.hardshrink)
 
+has_names()
+
+Is `True` if any of this tensor's dimensions are named. Otherwise, is `False`.
+
 heaviside(*values*) → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.heaviside()`](torch.heaviside.html#torch.heaviside)
@@ -1423,7 +1509,7 @@ tensor([(0.3100+0.3553j), (-0.5445-0.7896j), (-1.6492-0.0633j), (-0.0638-0.8119j
 tensor([ 0.3553, -0.7896, -0.0633, -0.8119])
 ```
 
-index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L627)
+index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L637)
 
 Index a regular tensor by binding specified positions to dims.
 
@@ -1829,7 +1915,7 @@ is_set_to(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#
 Returns True if both tensors are pointing to the exact same memory (same
 storage, offset, size and stride).
 
-is_shared()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L827)
+is_shared()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L837)
 
 Checks if tensor is in shared memory.
 
@@ -1883,7 +1969,7 @@ isreal() → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.isreal()`](torch.isreal.html#torch.isreal)
 
-istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L987)
+istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L997)
 
 See [`torch.istft()`](torch.istft.html#torch.istft)
 
@@ -2091,7 +2177,7 @@ lt_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `lt()`.
 
-lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L922)
+lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L932)
 
 See [`torch.lu()`](torch.lu.html#torch.lu)
 
@@ -2246,7 +2332,7 @@ mode(*dim=None*, *keepdim=False*)
 
 See [`torch.mode()`](torch.mode.html#torch.mode)
 
-module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L849)
+module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L859)
 
 Defines how to transform `other` when loading it into `self` in `load_state_dict()`.
 
@@ -2328,6 +2414,23 @@ See [`torch.mvlgamma()`](torch.mvlgamma.html#torch.mvlgamma)
 mvlgamma_(*p*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `mvlgamma()`
+
+names
+
+Stores names for each of this tensor's dimensions.
+
+`names[idx]` corresponds to the name of tensor dimension `idx`.
+Names are either a string if the dimension is named or `None` if the
+dimension is unnamed.
+
+Dimension names may contain characters or underscore. Furthermore, a dimension
+name must be a valid Python variable name (i.e., does not start with underscore).
+
+Tensors may not have two named dimensions with the same name.
+
+Warning
+
+The named tensor API is experimental and subject to change.
 
 nan_to_num(*nan=0.0*, *posinf=None*, *neginf=None*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -2632,7 +2735,7 @@ nonzero_static(***, *size*, *fill_value=-1*) → LongTensor
 
 See [`torch.nonzero_static()`](torch.nonzero_static.html#torch.nonzero_static)
 
-norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L888)
+norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L898)
 
 See [`torch.linalg.norm()`](torch.linalg.norm.html#torch.linalg.norm)
 
@@ -2738,7 +2841,7 @@ prod(*dim=None*, *keepdim=False*, *dtype=None*) → [Tensor](../tensors.html#tor
 
 See [`torch.prod()`](torch.prod.html#torch.prod)
 
-*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/sparse/semi_structured.py#L588)
+*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/sparse/semi_structured.py#L588)
 
 This function does the same thing as described in SparseSemiStructuredCUTLASS, but uses the cuSPARSELt metadata
 layout and sparse matmul.
@@ -2979,7 +3082,47 @@ necessary (as you are keeping `x` live for longer.) For a concrete
 example of how this guidance can be applied in practice, see this post:
 [FSDP and CUDACachingAllocator](https://dev-discuss.pytorch.org/t/fsdp-cudacachingallocator-an-outsider-newb-perspective/1486).
 
-register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L655)
+refine_names(**names*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1353)
+
+Refines the dimension names of `self` according to `names`.
+
+Refining is a special case of renaming that "lifts" unnamed dimensions.
+A `None` dim can be refined to have any name; a named dim can only be
+refined to have the same name.
+
+Because named tensors can coexist with unnamed tensors, refining names
+gives a nice way to write named-tensor-aware code that works with both
+named and unnamed tensors.
+
+`names` may contain up to one Ellipsis (`...`).
+The Ellipsis is expanded greedily; it is expanded in-place to fill
+`names` to the same length as `self.dim()` using names from the
+corresponding indices of `self.names`.
+
+Parameters:
+
+**names** (*iterable**of*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The desired names of the output tensor. May
+contain up to one Ellipsis.
+
+Examples:
+
+```
+>>> imgs = torch.randn(32, 3, 128, 128)
+>>> named_imgs = imgs.refine_names('N', 'C', 'H', 'W')
+>>> named_imgs.names
+('N', 'C', 'H', 'W')
+
+>>> tensor = torch.randn(2, 3, 5, 7, 11)
+>>> tensor = tensor.refine_names('A', ..., 'B', 'C')
+>>> tensor.names
+('A', None, None, 'B', 'C')
+```
+
+Warning
+
+The named tensor API is experimental and subject to change.
+
+register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L665)
 
 Registers a backward hook.
 
@@ -3017,7 +3160,7 @@ Example:
 >>> h.remove() # removes the hook
 ```
 
-register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L705)
+register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L715)
 
 Registers a backward hook that runs after grad accumulation.
 
@@ -3068,6 +3211,47 @@ See [`torch.remainder()`](torch.remainder.html#torch.remainder)
 remainder_(*divisor*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `remainder()`
+
+rename(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1475)
+
+Renames dimension names of `self`.
+
+There are two main usages:
+
+`self.rename(**rename_map)` returns a view on tensor that has dims
+renamed as specified in the mapping `rename_map`.
+
+`self.rename(*names)` returns a view on tensor, renaming all
+dimensions positionally using `names`.
+Use `self.rename(None)` to drop names on a tensor.
+
+One cannot specify both positional args `names` and keyword args
+`rename_map`.
+
+Examples:
+
+```
+>>> imgs = torch.rand(2, 3, 5, 7, names=('N', 'C', 'H', 'W'))
+>>> renamed_imgs = imgs.rename(N='batch', C='channels')
+>>> renamed_imgs.names
+('batch', 'channels', 'H', 'W')
+
+>>> renamed_imgs = imgs.rename(None)
+>>> renamed_imgs.names
+(None, None, None, None)
+
+>>> renamed_imgs = imgs.rename('batch', 'channel', 'height', 'width')
+>>> renamed_imgs.names
+('batch', 'channel', 'height', 'width')
+```
+
+Warning
+
+The named tensor API is experimental and subject to change.
+
+rename_(**names*, ***rename_map*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1460)
+
+In-place version of `rename()`.
 
 renorm(*p*, *dim*, *maxnorm*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -3595,7 +3779,7 @@ torch.Size([3, 4, 5])
 torch.Size([3, 4, 5])
 ```
 
-share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L836)
+share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L846)
 
 Moves the underlying storage to shared memory.
 
@@ -3799,7 +3983,7 @@ Parameters:
 - **sparse_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sparse dimensions
 - **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of dense dimensions
 
-split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1044)
+split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1054)
 
 See [`torch.split()`](torch.split.html#torch.split)
 
@@ -3835,7 +4019,7 @@ std(*dim=None*, ***, *correction=1*, *keepdim=False*) → [Tensor](../tensors.ht
 
 See [`torch.std()`](torch.std.html#torch.std)
 
-stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L938)
+stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L948)
 
 See [`torch.stft()`](torch.stft.html#torch.stft)
 
@@ -3844,7 +4028,7 @@ Warning
 This function changed signature at version 0.4.1. Calling with
 the previous signature may cause error or return incorrect result.
 
-storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L290)
+storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L298)
 
 Returns the underlying `TypedStorage`.
 
@@ -3869,7 +4053,7 @@ Example:
 3
 ```
 
-storage_type() → [type](https://docs.python.org/3/library/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1330)
+storage_type() → [type](https://docs.python.org/3/library/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1340)
 
 Returns the type of the underlying storage.
 
@@ -4270,7 +4454,7 @@ tensor(crow_indices=tensor([0, 2, 3]),
  layout=torch.sparse_bsr)
 ```
 
-to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1358)
+to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1517)
 
 Convert a tensor to [coordinate format](../sparse.html#sparse-coo-docs).
 
@@ -4459,7 +4643,7 @@ unbind(*dim=0*) → seq
 
 See [`torch.unbind()`](torch.unbind.html#torch.unbind)
 
-unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1343)
+unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1438)
 
 See [`torch.unflatten()`](torch.unflatten.html#torch.unflatten).
 
@@ -4510,13 +4694,13 @@ f(x)=1to−fromf(x) = \dfrac{1}{\text{to} - \text{from}}
 
 f(x)=to−from1​
 
-unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1065)
+unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1075)
 
 Returns the unique elements of the input tensor.
 
 See [`torch.unique()`](torch.unique.html#torch.unique)
 
-unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_tensor.py#L1088)
+unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_tensor.py#L1098)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 

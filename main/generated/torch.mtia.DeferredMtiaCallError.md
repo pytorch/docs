@@ -1,3 +1,3 @@
 # torch.mtia.DeferredMtiaCallError
 
-*exception*torch.mtia.DeferredMtiaCallError[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/mtia/__init__.py#L146)
+*exception*torch.mtia.DeferredMtiaCallError[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/mtia/__init__.py#L146)

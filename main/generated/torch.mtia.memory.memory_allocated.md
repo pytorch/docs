@@ -1,6 +1,6 @@
 # torch.mtia.memory.memory_allocated
 
-torch.mtia.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/mtia/memory.py#L39)
+torch.mtia.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/mtia/memory.py#L39)
 
 Return the current MTIA memory occupied by tensors in bytes for a given device.
 

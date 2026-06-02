@@ -1,6 +1,6 @@
 # torch.nn.functional.adaptive_max_pool1d
 
-torch.nn.functional.adaptive_max_pool1d(*input*, *output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/_jit_internal.py#L627)
+torch.nn.functional.adaptive_max_pool1d(*input*, *output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/_jit_internal.py#L627)
 
 Applies a 1D adaptive max pooling over an input signal composed of
 several input planes.

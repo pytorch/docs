@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git5cd392b )">
+<meta name="llm:version" content="main (2.13.0a0+gitc42e39b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git5cd392b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitc42e39b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1042,6 +1042,18 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
                   Type Info
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2489,6 +2501,18 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
+                  Named Tensors
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
+                  Named Tensors operator coverage
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
                   torch.config
                 </a>
@@ -3499,10 +3523,11 @@ document.write(`
 <h1>torch.compiler.reset<a class="headerlink" href="#torch-compiler-reset" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.reset">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/compiler/__init__.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.reset" title="Link to this definition">#</a></dt>
-<dd><p>This function clears all compilation caches and restores the system to its initial state.
-It is recommended to call this function, especially after using operations like <cite>torch.compile(…)</cite>
-to ensure a clean state before another unrelated compilation</p>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/compiler/__init__.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.reset" title="Link to this definition">#</a></dt>
+<dd><p>Reset the in-process compiler state.</p>
+<p>This function clears Dynamo’s in-memory compilation caches and related
+process-local state used by <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a>. It does not delete
+filesystem caches, such as Inductor’s disk cache.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -3863,7 +3888,7 @@ to ensure a clean state before another unrelated compilation</p>
        "headline": "torch.compiler.reset",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.reset.html",
-       "articleBody": "torch.compiler.reset# torch.compiler.reset()[source]# This function clears all compilation caches and restores the system to its initial state. It is recommended to call this function, especially after using operations like torch.compile(\u2026) to ensure a clean state before another unrelated compilation",
+       "articleBody": "torch.compiler.reset# torch.compiler.reset()[source]# Reset the in-process compiler state. This function clears Dynamo\u2019s in-memory compilation caches and related process-local state used by torch.compile(). It does not delete filesystem caches, such as Inductor\u2019s disk cache.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

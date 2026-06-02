@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.unpad_sequence
 
-torch.nn.utils.rnn.unpad_sequence(*padded_sequences*, *lengths*, *batch_first=False*)[[source]](https://github.com/pytorch/pytorch/blob/5cd392bfe432d57e7beb9ab67037ddc0fcc01205/torch/nn/utils/rnn.py#L473)
+torch.nn.utils.rnn.unpad_sequence(*padded_sequences*, *lengths*, *batch_first=False*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/nn/utils/rnn.py#L473)
 
 Unpad padded Tensor into a list of variable length Tensors.
 

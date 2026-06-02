@@ -4,8 +4,9 @@ The following are aliases in `torch` to their counterparts in the nested namespa
 in which they are defined. Feel free to use either the top-level version in `torch`
 (e.g. `torch.broadcast_tensors()`) or the nested version `torch.functional.broadcast_tensors()`.
 
-| [`atleast_1d`](generated/torch.functional.atleast_1d.html#torch.functional.atleast_1d) | Returns a 1-dimensional view of each input tensor with zero dimensions. |
+| [`align_tensors`](generated/torch.functional.align_tensors.html#torch.functional.align_tensors) | |
 | --- | --- |
+| [`atleast_1d`](generated/torch.functional.atleast_1d.html#torch.functional.atleast_1d) | Returns a 1-dimensional view of each input tensor with zero dimensions. |
 | [`atleast_2d`](generated/torch.functional.atleast_2d.html#torch.functional.atleast_2d) | Returns a 2-dimensional view of each input tensor with zero dimensions. |
 | [`atleast_3d`](generated/torch.functional.atleast_3d.html#torch.functional.atleast_3d) | Returns a 3-dimensional view of each input tensor with zero dimensions. |
 | [`block_diag`](generated/torch.functional.block_diag.html#torch.functional.block_diag) | Create a block diagonal matrix from provided tensors. |
