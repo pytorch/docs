@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_embedding_rules
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_embedding_rules(*n*, *symbols*, *embedding_dim*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L547)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_embedding_rules(*n*, *symbols*, *embedding_dim*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L547)
 
 Return type:
 

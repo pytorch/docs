@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+gitc42e39b )">
+<meta name="llm:version" content="main (2.13.0a0+git9ab9491 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gitc42e39b )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git9ab9491 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3690,7 +3690,7 @@ document.write(`
                   
   <section id="torch-compile-has-different-autograd-semantics">
 <span id="compiler-backward"></span><h1><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics<a class="headerlink" href="#torch-compile-has-different-autograd-semantics" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: May 21, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: Jun 02, 2026</p>
 <p>When you apply <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to a function in your model’s forward pass,
 it will automatically generate a backward pass for the compiled function.
 During compilation, it will trace out a graph for the backward pass that
@@ -3708,22 +3708,11 @@ in a context manager that may change its behavior.</p>
 eager-mode PyTorch and how to work around it.</p>
 <section id="autocast-behavior">
 <h2><code class="docutils literal notranslate"><span class="pre">Autocast</span></code> behavior<a class="headerlink" href="#autocast-behavior" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> bakes in an assumption about whether the backward pass will be
-run under an ambient autocast context manager. Use
-<code class="docutils literal notranslate"><span class="pre">torch._functorch.config.backward_pass_autocast</span></code> to control that assumption;
-an incorrect assumption may lead to silent incorrectness.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>AMP recommends that <a class="reference internal" href="../../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> wrap only the forward pass and loss
-computation. Backward passes under autocast are not recommended; see the
-<a class="reference internal" href="../../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> guidance in <a class="reference internal" href="../../amp.html#autocasting"><span class="std std-ref">Autocasting</span></a>. The default compiler
-setting, <code class="docutils literal notranslate"><span class="pre">&quot;same_as_forward&quot;</span></code>, intentionally preserves existing
-<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> behavior by assuming the compiled backward runs under the
-same autocast context as the compiled forward. If your code follows the AMP
-recommendation and runs backward outside autocast, set
-<code class="docutils literal notranslate"><span class="pre">torch._functorch.config.backward_pass_autocast</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;off&quot;</span></code> for the
-compiled region.</p>
-</div>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> bakes in an assumption on if the backward pass will be
+run under an ambient autocast context manager. By default,
+Use <code class="docutils literal notranslate"><span class="pre">torch._functorch.config.backward_pass_autocast</span></code>
+to control that assumption; an incorrect assumption may lead to silent
+incorrectness.</p>
 <p>The options are either:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;same_as_forward&quot;</span></code> (default).
@@ -4145,7 +4134,7 @@ constructed by those kwargs.</p>
        "headline": "torch.compile has different autograd semantics",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_backward.html",
-       "articleBody": "torch.compile has different autograd semantics# Created On: Jun 26, 2025 | Last Updated On: May 21, 2026 When you apply torch.compile to a function in your model\u2019s forward pass, it will automatically generate a backward pass for the compiled function. During compilation, it will trace out a graph for the backward pass that is used whenever autograd is invoked. We refer to the component inside torch.compile that is responsible for this as AOTDispatcher (sometimes known as AOTAutograd). As so, torch.compile bakes in details of the computation into the traced-out backward graph during compilation of the function in the forward pass. However, in eager-mode PyTorch, the backward computation is dynamic: outside of the forward pass, you can wrap the call to tensor.backward() or torch.autograd.grad(...) in a context manager that may change its behavior. This page documents how torch.compile\u2019s autograd semantics differ from eager-mode PyTorch and how to work around it. Autocast behavior# torch.compile bakes in an assumption about whether the backward pass will be run under an ambient autocast context manager. Use torch._functorch.config.backward_pass_autocast to control that assumption; an incorrect assumption may lead to silent incorrectness. Warning AMP recommends that torch.autocast wrap only the forward pass and loss computation. Backward passes under autocast are not recommended; see the torch.autocast guidance in Autocasting. The default compiler setting, \"same_as_forward\", intentionally preserves existing torch.compile behavior by assuming the compiled backward runs under the same autocast context as the compiled forward. If your code follows the AMP recommendation and runs backward outside autocast, set torch._functorch.config.backward_pass_autocast to \"off\" for the compiled region. The options are either: \"same_as_forward\" (default). We assume that the backward of the torch.compile\u2019ed region will be run under the same autocast context manager that the region was run under (if any). Use this if your code looks like the following: with torch.amp.autocast(...): y = torch.compile(region)(x) ... # backward pass run under the same autocast context as the compiled region z.backward() \"off\". We assume that the backward of the torch.compile\u2019d region will not be run under any autocast context managers. Use this if your code looks like the following: with torch.amp.autocast(...): y = torch.compile(region)(x) ... # Backward pass runs under no autocast. z.backward() There is a third option. If you set torch._functorch.config.backward_pass_autocast to a list of kwargs, we will assume the backward pass runs under an autocast context constructed by those kwargs. For example, if your code looks like the following: y = torch.compile(region)(x) ... # Backward pass runs under special context manager with torch.amp.autocast(**kwargs): z.backward() then set torch._functorch.config.backward_pass_autocast = kwargs. Use patch to apply the option to a specific torch.compile call: with torch.amp.autocast(...): with torch._functorch.config.patch(backward_pass_autocast=\"same_as_forward\") y = torch.compile(region)(x) ... # backward pass run under the same autocast context as the compiled region z.backward()",
+       "articleBody": "torch.compile has different autograd semantics# Created On: Jun 26, 2025 | Last Updated On: Jun 02, 2026 When you apply torch.compile to a function in your model\u2019s forward pass, it will automatically generate a backward pass for the compiled function. During compilation, it will trace out a graph for the backward pass that is used whenever autograd is invoked. We refer to the component inside torch.compile that is responsible for this as AOTDispatcher (sometimes known as AOTAutograd). As so, torch.compile bakes in details of the computation into the traced-out backward graph during compilation of the function in the forward pass. However, in eager-mode PyTorch, the backward computation is dynamic: outside of the forward pass, you can wrap the call to tensor.backward() or torch.autograd.grad(...) in a context manager that may change its behavior. This page documents how torch.compile\u2019s autograd semantics differ from eager-mode PyTorch and how to work around it. Autocast behavior# torch.compile bakes in an assumption on if the backward pass will be run under an ambient autocast context manager. By default, Use torch._functorch.config.backward_pass_autocast to control that assumption; an incorrect assumption may lead to silent incorrectness. The options are either: \"same_as_forward\" (default). We assume that the backward of the torch.compile\u2019ed region will be run under the same autocast context manager that the region was run under (if any). Use this if your code looks like the following: with torch.amp.autocast(...): y = torch.compile(region)(x) ... # backward pass run under the same autocast context as the compiled region z.backward() \"off\". We assume that the backward of the torch.compile\u2019d region will not be run under any autocast context managers. Use this if your code looks like the following: with torch.amp.autocast(...): y = torch.compile(region)(x) ... # Backward pass runs under no autocast. z.backward() There is a third option. If you set torch._functorch.config.backward_pass_autocast to a list of kwargs, we will assume the backward pass runs under an autocast context constructed by those kwargs. For example, if your code looks like the following: y = torch.compile(region)(x) ... # Backward pass runs under special context manager with torch.amp.autocast(**kwargs): z.backward() then set torch._functorch.config.backward_pass_autocast = kwargs. Use patch to apply the option to a specific torch.compile call: with torch.amp.autocast(...): with torch._functorch.config.patch(backward_pass_autocast=\"same_as_forward\") y = torch.compile(region)(x) ... # backward pass run under the same autocast context as the compiled region z.backward()",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4157,7 +4146,7 @@ constructed by those kwargs.</p>
          "@id": "/user_guide/torch_compiler/torch.compiler_backward.html"
        },
        "datePublished": "Jun 26, 2025T00:00:00Z",
-       "dateModified": "May 21, 2026T00:00:00Z"
+       "dateModified": "Jun 02, 2026T00:00:00Z"
      }
  </script>
   <script>

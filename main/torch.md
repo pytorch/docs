@@ -255,7 +255,7 @@ There are a few more in-place random sampling functions defined on Tensors as we
 | --- | --- |
 | [`load`](generated/torch.load.html#torch.load) | Loads an object saved with [`torch.save()`](generated/torch.save.html#torch.save) from a file. |
 
-torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/serialization.py#L489)
+torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/serialization.py#L489)
 
 Check if a module's version satisfies requirements
 
@@ -278,7 +278,7 @@ Return type:
 
 requirement_is_met
 
-torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/serialization.py#L713)
+torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/serialization.py#L713)
 
 Restores storage using a deserializer function registered for the location.
 
@@ -973,13 +973,13 @@ Forward-mode AD is not supported.
 
 ## Symbolic Numbers
 
-*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L448)
+*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L448)
 
 Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L630)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L630)
 
 Represent this int as an exact integer ratio
 
@@ -987,13 +987,13 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[SymInt, [int](https://docs.python.org/3/library/functions.html#int)]
 
-*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L645)
+*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L645)
 
 Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L745)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L745)
 
 Represent this float as an exact integer ratio
 
@@ -1001,7 +1001,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]
 
-conjugate()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L758)
+conjugate()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L758)
 
 Returns the complex conjugate of the float.
 
@@ -1009,7 +1009,7 @@ Return type:
 
 *SymFloat*
 
-hex()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L762)
+hex()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L762)
 
 Returns the hexadecimal representation of the float.
 
@@ -1017,11 +1017,11 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-is_integer()[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L741)
+is_integer()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L741)
 
 Return True if the float is an integer.
 
-*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/c42e39b73c4b6bab2e78f982765bd2029abc2a2a/torch/__init__.py#L767)
+*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/__init__.py#L767)
 
 Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations

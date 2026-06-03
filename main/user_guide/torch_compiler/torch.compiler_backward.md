@@ -20,22 +20,11 @@ eager-mode PyTorch and how to work around it.
 
 ## `Autocast` behavior
 
-`torch.compile` bakes in an assumption about whether the backward pass will be
-run under an ambient autocast context manager. Use
-`torch._functorch.config.backward_pass_autocast` to control that assumption;
-an incorrect assumption may lead to silent incorrectness.
-
-Warning
-
-AMP recommends that [`torch.autocast`](../../amp.html#torch.autocast) wrap only the forward pass and loss
-computation. Backward passes under autocast are not recommended; see the
-[`torch.autocast`](../../amp.html#torch.autocast) guidance in [Autocasting](../../amp.html#autocasting). The default compiler
-setting, `"same_as_forward"`, intentionally preserves existing
-`torch.compile` behavior by assuming the compiled backward runs under the
-same autocast context as the compiled forward. If your code follows the AMP
-recommendation and runs backward outside autocast, set
-`torch._functorch.config.backward_pass_autocast` to `"off"` for the
-compiled region.
+`torch.compile` bakes in an assumption on if the backward pass will be
+run under an ambient autocast context manager. By default,
+Use `torch._functorch.config.backward_pass_autocast`
+to control that assumption; an incorrect assumption may lead to silent
+incorrectness.
 
 The options are either:
 
