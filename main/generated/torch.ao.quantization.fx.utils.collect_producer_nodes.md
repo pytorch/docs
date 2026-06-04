@@ -1,6 +1,6 @@
 # collect_producer_nodes
 
-*class*torch.ao.quantization.fx.utils.collect_producer_nodes(*node*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/ao/quantization/fx/utils.py#L191)
+*class*torch.ao.quantization.fx.utils.collect_producer_nodes(*node*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/ao/quantization/fx/utils.py#L191)
 
 Starting from a target node, trace back until we hit input or
 getattr node. This is used to extract the chain of operators

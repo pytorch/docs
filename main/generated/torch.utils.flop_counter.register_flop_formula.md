@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.register_flop_formula
 
-torch.utils.flop_counter.register_flop_formula(*targets*, *get_raw=False*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/utils/flop_counter.py#L49)
+torch.utils.flop_counter.register_flop_formula(*targets*, *get_raw=False*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/utils/flop_counter.py#L49)
 
 Return type:
 

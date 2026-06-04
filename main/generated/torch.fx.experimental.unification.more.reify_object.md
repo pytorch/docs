@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.more.reify_object
 
-torch.fx.experimental.unification.more.reify_object(*o*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/fx/experimental/unification/more.py#L50)
+torch.fx.experimental.unification.more.reify_object(*o*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/fx/experimental/unification/more.py#L50)
 
 Reify a Python object with a substitution
 >>> class Foo(object):

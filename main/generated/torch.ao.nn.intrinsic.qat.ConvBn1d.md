@@ -1,6 +1,6 @@
 # ConvBn1d
 
-*class*torch.ao.nn.intrinsic.qat.ConvBn1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=None*, *padding_mode='zeros'*, *eps=1e-05*, *momentum=0.1*, *freeze_bn=False*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L445)
+*class*torch.ao.nn.intrinsic.qat.ConvBn1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=None*, *padding_mode='zeros'*, *eps=1e-05*, *momentum=0.1*, *freeze_bn=False*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L445)
 
 A ConvBn1d module is a module fused from Conv1d and BatchNorm1d,
 attached with FakeQuantize modules for weight,

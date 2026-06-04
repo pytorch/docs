@@ -1,6 +1,6 @@
 # torch.functional.cdist
 
-torch.functional.cdist(*x1*, *x2*, *p=2.0*, *compute_mode='use_mm_for_euclid_dist_if_necessary'*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/functional.py#L1484)
+torch.functional.cdist(*x1*, *x2*, *p=2.0*, *compute_mode='use_mm_for_euclid_dist_if_necessary'*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/functional.py#L1484)
 
 Computes batched the p-norm distance between each pair of the two collections of row vectors.
 

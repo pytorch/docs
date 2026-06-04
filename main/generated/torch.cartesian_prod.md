@@ -1,6 +1,6 @@
 # torch.cartesian_prod
 
-torch.cartesian_prod(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/functional.py#L1413)
+torch.cartesian_prod(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/functional.py#L1413)
 
 Do cartesian product of the given sequence of tensors. The behavior is similar to
 python's itertools.product.

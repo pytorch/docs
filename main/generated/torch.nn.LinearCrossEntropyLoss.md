@@ -1,6 +1,6 @@
 # LinearCrossEntropyLoss
 
-*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/loss.py#L1408)
+*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *bias=False*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/loss.py#L1408)
 
 This criterion computes the cross entropy loss between input,
 linearly transformed to logits, and target.
@@ -14,6 +14,17 @@ Parameters:
 - **out_features** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - specifies dimensions
 (d1,d2,...,dK)(d_1, d_2, ..., d_K)(d1​,d2​,...,dK​) for K-dimensional loss.
 Default: `()`.
+- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the internal [`Linear`](torch.nn.Linear.html#torch.nn.Linear)
+adds a learnable bias to the logits. Logical shape is
+`(C, *out_features)`; storage is flat
+(`self.linear.bias.shape == (C * prod(out_features),)`)
+for the same reason as `self.linear.weight` - reshaping
+happens in `forward()` before passing through to
+[`linear_cross_entropy()`](torch.nn.functional.linear_cross_entropy.html#torch.nn.functional.linear_cross_entropy) as
+`linear_bias`. Currently supported only on the reference
+path (`options=None`); with a non-`None` `options`
+the forward warns and falls back to the reference path.
+Default: `False`.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device
 of linear weight. Default: `None`.
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - the desired dtype of
@@ -106,7 +117,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/loss.py#L1566)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/loss.py#L1578)
 
 Runs the forward pass.
 

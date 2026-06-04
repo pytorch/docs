@@ -1,6 +1,6 @@
 # torch.optim.adam.adam
 
-torch.optim.adam.adam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *max_exp_avg_sqs*, *state_steps*, *foreach=None*, *capturable=False*, *differentiable=False*, *fused=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, *decoupled_weight_decay=False*, ***, *amsgrad*, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/optim/adam.py#L902)
+torch.optim.adam.adam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *max_exp_avg_sqs*, *state_steps*, *foreach=None*, *capturable=False*, *differentiable=False*, *fused=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, *decoupled_weight_decay=False*, ***, *amsgrad*, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/optim/adam.py#L902)
 
 Functional API that performs Adam algorithm computation.
 

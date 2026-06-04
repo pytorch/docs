@@ -1,6 +1,6 @@
 # PReLU
 
-*class*torch.nn.PReLU(*num_parameters=1*, *init=0.25*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/activation.py#L1575)
+*class*torch.nn.PReLU(*num_parameters=1*, *init=0.25*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/activation.py#L1575)
 
 Applies the element-wise PReLU function.
 
@@ -58,7 +58,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/activation.py#L1650)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/activation.py#L1650)
 
 Return the extra representation of the module.
 
@@ -66,7 +66,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/activation.py#L1644)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/activation.py#L1644)
 
 Runs the forward pass.
 
@@ -74,6 +74,6 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/9ab94917c245d16efe77f546d30d73800c8d728d/torch/nn/modules/activation.py#L1638)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/modules/activation.py#L1638)
 
 Resets parameters based on their initialization used in `__init__`.

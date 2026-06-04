@@ -1075,7 +1075,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.map](torch.map.html)
+Tags: [torch.map](torch.map.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -1319,7 +1319,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html), [python.data-structure](python.data-structure.html)
+Tags: [python.data-structure](python.data-structure.html), [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
