@@ -1,6 +1,6 @@
 # torch.fx.subgraph_rewriter.replace_pattern_with_filters
 
-torch.fx.subgraph_rewriter.replace_pattern_with_filters(*gm*, *pattern*, *replacement=None*, *match_filters=None*, *ignore_literals=False*, *replacement_callback=None*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/fx/subgraph_rewriter.py#L225)
+torch.fx.subgraph_rewriter.replace_pattern_with_filters(*gm*, *pattern*, *replacement=None*, *match_filters=None*, *ignore_literals=False*, *replacement_callback=None*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/fx/subgraph_rewriter.py#L225)
 
 See replace_pattern for documentation. This function is an overload with an additional match_filter argument.
 
@@ -13,7 +13,7 @@ See matcher_utils.py for definition of InternalMatch.
 - **replacement_callback** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**InternalMatch**,*[*Graph*](../fx.html#torch.fx.Graph)*,*[*Graph*](../fx.html#torch.fx.Graph)*]**,*[*Graph*](../fx.html#torch.fx.Graph)*]**|**None*) - A function that takes in a match and returns a
 Graph to be used as the replacement. This allows you to construct a
 replacement graph based on the match.
-- **replacement_callback** - Node name to match. If not empty, it will try to match the node name.
+- **node_name_match** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Node name to match. If not empty, it will try to match the node name.
 
 Return type:
 

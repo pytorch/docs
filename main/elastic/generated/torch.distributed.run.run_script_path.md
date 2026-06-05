@@ -1,6 +1,6 @@
 # torch.distributed.run.run_script_path
 
-torch.distributed.run.run_script_path(*training_script*, **training_script_args*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/distributed/run.py#L972)
+torch.distributed.run.run_script_path(*training_script*, **training_script_args*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/distributed/run.py#L972)
 
 Run the provided training_script from within this interpreter.
 

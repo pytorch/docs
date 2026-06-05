@@ -1,6 +1,6 @@
 # torch.cuda.comm.reduce_add
 
-torch.cuda.comm.reduce_add(*inputs*, *destination=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/parallel/comm.py#L70)
+torch.cuda.comm.reduce_add(*inputs*, *destination=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/parallel/comm.py#L70)
 
 Sum tensors from multiple GPUs.
 

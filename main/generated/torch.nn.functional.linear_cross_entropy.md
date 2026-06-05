@@ -1,6 +1,6 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/functional.py#L3658)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/functional.py#L3676)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
@@ -31,10 +31,10 @@ Parameters:
 - **linear_bias** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - bias added to the linear
 projection (shape `(C,)` or `(C, d_1, ..., d_K)` for
 K-dimensional loss, matching `linear_weight`).
-Currently supported only on the reference path
-(`options=None`); setting `linear_bias` with a
-non-`None` `options` warns and falls back to the
-reference path. Default: `None`.
+With `options != None`, K-dimensional bias
+(`out_features != ()`) falls back to the reference
+implementation with a warning; the chunked path supports
+only `(C,)`-shaped bias. Default: `None`.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight given to each class.
 - **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
 the output: `'none'` | `'mean'` |

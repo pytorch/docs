@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git40a42e9 )">
+<meta name="llm:version" content="main (2.13.0a0+git784e50b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git40a42e9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git784e50b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1042,18 +1042,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2501,18 +2489,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../name_inference.html">
-                  Named Tensors operator coverage
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../config_mod.html">
                   torch.config
                 </a>
@@ -3477,8 +3453,6 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../tensorboard.html">torch.utils.tensorboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_tracker.html">torch.utils.module_tracker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../type_info.html">Type Info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../named_tensor.html">Named Tensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../config_mod.html">torch.__config__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logging.html">torch._logging</a></li>
@@ -3598,8 +3572,8 @@ document.write(`
 <h1>torch.accelerator.is_available<a class="headerlink" href="#torch-accelerator-is-available" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.accelerator.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/accelerator/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.is_available" title="Link to this definition">#</a></dt>
-<dd><p>Check if the current accelerator is available at runtime: it was build, all the
+<span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/accelerator/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.is_available" title="Link to this definition">#</a></dt>
+<dd><p>Check if the current accelerator is available at runtime: it was built, all the
 required drivers are available and at least one device is visible.
 See <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a> for details.</p>
 <dl class="field-list simple">
@@ -3979,7 +3953,7 @@ this function will NOT poison fork. Otherwise, it will. For more details, see
        "headline": "torch.accelerator.is_available",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.accelerator.is_available.html",
-       "articleBody": "torch.accelerator.is_available# torch.accelerator.is_available()[source]# Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. See accelerator for details. Returns: A boolean indicating if there is an available accelerator. Return type: bool Note This API delegates to the device-specific version of is_available. On CUDA, when the environment variable PYTORCH_NVML_BASED_CUDA_CHECK=1 is set, this function will NOT poison fork. Otherwise, it will. For more details, see Poison fork in multiprocessing. Example: \u003e\u003e\u003e assert torch.accelerator.is_available() \"No available accelerators detected.\"",
+       "articleBody": "torch.accelerator.is_available# torch.accelerator.is_available()[source]# Check if the current accelerator is available at runtime: it was built, all the required drivers are available and at least one device is visible. See accelerator for details. Returns: A boolean indicating if there is an available accelerator. Return type: bool Note This API delegates to the device-specific version of is_available. On CUDA, when the environment variable PYTORCH_NVML_BASED_CUDA_CHECK=1 is set, this function will NOT poison fork. Otherwise, it will. For more details, see Poison fork in multiprocessing. Example: \u003e\u003e\u003e assert torch.accelerator.is_available() \"No available accelerators detected.\"",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

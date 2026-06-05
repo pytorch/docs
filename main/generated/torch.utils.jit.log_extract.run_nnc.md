@@ -1,6 +1,6 @@
 # torch.utils.jit.log_extract.run_nnc
 
-torch.utils.jit.log_extract.run_nnc(*ir*, *inputs*, *dynamic*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/utils/jit/log_extract.py#L107)
+torch.utils.jit.log_extract.run_nnc(*ir*, *inputs*, *dynamic*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/utils/jit/log_extract.py#L107)
 
 Return type:
 

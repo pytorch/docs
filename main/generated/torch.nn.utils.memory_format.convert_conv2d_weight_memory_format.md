@@ -1,6 +1,6 @@
 # torch.nn.utils.memory_format.convert_conv2d_weight_memory_format
 
-torch.nn.utils.memory_format.convert_conv2d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/utils/memory_format.py#L11)
+torch.nn.utils.memory_format.convert_conv2d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/utils/memory_format.py#L11)
 
 Convert `memory_format` of `nn.Conv2d.weight` to `memory_format`.
 

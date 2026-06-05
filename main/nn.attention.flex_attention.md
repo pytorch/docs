@@ -1,6 +1,6 @@
 # torch.nn.attention.flex_attention
 
-torch.nn.attention.flex_attention.flex_attention(*query: [Tensor](tensors.html#torch.Tensor)*, *key: [Tensor](tensors.html#torch.Tensor)*, *value: [Tensor](tensors.html#torch.Tensor)*, *score_mod: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *block_mask: BlockMask | [None](https://docs.python.org/3/library/constants.html#None) = None*, *scale: [float](https://docs.python.org/3/library/functions.html#float) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *enable_gqa: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *return_lse: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[False] = False*, *kernel_options: FlexKernelOptions | [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *return_aux: [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L2236)
+torch.nn.attention.flex_attention.flex_attention(*query: [Tensor](tensors.html#torch.Tensor)*, *key: [Tensor](tensors.html#torch.Tensor)*, *value: [Tensor](tensors.html#torch.Tensor)*, *score_mod: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *block_mask: BlockMask | [None](https://docs.python.org/3/library/constants.html#None) = None*, *scale: [float](https://docs.python.org/3/library/functions.html#float) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *enable_gqa: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *return_lse: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[False] = False*, *kernel_options: FlexKernelOptions | [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *return_aux: [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L2236)
 
 torch.nn.attention.flex_attention.flex_attention(*query: [Tensor](tensors.html#torch.Tensor)*, *key: [Tensor](tensors.html#torch.Tensor)*, *value: [Tensor](tensors.html#torch.Tensor)*, *score_mod: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *block_mask: BlockMask | [None](https://docs.python.org/3/library/constants.html#None) = None*, *scale: [float](https://docs.python.org/3/library/functions.html#float) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *enable_gqa: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *return_lse: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[True] = False*, *kernel_options: FlexKernelOptions | [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *return_aux: [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)]
 
@@ -82,13 +82,13 @@ torch.nn.attention.flex_attention is a prototype feature in PyTorch.
 Please look forward to a more stable implementation in a future version of PyTorch.
 Read more about feature classification at: [https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype](https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype)
 
-*class*torch.nn.attention.flex_attention.AuxOutput(*lse=None*, *max_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L237)
+*class*torch.nn.attention.flex_attention.AuxOutput(*lse=None*, *max_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L237)
 
 Auxiliary outputs from flex_attention operation.
 
 Fields will be None if not requested, or contain the tensor if requested.
 
-*class*torch.nn.attention.flex_attention.AuxRequest(*lse=False*, *max_scores=False*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L227)
+*class*torch.nn.attention.flex_attention.AuxRequest(*lse=False*, *max_scores=False*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L227)
 
 Request which auxiliary outputs to compute from flex_attention.
 
@@ -96,7 +96,7 @@ Each field is a boolean indicating whether that auxiliary output should be compu
 
 ## BlockMask Utilities
 
-torch.nn.attention.flex_attention.create_block_mask(*mask_mod*, *B*, *H*, *Q_LEN*, *KV_LEN*, *device=None*, *BLOCK_SIZE=128*, *_compile=False*, *separate_full_blocks=True*, *compute_dq_write_order=False*, *dq_kv_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1838)
+torch.nn.attention.flex_attention.create_block_mask(*mask_mod*, *B*, *H*, *Q_LEN*, *KV_LEN*, *device=None*, *BLOCK_SIZE=128*, *_compile=False*, *separate_full_blocks=True*, *compute_dq_write_order=False*, *dq_kv_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1838)
 
 This function creates a block mask tuple from a mask_mod function.
 
@@ -147,7 +147,7 @@ value = torch.randn(1, 1, 8192, 64, device="cuda", dtype=torch.float16)
 output = flex_attention(query, key, value, block_mask=block_mask)
 ```
 
-torch.nn.attention.flex_attention.create_mask(*mod_fn*, *B*, *H*, *Q_LEN*, *KV_LEN*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1699)
+torch.nn.attention.flex_attention.create_mask(*mod_fn*, *B*, *H*, *Q_LEN*, *KV_LEN*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1699)
 
 This function creates a mask tensor from a mod_fn function.
 
@@ -168,7 +168,7 @@ Return type:
 
 mask ([Tensor](tensors.html#torch.Tensor))
 
-torch.nn.attention.flex_attention.and_masks(**mask_mods*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1644)
+torch.nn.attention.flex_attention.and_masks(**mask_mods*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1644)
 
 Returns a mask_mod that's the intersection of provided mask_mods
 
@@ -176,7 +176,7 @@ Return type:
 
 [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)], [*Tensor*](tensors.html#torch.Tensor)]
 
-torch.nn.attention.flex_attention.or_masks(**mask_mods*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1630)
+torch.nn.attention.flex_attention.or_masks(**mask_mods*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1630)
 
 Returns a mask_mod that's the union of provided mask_mods
 
@@ -184,7 +184,7 @@ Return type:
 
 [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)], [*Tensor*](tensors.html#torch.Tensor)]
 
-torch.nn.attention.flex_attention.noop_mask(*batch*, *head*, *token_q*, *token_kv*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L351)
+torch.nn.attention.flex_attention.noop_mask(*batch*, *head*, *token_q*, *token_kv*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L351)
 
 Returns a noop mask_mod
 
@@ -194,7 +194,7 @@ Return type:
 
 ## FlexKernelOptions
 
-*class*torch.nn.attention.flex_attention.FlexKernelOptions[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L88)
+*class*torch.nn.attention.flex_attention.FlexKernelOptions[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L88)
 
 Options for controlling the behavior of FlexAttention kernels.
 
@@ -343,7 +343,7 @@ ROCm-specific waves per execution unit.
 
 ## BlockMask
 
-*class*torch.nn.attention.flex_attention.BlockMask(*seq_lengths*, *kv_num_blocks*, *kv_indices*, *full_kv_num_blocks*, *full_kv_indices*, *q_num_blocks*, *q_indices*, *full_q_num_blocks*, *full_q_indices*, *BLOCK_SIZE=(128*, *128)*, *mask_mod=<function noop_mask>*, ***, *dq_write_order=None*, *dq_write_order_full=None*, *dq_kv_order=None*, *dq_kv_order_spt=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L785)
+*class*torch.nn.attention.flex_attention.BlockMask(*seq_lengths*, *kv_num_blocks*, *kv_indices*, *full_kv_num_blocks*, *full_kv_indices*, *q_num_blocks*, *q_indices*, *full_q_num_blocks*, *full_q_indices*, *BLOCK_SIZE=(128*, *128)*, *mask_mod=<function noop_mask>*, ***, *dq_write_order=None*, *dq_write_order_full=None*, *dq_kv_order=None*, *dq_kv_order_spt=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L785)
 
 BlockMask is our format for representing a block-sparse attention mask.
 It is somewhat of a cross in-between BCSR and a non-sparse format.
@@ -420,7 +420,7 @@ provide precomputed write-order metadata directly.
 
 BLOCK_SIZE*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]*
 
-as_tuple(*flatten: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[True] = True*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None), [int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int), [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)]][[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1105)
+as_tuple(*flatten: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[True] = True*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None), [int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int), [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)]][[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1105)
 
 as_tuple(*flatten: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[False]*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)], [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None), [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)], [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)]]
 
@@ -438,7 +438,7 @@ dq_write_order*: [Tensor](tensors.html#torch.Tensor) | [None](https://docs.pytho
 
 dq_write_order_full*: [Tensor](tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*
 
-*classmethod*from_kv_blocks(*kv_num_blocks*, *kv_indices*, *full_kv_num_blocks=None*, *full_kv_indices=None*, *BLOCK_SIZE=128*, *mask_mod=None*, *seq_lengths=None*, *compute_q_blocks=True*, ***, *dq_write_order=None*, *dq_write_order_full=None*, *dq_kv_order=None*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L969)
+*classmethod*from_kv_blocks(*kv_num_blocks*, *kv_indices*, *full_kv_num_blocks=None*, *full_kv_indices=None*, *BLOCK_SIZE=128*, *mask_mod=None*, *seq_lengths=None*, *compute_q_blocks=True*, ***, *dq_write_order=None*, *dq_write_order_full=None*, *dq_kv_order=None*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L969)
 
 Creates a BlockMask instance from key-value block information.
 
@@ -481,7 +481,7 @@ kv_num_blocks*: [Tensor](tensors.html#torch.Tensor)*
 
 mask_mod*: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)], [Tensor](tensors.html#torch.Tensor)]*
 
-numel()[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1307)
+numel()[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1307)
 
 Returns the number of elements (not accounting for sparsity) in the mask.
 
@@ -497,7 +497,7 @@ seq_lengths*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[in
 
 *property*shape*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), ...]*
 
-sparsity()[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1316)
+sparsity()[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1316)
 
 Computes the percentage of blocks that are sparse (i.e. not computed)
 
@@ -505,7 +505,7 @@ Return type:
 
 [float](https://docs.python.org/3/library/functions.html#float)
 
-to(*device*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1411)
+to(*device*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1411)
 
 Moves the BlockMask to the specified device.
 
@@ -530,7 +530,7 @@ Instead, it returns a new BlockMask instance where individual tensor attributes
 may or may not be moved to the specified device, depending on their
 current device placement.
 
-to_dense()[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1327)
+to_dense()[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1327)
 
 Returns a dense block that is equivalent to the block mask.
 
@@ -538,7 +538,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-to_string(*grid_size=(20, 20)*, *limit=4*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/nn/attention/flex_attention.py#L1343)
+to_string(*grid_size=(20, 20)*, *limit=4*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/nn/attention/flex_attention.py#L1343)
 
 Returns a string representation of the block mask. Quite nifty.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator
 
-torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/40a42e9b743c053cc9e6d11c0502026a8f5d7d57/torch/fx/experimental/sym_node.py#L1789)
+torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/fx/experimental/sym_node.py#L1789)
 
 Return type:
 

@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git40a42e9 )">
+<meta name="llm:version" content="main (2.13.0a0+git784e50b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git40a42e9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git784e50b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1047,18 +1047,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -2500,18 +2488,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="type_info.html">
                   Type Info
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="named_tensor.html">
-                  Named Tensors
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="name_inference.html">
-                  Named Tensors operator coverage
                 </a>
               </li>
             
@@ -4147,24 +4123,6 @@ document.write(`
 </li>
       <li><a href="generated/torch.alias_copy.html#torch.alias_copy">alias_copy() (in module torch)</a>
 </li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.align_as">align_as() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.align_as">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.align_as">(torch.Tensor method)</a>
-</li>
-      </ul></li>
-      <li><a href="generated/torch.functional.align_tensors.html#torch.functional.align_tensors">align_tensors() (in module torch.functional)</a>
-</li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.align_to">align_to() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.align_to">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.align_to">(torch.Tensor method)</a>
-</li>
-      </ul></li>
       <li><a href="generated/torch.all.html#torch.all">all() (in module torch)</a>
 
       <ul>
@@ -4183,11 +4141,17 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.all_gather_coalesced">all_gather_coalesced() (in module torch.distributed)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.all_gather_into_tensor">all_gather_into_tensor() (in module torch.distributed)</a>
-</li>
       <li><a href="distributed.html#torch.distributed.all_gather_object">all_gather_object() (in module torch.distributed)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.collective_utils.all_gather_object_enforce_type">all_gather_object_enforce_type() (in module torch.distributed.collective_utils)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed.all_gather_single">all_gather_single() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.all_gather_single">(torch.distributed._dist2.ProcessGroup method)</a>
+</li>
+      </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.all_gather_single_coalesced">all_gather_single_coalesced() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="fx.html#torch.fx.Node.all_input_nodes">all_input_nodes (torch.fx.Node property)</a>
 </li>
@@ -4206,7 +4170,11 @@ document.write(`
       <li><a href="distributed.html#torch.distributed.all_to_all">all_to_all() (in module torch.distributed)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.all_to_all_single">all_to_all_single() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.all_to_all_single">(torch.distributed._dist2.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="symmetric_memory.html#torch.ops.symm_mem.all_to_all_vdev">all_to_all_vdev() (in module torch.ops.symm_mem)</a>
 </li>
       <li><a href="symmetric_memory.html#torch.ops.symm_mem.all_to_all_vdev_2d">all_to_all_vdev_2d() (in module torch.ops.symm_mem)</a>
@@ -6958,12 +6926,6 @@ document.write(`
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.planner_helpers.create_read_items_for_chunk_list">create_read_items_for_chunk_list() (in module torch.distributed.checkpoint.planner_helpers)</a>
 </li>
       <li><a href="checkpoint.html#torch.utils.checkpoint.create_selective_checkpoint_contexts">create_selective_checkpoint_contexts() (in module torch.utils.checkpoint)</a>
-</li>
-      <li><a href="fx.html#torch.fx.Graph.create_size_node">create_size_node() (torch.fx.Graph method)</a>
-</li>
-      <li><a href="fx.html#torch.fx.Graph.create_storage_offset_node">create_storage_offset_node() (torch.fx.Graph method)</a>
-</li>
-      <li><a href="fx.html#torch.fx.Graph.create_stride_node">create_stride_node() (torch.fx.Graph method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symbol">create_symbol() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
@@ -11310,12 +11272,6 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.has_guarding_hint.html#torch.fx.experimental.symbolic_shapes.has_guarding_hint">has_guarding_hint() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.has_names">has_names() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.has_names">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-      </ul></li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.has_proxy_slot.html#torch.fx.experimental.proxy_tensor.has_proxy_slot">has_proxy_slot() (in module torch.fx.experimental.proxy_tensor)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.has_record">has_record() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
@@ -14224,10 +14180,6 @@ document.write(`
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Graph.materialize_symint">materialize_symint() (torch.fx.Graph method)</a>
-</li>
-      <li><a href="fx.html#torch.fx.Graph.materialize_symints">materialize_symints() (torch.fx.Graph method)</a>
-</li>
       <li><a href="backends.html#torch.backends.cuda.math_sdp_enabled">math_sdp_enabled() (in module torch.backends.cuda)</a>
 </li>
       <li><a href="generated/torch.matmul.html#torch.matmul">matmul() (in module torch)</a>
@@ -16781,16 +16733,6 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.named_parameters">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.nn.modules.flatten.Unflatten.html#torch.nn.modules.flatten.Unflatten.NamedShape">NamedShape (torch.nn.modules.flatten.Unflatten attribute)</a>
-</li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.names">names (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT attribute)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.names">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS attribute)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.names">(torch.Tensor attribute)</a>
-</li>
-      </ul></li>
       <li><a href="generated/torch.nan_to_num.html#torch.nan_to_num">nan_to_num() (in module torch)</a>
 
       <ul>
@@ -16981,8 +16923,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.negative_.html#torch.Tensor.negative_">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.negative_binomial.NegativeBinomial">NegativeBinomial (class in torch.distributions.negative_binomial)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.nelement">nelement() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -16993,6 +16933,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.nelement.html#torch.Tensor.nelement">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule.html#torch.fx.experimental.migrate_gradual_types.constraint_generator.neq_inference_rule">neq_inference_rule() (in module torch.fx.experimental.migrate_gradual_types.constraint_generator)</a>
 </li>
       <li><a href="generated/torch.compiler.nested_compile_region.html#torch.compiler.nested_compile_region">nested_compile_region() (in module torch.compiler)</a>
@@ -18575,7 +18517,13 @@ document.write(`
       </ul></li>
       <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.reduce_scatter_offset">reduce_scatter_offset() (in module torch.distributed._symmetric_memory)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.reduce_scatter_tensor">reduce_scatter_tensor() (in module torch.distributed)</a>
+      <li><a href="distributed.html#torch.distributed.reduce_scatter_single">reduce_scatter_single() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.reduce_scatter_single">(torch.distributed._dist2.ProcessGroup method)</a>
+</li>
+      </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.reduce_scatter_single_coalesced">reduce_scatter_single_coalesced() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.reduce_scatter_tensor_coalesced">reduce_scatter_tensor_coalesced() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
@@ -18587,14 +18535,6 @@ document.write(`
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes">refine_dynamic_shapes_from_suggested_fixes() (in module torch.export.dynamic_shapes)</a>
 </li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.refine_names">refine_names() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.refine_names">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.refine_names">(torch.Tensor method)</a>
-</li>
-      </ul></li>
       <li><a href="generated/torch.nn.ReflectionPad1d.html#torch.nn.ReflectionPad1d">ReflectionPad1d (class in torch.nn)</a>
 
       <ul>
@@ -18613,6 +18553,8 @@ document.write(`
         <li><a href="generated/torch.nn.modules.padding.ReflectionPad3d.html#torch.nn.modules.padding.ReflectionPad3d">(class in torch.nn.modules.padding)</a>
 </li>
       </ul></li>
+      <li><a href="autograd.html#torch.autograd.graph.region_activation_memory_budget">region_activation_memory_budget() (in module torch.autograd.graph)</a>
+</li>
       <li><a href="generated/torch.fx.passes.regional_inductor.regional_inductor.html#torch.fx.passes.regional_inductor.regional_inductor">regional_inductor() (in module torch.fx.passes.regional_inductor)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.constraint_registry.ConstraintRegistry.register">register() (torch.distributions.constraint_registry.ConstraintRegistry method)</a>
@@ -19283,22 +19225,6 @@ document.write(`
 
       <ul>
         <li><a href="generated/torch.nn.utils.weight_norm.remove_weight_norm.html#torch.nn.utils.weight_norm.remove_weight_norm">(in module torch.nn.utils.weight_norm)</a>
-</li>
-      </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.rename">rename() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.rename">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.rename">(torch.Tensor method)</a>
-</li>
-      </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.rename_">rename_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
-
-      <ul>
-        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.rename_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
-</li>
-        <li><a href="named_tensor.html#torch.Tensor.rename_">(torch.Tensor method)</a>
 </li>
       </ul></li>
       <li><a href="onnx_export.html#torch.onnx.ONNXProgram.rename_axes">rename_axes() (torch.onnx.ONNXProgram method)</a>
