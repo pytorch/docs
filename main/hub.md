@@ -76,7 +76,7 @@ through `torch.hub.list()`, show docstring and examples through
 `torch.hub.help()` and load the pre-trained models using
 `torch.hub.load()`.
 
-torch.hub.list(*github*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L459)
+torch.hub.list(*github*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L459)
 
 List all callable entrypoints available in the repo specified by `github`.
 
@@ -125,7 +125,7 @@ Example
 >>> entrypoints = torch.hub.list("pytorch/vision", force_reload=True)
 ```
 
-torch.hub.help(*github*, *model*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L526)
+torch.hub.help(*github*, *model*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L526)
 
 Show the docstring of entrypoint `model`.
 
@@ -164,7 +164,7 @@ Example
 >>> print(torch.hub.help("pytorch/vision", "resnet18", force_reload=True))
 ```
 
-torch.hub.load(*repo_or_dir*, *model*, **args*, *source='github'*, *trust_repo='check'*, *force_reload=False*, *verbose=True*, *skip_validation=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L576)
+torch.hub.load(*repo_or_dir*, *model*, **args*, *source='github'*, *trust_repo='check'*, *force_reload=False*, *verbose=True*, *skip_validation=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L576)
 
 Load a model from a github repo or a local directory.
 
@@ -236,7 +236,7 @@ Example
 >>> model = torch.hub.load(path, "resnet50", weights="ResNet50_Weights.DEFAULT")
 ```
 
-torch.hub.download_url_to_file(*url*, *dst*, *hash_prefix=None*, *progress=True*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L707)
+torch.hub.download_url_to_file(*url*, *dst*, *hash_prefix=None*, *progress=True*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L707)
 
 Download object at the given URL to a local path.
 
@@ -258,7 +258,7 @@ Example
 ... )
 ```
 
-torch.hub.load_state_dict_from_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L829)
+torch.hub.load_state_dict_from_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L829)
 
 Loads the Torch serialized object at the given URL.
 
@@ -321,7 +321,7 @@ The locations are used in the order of
 - `$XDG_CACHE_HOME/torch/hub`, if environment variable `XDG_CACHE_HOME` is set.
 - `~/.cache/torch/hub`
 
-torch.hub.get_dir()[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L427)
+torch.hub.get_dir()[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L427)
 
 Get the Torch Hub cache directory used for storing downloaded models & weights.
 
@@ -335,7 +335,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch.hub.set_dir(*d*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/hub.py#L448)
+torch.hub.set_dir(*d*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/hub.py#L448)
 
 Optionally set the Torch Hub directory used to save downloaded models & weights.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule
 
-torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/fx/experimental/graph_gradual_typechecker.py#L140)
+torch.fx.experimental.graph_gradual_typechecker.register_refinement_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/fx/experimental/graph_gradual_typechecker.py#L140)
 
 Return type:
 

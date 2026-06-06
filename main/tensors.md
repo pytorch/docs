@@ -573,7 +573,6 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.pow_`](generated/torch.Tensor.pow_.html#torch.Tensor.pow_) | In-place version of [`pow()`](generated/torch.Tensor.pow.html#torch.Tensor.pow) |
 | [`Tensor.prod`](generated/torch.Tensor.prod.html#torch.Tensor.prod) | See [`torch.prod()`](generated/torch.prod.html#torch.prod) |
 | [`Tensor.put_`](generated/torch.Tensor.put_.html#torch.Tensor.put_) | Copies the elements from `source` into the positions specified by `index`. |
-| [`Tensor.qr`](generated/torch.Tensor.qr.html#torch.Tensor.qr) | See [`torch.qr()`](generated/torch.qr.html#torch.qr) |
 | [`Tensor.qscheme`](generated/torch.Tensor.qscheme.html#torch.Tensor.qscheme) | Returns the quantization scheme of a given QTensor. |
 | [`Tensor.quantile`](generated/torch.Tensor.quantile.html#torch.Tensor.quantile) | See [`torch.quantile()`](generated/torch.quantile.html#torch.quantile) |
 | [`Tensor.nanquantile`](generated/torch.Tensor.nanquantile.html#torch.Tensor.nanquantile) | See [`torch.nanquantile()`](generated/torch.nanquantile.html#torch.nanquantile) |

@@ -1,6 +1,6 @@
 # torch.cuda.get_rng_state_all
 
-torch.cuda.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/784e50bb03d4ff5f8fdc368da8449558a8fb4a43/torch/cuda/random.py#L45)
+torch.cuda.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/cuda/random.py#L45)
 
 Return a list of ByteTensor representing the random number states of all devices.
 
