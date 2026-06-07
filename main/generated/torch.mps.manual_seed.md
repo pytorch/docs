@@ -1,6 +1,6 @@
 # torch.mps.manual_seed
 
-torch.mps.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/mps/__init__.py#L57)
+torch.mps.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/mps/__init__.py#L57)
 
 Sets the seed for generating random numbers.
 

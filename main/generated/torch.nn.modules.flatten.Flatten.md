@@ -1,6 +1,6 @@
 # Flatten
 
-*class*torch.nn.modules.flatten.Flatten(*start_dim=1*, *end_dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/flatten.py#L12)
+*class*torch.nn.modules.flatten.Flatten(*start_dim=1*, *end_dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/flatten.py#L12)
 
 Flattens a contiguous range of dims into a tensor.
 
@@ -34,7 +34,7 @@ torch.Size([32, 25])
 torch.Size([160, 5])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/flatten.py#L57)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/flatten.py#L57)
 
 Returns the extra representation of the module.
 
@@ -42,7 +42,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/flatten.py#L51)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/flatten.py#L51)
 
 Runs the forward pass.
 

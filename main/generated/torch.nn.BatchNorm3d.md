@@ -1,6 +1,6 @@
 # BatchNorm3d
 
-*class*torch.nn.BatchNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/batchnorm.py#L535)
+*class*torch.nn.BatchNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/batchnorm.py#L535)
 
 Applies Batch Normalization over a 5D input.
 

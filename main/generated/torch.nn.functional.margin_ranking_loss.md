@@ -1,6 +1,6 @@
 # torch.nn.functional.margin_ranking_loss
 
-torch.nn.functional.margin_ranking_loss(*input1*, *input2*, *target*, *margin=0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/functional.py#L4282)
+torch.nn.functional.margin_ranking_loss(*input1*, *input2*, *target*, *margin=0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/functional.py#L4282)
 
 Compute the margin ranking loss.
 

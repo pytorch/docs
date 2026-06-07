@@ -1,6 +1,6 @@
 # torch.nn.functional.ctc_loss
 
-torch.nn.functional.ctc_loss(*log_probs*, *targets*, *input_lengths*, *target_lengths*, *blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/functional.py#L3072)
+torch.nn.functional.ctc_loss(*log_probs*, *targets*, *input_lengths*, *target_lengths*, *blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/functional.py#L3072)
 
 Compute the Connectionist Temporal Classification loss.
 

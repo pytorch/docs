@@ -1,6 +1,6 @@
 # torch.nn.functional.gumbel_softmax
 
-torch.nn.functional.gumbel_softmax(*logits*, *tau=1*, *hard=False*, *eps=1e-10*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/functional.py#L2191)
+torch.nn.functional.gumbel_softmax(*logits*, *tau=1*, *hard=False*, *eps=1e-10*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/functional.py#L2191)
 
 Sample from the Gumbel-Softmax distribution ([Link 1](https://arxiv.org/abs/1611.00712) [Link 2](https://arxiv.org/abs/1611.01144)) and optionally discretize.
 

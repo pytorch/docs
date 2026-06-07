@@ -1,6 +1,6 @@
 # TripletMarginWithDistanceLoss
 
-*class*torch.nn.modules.loss.TripletMarginWithDistanceLoss(***, *distance_function=None*, *margin=1.0*, *swap=False*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/loss.py#L2014)
+*class*torch.nn.modules.loss.TripletMarginWithDistanceLoss(***, *distance_function=None*, *margin=1.0*, *swap=False*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/loss.py#L2014)
 
 Creates a criterion that measures the triplet loss given input
 tensors aaa, ppp, and nnn (representing anchor,
@@ -104,7 +104,7 @@ Reference:
 V. Balntas, et al.: Learning shallow convolutional feature descriptors with triplet losses:
 [https://bmva-archive.org.uk/bmvc/2016/papers/paper119/index.html](https://bmva-archive.org.uk/bmvc/2016/papers/paper119/index.html)
 
-forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/modules/loss.py#L2136)
+forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/modules/loss.py#L2136)
 
 Runs the forward pass.
 

@@ -1,6 +1,6 @@
 # torch.set_default_dtype
 
-torch.set_default_dtype(*d*, */*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/__init__.py#L1335)
+torch.set_default_dtype(*d*, */*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/__init__.py#L1335)
 
 Sets the default floating point dtype to `d`. Supports floating point dtype
 as inputs. Other dtypes will cause torch to raise an exception.

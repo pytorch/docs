@@ -1,6 +1,6 @@
 # torch.distributions.utils.clamp_probs
 
-torch.distributions.utils.clamp_probs(*probs*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/distributions/utils.py#L102)
+torch.distributions.utils.clamp_probs(*probs*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/distributions/utils.py#L102)
 
 Clamps the probabilities to be in the open interval (0, 1).
 

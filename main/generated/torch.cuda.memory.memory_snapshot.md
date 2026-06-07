@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_snapshot
 
-torch.cuda.memory.memory_snapshot(*mempool_id=None*, *include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/cuda/memory.py#L625)
+torch.cuda.memory.memory_snapshot(*mempool_id=None*, *include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/cuda/memory.py#L625)
 
 Return a snapshot of the CUDA memory allocator state across all devices.
 

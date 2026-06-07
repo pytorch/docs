@@ -1,6 +1,6 @@
 # torch.functional.chain_matmul
 
-torch.functional.chain_matmul(**matrices*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/functional.py#L2057)
+torch.functional.chain_matmul(**matrices*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/functional.py#L2057)
 
 Returns the matrix product of the NNN 2-D tensors. This product is efficiently computed
 using the matrix chain order algorithm which selects the order in which incurs the lowest cost in terms

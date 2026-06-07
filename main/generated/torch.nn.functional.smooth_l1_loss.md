@@ -1,6 +1,6 @@
 # torch.nn.functional.smooth_l1_loss
 
-torch.nn.functional.smooth_l1_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/nn/functional.py#L3969)
+torch.nn.functional.smooth_l1_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/nn/functional.py#L3969)
 
 Compute the Smooth L1 loss.
 

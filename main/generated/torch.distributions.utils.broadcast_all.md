@@ -1,6 +1,6 @@
 # torch.distributions.utils.broadcast_all
 
-torch.distributions.utils.broadcast_all(**values*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/distributions/utils.py#L27)
+torch.distributions.utils.broadcast_all(**values*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/distributions/utils.py#L27)
 
 Given a list of values (possibly containing numbers), returns a list where each
 value is broadcasted based on the following rules:

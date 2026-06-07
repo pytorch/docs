@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git52b7da3 )">
+<meta name="llm:version" content="main (2.13.0a0+git56964c2 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git52b7da3 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git56964c2 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3961,6 +3961,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.pinverse.html">torch.pinverse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.saddmm.html">torch.saddmm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.spmm.html">torch.spmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.qr.html">torch.qr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.svd.html">torch.svd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.svd_lowrank.html">torch.svd_lowrank</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.pca_lowrank.html">torch.pca_lowrank</a></li>
@@ -5024,6 +5025,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.pow_.html">torch.Tensor.pow_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.prod.html">torch.Tensor.prod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.put_.html">torch.Tensor.put_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.qr.html">torch.Tensor.qr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.qscheme.html">torch.Tensor.qscheme</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.quantile.html">torch.Tensor.quantile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.nanquantile.html">torch.Tensor.nanquantile</a></li>
@@ -5586,8 +5588,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7034,7 +7036,7 @@ document.write(`
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.module_tracker.ModuleTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ModuleTracker</span></code> is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being
 executed).</p>

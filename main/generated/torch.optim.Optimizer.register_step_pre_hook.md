@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_step_pre_hook
 
-Optimizer.register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/52b7da3f54bb5af4e72fc6040fc43f091267ad09/torch/optim/optimizer.py#L570)
+Optimizer.register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/56964c25c21235cf3a06679d2e400195087f64fb/torch/optim/optimizer.py#L570)
 
 Register an optimizer step pre hook which will be called before optimizer step.
 
