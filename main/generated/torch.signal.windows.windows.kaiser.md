@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.kaiser
 
-torch.signal.windows.windows.kaiser(*M*, ***, *beta=12.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/411c8477fa2478b2318f3823d57cf684a3a1f389/torch/signal/windows/windows.py#L332)
+torch.signal.windows.windows.kaiser(*M*, ***, *beta=12.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/signal/windows/windows.py#L332)
 
 Computes the Kaiser window.
 
@@ -43,10 +43,10 @@ Return type:
 Examples:
 
 ```
->>> # Generates a symmetric gaussian window with a standard deviation of 1.0.
+>>> # Generates a symmetric Kaiser window with a shape parameter of 12.0.
 >>> torch.signal.windows.kaiser(5)
 tensor([4.0065e-05, 2.1875e-03, 4.3937e-02, 3.2465e-01, 8.8250e-01, 8.8250e-01, 3.2465e-01, 4.3937e-02, 2.1875e-03, 4.0065e-05])
->>> # Generates a periodic gaussian window and standard deviation equal to 0.9.
->>> torch.signal.windows.kaiser(5, sym=False,std=0.9)
+>>> # Generates a periodic Kaiser window and shape parameter equal to 0.9.
+>>> torch.signal.windows.kaiser(5, sym=False, beta=0.9)
 tensor([1.9858e-07, 5.1365e-05, 3.8659e-03, 8.4658e-02, 5.3941e-01, 1.0000e+00, 5.3941e-01, 8.4658e-02, 3.8659e-03, 5.1365e-05])
 ```

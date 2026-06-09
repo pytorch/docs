@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git411c847 )">
+<meta name="llm:version" content="main (2.13.0a0+gite3966c9 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git411c847 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite3966c9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3878,7 +3878,7 @@ document.write(`
 <h1>torch.fx.experimental.merge_matmul.may_depend_on<a class="headerlink" href="#torch-fx-experimental-merge-matmul-may-depend-on" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.merge_matmul.may_depend_on">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.merge_matmul.</span></span><span class="sig-name descname"><span class="pre">may_depend_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/411c8477fa2478b2318f3823d57cf684a3a1f389/torch/fx/experimental/merge_matmul.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.merge_matmul.may_depend_on" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.merge_matmul.</span></span><span class="sig-name descname"><span class="pre">may_depend_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/fx/experimental/merge_matmul.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.merge_matmul.may_depend_on" title="Link to this definition">#</a></dt>
 <dd><p>Determine if one node depends on another in a torch.fx.Graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3886,7 +3886,7 @@ document.write(`
 <li><p><strong>a</strong> (<a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.node.Node"><em>Node</em></a>) – The node that may have a dependency on b.</p></li>
 <li><p><strong>b</strong> (<a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.node.Node"><em>Node</em></a>) – The node that a may have a dependency on.</p></li>
 <li><p><strong>search_depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – In the case of an indirect dependency, this function
-searches upto this many nodes away in search of a
+searches up to this many nodes away in search of a
 data dependency. If none is found, the function
 makes the conservative assumption that there is a
 dependency.</p></li>
@@ -4257,7 +4257,7 @@ dependency.</p></li>
        "headline": "torch.fx.experimental.merge_matmul.may_depend_on",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.merge_matmul.may_depend_on.html",
-       "articleBody": "torch.fx.experimental.merge_matmul.may_depend_on# torch.fx.experimental.merge_matmul.may_depend_on(a, b, search_depth=6)[source]# Determine if one node depends on another in a torch.fx.Graph. Parameters: a (Node) \u2013 The node that may have a dependency on b. b (Node) \u2013 The node that a may have a dependency on. search_depth (int) \u2013 In the case of an indirect dependency, this function searches upto this many nodes away in search of a data dependency. If none is found, the function makes the conservative assumption that there is a dependency. Returns: True if a may depend on b, False if it definitely does not. Return type: bool",
+       "articleBody": "torch.fx.experimental.merge_matmul.may_depend_on# torch.fx.experimental.merge_matmul.may_depend_on(a, b, search_depth=6)[source]# Determine if one node depends on another in a torch.fx.Graph. Parameters: a (Node) \u2013 The node that may have a dependency on b. b (Node) \u2013 The node that a may have a dependency on. search_depth (int) \u2013 In the case of an indirect dependency, this function searches up to this many nodes away in search of a data dependency. If none is found, the function makes the conservative assumption that there is a dependency. Returns: True if a may depend on b, False if it definitely does not. Return type: bool",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

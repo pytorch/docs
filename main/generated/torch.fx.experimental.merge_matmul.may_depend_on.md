@@ -1,6 +1,6 @@
 # torch.fx.experimental.merge_matmul.may_depend_on
 
-torch.fx.experimental.merge_matmul.may_depend_on(*a*, *b*, *search_depth=6*)[[source]](https://github.com/pytorch/pytorch/blob/411c8477fa2478b2318f3823d57cf684a3a1f389/torch/fx/experimental/merge_matmul.py#L35)
+torch.fx.experimental.merge_matmul.may_depend_on(*a*, *b*, *search_depth=6*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/fx/experimental/merge_matmul.py#L35)
 
 Determine if one node depends on another in a torch.fx.Graph.
 
@@ -9,7 +9,7 @@ Parameters:
 - **a** ([*Node*](../fx.html#torch.fx.Node)) - The node that may have a dependency on b.
 - **b** ([*Node*](../fx.html#torch.fx.Node)) - The node that a may have a dependency on.
 - **search_depth** ([*int*](https://docs.python.org/3/library/functions.html#int)) - In the case of an indirect dependency, this function
-searches upto this many nodes away in search of a
+searches up to this many nodes away in search of a
 data dependency. If none is found, the function
 makes the conservative assumption that there is a
 dependency.

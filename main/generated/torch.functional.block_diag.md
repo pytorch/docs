@@ -1,6 +1,6 @@
 # torch.functional.block_diag
 
-torch.functional.block_diag(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/411c8477fa2478b2318f3823d57cf684a3a1f389/torch/functional.py#L1447)
+torch.functional.block_diag(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/functional.py#L1447)
 
 Create a block diagonal matrix from provided tensors.
 
