@@ -1,6 +1,6 @@
 # LinearCrossEntropyOptions
 
-*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/nn/modules/linear_cross_entropy_options.py#L28)
+*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/linear_cross_entropy_options.py#L28)
 
 Configuration for the chunked implementation of
 `linear_cross_entropy()`.
@@ -68,19 +68,25 @@ saves memory in both regimes.
 
 allow_retain_graph*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-Allow `retain_graph=True` on backward.
+Allow `retain_graph=True` on backward. Applies only to the scalar
+reductions (`"mean"` / `"sum"`).
 
-When `False` (default), backward consumes pre-computed gradient
+When `False` (default), their backward consumes pre-computed gradient
 buffers in place; a second `.backward()` raises `RuntimeError`.
 
 When `True`, the buffers are preserved at the cost of one extra
 gradient-sized allocation per call.
 
+`reduction="none"` ignores this field: its backward recomputes the
+chunked gradients from the saved inputs, so `retain_graph=True` works
+unconditionally with no extra allocation.
+
 Higher-order autograd (gradgrad, forward-mode AD) is unsupported.
 
-Under [`torch.compile()`](torch.compile.html#torch.compile) this field is auto-promoted to `True`
-because the default-mode second-backward guard relies on a ctx
-mutation Dynamo doesn't preserve; the wrapper warns on the promotion.
+Under [`torch.compile()`](torch.compile.html#torch.compile) this field is auto-promoted to `True` for
+the scalar reductions because the default-mode second-backward guard
+relies on a ctx mutation Dynamo doesn't preserve; the wrapper warns on
+the promotion.
 
 batch_chunk_size*: [int](https://docs.python.org/3/library/functions.html#int) | [None](https://docs.python.org/3/library/constants.html#None)*
 

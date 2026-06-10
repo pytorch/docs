@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings
 
-torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(*shape_env*, *example_value*, *old_example_value=None*, *peek=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/fx/experimental/symbolic_shapes.py#L1419)
+torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(*shape_env*, *example_value*, *old_example_value=None*, *peek=False*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/fx/experimental/symbolic_shapes.py#L1419)
 
 After having run fake tensor propagation and producing example_value
 result, traverse example_value looking for freshly bound unbacked

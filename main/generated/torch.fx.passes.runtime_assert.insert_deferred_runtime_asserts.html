@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+gite3966c9 )">
+<meta name="llm:version" content="main (2.13.0a0+git474a11a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+gite3966c9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474a11a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3600,7 +3600,7 @@ document.write(`
 <h1>torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts<a class="headerlink" href="#torch-fx-passes-runtime-assert-insert-deferred-runtime-asserts" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.passes.runtime_assert.</span></span><span class="sig-name descname"><span class="pre">insert_deferred_runtime_asserts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/fx/passes/runtime_assert.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.passes.runtime_assert.</span></span><span class="sig-name descname"><span class="pre">insert_deferred_runtime_asserts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/fx/passes/runtime_assert.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts" title="Link to this definition">#</a></dt>
 <dd><p>During tracing, we may have discovered that some data-dependent values
 had runtime assert on them; e.g., torch.empty(x.item()) induces a runtime
 that x.item() &gt;= 0.  These asserts can happen unpredictably during fake
@@ -3622,11 +3622,12 @@ _w0 = 2 * s0
 _w = _w0 * s1</p>
 <p># where s0, s1 are either SymInt graph inputs, or the result of added size calls</p>
 </div></blockquote>
-<p>Redundant torch._check or torch.ops.aten._assert_scalar.default calls that assert
-the same expression, and redundant constrain_range calls are also deduplicated.
-Additionally, because single-symbol bound checks (e.g. u0 &gt;= 0, u0 &lt;= 5) accumulate
-information in the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol,
-and we delete all previous calls, adding bound checks at the end of this pass.</p>
+<p>Redundant compiler-generated asserts that assert the same expression, and
+redundant constrain_range calls are also deduplicated. Additionally, because
+single-symbol bound checks (e.g. u0 &gt;= 0, u0 &lt;= 5) accumulate information in
+the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol, and we
+add bound checks at the end of this pass when an equivalent explicit assert
+is not already present in the graph.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Backwards-compatibility for this API is guaranteed.</p>
@@ -3991,7 +3992,7 @@ and we delete all previous calls, adding bound checks at the end of this pass.</
        "headline": "torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts.html",
-       "articleBody": "torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts# torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(gm, shape_env, name, export=False)[source]# During tracing, we may have discovered that some data-dependent values had runtime assert on them; e.g., torch.empty(x.item()) induces a runtime that x.item() \u003e= 0. These asserts can happen unpredictably during fake tensor propagation, so we cannot conveniently insert them into the FX graph when they occur. Instead, we accumulate them in the ShapeEnv, and in this pass insert them into the graph as proper tests. This pass also deduplicates size-related computation, CSE-ing ops that produce symbolic values and/or are involved in runtime asserts. Additionally, shape calls (size/stride/storage_offset) are turned into compute on input sizes if possible, allowing intermediate tensors to be freed earlier. For example, here dynamo will DCE the cat and repeat calls: z = torch.cat([x, x], dim=0) # 2*s0 w = z.repeat(y.shape[0]) # 2*s0*s1 _w = w.shape[0] # something with _w, but not w \u2026 # turns into -\u003e _w0 = 2 * s0 _w = _w0 * s1 # where s0, s1 are either SymInt graph inputs, or the result of added size calls Redundant torch._check or torch.ops.aten._assert_scalar.default calls that assert the same expression, and redundant constrain_range calls are also deduplicated. Additionally, because single-symbol bound checks (e.g. u0 \u003e= 0, u0 \u003c= 5) accumulate information in the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol, and we delete all previous calls, adding bound checks at the end of this pass. Note Backwards-compatibility for this API is guaranteed.",
+       "articleBody": "torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts# torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(gm, shape_env, name, export=False)[source]# During tracing, we may have discovered that some data-dependent values had runtime assert on them; e.g., torch.empty(x.item()) induces a runtime that x.item() \u003e= 0. These asserts can happen unpredictably during fake tensor propagation, so we cannot conveniently insert them into the FX graph when they occur. Instead, we accumulate them in the ShapeEnv, and in this pass insert them into the graph as proper tests. This pass also deduplicates size-related computation, CSE-ing ops that produce symbolic values and/or are involved in runtime asserts. Additionally, shape calls (size/stride/storage_offset) are turned into compute on input sizes if possible, allowing intermediate tensors to be freed earlier. For example, here dynamo will DCE the cat and repeat calls: z = torch.cat([x, x], dim=0) # 2*s0 w = z.repeat(y.shape[0]) # 2*s0*s1 _w = w.shape[0] # something with _w, but not w \u2026 # turns into -\u003e _w0 = 2 * s0 _w = _w0 * s1 # where s0, s1 are either SymInt graph inputs, or the result of added size calls Redundant compiler-generated asserts that assert the same expression, and redundant constrain_range calls are also deduplicated. Additionally, because single-symbol bound checks (e.g. u0 \u003e= 0, u0 \u003c= 5) accumulate information in the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol, and we add bound checks at the end of this pass when an equivalent explicit assert is not already present in the graph. Note Backwards-compatibility for this API is guaranteed.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -1,6 +1,6 @@
 # torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts
 
-torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(*gm*, *shape_env*, *name*, *export=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/fx/passes/runtime_assert.py#L54)
+torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(*gm*, *shape_env*, *name*, *export=False*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/fx/passes/runtime_assert.py#L54)
 
 During tracing, we may have discovered that some data-dependent values
 had runtime assert on them; e.g., torch.empty(x.item()) induces a runtime
@@ -32,11 +32,12 @@ DCE the cat and repeat calls:
 > 
 > # where s0, s1 are either SymInt graph inputs, or the result of added size calls
 
-Redundant torch._check or torch.ops.aten._assert_scalar.default calls that assert
-the same expression, and redundant constrain_range calls are also deduplicated.
-Additionally, because single-symbol bound checks (e.g. u0 >= 0, u0 <= 5) accumulate
-information in the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol,
-and we delete all previous calls, adding bound checks at the end of this pass.
+Redundant compiler-generated asserts that assert the same expression, and
+redundant constrain_range calls are also deduplicated. Additionally, because
+single-symbol bound checks (e.g. u0 >= 0, u0 <= 5) accumulate information in
+the ShapeEnv, the ShapeEnv contains min/max bounds for each symbol, and we
+add bound checks at the end of this pass when an equivalent explicit assert
+is not already present in the graph.
 
 Note
 

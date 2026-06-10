@@ -1,6 +1,6 @@
 # torch.sparse.softmax
 
-torch.sparse.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e3966c93e0ae877c1150f9fceaab6055109ce1c8/torch/sparse/__init__.py#L286)
+torch.sparse.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/sparse/__init__.py#L286)
 
 Applies a softmax function.
 
