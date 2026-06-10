@@ -1,0 +1,126 @@
+python.object-model
+=======================
+model_attr_mutation
+^^^^^^^^^^^^^^^^^^^
+
+.. note::
+
+    Tags: :doc:`python.object-model <python.object-model>`
+
+    Support Level: SUPPORTED
+
+Original source code:
+
+.. code-block:: python
+
+    # mypy: allow-untyped-defs
+    import torch
+    
+    
+    class ModelAttrMutation(torch.nn.Module):
+        """
+        Attribute mutation raises a warning. Covered in the test_export.py test_detect_leak_strict test.
+        """
+    
+        def __init__(self) -> None:
+            super().__init__()
+            self.attr_list = [torch.randn(3, 2), torch.randn(3, 2)]
+    
+        def recreate_list(self):
+            return [torch.zeros(3, 2), torch.zeros(3, 2)]
+    
+        def forward(self, x):
+            self.attr_list = self.recreate_list()
+            return x.sum() + self.attr_list[0].sum()
+    
+    
+    example_args = (torch.randn(3, 2),)
+    tags = {"python.object-model"}
+    model = ModelAttrMutation()
+    
+
+    torch.export.export(model, example_args)
+
+Result:
+
+.. code-block::
+
+    ExportedProgram:
+        class GraphModule(torch.nn.Module):
+            def forward(self, x: "f32[3, 2]"):
+                    zeros: "f32[3, 2]" = torch.ops.aten.zeros.default([3, 2], device = device(type='cpu'), pin_memory = False)
+                zeros_1: "f32[3, 2]" = torch.ops.aten.zeros.default([3, 2], device = device(type='cpu'), pin_memory = False);  zeros_1 = None
+        
+                    sum_1: "f32[]" = torch.ops.aten.sum.default(x);  x = None
+                sum_2: "f32[]" = torch.ops.aten.sum.default(zeros);  zeros = None
+                add: "f32[]" = torch.ops.aten.add.Tensor(sum_1, sum_2);  sum_1 = sum_2 = None
+                return (add,)
+        
+    Graph signature: 
+        # inputs
+        x: USER_INPUT
+        
+        # outputs
+        add: USER_OUTPUT
+        
+    Range constraints: {}
+    
+
+
+optional_input
+^^^^^^^^^^^^^^
+
+.. note::
+
+    Tags: :doc:`python.object-model <python.object-model>`
+
+    Support Level: SUPPORTED
+
+Original source code:
+
+.. code-block:: python
+
+    # mypy: allow-untyped-defs
+    import torch
+    from torch._export.db.case import SupportLevel
+    
+    
+    class OptionalInput(torch.nn.Module):
+        """
+        Tracing through optional input is not supported yet
+        """
+    
+        def forward(self, x, y=torch.randn(2, 3)):
+            if y is not None:
+                return x + y
+            return x
+    
+    
+    example_args = (torch.randn(2, 3),)
+    tags = {"python.object-model"}
+    support_level = SupportLevel.SUPPORTED
+    model = OptionalInput()
+    
+
+    torch.export.export(model, example_args)
+
+Result:
+
+.. code-block::
+
+    ExportedProgram:
+        class GraphModule(torch.nn.Module):
+            def forward(self, c_dict_type_l__self______dict_____forward_____defaults___0: "f32[2, 3]", x: "f32[2, 3]"):
+                    add: "f32[2, 3]" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0);  x = c_dict_type_l__self______dict_____forward_____defaults___0 = None
+                return (add,)
+        
+    Graph signature: 
+        # inputs
+        c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
+        x: USER_INPUT
+        
+        # outputs
+        add: USER_OUTPUT
+        
+    Range constraints: {}
+    

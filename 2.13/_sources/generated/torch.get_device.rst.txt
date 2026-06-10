@@ -1,0 +1,6 @@
+﻿torch.get\_device
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: get_device

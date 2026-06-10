@@ -1,0 +1,27 @@
+# torch.nn.functional.max_pool2d
+
+torch.nn.functional.max_pool2d(*input*, *kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *ceil_mode=False*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_jit_internal.py#L627)
+
+Applies a 2D max pooling over an input signal composed of several input
+planes.
+
+Note
+
+The order of `ceil_mode` and `return_indices` is different from
+what seen in [`MaxPool2d`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d), and will change in a future release.
+
+See [`MaxPool2d`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d) for details.
+
+Parameters:
+
+- **input** - input tensor (minibatch,in_channels,iH,iW)(\text{minibatch} , \text{in\_channels} , iH , iW)(minibatch,in_channels,iH,iW), minibatch dim optional.
+- **kernel_size** - size of the pooling region. Can be a single number or a
+tuple (kH, kW)
+- **stride** - stride of the pooling operation. Can be a single number or a
+tuple (sH, sW). Default: `kernel_size`
+- **padding** - Implicit negative infinity padding to be added on both sides, must be >= 0 and <= kernel_size / 2.
+- **dilation** - The stride between elements within a sliding window, must be > 0.
+- **ceil_mode** - If `True`, will use ceil instead of floor to compute the output shape. This
+ensures that every element in the input tensor is covered by a sliding window.
+- **return_indices** - If `True`, will return the argmax along with the max values.
+Useful for [`torch.nn.functional.max_unpool2d`](torch.nn.functional.max_unpool2d.html#torch.nn.functional.max_unpool2d) later

@@ -1,0 +1,6 @@
+﻿torch.negative\_
+================
+
+.. currentmodule:: torch
+
+.. autofunction:: negative_

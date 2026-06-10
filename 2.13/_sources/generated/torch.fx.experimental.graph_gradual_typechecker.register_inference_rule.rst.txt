@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.graph\_gradual\_typechecker.register\_inference\_rule
+===========================================================================
+
+.. currentmodule:: torch.fx.experimental.graph_gradual_typechecker
+
+.. autofunction:: register_inference_rule

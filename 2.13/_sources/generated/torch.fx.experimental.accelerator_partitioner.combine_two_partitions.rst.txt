@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.accelerator\_partitioner.combine\_two\_partitions
+=======================================================================
+
+.. currentmodule:: torch.fx.experimental.accelerator_partitioner
+
+.. autofunction:: combine_two_partitions

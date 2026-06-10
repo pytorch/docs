@@ -1,0 +1,6 @@
+﻿torch.fx.passes.pass\_manager.log\_hook
+=======================================
+
+.. currentmodule:: torch.fx.passes.pass_manager
+
+.. autofunction:: log_hook

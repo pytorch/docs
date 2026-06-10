@@ -1,0 +1,74 @@
+# torch.linalg.cholesky
+
+torch.linalg.cholesky(*A*, ***, *upper=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L71)
+
+Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix.
+
+Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C,
+the **Cholesky decomposition** of a complex Hermitian or real symmetric positive-definite matrix
+A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n is defined as
+
+A=LLHL∈Kn×nA = LL^{\text{H}}\mathrlap{\qquad L \in \mathbb{K}^{n \times n}}A=LLHL∈Kn×n
+
+where LLL is a lower triangular matrix with real positive diagonal (even in the complex case) and
+LHL^{\text{H}}LH is the conjugate transpose when LLL is complex, and the transpose when LLL is real-valued.
+
+Supports input of float, double, cfloat and cdouble dtypes.
+Also supports batches of matrices, and if `A` is a batch of matrices then
+the output has the same batch dimensions.
+
+Note
+
+When inputs are on a CUDA device, this function synchronizes that device with the CPU. For a version of this function that does not synchronize, see [`torch.linalg.cholesky_ex()`](torch.linalg.cholesky_ex.html#torch.linalg.cholesky_ex).
+
+See also
+
+[`torch.linalg.cholesky_ex()`](torch.linalg.cholesky_ex.html#torch.linalg.cholesky_ex) for a version of this operation that
+skips the (slow) error checking by default and instead returns the debug
+information. This makes it a faster way to check if a matrix is
+positive-definite.
+
+[`torch.linalg.eigh()`](torch.linalg.eigh.html#torch.linalg.eigh) for a different decomposition of a Hermitian matrix.
+The eigenvalue decomposition gives more information about the matrix but it
+slower to compute than the Cholesky decomposition.
+
+Parameters:
+
+**A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n, n) where * is zero or more batch dimensions
+consisting of symmetric or Hermitian positive-definite matrices.
+
+Keyword Arguments:
+
+- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to return an upper triangular matrix.
+The tensor returned with upper=True is the conjugate transpose of the tensor
+returned with upper=False.
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
+
+Raises:
+
+[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the `A` matrix or any matrix in a batched `A` is not Hermitian
+ (resp. symmetric) positive-definite. If `A` is a batch of matrices,
+ the error message will include the batch index of the first matrix that fails
+ to meet this condition.
+
+Examples:
+
+```
+>>> A = torch.randn(2, 2, dtype=torch.complex128)
+>>> A = A @ A.T.conj() + torch.eye(2) # creates a Hermitian positive-definite matrix
+>>> A
+tensor([[2.5266+0.0000j, 1.9586-2.0626j],
+ [1.9586+2.0626j, 9.4160+0.0000j]], dtype=torch.complex128)
+>>> L = torch.linalg.cholesky(A)
+>>> L
+tensor([[1.5895+0.0000j, 0.0000+0.0000j],
+ [1.2322+1.2976j, 2.4928+0.0000j]], dtype=torch.complex128)
+>>> torch.dist(L @ L.T.conj(), A)
+tensor(4.4692e-16, dtype=torch.float64)
+
+>>> A = torch.randn(3, 2, 2, dtype=torch.float64)
+>>> A = A @ A.mT + torch.eye(2) # batch of symmetric positive-definite matrices
+>>> L = torch.linalg.cholesky(A)
+>>> torch.dist(L @ L.mT, A)
+tensor(5.8747e-16, dtype=torch.float64)
+```

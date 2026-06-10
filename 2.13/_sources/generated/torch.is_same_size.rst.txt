@@ -1,0 +1,6 @@
+﻿torch.is\_same\_size
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_same_size

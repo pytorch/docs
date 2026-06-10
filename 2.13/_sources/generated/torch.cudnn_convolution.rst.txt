@@ -1,0 +1,6 @@
+﻿torch.cudnn\_convolution
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_convolution

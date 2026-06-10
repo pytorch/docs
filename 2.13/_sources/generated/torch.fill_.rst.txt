@@ -1,0 +1,6 @@
+﻿torch.fill\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: fill_

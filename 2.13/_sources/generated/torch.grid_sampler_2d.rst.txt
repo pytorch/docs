@@ -1,0 +1,6 @@
+﻿torch.grid\_sampler\_2d
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: grid_sampler_2d

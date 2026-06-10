@@ -1,0 +1,6 @@
+﻿torch.conv\_transpose1d
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: conv_transpose1d

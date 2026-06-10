@@ -1,0 +1,6 @@
+﻿torch.cudnn\_grid\_sampler
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_grid_sampler

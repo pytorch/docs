@@ -1,0 +1,6 @@
+﻿torch.sinc\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: sinc_

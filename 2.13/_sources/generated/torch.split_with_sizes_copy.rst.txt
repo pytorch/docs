@@ -1,0 +1,6 @@
+﻿torch.split\_with\_sizes\_copy
+==============================
+
+.. currentmodule:: torch
+
+.. autofunction:: split_with_sizes_copy

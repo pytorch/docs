@@ -1,0 +1,61 @@
+# torch.fft.rfft
+
+torch.fft.rfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fft/__init__.py#L355)
+
+Computes the one dimensional Fourier transform of real-valued `input`.
+
+The FFT of a real signal is Hermitian-symmetric, `X[i] = conj(X[-i])` so
+the output contains only the positive frequencies below the Nyquist frequency.
+To compute the full output, use [`fft()`](torch.fft.fft.html#torch.fft.fft)
+
+Note
+
+Supports torch.half on CUDA with GPU Architecture SM53 or greater.
+However it only supports powers of 2 signal length in every transformed dimension.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the real input tensor
+- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Signal length. If given, the input will either be zero-padded
+or trimmed to this length before computing the real FFT.
+- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The dimension along which to take the one dimensional real FFT.
+- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+
+Normalization mode. For the forward transform
+(`rfft()`), these correspond to:
+
+- `"forward"` - normalize by `1/n`
+- `"backward"` - no normalization
+- `"ortho"` - normalize by `1/sqrt(n)` (making the FFT orthonormal)
+
+Calling the backward transform ([`irfft()`](torch.fft.irfft.html#torch.fft.irfft)) with the same
+normalization mode will apply an overall normalization of `1/n` between
+the two transforms. This is required to make [`irfft()`](torch.fft.irfft.html#torch.fft.irfft)
+the exact inverse.
+
+Default is `"backward"` (no normalization).
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example
+
+```
+>>> t = torch.arange(4)
+>>> t
+tensor([0, 1, 2, 3])
+>>> torch.fft.rfft(t)
+tensor([ 6.+0.j, -2.+2.j, -2.+0.j])
+```
+
+Compare against the full output from [`fft()`](torch.fft.fft.html#torch.fft.fft):
+
+```
+>>> torch.fft.fft(t)
+tensor([ 6.+0.j, -2.+2.j, -2.+0.j, -2.-2.j])
+```
+
+Notice that the symmetric element `T[-1] == T[1].conj()` is omitted.
+At the Nyquist frequency `T[-2] == T[2]` is its own symmetric pair,
+and therefore must always be real-valued.

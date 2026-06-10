@@ -1,0 +1,6 @@
+﻿torch.transpose\_copy
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: transpose_copy

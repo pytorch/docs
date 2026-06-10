@@ -1,0 +1,6 @@
+﻿torch.utils.collect\_env.main
+=============================
+
+.. currentmodule:: torch.utils.collect_env
+
+.. autofunction:: main

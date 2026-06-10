@@ -1,0 +1,6 @@
+﻿torch.is\_autocast\_xla\_enabled
+================================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_autocast_xla_enabled

@@ -1,0 +1,6 @@
+﻿torch.slice\_copy
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: slice_copy

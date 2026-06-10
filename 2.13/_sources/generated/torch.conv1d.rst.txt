@@ -1,0 +1,6 @@
+﻿torch.conv1d
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: conv1d

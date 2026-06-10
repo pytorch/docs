@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_ipu\_enabled
+=================================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_ipu_enabled

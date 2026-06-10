@@ -1,0 +1,6 @@
+﻿torch.rnn\_relu\_cell
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: rnn_relu_cell

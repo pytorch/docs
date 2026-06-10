@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.proxy\_call
+===============================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: proxy_call

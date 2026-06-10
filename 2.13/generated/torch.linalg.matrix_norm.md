@@ -1,0 +1,76 @@
+# torch.linalg.matrix_norm
+
+torch.linalg.matrix_norm(*A*, *ord='fro'*, *dim=(-2, -1)*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L1574)
+
+Computes a matrix norm.
+
+If `A` is complex valued, it computes the norm of `A`.abs()
+
+Support input of float, double, cfloat and cdouble dtypes.
+Also supports batches of matrices: the norm will be computed over the
+dimensions specified by the 2-tuple `dim` and the other dimensions will
+be treated as batch dimensions. The output will have the same batch dimensions.
+
+`ord` defines the matrix norm that is computed. The following norms are supported:
+
+| `ord` | matrix norm |
+| --- | --- |
+| 'fro' (default) | Frobenius norm |
+| 'nuc' | nuclear norm |
+| inf | max(sum(abs(x), dim=1)) |
+| -inf | min(sum(abs(x), dim=1)) |
+| 1 | max(sum(abs(x), dim=0)) |
+| -1 | min(sum(abs(x), dim=0)) |
+| 2 | largest singular value |
+| -2 | smallest singular value |
+
+where inf refers to float('inf'), NumPy's inf object, or any equivalent object.
+
+Parameters:
+
+- **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor with two or more dimensions. By default its
+shape is interpreted as (*, m, n) where * is zero or more
+batch dimensions, but this behavior can be controlled using `dim`.
+- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: 'fro'
+- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute the norm. Default: (-2, -1)
+- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
+in the result as dimensions with size one. Default: False
+
+Keyword Arguments:
+
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
+- **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - If specified, the input tensor is cast to
+`dtype` before performing the operation, and the returned tensor's type
+will be `dtype`. Default: None
+
+Returns:
+
+A real-valued tensor, even when `A` is complex.
+
+Examples:
+
+```
+>>> from torch import linalg as LA
+>>> A = torch.arange(9, dtype=torch.float).reshape(3, 3)
+>>> A
+tensor([[0., 1., 2.],
+ [3., 4., 5.],
+ [6., 7., 8.]])
+>>> LA.matrix_norm(A)
+tensor(14.2829)
+>>> LA.matrix_norm(A, ord=-1)
+tensor(9.)
+>>> B = A.expand(2, -1, -1)
+>>> B
+tensor([[[0., 1., 2.],
+ [3., 4., 5.],
+ [6., 7., 8.]],
+
+ [[0., 1., 2.],
+ [3., 4., 5.],
+ [6., 7., 8.]]])
+>>> LA.matrix_norm(B)
+tensor([14.2829, 14.2829])
+>>> LA.matrix_norm(B, dim=(0, 2))
+tensor([ 3.1623, 10.0000, 17.2627])
+```

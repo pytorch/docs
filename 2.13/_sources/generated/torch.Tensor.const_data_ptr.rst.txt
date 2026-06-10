@@ -1,0 +1,6 @@
+﻿torch.Tensor.const\_data\_ptr
+=============================
+
+.. currentmodule:: torch
+
+.. automethod:: Tensor.const_data_ptr

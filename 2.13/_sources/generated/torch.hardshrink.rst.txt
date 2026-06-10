@@ -1,0 +1,6 @@
+﻿torch.hardshrink
+================
+
+.. currentmodule:: torch
+
+.. autofunction:: hardshrink

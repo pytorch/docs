@@ -1,0 +1,6 @@
+﻿torch.frac\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: frac_

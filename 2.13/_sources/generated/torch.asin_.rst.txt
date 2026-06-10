@@ -1,0 +1,6 @@
+﻿torch.asin\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: asin_

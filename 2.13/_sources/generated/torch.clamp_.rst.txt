@@ -1,0 +1,6 @@
+﻿torch.clamp\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: clamp_

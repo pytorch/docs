@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.graph\_gradual\_typechecker.conv2d\_inference\_rule
+=========================================================================
+
+.. currentmodule:: torch.fx.experimental.graph_gradual_typechecker
+
+.. autofunction:: conv2d_inference_rule

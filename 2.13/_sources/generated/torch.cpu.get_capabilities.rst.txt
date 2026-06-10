@@ -1,0 +1,6 @@
+﻿torch.cpu.get\_capabilities
+===========================
+
+.. currentmodule:: torch.cpu
+
+.. autofunction:: get_capabilities

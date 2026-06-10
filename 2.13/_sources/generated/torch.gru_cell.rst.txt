@@ -1,0 +1,6 @@
+﻿torch.gru\_cell
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: gru_cell

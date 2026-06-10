@@ -1,0 +1,6 @@
+﻿torch.cudnn\_convolution\_transpose
+===================================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_convolution_transpose

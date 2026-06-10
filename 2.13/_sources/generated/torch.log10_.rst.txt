@@ -1,0 +1,6 @@
+﻿torch.log10\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: log10_

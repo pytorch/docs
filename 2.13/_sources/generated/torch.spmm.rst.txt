@@ -1,0 +1,6 @@
+﻿torch.spmm
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: spmm

@@ -1,0 +1,6 @@
+﻿torch.mkldnn\_rnn\_layer
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: mkldnn_rnn_layer

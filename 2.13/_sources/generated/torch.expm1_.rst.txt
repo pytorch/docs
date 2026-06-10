@@ -1,0 +1,6 @@
+﻿torch.expm1\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: expm1_

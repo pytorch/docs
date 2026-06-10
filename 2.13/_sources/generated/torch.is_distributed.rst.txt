@@ -1,0 +1,6 @@
+﻿torch.is\_distributed
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_distributed

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.utils.reverse\_dict
+=====================================================
+
+.. currentmodule:: torch.fx.experimental.unification.utils
+
+.. autofunction:: reverse_dict

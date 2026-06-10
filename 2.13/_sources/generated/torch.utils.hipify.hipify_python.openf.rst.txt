@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.openf
+=======================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: openf

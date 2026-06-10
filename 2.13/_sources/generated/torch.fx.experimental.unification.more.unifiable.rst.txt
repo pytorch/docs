@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.more.unifiable
+================================================
+
+.. currentmodule:: torch.fx.experimental.unification.more
+
+.. autofunction:: unifiable

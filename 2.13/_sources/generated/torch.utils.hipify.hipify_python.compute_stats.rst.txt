@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.compute\_stats
+================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: compute_stats

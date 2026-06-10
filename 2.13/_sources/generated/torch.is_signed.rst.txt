@@ -1,0 +1,6 @@
+﻿torch.is\_signed
+================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_signed

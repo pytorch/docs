@@ -1,0 +1,6 @@
+﻿torch.tan\_
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: tan_

@@ -1,0 +1,6 @@
+﻿torch.adaptive\_avg\_pool1d
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: adaptive_avg_pool1d

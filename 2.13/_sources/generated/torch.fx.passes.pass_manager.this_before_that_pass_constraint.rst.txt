@@ -1,0 +1,6 @@
+﻿torch.fx.passes.pass\_manager.this\_before\_that\_pass\_constraint
+==================================================================
+
+.. currentmodule:: torch.fx.passes.pass_manager
+
+.. autofunction:: this_before_that_pass_constraint

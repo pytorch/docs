@@ -1,0 +1,6 @@
+﻿torch.xpu.clock\_rate
+=====================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: clock_rate

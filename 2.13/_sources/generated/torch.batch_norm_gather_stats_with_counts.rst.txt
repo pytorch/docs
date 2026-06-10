@@ -1,0 +1,6 @@
+﻿torch.batch\_norm\_gather\_stats\_with\_counts
+==============================================
+
+.. currentmodule:: torch
+
+.. autofunction:: batch_norm_gather_stats_with_counts

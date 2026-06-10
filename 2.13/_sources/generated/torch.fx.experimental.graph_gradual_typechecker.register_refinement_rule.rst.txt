@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.graph\_gradual\_typechecker.register\_refinement\_rule
+============================================================================
+
+.. currentmodule:: torch.fx.experimental.graph_gradual_typechecker
+
+.. autofunction:: register_refinement_rule

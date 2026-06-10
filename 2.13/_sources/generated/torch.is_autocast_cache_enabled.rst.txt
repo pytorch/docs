@@ -1,0 +1,6 @@
+﻿torch.is\_autocast\_cache\_enabled
+==================================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_autocast_cache_enabled

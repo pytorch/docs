@@ -1,0 +1,6 @@
+﻿torch.detach\_copy
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: detach_copy

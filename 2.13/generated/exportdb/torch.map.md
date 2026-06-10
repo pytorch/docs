@@ -1,0 +1,62 @@
+# torch.map
+
+## dynamic_shape_map
+
+Note
+
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.map
+
+Support Level: SUPPORTED
+
+Original source code:
+
+```
+# mypy: allow-untyped-defs
+import torch
+
+from functorch.experimental.control_flow import map
+
+class DynamicShapeMap(torch.nn.Module):
+ """
+ functorch map() maps a function over the first tensor dimension.
+ """
+
+ def forward(self, xs, y):
+ def body(x, y):
+ return x + y
+
+ return map(body, xs, y)
+
+example_args = (torch.randn(3, 2), torch.randn(2))
+tags = {"torch.dynamic-shape", "torch.map"}
+model = DynamicShapeMap()
+
+torch.export.export(model, example_args)
+```
+
+Result:
+
+```
+ExportedProgram:
+ class GraphModule(torch.nn.Module):
+ def forward(self, xs: "f32[3, 2]", y: "f32[2]"):
+ body_graph_0 = self.body_graph_0
+ map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None
+ getitem: "f32[3, 2]" = map_impl[0]; map_impl = None
+ return (getitem,)
+
+ class body_graph_0(torch.nn.Module):
+ def forward(self, xs: "f32[2]", y: "f32[2]"):
+ add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y); xs = y = None
+ return (add,)
+
+Graph signature:
+ # inputs
+ xs: USER_INPUT
+ y: USER_INPUT
+
+ # outputs
+ getitem: USER_OUTPUT
+
+Range constraints: {}
+```

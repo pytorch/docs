@@ -1,0 +1,6 @@
+﻿torch.choose\_qparams\_optimized
+================================
+
+.. currentmodule:: torch
+
+.. autofunction:: choose_qparams_optimized

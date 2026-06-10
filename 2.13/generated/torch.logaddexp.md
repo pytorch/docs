@@ -1,0 +1,34 @@
+# torch.logaddexp
+
+torch.logaddexp(*input*, *other*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Logarithm of the sum of exponentiations of the inputs.
+
+Calculates pointwise log⁡(ex+ey)\log\left(e^x + e^y\right)log(ex+ey). This function is useful
+in statistics where the calculated probabilities of events may be so small as to
+exceed the range of normal floating point numbers. In such cases the logarithm
+of the calculated probability is stored. This function allows adding
+probabilities stored in such a fashion.
+
+This op should be disambiguated with [`torch.logsumexp()`](torch.logsumexp.html#torch.logsumexp) which performs a
+reduction on a single tensor.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+- **other** ([*Tensor*](../tensors.html#torch.Tensor)) - the second input tensor
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example:
+
+```
+>>> torch.logaddexp(torch.tensor([-1.0]), torch.tensor([-1.0, -2, -3]))
+tensor([-0.3069, -0.6867, -0.8731])
+>>> torch.logaddexp(torch.tensor([-100.0, -200, -300]), torch.tensor([-1.0, -2, -3]))
+tensor([-1., -2., -3.])
+>>> torch.logaddexp(torch.tensor([1.0, 2000, 30000]), torch.tensor([-1.0, -2, -3]))
+tensor([1.1269e+00, 2.0000e+03, 3.0000e+04])
+```

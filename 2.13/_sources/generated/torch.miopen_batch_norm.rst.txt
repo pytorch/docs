@@ -1,0 +1,6 @@
+﻿torch.miopen\_batch\_norm
+=========================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_batch_norm
