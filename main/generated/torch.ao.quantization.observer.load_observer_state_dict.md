@@ -1,6 +1,6 @@
 # load_observer_state_dict
 
-*class*torch.ao.quantization.observer.load_observer_state_dict(*mod*, *obs_dict*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/ao/quantization/observer.py#L2023)
+*class*torch.ao.quantization.observer.load_observer_state_dict(*mod*, *obs_dict*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/ao/quantization/observer.py#L2023)
 
 Given input model and a state_dict containing model observer stats,
 load the stats back into the model. The observer state_dict can be saved

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.generate_flatten_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.generate_flatten_constraints(*start_dim*, *end_dim*, *input*, *flattened*, *n*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L130)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.generate_flatten_constraints(*start_dim*, *end_dim*, *input*, *flattened*, *n*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L130)
 
 Return type:
 

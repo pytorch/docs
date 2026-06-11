@@ -1,6 +1,6 @@
 # LazyModuleMixin
 
-*class*torch.nn.modules.lazy.LazyModuleMixin(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/lazy.py#L53)
+*class*torch.nn.modules.lazy.LazyModuleMixin(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/lazy.py#L53)
 
 A mixin for modules that lazily initialize parameters, also known as "lazy modules".
 
@@ -120,11 +120,11 @@ OrderedDict([('fc1.weight',
 Note, however, that the loaded parameters will not be replaced when doing a "dry run" if they are initialized
 when the state is loaded. This prevents using initialized modules in different contexts.
 
-has_uninitialized_params()[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/lazy.py#L239)
+has_uninitialized_params()[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/lazy.py#L239)
 
 Check if a module has parameters that are not initialized.
 
-initialize_parameters(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/lazy.py#L229)
+initialize_parameters(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/lazy.py#L229)
 
 Initialize parameters according to the input batch properties.
 

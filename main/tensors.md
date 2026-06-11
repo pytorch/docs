@@ -289,7 +289,6 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.ceil`](generated/torch.Tensor.ceil.html#torch.Tensor.ceil) | See [`torch.ceil()`](generated/torch.ceil.html#torch.ceil) |
 | [`Tensor.ceil_`](generated/torch.Tensor.ceil_.html#torch.Tensor.ceil_) | In-place version of [`ceil()`](generated/torch.Tensor.ceil.html#torch.Tensor.ceil) |
 | [`Tensor.char`](generated/torch.Tensor.char.html#torch.Tensor.char) | `self.char()` is equivalent to `self.to(torch.int8)`. |
-| [`Tensor.cholesky`](generated/torch.Tensor.cholesky.html#torch.Tensor.cholesky) | See [`torch.cholesky()`](generated/torch.cholesky.html#torch.cholesky) |
 | [`Tensor.cholesky_inverse`](generated/torch.Tensor.cholesky_inverse.html#torch.Tensor.cholesky_inverse) | See [`torch.cholesky_inverse()`](generated/torch.cholesky_inverse.html#torch.cholesky_inverse) |
 | [`Tensor.cholesky_solve`](generated/torch.Tensor.cholesky_solve.html#torch.Tensor.cholesky_solve) | See [`torch.cholesky_solve()`](generated/torch.cholesky_solve.html#torch.cholesky_solve) |
 | [`Tensor.chunk`](generated/torch.Tensor.chunk.html#torch.Tensor.chunk) | See [`torch.chunk()`](generated/torch.chunk.html#torch.chunk) |

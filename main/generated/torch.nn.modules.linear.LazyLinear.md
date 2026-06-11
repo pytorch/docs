@@ -1,6 +1,6 @@
 # LazyLinear
 
-*class*torch.nn.modules.linear.LazyLinear(*out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/linear.py#L259)
+*class*torch.nn.modules.linear.LazyLinear(*out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/linear.py#L259)
 
 A [`torch.nn.Linear`](torch.nn.Linear.html#torch.nn.Linear) module where in_features is inferred.
 
@@ -29,14 +29,14 @@ If `bias` is `True`, the values are initialized from
 U(−k,k)\mathcal{U}(-\sqrt{k}, \sqrt{k})U(−k​,k​) where
 k=1in_featuresk = \frac{1}{\text{in\_features}}k=in_features1​
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/linear.py#L53)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/linear.py#L53)
 
 alias of [`Linear`](torch.nn.modules.linear.Linear.html#torch.nn.modules.linear.Linear)
 
-initialize_parameters(*input*)[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/linear.py#L316)
+initialize_parameters(*input*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/linear.py#L316)
 
 Infers `in_features` based on `input` and initializes parameters.
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/nn/modules/linear.py#L308)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/nn/modules/linear.py#L308)
 
 Resets parameters based on their initialization used in `__init__`.

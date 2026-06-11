@@ -59,7 +59,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.chain_matmul.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.cholesky" href="torch.cholesky.html" />
+    <link rel="next" title="torch.cholesky_inverse" href="torch.cholesky_inverse.html" />
     <link rel="prev" title="torch.bmm" href="torch.bmm.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.13.0a0+git474a11a )">
+<meta name="llm:version" content="main (2.13.0a0+git63f903c )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git474a11a )');
+  document.documentElement.setAttribute('data-version', 'main (2.13.0a0+git63f903c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3934,7 +3934,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.baddbmm.html">torch.baddbmm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.bmm.html">torch.bmm</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.chain_matmul</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cholesky.html">torch.cholesky</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cholesky_inverse.html">torch.cholesky_inverse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cholesky_solve.html">torch.cholesky_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.dot.html">torch.dot</a></li>
@@ -4302,7 +4301,7 @@ document.write(`
 <h1>torch.chain_matmul<a class="headerlink" href="#torch-chain-matmul" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.chain_matmul">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">chain_matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/474a11a166e1313c37a9ad6f5ed0c887409d2cfc/torch/functional.py#L2057"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.chain_matmul" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">chain_matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/functional.py#L2057"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.chain_matmul" title="Link to this definition">#</a></dt>
 <dd><p>Returns the matrix product of the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> 2-D tensors. This product is efficiently computed
 using the matrix chain order algorithm which selects the order in which incurs the lowest cost in terms
 of arithmetic operations (<a class="reference external" href="https://mitpress.mit.edu/books/introduction-algorithms-third-edition">[CLRS]</a>). Note that since this is a function to compute the product, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span>
@@ -4397,11 +4396,11 @@ would be of dimensions <span class="math"><span class="katex"><span class="katex
       </div>
     </a>
     <a class="right-next"
-       href="torch.cholesky.html"
+       href="torch.cholesky_inverse.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cholesky</p>
+        <p class="prev-next-title">torch.cholesky_inverse</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4436,11 +4435,11 @@ would be of dimensions <span class="math"><span class="katex"><span class="katex
       </div>
     </a>
     <a class="right-next"
-       href="torch.cholesky.html"
+       href="torch.cholesky_inverse.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cholesky</p>
+        <p class="prev-next-title">torch.cholesky_inverse</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

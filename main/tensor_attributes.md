@@ -18,6 +18,7 @@ A `torch.dtype` is an object that represents the data type of a
 | `torch.float16` or `torch.half` | 16-bit floating point, as defined in [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754), S-E-M 1-5-10 |
 | `torch.bfloat16` | 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 |
 | `torch.complex32` or `torch.chalf` | 32-bit complex with two `float16` components |
+| `torch.bcomplex32` [4] | 32-bit complex with two `bfloat16` components |
 | `torch.complex64` or `torch.cfloat` | 64-bit complex with two `float32` components |
 | `torch.complex128` or `torch.cdouble` | 128-bit complex with two `float64` components |
 | `torch.float8_e4m3fn` [4] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
