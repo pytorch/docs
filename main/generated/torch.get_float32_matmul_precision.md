@@ -1,6 +1,6 @@
 # torch.get_float32_matmul_precision
 
-torch.get_float32_matmul_precision()[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/__init__.py#L1612)
+torch.get_float32_matmul_precision()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/__init__.py#L1611)
 
 Returns the current value of float32 matrix multiplication precision. Refer to
 [`torch.set_float32_matmul_precision()`](torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision) documentation for more details.

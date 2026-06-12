@@ -19,11 +19,7 @@ k elements are themselves sorted
 Note
 
 When using torch.topk, the indices of tied elements are not guaranteed to be stable
-and may vary across different invocations unless
-[`torch.use_deterministic_algorithms()`](torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) is enabled. In deterministic mode,
-lower indices are selected before higher indices for tied values. If
-`sorted` is `False`, the returned elements are still not guaranteed
-to appear in sorted order.
+and may vary across different invocations.
 
 Parameters:
 

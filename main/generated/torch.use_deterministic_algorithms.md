@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/63f903c3d6b04c7cb1433d1d67e2b8e21c055bc7/torch/__init__.py#L1388)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/__init__.py#L1388)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -40,7 +40,6 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.put_()`](torch.Tensor.put_.html#torch.Tensor.put_) with `accumulate=True` when called on a CPU
 > tensor
 > - [`torch.Tensor.scatter_add_()`](torch.Tensor.scatter_add_.html#torch.Tensor.scatter_add_) when called on a CUDA tensor
-> - [`torch.topk()`](torch.topk.html#torch.topk) when called on a CPU or CUDA tensor
 > - [`torch.gather()`](torch.gather.html#torch.gather) when called on a CUDA tensor that requires grad
 > - [`torch.index_add()`](torch.index_add.html#torch.index_add) when called on CUDA tensor
 > - [`torch.index_select()`](torch.index_select.html#torch.index_select) when attempting to differentiate a CUDA tensor
