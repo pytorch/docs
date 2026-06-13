@@ -5,7 +5,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -56,7 +56,7 @@ Result:
                     zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([item, 5], device = device(type='cpu'), pin_memory = False);  item = None
                 return (zeros,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -72,7 +72,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -126,7 +126,7 @@ Result:
                     sin: "f32[5, 5]" = torch.ops.aten.sin.default(y);  y = None
                 return (sin,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT

@@ -1,14 +1,14 @@
 # RAdam
 
-*class*torch.optim.radam.RAdam(*params*, *lr=0.001*, *betas=(0.9, 0.999)*, *eps=1e-08*, *weight_decay=0*, *decoupled_weight_decay=False*, ***, *foreach=None*, *maximize=False*, *capturable=False*, *differentiable=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/radam.py#L31)
+*class*torch.optim.radam.RAdam(*params*, *lr=0.001*, *betas=(0.9, 0.999)*, *eps=1e-08*, *weight_decay=0*, *decoupled_weight_decay=False*, ***, *foreach=None*, *maximize=False*, *capturable=False*, *differentiable=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/radam.py#L31)
 
 Implements RAdam algorithm.
 
-input:γ (lr), β1,β2 (betas), θ0 (params), f(θ) (objective), λ (weightdecay), maximizeϵ (epsilon),decoupled_weight_decayinitialize:m0←0 ( first moment),v0←0 ( second moment),ρ∞←2/(1−β2)−1for t=1 to ... doif maximize:gt←−∇θft(θt−1)elsegt←∇θft(θt−1)θt←θt−1if λ≠0if decoupled_weight_decayθt←θt−γλθtelsegt←gt+λθtmt←β1mt−1+(1−β1)gtvt←β2vt−1+(1−β2)gt2mt^←mt/(1−β1t)ρt←ρ∞−2tβ2t/(1−β2t)if ρt>5lt←(1−β2t)vt+ϵrt←(ρt−4)(ρt−2)ρ∞(ρ∞−4)(ρ∞−2)ρtθt←θt−γmt^rtltelseθt←θt−γmt^return θt\begin{aligned}
+input:γ (lr), β1,β2 (betas), θ0 (params), f(θ) (objective), λ (weight decay), maximizeϵ (epsilon),decoupled_weight_decayinitialize:m0←0 ( first moment),v0←0 ( second moment),ρ∞←2/(1−β2)−1for t=1 to ... doif maximize:gt←−∇θft(θt−1)elsegt←∇θft(θt−1)θt←θt−1if λ≠0if decoupled_weight_decayθt←θt−γλθtelsegt←gt+λθtmt←β1mt−1+(1−β1)gtvt←β2vt−1+(1−β2)gt2mt^←mt/(1−β1t)ρt←ρ∞−2tβ2t/(1−β2t)if ρt>5lt←(1−β2t)vt+ϵrt←(ρt−4)(ρt−2)ρ∞(ρ∞−4)(ρ∞−2)ρtθt←θt−γmt^rtltelseθt←θt−γmt^return θt\begin{aligned}
  &\rule{110mm}{0.4pt} \\
  &\textbf{input} : \gamma \text{ (lr)}, \: \beta_1, \beta_2
  \text{ (betas)}, \: \theta_0 \text{ (params)}, \:f(\theta) \text{ (objective)}, \:
- \lambda \text{ (weightdecay)}, \:\textit{maximize} \\
+ \lambda \text{ (weight decay)}, \:\textit{maximize} \\
  &\hspace{13mm} \epsilon \text{ (epsilon)}, \textit{decoupled\_weight\_decay} \\
  &\textbf{initialize} : m_0 \leftarrow 0 \text{ ( first moment)},
  v_0 \leftarrow 0 \text{ ( second moment)}, \\
@@ -42,7 +42,7 @@ input:γ (lr), β1,β2 (betas), θ0 (params), f(θ) (objective), λ (wei
  &\rule{110mm}{0.4pt} \\[-1.ex]
  \end{aligned}
 
-​input:γ (lr),β1​,β2​ (betas),θ0​ (params),f(θ) (objective),λ (weightdecay),maximizeϵ (epsilon),decoupled_weight_decayinitialize:m0​←0 ( first moment),v0​←0 ( second moment),ρ∞​←2/(1−β2​)−1fort=1to...doifmaximize:gt​←−∇θ​ft​(θt−1​)elsegt​←∇θ​ft​(θt−1​)θt​←θt−1​ifλ=0ifdecoupled_weight_decayθt​←θt​−γλθt​elsegt​←gt​+λθt​mt​←β1​mt−1​+(1−β1​)gt​vt​←β2​vt−1​+(1−β2​)gt2​mt​​←mt​/(1−β1t​)ρt​←ρ∞​−2tβ2t​/(1−β2t​)ifρt​>5lt​←vt​​+ϵ(1−β2t​)​​rt​←(ρ∞​−4)(ρ∞​−2)ρt​(ρt​−4)(ρt​−2)ρ∞​​​θt​←θt​−γmt​​rt​lt​elseθt​←θt​−γmt​​returnθt​​
+​input:γ (lr),β1​,β2​ (betas),θ0​ (params),f(θ) (objective),λ (weight decay),maximizeϵ (epsilon),decoupled_weight_decayinitialize:m0​←0 ( first moment),v0​←0 ( second moment),ρ∞​←2/(1−β2​)−1fort=1to...doifmaximize:gt​←−∇θ​ft​(θt−1​)elsegt​←∇θ​ft​(θt−1​)θt​←θt−1​ifλ=0ifdecoupled_weight_decayθt​←θt​−γλθt​elsegt​←gt​+λθt​mt​←β1​mt−1​+(1−β1​)gt​vt​←β2​vt−1​+(1−β2​)gt2​mt​​←mt​/(1−β1t​)ρt​←ρ∞​−2tβ2t​/(1−β2t​)ifρt​>5lt​←vt​​+ϵ(1−β2t​)​​rt​←(ρ∞​−4)(ρ∞​−2)ρt​(ρt​−4)(ρt​−2)ρ∞​​​θt​←θt​−γmt​​rt​lt​elseθt​←θt​−γmt​​returnθt​​
 
 For further details regarding the algorithm we refer to [On the variance of the adaptive learning rate and beyond](https://arxiv.org/abs/1908.03265).
 
@@ -87,7 +87,7 @@ function runs in a torch.no_grad() context. Setting to True can impair
 performance, so leave it False if you don't intend to run autograd
 through this instance (default: False)
 
-add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L1102)
+add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L1102)
 
 Add a param group to the `Optimizer` s param_groups.
 
@@ -99,7 +99,7 @@ Parameters:
 **param_group** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Specifies what Tensors should be optimized along with group
 specific optimization options.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L880)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L880)
 
 Load the optimizer state.
 
@@ -150,7 +150,7 @@ Example
 >>> optimizer.load_state_dict(torch.load("./save_optim.pt"))
 ```
 
-register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L844)
+register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L844)
 
 Register a load_state_dict post-hook which will be called after
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -184,7 +184,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L805)
+register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L805)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -221,7 +221,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L646)
+register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L646)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -253,7 +253,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L614)
+register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L614)
 
 Register a state dict pre-hook which will be called before [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -285,7 +285,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L593)
+register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L593)
 
 Register an optimizer step post hook which will be called after optimizer step.
 
@@ -310,7 +310,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L570)
+register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L570)
 
 Register an optimizer step pre hook which will be called before optimizer step.
 
@@ -337,7 +337,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L680)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L680)
 
 Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -396,7 +396,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/radam.py#L127)
+step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/radam.py#L127)
 
 Perform a single optimization step.
 
@@ -405,7 +405,7 @@ Parameters:
 **closure** (*Callable**,**optional*) - A closure that reevaluates the model
 and returns the loss.
 
-zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/optim/optimizer.py#L1023)
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/optim/optimizer.py#L1023)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 

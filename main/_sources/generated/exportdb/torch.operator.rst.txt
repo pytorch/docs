@@ -46,7 +46,7 @@ Result:
                 add: "f32[]" = torch.ops.aten.add.Tensor(sum_1, 3);  sum_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         

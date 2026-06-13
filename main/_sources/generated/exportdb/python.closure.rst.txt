@@ -63,7 +63,7 @@ Result:
                             sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         pred: USER_INPUT
         x: USER_INPUT
@@ -132,7 +132,7 @@ Result:
                 add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, sub);  mul = sub = None
                 return (add_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         a: USER_INPUT
         b: USER_INPUT

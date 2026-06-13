@@ -71,7 +71,7 @@ print(torch.cuda.device_memory_used(device_idx))
 
 ## Snapshot API Reference
 
-torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/cuda/memory.py#L892)
+torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/cuda/memory.py#L892)
 
 Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
@@ -191,7 +191,7 @@ type skip_actions:
 
 list[str], optional
 
-torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/cuda/memory.py#L1027)
+torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/cuda/memory.py#L1027)
 
 Save a snapshot of CUDA memory state at the time it was called.
 
@@ -207,7 +207,7 @@ class Segment(TypedDict):
  # The size of reserved memory is the sum of all Segments.
  # Segments are cached and reused for future allocations.
  # If the reuse is smaller than the segment, the segment
- # is split into more then one Block.
+ # is split into more than one Block.
  # empty_cache() frees Segments that are entirely inactive.
  address: int
  total_size: int # cudaMalloc'd size of segment
@@ -262,7 +262,7 @@ class TraceEntry(TypedDict):
  "oom", # the allocator threw an OOM exception. 'size' is
  # the requested number of bytes that did not succeed
  "snapshot", # the allocator generated a memory snapshot
- # useful to coorelate a previously taken
+ # useful to correlate a previously taken
  # snapshot with this trace
  ]
  addr: int # not present for OOM
@@ -286,7 +286,7 @@ Returns:
 
 The Snapshot dictionary object
 
-torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/cuda/memory.py#L1129)
+torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/cuda/memory.py#L1129)
 
 Save a pickled version of the torch.memory._snapshot() dictionary to a file.
 

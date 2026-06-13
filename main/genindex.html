@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git5ffde69 )">
+<meta name="llm:version" content="main (2.14.0a0+git19afbb4 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git5ffde69 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git19afbb4 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -10588,8 +10588,6 @@ document.write(`
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler.get_lr">get_lr() (torch.optim.lr_scheduler.ChainedScheduler method)</a>
 
       <ul>
@@ -10626,6 +10624,8 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.SWALR.html#torch.optim.swa_utils.SWALR.get_lr">(torch.optim.swa_utils.SWALR method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="backends.html#torch.backends.cusparselt.get_max_alg_id">get_max_alg_id() (in module torch.backends.cusparselt)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_max_tuning_duration">get_max_tuning_duration() (in module torch.cuda.tunable)</a>
@@ -10735,6 +10735,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="package.html#torch.package.PackageExporter.get_rdeps">get_rdeps() (torch.package.PackageExporter method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.get_reconfigure_handle">get_reconfigure_handle() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.registry.get_rendezvous_handler">get_rendezvous_handler() (in module torch.distributed.elastic.rendezvous.registry)</a>
 </li>
@@ -16993,6 +16995,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.new_tensor.html#torch.Tensor.new_tensor">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.new_window">new_window() (torch.distributed._dist2.ProcessGroup method)</a>
+</li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.new_zeros">new_zeros() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -18418,6 +18422,8 @@ document.write(`
       <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.recompile_limit">recompile_limit (in module torch.compiler.config)</a>
 </li>
       <li><a href="notes/local_tensor_tutorial.html#torch.distributed._local_tensor.LocalTensor.reconcile">reconcile() (torch.distributed._local_tensor.LocalTensor method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.reconfigure">reconfigure() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.record">record() (in module torch.distributed.elastic.events)</a>
 
@@ -20975,14 +20981,14 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.SoftMarginLoss.html#torch.nn.modules.loss.SoftMarginLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.Softmax.html#torch.nn.Softmax">Softmax (class in torch.nn)</a>
 
       <ul>
         <li><a href="generated/torch.nn.modules.activation.Softmax.html#torch.nn.modules.activation.Softmax">(class in torch.nn.modules.activation)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.softmax.html#torch.softmax">softmax() (in module torch)</a>
 
       <ul>
@@ -21860,6 +21866,10 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="profiler.html#torch.profiler.profiler.supported_activities">supported_activities() (in module torch.profiler.profiler)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.supports_reconfigure">supports_reconfigure (torch.distributed._dist2.ProcessGroup property)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.supports_window">supports_window (torch.distributed._dist2.ProcessGroup property)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards">suppress_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>

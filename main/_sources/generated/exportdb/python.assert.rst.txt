@@ -44,7 +44,7 @@ Result:
             def forward(self, x: "f32[3, 2]"):
                 return (x,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -60,7 +60,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -99,7 +99,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         

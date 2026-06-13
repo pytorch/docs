@@ -1,6 +1,6 @@
 # torch.export API Reference
 
-torch.export.export(*mod*, *args*, *kwargs=None*, ***, *dynamic_shapes=None*, *strict=False*, *preserve_module_call_signature=()*, *prefer_deferred_runtime_asserts_over_guards=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/__init__.py#L59)
+torch.export.export(*mod*, *args*, *kwargs=None*, ***, *dynamic_shapes=None*, *strict=False*, *preserve_module_call_signature=()*, *prefer_deferred_runtime_asserts_over_guards=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/__init__.py#L59)
 
 `export()` takes any nn.Module along with example inputs, and produces a traced graph representing
 only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion,
@@ -47,7 +47,7 @@ Parameters:
 - **mod** ([*Module*](../../../generated/torch.nn.Module.html#torch.nn.Module)) - We will trace the forward method of this module.
 - **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - Example positional inputs.
 - **kwargs** ([*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - Optional example keyword inputs.
-- **dynamic_shapes** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]**|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) -
+- **dynamic_shapes** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*|**None*) -
 
 An optional argument where the type should either be:
 1) a dict from argument names of `f` to their dynamic shape specifications,
@@ -62,6 +62,54 @@ they should be mapped to None; or (2) a tuple / list of `Dim()` types or None,
 where the `Dim()` types correspond to dynamic dimensions, and static dimensions
 are denoted by None. Arguments that are dicts or tuples / lists of tensors are
 recursively specified by using mappings or sequences of contained specifications.
+
+**ShapesSpec API.** `dynamic_shapes` may also be a
+`torch.fx.experimental.dynamic_spec.ShapesSpec` (or its
+shorthand `torch.fx.experimental.dynamic_spec.ParamsSpec`).
+This is a newer unbacked unified API across compile, pre-compile,
+export, etc., and is the recommended way to specify dynamic
+shapes for export going forward. It is the same spec API exposed
+via `shapes_spec=` in [`torch.compile()`](../../../generated/torch.compile.html#torch.compile).
+
+The keys of `ParamsSpec` are **parameter names of the callable
+being traced** (for an `nn.Module`, the parameters of
+`forward`); keyword and `**kwargs` arguments are addressed by
+name too.
+
+Key properties (see `torch.fx.experimental.dynamic_spec` for
+full details):
+
+- **Unbacked-only.** Dims / scalars marked dynamic become unbacked
+SymInts (`u` symbols) and are never specialized (including no
+0/1 specialization).
+- **Assumptions and derived expressions.** A dim can be an
+expression over the spec's symbols (e.g. `TensorSpec([B * 2,
+...])`), and you can pass relational `assumptions` between
+symbols (e.g. `[B % 2 == 0]`) that export validates.
+- **No silent specialization.** The exported graph is guaranteed valid
+for every assumption provided, otherwise export fails. (By
+contrast, `Dim.DYNAMIC` / `Dim.AUTO` may silently specialize a
+dynamic dim, yielding a graph that is not valid for all the inputs).
+
+Example:
+
+```
+batch = ShapeVar("batch", min=2, max=128)
+ep = torch.export.export(
+ mod,
+ (torch.randn(8, 3), torch.randn(16, 3)),
+ dynamic_shapes=ShapesSpec(
+ params=ParamsSpec(
+ {
+ "x": TensorSpec([batch, 3]),
+ "y": TensorSpec([batch * 2, 3]), # derived expression
+ }
+ ),
+ assumptions=[batch % 2 == 0],
+ ),
+ strict=True,
+)
+```
 - **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - When disabled (default), the export function will trace the program through
 Python runtime, which by itself will not validate some of the implicit assumptions
 baked into the graph. It will still validate most critical assumptions like shape
@@ -92,7 +140,7 @@ Acceptable types of inputs (for `args` and `kwargs`) and outputs include:
 - (Nested) Data structures comprising of `dict`, `list`, `tuple`, `namedtuple` and
 `OrderedDict` containing all above types.
 
-*class*torch.export.ExportedProgram(*root*, *graph*, *graph_signature*, *state_dict*, *range_constraints*, *module_call_graph*, *example_inputs=None*, *constants=None*, ***, *verifiers=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1058)
+*class*torch.export.ExportedProgram(*root*, *graph*, *graph_signature*, *state_dict*, *range_constraints*, *module_call_graph*, *example_inputs=None*, *constants=None*, ***, *verifiers=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1058)
 
 Package of a program from `export()`. It contains
 an [`torch.fx.Graph`](../../../fx.html#torch.fx.Graph) that represents Tensor computation, a state_dict containing
@@ -107,7 +155,7 @@ an [`torch.fx.GraphModule`](../../../fx.html#torch.fx.GraphModule). You can then
 to rewrite the graph. Afterwards, you can simply use `export()`
 again to construct a correct ExportedProgram.
 
-buffers()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1200)
+buffers()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1200)
 
 Returns an iterator over original module buffers.
 
@@ -161,7 +209,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-module(*check_guards=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1465)
+module(*check_guards=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1467)
 
 Returns a self contained GraphModule with all the parameters/buffers inlined.
 
@@ -181,7 +229,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-named_buffers()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1208)
+named_buffers()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1208)
 
 Returns an iterator over original module buffers, yielding
 both the name of the buffer as well as the buffer itself.
@@ -194,7 +242,7 @@ Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](../../../tensors.html#torch.Tensor)]]
 
-named_parameters()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1191)
+named_parameters()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1191)
 
 Returns an iterator over original module parameters, yielding
 both the name of the parameter as well as the parameter itself.
@@ -207,7 +255,7 @@ Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Parameter*](../../../generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
 
-parameters()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1183)
+parameters()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1183)
 
 Returns an iterator over original module's parameters.
 
@@ -225,7 +273,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-run_decompositions(*decomp_table=None*, *decompose_custom_triton_ops=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1500)
+run_decompositions(*decomp_table=None*, *decompose_custom_triton_ops=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1502)
 
 Run a set of decompositions on the exported program and returns a new
 exported program. By default we will run the Core ATen decompositions to
@@ -274,7 +322,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-validate()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L1686)
+validate()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L1688)
 
 Warning
 
@@ -292,9 +340,12 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-*class*torch.export.dynamic_shapes.AdditionalInputs[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L838)
+*class*torch.export.dynamic_shapes.AdditionalInputs[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L841)
 
 Infers dynamic_shapes based on additional inputs.
+
+Note: this produces the `Dim`-based `dynamic_shapes` format only; it does
+not (yet) emit the structured `ShapesSpec` / `ParamsSpec` API.
 
 This is useful particularly for deployment engineers who, on the one hand, may
 have access to ample testing or profiling data that can provide a fair sense of
@@ -320,21 +371,21 @@ dynamic_shapes.add(argsN, kwargsN)
 torch.export(..., args0, kwargs0, dynamic_shapes=dynamic_shapes)
 ```
 
-add(*args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L868)
+add(*args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L874)
 
 Additional input `args()` and `kwargs()`.
 
-dynamic_shapes(*m*, *args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L881)
+dynamic_shapes(*m*, *args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L887)
 
 Infers a `dynamic_shapes()` pytree structure by merging shapes of the
 original input `args()` and `kwargs()` and of each additional input
 args and kwargs.
 
-verify(*ep*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L923)
+verify(*ep*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L929)
 
 Verifies that an exported program is valid for each additional input.
 
-*class*torch.export.dynamic_shapes.Dim(*name*, ***, *min=None*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L109)
+*class*torch.export.dynamic_shapes.Dim(*name*, ***, *min=None*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L109)
 
 The `Dim` class allows users to specify dynamism in their exported
 programs. By marking a dimension with a `Dim`, the compiler associates the
@@ -401,10 +452,13 @@ s0 = Dim("s0")
 s1 = 3 * s0 + 4
 ```
 
-*class*torch.export.dynamic_shapes.ShapesCollection[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L741)
+*class*torch.export.dynamic_shapes.ShapesCollection[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L741)
 
 Builder for dynamic_shapes.
 Used to assign dynamic shape specifications to tensors that appear in inputs.
+
+Note: this produces the `Dim`-based `dynamic_shapes` format only; it does
+not (yet) emit the structured `ShapesSpec` / `ParamsSpec` API.
 
 This is useful particularly when `args()` is a nested input structure, and it's
 easier to index the input tensors, than to replicate the structure of `args()` in
@@ -445,11 +499,11 @@ dynamic_shapes[mapped_args["others"][0]] = Dim.DYNAMIC
 torch.export(..., args, dynamic_shapes=dynamic_shapes)
 ```
 
-dynamic_shapes(*m*, *args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L812)
+dynamic_shapes(*m*, *args*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L815)
 
 Generates the `dynamic_shapes()` pytree structure according to `args()` and `kwargs()`.
 
-torch.export.dynamic_shapes.dims(**names*, *min=None*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L360)
+torch.export.dynamic_shapes.dims(**names*, *min=None*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L360)
 
 Util to create multiple `Dim()` types.
 
@@ -461,7 +515,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*Dim*, ...]
 
-torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes(*msg*, *dynamic_shapes*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/dynamic_shapes.py#L1281)
+torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes(*msg*, *dynamic_shapes*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/dynamic_shapes.py#L1287)
 
 When exporting with `dynamic_shapes()`, export may fail with a ConstraintViolation error if the specification
 doesn't match the constraints inferred from tracing the model. The error message may provide suggested fixes -
@@ -496,7 +550,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-torch.export.save(*ep*, *f*, ***, *extra_files=None*, *opset_version=None*, *pickle_protocol=2*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/__init__.py#L211)
+torch.export.save(*ep*, *f*, ***, *extra_files=None*, *opset_version=None*, *pickle_protocol=2*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/__init__.py#L258)
 
 Warning
 
@@ -540,7 +594,7 @@ extra_files = {"foo.txt": b"bar".decode("utf-8")}
 torch.export.save(ep, "exported_program.pt2", extra_files=extra_files)
 ```
 
-torch.export.load(*f*, ***, *extra_files=None*, *expected_opset_version=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/__init__.py#L283)
+torch.export.load(*f*, ***, *extra_files=None*, *expected_opset_version=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/__init__.py#L330)
 
 Warning
 
@@ -594,7 +648,7 @@ print(extra_files["foo.txt"])
 print(ep(torch.randn(5)))
 ```
 
-torch.export.pt2_archive._package.package_pt2(*f*, ***, *exported_programs=None*, *aoti_files=None*, *extra_files=None*, *opset_version=None*, *pickle_protocol=2*, *executorch_files=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L646)
+torch.export.pt2_archive._package.package_pt2(*f*, ***, *exported_programs=None*, *aoti_files=None*, *extra_files=None*, *opset_version=None*, *pickle_protocol=2*, *executorch_files=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L646)
 
 Saves the artifacts to a PT2Archive format. The artifact can then be loaded
 using `load_pt2`.
@@ -625,7 +679,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str) | [*PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)[[str](https://docs.python.org/3/library/stdtypes.html#str)] | [*IO*](https://docs.python.org/3/library/typing.html#typing.IO)[[bytes](https://docs.python.org/3/library/stdtypes.html#bytes)]
 
-torch.export.pt2_archive._package.load_pt2(*f*, ***, *expected_opset_version=None*, *run_single_threaded=False*, *num_runners=1*, *device_index=-1*, *load_weights_from_disk=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L1080)
+torch.export.pt2_archive._package.load_pt2(*f*, ***, *expected_opset_version=None*, *run_single_threaded=False*, *num_runners=1*, *device_index=-1*, *load_weights_from_disk=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L1080)
 
 Loads all the artifacts previously saved with `package_pt2`.
 
@@ -652,7 +706,7 @@ Return type:
 
 *PT2ArchiveContents*
 
-torch.export.draft_export(*mod*, *args*, *kwargs=None*, ***, *dynamic_shapes=None*, *preserve_module_call_signature=()*, *strict=False*, *prefer_deferred_runtime_asserts_over_guards=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/__init__.py#L437)
+torch.export.draft_export(*mod*, *args*, *kwargs=None*, ***, *dynamic_shapes=None*, *preserve_module_call_signature=()*, *strict=False*, *prefer_deferred_runtime_asserts_over_guards=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/__init__.py#L484)
 
 A version of torch.export.export which is designed to consistently produce
 an ExportedProgram, even if there are potential soundness issues, and to
@@ -662,11 +716,11 @@ Return type:
 
 *ExportedProgram*
 
-*class*torch.export.unflatten.FlatArgsAdapter[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L304)
+*class*torch.export.unflatten.FlatArgsAdapter[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L304)
 
 Adapts input arguments with `input_spec` to align `target_spec`.
 
-*abstract*adapt(*target_spec*, *input_spec*, *input_args*, *metadata=None*, *obj=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L309)
+*abstract*adapt(*target_spec*, *input_spec*, *input_args*, *metadata=None*, *obj=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L309)
 
 NOTE: This adapter may mutate given `input_args_with_path`.
 
@@ -674,7 +728,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-get_flat_arg_paths()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L321)
+get_flat_arg_paths()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L321)
 
 Returns a list of paths that are used to access the flat args.
 
@@ -682,19 +736,19 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-*class*torch.export.unflatten.InterpreterModule(*graph*, *ty=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L160)
+*class*torch.export.unflatten.InterpreterModule(*graph*, *ty=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L160)
 
 A module that uses torch.fx.Interpreter to execute instead of the usual
 codegen that GraphModule uses. This provides better stack trace information
 and makes it easier to debug execution.
 
-*class*torch.export.unflatten.InterpreterModuleDispatcher(*attrs*, *call_modules*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L255)
+*class*torch.export.unflatten.InterpreterModuleDispatcher(*attrs*, *call_modules*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L255)
 
 A module that carries a sequence of InterpreterModules corresponding to
 a sequence of calls of that module. Each call to the module dispatches
 to the next InterpreterModule, and wraps back around after the last.
 
-torch.export.unflatten.unflatten(*module*, *flat_args_adapter=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/unflatten.py#L796)
+torch.export.unflatten.unflatten(*module*, *flat_args_adapter=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/unflatten.py#L796)
 
 Unflatten an ExportedProgram, producing a module with the same module
 hierarchy as the original eager module. This can be useful if you are trying
@@ -723,7 +777,7 @@ Return type:
 
 *UnflattenedModule*
 
-torch.export.register_dataclass(*cls*, ***, *serialized_type_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/__init__.py#L465)
+torch.export.register_dataclass(*cls*, ***, *serialized_type_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/__init__.py#L520)
 
 Registers a dataclass as a valid input/output type for `torch.export.export()`.
 
@@ -761,7 +815,7 @@ ep = torch.export.export(Mod(), (InputDataClass(torch.ones(2, 2), 1),))
 print(ep)
 ```
 
-*class*torch.export.decomp_utils.CustomDecompTable[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L31)
+*class*torch.export.decomp_utils.CustomDecompTable[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L31)
 
 This is a custom dictionary that is specifically used for handling decomp_table in export.
 The reason we need this is because in the new world, you can only *delete* an op from decomp
@@ -777,27 +831,27 @@ that dispatcher picks up the custom op.
 3. If it is write operation, we don't necessarily materialize
 4. We load the final time during export, right before calling run_decompositions()
 
-copy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L104)
+copy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L104)
 
 Return type:
 
 *CustomDecompTable*
 
-items()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L141)
+items()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L141)
 
-keys()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L74)
+keys()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L74)
 
-materialize()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L145)
+materialize()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L145)
 
 Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[*OperatorBase*, [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)]
 
-pop(**args*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L111)
+pop(**args*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L111)
 
-update(*other_dict*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/decomp_utils.py#L81)
+update(*other_dict*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/decomp_utils.py#L81)
 
-torch.export.passes.move_to_device_pass(*ep*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/passes/__init__.py#L11)
+torch.export.passes.move_to_device_pass(*ep*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/passes/__init__.py#L11)
 
 Move the exported program to the given device.
 
@@ -821,7 +875,7 @@ ExportedProgram
 
 Context manager for reading a PT2 archive.
 
-archive_version()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L229)
+archive_version()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L229)
 
 Get the archive version.
 
@@ -829,7 +883,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-get_file_names()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L242)
+get_file_names()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L242)
 
 Get the file names in the archive.
 
@@ -837,7 +891,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-read_bytes(*name*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L214)
+read_bytes(*name*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L214)
 
 Read a bytes object from the archive.
 name: The source file inside the archive.
@@ -846,7 +900,7 @@ Return type:
 
 [bytes](https://docs.python.org/3/library/stdtypes.html#bytes)
 
-read_string(*name*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L221)
+read_string(*name*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L221)
 
 Read a string object from the archive.
 name: The source file inside the archive.
@@ -859,11 +913,11 @@ Return type:
 
 Context manager for writing a PT2 archive.
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L188)
+close()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L188)
 
 Close the archive.
 
-count_prefix(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L125)
+count_prefix(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L125)
 
 Count the number of records that start with a given prefix.
 
@@ -871,7 +925,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-has_record(*name*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L119)
+has_record(*name*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L119)
 
 Check if a record exists in the archive.
 
@@ -879,31 +933,31 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-write_bytes(*name*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L135)
+write_bytes(*name*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L135)
 
 Write a bytes object to the archive.
 name: The destination file inside the archive.
 data: The bytes object to write.
 
-write_file(*name*, *file_path*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L156)
+write_file(*name*, *file_path*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L156)
 
 Copy a file into the archive.
 name: The destination file inside the archive.
 file_path: The source file on disk.
 
-write_folder(*archive_dir*, *folder_dir*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L169)
+write_folder(*archive_dir*, *folder_dir*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L169)
 
 Copy a folder into the archive.
 archive_dir: The destination folder inside the archive.
 folder_dir: The source folder on disk.
 
-write_string(*name*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L145)
+write_string(*name*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L145)
 
 Write a string object to the archive.
 name: The destination file inside the archive.
 data: The string object to write.
 
-torch.export.pt2_archive.is_pt2_package(*serialized_model*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/pt2_archive/_package.py#L74)
+torch.export.pt2_archive.is_pt2_package(*serialized_model*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/pt2_archive/_package.py#L74)
 
 Check if the serialized model is a PT2 Archive package.
 
@@ -911,11 +965,11 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch.export.exported_program.ModuleCallEntry(*fqn: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *signature: torch.export.exported_program.ModuleCallSignature | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L114)
+*class*torch.export.exported_program.ModuleCallEntry(*fqn: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *signature: torch.export.exported_program.ModuleCallSignature | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L114)
 
-*class*torch.export.exported_program.ModuleCallSignature(*inputs: [list](https://docs.python.org/3/library/stdtypes.html#list)[torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument]*, *outputs: [list](https://docs.python.org/3/library/stdtypes.html#list)[torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument]*, *in_spec: torch.utils._pytree.TreeSpec*, *out_spec: torch.utils._pytree.TreeSpec*, *forward_arg_names: [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)] | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L97)
+*class*torch.export.exported_program.ModuleCallSignature(*inputs: [list](https://docs.python.org/3/library/stdtypes.html#list)[torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument]*, *outputs: [list](https://docs.python.org/3/library/stdtypes.html#list)[torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument]*, *in_spec: torch.utils._pytree.TreeSpec*, *out_spec: torch.utils._pytree.TreeSpec*, *forward_arg_names: [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)] | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L97)
 
-torch.export.exported_program.default_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/exported_program.py#L322)
+torch.export.exported_program.default_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/exported_program.py#L322)
 
 This is the default decomposition table which contains decomposition of
 all ATEN operators to core aten opset. Use this API together with
@@ -925,17 +979,17 @@ Return type:
 
 *CustomDecompTable*
 
-*class*torch.export.custom_obj.ScriptObjectMeta(*constant_name*, *class_fqn*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/custom_obj.py#L7)
+*class*torch.export.custom_obj.ScriptObjectMeta(*constant_name*, *class_fqn*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/custom_obj.py#L7)
 
 Metadata which is stored on nodes representing ScriptObjects.
 
-*class*torch.export.graph_signature.ConstantArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *value: [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L64)
+*class*torch.export.graph_signature.ConstantArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *value: [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L64)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 value*: [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
-*class*torch.export.graph_signature.CustomObjArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *class_fqn: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *fake_val: torch._library.fake_class_registry.FakeScriptObject | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L57)
+*class*torch.export.graph_signature.CustomObjArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *class_fqn: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *fake_val: torch._library.fake_class_registry.FakeScriptObject | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L57)
 
 class_fqn*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
@@ -943,7 +997,7 @@ fake_val*: FakeScriptObject | [None](https://docs.python.org/3/library/constants
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.ExportBackwardSignature(*gradients_to_parameters: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*, *gradients_to_user_inputs: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*, *loss_output: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L158)
+*class*torch.export.graph_signature.ExportBackwardSignature(*gradients_to_parameters: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*, *gradients_to_user_inputs: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*, *loss_output: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L158)
 
 gradients_to_parameters*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
@@ -951,7 +1005,7 @@ gradients_to_user_inputs*: [dict](https://docs.python.org/3/library/stdtypes.htm
 
 loss_output*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.ExportGraphSignature(*input_specs*, *output_specs*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L165)
+*class*torch.export.graph_signature.ExportGraphSignature(*input_specs*, *output_specs*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L165)
 
 `ExportGraphSignature` models the input/output signature of Export Graph,
 which is a fx.Graph with stronger invariants guarantees.
@@ -1078,7 +1132,7 @@ add_1: USER_OUTPUT
 
 *property*buffers_to_mutate*: [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
-get_replace_hook(*replace_inputs=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L568)
+get_replace_hook(*replace_inputs=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L568)
 
 input_specs*: [list](https://docs.python.org/3/library/stdtypes.html#list)[InputSpec]*
 
@@ -1106,7 +1160,7 @@ output_specs*: [list](https://docs.python.org/3/library/stdtypes.html#list)[Outp
 
 *property*parameters_to_mutate*: [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
-replace_all_uses(*old*, *new*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L543)
+replace_all_uses(*old*, *new*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L543)
 
 Replace all uses of the old name with new name in the signature.
 
@@ -1116,7 +1170,7 @@ Replace all uses of the old name with new name in the signature.
 
 *property*user_outputs*: [Collection](https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection)[[int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)]*
 
-*class*torch.export.graph_signature.InputKind(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L81)
+*class*torch.export.graph_signature.InputKind(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L81)
 
 An enumeration.
 
@@ -1132,7 +1186,7 @@ TOKEN*= 6*
 
 USER_INPUT*= 1*
 
-*class*torch.export.graph_signature.InputSpec(*kind: torch.export.graph_signature.InputKind*, *arg: torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument*, *target: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*, *persistent: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L90)
+*class*torch.export.graph_signature.InputSpec(*kind: torch.export.graph_signature.InputKind*, *arg: torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument*, *target: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*, *persistent: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L90)
 
 arg*: TensorArgument | SymIntArgument | SymFloatArgument | SymBoolArgument | ConstantArgument | CustomObjArgument | TokenArgument*
 
@@ -1142,7 +1196,7 @@ persistent*: [bool](https://docs.python.org/3/library/functions.html#bool) | [No
 
 target*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
-*class*torch.export.graph_signature.OutputKind(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L121)
+*class*torch.export.graph_signature.OutputKind(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L121)
 
 An enumeration.
 
@@ -1162,7 +1216,7 @@ USER_INPUT_MUTATION*= 7*
 
 USER_OUTPUT*= 1*
 
-*class*torch.export.graph_signature.OutputSpec(*kind: torch.export.graph_signature.OutputKind*, *arg: torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument*, *target: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L132)
+*class*torch.export.graph_signature.OutputSpec(*kind: torch.export.graph_signature.OutputKind*, *arg: torch.export.graph_signature.TensorArgument | torch.export.graph_signature.SymIntArgument | torch.export.graph_signature.SymFloatArgument | torch.export.graph_signature.SymBoolArgument | torch.export.graph_signature.ConstantArgument | torch.export.graph_signature.CustomObjArgument | torch.export.graph_signature.TokenArgument*, *target: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L132)
 
 arg*: TensorArgument | SymIntArgument | SymFloatArgument | SymBoolArgument | ConstantArgument | CustomObjArgument | TokenArgument*
 
@@ -1170,22 +1224,22 @@ kind*: OutputKind*
 
 target*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
-*class*torch.export.graph_signature.SymBoolArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L52)
+*class*torch.export.graph_signature.SymBoolArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L52)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.SymFloatArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L47)
+*class*torch.export.graph_signature.SymFloatArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L47)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.SymIntArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L42)
+*class*torch.export.graph_signature.SymIntArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L42)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.TensorArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L32)
+*class*torch.export.graph_signature.TensorArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L32)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-*class*torch.export.graph_signature.TokenArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/export/graph_signature.py#L37)
+*class*torch.export.graph_signature.TokenArgument(*name: [str](https://docs.python.org/3/library/stdtypes.html#str)*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/export/graph_signature.py#L37)
 
 name*: [str](https://docs.python.org/3/library/stdtypes.html#str)*

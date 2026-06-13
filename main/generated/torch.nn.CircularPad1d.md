@@ -1,6 +1,6 @@
 # CircularPad1d
 
-*class*torch.nn.CircularPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/nn/modules/padding.py#L48)
+*class*torch.nn.CircularPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/nn/modules/padding.py#L48)
 
 Pads the input tensor using circular padding of the input boundary.
 
@@ -12,7 +12,7 @@ For N-dimensional padding, use [`torch.nn.functional.pad()`](torch.nn.functional
 
 Parameters:
 
-**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If is int, uses the same
+**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
 padding in all boundaries. If a 2-tuple, uses
 (padding_left\text{padding\_left}padding_left, padding_right\text{padding\_right}padding_right)
 Note that padding size should be less than or equal to the corresponding input dimension.

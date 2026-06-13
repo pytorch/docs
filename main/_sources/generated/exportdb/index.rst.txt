@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.dynamic-shape
     torch.cond
+    torch.dynamic-shape
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -84,7 +84,7 @@ Result:
                     slice_1: "f32[3, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 4);  x = None
                 return (slice_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -148,7 +148,7 @@ Result:
                     clone: "f32[3, 2]" = torch.ops.aten.clone.default(x);  x = None
                 return (clone,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -217,7 +217,7 @@ Result:
                     mul_1: "f32[3, 2]" = torch.ops.aten.mul.Tensor(mul, add_2);  mul = add_2 = None
                 return (mul_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         p_linear_weight: PARAMETER target='linear.weight'
         p_linear_bias: PARAMETER target='linear.bias'
@@ -235,7 +235,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -301,7 +301,7 @@ Result:
                     sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -317,7 +317,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -380,7 +380,7 @@ Result:
                     add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -396,7 +396,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -483,7 +483,7 @@ Result:
                 add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach_);  add_1 = detach_ = None
                 return (add_2,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         c_lifted_tensor_0: CONSTANT_TENSOR target='lifted_tensor_0'
         x: USER_INPUT
@@ -558,7 +558,7 @@ Result:
                             sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         pred: USER_INPUT
         x: USER_INPUT
@@ -575,7 +575,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -649,7 +649,7 @@ Result:
                             sub: "f32[s6, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -666,7 +666,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -713,7 +713,7 @@ Result:
                     sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -729,7 +729,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -780,7 +780,7 @@ Result:
                     zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([item, 5], device = device(type='cpu'), pin_memory = False);  item = None
                 return (zeros,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -796,7 +796,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -850,7 +850,7 @@ Result:
                     sin: "f32[5, 5]" = torch.ops.aten.sin.default(y);  y = None
                 return (sin,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -914,7 +914,7 @@ Result:
                     add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(add, 1);  add = None
                 return (add_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -972,7 +972,7 @@ Result:
                     mul_1: "f32[3, 2]" = torch.ops.aten.mul.Tensor(y, mul);  y = mul = None
                 return (mul_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -1028,7 +1028,7 @@ Result:
             def forward(self, x: "f32[3, 2]"):
                 return (x,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1081,7 +1081,7 @@ Result:
                     zeros: "f32[6]" = torch.ops.aten.zeros.default([6], device = device(type='cpu'), pin_memory = False)
                 return (zeros,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1097,7 +1097,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1138,7 +1138,7 @@ Result:
                     cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
                 return (cos,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1202,7 +1202,7 @@ Result:
                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         xs: USER_INPUT
         y: USER_INPUT
@@ -1257,7 +1257,7 @@ Result:
                 slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2);  slice_1 = None
                 return (slice_2,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1314,7 +1314,7 @@ Result:
                     permute: "f32[10, 5, 2]" = torch.ops.aten.permute.default(view, [0, 2, 1]);  view = None
                 return (permute,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1391,7 +1391,7 @@ Result:
                 mul_6: "f32[4]" = torch.ops.aten.mul.Tensor(mul_5, input1);  mul_5 = input1 = None
                 return (mul_6,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         pos0: USER_INPUT
         tuple0_0: USER_INPUT
@@ -1414,7 +1414,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1453,7 +1453,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1512,7 +1512,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(args_0, args_1);  args_0 = args_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         args_0: USER_INPUT
         args_1: USER_INPUT
@@ -1581,7 +1581,7 @@ Result:
                 add: "f32[]" = torch.ops.aten.add.Tensor(sum_1, sum_2);  sum_1 = sum_2 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1649,7 +1649,7 @@ Result:
                 add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, sub);  mul = sub = None
                 return (add_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         a: USER_INPUT
         b: USER_INPUT
@@ -1711,7 +1711,7 @@ Result:
                 add: "f32[3, 2]" = torch.ops.aten.add.Tensor(sin, cos);  sin = cos = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1769,7 +1769,7 @@ Result:
                     add: "f32[2, 3]" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0);  x = c_dict_type_l__self______dict_____forward_____defaults___0 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
         x: USER_INPUT
@@ -1824,7 +1824,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x_0_1, 1);  x_0_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x_0_1: USER_INPUT
         x_0_2: USER_INPUT
@@ -1889,7 +1889,7 @@ Result:
                     add: "Sym(s11 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -1954,7 +1954,7 @@ Result:
                 add: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, 4);  mul = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2017,7 +2017,7 @@ Result:
                 add_9: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 9);  x = None
                 return (add, add_1, add_2, add_3, add_4, add_5, add_6, add_7, add_8, add_9)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2083,7 +2083,7 @@ Result:
                 add: "f32[3, 2, 2]" = torch.ops.aten.add.Tensor(x, ones);  x = ones = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2138,7 +2138,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         attr: USER_INPUT
@@ -2199,7 +2199,7 @@ Result:
                     add: "f32[3, 4]" = torch.ops.aten.add.Tensor(x, 1);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2256,7 +2256,7 @@ Result:
                 add: "f32[]" = torch.ops.aten.add.Tensor(sum_1, 3);  sum_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2313,7 +2313,7 @@ Result:
                     cos: "f32[3, 2]" = torch.ops.aten.cos.default(mul_);  mul_ = None
                 return (cos,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -2332,7 +2332,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 

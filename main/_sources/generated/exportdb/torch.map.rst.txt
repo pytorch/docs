@@ -53,7 +53,7 @@ Result:
                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         xs: USER_INPUT
         y: USER_INPUT

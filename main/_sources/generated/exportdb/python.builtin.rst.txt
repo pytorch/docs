@@ -5,7 +5,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -89,7 +89,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         attr: USER_INPUT
@@ -150,7 +150,7 @@ Result:
                     add: "f32[3, 4]" = torch.ops.aten.add.Tensor(x, 1);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         

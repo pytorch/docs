@@ -46,7 +46,7 @@ Result:
                     mul_1: "f32[3, 2]" = torch.ops.aten.mul.Tensor(y, mul);  y = mul = None
                 return (mul_1,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         y: USER_INPUT
@@ -124,7 +124,7 @@ Result:
                 mul_6: "f32[4]" = torch.ops.aten.mul.Tensor(mul_5, input1);  mul_5 = input1 = None
                 return (mul_6,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         pos0: USER_INPUT
         tuple0_0: USER_INPUT
@@ -147,7 +147,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -186,7 +186,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -245,7 +245,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(args_0, args_1);  args_0 = args_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         args_0: USER_INPUT
         args_1: USER_INPUT

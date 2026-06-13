@@ -5,7 +5,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -46,7 +46,7 @@ Result:
                     cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
                 return (cos,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -105,7 +105,7 @@ Result:
                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(args_0, args_1);  args_0 = args_1 = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         args_0: USER_INPUT
         args_1: USER_INPUT
@@ -170,7 +170,7 @@ Result:
                 add_9: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 9);  x = None
                 return (add, add_1, add_2, add_3, add_4, add_5, add_6, add_7, add_8, add_9)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         
@@ -236,7 +236,7 @@ Result:
                 add: "f32[3, 2, 2]" = torch.ops.aten.add.Tensor(x, ones);  x = ones = None
                 return (add,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         

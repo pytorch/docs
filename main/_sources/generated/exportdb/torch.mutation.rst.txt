@@ -46,7 +46,7 @@ Result:
                     cos: "f32[3, 2]" = torch.ops.aten.cos.default(mul_);  mul_ = None
                 return (cos,)
         
-    Graph signature: 
+    Graph signature:
         # inputs
         x: USER_INPUT
         

@@ -1,10 +1,10 @@
 # check_sparse_tensor_invariants
 
-*class*torch.sparse.check_sparse_tensor_invariants(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/sparse/__init__.py#L453)
+*class*torch.sparse.check_sparse_tensor_invariants(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/sparse/__init__.py#L453)
 
 A tool to control checking sparse tensor invariants.
 
-The following options exists to manage sparsr tensor invariants
+The following options exists to manage sparse tensor invariants
 checking in sparse tensor construction:
 
 1. Using a context manager:
@@ -43,13 +43,13 @@ Traceback (most recent call last):
 RuntimeError: `crow_indices[..., -1] == nnz` is not satisfied.
 ```
 
-*static*disable()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/sparse/__init__.py#L529)
+*static*disable()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/sparse/__init__.py#L529)
 
 Disable sparse tensor invariants checking in sparse tensor constructors.
 
 See `torch.sparse.check_sparse_tensor_invariants.enable()` for more information.
 
-*static*enable()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/sparse/__init__.py#L509)
+*static*enable()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/sparse/__init__.py#L509)
 
 Enable sparse tensor invariants checking in sparse tensor constructors.
 
@@ -67,7 +67,7 @@ tensor constructors, both in Python and ATen.
 The flag can be locally overridden by the `check_invariants`
 optional argument of the sparse tensor constructor functions.
 
-*static*is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/sparse/__init__.py#L497)
+*static*is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/sparse/__init__.py#L497)
 
 Return True if the sparse tensor invariants checking is enabled.
 

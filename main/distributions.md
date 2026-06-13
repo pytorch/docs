@@ -67,7 +67,7 @@ loss.backward()
 
 ## Distribution
 
-*class*torch.distributions.distribution.Distribution(*batch_shape=()*, *event_shape=()*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L15)
+*class*torch.distributions.distribution.Distribution(*batch_shape=()*, *event_shape=()*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L15)
 
 Bases: [`object`](https://docs.python.org/3/library/functions.html#object)
 
@@ -90,7 +90,7 @@ are not tensors need not appear in this dict.
 
 Returns the shape over which parameters are batched.
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L204)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L204)
 
 Returns the cumulative density/mass function evaluated at
 value.
@@ -103,7 +103,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L248)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L248)
 
 Returns entropy of distribution, batched over batch_shape.
 
@@ -115,7 +115,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L224)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L224)
 
 Returns tensor containing all values supported by a discrete
 distribution. The result will enumerate over dimension 0, so the shape
@@ -147,7 +147,7 @@ Return type:
 
 Returns the shape of a single sample (without batching).
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L86)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L86)
 
 Returns a new distribution instance (or populates an existing instance
 provided by a derived class) with batch dimensions expanded to
@@ -168,7 +168,7 @@ Returns:
 New distribution instance with batch dimensions expanded to
 batch_shape.
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L214)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L214)
 
 Returns the inverse cumulative density/mass function evaluated at
 value.
@@ -181,7 +181,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L194)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L194)
 
 Returns the log of the probability density/mass function evaluated at
 value.
@@ -202,7 +202,7 @@ Returns the mean of the distribution.
 
 Returns the mode of the distribution.
 
-perplexity()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L257)
+perplexity()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L257)
 
 Returns perplexity of distribution, batched over batch_shape.
 
@@ -214,7 +214,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L175)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L175)
 
 Generates a sample_shape shaped reparameterized sample or sample_shape
 shaped batch of reparameterized samples if the distribution parameters
@@ -224,7 +224,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L167)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L167)
 
 Generates a sample_shape shaped sample or sample_shape shaped batch of
 samples if the distribution parameters are batched.
@@ -233,7 +233,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample_n(*n*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L183)
+sample_n(*n*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L183)
 
 Generates n samples or n batches of samples if the distribution
 parameters are batched.
@@ -242,7 +242,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-*static*set_default_validate_args(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/distribution.py#L29)
+*static*set_default_validate_args(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/distribution.py#L29)
 
 Sets whether validation is enabled or disabled.
 
@@ -270,7 +270,7 @@ Returns the variance of the distribution.
 
 ## ExponentialFamily
 
-*class*torch.distributions.exp_family.ExponentialFamily(*batch_shape=()*, *event_shape=()*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exp_family.py#L11)
+*class*torch.distributions.exp_family.ExponentialFamily(*batch_shape=()*, *event_shape=()*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exp_family.py#L11)
 
 Bases: `Distribution`
 
@@ -291,13 +291,13 @@ divergence methods. We use this class to compute the entropy and KL divergence u
 framework and Bregman divergences (courtesy of: Frank Nielsen and Richard Nock, Entropies and
 Cross-entropies of Exponential Families).
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exp_family.py#L55)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exp_family.py#L55)
 
 Method to compute the entropy using Bregman divergence of the log normalizer.
 
 ## Bernoulli
 
-*class*torch.distributions.bernoulli.Bernoulli(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L20)
+*class*torch.distributions.bernoulli.Bernoulli(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L20)
 
 Bases: `ExponentialFamily`
 
@@ -323,15 +323,15 @@ Parameters:
 
 arg_constraints*= {'logits': Real(), 'probs': Interval(lower_bound=0.0, upper_bound=1.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L127)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L127)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L132)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L132)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L74)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L74)
 
 has_enumerate_support*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L121)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L121)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -343,7 +343,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/bernoulli.py#L116)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/bernoulli.py#L116)
 
 support*= Boolean()*
 
@@ -351,7 +351,7 @@ support*= Boolean()*
 
 ## Beta
 
-*class*torch.distributions.beta.Beta(*concentration1*, *concentration0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/beta.py#L15)
+*class*torch.distributions.beta.Beta(*concentration1*, *concentration0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/beta.py#L15)
 
 Bases: `ExponentialFamily`
 
@@ -378,19 +378,19 @@ arg_constraints*= {'concentration0': GreaterThan(lower_bound=0.0), 'concentratio
 
 *property*concentration1*: [Tensor](tensors.html#torch.Tensor)*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/beta.py#L93)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/beta.py#L93)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/beta.py#L63)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/beta.py#L63)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/beta.py#L87)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/beta.py#L87)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/beta.py#L84)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/beta.py#L84)
 
 Return type:
 
@@ -402,7 +402,7 @@ support*= Interval(lower_bound=0.0, upper_bound=1.0)*
 
 ## Binomial
 
-*class*torch.distributions.binomial.Binomial(*total_count=1*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L23)
+*class*torch.distributions.binomial.Binomial(*total_count=1*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L23)
 
 Bases: `Distribution`
 
@@ -431,15 +431,15 @@ Parameters:
 
 arg_constraints*= {'logits': Real(), 'probs': Interval(lower_bound=0.0, upper_bound=1.0), 'total_count': IntegerGreaterThan(lower_bound=0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L160)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L160)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L170)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L170)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L87)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L87)
 
 has_enumerate_support*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L140)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L140)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -451,7 +451,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/binomial.py#L133)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/binomial.py#L133)
 
 *property*support
 
@@ -463,7 +463,7 @@ _DependentProperty
 
 ## Categorical
 
-*class*torch.distributions.categorical.Categorical(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L13)
+*class*torch.distributions.categorical.Categorical(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L13)
 
 Bases: `Distribution`
 
@@ -510,15 +510,15 @@ Parameters:
 
 arg_constraints*= {'logits': IndependentConstraint(Real(), 1), 'probs': Simplex()}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L159)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L159)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L165)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L165)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L87)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L87)
 
 has_enumerate_support*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L151)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L151)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -530,7 +530,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/categorical.py#L144)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/categorical.py#L144)
 
 *property*support
 
@@ -542,7 +542,7 @@ _DependentProperty
 
 ## Cauchy
 
-*class*torch.distributions.cauchy.Cauchy(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L15)
+*class*torch.distributions.cauchy.Cauchy(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L15)
 
 Bases: `Distribution`
 
@@ -565,23 +565,23 @@ Parameters:
 
 arg_constraints*= {'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L90)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L90)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L98)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L98)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L51)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L51)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L95)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L95)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L81)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L81)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/cauchy.py#L76)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/cauchy.py#L76)
 
 Return type:
 
@@ -593,7 +593,7 @@ support*= Real()*
 
 ## Chi2
 
-*class*torch.distributions.chi2.Chi2(*df*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/chi2.py#L11)
+*class*torch.distributions.chi2.Chi2(*df*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/chi2.py#L11)
 
 Bases: `Gamma`
 
@@ -616,11 +616,11 @@ arg_constraints*= {'df': GreaterThan(lower_bound=0.0)}*
 
 *property*df*: [Tensor](tensors.html#torch.Tensor)*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/chi2.py#L36)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/chi2.py#L36)
 
 ## ContinuousBernoulli
 
-*class*torch.distributions.continuous_bernoulli.ContinuousBernoulli(*probs=None*, *logits=None*, *lims=(0.499, 0.501)*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L22)
+*class*torch.distributions.continuous_bernoulli.ContinuousBernoulli(*probs=None*, *logits=None*, *lims=(0.499, 0.501)*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L22)
 
 Bases: `ExponentialFamily`
 
@@ -652,17 +652,17 @@ autoencoders, Loaiza-Ganem G and Cunningham JP, NeurIPS 2019.
 
 arg_constraints*= {'logits': Real(), 'probs': Interval(lower_bound=0.0, upper_bound=1.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L196)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L196)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L224)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L224)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L91)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L91)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L212)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L212)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L187)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L187)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -672,13 +672,13 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L182)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L182)
 
 Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/continuous_bernoulli.py#L176)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/continuous_bernoulli.py#L176)
 
 *property*stddev*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -688,7 +688,7 @@ support*= Interval(lower_bound=0.0, upper_bound=1.0)*
 
 ## Dirichlet
 
-*class*torch.distributions.dirichlet.Dirichlet(*concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/dirichlet.py#L38)
+*class*torch.distributions.dirichlet.Dirichlet(*concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/dirichlet.py#L38)
 
 Bases: `ExponentialFamily`
 
@@ -709,19 +709,19 @@ Parameters:
 
 arg_constraints*= {'concentration': IndependentConstraint(GreaterThan(lower_bound=0.0), 1)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/dirichlet.py#L122)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/dirichlet.py#L122)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/dirichlet.py#L75)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/dirichlet.py#L75)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/dirichlet.py#L90)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/dirichlet.py#L90)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/dirichlet.py#L85)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/dirichlet.py#L85)
 
 Return type:
 
@@ -733,7 +733,7 @@ support*= Simplex()*
 
 ## Exponential
 
-*class*torch.distributions.exponential.Exponential(*rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L14)
+*class*torch.distributions.exponential.Exponential(*rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L14)
 
 Bases: `ExponentialFamily`
 
@@ -753,23 +753,23 @@ Parameters:
 
 arg_constraints*= {'rate': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L77)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L77)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L85)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L85)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L60)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L60)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L82)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L82)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L72)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L72)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/exponential.py#L68)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/exponential.py#L68)
 
 Return type:
 
@@ -783,7 +783,7 @@ support*= GreaterThanEq(lower_bound=0.0)*
 
 ## FisherSnedecor
 
-*class*torch.distributions.fishersnedecor.FisherSnedecor(*df1*, *df2*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/fishersnedecor.py#L15)
+*class*torch.distributions.fishersnedecor.FisherSnedecor(*df1*, *df2*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/fishersnedecor.py#L15)
 
 Bases: `Distribution`
 
@@ -804,17 +804,17 @@ Parameters:
 
 arg_constraints*= {'df1': GreaterThan(lower_bound=0.0), 'df2': GreaterThan(lower_bound=0.0)}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/fishersnedecor.py#L52)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/fishersnedecor.py#L52)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/fishersnedecor.py#L98)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/fishersnedecor.py#L98)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/fishersnedecor.py#L86)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/fishersnedecor.py#L86)
 
 Return type:
 
@@ -826,7 +826,7 @@ support*= GreaterThan(lower_bound=0.0)*
 
 ## Gamma
 
-*class*torch.distributions.gamma.Gamma(*concentration*, *rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L18)
+*class*torch.distributions.gamma.Gamma(*concentration*, *rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L18)
 
 Bases: `ExponentialFamily`
 
@@ -849,21 +849,21 @@ Parameters:
 
 arg_constraints*= {'concentration': GreaterThan(lower_bound=0.0), 'rate': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L116)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L116)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L100)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L100)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L70)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L70)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L89)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L89)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gamma.py#L79)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gamma.py#L79)
 
 Return type:
 
@@ -875,7 +875,7 @@ support*= GreaterThanEq(lower_bound=0.0)*
 
 ## GeneralizedPareto
 
-*class*torch.distributions.generalized_pareto.GeneralizedPareto(*loc*, *scale*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L14)
+*class*torch.distributions.generalized_pareto.GeneralizedPareto(*loc*, *scale*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L14)
 
 Bases: `Distribution`
 
@@ -904,27 +904,27 @@ Parameters:
 
 arg_constraints*= {'concentration': Real(), 'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L104)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L104)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L137)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L137)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L60)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L60)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L107)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L107)
 
-log_cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L101)
+log_cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L101)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L75)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L75)
 
-log_survival_function(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L90)
+log_survival_function(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L90)
 
 *property*mean
 
 *property*mode
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/generalized_pareto.py#L70)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/generalized_pareto.py#L70)
 
 *property*support
 
@@ -936,7 +936,7 @@ _DependentProperty
 
 ## Geometric
 
-*class*torch.distributions.geometric.Geometric(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/geometric.py#L20)
+*class*torch.distributions.geometric.Geometric(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/geometric.py#L20)
 
 Bases: `Distribution`
 
@@ -966,11 +966,11 @@ Parameters:
 
 arg_constraints*= {'logits': Real(), 'probs': Interval(lower_bound=0.0, upper_bound=1.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/geometric.py#L140)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/geometric.py#L140)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/geometric.py#L89)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/geometric.py#L89)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/geometric.py#L132)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/geometric.py#L132)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -980,7 +980,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/geometric.py#L120)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/geometric.py#L120)
 
 support*= IntegerGreaterThan(lower_bound=0)*
 
@@ -988,7 +988,7 @@ support*= IntegerGreaterThan(lower_bound=0)*
 
 ## Gumbel
 
-*class*torch.distributions.gumbel.Gumbel(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gumbel.py#L17)
+*class*torch.distributions.gumbel.Gumbel(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gumbel.py#L17)
 
 Bases: `TransformedDistribution`
 
@@ -1009,11 +1009,11 @@ Parameters:
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gumbel.py#L90)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gumbel.py#L90)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gumbel.py#L61)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gumbel.py#L61)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/gumbel.py#L68)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/gumbel.py#L68)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1027,7 +1027,7 @@ support*= Real()*
 
 ## HalfCauchy
 
-*class*torch.distributions.half_cauchy.HalfCauchy(*scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L15)
+*class*torch.distributions.half_cauchy.HalfCauchy(*scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L15)
 
 Bases: `TransformedDistribution`
 
@@ -1054,17 +1054,17 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: Cauchy*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L83)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L83)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L91)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L91)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L48)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L48)
 
 has_rsample*= True*
 
-icdf(*prob*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L88)
+icdf(*prob*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L88)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_cauchy.py#L73)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_cauchy.py#L73)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1078,7 +1078,7 @@ support*= GreaterThanEq(lower_bound=0.0)*
 
 ## HalfNormal
 
-*class*torch.distributions.half_normal.HalfNormal(*scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L15)
+*class*torch.distributions.half_normal.HalfNormal(*scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L15)
 
 Bases: `TransformedDistribution`
 
@@ -1105,17 +1105,17 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: Normal*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L75)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L75)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L83)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L83)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L48)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L48)
 
 has_rsample*= True*
 
-icdf(*prob*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L80)
+icdf(*prob*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L80)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/half_normal.py#L68)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/half_normal.py#L68)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1129,7 +1129,7 @@ support*= GreaterThanEq(lower_bound=0.0)*
 
 ## Independent
 
-*class*torch.distributions.independent.Independent(*base_distribution*, *reinterpreted_batch_ndims*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L18)
+*class*torch.distributions.independent.Independent(*base_distribution*, *reinterpreted_batch_ndims*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L18)
 
 Bases: `Distribution`, [`Generic`](https://docs.python.org/3/library/typing.html#typing.Generic)[`D`]
 
@@ -1167,29 +1167,29 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: D*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L124)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L124)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L128)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L128)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L71)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L71)
 
 *property*has_enumerate_support*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 *property*has_rsample*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L120)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L120)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L117)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L117)
 
 Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/independent.py#L114)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/independent.py#L114)
 
 Return type:
 
@@ -1205,7 +1205,7 @@ _DependentProperty
 
 ## InverseGamma
 
-*class*torch.distributions.inverse_gamma.InverseGamma(*concentration*, *rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/inverse_gamma.py#L14)
+*class*torch.distributions.inverse_gamma.InverseGamma(*concentration*, *rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/inverse_gamma.py#L14)
 
 Bases: `TransformedDistribution`
 
@@ -1238,9 +1238,9 @@ base_dist*: Gamma*
 
 *property*concentration*: [Tensor](tensors.html#torch.Tensor)*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/inverse_gamma.py#L86)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/inverse_gamma.py#L86)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/inverse_gamma.py#L58)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/inverse_gamma.py#L58)
 
 has_rsample*= True*
 
@@ -1256,7 +1256,7 @@ support*= GreaterThan(lower_bound=0.0)*
 
 ## Kumaraswamy
 
-*class*torch.distributions.kumaraswamy.Kumaraswamy(*concentration1*, *concentration0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/kumaraswamy.py#L24)
+*class*torch.distributions.kumaraswamy.Kumaraswamy(*concentration1*, *concentration0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/kumaraswamy.py#L24)
 
 Bases: `TransformedDistribution`
 
@@ -1279,9 +1279,9 @@ Parameters:
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {'concentration0': GreaterThan(lower_bound=0.0), 'concentration1': GreaterThan(lower_bound=0.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/kumaraswamy.py#L98)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/kumaraswamy.py#L98)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/kumaraswamy.py#L72)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/kumaraswamy.py#L72)
 
 has_rsample*= True*
 
@@ -1295,7 +1295,7 @@ support*= Interval(lower_bound=0.0, upper_bound=1.0)*
 
 ## LKJCholesky
 
-*class*torch.distributions.lkj_cholesky.LKJCholesky(*dim*, *concentration=1.0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lkj_cholesky.py#L23)
+*class*torch.distributions.lkj_cholesky.LKJCholesky(*dim*, *concentration=1.0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lkj_cholesky.py#L23)
 
 Bases: `Distribution`
 
@@ -1341,17 +1341,17 @@ Journal of Multivariate Analysis. 100. 10.1016/j.jmva.2009.04.008
 
 arg_constraints*= {'concentration': GreaterThan(lower_bound=0.0)}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lkj_cholesky.py#L93)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lkj_cholesky.py#L93)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lkj_cholesky.py#L126)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lkj_cholesky.py#L126)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lkj_cholesky.py#L105)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lkj_cholesky.py#L105)
 
 support*= CorrCholesky()*
 
 ## Laplace
 
-*class*torch.distributions.laplace.Laplace(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L14)
+*class*torch.distributions.laplace.Laplace(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L14)
 
 Bases: `Distribution`
 
@@ -1372,23 +1372,23 @@ Parameters:
 
 arg_constraints*= {'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L92)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L92)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L103)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L103)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L64)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L64)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L99)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L99)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L87)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L87)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/laplace.py#L73)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/laplace.py#L73)
 
 Return type:
 
@@ -1402,7 +1402,7 @@ support*= Real()*
 
 ## LogNormal
 
-*class*torch.distributions.log_normal.LogNormal(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/log_normal.py#L13)
+*class*torch.distributions.log_normal.LogNormal(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/log_normal.py#L13)
 
 Bases: `TransformedDistribution`
 
@@ -1431,9 +1431,9 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: Normal*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/log_normal.py#L74)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/log_normal.py#L74)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/log_normal.py#L49)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/log_normal.py#L49)
 
 has_rsample*= True*
 
@@ -1451,7 +1451,7 @@ support*= GreaterThan(lower_bound=0.0)*
 
 ## LowRankMultivariateNormal
 
-*class*torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal(*loc*, *cov_factor*, *cov_diag*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lowrank_multivariate_normal.py#L54)
+*class*torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal(*loc*, *cov_factor*, *cov_diag*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lowrank_multivariate_normal.py#L54)
 
 Bases: `Distribution`
 
@@ -1496,13 +1496,13 @@ arg_constraints*= {'cov_diag': IndependentConstraint(GreaterThan(lower_bound=0.0
 
 *property*covariance_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lowrank_multivariate_normal.py#L242)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lowrank_multivariate_normal.py#L242)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lowrank_multivariate_normal.py#L141)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lowrank_multivariate_normal.py#L141)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lowrank_multivariate_normal.py#L225)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lowrank_multivariate_normal.py#L225)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1510,7 +1510,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*precision_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/lowrank_multivariate_normal.py#L214)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/lowrank_multivariate_normal.py#L214)
 
 Return type:
 
@@ -1524,7 +1524,7 @@ support*= IndependentConstraint(Real(), 1)*
 
 ## MixtureSameFamily
 
-*class*torch.distributions.mixture_same_family.MixtureSameFamily(*mixture_distribution*, *component_distribution*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/mixture_same_family.py#L13)
+*class*torch.distributions.mixture_same_family.MixtureSameFamily(*mixture_distribution*, *component_distribution*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/mixture_same_family.py#L13)
 
 Bases: `Distribution`
 
@@ -1572,21 +1572,21 @@ instance. Right-most batch dimension indexes component.
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {}*
 
-cdf(*x*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/mixture_same_family.py#L161)
+cdf(*x*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/mixture_same_family.py#L161)
 
 *property*component_distribution*: Distribution*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/mixture_same_family.py#L111)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/mixture_same_family.py#L111)
 
 has_rsample*= False*
 
-log_prob(*x*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/mixture_same_family.py#L168)
+log_prob(*x*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/mixture_same_family.py#L168)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mixture_distribution*: Categorical*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/mixture_same_family.py#L178)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/mixture_same_family.py#L178)
 
 *property*support
 
@@ -1598,7 +1598,7 @@ _DependentProperty
 
 ## Multinomial
 
-*class*torch.distributions.multinomial.Multinomial(*total_count=1*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multinomial.py#L14)
+*class*torch.distributions.multinomial.Multinomial(*total_count=1*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multinomial.py#L14)
 
 Bases: `Distribution`
 
@@ -1643,11 +1643,11 @@ Parameters:
 
 arg_constraints*= {'logits': IndependentConstraint(Real(), 1), 'probs': Simplex()}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multinomial.py#L126)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multinomial.py#L126)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multinomial.py#L81)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multinomial.py#L81)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multinomial.py#L139)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multinomial.py#L139)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1657,7 +1657,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multinomial.py#L112)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multinomial.py#L112)
 
 *property*support
 
@@ -1671,7 +1671,7 @@ total_count*: [int](https://docs.python.org/3/library/functions.html#int)*
 
 ## MultivariateNormal
 
-*class*torch.distributions.multivariate_normal.MultivariateNormal(*loc*, *covariance_matrix=None*, *precision_matrix=None*, *scale_tril=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multivariate_normal.py#L88)
+*class*torch.distributions.multivariate_normal.MultivariateNormal(*loc*, *covariance_matrix=None*, *precision_matrix=None*, *scale_tril=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multivariate_normal.py#L88)
 
 Bases: `Distribution`
 
@@ -1715,13 +1715,13 @@ arg_constraints*= {'covariance_matrix': PositiveDefinite(), 'loc': IndependentCo
 
 *property*covariance_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multivariate_normal.py#L266)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multivariate_normal.py#L266)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multivariate_normal.py#L198)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multivariate_normal.py#L198)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multivariate_normal.py#L256)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multivariate_normal.py#L256)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1729,7 +1729,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*precision_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/multivariate_normal.py#L251)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/multivariate_normal.py#L251)
 
 Return type:
 
@@ -1743,7 +1743,7 @@ support*= IndependentConstraint(Real(), 1)*
 
 ## NegativeBinomial
 
-*class*torch.distributions.negative_binomial.NegativeBinomial(*total_count*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/negative_binomial.py#L20)
+*class*torch.distributions.negative_binomial.NegativeBinomial(*total_count*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/negative_binomial.py#L20)
 
 Bases: `Distribution`
 
@@ -1762,9 +1762,9 @@ valued count
 
 arg_constraints*= {'logits': Real(), 'probs': HalfOpenInterval(lower_bound=0.0, upper_bound=1.0), 'total_count': GreaterThanEq(lower_bound=0)}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/negative_binomial.py#L75)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/negative_binomial.py#L75)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/negative_binomial.py#L130)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/negative_binomial.py#L130)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1776,7 +1776,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/negative_binomial.py#L125)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/negative_binomial.py#L125)
 
 support*= IntegerGreaterThan(lower_bound=0)*
 
@@ -1784,7 +1784,7 @@ support*= IntegerGreaterThan(lower_bound=0)*
 
 ## Normal
 
-*class*torch.distributions.normal.Normal(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L15)
+*class*torch.distributions.normal.Normal(*loc*, *scale*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L15)
 
 Bases: `ExponentialFamily`
 
@@ -1807,29 +1807,29 @@ Parameters:
 
 arg_constraints*= {'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L103)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L103)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L113)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L113)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L68)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L68)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L110)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L110)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L87)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L87)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L82)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L82)
 
 Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/normal.py#L77)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/normal.py#L77)
 
 *property*stddev*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1839,7 +1839,7 @@ support*= Real()*
 
 ## OneHotCategorical
 
-*class*torch.distributions.one_hot_categorical.OneHotCategorical(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L14)
+*class*torch.distributions.one_hot_categorical.OneHotCategorical(*probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L14)
 
 Bases: `Distribution`
 
@@ -1876,15 +1876,15 @@ Parameters:
 
 arg_constraints*= {'logits': IndependentConstraint(Real(), 1), 'probs': Simplex()}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L117)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L117)
 
-enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L120)
+enumerate_support(*expand=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L120)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L61)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L61)
 
 has_enumerate_support*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L111)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L111)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -1896,7 +1896,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/one_hot_categorical.py#L104)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/one_hot_categorical.py#L104)
 
 support*= OneHot()*
 
@@ -1904,7 +1904,7 @@ support*= OneHot()*
 
 ## Pareto
 
-*class*torch.distributions.pareto.Pareto(*scale*, *alpha*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/pareto.py#L15)
+*class*torch.distributions.pareto.Pareto(*scale*, *alpha*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/pareto.py#L15)
 
 Bases: `TransformedDistribution`
 
@@ -1925,13 +1925,13 @@ Parameters:
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {'alpha': GreaterThan(lower_bound=0.0), 'scale': GreaterThan(lower_bound=0.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/pareto.py#L73)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/pareto.py#L73)
 
 Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/pareto.py#L45)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/pareto.py#L45)
 
 Return type:
 
@@ -1951,7 +1951,7 @@ _DependentProperty
 
 ## Poisson
 
-*class*torch.distributions.poisson.Poisson(*rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/poisson.py#L14)
+*class*torch.distributions.poisson.Poisson(*rate*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/poisson.py#L14)
 
 Bases: `ExponentialFamily`
 
@@ -1977,15 +1977,15 @@ Parameters:
 
 arg_constraints*= {'rate': GreaterThanEq(lower_bound=0.0)}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/poisson.py#L62)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/poisson.py#L62)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/poisson.py#L75)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/poisson.py#L75)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/poisson.py#L70)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/poisson.py#L70)
 
 support*= IntegerGreaterThan(lower_bound=0)*
 
@@ -1993,7 +1993,7 @@ support*= IntegerGreaterThan(lower_bound=0)*
 
 ## RelaxedBernoulli
 
-*class*torch.distributions.relaxed_bernoulli.RelaxedBernoulli(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L122)
+*class*torch.distributions.relaxed_bernoulli.RelaxedBernoulli(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L122)
 
 Bases: `TransformedDistribution`
 
@@ -2021,7 +2021,7 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: LogitRelaxedBernoulli*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L160)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L160)
 
 has_rsample*= True*
 
@@ -2035,7 +2035,7 @@ support*= Interval(lower_bound=0.0, upper_bound=1.0)*
 
 ## LogitRelaxedBernoulli
 
-*class*torch.distributions.relaxed_bernoulli.LogitRelaxedBernoulli(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L22)
+*class*torch.distributions.relaxed_bernoulli.LogitRelaxedBernoulli(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L22)
 
 Bases: `Distribution`
 
@@ -2059,9 +2059,9 @@ Variables (Maddison et al., 2017)
 
 arg_constraints*= {'logits': Real(), 'probs': Interval(lower_bound=0.0, upper_bound=1.0)}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L75)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L75)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L114)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L114)
 
 *property*logits*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -2069,7 +2069,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*probs*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_bernoulli.py#L104)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_bernoulli.py#L104)
 
 Return type:
 
@@ -2079,7 +2079,7 @@ support*= Real()*
 
 ## RelaxedOneHotCategorical
 
-*class*torch.distributions.relaxed_categorical.RelaxedOneHotCategorical(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_categorical.py#L109)
+*class*torch.distributions.relaxed_categorical.RelaxedOneHotCategorical(*temperature*, *probs=None*, *logits=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_categorical.py#L109)
 
 Bases: `TransformedDistribution`
 
@@ -2107,7 +2107,7 @@ arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[
 
 base_dist*: ExpRelaxedCategorical*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/relaxed_categorical.py#L149)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/relaxed_categorical.py#L149)
 
 has_rsample*= True*
 
@@ -2121,7 +2121,7 @@ support*= Simplex()*
 
 ## StudentT
 
-*class*torch.distributions.studentT.StudentT(*df*, *loc=0.0*, *scale=1.0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/studentT.py#L15)
+*class*torch.distributions.studentT.StudentT(*df*, *loc=0.0*, *scale=1.0*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/studentT.py#L15)
 
 Bases: `Distribution`
 
@@ -2144,19 +2144,19 @@ Parameters:
 
 arg_constraints*= {'df': GreaterThan(lower_bound=0.0), 'loc': Real(), 'scale': GreaterThan(lower_bound=0.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/studentT.py#L114)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/studentT.py#L114)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/studentT.py#L76)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/studentT.py#L76)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/studentT.py#L101)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/studentT.py#L101)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/studentT.py#L87)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/studentT.py#L87)
 
 Return type:
 
@@ -2168,7 +2168,7 @@ support*= Real()*
 
 ## TransformedDistribution
 
-*class*torch.distributions.transformed_distribution.TransformedDistribution(*base_distribution*, *transforms*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L16)
+*class*torch.distributions.transformed_distribution.TransformedDistribution(*base_distribution*, *transforms*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L16)
 
 Bases: `Distribution`
 
@@ -2209,26 +2209,26 @@ For more examples, please look at the implementations of
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {}*
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L204)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L204)
 
 Computes the cumulative distribution function by inverting the
 transform(s) and computing the score of the base distribution.
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L112)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L112)
 
 *property*has_rsample*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L217)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L217)
 
 Computes the inverse cumulative distribution function using
 transform(s) and computing the score of the base distribution.
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L168)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L168)
 
 Scores the sample by inverting the transform(s) and computing the score
 using the score of the base distribution and the log abs det jacobian.
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L156)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L156)
 
 Generates a sample_shape shaped reparameterized sample or sample_shape
 shaped batch of reparameterized samples if the distribution parameters
@@ -2239,7 +2239,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transformed_distribution.py#L143)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transformed_distribution.py#L143)
 
 Generates a sample_shape shaped sample or sample_shape shaped batch of
 samples if the distribution parameters are batched. Samples first from
@@ -2254,7 +2254,7 @@ _DependentProperty
 
 ## Uniform
 
-*class*torch.distributions.uniform.Uniform(*low*, *high*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L14)
+*class*torch.distributions.uniform.Uniform(*low*, *high*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L14)
 
 Bases: `Distribution`
 
@@ -2276,23 +2276,23 @@ Parameters:
 
 *property*arg_constraints
 
-cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L97)
+cdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L97)
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L107)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L107)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L71)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L71)
 
 has_rsample*= True*
 
-icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L103)
+icdf(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L103)
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L90)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L90)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/uniform.py#L85)
+rsample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/uniform.py#L85)
 
 Return type:
 
@@ -2310,7 +2310,7 @@ _DependentProperty
 
 ## VonMises
 
-*class*torch.distributions.von_mises.VonMises(*loc*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/von_mises.py#L110)
+*class*torch.distributions.von_mises.VonMises(*loc*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/von_mises.py#L110)
 
 Bases: `Distribution`
 
@@ -2335,11 +2335,11 @@ Parameters:
 
 arg_constraints*= {'concentration': GreaterThan(lower_bound=0.0), 'loc': Real()}*
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/von_mises.py#L190)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/von_mises.py#L190)
 
 has_rsample*= False*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/von_mises.py#L144)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/von_mises.py#L144)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -2347,7 +2347,7 @@ The provided mean is the circular one.
 
 *property*mode*: [Tensor](tensors.html#torch.Tensor)*
 
-sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/von_mises.py#L173)
+sample(*sample_shape=()*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/von_mises.py#L173)
 
 The sampling algorithm for the von Mises distribution is based on the
 following paper: D.J. Best and N.I. Fisher, "Efficient simulation of the
@@ -2365,7 +2365,7 @@ The provided variance is the circular one.
 
 ## Weibull
 
-*class*torch.distributions.weibull.Weibull(*scale*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/weibull.py#L16)
+*class*torch.distributions.weibull.Weibull(*scale*, *concentration*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/weibull.py#L16)
 
 Bases: `TransformedDistribution`
 
@@ -2387,9 +2387,9 @@ Parameters:
 
 arg_constraints*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), Constraint]**= {'concentration': GreaterThan(lower_bound=0.0), 'scale': GreaterThan(lower_bound=0.0)}*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/weibull.py#L91)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/weibull.py#L91)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/weibull.py#L58)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/weibull.py#L58)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -2401,7 +2401,7 @@ support*= GreaterThan(lower_bound=0.0)*
 
 ## Wishart
 
-*class*torch.distributions.wishart.Wishart(*df*, *covariance_matrix=None*, *precision_matrix=None*, *scale_tril=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/wishart.py#L33)
+*class*torch.distributions.wishart.Wishart(*df*, *covariance_matrix=None*, *precision_matrix=None*, *scale_tril=None*, *validate_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/wishart.py#L33)
 
 Bases: `ExponentialFamily`
 
@@ -2445,13 +2445,13 @@ the corresponding lower triangular matrices using a Cholesky decomposition.
 
 *property*covariance_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-entropy()[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/wishart.py#L324)
+entropy()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/wishart.py#L324)
 
-expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/wishart.py#L160)
+expand(*batch_shape*, *_instance=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/wishart.py#L160)
 
 has_rsample*= True*
 
-log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/wishart.py#L303)
+log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/wishart.py#L303)
 
 *property*mean*: [Tensor](tensors.html#torch.Tensor)*
 
@@ -2459,7 +2459,7 @@ log_prob(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e
 
 *property*precision_matrix*: [Tensor](tensors.html#torch.Tensor)*
 
-rsample(*sample_shape=()*, *max_try_correction=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/wishart.py#L251)
+rsample(*sample_shape=()*, *max_try_correction=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/wishart.py#L251)
 
 Warning
 
@@ -2481,7 +2481,7 @@ support*= PositiveDefinite()*
 
 ## `KL Divergence`
 
-torch.distributions.kl.kl_divergence(*p*, *q*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/kl.py#L165)
+torch.distributions.kl.kl_divergence(*p*, *q*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/kl.py#L165)
 
 Compute Kullback-Leibler divergence KL(p∥q)KL(p \| q)KL(p∥q) between two distributions.
 
@@ -2594,7 +2594,7 @@ KL divergence is currently implemented for the following distribution pairs:
 - `Uniform` and `Pareto`
 - `Uniform` and `Uniform`
 
-torch.distributions.kl.register_kl(*type_p*, *type_q*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/kl.py#L51)
+torch.distributions.kl.register_kl(*type_p*, *type_q*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/kl.py#L51)
 
 Decorator to register a pairwise function with `kl_divergence()`.
 Usage:
@@ -2629,11 +2629,11 @@ Parameters:
 
 ## `Transforms`
 
-*class*torch.distributions.transforms.AbsTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L736)
+*class*torch.distributions.transforms.AbsTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L736)
 
 Transform via the mapping y=∣x∣y = |x|y=∣x∣.
 
-*class*torch.distributions.transforms.AffineTransform(*loc*, *scale*, *event_dim=0*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L752)
+*class*torch.distributions.transforms.AffineTransform(*loc*, *scale*, *event_dim=0*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L752)
 
 Transform via the pointwise affine mapping y=loc+scale×xy = \text{loc} + \text{scale} \times xy=loc+scale×x.
 
@@ -2645,7 +2645,7 @@ Parameters:
 for univariate random variables, 1 for distributions over vectors,
 2 for distributions over matrices, etc.
 
-*class*torch.distributions.transforms.CatTransform(*tseq*, *dim=0*, *lengths=None*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L1076)
+*class*torch.distributions.transforms.CatTransform(*tseq*, *dim=0*, *lengths=None*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L1076)
 
 Transform functor that applies a sequence of transforms tseq
 component-wise to each submatrix at dim, of length lengths[dim],
@@ -2661,7 +2661,7 @@ t = CatTransform([t0, t0], dim=0, lengths=[20, 20])
 y = t(x)
 ```
 
-*class*torch.distributions.transforms.ComposeTransform(*parts*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L286)
+*class*torch.distributions.transforms.ComposeTransform(*parts*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L286)
 
 Composes multiple transforms in a chain.
 The transforms being composed are responsible for caching.
@@ -2672,7 +2672,7 @@ Parameters:
 - **cache_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of cache. If zero, no caching is done. If one,
 the latest single value is cached. Only 0 and 1 are supported.
 
-*class*torch.distributions.transforms.CorrCholeskyTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L859)
+*class*torch.distributions.transforms.CorrCholeskyTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L859)
 
 Transforms an unconstrained real vector xxx with length D∗(D−1)/2D*(D-1)/2D∗(D−1)/2 into the
 Cholesky factor of a D-dimension correlation matrix. This Cholesky factor is a lower
@@ -2688,7 +2688,7 @@ The transform is processed as follows:
 > - Applies si=StickBreakingTransform(zi)s_i = StickBreakingTransform(z_i)si​=StickBreakingTransform(zi​).
 > - Transforms back into signed domain: yi=sign(ri)∗siy_i = sign(r_i) * \sqrt{s_i}yi​=sign(ri​)∗si​​.
 
-*class*torch.distributions.transforms.CumulativeDistributionTransform(*distribution*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L1319)
+*class*torch.distributions.transforms.CumulativeDistributionTransform(*distribution*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L1319)
 
 Transform via the cumulative distribution function of a probability distribution.
 
@@ -2709,11 +2709,11 @@ transform = CumulativeDistributionTransform(Normal(0, 1))
 copula = TransformedDistribution(base_dist, [transform])
 ```
 
-*class*torch.distributions.transforms.ExpTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L571)
+*class*torch.distributions.transforms.ExpTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L571)
 
 Transform via the mapping y=exp⁡(x)y = \exp(x)y=exp(x).
 
-*class*torch.distributions.transforms.IndependentTransform(*base_transform*, *reinterpreted_batch_ndims*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L417)
+*class*torch.distributions.transforms.IndependentTransform(*base_transform*, *reinterpreted_batch_ndims*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L417)
 
 Wrapper around another transform to treat
 `reinterpreted_batch_ndims`-many extra of the right most dimensions as
@@ -2727,7 +2727,7 @@ Parameters:
 - **reinterpreted_batch_ndims** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The number of extra rightmost
 dimensions to treat as dependent.
 
-*class*torch.distributions.transforms.LowerCholeskyTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L1034)
+*class*torch.distributions.transforms.LowerCholeskyTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L1034)
 
 Transform from unconstrained matrices to lower-triangular matrices with
 nonnegative diagonal entries.
@@ -2735,15 +2735,15 @@ nonnegative diagonal entries.
 This is useful for parameterizing positive definite matrices in terms of
 their Cholesky factorization.
 
-*class*torch.distributions.transforms.PositiveDefiniteTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L1056)
+*class*torch.distributions.transforms.PositiveDefiniteTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L1056)
 
 Transform from unconstrained matrices to positive-definite matrices.
 
-*class*torch.distributions.transforms.PowerTransform(*exponent*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L594)
+*class*torch.distributions.transforms.PowerTransform(*exponent*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L594)
 
 Transform via the mapping y=xexponenty = x^{\text{exponent}}y=xexponent.
 
-*class*torch.distributions.transforms.ReshapeTransform(*in_shape*, *out_shape*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L495)
+*class*torch.distributions.transforms.ReshapeTransform(*in_shape*, *out_shape*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L495)
 
 Unit Jacobian transform to reshape the rightmost part of a tensor.
 
@@ -2757,16 +2757,16 @@ Parameters:
 - **cache_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of cache. If zero, no caching is done. If one,
 the latest single value is cached. Only 0 and 1 are supported. (Default 0.)
 
-*class*torch.distributions.transforms.SigmoidTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L642)
+*class*torch.distributions.transforms.SigmoidTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L642)
 
 Transform via the mapping y=11+exp⁡(−x)y = \frac{1}{1 + \exp(-x)}y=1+exp(−x)1​ and x=logit(y)x = \text{logit}(y)x=logit(y).
 
-*class*torch.distributions.transforms.SoftplusTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L667)
+*class*torch.distributions.transforms.SoftplusTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L667)
 
 Transform via the mapping Softplus(x)=log⁡(1+exp⁡(x))\text{Softplus}(x) = \log(1 + \exp(x))Softplus(x)=log(1+exp(x)).
 The implementation reverts to the linear function when x>20x > 20x>20.
 
-*class*torch.distributions.transforms.TanhTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L691)
+*class*torch.distributions.transforms.TanhTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L691)
 
 Transform via the mapping y=tanh⁡(x)y = \tanh(x)y=tanh(x).
 
@@ -2787,7 +2787,7 @@ instead.
 
 Note that one should use cache_size=1 when it comes to NaN/Inf values.
 
-*class*torch.distributions.transforms.SoftmaxTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L942)
+*class*torch.distributions.transforms.SoftmaxTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L942)
 
 Transform from unconstrained space to the simplex via y=exp⁡(x)y = \exp(x)y=exp(x) then
 normalizing.
@@ -2796,7 +2796,7 @@ This is not bijective and cannot be used for HMC. However this acts mostly
 coordinate-wise (except for the final normalization), and thus is
 appropriate for coordinate-wise optimization algorithms.
 
-*class*torch.distributions.transforms.StackTransform(*tseq*, *dim=0*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L1218)
+*class*torch.distributions.transforms.StackTransform(*tseq*, *dim=0*, *cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L1218)
 
 Transform functor that applies a sequence of transforms tseq
 component-wise to each submatrix at dim
@@ -2810,7 +2810,7 @@ t = StackTransform([ExpTransform(), identity_transform], dim=1)
 y = t(x)
 ```
 
-*class*torch.distributions.transforms.StickBreakingTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L978)
+*class*torch.distributions.transforms.StickBreakingTransform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L978)
 
 Transform from unconstrained space to the simplex of one additional
 dimension via a stick-breaking process.
@@ -2823,7 +2823,7 @@ everything else, and then the process recurses.
 This is bijective and appropriate for use in HMC; however it mixes
 coordinates together and is less appropriate for optimization.
 
-*class*torch.distributions.transforms.Transform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L47)
+*class*torch.distributions.transforms.Transform(*cache_size=0*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L47)
 
 Abstract class for invertible transformations with computable log
 det jacobians. They are primarily used in
@@ -2881,16 +2881,16 @@ This should satisfy `t.inv.inv is t`.
 Returns the sign of the determinant of the Jacobian, if applicable.
 In general this only makes sense for bijective transforms.
 
-log_abs_det_jacobian(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L190)
+log_abs_det_jacobian(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L190)
 
 Computes the log det jacobian log |dy/dx| given input and output.
 
-forward_shape(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L199)
+forward_shape(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L199)
 
 Infers the shape of the forward computation, given the input shape.
 Defaults to preserving shape.
 
-inverse_shape(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/transforms.py#L206)
+inverse_shape(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/transforms.py#L206)
 
 Infers the shapes of the inverse computation, given the output shape.
 Defaults to preserving shape.
@@ -2900,7 +2900,7 @@ Defaults to preserving shape.
 
 ## `Constraints`
 
-*class*torch.distributions.constraints.Constraint[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L80)
+*class*torch.distributions.constraints.Constraint[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L80)
 
 Abstract base class for constraints.
 
@@ -2915,44 +2915,44 @@ Defaults to False.
 an event. The `check()` method will remove this many dimensions
 when computing validity.
 
-check(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L98)
+check(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L98)
 
 Returns a byte tensor of `sample_shape + batch_shape` indicating
 whether each event in value satisfies this constraint.
 
-torch.distributions.constraints.cat[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L653)
+torch.distributions.constraints.cat[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L653)
 
 alias of `_Cat`
 
-torch.distributions.constraints.dependent_property[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L182)
+torch.distributions.constraints.dependent_property[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L182)
 
 alias of `_DependentProperty`
 
-torch.distributions.constraints.greater_than[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L428)
+torch.distributions.constraints.greater_than[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L428)
 
 alias of `_GreaterThan`
 
-torch.distributions.constraints.greater_than_eq[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L446)
+torch.distributions.constraints.greater_than_eq[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L446)
 
 alias of `_GreaterThanEq`
 
-torch.distributions.constraints.independent[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L231)
+torch.distributions.constraints.independent[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L231)
 
 alias of `_IndependentConstraint`
 
-torch.distributions.constraints.integer_interval[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L354)
+torch.distributions.constraints.integer_interval[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L354)
 
 alias of `_IntegerInterval`
 
-torch.distributions.constraints.interval[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L482)
+torch.distributions.constraints.interval[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L482)
 
 alias of `_Interval`
 
-torch.distributions.constraints.half_open_interval[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L503)
+torch.distributions.constraints.half_open_interval[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L503)
 
 alias of `_HalfOpenInterval`
 
-torch.distributions.constraints.is_dependent(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L156)
+torch.distributions.constraints.is_dependent(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L156)
 
 Checks if `constraint` is a `_Dependent` object.
 
@@ -2988,11 +2988,11 @@ Examples
 >>> continue
 ```
 
-torch.distributions.constraints.less_than[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L464)
+torch.distributions.constraints.less_than[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L464)
 
 alias of `_LessThan`
 
-*class*torch.distributions.constraints.MixtureSameFamilyConstraint(*base_constraint*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L280)
+*class*torch.distributions.constraints.MixtureSameFamilyConstraint(*base_constraint*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L280)
 
 Constraint for the `MixtureSameFamily`
 distribution that adds back the rightmost batch dimension before
@@ -3005,16 +3005,16 @@ Parameters:
 the component distribution of
 the `MixtureSameFamily` distribution.
 
-check(*value*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L309)
+check(*value*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L309)
 
 Check validity of `value` as a possible outcome of sampling
 the `MixtureSameFamily` distribution.
 
-torch.distributions.constraints.multinomial[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L536)
+torch.distributions.constraints.multinomial[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L536)
 
 alias of `_Multinomial`
 
-torch.distributions.constraints.stack[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraints.py#L696)
+torch.distributions.constraints.stack[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraints.py#L696)
 
 alias of `_Stack`
 
@@ -3096,11 +3096,11 @@ def my_factory(constraint):
 You can create your own registry by creating a new `ConstraintRegistry`
 object.
 
-*class*torch.distributions.constraint_registry.ConstraintRegistry[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraint_registry.py#L80)
+*class*torch.distributions.constraint_registry.ConstraintRegistry[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraint_registry.py#L80)
 
 Registry to link constraints to transforms.
 
-register(*constraint*, *factory=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/distributions/constraint_registry.py#L89)
+register(*constraint*, *factory=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/distributions/constraint_registry.py#L89)
 
 Registers a `Constraint`
 subclass in this registry. Usage:

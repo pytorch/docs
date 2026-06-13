@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git5ffde69 )">
+<meta name="llm:version" content="main (2.14.0a0+git19afbb4 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git5ffde69 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git19afbb4 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3499,7 +3499,7 @@ document.write(`
 <h1>torch.compiler.set_enable_guard_collectives<a class="headerlink" href="#torch-compiler-set-enable-guard-collectives" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.set_enable_guard_collectives">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">set_enable_guard_collectives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ffde693e13e101c8a4f5ea685dfbaef0c7e7466/torch/compiler/__init__.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.set_enable_guard_collectives" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">set_enable_guard_collectives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/compiler/__init__.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.set_enable_guard_collectives" title="Link to this definition">#</a></dt>
 <dd><p>Enables use of collectives <em>during</em> guard evaluation to synchronize behavior
 across ranks.  This is expensive: we have to issue a collective every time
 we enter a compiled code region, even if no rank actually would need to
@@ -3510,7 +3510,7 @@ where such a situation would immediately cause a hang (as it is necessary
 for all ranks to compile at the same time to run compiler collectives).  Like
 compiler collectives, you can only run this on SPMD programs; you will hang
 otherwise.  Note that a guard collective is only issued if there is any
-compiled code to guard on; if this the first time we encounter a frame or
+compiled code to guard on; if this is the first time we encounter a frame or
 the frame is skipped, we don’t issue collectives.</p>
 <p>Returns the previous setting of enabled.</p>
 <dl class="field-list simple">
@@ -3873,7 +3873,7 @@ the frame is skipped, we don’t issue collectives.</p>
        "headline": "torch.compiler.set_enable_guard_collectives",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.set_enable_guard_collectives.html",
-       "articleBody": "torch.compiler.set_enable_guard_collectives# torch.compiler.set_enable_guard_collectives(enabled)[source]# Enables use of collectives during guard evaluation to synchronize behavior across ranks. This is expensive: we have to issue a collective every time we enter a compiled code region, even if no rank actually would need to compile. This can help prevent NCCL hangs by ensuring that we never have a situation where one rank starts recompiling while other ranks don\u2019t compile; it is especially useful in conjunction with enable_compiler_collectives where such a situation would immediately cause a hang (as it is necessary for all ranks to compile at the same time to run compiler collectives). Like compiler collectives, you can only run this on SPMD programs; you will hang otherwise. Note that a guard collective is only issued if there is any compiled code to guard on; if this the first time we encounter a frame or the frame is skipped, we don\u2019t issue collectives. Returns the previous setting of enabled.",
+       "articleBody": "torch.compiler.set_enable_guard_collectives# torch.compiler.set_enable_guard_collectives(enabled)[source]# Enables use of collectives during guard evaluation to synchronize behavior across ranks. This is expensive: we have to issue a collective every time we enter a compiled code region, even if no rank actually would need to compile. This can help prevent NCCL hangs by ensuring that we never have a situation where one rank starts recompiling while other ranks don\u2019t compile; it is especially useful in conjunction with enable_compiler_collectives where such a situation would immediately cause a hang (as it is necessary for all ranks to compile at the same time to run compiler collectives). Like compiler collectives, you can only run this on SPMD programs; you will hang otherwise. Note that a guard collective is only issued if there is any compiled code to guard on; if this is the first time we encounter a frame or the frame is skipped, we don\u2019t issue collectives. Returns the previous setting of enabled.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
