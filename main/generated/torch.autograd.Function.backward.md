@@ -1,6 +1,6 @@
 # torch.autograd.Function.backward
 
-*static*Function.backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/autograd/function.py#L432)
+*static*Function.backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/autograd/function.py#L432)
 
 Define a formula for differentiating the operation with backward mode automatic differentiation.
 

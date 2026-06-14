@@ -65,7 +65,7 @@ Expected result:
 
 [![_images/hier_tags.png](_images/hier_tags.png)](_images/hier_tags.png)
 
-*class*torch.utils.tensorboard.writer.SummaryWriter(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L173)
+*class*torch.utils.tensorboard.writer.SummaryWriter(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L173)
 
 Writes entries directly to event files in the log_dir to be consumed by TensorBoard.
 
@@ -75,7 +75,7 @@ file contents asynchronously. This allows a training program to call methods
 to add data to the file directly from the training loop, without slowing down
 training.
 
-__init__(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L183)
+__init__(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L183)
 
 Create a SummaryWriter that will write out events and summaries to the event file.
 
@@ -119,7 +119,7 @@ writer = SummaryWriter(comment="LR_0.1_BATCH_16")
 # folder location: runs/May04_22-14-54_s-MacBook-Pro.localLR_0.1_BATCH_16/
 ```
 
-add_scalar(*tag*, *scalar_value*, *global_step=None*, *walltime=None*, *new_style=False*, *double_precision=False*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L347)
+add_scalar(*tag*, *scalar_value*, *global_step=None*, *walltime=None*, *new_style=False*, *double_precision=False*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L347)
 
 Add scalar data to summary.
 
@@ -148,7 +148,7 @@ Expected result:
 
 [![_images/add_scalar.png](_images/add_scalar.png)](_images/add_scalar.png)
 
-add_scalars(*main_tag*, *tag_scalar_dict*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L388)
+add_scalars(*main_tag*, *tag_scalar_dict*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L388)
 
 Add many scalar data to summary.
 
@@ -179,7 +179,7 @@ Expected result:
 
 [![_images/add_scalars.png](_images/add_scalars.png)](_images/add_scalars.png)
 
-add_histogram(*tag*, *values*, *global_step=None*, *bins='tensorflow'*, *walltime=None*, *max_bins=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L465)
+add_histogram(*tag*, *values*, *global_step=None*, *bins='tensorflow'*, *walltime=None*, *max_bins=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L465)
 
 Add histogram to summary.
 
@@ -209,7 +209,7 @@ Expected result:
 
 [![_images/add_histogram.png](_images/add_histogram.png)](_images/add_histogram.png)
 
-add_image(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='CHW'*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L583)
+add_image(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='CHW'*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L583)
 
 Add image data to summary.
 
@@ -257,7 +257,7 @@ Expected result:
 
 [![_images/add_image.png](_images/add_image.png)](_images/add_image.png)
 
-add_images(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='NCHW'*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L634)
+add_images(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='NCHW'*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L634)
 
 Add batched image data to summary.
 
@@ -298,7 +298,7 @@ Expected result:
 
 [![_images/add_images.png](_images/add_images.png)](_images/add_images.png)
 
-add_figure(*tag*, *figure*, *global_step=None*, *close=True*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L729)
+add_figure(*tag*, *figure*, *global_step=None*, *close=True*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L729)
 
 Render matplotlib figure into an image and add it to summary.
 
@@ -313,7 +313,7 @@ Parameters:
 - **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - Optional override default walltime (time.time())
 seconds after epoch of event
 
-add_video(*tag*, *vid_tensor*, *global_step=None*, *fps=4*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L767)
+add_video(*tag*, *vid_tensor*, *global_step=None*, *fps=4*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L767)
 
 Add video data to summary.
 
@@ -332,7 +332,7 @@ Shape:
 
 vid_tensor: (N,T,C,H,W)(N, T, C, H, W)(N,T,C,H,W). The values should lie in [0, 255] for type uint8 or [0, 1] for type float.
 
-add_audio(*tag*, *snd_tensor*, *global_step=None*, *sample_rate=44100*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L787)
+add_audio(*tag*, *snd_tensor*, *global_step=None*, *sample_rate=44100*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L787)
 
 Add audio data to summary.
 
@@ -349,7 +349,7 @@ Shape:
 
 snd_tensor: (1,L)(1, L)(1,L). The values should lie between [-1, 1].
 
-add_text(*tag*, *text_string*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L807)
+add_text(*tag*, *text_string*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L807)
 
 Add text data to summary.
 
@@ -368,7 +368,7 @@ writer.add_text('lstm', 'This is an lstm', 0)
 writer.add_text('rnn', 'This is an rnn', 10)
 ```
 
-add_graph(*model*, *input_to_model=None*, *verbose=False*, *use_strict_trace=True*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L830)
+add_graph(*model*, *input_to_model=None*, *verbose=False*, *use_strict_trace=True*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L830)
 
 Add graph data to summary.
 
@@ -382,7 +382,7 @@ variables to be fed.
 torch.jit.trace. Pass False when you want the tracer to
 record your mutable container types (list, dict)
 
-add_embedding(*mat*, *metadata=None*, *label_img=None*, *global_step=None*, *tag='default'*, *metadata_header=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L859)
+add_embedding(*mat*, *metadata=None*, *label_img=None*, *global_step=None*, *tag='default'*, *metadata_header=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L859)
 
 Add embedding projector data to summary.
 
@@ -429,7 +429,7 @@ Note
 Categorical (i.e. non-numeric) metadata cannot have more than 50 unique values if they are to be used for
 coloring in the embedding projector.
 
-add_pr_curve(*tag*, *labels*, *predictions*, *global_step=None*, *num_thresholds=127*, *weights=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L964)
+add_pr_curve(*tag*, *labels*, *predictions*, *global_step=None*, *num_thresholds=127*, *weights=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L964)
 
 Add precision recall curve.
 
@@ -462,7 +462,7 @@ writer.add_pr_curve('pr_curve', labels, predictions, 0)
 writer.close()
 ```
 
-add_custom_scalars(*layout*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L1101)
+add_custom_scalars(*layout*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L1101)
 
 Create special chart by collecting charts tags in 'scalars'.
 
@@ -487,7 +487,7 @@ layout = {'Taiwan':{'twse':['Multiline',['twse/0050', 'twse/2330']]},
 writer.add_custom_scalars(layout)
 ```
 
-add_mesh(*tag*, *vertices*, *colors=None*, *faces=None*, *config_dict=None*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L1125)
+add_mesh(*tag*, *vertices*, *colors=None*, *faces=None*, *config_dict=None*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L1125)
 
 Add meshes or 3D point clouds to TensorBoard.
 
@@ -545,7 +545,7 @@ writer.add_mesh('my_mesh', vertices=vertices_tensor, colors=colors_tensor, faces
 writer.close()
 ```
 
-add_hparams(*hparam_dict*, *metric_dict*, *hparam_domain_discrete=None*, *run_name=None*, *global_step=None*)[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L292)
+add_hparams(*hparam_dict*, *metric_dict*, *hparam_domain_discrete=None*, *run_name=None*, *global_step=None*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L292)
 
 Add a set of hyperparameters to be compared in TensorBoard.
 
@@ -580,11 +580,11 @@ Expected result:
 
 [![_images/add_hparam.png](_images/add_hparam.png)](_images/add_hparam.png)
 
-flush()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L1192)
+flush()[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L1192)
 
 Flushes the event file to disk.
 
 Call this method to make sure that all pending events have been written to
 disk.
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/19afbb4e2e81cc5702fa8cc34c48e1879b98a5aa/torch/utils/tensorboard/writer.py#L1203)
+close()[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/utils/tensorboard/writer.py#L1203)
