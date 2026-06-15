@@ -1,11 +1,12 @@
 # torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node
 
-torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/fx/experimental/symbolic_shapes.py#L1108)
+torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/fx/experimental/symbolic_shapes.py#L1108)
 
 Check if a given FX node is a symbol binding node.
 
-A symbol binding node is one that has a SymInt value in its meta that contains
-a sympy Symbol expression, and is either a placeholder node or contains unbacked symbols.
+A symbol binding node is one that has a SymInt value in its meta whose
+placeholder expression is a sympy Symbol, and is either a placeholder node or
+records that it binds the unbacked symbol in node.meta["unbacked_bindings"].
 
 Parameters:
 

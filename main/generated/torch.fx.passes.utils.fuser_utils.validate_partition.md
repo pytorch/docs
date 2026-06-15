@@ -1,6 +1,6 @@
 # torch.fx.passes.utils.fuser_utils.validate_partition
 
-torch.fx.passes.utils.fuser_utils.validate_partition(*partition*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/fx/passes/utils/fuser_utils.py#L48)
+torch.fx.passes.utils.fuser_utils.validate_partition(*partition*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/fx/passes/utils/fuser_utils.py#L48)
 
 Warning
 

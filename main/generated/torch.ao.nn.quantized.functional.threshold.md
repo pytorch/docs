@@ -1,6 +1,6 @@
 # threshold
 
-*class*torch.ao.nn.quantized.functional.threshold(*input*, *threshold*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/ao/nn/quantized/functional.py#L617)
+*class*torch.ao.nn.quantized.functional.threshold(*input*, *threshold*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/ao/nn/quantized/functional.py#L617)
 
 Applies the quantized version of the threshold function element-wise:
 

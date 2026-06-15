@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense
 
-torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/40e21dcd4b92d59842b3e3b7f542f855dedddb91/torch/fx/experimental/symbolic_shapes.py#L2623)
+torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/fx/experimental/symbolic_shapes.py#L2629)
 
 Return type:
 
