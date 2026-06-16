@@ -25,9 +25,3 @@ tensor([ 0.1632, 1.1835, -0.6979, -0.7325])
 >>> torch.cosh(a)
 tensor([ 1.0133, 1.7860, 1.2536, 1.2805])
 ```
-
-Note
-
-When `input` is on the CPU, the implementation of torch.cosh may use
-the Sleef library, which rounds very large results to infinity or negative
-infinity. See [here](https://sleef.org/purec.xhtml) for details.

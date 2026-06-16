@@ -115,47 +115,47 @@ and do not hold actual data.
 Tensor subclasses or tensor-like objects can also display unusual behaviours. In general, we do not
 expect many use cases to require operating at the Storage level!
 
-*class*torch.UntypedStorage(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L467)
+*class*torch.UntypedStorage(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L467)
 
-bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L327)
+bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L327)
 
 Casts this storage to bfloat16 type.
 
-bool()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L323)
+bool()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L323)
 
 Casts this storage to bool type.
 
-byte()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L319)
+byte()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L319)
 
 Casts this storage to byte type.
 
-byteswap(*dtype*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L419)
+byteswap(*dtype*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L419)
 
 Swap bytes in underlying data.
 
-char()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L315)
+char()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L315)
 
 Casts this storage to char type.
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L253)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L253)
 
 Return a copy of this storage.
 
-complex_double()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L331)
+complex_double()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L331)
 
 Casts this storage to complex double type.
 
-complex_float()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L335)
+complex_float()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L335)
 
 Casts this storage to complex float type.
 
 copy_()
 
-cpu()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L261)
+cpu()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L261)
 
 Return a CPU copy of this storage if it's not already on the CPU.
 
-cuda(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L82)
+cuda(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L82)
 
 Returns a copy of this object in CUDA memory.
 
@@ -177,7 +177,7 @@ data_ptr()
 
 device*: [device](tensor_attributes.html#torch.device)*
 
-double()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L291)
+double()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L291)
 
 Casts this storage to double type.
 
@@ -192,23 +192,23 @@ The file name will be a string if the storage is on CPU and was created via
 
 fill_()
 
-float()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L295)
+float()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L295)
 
 Casts this storage to float type.
 
-float8_e4m3fn()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L343)
+float8_e4m3fn()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L343)
 
 Casts this storage to float8_e4m3fn type
 
-float8_e4m3fnuz()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L351)
+float8_e4m3fnuz()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L351)
 
 Casts this storage to float8_e4m3fnuz type
 
-float8_e5m2()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L339)
+float8_e5m2()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L339)
 
 Casts this storage to float8_e5m2 type
 
-float8_e5m2fnuz()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L347)
+float8_e5m2fnuz()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L347)
 
 Casts this storage to float8_e5m2fnuz type
 
@@ -234,17 +234,17 @@ Parameters:
 underlying [mmap(2) call](https://man7.org/linux/man-pages/man2/mmap.2.html))
 - **nbytes** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of bytes of storage
 
-get_device()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L115)
+get_device()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L115)
 
 Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-half()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L299)
+half()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L299)
 
 Casts this storage to half type.
 
-hpu(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L97)
+hpu(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L97)
 
 Returns a copy of this object in HPU memory.
 
@@ -262,7 +262,7 @@ Return type:
 
 *_StorageBase* | *TypedStorage*
 
-int()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L307)
+int()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L307)
 
 Casts this storage to int type.
 
@@ -270,7 +270,7 @@ Casts this storage to int type.
 
 *property*is_hpu
 
-is_pinned(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L355)
+is_pinned(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L355)
 
 Determine whether the CPU storage is already pinned on device.
 
@@ -289,11 +289,11 @@ is_sparse*: [bool](https://docs.python.org/3/library/functions.html#bool)**= Fal
 
 is_sparse_csr*: [bool](https://docs.python.org/3/library/functions.html#bool)**= False*
 
-long()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L303)
+long()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L303)
 
 Casts this storage to long type.
 
-mps()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L267)
+mps()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L267)
 
 Return a MPS copy of this storage if it's not already on the MPS.
 
@@ -301,7 +301,7 @@ nbytes()
 
 new()
 
-pin_memory(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L371)
+pin_memory(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L371)
 
 Copy the CPU storage to pinned memory, if it's not already pinned.
 
@@ -318,7 +318,7 @@ resizable()
 
 resize_()
 
-share_memory_(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L490)
+share_memory_(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L490)
 
 Moves the storage to shared memory.
 
@@ -352,29 +352,29 @@ Returns:
 
 `self`
 
-short()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L311)
+short()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L311)
 
 Casts this storage to short type.
 
-size()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L74)
+size()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L74)
 
 Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-to(***, *device*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L286)
+to(***, *device*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L286)
 
-tolist()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L257)
+tolist()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L257)
 
 Return a list containing the elements of this storage.
 
-type(*dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L77)
+type(*dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L77)
 
 Return type:
 
 *_StorageBase* | *TypedStorage*
 
-untyped()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L416)
+untyped()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L416)
 
 ## Legacy Typed Storage
 
@@ -407,43 +407,43 @@ holds the data as an untyped array of bytes.
 Every strided [`torch.Tensor`](tensors.html#torch.Tensor) contains a `torch.TypedStorage`,
 which stores all of the data that the [`torch.Tensor`](tensors.html#torch.Tensor) views.
 
-*class*torch.TypedStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L676)
+*class*torch.TypedStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L676)
 
-bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1375)
+bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1375)
 
 Casts this storage to bfloat16 type.
 
-bool()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1370)
+bool()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1370)
 
 Casts this storage to bool type.
 
-byte()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1365)
+byte()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1365)
 
 Casts this storage to byte type.
 
-char()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1360)
+char()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1360)
 
 Casts this storage to char type.
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1153)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1153)
 
 Return a copy of this storage.
 
-complex_double()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1380)
+complex_double()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1380)
 
 Casts this storage to complex double type.
 
-complex_float()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1385)
+complex_float()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1385)
 
 Casts this storage to complex float type.
 
-copy_(*source*, *non_blocking=None*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1029)
+copy_(*source*, *non_blocking=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1029)
 
-cpu()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1163)
+cpu()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1163)
 
 Return a CPU copy of this storage if it's not already on the CPU.
 
-cuda(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1062)
+cuda(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1062)
 
 Returns a copy of this object in CUDA memory.
 
@@ -461,48 +461,48 @@ Return type:
 
 *Self*
 
-data_ptr()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1253)
+data_ptr()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1253)
 
 *property*device
 
-double()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1330)
+double()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1330)
 
 Casts this storage to double type.
 
 dtype*: [dtype](tensor_attributes.html#torch.dtype)*
 
-element_size()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1105)
+element_size()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1105)
 
 *property*filename*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Returns the file name associated with this storage if the storage was memory mapped from a file.
 or `None` if the storage was not created by memory mapping a file.
 
-fill_(*value*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L693)
+fill_(*value*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L693)
 
-float()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1335)
+float()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1335)
 
 Casts this storage to float type.
 
-float8_e4m3fn()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1395)
+float8_e4m3fn()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1395)
 
 Casts this storage to float8_e4m3fn type
 
-float8_e4m3fnuz()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1405)
+float8_e4m3fnuz()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1405)
 
 Casts this storage to float8_e4m3fnuz type
 
-float8_e5m2()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1390)
+float8_e5m2()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1390)
 
 Casts this storage to float8_e5m2 type
 
-float8_e5m2fnuz()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1400)
+float8_e5m2fnuz()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1400)
 
 Casts this storage to float8_e5m2fnuz type
 
-*classmethod*from_buffer(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1280)
+*classmethod*from_buffer(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1280)
 
-*classmethod*from_file(*filename*, *shared=False*, *size=0*) → Storage[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1410)
+*classmethod*from_file(*filename*, *shared=False*, *size=0*) → Storage[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1410)
 
 Creates a CPU storage backed by a memory-mapped file.
 
@@ -521,17 +521,17 @@ Parameters:
 underlying [mmap(2) call](https://man7.org/linux/man-pages/man2/mmap.2.html))
 - **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of elements in the storage
 
-get_device()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1113)
+get_device()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1113)
 
 Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-half()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1340)
+half()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1340)
 
 Casts this storage to half type.
 
-hpu(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1075)
+hpu(*device=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1075)
 
 Returns a copy of this object in HPU memory.
 
@@ -549,7 +549,7 @@ Return type:
 
 *Self*
 
-int()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1350)
+int()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1350)
 
 Casts this storage to int type.
 
@@ -557,7 +557,7 @@ Casts this storage to int type.
 
 *property*is_hpu
 
-is_pinned(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1168)
+is_pinned(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1168)
 
 Determine whether the CPU TypedStorage is already pinned on device.
 
@@ -570,19 +570,19 @@ Returns:
 
 A boolean variable.
 
-is_shared()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1455)
+is_shared()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1455)
 
 is_sparse*: [bool](https://docs.python.org/3/library/functions.html#bool)**= False*
 
-long()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1345)
+long()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1345)
 
 Casts this storage to long type.
 
-nbytes()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1037)
+nbytes()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1037)
 
-pickle_storage_type()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1237)
+pickle_storage_type()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1237)
 
-pin_memory(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1181)
+pin_memory(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1181)
 
 Copy the CPU TypedStorage to pinned memory, if it's not already pinned.
 
@@ -595,21 +595,21 @@ Returns:
 
 A pinned CPU storage.
 
-resizable()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1261)
+resizable()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1261)
 
-resize_(*size*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1265)
+resize_(*size*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1265)
 
-share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1196)
+share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1196)
 
 See `torch.UntypedStorage.share_memory_()`
 
-short()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1355)
+short()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1355)
 
 Casts this storage to short type.
 
-size()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1227)
+size()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1227)
 
-to(***, *device*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1088)
+to(***, *device*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1088)
 
 Returns a copy of this object in device memory.
 
@@ -627,11 +627,11 @@ Return type:
 
 Self
 
-tolist()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1158)
+tolist()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1158)
 
 Return a list containing the elements of this storage.
 
-type(*dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L1045)
+type(*dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L1045)
 
 Returns the type if dtype is not provided, else casts this object to
 the specified type.
@@ -653,74 +653,74 @@ Return type:
 
 *_StorageBase* | *TypedStorage* | [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-untyped()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/storage.py#L891)
+untyped()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/storage.py#L891)
 
 Return the internal `torch.UntypedStorage`.
 
-*class*torch.DoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L1957)
+*class*torch.DoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1957)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float64*
 
-*class*torch.FloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L1968)
+*class*torch.FloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1968)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float32*
 
-*class*torch.HalfStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L1979)
+*class*torch.HalfStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1979)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float16*
 
-*class*torch.LongStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L1990)
+*class*torch.LongStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1990)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int64*
 
-*class*torch.IntStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2001)
+*class*torch.IntStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2001)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int32*
 
-*class*torch.ShortStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2012)
+*class*torch.ShortStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2012)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int16*
 
-*class*torch.CharStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2023)
+*class*torch.CharStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2023)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int8*
 
-*class*torch.ByteStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L1946)
+*class*torch.ByteStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1946)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.uint8*
 
-*class*torch.BoolStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2034)
+*class*torch.BoolStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2034)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.bool*
 
-*class*torch.BFloat16Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2045)
+*class*torch.BFloat16Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2045)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.bfloat16*
 
-*class*torch.ComplexDoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2056)
+*class*torch.ComplexDoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2056)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.complex128*
 
-*class*torch.ComplexFloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2067)
+*class*torch.ComplexFloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2067)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.complex64*
 
-*class*torch.QUInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2078)
+*class*torch.QUInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2078)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint8*
 
-*class*torch.QInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2089)
+*class*torch.QInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2089)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.qint8*
 
-*class*torch.QInt32Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2100)
+*class*torch.QInt32Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2100)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.qint32*
 
-*class*torch.QUInt4x2Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2111)
+*class*torch.QUInt4x2Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2111)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint4x2*
 
-*class*torch.QUInt2x4Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/__init__.py#L2122)
+*class*torch.QUInt2x4Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2122)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint2x4*

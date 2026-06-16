@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git6a231d0 )">
+<meta name="llm:version" content="main (2.14.0a0+git053a82e )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6a231d0 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git053a82e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4323,12 +4323,6 @@ document.write(`
 <span class="go">tensor([ 0.5644, -0.9744, -0.1268,  1.0845])</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is on the CPU, the implementation of torch.sinh may use
-the Sleef library, which rounds very large results to infinity or negative
-infinity. See <a class="reference external" href="https://sleef.org/purec.xhtml">here</a> for details.</p>
-</div>
 </dd></dl>
 
 </section>
@@ -4687,7 +4681,7 @@ infinity. See <a class="reference external" href="https://sleef.org/purec.xhtml"
        "headline": "torch.sinh",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.sinh.html",
-       "articleBody": "torch.sinh# torch.sinh(input, *, out=None) \u2192 Tensor# Returns a new tensor with the hyperbolic sine of the elements of input. outi=sinh\u2061(inputi)\\text{out}_{i} = \\sinh(\\text{input}_{i}) outi\u200b=sinh(inputi\u200b) Parameters: input (Tensor) \u2013 the input tensor. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4) \u003e\u003e\u003e a tensor([ 0.5380, -0.8632, -0.1265, 0.9399]) \u003e\u003e\u003e torch.sinh(a) tensor([ 0.5644, -0.9744, -0.1268, 1.0845]) Note When input is on the CPU, the implementation of torch.sinh may use the Sleef library, which rounds very large results to infinity or negative infinity. See here for details.",
+       "articleBody": "torch.sinh# torch.sinh(input, *, out=None) \u2192 Tensor# Returns a new tensor with the hyperbolic sine of the elements of input. outi=sinh\u2061(inputi)\\text{out}_{i} = \\sinh(\\text{input}_{i}) outi\u200b=sinh(inputi\u200b) Parameters: input (Tensor) \u2013 the input tensor. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4) \u003e\u003e\u003e a tensor([ 0.5380, -0.8632, -0.1265, 0.9399]) \u003e\u003e\u003e torch.sinh(a) tensor([ 0.5644, -0.9744, -0.1268, 1.0845])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

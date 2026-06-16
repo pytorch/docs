@@ -1,6 +1,6 @@
 # torch.linalg.lu_solve
 
-torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/linalg/__init__.py#L2523)
+torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/linalg/__init__.py#L2523)
 
 Computes the solution of a square system of linear equations with a unique solution given an LU decomposition.
 
@@ -19,7 +19,7 @@ If `left`= False, this function returns the matrix X∈Kn×kX \in \mathbb{K}^{n 
 XA=BA∈Kk×k,B∈Kn×k.XA = B\mathrlap{\qquad A \in \mathbb{K}^{k \times k}, B \in \mathbb{K}^{n \times k}.}XA=BA∈Kk×k,B∈Kn×k.
 
 If `adjoint`= True (and `left`= True), given an LU factorization of AAA
-this function function returns the X∈Kn×kX \in \mathbb{K}^{n \times k}X∈Kn×k that solves the system
+this function returns the X∈Kn×kX \in \mathbb{K}^{n \times k}X∈Kn×k that solves the system
 
 AHX=BA∈Kk×k,B∈Kn×k.A^{\text{H}}X = B\mathrlap{\qquad A \in \mathbb{K}^{k \times k}, B \in \mathbb{K}^{n \times k}.}AHX=BA∈Kk×k,B∈Kn×k.
 

@@ -1,6 +1,6 @@
 # check_sparse_tensor_invariants
 
-*class*torch.sparse.check_sparse_tensor_invariants(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/sparse/__init__.py#L453)
+*class*torch.sparse.check_sparse_tensor_invariants(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/sparse/__init__.py#L453)
 
 A tool to control checking sparse tensor invariants.
 
@@ -43,13 +43,13 @@ Traceback (most recent call last):
 RuntimeError: `crow_indices[..., -1] == nnz` is not satisfied.
 ```
 
-*static*disable()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/sparse/__init__.py#L529)
+*static*disable()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/sparse/__init__.py#L529)
 
 Disable sparse tensor invariants checking in sparse tensor constructors.
 
 See `torch.sparse.check_sparse_tensor_invariants.enable()` for more information.
 
-*static*enable()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/sparse/__init__.py#L509)
+*static*enable()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/sparse/__init__.py#L509)
 
 Enable sparse tensor invariants checking in sparse tensor constructors.
 
@@ -67,7 +67,7 @@ tensor constructors, both in Python and ATen.
 The flag can be locally overridden by the `check_invariants`
 optional argument of the sparse tensor constructor functions.
 
-*static*is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/sparse/__init__.py#L497)
+*static*is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/sparse/__init__.py#L497)
 
 Return True if the sparse tensor invariants checking is enabled.
 

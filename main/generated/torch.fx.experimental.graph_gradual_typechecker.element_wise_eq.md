@@ -1,11 +1,11 @@
 # torch.fx.experimental.graph_gradual_typechecker.element_wise_eq
 
-torch.fx.experimental.graph_gradual_typechecker.element_wise_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/6a231d0d3e1ccd63dd51479bcadc969d0a8de2b9/torch/fx/experimental/graph_gradual_typechecker.py#L795)
+torch.fx.experimental.graph_gradual_typechecker.element_wise_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/fx/experimental/graph_gradual_typechecker.py#L795)
 
 For element-wise operations and handles broadcasting.
 Note that after applying broadcasting to the arguments
 we are able to determine if certain dimensions have not been broadcast
-if they are symbolicallu equal.
+if they are symbolically equal.
 
 in this case, we can establish equality between those dimensions and the
 corresponding output dimensions.
