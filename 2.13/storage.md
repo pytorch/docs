@@ -657,70 +657,70 @@ untyped()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/storag
 
 Return the internal `torch.UntypedStorage`.
 
-*class*torch.DoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1958)
+*class*torch.DoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1957)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float64*
 
-*class*torch.FloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1969)
+*class*torch.FloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1968)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float32*
 
-*class*torch.HalfStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1980)
+*class*torch.HalfStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1979)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.float16*
 
-*class*torch.LongStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1991)
+*class*torch.LongStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1990)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int64*
 
-*class*torch.IntStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2002)
+*class*torch.IntStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2001)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int32*
 
-*class*torch.ShortStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2013)
+*class*torch.ShortStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2012)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int16*
 
-*class*torch.CharStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2024)
+*class*torch.CharStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2023)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.int8*
 
-*class*torch.ByteStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1947)
+*class*torch.ByteStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1946)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.uint8*
 
-*class*torch.BoolStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2035)
+*class*torch.BoolStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2034)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.bool*
 
-*class*torch.BFloat16Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2046)
+*class*torch.BFloat16Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2045)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.bfloat16*
 
-*class*torch.ComplexDoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2057)
+*class*torch.ComplexDoubleStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2056)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.complex128*
 
-*class*torch.ComplexFloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2068)
+*class*torch.ComplexFloatStorage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2067)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.complex64*
 
-*class*torch.QUInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2079)
+*class*torch.QUInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2078)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint8*
 
-*class*torch.QInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2090)
+*class*torch.QInt8Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2089)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.qint8*
 
-*class*torch.QInt32Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2101)
+*class*torch.QInt32Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2100)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.qint32*
 
-*class*torch.QUInt4x2Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2112)
+*class*torch.QUInt4x2Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2111)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint4x2*
 
-*class*torch.QUInt2x4Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2123)
+*class*torch.QUInt2x4Storage(**args*, *wrap_storage=None*, *dtype=None*, *device=None*, *_internal=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2122)
 
 dtype*: [torch.dtype](tensor_attributes.html#torch.dtype)**= torch.quint2x4*

@@ -1,6 +1,6 @@
 # torch.xpu.clock_rate
 
-torch.xpu.clock_rate(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/__init__.py#L940)
+torch.xpu.clock_rate(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/__init__.py#L945)
 
 Return the GPU clock rate in MHz.
 
