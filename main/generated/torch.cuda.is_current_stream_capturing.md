@@ -1,6 +1,6 @@
 # torch.cuda.is_current_stream_capturing
 
-torch.cuda.is_current_stream_capturing()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/cuda/graphs.py#L57)
+torch.cuda.is_current_stream_capturing()[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/cuda/graphs.py#L57)
 
 Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise.
 

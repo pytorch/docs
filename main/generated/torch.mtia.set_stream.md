@@ -1,6 +1,6 @@
 # torch.mtia.set_stream
 
-torch.mtia.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/mtia/__init__.py#L258)
+torch.mtia.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/mtia/__init__.py#L258)
 
 Set the current stream. This is a wrapper API to set the stream.
 

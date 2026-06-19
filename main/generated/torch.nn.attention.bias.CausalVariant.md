@@ -1,6 +1,6 @@
 # CausalVariant
 
-*class*torch.nn.attention.bias.CausalVariant(*value*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/nn/attention/bias.py#L33)
+*class*torch.nn.attention.bias.CausalVariant(*value*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/nn/attention/bias.py#L33)
 
 Enum for causal variants used in attention mechanisms.
 

@@ -37,23 +37,28 @@ Newton-Schulz orthogonalization operator parameterized by coefficients (a,b,c)(a
 with numerical stabilization ε\varepsilonε.
 
 The purpose for AdjustLR ⁣(γ; shape ⁣(θt))\mathrm{AdjustLR}\!\big(\gamma;\ \mathrm{shape}\!\big(\theta_t \big) \big)AdjustLR(γ; shape(θt​))
-is to make the orthogonalized update have a consistent RMSRMSRMS across rectangular matrices.
+is to make the orthogonalized update scale consistently across rectangular matrices.
 
 Keller's original implementation scales the update by max⁡ ⁣(1,AB)\sqrt{\max\!\left(1, \frac{A}{B}\right)}max(1,BA​)​,
-where AAA and BBB are dimension of the matrix being optimized.
+where AAA and BBB are dimensions of the matrix being optimized, which represent fan-out
+and fan-in for a Linear weight matrix.
 
-Moonshot's implementation also focuses on matching RMSRMSRMS of AdamW. The adjustment is computed as:
+Moonshot's implementation focuses on matching RMSRMSRMS of AdamW. The adjustment is computed as:
 γ←0.2γ max⁡ ⁣(A,B)\gamma \leftarrow {0.2}\gamma\,\sqrt{\max\!\left({A}, {B}\right)}γ←0.2γmax(A,B)​
 The method is adopted from [Muon is Scalable for LLM Training](https://arxiv.org/pdf/2502.16982). Research
 results show that with this adjustment Muon can directly reuse the learning rate
 and weight decay tuned for AdamW.
 
-We provide two options for the learning rate adjustment: "original", which follows Keller's
-implementation, and "match_rms_adamw", which refers to Moonshot's implementation. This gives users the
-flexibility to choose between the two. If adjust_lr_fn is not specified, the default is "original".
+Jeremy Bernstein in [Deriving Muon](https://jeremybernste.in/writing/deriving-muon) proposes a scaling condition on the spectral norm, which
+scales the update by AB\sqrt{\frac{A}{B}}BA​​. This is similar to the Keller's "original"
+implementation but removes clamping down to 1.
 
-For further details regarding the algorithm we refer to [Muon: An optimizer for hidden layers in neural networks](https://kellerjordan.github.io/posts/muon/)
-and [Muon is Scalable for LLM Training](https://arxiv.org/pdf/2502.16982).
+We provide these options for the learning rate adjustment: "original", which follows Keller's
+implementation, "match_rms_adamw", which refers to Moonshot's implementation, and "spectral_unclamped",
+which matches Bernstein's implementation. If adjust_lr_fn is not specified, the default is "original".
+
+For further details regarding the algorithm we refer to [Muon: An optimizer for hidden layers in neural networks](https://kellerjordan.github.io/posts/muon/),
+[Muon is Scalable for LLM Training](https://arxiv.org/pdf/2502.16982), and [Deriving Muon](https://jeremybernste.in/writing/deriving-muon).
 
 Parameters:
 
@@ -70,7 +75,7 @@ when momentum is non-zero
 Newton-Schulz orthogonalization polynomial (default: (3.4445, -4.775, 2.0315))
 - **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - term added to the denominator for numerical stability. (default: 1e-07)
 - **ns_steps** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - number of Newton-Schulz iteration steps. (default: 5)
-- **adjust_lr_fn** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - function to adjust learning rate. One of "original" and "match_rms_adamw".
+- **adjust_lr_fn** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - function to adjust learning rate. One of "original", "match_rms_adamw", and "spectral_unclamped".
 If not specified, we will default to use "original". (default: None)
 
 Example
@@ -98,7 +103,7 @@ Example
 >>> optim_adamw.step()
 ```
 
-add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L1102)
+add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L1102)
 
 Add a param group to the [`Optimizer`](../optim.html#torch.optim.Optimizer) s param_groups.
 
@@ -110,7 +115,7 @@ Parameters:
 **param_group** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Specifies what Tensors should be optimized along with group
 specific optimization options.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L880)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L880)
 
 Load the optimizer state.
 
@@ -161,7 +166,7 @@ Example
 >>> optimizer.load_state_dict(torch.load("./save_optim.pt"))
 ```
 
-register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L844)
+register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L844)
 
 Register a load_state_dict post-hook which will be called after
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -195,7 +200,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L805)
+register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L805)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -232,7 +237,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L646)
+register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L646)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -264,7 +269,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L614)
+register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L614)
 
 Register a state dict pre-hook which will be called before [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -296,7 +301,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L593)
+register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L593)
 
 Register an optimizer step post hook which will be called after optimizer step.
 
@@ -321,7 +326,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L570)
+register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L570)
 
 Register an optimizer step pre hook which will be called before optimizer step.
 
@@ -348,7 +353,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L680)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L680)
 
 Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -407,11 +412,11 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/_muon.py#L164)
+step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/_muon.py#L167)
 
 Performs a single optimization step.
 
-zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/optim/optimizer.py#L1023)
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/optim/optimizer.py#L1023)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 

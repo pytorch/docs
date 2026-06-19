@@ -1,6 +1,6 @@
 # torch.cond
 
-torch.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/_higher_order_ops/cond.py#L95)
+torch.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/_higher_order_ops/cond.py#L95)
 
 Conditionally applies true_fn or false_fn.
 

@@ -1,5 +1,5 @@
 # torch._assert
 
-torch._assert(*condition*, *message*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L2270)
+torch._assert(*condition*, *message*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/__init__.py#L2613)
 
 A wrapper around Python's assert which is symbolically traceable.

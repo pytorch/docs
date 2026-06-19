@@ -451,7 +451,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.dynamic-shape, [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), torch.dynamic-shape
 
 Support Level: SUPPORTED
 
@@ -504,7 +504,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.dynamic-shape, [torch.map](torch.map.html)
+Tags: [torch.map](torch.map.html), torch.dynamic-shape
 
 Support Level: SUPPORTED
 
@@ -710,7 +710,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.dynamic-shape, [python.data-structure](python.data-structure.html), [python.assert](python.assert.html)
+Tags: [python.assert](python.assert.html), [python.data-structure](python.data-structure.html), torch.dynamic-shape
 
 Support Level: SUPPORTED
 

@@ -1,6 +1,6 @@
 # UpsamplingBilinear2d
 
-*class*torch.nn.modules.upsampling.UpsamplingBilinear2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/nn/modules/upsampling.py#L250)
+*class*torch.nn.modules.upsampling.UpsamplingBilinear2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/nn/modules/upsampling.py#L250)
 
 Applies a 2D bilinear upsampling to an input signal composed of several input channels.
 

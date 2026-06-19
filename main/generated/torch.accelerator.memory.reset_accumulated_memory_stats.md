@@ -1,6 +1,6 @@
 # torch.accelerator.memory.reset_accumulated_memory_stats
 
-torch.accelerator.memory.reset_accumulated_memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/accelerator/memory.py#L198)
+torch.accelerator.memory.reset_accumulated_memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/accelerator/memory.py#L198)
 
 Reset the "accumulated" (historical) stats tracked by the current [accelerator](../torch.html#accelerators)
 memory allocator for a given device index.

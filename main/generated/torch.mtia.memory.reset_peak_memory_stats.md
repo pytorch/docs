@@ -1,6 +1,6 @@
 # torch.mtia.memory.reset_peak_memory_stats
 
-torch.mtia.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/mtia/memory.py#L52)
+torch.mtia.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/mtia/memory.py#L52)
 
 Reset the peak memory stats for a given device.
 

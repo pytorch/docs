@@ -1,3 +1,3 @@
 # torch.utils.collect_env.pretty_str
 
-torch.utils.collect_env.pretty_str(*envinfo*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/utils/collect_env.py#L813)
+torch.utils.collect_env.pretty_str(*envinfo*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/utils/collect_env.py#L813)

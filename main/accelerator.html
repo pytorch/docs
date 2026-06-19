@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git053a82e )">
+<meta name="llm:version" content="main (2.14.0a0+gitde1ad93 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git053a82e )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitde1ad93 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5268,6 +5268,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.random.get_rng_state.html">torch.accelerator.random.get_rng_state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.random.get_rng_state_all.html">torch.accelerator.random.get_rng_state_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.random.initial_seed.html">torch.accelerator.random.initial_seed</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7027,10 +7030,34 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-torch.accelerator">
-<span id="torch-accelerator"></span><h1>torch.accelerator<a class="headerlink" href="#module-torch.accelerator" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Apr 13, 2026</p>
-<p>This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
+  <section id="torch-accelerator">
+<h1>torch.accelerator<a class="headerlink" href="#torch-accelerator" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Jun 19, 2026</p>
+<section id="lazy-initialization-and-fork-safety">
+<span id="lazy-initialization-and-fork-safety-note"></span><h2>Lazy Initialization and Fork Safety<a class="headerlink" href="#lazy-initialization-and-fork-safety" title="Link to this heading">#</a></h2>
+<p>Accelerator runtimes (CUDA, XPU, MPS, etc.) are initialized lazily — only
+when the first operation that touches the device runs. This ensures that
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch</span></code> and capability queries do not poison subsequent <code class="docutils literal notranslate"><span class="pre">fork()</span></code>
+calls. See <a class="reference internal" href="notes/multiprocessing.html#multiprocessing-poison-fork-note"><span class="std std-ref">Poison fork in multiprocessing</span></a> for background.</p>
+<p>Certain APIs need to be callable before forking (e.g., <code class="docutils literal notranslate"><span class="pre">device_count()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">is_available()</span></code>), and some backends provide opt-in mechanisms to make
+these fork-safe (e.g., CUDA via NVML, XPU via Level Zero Sysman). To keep
+behavior and runtime state consistent between <code class="docutils literal notranslate"><span class="pre">torch.accelerator</span></code> and
+per-backend modules, the following APIs are delegated to each backend:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">is_available()</span></code> / <code class="docutils literal notranslate"><span class="pre">device_count()</span></code></strong> should ideally answer without
+bringing up the runtime, since <code class="docutils literal notranslate"><span class="pre">DataLoader</span></code> and similar tools rely on
+calling them before forking. Whether this is achievable depends on the
+backend, so <code class="docutils literal notranslate"><span class="pre">torch.accelerator</span></code> forwards to the corresponding backend
+implementation.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">_lazy_call()</span></code></strong> is used for deferred RNG management. Calling
+<code class="docutils literal notranslate"><span class="pre">manual_seed()</span></code> before forking should not force runtime initialization.
+<code class="docutils literal notranslate"><span class="pre">torch.accelerator</span></code> wraps the seeding callback via <code class="docutils literal notranslate"><span class="pre">_lazy_call()</span></code>, which
+forwards to the backend’s own callback queue (CUDA, XPU, MTIA, …).
+Each backend owns its init flag and callback queue. If a backend does not
+provide <code class="docutils literal notranslate"><span class="pre">_lazy_call</span></code> (e.g., MPS), the callback executes immediately.</p></li>
+</ul>
+<p id="module-torch.accelerator">This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><p id="torch.accelerator.device_count"/><p id="torch.accelerator.device_count"/><a class="reference internal" href="generated/torch.accelerator.device_count.html#torch.accelerator.device_count" title="torch.accelerator.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
@@ -7072,6 +7099,7 @@ document.write(`
 </tbody>
 </table>
 </div>
+</section>
 <section id="graphs">
 <h2>Graphs<a class="headerlink" href="#graphs" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -7116,6 +7144,23 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p><p id="torch.accelerator.memory.reset_peak_memory_stats"/><p id="torch.accelerator.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html#torch.accelerator.memory.reset_peak_memory_stats" title="torch.accelerator.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;peak&quot; stats tracked by the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> memory allocator for a given device index.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="random-number-generator">
+<span id="module-torch.accelerator.random"></span><h2>Random Number Generator<a class="headerlink" href="#random-number-generator" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.accelerator.random.get_rng_state"/><p id="torch.accelerator.random.get_rng_state"/><a class="reference internal" href="generated/torch.accelerator.random.get_rng_state.html#torch.accelerator.random.get_rng_state" title="torch.accelerator.random.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<td><p>Return the RNG state of the default <a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Generator</span></code></a> for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> as a <cite>torch.Tensor</cite> of dtype <cite>torch.uint8</cite> for the specified accelerator device.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.accelerator.random.get_rng_state_all"/><p id="torch.accelerator.random.get_rng_state_all"/><a class="reference internal" href="generated/torch.accelerator.random.get_rng_state_all.html#torch.accelerator.random.get_rng_state_all" title="torch.accelerator.random.get_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state_all</span></code></a></p></td>
+<td><p>Return a list of <cite>torch.Tensor</cite> of dtype <cite>torch.uint8</cite> representing the RNG states of all devices for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.accelerator.random.initial_seed"/><p id="torch.accelerator.random.initial_seed"/><a class="reference internal" href="generated/torch.accelerator.random.initial_seed.html#torch.accelerator.random.initial_seed" title="torch.accelerator.random.initial_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></a></p></td>
+<td><p>Return the initial seed of the default <a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Generator</span></code></a> for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> on the specified device.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7240,8 +7285,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-initialization-and-fork-safety">Lazy Initialization and Fork Safety</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs">Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-number-generator">Random Number Generator</a></li>
 </ul>
   </nav></div>
     
@@ -7494,7 +7541,7 @@ document.write(`
        "headline": "torch.accelerator",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator.html",
-       "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Apr 13, 2026 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was built, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. get_device_capability Return the capability of the currently selected device. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index.",
+       "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Jun 19, 2026 Lazy Initialization and Fork Safety# Accelerator runtimes (CUDA, XPU, MPS, etc.) are initialized lazily \u2014 only when the first operation that touches the device runs. This ensures that import torch and capability queries do not poison subsequent fork() calls. See Poison fork in multiprocessing for background. Certain APIs need to be callable before forking (e.g., device_count(), is_available()), and some backends provide opt-in mechanisms to make these fork-safe (e.g., CUDA via NVML, XPU via Level Zero Sysman). To keep behavior and runtime state consistent between torch.accelerator and per-backend modules, the following APIs are delegated to each backend: is_available() / device_count() should ideally answer without bringing up the runtime, since DataLoader and similar tools rely on calling them before forking. Whether this is achievable depends on the backend, so torch.accelerator forwards to the corresponding backend implementation. _lazy_call() is used for deferred RNG management. Calling manual_seed() before forking should not force runtime initialization. torch.accelerator wraps the seeding callback via _lazy_call(), which forwards to the backend\u2019s own callback queue (CUDA, XPU, MTIA, \u2026). Each backend owns its init flag and callback queue. If a backend does not provide _lazy_call (e.g., MPS), the callback executes immediately. This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was built, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. get_device_capability Return the capability of the currently selected device. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Graphs# Graph Wrapper around an accelerator graph that supports capture and replay. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. empty_host_cache Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. get_memory_info Return the current device memory information for a given device index. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \"peak\" stats tracked by the current accelerator memory allocator for a given device index. Random Number Generator# get_rng_state Return the RNG state of the default torch.Generator for the current accelerator as a torch.Tensor of dtype torch.uint8 for the specified accelerator device. get_rng_state_all Return a list of torch.Tensor of dtype torch.uint8 representing the RNG states of all devices for the current accelerator. initial_seed Return the initial seed of the default torch.Generator for the current accelerator on the specified device.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7506,7 +7553,7 @@ document.write(`
          "@id": "/accelerator.html"
        },
        "datePublished": "Oct 27, 2024T00:00:00Z",
-       "dateModified": "Apr 13, 2026T00:00:00Z"
+       "dateModified": "Jun 19, 2026T00:00:00Z"
      }
  </script>
   <script>

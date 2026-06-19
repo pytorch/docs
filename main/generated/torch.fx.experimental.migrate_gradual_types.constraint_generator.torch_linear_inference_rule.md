@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1449)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_linear_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1449)
 
 Return type:
 

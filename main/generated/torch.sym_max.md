@@ -1,6 +1,8 @@
 # torch.sym_max
 
-torch.sym_max(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L891)
+torch.sym_max(*a: IntLikeType*, *b: IntLikeType*) → IntLikeType[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/__init__.py#L1197)
+
+torch.sym_max(*a: IntLikeType | FloatLikeType*, *b: IntLikeType | FloatLikeType*) → FloatLikeType
 
 SymInt-aware utility for max which avoids branching on a < b.
 Unlike builtins.max(), this only works for int/float, and it always

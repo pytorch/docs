@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git053a82e )">
+<meta name="llm:version" content="main (2.14.0a0+gitde1ad93 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git053a82e )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitde1ad93 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4301,7 +4301,7 @@ document.write(`
 <h1>torch.set_default_device<a class="headerlink" href="#torch-set-default-device" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.set_default_device">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">set_default_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.set_default_device" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">set_default_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/__init__.py#L1568"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.set_default_device" title="Link to this definition">#</a></dt>
 <dd><p>Sets the default <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> to be allocated on <code class="docutils literal notranslate"><span class="pre">device</span></code>.  This
 does not affect factory function calls which are called with an explicit
 <code class="docutils literal notranslate"><span class="pre">device</span></code> argument.  Factory calls will be performed as if they
@@ -4326,7 +4326,9 @@ is causing problems for you, please comment on
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><em>device</em></a><em> or </em><em>string</em>) – the device to set as default</p>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a>, str, int, or None) – the device to set as
+default, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to clear the override. An integer is
+interpreted as an index for the current accelerator.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4702,7 +4704,7 @@ is causing problems for you, please comment on
        "headline": "torch.set_default_device",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.set_default_device.html",
-       "articleBody": "torch.set_default_device# torch.set_default_device(device)[source]# Sets the default torch.Tensor to be allocated on device. This does not affect factory function calls which are called with an explicit device argument. Factory calls will be performed as if they were passed device as an argument. To only temporarily change the default device instead of setting it globally, use with torch.device(device): instead. The default device is initially cpu. If you set the default tensor device to another device (e.g., cuda) without a device index, tensors will be allocated on whatever the current device for the device type, even after torch.cuda.set_device() is called. Warning This function imposes a slight performance cost on every Python call to the torch API (not just factory functions). If this is causing problems for you, please comment on pytorch/pytorch#92701 Note This doesn\u2019t affect functions that create tensors that share the same memory as the input, like: torch.from_numpy() and torch.frombuffer() Parameters: device (device or string) \u2013 the device to set as default Example: \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cpu\u0027) \u003e\u003e\u003e torch.set_default_device(\u0027cuda\u0027) # current device is 0 \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.set_default_device(\u0027cuda\u0027) \u003e\u003e\u003e torch.cuda.set_device(\u0027cuda:1\u0027) # current device is 1 \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=1) \u003e\u003e\u003e torch.set_default_device(\u0027cuda:1\u0027) \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=1)",
+       "articleBody": "torch.set_default_device# torch.set_default_device(device)[source]# Sets the default torch.Tensor to be allocated on device. This does not affect factory function calls which are called with an explicit device argument. Factory calls will be performed as if they were passed device as an argument. To only temporarily change the default device instead of setting it globally, use with torch.device(device): instead. The default device is initially cpu. If you set the default tensor device to another device (e.g., cuda) without a device index, tensors will be allocated on whatever the current device for the device type, even after torch.cuda.set_device() is called. Warning This function imposes a slight performance cost on every Python call to the torch API (not just factory functions). If this is causing problems for you, please comment on pytorch/pytorch#92701 Note This doesn\u2019t affect functions that create tensors that share the same memory as the input, like: torch.from_numpy() and torch.frombuffer() Parameters: device (torch.device, str, int, or None) \u2013 the device to set as default, or None to clear the override. An integer is interpreted as an index for the current accelerator. Example: \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cpu\u0027) \u003e\u003e\u003e torch.set_default_device(\u0027cuda\u0027) # current device is 0 \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.set_default_device(\u0027cuda\u0027) \u003e\u003e\u003e torch.cuda.set_device(\u0027cuda:1\u0027) # current device is 1 \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=1) \u003e\u003e\u003e torch.set_default_device(\u0027cuda:1\u0027) \u003e\u003e\u003e torch.get_default_device() device(type=\u0027cuda\u0027, index=1)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

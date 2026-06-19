@@ -1,6 +1,6 @@
 # torch.xpu.utilization
 
-torch.xpu.utilization(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/xpu/__init__.py#L1129)
+torch.xpu.utilization(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/xpu/__init__.py#L1124)
 
 Return the GPU engine utilization as a percentage.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.debug.set_trace
 
-torch.fx.experimental.debug.set_trace(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/fx/experimental/debug.py#L9)
+torch.fx.experimental.debug.set_trace(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/fx/experimental/debug.py#L9)
 
 Sets a breakpoint in gm's generated python code. It drops into pdb when
 gm gets run.

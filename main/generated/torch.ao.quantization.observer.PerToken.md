@@ -1,6 +1,6 @@
 # PerToken
 
-*class*torch.ao.quantization.observer.PerToken[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/ao/quantization/observer.py#L1774)
+*class*torch.ao.quantization.observer.PerToken[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/observer.py#L1774)
 
 Represents per-token granularity in quantization.
 

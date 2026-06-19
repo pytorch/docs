@@ -1,6 +1,6 @@
 # torch.set_default_tensor_type
 
-torch.set_default_tensor_type(*t*, */*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/__init__.py#L1304)
+torch.set_default_tensor_type(*t*, */*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/__init__.py#L1632)
 
 Warning
 

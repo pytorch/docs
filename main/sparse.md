@@ -305,7 +305,7 @@ You can accelerate the linear layers in your model if the weights are already se
 >>> linear.weight = nn.Parameter(to_sparse_semi_structured(linear.weight.masked_fill(~mask, 0)))
 ```
 
-torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/053a82e9f95b79ebe852f2372f1452e4c8537230/torch/sparse/semi_structured.py#L309)
+torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/sparse/semi_structured.py#L309)
 
 This function converts a dense tensor into a sparse semi-structured tensor.
 It will return a SparseSemiStructuredTensor, a subclass of torch.Tensor.
