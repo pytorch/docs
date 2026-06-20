@@ -465,7 +465,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [python.closure](python.closure.html)
+Tags: [python.closure](python.closure.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -682,7 +682,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
+Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
 
 Support Level: SUPPORTED
 
@@ -743,7 +743,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
 
 Note
 
-Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
+Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
 
 Support Level: SUPPORTED
 
@@ -2166,7 +2166,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.builtin](python.builtin.html)
+Tags: [python.builtin](python.builtin.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: NOT_SUPPORTED_YET
 

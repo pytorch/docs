@@ -1,6 +1,6 @@
 # get_fused_module_classes
 
-*class*torch.ao.quantization.backend_config.utils.get_fused_module_classes(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/backend_config/utils.py#L48)
+*class*torch.ao.quantization.backend_config.utils.get_fused_module_classes(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/backend_config/utils.py#L48)
 
 Return type:
 

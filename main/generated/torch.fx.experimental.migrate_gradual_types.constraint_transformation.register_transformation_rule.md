@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L93)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L93)
 
 Return type:
 

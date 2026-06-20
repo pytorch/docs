@@ -58,11 +58,11 @@ Utils shared by different modes of quantization (eager/graph)
 
 This module contains FX graph mode quantization APIs (prototype).
 
-torch.ao.quantization.quantize_fx.attach_preserved_attrs_to_model(*model*, *preserved_attrs*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/quantize_fx.py#L25)
+torch.ao.quantization.quantize_fx.attach_preserved_attrs_to_model(*model*, *preserved_attrs*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/quantize_fx.py#L25)
 
 Store preserved attributes to the model.meta so that it can be preserved during deepcopy
 
-torch.ao.quantization.quantize_fx.convert_to_reference_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/quantize_fx.py#L636)
+torch.ao.quantization.quantize_fx.convert_to_reference_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/quantize_fx.py#L636)
 
 Convert a calibrated or trained model to a reference quantized model,
 see [pytorch/rfcs](https://github.com/pytorch/rfcs/blob/master/RFC-0019-Extending-PyTorch-Quantization-to-Custom-Backends.md) for more details,
@@ -132,21 +132,21 @@ Quantization to work with this as well.
 | [`DTypeWithConstraints`](generated/torch.ao.quantization.backend_config.DTypeWithConstraints.html#torch.ao.quantization.backend_config.DTypeWithConstraints) | Config for specifying additional constraints for a given dtype, such as quantization value ranges, scale value ranges, and fixed quantization params, to be used in [`DTypeConfig`](generated/torch.ao.quantization.backend_config.DTypeConfig.html#torch.ao.quantization.backend_config.DTypeConfig). |
 | [`ObservationType`](generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType) | An enum that represents different ways of how an operator/operator pattern should be observed |
 
-torch.ao.quantization.backend_config.executorch.get_executorch_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/backend_config/executorch.py#L485)
+torch.ao.quantization.backend_config.executorch.get_executorch_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/backend_config/executorch.py#L485)
 
 Return the BackendConfig for backends PyTorch lowers to through the Executorch stack.
 
 Return type:
 [*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
 
-torch.ao.quantization.backend_config.fbgemm.get_fbgemm_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/backend_config/fbgemm.py#L85)
+torch.ao.quantization.backend_config.fbgemm.get_fbgemm_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/backend_config/fbgemm.py#L85)
 
 Return the BackendConfig for PyTorch's native FBGEMM backend.
 
 Return type:
 [*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
 
-torch.ao.quantization.backend_config.onednn.get_onednn_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/backend_config/onednn.py#L613)
+torch.ao.quantization.backend_config.onednn.get_onednn_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/backend_config/onednn.py#L613)
 
 Return the BackendConfig for PyTorch's native ONEDNN backend.
 
@@ -330,7 +330,7 @@ during QAT.
 This module defines `QConfig` objects which are used
 to configure quantization settings for individual ops.
 
-torch.ao.quantization.qconfig.get_default_qat_qconfig(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/qconfig.py#L374)
+torch.ao.quantization.qconfig.get_default_qat_qconfig(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/qconfig.py#L374)
 
 Returns the default QAT qconfig for the specified backend.
 
@@ -344,7 +344,7 @@ Returns:
 
 qconfig
 
-torch.ao.quantization.qconfig.get_default_qconfig(*backend='x86'*, *version=0*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/qconfig.py#L259)
+torch.ao.quantization.qconfig.get_default_qconfig(*backend='x86'*, *version=0*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/qconfig.py#L259)
 
 Returns the default PTQ qconfig for the specified backend.
 
@@ -357,7 +357,7 @@ Returns:
 
 qconfig
 
-torch.ao.quantization.qconfig.qconfig_equals(*q1*, *q2*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/qconfig.py#L663)
+torch.ao.quantization.qconfig.qconfig_equals(*q1*, *q2*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/qconfig.py#L663)
 
 Returns True if q1 equals q2, and False otherwise.
 
@@ -653,7 +653,7 @@ If you are adding a new entry/functionality, please, add it to the
 appropriate file under the torch/ao/nn/quantized/dynamic,
 while adding an import statement here.
 
-torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/quantization/__init__.py#L14)
+torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/quantization/__init__.py#L14)
 
 Default evaluation function takes a torch.utils.data.Dataset or a list of
 input Tensors and run the model on the dataset

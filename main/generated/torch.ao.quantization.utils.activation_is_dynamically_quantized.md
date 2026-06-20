@@ -1,6 +1,6 @@
 # activation_is_dynamically_quantized
 
-*class*torch.ao.quantization.utils.activation_is_dynamically_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/de1ad93d5279bade131efce3de7f798aef4faa3d/torch/ao/quantization/utils.py#L298)
+*class*torch.ao.quantization.utils.activation_is_dynamically_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/utils.py#L298)
 
 Given a qconfig, decide if the activation needs to be
 dynamically quantized or not, this includes dynamically quantizing to
