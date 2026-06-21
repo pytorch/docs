@@ -1,6 +1,6 @@
 # torch.nn.attention.register_flash_attention_impl
 
-torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/attention/_registry.py#L28)
+torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/attention/_registry.py#L28)
 
 Register the callable that activates a flash attention impl.
 

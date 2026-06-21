@@ -1,6 +1,6 @@
 # torch.cuda.comm.scatter
 
-torch.cuda.comm.scatter(*tensor*, *devices=None*, *chunk_sizes=None*, *dim=0*, *streams=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/parallel/comm.py#L171)
+torch.cuda.comm.scatter(*tensor*, *devices=None*, *chunk_sizes=None*, *dim=0*, *streams=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/parallel/comm.py#L171)
 
 Scatters tensor across multiple GPUs.
 

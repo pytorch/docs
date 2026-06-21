@@ -1,6 +1,6 @@
 # torch.Tensor.module_load
 
-Tensor.module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/_tensor.py#L849)
+Tensor.module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/_tensor.py#L849)
 
 Defines how to transform `other` when loading it into `self` in [`load_state_dict()`](torch.nn.Module.html#torch.nn.Module.load_state_dict).
 

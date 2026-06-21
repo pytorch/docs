@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git27b52de )">
+<meta name="llm:version" content="main (2.14.0a0+git9f02f17 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git27b52de )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9f02f17 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3567,12 +3567,12 @@ document.write(`
 <h1>ConvAdd2d<a class="headerlink" href="#convadd2d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.modules.fused.ConvAdd2d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.modules.fused.</span></span><span class="sig-name descname"><span class="pre">ConvAdd2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/nn/intrinsic/modules/fused.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.modules.fused.</span></span><span class="sig-name descname"><span class="pre">ConvAdd2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/ao/nn/intrinsic/modules/fused.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d" title="Link to this definition">#</a></dt>
 <dd><p>This is a sequential container which calls the Conv2d modules with extra Add.
 During quantization this will be replaced with the corresponding fused module.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/nn/intrinsic/modules/fused.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/ao/nn/intrinsic/modules/fused.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.modules.fused.ConvAdd2d.forward" title="Link to this definition">#</a></dt>
 <dd><p>Applies convolution to x1 and adds the result to x2.</p>
 </dd></dl>
 

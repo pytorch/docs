@@ -1,6 +1,6 @@
 # torch.linalg.householder_product
 
-torch.linalg.householder_product(*A*, *tau*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/linalg/__init__.py#L836)
+torch.linalg.householder_product(*A*, *tau*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/linalg/__init__.py#L836)
 
 Computes the first n columns of a product of Householder matrices.
 

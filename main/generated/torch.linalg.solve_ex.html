@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git27b52de )">
+<meta name="llm:version" content="main (2.14.0a0+git9f02f17 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git27b52de )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9f02f17 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3590,7 +3590,7 @@ document.write(`
 <h1>torch.linalg.solve_ex<a class="headerlink" href="#torch-linalg-solve-ex" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.linalg.solve_ex">
-<span class="sig-prename descclassname"><span class="pre">torch.linalg.</span></span><span class="sig-name descname"><span class="pre">solve_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/linalg/__init__.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.linalg.solve_ex" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.linalg.</span></span><span class="sig-name descname"><span class="pre">solve_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/linalg/__init__.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.linalg.solve_ex" title="Link to this definition">#</a></dt>
 <dd><p>A version of <a class="reference internal" href="torch.linalg.solve.html#torch.linalg.solve" title="torch.linalg.solve"><code class="xref py py-func docutils literal notranslate"><span class="pre">solve()</span></code></a> that does not perform error checks unless <code class="xref py py-attr docutils literal notranslate"><span class="pre">check_errors</span></code><cite>= True</cite>.
 It also returns the <code class="xref py py-attr docutils literal notranslate"><span class="pre">info</span></code> tensor returned by <a class="reference external" href="https://www.netlib.org/lapack/explore-html-3.6.1/dd/d9a/group__double_g_ecomputational_ga0019443faea08275ca60a734d0593e60.html">LAPACK’s getrf</a>.</p>
 <div class="admonition note">

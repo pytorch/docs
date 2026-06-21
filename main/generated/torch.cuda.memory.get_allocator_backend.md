@@ -1,6 +1,6 @@
 # torch.cuda.memory.get_allocator_backend
 
-torch.cuda.memory.get_allocator_backend()[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/cuda/memory.py#L1200)
+torch.cuda.memory.get_allocator_backend()[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/cuda/memory.py#L1200)
 
 Return a string describing the active allocator backend as set by
 `PYTORCH_ALLOC_CONF`. Currently available backends are

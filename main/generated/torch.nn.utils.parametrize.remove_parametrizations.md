@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.remove_parametrizations
 
-torch.nn.utils.parametrize.remove_parametrizations(*module*, *tensor_name*, *leave_parametrized=True*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/utils/parametrize.py#L696)
+torch.nn.utils.parametrize.remove_parametrizations(*module*, *tensor_name*, *leave_parametrized=True*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/utils/parametrize.py#L696)
 
 Remove the parametrizations on a tensor in a module.
 

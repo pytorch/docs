@@ -1,6 +1,6 @@
 # torch.nn.functional.pdist
 
-torch.nn.functional.pdist(*input*, *p=2*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/functional.py#L5842)
+torch.nn.functional.pdist(*input*, *p=2*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/functional.py#L5842)
 
 Computes the p-norm distance between every pair of row vectors in the input.
 This is identical to the upper triangular portion, excluding the diagonal, of

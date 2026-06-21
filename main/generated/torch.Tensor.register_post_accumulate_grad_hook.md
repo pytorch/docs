@@ -1,6 +1,6 @@
 # torch.Tensor.register_post_accumulate_grad_hook
 
-Tensor.register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/_tensor.py#L705)
+Tensor.register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/_tensor.py#L705)
 
 Registers a backward hook that runs after grad accumulation.
 

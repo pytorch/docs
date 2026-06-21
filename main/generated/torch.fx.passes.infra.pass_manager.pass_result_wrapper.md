@@ -1,6 +1,6 @@
 # torch.fx.passes.infra.pass_manager.pass_result_wrapper
 
-torch.fx.passes.infra.pass_manager.pass_result_wrapper(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/fx/passes/infra/pass_manager.py#L20)
+torch.fx.passes.infra.pass_manager.pass_result_wrapper(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/passes/infra/pass_manager.py#L20)
 
 Wrapper for passes which currently do not return a PassResult.
 This wrapper makes them return a PassResult containing the modified object

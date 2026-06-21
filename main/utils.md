@@ -13,7 +13,7 @@
 
 # torch.utils.hooks
 
-torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/utils/hooks.py#L72)
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/utils/hooks.py#L72)
 
 Mark a function as an unserializable hook with this decorator.
 
@@ -22,7 +22,7 @@ to serialize a tensor that has a hook.
 
 # torch.utils.throughput_benchmark
 
-torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/utils/throughput_benchmark.py#L6)
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/utils/throughput_benchmark.py#L6)
 
 Define time formatting.
 

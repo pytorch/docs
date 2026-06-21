@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git27b52de )">
+<meta name="llm:version" content="main (2.14.0a0+git9f02f17 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git27b52de )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9f02f17 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3878,7 +3878,7 @@ document.write(`
 <h1>torch.fx.experimental.unification.unification_tools.keymap<a class="headerlink" href="#torch-fx-experimental-unification-unification-tools-keymap" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.unification.unification_tools.keymap">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.unification_tools.</span></span><span class="sig-name descname"><span class="pre">keymap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/fx/experimental/unification/unification_tools.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.unification_tools.keymap" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.unification_tools.</span></span><span class="sig-name descname"><span class="pre">keymap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/experimental/unification/unification_tools.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.unification_tools.keymap" title="Link to this definition">#</a></dt>
 <dd><p>Apply function to keys of dictionary</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bills</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Alice&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="s2">&quot;Bob&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">35</span><span class="p">]}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">keymap</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">bills</span><span class="p">)</span>  

@@ -1,6 +1,6 @@
 # torch.nn.utils.convert_conv3d_weight_memory_format
 
-torch.nn.utils.convert_conv3d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/utils/memory_format.py#L91)
+torch.nn.utils.convert_conv3d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/utils/memory_format.py#L91)
 
 Convert `memory_format` of `nn.Conv3d.weight` to `memory_format`
 The conversion recursively applies to nested `nn.Module`, including `module`.

@@ -1,6 +1,6 @@
 # Threshold
 
-*class*torch.nn.Threshold(*threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/modules/activation.py#L47)
+*class*torch.nn.Threshold(*threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L47)
 
 Thresholds each element of the input Tensor.
 
@@ -34,7 +34,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/modules/activation.py#L96)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L96)
 
 Return the extra representation of the module.
 
@@ -42,7 +42,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/nn/modules/activation.py#L90)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L90)
 
 Runs the forward pass.
 

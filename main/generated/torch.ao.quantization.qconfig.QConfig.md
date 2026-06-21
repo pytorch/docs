@@ -1,6 +1,6 @@
 # QConfig
 
-*class*torch.ao.quantization.qconfig.QConfig(*activation*, *weight*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/ao/quantization/qconfig.py#L86)
+*class*torch.ao.quantization.qconfig.QConfig(*activation*, *weight*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/ao/quantization/qconfig.py#L86)
 
 Describes how to quantize a layer or a part of the network by providing
 settings (observer classes) for activations and weights respectively.

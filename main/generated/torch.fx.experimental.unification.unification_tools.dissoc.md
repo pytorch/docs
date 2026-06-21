@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.dissoc
 
-torch.fx.experimental.unification.unification_tools.dissoc(*d*, **keys*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/27b52de22e4e5fa572c07a4065423083a41b8756/torch/fx/experimental/unification/unification_tools.py#L243)
+torch.fx.experimental.unification.unification_tools.dissoc(*d*, **keys*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/experimental/unification/unification_tools.py#L243)
 
 Return a new dict with the given key(s) removed.
 
