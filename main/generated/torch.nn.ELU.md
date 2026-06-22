@@ -1,6 +1,6 @@
 # ELU
 
-*class*torch.nn.ELU(*alpha=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L575)
+*class*torch.nn.ELU(*alpha=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/activation.py#L575)
 
 Applies the Exponential Linear Unit (ELU) function, element-wise.
 
@@ -35,7 +35,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L621)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/activation.py#L621)
 
 Return the extra representation of the module.
 
@@ -43,7 +43,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L615)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/activation.py#L615)
 
 Runs the forward pass.
 

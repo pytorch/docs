@@ -1,6 +1,6 @@
 # Softmax2d
 
-*class*torch.nn.modules.activation.Softmax2d(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L1832)
+*class*torch.nn.modules.activation.Softmax2d(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/activation.py#L1832)
 
 Applies SoftMax over features to each spatial location.
 
@@ -30,7 +30,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/activation.py#L1854)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/activation.py#L1854)
 
 Runs the forward pass.
 

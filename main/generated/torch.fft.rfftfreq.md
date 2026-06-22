@@ -1,6 +1,6 @@
 # torch.fft.rfftfreq
 
-torch.fft.rfftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fft/__init__.py#L1280)
+torch.fft.rfftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/fft/__init__.py#L1280)
 
 Computes the sample frequencies for [`rfft()`](torch.fft.rfft.html#torch.fft.rfft) with a signal of size `n`.
 

@@ -1,6 +1,6 @@
 # Dropout3d
 
-*class*torch.nn.Dropout3d(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/dropout.py#L179)
+*class*torch.nn.Dropout3d(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/dropout.py#L179)
 
 Randomly zero out entire channels.
 
@@ -42,7 +42,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/dropout.py#L220)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/dropout.py#L220)
 
 Runs the forward pass.
 

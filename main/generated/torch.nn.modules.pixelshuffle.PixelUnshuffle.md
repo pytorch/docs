@@ -1,6 +1,6 @@
 # PixelUnshuffle
 
-*class*torch.nn.modules.pixelshuffle.PixelUnshuffle(*downscale_factor*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/pixelshuffle.py#L71)
+*class*torch.nn.modules.pixelshuffle.PixelUnshuffle(*downscale_factor*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/pixelshuffle.py#L71)
 
 Reverse the PixelShuffle operation.
 
@@ -41,7 +41,7 @@ Examples:
 torch.Size([1, 9, 4, 4])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/pixelshuffle.py#L123)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/pixelshuffle.py#L123)
 
 Return the extra representation of the module.
 
@@ -49,7 +49,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/pixelshuffle.py#L117)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/pixelshuffle.py#L117)
 
 Runs the forward pass.
 

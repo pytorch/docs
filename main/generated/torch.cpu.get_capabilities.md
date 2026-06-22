@@ -1,6 +1,6 @@
 # torch.cpu.get_capabilities
 
-torch.cpu.get_capabilities()[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/cpu/__init__.py#L35)
+torch.cpu.get_capabilities()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/cpu/__init__.py#L35)
 
 Returns an immutable mapping of CPU capabilities detected at runtime.
 

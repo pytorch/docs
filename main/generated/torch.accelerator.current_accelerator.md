@@ -1,6 +1,6 @@
 # torch.accelerator.current_accelerator
 
-torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/accelerator/__init__.py#L103)
+torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/accelerator/__init__.py#L103)
 
 Return the device of the accelerator available at compilation time.
 If no accelerator were available at compilation time, returns None.

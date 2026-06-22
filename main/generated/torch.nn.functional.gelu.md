@@ -1,6 +1,6 @@
 # torch.nn.functional.gelu
 
-torch.nn.functional.gelu(*input*, *approximate='none'*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/functional.py#L2054)
+torch.nn.functional.gelu(*input*, *approximate='none'*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/functional.py#L2054)
 
 When the approximate argument is 'none', it applies element-wise the function
 GELU(x)=x∗Φ(x)\text{GELU}(x) = x * \Phi(x)GELU(x)=x∗Φ(x)

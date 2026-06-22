@@ -1,6 +1,6 @@
 # torch.linalg.lu_factor
 
-torch.linalg.lu_factor(*A*, ***, *bool pivot=True*, *out=None) -> (Tensor*, *Tensor*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/linalg/__init__.py#L2403)
+torch.linalg.lu_factor(*A*, ***, *bool pivot=True*, *out=None) -> (Tensor*, *Tensor*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/linalg/__init__.py#L2403)
 
 Computes a compact representation of the LU factorization with partial pivoting of a matrix.
 

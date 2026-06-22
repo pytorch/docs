@@ -1,6 +1,6 @@
 # torch.linalg.lstsq
 
-torch.linalg.lstsq(*A*, *B*, *rcond=None*, ***, *driver=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/linalg/__init__.py#L1078)
+torch.linalg.lstsq(*A*, *B*, *rcond=None*, ***, *driver=None*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/linalg/__init__.py#L1078)
 
 Computes a solution to the least squares problem of a system of linear equations.
 

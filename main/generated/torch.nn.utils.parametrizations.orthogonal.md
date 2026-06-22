@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrizations.orthogonal
 
-torch.nn.utils.parametrizations.orthogonal(*module*, *name='weight'*, *orthogonal_map=None*, ***, *use_trivialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/utils/parametrizations.py#L193)
+torch.nn.utils.parametrizations.orthogonal(*module*, *name='weight'*, *orthogonal_map=None*, ***, *use_trivialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/utils/parametrizations.py#L193)
 
 Apply an orthogonal or unitary parametrization to a matrix or a batch of matrices.
 

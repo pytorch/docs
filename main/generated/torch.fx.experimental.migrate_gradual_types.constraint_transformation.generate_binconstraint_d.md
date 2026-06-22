@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_d
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_d(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L402)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_d(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L402)
 
 Transform binary constraints for dimensions
 

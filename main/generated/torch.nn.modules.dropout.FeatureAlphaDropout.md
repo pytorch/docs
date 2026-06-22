@@ -1,6 +1,6 @@
 # FeatureAlphaDropout
 
-*class*torch.nn.modules.dropout.FeatureAlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/dropout.py#L272)
+*class*torch.nn.modules.dropout.FeatureAlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/dropout.py#L272)
 
 Randomly masks out entire channels.
 
@@ -47,7 +47,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/nn/modules/dropout.py#L319)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/nn/modules/dropout.py#L319)
 
 Runs the forward pass.
 

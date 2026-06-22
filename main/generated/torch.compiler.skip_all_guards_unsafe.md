@@ -1,6 +1,6 @@
 # torch.compiler.skip_all_guards_unsafe
 
-torch.compiler.skip_all_guards_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/compiler/__init__.py#L796)
+torch.compiler.skip_all_guards_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/compiler/__init__.py#L796)
 
 A function for skipping all guards on a compiled function.
 

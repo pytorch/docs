@@ -1,6 +1,6 @@
 # LSTMCell
 
-*class*torch.ao.nn.quantizable.modules.rnn.LSTMCell(*input_dim*, *hidden_dim*, *bias=True*, *device=None*, *dtype=None*, ***, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/ao/nn/quantizable/modules/rnn.py#L18)
+*class*torch.ao.nn.quantizable.modules.rnn.LSTMCell(*input_dim*, *hidden_dim*, *bias=True*, *device=None*, *dtype=None*, ***, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/quantizable/modules/rnn.py#L18)
 
 A quantizable long short-term memory (LSTM) cell.
 
@@ -25,7 +25,7 @@ Examples:
 ... output.append(hx)
 ```
 
-*classmethod*from_params(*wi*, *wh*, *bi=None*, *bh=None*, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/ao/nn/quantizable/modules/rnn.py#L166)
+*classmethod*from_params(*wi*, *wh*, *bi=None*, *bh=None*, *split_gates=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/quantizable/modules/rnn.py#L166)
 
 Uses the weights and biases to create a new LSTM cell.
 

@@ -1,6 +1,6 @@
 # SymIntEqByExpr
 
-*class*torch.fx.experimental.symbolic_shapes.SymIntEqByExpr(*val*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/experimental/symbolic_shapes.py#L272)
+*class*torch.fx.experimental.symbolic_shapes.SymIntEqByExpr(*val*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/fx/experimental/symbolic_shapes.py#L272)
 
 This is a wrapper around SymInt which has alternative semantics for
 equality and pickling. Specifically, instead of erroring or guarding, we

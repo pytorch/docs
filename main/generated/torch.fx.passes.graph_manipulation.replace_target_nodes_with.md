@@ -1,6 +1,6 @@
 # torch.fx.passes.graph_manipulation.replace_target_nodes_with
 
-torch.fx.passes.graph_manipulation.replace_target_nodes_with(*fx_module*, *old_op*, *old_target*, *new_op*, *new_target*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/fx/passes/graph_manipulation.py#L20)
+torch.fx.passes.graph_manipulation.replace_target_nodes_with(*fx_module*, *old_op*, *old_target*, *new_op*, *new_target*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/fx/passes/graph_manipulation.py#L20)
 
 Modifies all nodes in fx_module.graph.nodes which match the specified op code
 and target, and updates them to match the new op code and target.

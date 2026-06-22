@@ -1,6 +1,6 @@
 # torch.cuda.set_stream
 
-torch.cuda.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/cuda/__init__.py#L838)
+torch.cuda.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/cuda/__init__.py#L838)
 
 Set the current stream. This is a wrapper API to set the stream.
 

@@ -1,6 +1,6 @@
 # torch.compiler.load_compiled_function
 
-torch.compiler.load_compiled_function(*file*, ***, *f_globals=None*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f02f17d134eee814f47e416bd6bf8036d7170ff/torch/compiler/__init__.py#L882)
+torch.compiler.load_compiled_function(*file*, ***, *f_globals=None*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/compiler/__init__.py#L882)
 
 Load an aot-compiled function from a file.
 
