@@ -1,6 +1,6 @@
 # PropagateUnbackedSymInts
 
-*class*torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L8876)
+*class*torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L8791)
 
 boxed_run(*args_list*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/interpreter.py#L239)
 
@@ -250,7 +250,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L8877)
+run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L8792)
 
 Run an FX node, propagating unbacked Symbol bindings to the new fake tensor
 
