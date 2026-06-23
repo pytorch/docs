@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git2c911a1 )">
+<meta name="llm:version" content="main (2.14.0a0+gitca05719 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git2c911a1 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitca05719 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3406,6 +3406,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.change_current_allocator.html">torch.xpu.memory.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.list_gpu_processes.html">torch.xpu.memory.list_gpu_processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_reserved.html">torch.xpu.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.mem_get_info.html">torch.xpu.memory.mem_get_info</a></li>
@@ -3610,7 +3611,7 @@ document.write(`
 <h1>torch.xpu.power_draw<a class="headerlink" href="#torch-xpu-power-draw" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.xpu.power_draw">
-<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">power_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/xpu/__init__.py#L1011"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.power_draw" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">power_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/xpu/__init__.py#L1021"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.power_draw" title="Link to this definition">#</a></dt>
 <dd><p>Return the GPU card power draw in watts.</p>
 <p>The value is computed by dividing the energy delta by the time delta between
 two energy-counter reads separated by a 100ms sampling interval.</p>

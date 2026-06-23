@@ -3215,6 +3215,7 @@
 - [torch.xpu.memory.change_current_allocator](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.change_current_allocator.md)
 - [torch.xpu.memory.empty_cache](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.empty_cache.md)
 - [torch.xpu.memory.get_per_process_memory_fraction](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.get_per_process_memory_fraction.md)
+- [torch.xpu.memory.list_gpu_processes](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.list_gpu_processes.md)
 - [torch.xpu.memory.max_memory_allocated](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.max_memory_allocated.md)
 - [torch.xpu.memory.max_memory_reserved](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.max_memory_reserved.md)
 - [torch.xpu.memory.mem_get_info](https://docs.pytorch.org/docs/stable/generated/torch.xpu.memory.mem_get_info.md)

@@ -1,6 +1,6 @@
 # ConvReLU3d
 
-*class*torch.ao.nn.intrinsic.quantized.ConvReLU3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L201)
+*class*torch.ao.nn.intrinsic.quantized.ConvReLU3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L201)
 
 A ConvReLU3d module is a fused module of Conv3d and ReLU
 
@@ -8,14 +8,14 @@ We adopt the same interface as [`torch.ao.nn.quantized.Conv3d`](torch.ao.nn.quan
 
 Attributes: Same as torch.ao.nn.quantized.Conv3d
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L243)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L243)
 
 Applies fused quantized Conv3d and ReLU.
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L261)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L261)
 
 Creates a quantized module from a float module.
 
-*classmethod*from_reference(*ref_qconv*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L282)
+*classmethod*from_reference(*ref_qconv*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/intrinsic/quantized/modules/conv_relu.py#L282)
 
 Creates a quantized module from a reference module.

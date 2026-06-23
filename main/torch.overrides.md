@@ -6,7 +6,7 @@ protocol. See [Extending torch Python API](notes/extending.html#extending-torch-
 
 ## Functions
 
-torch.overrides.get_ignored_functions()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L103)
+torch.overrides.get_ignored_functions()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L103)
 
 Return public functions that cannot be overridden by `__torch_function__`.
 
@@ -29,7 +29,7 @@ True
 False
 ```
 
-torch.overrides.get_overridable_functions()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1943)
+torch.overrides.get_overridable_functions()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1943)
 
 List functions that are overridable via __torch_function__
 
@@ -42,7 +42,7 @@ Return type:
 
 Dict[Any, List[Callable]]
 
-torch.overrides.resolve_name(*f*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1956)
+torch.overrides.resolve_name(*f*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1956)
 
 Get a human readable string name for a function passed to
 __torch_function__
@@ -60,7 +60,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch.overrides.get_testing_overrides()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L422)
+torch.overrides.get_testing_overrides()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L422)
 
 Return a dict containing dummy overrides for all overridable functions
 
@@ -84,7 +84,7 @@ Examples
 <Signature (input, other, out=None)>
 ```
 
-torch.overrides.handle_torch_function(*public_api*, *relevant_args*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1720)
+torch.overrides.handle_torch_function(*public_api*, *relevant_args*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1720)
 
 Implement a function with checks for `__torch_function__` overrides.
 
@@ -120,7 +120,7 @@ Example
 ... return a + 0
 ```
 
-torch.overrides.has_torch_function()[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1809)
+torch.overrides.has_torch_function()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1809)
 
 Check for __torch_function__ implementations in the elements of an iterable
 or if a __torch_function__ mode is enabled. Considers exact `Tensor` s
@@ -145,7 +145,7 @@ See also
 
 Checks if something is a Tensor-like, including an exact `Tensor`.
 
-torch.overrides.is_tensor_like(*inp*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L2011)
+torch.overrides.is_tensor_like(*inp*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L2011)
 
 Returns `True` if the passed-in input is a Tensor-like.
 
@@ -185,7 +185,7 @@ But, they can be made Tensor-like by implementing __torch_function__.
 True
 ```
 
-torch.overrides.is_tensor_method_or_property(*func*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1985)
+torch.overrides.is_tensor_method_or_property(*func*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1985)
 
 Returns True if the function passed in is a handler for a
 method or property belonging to `torch.Tensor`, as passed
@@ -214,7 +214,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.overrides.wrap_torch_function(*dispatcher*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L1599)
+torch.overrides.wrap_torch_function(*dispatcher*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L1599)
 
 Wraps a given function with `__torch_function__` -related functionality.
 
@@ -243,7 +243,7 @@ Examples
 ... return a + 0
 ```
 
-torch.overrides.redispatch_function(*func*, *types*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2c911a1e1af237cf87c0e6e42a0fc9589043282b/torch/overrides.py#L2166)
+torch.overrides.redispatch_function(*func*, *types*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/overrides.py#L2166)
 
 Skip one level of `__torch_function__` dispatch and call the function.
 
