@@ -69,7 +69,7 @@ sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.map.map(*f*, *xs*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/_higher_order_ops/map.py#L106)
+torch._higher_order_ops.map.map(*f*, *xs*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/_higher_order_ops/map.py#L106)
 
 Performs a map of f with xs. Intuitively, you can think of the semantic being:
 

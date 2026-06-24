@@ -1,6 +1,6 @@
 # torch.autograd.backward
 
-torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/autograd/__init__.py#L255)
+torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/autograd/__init__.py#L255)
 
 Compute the sum of gradients of given tensors with respect to graph leaves.
 

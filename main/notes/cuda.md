@@ -1396,7 +1396,6 @@ Violating any of these will likely cause a runtime error:
 [`make_graphed_callables()`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) set a side stream for you.)
 - Ops that synchronize the CPU with the GPU (e.g., `.item()` calls) are prohibited.
 - CUDA RNG operations are permitted, and when using multiple [`torch.Generator`](../generated/torch.Generator.html#torch.Generator) instances within a graph,
-they must be registered using `CUDAGraph.register_generator_state` before graph capture.
 Avoid using `Generator.get_state` and `Generator.set_state` during capture;
 instead, utilize [`Generator.graphsafe_set_state`](../generated/torch.Generator.html#torch.Generator.graphsafe_set_state) and [`Generator.graphsafe_get_state`](../generated/torch.Generator.html#torch.Generator.graphsafe_get_state)
 for managing generator states safely within the graph context. This ensures proper RNG operation and generator management within CUDA graphs.

@@ -1,6 +1,6 @@
 # adaptive_avg_pool3d
 
-*class*torch.ao.nn.quantized.functional.adaptive_avg_pool3d(*input*, *output_size*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/quantized/functional.py#L153)
+*class*torch.ao.nn.quantized.functional.adaptive_avg_pool3d(*input*, *output_size*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/ao/nn/quantized/functional.py#L153)
 
 Applies a 3D adaptive average pooling over a quantized input signal composed
 of several quantized input planes.

@@ -1,6 +1,6 @@
 # HingeEmbeddingLoss
 
-*class*torch.nn.modules.loss.HingeEmbeddingLoss(*margin=1.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/modules/loss.py#L847)
+*class*torch.nn.modules.loss.HingeEmbeddingLoss(*margin=1.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/modules/loss.py#L847)
 
 Measures the loss given an input tensor xxx and a labels tensor yyy
 (containing 1 or -1).
@@ -64,7 +64,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/modules/loss.py#L918)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/modules/loss.py#L918)
 
 Runs the forward pass.
 

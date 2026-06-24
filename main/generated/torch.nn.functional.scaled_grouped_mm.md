@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_grouped_mm
 
-torch.nn.functional.scaled_grouped_mm(*mat_a*, *mat_b*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *bias=None*, *offs=None*, *output_dtype=torch.bfloat16*, *contraction_dim=()*, *use_fast_accum=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/functional.py#L7225)
+torch.nn.functional.scaled_grouped_mm(*mat_a*, *mat_b*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *bias=None*, *offs=None*, *output_dtype=torch.bfloat16*, *contraction_dim=()*, *use_fast_accum=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/functional.py#L7225)
 
 scaled_grouped_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, offs,
 

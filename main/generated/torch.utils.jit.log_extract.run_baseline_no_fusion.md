@@ -1,6 +1,6 @@
 # torch.utils.jit.log_extract.run_baseline_no_fusion
 
-torch.utils.jit.log_extract.run_baseline_no_fusion(*ir*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/utils/jit/log_extract.py#L102)
+torch.utils.jit.log_extract.run_baseline_no_fusion(*ir*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/utils/jit/log_extract.py#L102)
 
 Return type:
 

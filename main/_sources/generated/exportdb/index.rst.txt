@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.dynamic-shape
     torch.cond
+    torch.dynamic-shape
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -235,7 +235,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -268,7 +268,7 @@ Original source code:
     
         This example demonstrates using class method in cond().
     
-        NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+        NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
         """
     
         def __init__(self) -> None:
@@ -317,7 +317,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -342,7 +342,7 @@ Original source code:
     
         This example demonstrates using nested function in cond().
     
-        NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+        NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
         """
     
         def forward(self, x):
@@ -396,7 +396,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -437,7 +437,7 @@ Original source code:
         return cond(x.shape[0] > 5, true_fn, false_fn, [x])
         ```
     
-        NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+        NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
         """
     
         def forward(self, x):
@@ -500,7 +500,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
 
     Support Level: SUPPORTED
 
@@ -575,7 +575,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -598,7 +598,7 @@ Original source code:
         - a list of tensors
         - match arguments of `true_fn` and `false_fn`
     
-        NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+        NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
         """
     
         def forward(self, x, y):
@@ -666,7 +666,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -685,7 +685,7 @@ Original source code:
           - torch.Tensor with a single element
           - boolean expression
     
-        NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+        NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
         """
     
         def forward(self, x):
@@ -1097,7 +1097,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1154,7 +1154,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1414,7 +1414,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1469,7 +1469,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -2332,7 +2332,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 

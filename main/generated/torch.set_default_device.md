@@ -1,6 +1,6 @@
 # torch.set_default_device
 
-torch.set_default_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/__init__.py#L1578)
+torch.set_default_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/__init__.py#L1578)
 
 Sets the default `torch.Tensor` to be allocated on `device`. This
 does not affect factory function calls which are called with an explicit

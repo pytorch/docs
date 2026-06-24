@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.register_parametrization
 
-torch.nn.utils.parametrize.register_parametrization(*module*, *tensor_name*, *parametrization*, ***, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/utils/parametrize.py#L450)
+torch.nn.utils.parametrize.register_parametrization(*module*, *tensor_name*, *parametrization*, ***, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/utils/parametrize.py#L450)
 
 Register a parametrization to a tensor in a module.
 

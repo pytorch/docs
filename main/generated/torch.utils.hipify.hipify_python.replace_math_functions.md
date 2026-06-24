@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.replace_math_functions
 
-torch.utils.hipify.hipify_python.replace_math_functions(*input_string*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/utils/hipify/hipify_python.py#L478)
+torch.utils.hipify.hipify_python.replace_math_functions(*input_string*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/utils/hipify/hipify_python.py#L478)
 
 FIXME: Temporarily replace std:: invocations of math functions
 with non-std:: versions to prevent linker errors NOTE: This

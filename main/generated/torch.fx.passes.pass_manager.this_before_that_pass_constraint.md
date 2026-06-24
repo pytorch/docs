@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.this_before_that_pass_constraint
 
-torch.fx.passes.pass_manager.this_before_that_pass_constraint(*this*, *that*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/fx/passes/pass_manager.py#L143)
+torch.fx.passes.pass_manager.this_before_that_pass_constraint(*this*, *that*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/fx/passes/pass_manager.py#L143)
 
 Defines a partial order ('depends on' function) where this must occur
 before that.

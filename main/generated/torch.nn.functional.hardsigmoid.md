@@ -1,6 +1,6 @@
 # torch.nn.functional.hardsigmoid
 
-torch.nn.functional.hardsigmoid(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/functional.py#L2354)
+torch.nn.functional.hardsigmoid(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/functional.py#L2354)
 
 Apply the Hardsigmoid function element-wise.
 

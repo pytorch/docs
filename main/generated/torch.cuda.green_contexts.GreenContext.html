@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitca05719 )">
+<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitca05719 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3416,6 +3416,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.CUDAGraph.html">CUDAGraph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.empty_cache.html">torch.cuda.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.get_per_process_memory_fraction.html">torch.cuda.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.list_gpu_processes.html">torch.cuda.memory.list_gpu_processes</a></li>
@@ -3659,15 +3661,17 @@ document.write(`
 <h1>GreenContext<a class="headerlink" href="#greencontext" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">GreenContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_concurrency_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA green context.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in beta and may change in future releases.</p>
 </div>
+<dl class="field-list simple">
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.Stream">
-<span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.Stream" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.Stream" title="Link to this definition">#</a></dt>
 <dd><p>Return the CUDA Stream used by the green context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -3678,37 +3682,19 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.create">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_concurrency_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workqueue_concurrency_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.create" title="Link to this definition">#</a></dt>
 <dd><p>Create a CUDA green context.</p>
-<p>At least one of <code class="docutils literal notranslate"><span class="pre">num_sms</span></code> or <code class="docutils literal notranslate"><span class="pre">workqueue_scope</span></code> must be specified.
-Both can be combined to partition SMs and configure workqueues in the
-same green context.</p>
+<p>Kept for compatibility, see <cite>GreenContext</cite> constructor.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>num_sms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of SMs to use in the green
-context. When <code class="docutils literal notranslate"><span class="pre">None</span></code>, SMs are not partitioned.</p></li>
-<li><p><strong>workqueue_scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Workqueue sharing scope. One of
-<code class="docutils literal notranslate"><span class="pre">&quot;device_ctx&quot;</span></code> (shared across all contexts, default driver
-behaviour) or <code class="docutils literal notranslate"><span class="pre">&quot;balanced&quot;</span></code> (non-overlapping workqueues with
-other balanced green contexts). When <code class="docutils literal notranslate"><span class="pre">None</span></code>, no workqueue
-configuration is applied.</p></li>
-<li><p><strong>workqueue_concurrency_limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum number of
-concurrent stream-ordered workloads for the workqueue. Requires
-<code class="docutils literal notranslate"><span class="pre">workqueue_scope</span></code> to be set.</p></li>
-<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The device index of green context.
-When <code class="docutils literal notranslate"><span class="pre">None</span></code>, the current device is used.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)">object</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.cuda.green_contexts.GreenContext" title="torch.cuda.green_contexts.GreenContext"><em>GreenContext</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.max_workqueue_concurrency">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_workqueue_concurrency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.max_workqueue_concurrency" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_workqueue_concurrency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.max_workqueue_concurrency" title="Link to this definition">#</a></dt>
 <dd><p>Return the maximum workqueue concurrency limit for the device.</p>
 <p>This queries the device for the default number of concurrent
 stream-ordered workloads supported by workqueue configuration
@@ -3726,7 +3712,7 @@ resources.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.pop_context">
-<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.pop_context" title="Link to this definition">#</a></dt>
 <dd><p>Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.</p>
 <dl class="field-list simple">
@@ -3735,7 +3721,7 @@ context stack and restore the previous context.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.GreenContext.set_context">
-<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/green_contexts.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/green_contexts.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.GreenContext.set_context" title="Link to this definition">#</a></dt>
 <dd><p>Make the green context the current context.</p>
 <dl class="field-list simple">
 </dl>
@@ -4106,7 +4092,7 @@ context stack and restore the previous context.</p>
        "headline": "GreenContext",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.green_contexts.GreenContext.html",
-       "articleBody": "GreenContext# class torch.cuda.green_contexts.GreenContext[source]# Wrapper around a CUDA green context. Warning This API is in beta and may change in future releases. Stream()[source]# Return the CUDA Stream used by the green context. Return type: Stream static create(*, num_sms=None, workqueue_scope=None, workqueue_concurrency_limit=None, device_id=None)[source]# Create a CUDA green context. At least one of num_sms or workqueue_scope must be specified. Both can be combined to partition SMs and configure workqueues in the same green context. Parameters: num_sms (int, optional) \u2013 The number of SMs to use in the green context. When None, SMs are not partitioned. workqueue_scope (str, optional) \u2013 Workqueue sharing scope. One of \"device_ctx\" (shared across all contexts, default driver behaviour) or \"balanced\" (non-overlapping workqueues with other balanced green contexts). When None, no workqueue configuration is applied. workqueue_concurrency_limit (int, optional) \u2013 Maximum number of concurrent stream-ordered workloads for the workqueue. Requires workqueue_scope to be set. device_id (int, optional) \u2013 The device index of green context. When None, the current device is used. Return type: object static max_workqueue_concurrency(device_id=None)[source]# Return the maximum workqueue concurrency limit for the device. This queries the device for the default number of concurrent stream-ordered workloads supported by workqueue configuration resources. Parameters: device_id (int, optional) \u2013 The device index to query. When None, the current device is used. Return type: int pop_context()[source]# Assuming the green context is the current context, pop it from the context stack and restore the previous context. set_context()[source]# Make the green context the current context.",
+       "articleBody": "GreenContext# class torch.cuda.green_contexts.GreenContext(*, num_sms=None, workqueue_scope=None, workqueue_concurrency_limit=None, device_id=None)[source]# Wrapper around a CUDA green context. Warning This API is in beta and may change in future releases. Stream()[source]# Return the CUDA Stream used by the green context. Return type: Stream static create(*, num_sms=None, workqueue_scope=None, workqueue_concurrency_limit=None, device_id=None)[source]# Create a CUDA green context. Kept for compatibility, see GreenContext constructor. Return type: GreenContext static max_workqueue_concurrency(device_id=None)[source]# Return the maximum workqueue concurrency limit for the device. This queries the device for the default number of concurrent stream-ordered workloads supported by workqueue configuration resources. Parameters: device_id (int, optional) \u2013 The device index to query. When None, the current device is used. Return type: int pop_context()[source]# Assuming the green context is the current context, pop it from the context stack and restore the previous context. set_context()[source]# Make the green context the current context.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

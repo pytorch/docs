@@ -1,6 +1,6 @@
 # torch.nn.functional.pixel_unshuffle
 
-torch.nn.functional.pixel_unshuffle(*input*, *downscale_factor*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/functional.py#L4696)
+torch.nn.functional.pixel_unshuffle(*input*, *downscale_factor*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/functional.py#L4696)
 
 Reverses the [`PixelShuffle`](torch.nn.PixelShuffle.html#torch.nn.PixelShuffle) operation by rearranging elements in a
 tensor of shape (∗,C,H×r,W×r)(*, C, H \times r, W \times r)(∗,C,H×r,W×r) to a tensor of shape

@@ -1,3 +1,3 @@
 # torch.utils.collect_env.main
 
-torch.utils.collect_env.main()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/utils/collect_env.py#L914)
+torch.utils.collect_env.main()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/utils/collect_env.py#L914)

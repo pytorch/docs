@@ -1,6 +1,6 @@
 # CUDAGraph
 
-*class*torch.cuda.graphs.CUDAGraph(*keep_graph=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L78)
+*class*torch.cuda.graphs.CUDAGraph(*keep_graph=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L95)
 
 Wrapper around a CUDA graph.
 
@@ -32,7 +32,7 @@ Warning
 
 This API is in beta and may change in future releases.
 
-capture_begin(*pool=None*, *capture_error_mode='global'*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L127)
+capture_begin(*pool=None*, *capture_error_mode='global'*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L200)
 
 Begin capturing CUDA work on the current stream.
 
@@ -61,7 +61,7 @@ Note
 Custom CUDA kernels added outside PyTorch (e.g., via cuLaunchKernel or DLPack) are not
 tracked by this mechanism.
 
-capture_end()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L167)
+capture_end()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L254)
 
 End CUDA graph capture on the current stream.
 
@@ -71,20 +71,38 @@ Typically, you shouldn't call `capture_end` yourself.
 Use [`graph`](torch.cuda.graph.html#torch.cuda.graph) or [`make_graphed_callables()`](torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables),
 which call `capture_end` internally.
 
-debug_dump(*debug_path*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L219)
+capture_end_post()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L246)
+
+Finalize a capture started by `capture_end_pre()`: destroy the
+template when `keep_graph=False` (the graph must already be
+instantiated; `capture_end()` and the context manager do so).
+
+capture_end_pre()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L240)
+
+End capture but do not finalize: leaves the captured `cudaGraph_t`
+live (for both `keep_graph` modes) so it can be inspected before
+`capture_end_post()` instantiates and/or destroys it.
+
+debug_dump(*debug_path*, ***, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L328)
+
+Dump the captured graph to `debug_path` in Graphviz DOT format.
+
+The graph's template must be live: `keep_graph=True` (or
+`enable_debug_mode()`), or called from a capture-end hook. Requires
+the `cuda.bindings` package.
 
 Parameters:
 
-**debug_path** (*required*) - Path to dump the graph to.
+- **debug_path** (*required*) - Path to dump the graph to.
+- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` (default), use the most verbose DOT output.
 
-Calls a debugging function to dump the graph if the debugging is
-enabled via CUDAGraph.enable_debug_mode()
+enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L320)
 
-enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L215)
+Retain the captured graph (equivalent to `keep_graph=True`) so it
+can be inspected, e.g. via `debug_dump()`. Kept for backward
+compatibility.
 
-Enable debugging mode for CUDAGraph.debug_dump.
-
-get_graph_data()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L243)
+get_graph_data()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L358)
 
 Return a dictionary describing the graph's topology and node metadata.
 
@@ -128,7 +146,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)
 
-instantiate()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L180)
+instantiate()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L280)
 
 Instantiate the CUDA graph. Will be called by
 `capture_end` if `keep_graph=False`, or by `replay` if
@@ -136,7 +154,7 @@ Instantiate the CUDA graph. Will be called by
 explicitly called. Does not destroy the cudaGraph_t returned
 by `raw_cuda_graph`.
 
-pool()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L207)
+pool()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L312)
 
 Return an opaque token representing the id of this graph's memory pool.
 
@@ -147,9 +165,12 @@ Return type:
 
 _POOL_HANDLE
 
-raw_cuda_graph()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L229)
+raw_cuda_graph()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L341)
 
-Returns the underlying cudaGraph_t. `keep_graph` must be True.
+Returns the underlying cudaGraph_t. The template must be live: this
+requires `keep_graph=True` (it persists after `capture_end`), or
+access from within a capture-end hook (before the template is destroyed
+for `keep_graph=False`).
 
 See the following for APIs for how to manipulate this object: [Graph Management](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__GRAPH.html) and [cuda-python Graph Management bindings](https://nvidia.github.io/cuda-python/cuda-bindings/latest/module/runtime.html#graph-management)
 
@@ -157,7 +178,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-raw_cuda_graph_exec()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L236)
+raw_cuda_graph_exec()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L351)
 
 Returns the underlying cudaGraphExec_t. `instantiate` must have been called if `keep_graph` is True, or `capture_end` must have been called if `keep_graph` is False. If you call `instantiate()` after `raw_cuda_graph_exec()`, the previously returned cudaGraphExec_t will be destroyed. It is your responsibility not to use this object after destruction.
 
@@ -167,10 +188,34 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-replay()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L189)
+register_capture_end_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L149)
+
+Register `hook(graph)` to run when capture ends, after capture
+completes but before the graph is finalized. The captured `cudaGraph_t`
+is live (via `raw_cuda_graph()`) for both `keep_graph` modes. Hooks
+fire in registration order. Returns a handle whose `remove()`
+deregisters the hook.
+
+Return type:
+
+RemovableHandle
+
+register_post_instantiate_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L164)
+
+Register `hook(graph)` to run after each instantiation (including
+re-instantiation, which produces a fresh exec graph). The instantiated
+graph is available via `raw_cuda_graph_exec()`. Hooks fire in
+registration order. Returns a handle whose `remove()` deregisters the
+hook.
+
+Return type:
+
+RemovableHandle
+
+replay()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L292)
 
 Replay the CUDA work captured by this graph.
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/graphs.py#L199)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L303)
 
 Delete the graph currently held by this instance.

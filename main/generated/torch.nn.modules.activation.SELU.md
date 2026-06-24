@@ -1,6 +1,6 @@
 # SELU
 
-*class*torch.nn.modules.activation.SELU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/modules/activation.py#L680)
+*class*torch.nn.modules.activation.SELU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/modules/activation.py#L680)
 
 Applies the SELU function element-wise.
 
@@ -39,7 +39,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/modules/activation.py#L728)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/modules/activation.py#L728)
 
 Return the extra representation of the module.
 
@@ -47,7 +47,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/nn/modules/activation.py#L722)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/nn/modules/activation.py#L722)
 
 Runs the forward pass.
 

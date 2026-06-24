@@ -1,6 +1,6 @@
 # torch.xpu.memory.list_gpu_processes
 
-torch.xpu.memory.list_gpu_processes(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/xpu/memory.py#L625)
+torch.xpu.memory.list_gpu_processes(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/xpu/memory.py#L625)
 
 Return a printout of running processes and their GPU memory usage on a given device.
 

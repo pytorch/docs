@@ -53,6 +53,12 @@ into the FX graph. When disabled, these operations cause graph breaks. This is a
 TorchDynamo-specific tracing behavior that affects how the tracer handles
 scalar-returning operations.
 
+torch.compiler.config.compile_on_one_rank*: [bool](https://docs.python.org/3/library/functions.html#bool)**= False*
+
+When enabled, device- and rank-specific values (devices, process groups) are computed at
+runtime via custom ops rather than baked in at compile time, so a graph can be compiled on
+one rank and run on all ranks. Read across the stack: make_fx, inductor, and distributed.
+
 torch.compiler.config.dynamic_shapes*: [bool](https://docs.python.org/3/library/functions.html#bool)**= True*
 
 Controls whether the compilation pipeline supports dynamic tensor shapes.

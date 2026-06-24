@@ -1,6 +1,6 @@
 # torch.cpu.current_stream
 
-torch.cpu.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cpu/__init__.py#L172)
+torch.cpu.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cpu/__init__.py#L172)
 
 Returns the currently selected [`Stream`](torch.cpu.Stream_class.html#torch.cpu.Stream) for a given device.
 

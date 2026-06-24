@@ -1,6 +1,6 @@
 # ELU
 
-*class*torch.ao.nn.quantized.ELU(*scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/quantized/modules/activation.py#L89)
+*class*torch.ao.nn.quantized.ELU(*scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/ao/nn/quantized/modules/activation.py#L89)
 
 This is the quantized equivalent of [`ELU`](torch.nn.ELU.html#torch.nn.ELU).
 

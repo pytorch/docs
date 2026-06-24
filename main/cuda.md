@@ -88,6 +88,8 @@ It is lazily initialized, so you can always import it, and use
 | [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) | Wrapper around a CUDA graph. |
 | [`graph`](generated/torch.cuda.graph.html#torch.cuda.graph) | Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay. |
 | [`make_graphed_callables`](generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) | Accept callables (functions or [`nn.Module`](generated/torch.nn.Module.html#torch.nn.Module)s) and returns graphed versions. |
+| [`export_dot`](generated/torch.cuda.export_dot.html#torch.cuda.export_dot) | Return a capture-end hook that dumps the captured graph to `path` in Graphviz DOT format. |
+| [`export_graph_data`](generated/torch.cuda.export_graph_data.html#torch.cuda.export_graph_data) | Return a post-instantiate hook that pickles [`CUDAGraph.get_graph_data()`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data) to `path`. |
 
 This package adds support for device memory management implemented in CUDA.
 
@@ -128,7 +130,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/memory.py#L1334)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/memory.py#L1334)
 
 A context manager that routes allocations to a given pool.
 
@@ -147,7 +149,7 @@ the given pool. If a new thread is spawned inside the context manager
 (e.g. by calling backward) the allocations in that thread will not
 route to the given pool.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -218,13 +220,18 @@ See the docs for [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gd
 `torch.cuda.green_contexts` provides thin wrappers around the CUDA Green Context APIs
 to enable more general carveout of SM resources for CUDA kernels.
 
-These APIs can be used in PyTorch with CUDA versions greater than or equal to 12.8.
+These APIs require the `cuda.bindings` package and can be used in PyTorch with
+CUDA versions greater than or equal to 12.8. Workqueue configuration requires
+CUDA 13.1 or newer.
+
+Install instructions for `cuda.bindings` can be found here:
+https://nvidia.github.io/cuda-python/
 
 See the docs for [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) for an example of how to use these.
 
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

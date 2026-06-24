@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitca05719 )">
+<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitca05719 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5665,6 +5665,18 @@ document.write(`
         <li><a href="generated/torch.xpu.XPUGraph.html#torch.xpu.XPUGraph.capture_end">(torch.xpu.XPUGraph method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.capture_end_post">capture_end_post() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.capture_end_post">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.capture_end_pre">capture_end_pre() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.capture_end_pre">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.capture_scalar_outputs">capture_scalar_outputs (in module torch.compiler.config)</a>
 </li>
       <li><a href="generated/torch.cartesian_prod.html#torch.cartesian_prod">cartesian_prod() (in module torch)</a>
@@ -6213,6 +6225,8 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.compile">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
+      <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.compile_on_one_rank">compile_on_one_rank (in module torch.compiler.config)</a>
+</li>
       <li><a href="generated/torch.mps.compile_shader.html#torch.mps.compile_shader">compile_shader() (in module torch.mps)</a>
 </li>
       <li><a href="generated/torch.compiled_with_cxx11_abi.html#torch.compiled_with_cxx11_abi">compiled_with_cxx11_abi() (in module torch)</a>
@@ -6339,12 +6353,12 @@ document.write(`
         <li><a href="generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.ConstantArgument">ConstantArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ConstantLR.html#torch.optim.lr_scheduler.ConstantLR">ConstantLR (class in torch.optim.lr_scheduler)</a>
@@ -8356,10 +8370,10 @@ document.write(`
       </ul></li>
       <li><a href="distributions.html#torch.distributions.distribution.Distribution.event_shape">event_shape (torch.distributions.distribution.Distribution property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="monitor.html#torch.monitor.EventHandlerHandle">EventHandlerHandle (class in torch.monitor)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.autograd.profiler_util.EventList.html#torch.autograd.profiler_util.EventList">EventList (class in torch.autograd.profiler_util)</a>
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.api.EventMetadataValue">EventMetadataValue (in module torch.distributed.elastic.events.api)</a>
@@ -8580,6 +8594,10 @@ document.write(`
         <li><a href="profiler.html#torch.profiler.profile.export_chrome_trace">(torch.profiler.profile method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.cuda.export_dot.html#torch.cuda.export_dot">export_dot() (in module torch.cuda)</a>
+</li>
+      <li><a href="generated/torch.cuda.export_graph_data.html#torch.cuda.export_graph_data">export_graph_data() (in module torch.cuda)</a>
+</li>
       <li><a href="profiler.html#torch.profiler.profile.export_memory_timeline">export_memory_timeline() (torch.profiler.profile method)</a>
 </li>
       <li><a href="profiler.html#torch.profiler.profile.export_stacks">export_stacks() (torch.profiler.profile method)</a>
@@ -10242,9 +10260,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.ger.html#torch.Tensor.ger">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.get">get() (torch.autograd.profiler_util.StringTable method)</a>
+      <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.get">get() (in module torch.distributed._symmetric_memory)</a>
 
       <ul>
+        <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.get">(torch.autograd.profiler_util.StringTable method)</a>
+</li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.get">(torch.distributed.elastic.rendezvous.etcd_store.EtcdStore method)</a>
 </li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousParameters.get">(torch.distributed.elastic.rendezvous.RendezvousParameters method)</a>
@@ -10590,6 +10610,8 @@ document.write(`
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler.get_lr">get_lr() (torch.optim.lr_scheduler.ChainedScheduler method)</a>
 
       <ul>
@@ -10626,8 +10648,6 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.SWALR.html#torch.optim.swa_utils.SWALR.get_lr">(torch.optim.swa_utils.SWALR method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="backends.html#torch.backends.cusparselt.get_max_alg_id">get_max_alg_id() (in module torch.backends.cusparselt)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_max_tuning_duration">get_max_tuning_duration() (in module torch.cuda.tunable)</a>
@@ -18613,6 +18633,12 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_buffer">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_capture_end_hook">register_capture_end_hook() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_end_hook">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.register_comm_hook">register_comm_hook() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 
       <ul>
@@ -18865,6 +18891,12 @@ document.write(`
       </ul></li>
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.register_post_hook">register_post_hook() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_post_instantiate_hook">register_post_instantiate_hook() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_post_instantiate_hook">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.register_pre_hook">register_pre_hook() (torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       <li><a href="generated/torch.autograd.graph.Node.register_prehook.html#torch.autograd.graph.Node.register_prehook">register_prehook() (torch.autograd.graph.Node method)</a>
@@ -22147,6 +22179,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.take_along_dim.html#torch.Tensor.take_along_dim">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="profiler.html#torch.profiler.profile.take_pending_cupti_export">take_pending_cupti_export() (torch.profiler.profile method)</a>
+</li>
       <li><a href="generated/torch.tan.html#torch.tan">tan() (in module torch)</a>
 
       <ul>
@@ -25331,6 +25365,8 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -25338,8 +25374,6 @@ document.write(`
         <li><a href="fft.html#module-torch.fft">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="type_info.html#torch.torch.finfo">torch.finfo (class in torch)</a>
 </li>
       <li>
@@ -29238,6 +29272,8 @@ document.write(`
         <li><a href="generated/torch.xpu.streams.Stream.html#torch.xpu.streams.Stream.wait_event">(torch.xpu.streams.Stream method)</a>
 </li>
       </ul></li>
+      <li><a href="profiler.html#torch.profiler.profile.wait_for_exports">wait_for_exports() (torch.profiler.profile method)</a>
+</li>
       <li><a href="generated/torch.cuda.ExternalStream.html#torch.cuda.ExternalStream.wait_stream">wait_stream() (torch.cuda.ExternalStream method)</a>
 
       <ul>

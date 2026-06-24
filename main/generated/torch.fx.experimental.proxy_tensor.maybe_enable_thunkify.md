@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.maybe_enable_thunkify
 
-torch.fx.experimental.proxy_tensor.maybe_enable_thunkify()[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/fx/experimental/proxy_tensor.py#L790)
+torch.fx.experimental.proxy_tensor.maybe_enable_thunkify()[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/fx/experimental/proxy_tensor.py#L790)
 
 Within this context manager, if you are doing make_fx tracing, we will thunkify
 all SymNode compute and avoid tracing it into the graph unless it is actually needed.

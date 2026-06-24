@@ -15,9 +15,9 @@ events.get_logging_handler(destination="console").info(event)
 
 ## API Methods
 
-torch.distributed.elastic.events.record(*event*, *destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/__init__.py#L69)
+torch.distributed.elastic.events.record(*event*, *destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/__init__.py#L69)
 
-torch.distributed.elastic.events.construct_and_record_rdzv_event(*run_id*, *message*, *node_state*, *name=''*, *hostname=''*, *pid=None*, *master_endpoint=''*, *local_id=None*, *rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/__init__.py#L77)
+torch.distributed.elastic.events.construct_and_record_rdzv_event(*run_id*, *message*, *node_state*, *name=''*, *hostname=''*, *pid=None*, *master_endpoint=''*, *local_id=None*, *rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/__init__.py#L77)
 
 Initialize rendezvous event object and record its operations.
 
@@ -63,17 +63,17 @@ Example
 ... )
 ```
 
-torch.distributed.elastic.events.get_logging_handler(*destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/handlers.py#L19)
+torch.distributed.elastic.events.get_logging_handler(*destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/handlers.py#L19)
 
 Return type:
 
 [*Handler*](https://docs.python.org/3/library/logging.html#logging.Handler)
 
-torch.distributed.elastic.events.record_rdzv_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/__init__.py#L73)
+torch.distributed.elastic.events.record_rdzv_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/__init__.py#L73)
 
 ## Event Objects
 
-*class*torch.distributed.elastic.events.api.Event(*name*, *source*, *timestamp=0*, *metadata=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/api.py#L28)
+*class*torch.distributed.elastic.events.api.Event(*name*, *source*, *timestamp=0*, *metadata=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/api.py#L28)
 
 The class represents the generic event that occurs during the torchelastic job execution.
 
@@ -86,7 +86,7 @@ Parameters:
 - **timestamp** ([*int*](https://docs.python.org/3/library/functions.html#int)) - timestamp in milliseconds when event occurred.
 - **metadata** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*float*](https://docs.python.org/3/library/functions.html#float)*|*[*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None**]*) - additional data that is associated with the event.
 
-*class*torch.distributed.elastic.events.api.EventSource(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/api.py#L21)
+*class*torch.distributed.elastic.events.api.EventSource(*value*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/api.py#L21)
 
 Known identifiers of the event producers.
 
@@ -94,6 +94,6 @@ torch.distributed.elastic.events.api.EventMetadataValue
 
 alias of [`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`int`](https://docs.python.org/3/library/functions.html#int) | [`float`](https://docs.python.org/3/library/functions.html#float) | [`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)
 
-*class*torch.distributed.elastic.events.api.NodeState(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/distributed/elastic/events/api.py#L64)
+*class*torch.distributed.elastic.events.api.NodeState(*value*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/distributed/elastic/events/api.py#L64)
 
 The states that a node can be in rendezvous.

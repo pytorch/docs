@@ -1,6 +1,6 @@
 # torch.accelerator.memory.max_memory_allocated
 
-torch.accelerator.memory.max_memory_allocated(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/accelerator/memory.py#L142)
+torch.accelerator.memory.max_memory_allocated(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/accelerator/memory.py#L142)
 
 Return the current [accelerator](../torch.html#accelerators) maximum device memory occupied by tensors
 in bytes for a given device index.

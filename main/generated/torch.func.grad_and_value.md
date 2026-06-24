@@ -1,6 +1,6 @@
 # torch.func.grad_and_value
 
-torch.func.grad_and_value(*func*, *argnums=0*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/_functorch/apis.py#L468)
+torch.func.grad_and_value(*func*, *argnums=0*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/_functorch/apis.py#L468)
 
 Returns a function to compute a tuple of the gradient and primal, or
 forward, computation.

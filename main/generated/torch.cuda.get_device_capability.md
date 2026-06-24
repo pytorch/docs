@@ -1,6 +1,6 @@
 # torch.cuda.get_device_capability
 
-torch.cuda.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/__init__.py#L725)
+torch.cuda.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/__init__.py#L727)
 
 Get the cuda capability of a device.
 

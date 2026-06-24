@@ -1,6 +1,6 @@
 # EqualityConstraint
 
-*class*torch.fx.experimental.symbolic_shapes.EqualityConstraint(*warn_only*, *source_pairs*, *derived_equalities*, *phantom_symbols*, *relaxed_sources*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/fx/experimental/symbolic_shapes.py#L2097)
+*class*torch.fx.experimental.symbolic_shapes.EqualityConstraint(*warn_only*, *source_pairs*, *derived_equalities*, *phantom_symbols*, *relaxed_sources*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/fx/experimental/symbolic_shapes.py#L2097)
 
 Represent and decide various kinds of equality constraints between input sources.
 

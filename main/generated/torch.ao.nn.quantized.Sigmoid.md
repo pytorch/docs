@@ -1,6 +1,6 @@
 # Sigmoid
 
-*class*torch.ao.nn.quantized.Sigmoid(*output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/ao/nn/quantized/modules/activation.py#L162)
+*class*torch.ao.nn.quantized.Sigmoid(*output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/ao/nn/quantized/modules/activation.py#L162)
 
 This is the quantized equivalent of [`Sigmoid`](torch.nn.Sigmoid.html#torch.nn.Sigmoid).
 

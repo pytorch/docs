@@ -13,8 +13,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 Tags
 
 - [torch.escape-hatch](torch.escape-hatch.html)
-- [torch.dynamic-shape](torch.dynamic-shape.html)
 - [torch.cond](torch.cond.html)
+- [torch.dynamic-shape](torch.dynamic-shape.html)
 - [python.closure](python.closure.html)
 - [torch.dynamic-value](torch.dynamic-value.html)
 - [python.data-structure](python.data-structure.html)
@@ -213,7 +213,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -244,7 +244,7 @@ class CondBranchClassMethod(torch.nn.Module):
 
  This example demonstrates using class method in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def __init__(self) -> None:
@@ -290,7 +290,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -314,7 +314,7 @@ class CondBranchNestedFunction(torch.nn.Module):
 
  This example demonstrates using nested function in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -365,7 +365,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -405,7 +405,7 @@ class CondBranchNonlocalVariables(torch.nn.Module):
  return cond(x.shape[0] > 5, true_fn, false_fn, [x])
  ```
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -465,7 +465,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.closure](python.closure.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [python.closure](python.closure.html)
 
 Support Level: SUPPORTED
 
@@ -536,7 +536,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -558,7 +558,7 @@ class CondOperands(torch.nn.Module):
  - a list of tensors
  - match arguments of `true_fn` and `false_fn`
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x, y):
@@ -623,7 +623,7 @@ Range constraints: {s6: VR[0, int_oo]}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -641,7 +641,7 @@ class CondPredicate(torch.nn.Module):
  - torch.Tensor with a single element
  - boolean expression
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -1022,7 +1022,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -1075,7 +1075,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.map](torch.map.html)
+Tags: [torch.map](torch.map.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -1319,7 +1319,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html), [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 
@@ -1370,7 +1370,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 
@@ -2166,7 +2166,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.builtin](python.builtin.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.builtin](python.builtin.html)
 
 Support Level: NOT_SUPPORTED_YET
 

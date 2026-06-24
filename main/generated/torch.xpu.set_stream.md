@@ -1,6 +1,6 @@
 # torch.xpu.set_stream
 
-torch.xpu.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/xpu/__init__.py#L630)
+torch.xpu.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/xpu/__init__.py#L630)
 
 Set the current stream. This is a wrapper API to set the stream.
 

@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.zero_grad
 
-Optimizer.zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/optim/optimizer.py#L1023)
+Optimizer.zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/optim/optimizer.py#L1023)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 

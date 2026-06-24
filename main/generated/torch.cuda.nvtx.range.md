@@ -1,6 +1,6 @@
 # torch.cuda.nvtx.range
 
-torch.cuda.nvtx.range(*msg*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/cuda/nvtx.py#L115)
+torch.cuda.nvtx.range(*msg*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/nvtx.py#L115)
 
 Context manager / decorator that pushes an NVTX range at the beginning
 of its scope, and pops it at the end. If extra arguments are given,

@@ -1,6 +1,6 @@
 # torch.fft.rfft
 
-torch.fft.rfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ca0571943b5289419bf52b30ee31769eb76a58c8/torch/fft/__init__.py#L355)
+torch.fft.rfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/fft/__init__.py#L355)
 
 Computes the one dimensional Fourier transform of real-valued `input`.
 
