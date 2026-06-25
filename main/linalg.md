@@ -21,6 +21,7 @@ See [Linear algebra (torch.linalg)](notes/numerical_accuracy.html#linear-algebra
 | [`cholesky`](generated/torch.linalg.cholesky.html#torch.linalg.cholesky) | Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. |
 | --- | --- |
 | [`qr`](generated/torch.linalg.qr.html#torch.linalg.qr) | Computes the QR decomposition of a matrix. |
+| [`polar`](generated/torch.linalg.polar.html#torch.linalg.polar) | Computes the polar decomposition of a matrix. |
 | [`lu`](generated/torch.linalg.lu.html#torch.linalg.lu) | Computes the LU decomposition with partial pivoting of a matrix. |
 | [`lu_factor`](generated/torch.linalg.lu_factor.html#torch.linalg.lu_factor) | Computes a compact representation of the LU factorization with partial pivoting of a matrix. |
 | [`eig`](generated/torch.linalg.eig.html#torch.linalg.eig) | Computes the eigenvalue decomposition of a square matrix if it exists. |

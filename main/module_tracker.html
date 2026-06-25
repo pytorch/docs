@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
+<meta name="llm:version" content="main (2.14.0a0+git847b7df )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git847b7df )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5584,6 +5584,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/switch.html">Control Flow - Switch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/scan.html">Control Flow - Scan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
@@ -6169,6 +6170,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.matrix_rank.html">torch.linalg.matrix_rank</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.cholesky.html">torch.linalg.cholesky</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.qr.html">torch.linalg.qr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.polar.html">torch.linalg.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.lu.html">torch.linalg.lu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.lu_factor.html">torch.linalg.lu_factor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.eig.html">torch.linalg.eig</a></li>
@@ -7040,7 +7042,7 @@ document.write(`
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.module_tracker.ModuleTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ModuleTracker</span></code> is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being
 executed).</p>

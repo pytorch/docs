@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
+<meta name="llm:version" content="main (2.14.0a0+git847b7df )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git847b7df )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5584,6 +5584,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="higher_order_ops/index.html">Control Flow Operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="higher_order_ops/switch.html">Control Flow - Switch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/while_loop.html">Control Flow - While Loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/scan.html">Control Flow - Scan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="higher_order_ops/associative_scan.html">Control Flow - Associative Scan</a></li>
@@ -6169,6 +6170,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.matrix_rank.html">torch.linalg.matrix_rank</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.cholesky.html">torch.linalg.cholesky</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.qr.html">torch.linalg.qr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.polar.html">torch.linalg.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.lu.html">torch.linalg.lu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.lu_factor.html">torch.linalg.lu_factor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.linalg.eig.html">torch.linalg.eig</a></li>
@@ -7376,7 +7378,7 @@ GPUs for computation.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.use_mem_pool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/memory.py#L1334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/cuda/memory.py#L1334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Link to this definition">#</a></dt>
 <dd><p>A context manager that routes allocations to a given pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7400,7 +7402,7 @@ route to the given pool.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.nccl.version">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.nccl.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/nccl.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.nccl.version" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.nccl.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/cuda/nccl.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.nccl.version" title="Link to this definition">#</a></dt>
 <dd><p>Returns the version of the NCCL.</p>
 <p>This function returns a tuple containing the major, minor, and patch version numbers of the NCCL.
 The suffix is also included in the tuple if a version suffix exists.
@@ -7529,7 +7531,7 @@ https://nvidia.github.io/cuda-python/</p>
 </div>
 <dl class="py function" id="module-torch.cuda.nccl">
 <span id="module-torch.cuda.jiterator"></span><span id="module-torch.cuda.green_contexts"></span><span id="module-torch.cuda.gds"></span><span id="module-torch.cuda.comm"></span><dt class="sig sig-object py" id="torch.cuda.nccl.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.nccl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/nccl.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.nccl.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.nccl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/cuda/nccl.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.nccl.is_available" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <p id="module-torch.cuda.nvtx">This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.</p>

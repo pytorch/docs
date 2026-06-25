@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
+<meta name="llm:version" content="main (2.14.0a0+git847b7df )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git847b7df )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3661,7 +3661,7 @@ document.write(`
 <h1>torch.cuda.export_graph_data<a class="headerlink" href="#torch-cuda-export-graph-data" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.export_graph_data">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">export_graph_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/cuda/graphs.py#L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.export_graph_data" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">export_graph_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/cuda/graphs.py#L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.export_graph_data" title="Link to this definition">#</a></dt>
 <dd><p>Return a post-instantiate hook that pickles <a class="reference internal" href="torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data" title="torch.cuda.CUDAGraph.get_graph_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CUDAGraph.get_graph_data()</span></code></a>
 to <code class="docutils literal notranslate"><span class="pre">path</span></code>. Register it with <a class="reference internal" href="torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_post_instantiate_hook" title="torch.cuda.CUDAGraph.register_post_instantiate_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CUDAGraph.register_post_instantiate_hook()</span></code></a>:
 <code class="docutils literal notranslate"><span class="pre">get_graph_data</span></code> needs the graph instantiated (it remaps node ids to the

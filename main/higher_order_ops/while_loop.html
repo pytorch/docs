@@ -60,7 +60,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Control Flow - Scan" href="scan.html" />
-    <link rel="prev" title="Control Flow - Cond" href="cond.html" />
+    <link rel="prev" title="Control Flow - Switch" href="switch.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitbb84990 )">
+<meta name="llm:version" content="main (2.14.0a0+git847b7df )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitbb84990 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git847b7df )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3442,6 +3442,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/torch_compiler/export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Control Flow Operators</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switch.html">Control Flow - Switch</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Control Flow - While Loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scan.html">Control Flow - Scan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="associative_scan.html">Control Flow - Associative Scan</a></li>
@@ -3748,7 +3749,7 @@ the top-level graph module.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.while_loop.while_loop">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb84990ad380b2b3991c759fcefffdbd0400ad85/torch/_higher_order_ops/while_loop.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.while_loop.</span></span><span class="sig-name descname"><span class="pre">while_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carried_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/_higher_order_ops/while_loop.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.while_loop.while_loop" title="Link to this definition">#</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">body_fn(*carried_inputs)</span></code> while <code class="docutils literal notranslate"><span class="pre">cond_fn(*carried_inputs)</span></code> returns
 a True scalar tensor. Returns the output of body_fn or initial
 carried_inputs.</p>
@@ -3862,12 +3863,12 @@ carried_inputs, such as module buffers and captured tensors from the enclosing s
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cond.html"
+       href="switch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Control Flow - Cond</p>
+        <p class="prev-next-title">Control Flow - Switch</p>
       </div>
     </a>
     <a class="right-next"
@@ -3901,12 +3902,12 @@ carried_inputs, such as module buffers and captured tensors from the enclosing s
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cond.html"
+       href="switch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Control Flow - Cond</p>
+        <p class="prev-next-title">Control Flow - Switch</p>
       </div>
     </a>
     <a class="right-next"
