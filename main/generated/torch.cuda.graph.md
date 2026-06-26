@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/cuda/graphs.py#L536)
+*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/graphs.py#L566)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -11,8 +11,9 @@ Parameters:
 
 - **cuda_graph** ([*torch.cuda.CUDAGraph*](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph)) - Graph object used for capture.
 - **pool** (*optional*) - Opaque token (returned by a call to [`graph_pool_handle()`](torch.cuda.graph_pool_handle.html#torch.cuda.graph_pool_handle) or
-[`other_Graph_instance.pool()`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.pool)) hinting this graph's capture
-may share memory from the specified pool. See [Graph memory management](../notes/cuda.html#graph-memory-management).
+[`other_Graph_instance.pool()`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.pool)) or
+`MemPool` hinting this graph's capture may share memory
+from the specified pool. See [Graph memory management](../notes/cuda.html#graph-memory-management).
 - **stream** ([*torch.cuda.Stream*](torch.cuda.Stream_class.html#torch.cuda.Stream)*,**optional*) - If supplied, will be set as the current stream in the context.
 If not supplied, `graph` sets its own internal side stream as the current stream in the context.
 - **capture_error_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - specifies the cudaStreamCaptureMode for the graph capture stream.

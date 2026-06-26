@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/__init__.py#L1726)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/__init__.py#L1726)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -48,6 +48,7 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.scatter()`](torch.Tensor.scatter.html#torch.Tensor.scatter) when src type is Tensor and called on CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='sum'` or `reduce='mean'` and called on CUDA tensor
 > - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
+> - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
 [`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when `mode=True`:

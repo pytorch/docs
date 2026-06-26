@@ -5,6 +5,7 @@ For a quick overview of `torch.compiler`, see [torch.compiler](user_guide/torch_
 | [`compile`](generated/torch.compiler.compile.html#torch.compiler.compile) | See [`torch.compile()`](generated/torch.compile.html#torch.compile) for details on the arguments for this function. |
 | --- | --- |
 | [`reset`](generated/torch.compiler.reset.html#torch.compiler.reset) | Reset the in-process compiler state. |
+| [`nonstrict_trace`](generated/torch.compiler.nonstrict_trace.html#torch.compiler.nonstrict_trace) | Decorator to mark a function as nonstrict-traceable for dynamo. |
 | [`allow_in_graph`](generated/torch.compiler.allow_in_graph.html#torch.compiler.allow_in_graph) | Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. |
 | [`substitute_in_graph`](generated/torch.compiler.substitute_in_graph.html#torch.compiler.substitute_in_graph) | Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. |
 | [`assume_constant_result`](generated/torch.compiler.assume_constant_result.html#torch.compiler.assume_constant_result) | This function is used to mark a function fn as having a constant result. |

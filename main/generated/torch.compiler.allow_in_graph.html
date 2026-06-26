@@ -60,7 +60,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.compiler.substitute_in_graph" href="torch.compiler.substitute_in_graph.html" />
-    <link rel="prev" title="torch.compiler.reset" href="torch.compiler.reset.html" />
+    <link rel="prev" title="torch.compiler.nonstrict_trace" href="torch.compiler.nonstrict_trace.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git847b7df )">
+<meta name="llm:version" content="main (2.14.0a0+git6468763 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git847b7df )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6468763 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3499,7 +3499,7 @@ document.write(`
 <h1>torch.compiler.allow_in_graph<a class="headerlink" href="#torch-compiler-allow-in-graph" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.allow_in_graph">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/compiler/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/compiler/__init__.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Link to this definition">#</a></dt>
 <dd><p>Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function
 and instead directly write it to the graph when encountered.</p>
 <p>If you are using <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> (with backend=”inductor” (the default)), or
@@ -3560,6 +3560,7 @@ Tuple[Tensor?, …]/Tuple[int?, …]/Tuple[float?, …]/torch.dtype/torch.device
 <li><p>all Tensors used inside of <code class="docutils literal notranslate"><span class="pre">fn</span></code> must be passed directly as inputs to <code class="docutils literal notranslate"><span class="pre">fn</span></code>
 (as opposed to being captured variables).</p></li>
 </ul>
+<p>See also <a class="reference internal" href="torch.compiler.nonstrict_trace.html#torch.compiler.nonstrict_trace" title="torch.compiler.nonstrict_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">nonstrict_trace()</span></code></a>, which has slightly fewer restrictions on the inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>fn</strong> – A callable representing the function to be included in the graph.
@@ -3631,12 +3632,12 @@ tuple containing the modified functions.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler.reset.html"
+       href="torch.compiler.nonstrict_trace.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.compiler.reset</p>
+        <p class="prev-next-title">torch.compiler.nonstrict_trace</p>
       </div>
     </a>
     <a class="right-next"
@@ -3670,12 +3671,12 @@ tuple containing the modified functions.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler.reset.html"
+       href="torch.compiler.nonstrict_trace.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.compiler.reset</p>
+        <p class="prev-next-title">torch.compiler.nonstrict_trace</p>
       </div>
     </a>
     <a class="right-next"
@@ -3942,7 +3943,7 @@ tuple containing the modified functions.</p>
        "headline": "torch.compiler.allow_in_graph",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.allow_in_graph.html",
-       "articleBody": "torch.compiler.allow_in_graph# torch.compiler.allow_in_graph(fn)[source]# Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. If you are using torch.compile() (with backend=\u201dinductor\u201d (the default)), or torch.export.export(), and trying to black-box a Python function throughout all tracing, do not use this API. Instead, please create a custom operator (see PyTorch Custom Operators Landing Page) Warning If you\u2019re a typical torch.compile user (e.g. you\u2019re applying torch.compile to a model to make it run faster), you probably don\u2019t want to use this function. allow_in_graph() is a footgun because it skips the compiler frontend (Dynamo) that is responsible for doing safety checks (graph breaks, handling closures, etc). Incorrect usage will lead to difficult-to-debug silent incorrectness issues. Given a Python function with no allow_in_graph decorator, regular execution of torch.compile traces through the function. allow_in_graph() changes it so that the frontend does not trace inside the function, but the compiler backend still traces through it. Compare this to custom operators, which treats a function as a black box throughout the torch.compile stack. The following table compares these mechanisms. Mechanism Frontend (Dynamo) Backend (AOTAutograd+Inductor) no decorator trace inside trace inside allow_in_graph opaque callable trace inside custom op opaque callable opaque callable One common use case for allow_in_graph() is as an escape hatch for the compiler frontend: if you know the function works w.r.t. to the downstream components of the compilation stack (AOTAutograd and Inductor) but there is a Dynamo bug that prevents it from symbolically introspecting the function properly (or if your code is in C/C++ and therefore cannot be introspected with Dynamo), then one can decorate said function with allow_in_graph() to bypass Dynamo. We require that fn adhere to the following restrictions. Failure to adhere results in undefined behavior: The inputs to fn must be Proxy-able types in the FX graph. Valid types include: Tensor/int/bool/float/None/List[Tensor?]/List[int?]/List[float?] Tuple[Tensor?, \u2026]/Tuple[int?, \u2026]/Tuple[float?, \u2026]/torch.dtype/torch.device The outputs to fn must be Proxy-able types in the FX graph (see previous bullet) all Tensors used inside of fn must be passed directly as inputs to fn (as opposed to being captured variables). Parameters: fn \u2013 A callable representing the function to be included in the graph. If fn is a list or tuple of callables it recursively applies allow_in_graph() to each function and returns a new list or tuple containing the modified functions. Example: torch.compiler.allow_in_graph(my_custom_function) @torch.compile(...) def fn(x): x = torch.add(x, 1) x = my_custom_function(x) x = torch.add(x, 1) return x fn(...) Will capture a single graph containing my_custom_function().",
+       "articleBody": "torch.compiler.allow_in_graph# torch.compiler.allow_in_graph(fn)[source]# Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. If you are using torch.compile() (with backend=\u201dinductor\u201d (the default)), or torch.export.export(), and trying to black-box a Python function throughout all tracing, do not use this API. Instead, please create a custom operator (see PyTorch Custom Operators Landing Page) Warning If you\u2019re a typical torch.compile user (e.g. you\u2019re applying torch.compile to a model to make it run faster), you probably don\u2019t want to use this function. allow_in_graph() is a footgun because it skips the compiler frontend (Dynamo) that is responsible for doing safety checks (graph breaks, handling closures, etc). Incorrect usage will lead to difficult-to-debug silent incorrectness issues. Given a Python function with no allow_in_graph decorator, regular execution of torch.compile traces through the function. allow_in_graph() changes it so that the frontend does not trace inside the function, but the compiler backend still traces through it. Compare this to custom operators, which treats a function as a black box throughout the torch.compile stack. The following table compares these mechanisms. Mechanism Frontend (Dynamo) Backend (AOTAutograd+Inductor) no decorator trace inside trace inside allow_in_graph opaque callable trace inside custom op opaque callable opaque callable One common use case for allow_in_graph() is as an escape hatch for the compiler frontend: if you know the function works w.r.t. to the downstream components of the compilation stack (AOTAutograd and Inductor) but there is a Dynamo bug that prevents it from symbolically introspecting the function properly (or if your code is in C/C++ and therefore cannot be introspected with Dynamo), then one can decorate said function with allow_in_graph() to bypass Dynamo. We require that fn adhere to the following restrictions. Failure to adhere results in undefined behavior: The inputs to fn must be Proxy-able types in the FX graph. Valid types include: Tensor/int/bool/float/None/List[Tensor?]/List[int?]/List[float?] Tuple[Tensor?, \u2026]/Tuple[int?, \u2026]/Tuple[float?, \u2026]/torch.dtype/torch.device The outputs to fn must be Proxy-able types in the FX graph (see previous bullet) all Tensors used inside of fn must be passed directly as inputs to fn (as opposed to being captured variables). See also nonstrict_trace(), which has slightly fewer restrictions on the inputs. Parameters: fn \u2013 A callable representing the function to be included in the graph. If fn is a list or tuple of callables it recursively applies allow_in_graph() to each function and returns a new list or tuple containing the modified functions. Example: torch.compiler.allow_in_graph(my_custom_function) @torch.compile(...) def fn(x): x = torch.add(x, 1) x = my_custom_function(x) x = torch.add(x, 1) return x fn(...) Will capture a single graph containing my_custom_function().",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

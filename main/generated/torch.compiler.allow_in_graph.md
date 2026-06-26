@@ -1,6 +1,6 @@
 # torch.compiler.allow_in_graph
 
-torch.compiler.allow_in_graph(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/847b7df02b84551445eda7d44d08f15bda4c6159/torch/compiler/__init__.py#L73)
+torch.compiler.allow_in_graph(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/compiler/__init__.py#L74)
 
 Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function
 and instead directly write it to the graph when encountered.
@@ -48,6 +48,8 @@ Tuple[Tensor?, ...]/Tuple[int?, ...]/Tuple[float?, ...]/torch.dtype/torch.device
 - The outputs to `fn` must be Proxy-able types in the FX graph (see previous bullet)
 - all Tensors used inside of `fn` must be passed directly as inputs to `fn`
 (as opposed to being captured variables).
+
+See also [`nonstrict_trace()`](torch.compiler.nonstrict_trace.html#torch.compiler.nonstrict_trace), which has slightly fewer restrictions on the inputs.
 
 Parameters:
 
