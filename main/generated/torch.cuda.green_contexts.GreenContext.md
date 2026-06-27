@@ -1,6 +1,6 @@
 # GreenContext
 
-*class*torch.cuda.green_contexts.GreenContext(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L74)
+*class*torch.cuda.green_contexts.GreenContext(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L74)
 
 Wrapper around a CUDA green context.
 
@@ -8,7 +8,7 @@ Warning
 
 This API is in beta and may change in future releases.
 
-Stream()[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L334)
+Stream()[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L334)
 
 Return the CUDA Stream used by the green context.
 
@@ -16,7 +16,7 @@ Return type:
 
 [*Stream*](torch.cuda.streams.Stream.html#torch.cuda.streams.Stream)
 
-*static*create(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L237)
+*static*create(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L237)
 
 Create a CUDA green context.
 
@@ -26,7 +26,7 @@ Return type:
 
 *GreenContext*
 
-*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L256)
+*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L256)
 
 Return the maximum workqueue concurrency limit for the device.
 
@@ -43,11 +43,11 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-pop_context()[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L311)
+pop_context()[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L311)
 
 Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.
 
-set_context()[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/cuda/green_contexts.py#L287)
+set_context()[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/cuda/green_contexts.py#L287)
 
 Make the green context the current context.

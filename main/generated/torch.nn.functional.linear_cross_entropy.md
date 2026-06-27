@@ -1,6 +1,6 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/nn/functional.py#L3704)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/nn/functional.py#L3704)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
@@ -27,7 +27,14 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - input samples.
 - **linear_weight** ([*Tensor*](../tensors.html#torch.Tensor)) - linear weight.
-- **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth class indices or class probabilities;
+- **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth class indices or class probabilities.
+With `options != None`, class probabilities use the chunked
+path for `reduction` `'mean'` / `'sum'` when the target
+dtype matches the `input` dtype and the target does not
+require grad; other probability-target configurations fall
+back to the reference implementation with a warning
+(gradients w.r.t. the target are only available on the
+reference path).
 - **linear_bias** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - bias added to the linear
 projection (shape `(C,)` or `(C, d_1, ..., d_K)` for
 K-dimensional loss, matching `linear_weight`).

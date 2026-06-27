@@ -1,6 +1,6 @@
 # device
 
-*class*torch.mtia.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/6468763e46fe7b5527a52dfbb151d63938d7288a/torch/mtia/__init__.py#L296)
+*class*torch.mtia.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/mtia/__init__.py#L296)
 
 Context-manager that changes the selected device.
 
