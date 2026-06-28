@@ -2082,6 +2082,7 @@
 - [torch.linalg.matrix_norm](https://docs.pytorch.org/docs/stable/generated/torch.linalg.matrix_norm.md)
 - [torch.linalg.matrix_power](https://docs.pytorch.org/docs/stable/generated/torch.linalg.matrix_power.md)
 - [torch.linalg.matrix_rank](https://docs.pytorch.org/docs/stable/generated/torch.linalg.matrix_rank.md)
+- [torch.linalg.matrix_sqrth](https://docs.pytorch.org/docs/stable/generated/torch.linalg.matrix_sqrth.md)
 - [torch.linalg.multi_dot](https://docs.pytorch.org/docs/stable/generated/torch.linalg.multi_dot.md)
 - [torch.linalg.norm](https://docs.pytorch.org/docs/stable/generated/torch.linalg.norm.md)
 - [torch.linalg.pinv](https://docs.pytorch.org/docs/stable/generated/torch.linalg.pinv.md)

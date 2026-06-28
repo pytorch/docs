@@ -49,6 +49,7 @@ See [Linear algebra (torch.linalg)](notes/numerical_accuracy.html#linear-algebra
 
 | [`matrix_exp`](generated/torch.linalg.matrix_exp.html#torch.linalg.matrix_exp) | Computes the matrix exponential of a square matrix. |
 | --- | --- |
+| [`matrix_sqrth`](generated/torch.linalg.matrix_sqrth.html#torch.linalg.matrix_sqrth) | Computes the principal square root of a symmetric (resp. |
 | [`matrix_power`](generated/torch.linalg.matrix_power.html#torch.linalg.matrix_power) | Computes the n-th power of a square matrix for an integer n. |
 
 ## Matrix Products

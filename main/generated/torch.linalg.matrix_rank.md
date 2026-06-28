@@ -1,6 +1,6 @@
 # torch.linalg.matrix_rank
 
-torch.linalg.matrix_rank(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/linalg/__init__.py#L1263)
+torch.linalg.matrix_rank(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/linalg/__init__.py#L1263)
 
 Computes the numerical rank of a matrix.
 

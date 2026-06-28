@@ -1,6 +1,6 @@
 # LinearCrossEntropyOptions
 
-*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/nn/modules/linear_cross_entropy_options.py#L26)
+*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/nn/modules/linear_cross_entropy_options.py#L29)
 
 Configuration for the chunked implementation of
 `linear_cross_entropy()`.
@@ -31,7 +31,7 @@ SM 8.0+ for bf16, and CPU); otherwise to the input dtype.
 Mixed-precision currently requires fp16/bf16 input with
 `acc_dtype=torch.float32`.
 
-acc_policy*: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)['accurate', 'balanced', 'compact', 'auto']*
+acc_policy*: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)['accurate', 'compact', 'auto']*
 
 Precision/memory trade-off for the chunked path. Controls which
 intermediates are kept in `acc_dtype` vs. the input dtype, and
@@ -47,21 +47,18 @@ better input-grad accuracy when chunk size is large relative to
 policies on CUDA. Only chunked policy whose weight-grad matmul
 runs in fp32 on CPU (other policies hit CPU's emulated
 low-precision path, ~20-50x slower).
-- `"balanced"` - `acc_dtype` only where needed for gradient
-correctness; keeps a `(num_classes, in_features)`
-`acc_dtype` scratch for cross-chunk weight-grad accumulation.
-Same precision as `"accurate"` in bf16, slightly looser in fp16,
-faster than `"accurate"` in both.
-- `"compact"` - like `"balanced"` but drops the weight-grad
-scratch and accumulates per-chunk directly via `addmm_` (cuBLAS
-uses an fp32 internal accumulator, so bulk precision matches
-`"balanced"`). Saves `num_classes * in_features *
-sizeof(acc_dtype)` - typically several hundred MB for an LLM
-head. On non-CUDA mixed-precision falls back to `"balanced"`.
+- `"compact"` - `acc_dtype` only where needed for gradient
+correctness; accumulates the weight gradient per chunk directly via
+`addmm_` instead of a `(num_classes, in_features)`
+`acc_dtype` scratch (on CUDA cuBLAS uses an fp32 internal
+accumulator, so bulk precision is unchanged). Saves
+`num_classes * in_features * sizeof(acc_dtype)` - typically
+several hundred MB for an LLM head. On non-CUDA mixed-precision it
+retains that scratch for the cross-chunk accumulation.
 
-Policy effects (`"balanced"` vs `"accurate"`) are visible only
-when `acc_dtype` differs from the input dtype; `"compact"`
-saves memory in both regimes.
+The precision difference between `"compact"` and `"accurate"` is
+visible only when `acc_dtype` differs from the input dtype;
+`"compact"` saves memory in both regimes.
 
 allow_retain_graph*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 

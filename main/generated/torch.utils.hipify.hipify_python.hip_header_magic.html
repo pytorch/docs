@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git0e9f462 )">
+<meta name="llm:version" content="main (2.14.0a0+git80b7a21 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git0e9f462 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git80b7a21 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3547,7 +3547,7 @@ document.write(`
 <h1>torch.utils.hipify.hipify_python.hip_header_magic<a class="headerlink" href="#torch-utils-hipify-hipify-python-hip-header-magic" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.hipify.hipify_python.hip_header_magic">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.hipify.hipify_python.</span></span><span class="sig-name descname"><span class="pre">hip_header_magic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0e9f4621713322cc25850b6b032d13bc31696736/torch/utils/hipify/hipify_python.py#L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hipify.hipify_python.hip_header_magic" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.hipify.hipify_python.</span></span><span class="sig-name descname"><span class="pre">hip_header_magic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/utils/hipify/hipify_python.py#L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hipify.hipify_python.hip_header_magic" title="Link to this definition">#</a></dt>
 <dd><p>If the file makes kernel builtin calls and does not include the cuda_runtime.h header,
 then automatically add an #include to match the “magic” includes provided by NVCC.
 .. todo:: Update logic to ignore cases where the cuda_runtime.h is included by another file.</p>
