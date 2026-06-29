@@ -1,6 +1,6 @@
 # ObserverBase
 
-*class*torch.ao.quantization.observer.ObserverBase(*dtype*, *is_dynamic=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/ao/quantization/observer.py#L150)
+*class*torch.ao.quantization.observer.ObserverBase(*dtype*, *is_dynamic=False*)[[source]](https://github.com/pytorch/pytorch/blob/12a9ea264bf805a66cd87e19e767ab23c2f59fef/torch/ao/quantization/observer.py#L150)
 
 Base observer Module.
 Any observer implementation should derive from this class.
@@ -17,7 +17,7 @@ reference model spec.
 - **is_dynamic** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - indicator for whether the observer is a placeholder for dynamic quantization
 - **quantization** (*or static*) -
 
-*classmethod*with_args(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/ao/quantization/observer.py#L102)
+*classmethod*with_args(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/12a9ea264bf805a66cd87e19e767ab23c2f59fef/torch/ao/quantization/observer.py#L102)
 
 Wrapper that allows creation of class factories.
 
@@ -36,7 +36,7 @@ Example:
 False
 ```
 
-*classmethod*with_callable_args(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/80b7a2174586f92cc0af6a820a4c98e73b6fca58/torch/ao/quantization/observer.py#L123)
+*classmethod*with_callable_args(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/12a9ea264bf805a66cd87e19e767ab23c2f59fef/torch/ao/quantization/observer.py#L123)
 
 Wrapper that allows creation of class factories args that need to be
 called at construction time.
