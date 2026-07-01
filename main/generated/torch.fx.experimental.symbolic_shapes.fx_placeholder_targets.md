@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.fx_placeholder_targets
 
-torch.fx.experimental.symbolic_shapes.fx_placeholder_targets(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/fx/experimental/symbolic_shapes.py#L1956)
+torch.fx.experimental.symbolic_shapes.fx_placeholder_targets(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/symbolic_shapes.py#L1956)
 
 Return type:
 

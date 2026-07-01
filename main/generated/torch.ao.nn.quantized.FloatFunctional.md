@@ -1,6 +1,6 @@
 # FloatFunctional
 
-*class*torch.ao.nn.quantized.FloatFunctional[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/ao/nn/quantized/modules/functional_modules.py#L11)
+*class*torch.ao.nn.quantized.FloatFunctional[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/ao/nn/quantized/modules/functional_modules.py#L11)
 
 State collector class for float operations.
 

@@ -1,3 +1,3 @@
 # torch.fx.experimental.optimization.replace_node_module
 
-torch.fx.experimental.optimization.replace_node_module(*node*, *modules*, *new_module*)[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/fx/experimental/optimization.py#L66)
+torch.fx.experimental.optimization.replace_node_module(*node*, *modules*, *new_module*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/optimization.py#L66)

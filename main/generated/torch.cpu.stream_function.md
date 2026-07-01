@@ -1,6 +1,6 @@
 # torch.cpu.stream
 
-torch.cpu.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/cpu/__init__.py#L215)
+torch.cpu.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/cpu/__init__.py#L215)
 
 Wrapper around the Context-manager StreamContext that
 selects a given stream.

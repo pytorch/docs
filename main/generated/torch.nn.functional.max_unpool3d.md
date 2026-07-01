@@ -1,6 +1,6 @@
 # torch.nn.functional.max_unpool3d
 
-torch.nn.functional.max_unpool3d(*input*, *indices*, *kernel_size*, *stride=None*, *padding=0*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/nn/functional.py#L1078)
+torch.nn.functional.max_unpool3d(*input*, *indices*, *kernel_size*, *stride=None*, *padding=0*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/nn/functional.py#L1078)
 
 Compute a partial inverse of `MaxPool3d`.
 

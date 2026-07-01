@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/c8f2d26abd0de59995af555e80c82ca1221bc21b/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L512)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule_functional(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L512)
 
 Return type:
 

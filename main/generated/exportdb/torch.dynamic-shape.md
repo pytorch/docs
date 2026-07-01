@@ -565,7 +565,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.builtin](python.builtin.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [python.builtin](python.builtin.html)
 
 Support Level: NOT_SUPPORTED_YET
 
@@ -710,7 +710,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [python.assert](python.assert.html), torch.dynamic-shape
+Tags: [python.assert](python.assert.html), torch.dynamic-shape, [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 
