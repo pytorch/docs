@@ -1,6 +1,6 @@
 # torch.sparse.sampled_addmm
 
-torch.sparse.sampled_addmm(*input*, *mat1*, *mat2*, ***, *beta=1.*, *alpha=1.*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/sparse/__init__.py#L162)
+torch.sparse.sampled_addmm(*input*, *mat1*, *mat2*, ***, *beta=1.*, *alpha=1.*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/sparse/__init__.py#L162)
 
 Performs a matrix multiplication of the dense matrices `mat1` and `mat2` at the locations
 specified by the sparsity pattern of `input`. The matrix `input` is added to the final result.

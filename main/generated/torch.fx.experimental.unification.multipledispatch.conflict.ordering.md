@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.conflict.ordering
 
-torch.fx.experimental.unification.multipledispatch.conflict.ordering(*signatures*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/unification/multipledispatch/conflict.py#L147)
+torch.fx.experimental.unification.multipledispatch.conflict.ordering(*signatures*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/fx/experimental/unification/multipledispatch/conflict.py#L147)
 
 A sane ordering of signatures to check, first to last
 Topological sort of edges as given by `edge` and `supercedes`

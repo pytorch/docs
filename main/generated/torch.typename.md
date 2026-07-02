@@ -1,6 +1,6 @@
 # torch.typename
 
-torch.typename(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/__init__.py#L1463)
+torch.typename(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/__init__.py#L1463)
 
 String representation of the type of an object.
 

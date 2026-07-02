@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.get_attr_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.get_attr_inference_rule(*n*, *traced*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/graph_gradual_typechecker.py#L230)
+torch.fx.experimental.graph_gradual_typechecker.get_attr_inference_rule(*n*, *traced*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/fx/experimental/graph_gradual_typechecker.py#L230)
 
 The current getattr rule only handles the shape attribute
 Can be extended to other attributes

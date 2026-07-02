@@ -1,6 +1,6 @@
 # torch.cuda.ipc_collect
 
-torch.cuda.ipc_collect()[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/cuda/__init__.py#L1242)
+torch.cuda.ipc_collect()[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/cuda/__init__.py#L1242)
 
 Force collects GPU memory after it has been released by CUDA IPC.
 

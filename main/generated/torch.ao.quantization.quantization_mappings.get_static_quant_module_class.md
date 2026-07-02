@@ -1,6 +1,6 @@
 # get_static_quant_module_class
 
-*class*torch.ao.quantization.quantization_mappings.get_static_quant_module_class(*float_module_class*, *additional_static_quant_mapping=None*, *is_reference=False*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/ao/quantization/quantization_mappings.py#L238)
+*class*torch.ao.quantization.quantization_mappings.get_static_quant_module_class(*float_module_class*, *additional_static_quant_mapping=None*, *is_reference=False*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/ao/quantization/quantization_mappings.py#L238)
 
 n Get the statically quantized module class corresponding to
 the floating point module class

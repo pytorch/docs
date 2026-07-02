@@ -1,6 +1,6 @@
 # no_grad
 
-*class*torch.no_grad(*orig_func: F*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/autograd/grad_mode.py#L22)
+*class*torch.no_grad(*orig_func: F*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/autograd/grad_mode.py#L22)
 
 *class*torch.no_grad(*orig_func: [None](https://docs.python.org/3/library/constants.html#None) = None*)
 

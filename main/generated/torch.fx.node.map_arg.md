@@ -1,6 +1,6 @@
 # torch.fx.node.map_arg
 
-torch.fx.node.map_arg(*a*, *fn*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/node.py#L916)
+torch.fx.node.map_arg(*a*, *fn*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/fx/node.py#L916)
 
 Apply fn recursively to each Node appearing in arg.
 

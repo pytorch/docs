@@ -1,6 +1,6 @@
 # torch.distributions.utils.tril_matrix_to_vec
 
-torch.distributions.utils.tril_matrix_to_vec(*mat*, *diag=0*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/distributions/utils.py#L187)
+torch.distributions.utils.tril_matrix_to_vec(*mat*, *diag=0*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/distributions/utils.py#L187)
 
 Convert a D x D matrix or a batch of matrices into a (batched) vector
 which comprises of lower triangular elements from the matrix in row order.

@@ -36,7 +36,7 @@ children, and propagates the one with the **smallest** timestamp (e.g. the **fir
 
 ## Methods and Classes
 
-torch.distributed.elastic.multiprocessing.errors.record(*fn*, *error_handler=None*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/distributed/elastic/multiprocessing/errors/__init__.py#L331)
+torch.distributed.elastic.multiprocessing.errors.record(*fn*, *error_handler=None*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/distributed/elastic/multiprocessing/errors/__init__.py#L331)
 
 Syntactic sugar to record errors/exceptions that happened in the decorated
 function using the provided `error_handler`.
@@ -77,7 +77,7 @@ Return type:
 
 [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[~_P], *_R* | None]
 
-*class*torch.distributed.elastic.multiprocessing.errors.ChildFailedError(*name*, *failures*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/distributed/elastic/multiprocessing/errors/__init__.py#L205)
+*class*torch.distributed.elastic.multiprocessing.errors.ChildFailedError(*name*, *failures*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/distributed/elastic/multiprocessing/errors/__init__.py#L205)
 
 Special exception type that can be raised from a function annotated with the
 `@record` decorator to have the child process' (root exception) propagate
@@ -114,7 +114,7 @@ The torchelastic agent raises a `ChildFailedError("trainer", {1: "trainer_1/erro
 upon detecting trainer 1's failure which would propagate the contents
 of trainer 1's error file to the scheduler's init process.
 
-*class*torch.distributed.elastic.multiprocessing.errors.ErrorHandler[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/distributed/elastic/multiprocessing/errors/error_handler.py#L24)
+*class*torch.distributed.elastic.multiprocessing.errors.ErrorHandler[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/distributed/elastic/multiprocessing/errors/error_handler.py#L24)
 
 Write the provided exception object along with some other metadata about
 the error in a structured way in JSON format to an error file specified by the
@@ -125,7 +125,7 @@ written to the error file.
 This handler may be subclassed to customize the handling of the error.
 Subclasses should override `initialize()` and `record_exception()`.
 
-*class*torch.distributed.elastic.multiprocessing.errors.ProcessFailure(*local_rank*, *pid*, *exitcode*, *error_file*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/distributed/elastic/multiprocessing/errors/__init__.py#L91)
+*class*torch.distributed.elastic.multiprocessing.errors.ProcessFailure(*local_rank*, *pid*, *exitcode*, *error_file*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/distributed/elastic/multiprocessing/errors/__init__.py#L91)
 
 Represent the failed process result. When the worker process fails, it may record failure root cause into the file.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.sym_node.is_channels_last_contiguous_2d
 
-torch.fx.experimental.sym_node.is_channels_last_contiguous_2d(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/fx/experimental/sym_node.py#L1803)
+torch.fx.experimental.sym_node.is_channels_last_contiguous_2d(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/fx/experimental/sym_node.py#L1803)
 
 Return type:
 

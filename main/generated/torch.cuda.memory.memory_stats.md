@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_stats
 
-torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/cuda/memory.py#L232)
+torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/cuda/memory.py#L232)
 
 Return a dictionary of CUDA memory allocator statistics for a given device.
 

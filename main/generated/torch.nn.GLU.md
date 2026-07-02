@@ -1,6 +1,6 @@
 # GLU
 
-*class*torch.nn.GLU(*dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/nn/modules/activation.py#L736)
+*class*torch.nn.GLU(*dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/modules/activation.py#L736)
 
 Applies the gated linear unit function.
 
@@ -25,7 +25,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/nn/modules/activation.py#L770)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/modules/activation.py#L770)
 
 Return the extra representation of the module.
 
@@ -33,7 +33,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/nn/modules/activation.py#L764)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/modules/activation.py#L764)
 
 Runs the forward pass.
 

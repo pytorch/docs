@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitdf6ed39 )">
+<meta name="llm:version" content="main (2.14.0a0+git613fb8c )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitdf6ed39 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git613fb8c )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -7036,10 +7036,10 @@ document.write(`
                   
   <section id="torch-utils-dlpack">
 <h1>torch.utils.dlpack<a class="headerlink" href="#torch-utils-dlpack" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2018 | Last Updated On: Jun 13, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2018 | Last Updated On: Jul 01, 2026</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.dlpack.from_dlpack">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/utils/dlpack.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/utils/dlpack.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Link to this definition">#</a></dt>
 <dd><p>Converts a tensor from an external library into a <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>.</p>
 <p>The returned PyTorch tensor will share the memory with the input tensor
 (which may have come from another library). Note that in-place operations
@@ -7122,6 +7122,40 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
 </dd>
 </dl>
 <p>The DLPack capsule shares the tensor’s memory.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.utils.dlpack.ReadOnlyTensorWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyTensorWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/utils/dlpack.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.ReadOnlyTensorWrapper" title="Link to this definition">#</a></dt>
+<dd><p>A zero-copy, read-only view of a tensor for DLPack interop only.</p>
+<p>Wrapping a tensor with <code class="docutils literal notranslate"><span class="pre">ReadOnlyTensorWrapper</span></code> declares the intent that
+consumers must not mutate its data. It changes only the DLPack export
+behavior; the wrapper shares storage with the source tensor and does not
+copy.</p>
+<p>Both DLPack export paths are routed to read-only variants:</p>
+<ul class="simple">
+<li><p>the fast <code class="docutils literal notranslate"><span class="pre">__dlpack_c_exchange_api__</span></code> C exchange protocol (used by
+tvm-ffi / CuteDSL) points at the const exchange API, which exports
+through <code class="docutils literal notranslate"><span class="pre">const_data_ptr()</span></code> and sets
+<code class="docutils literal notranslate"><span class="pre">DLPACK_FLAG_BITMASK_READ_ONLY</span></code>;</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">__dlpack__()</span></code> capsule protocol forces <code class="docutils literal notranslate"><span class="pre">read_only=True</span></code>.</p></li>
+</ul>
+<p>Because the export uses <code class="docutils literal notranslate"><span class="pre">const_data_ptr()</span></code>, exporting a copy-on-write
+tensor does not materialize it.</p>
+<p>The wrapper is export-only: every torch operation other than the DLPack
+protocol methods raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>. Unwrap it (e.g. via the original
+tensor) to operate on the data.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ro</span> <span class="o">=</span> <span class="n">ReadOnlyTensorWrapper</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">cute</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">ro</span><span class="p">,</span> <span class="n">enable_tvm_ffi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># read-only export</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.utils.dlpack.ReadOnlyTensorWrapper" title="torch.utils.dlpack.ReadOnlyTensorWrapper">ReadOnlyTensorWrapper</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -7245,6 +7279,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.dlpack.from_dlpack"><code class="docutils literal notranslate"><span class="pre">from_dlpack()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.dlpack.to_dlpack"><code class="docutils literal notranslate"><span class="pre">to_dlpack()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.utils.dlpack.ReadOnlyTensorWrapper"><code class="docutils literal notranslate"><span class="pre">ReadOnlyTensorWrapper</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -7497,7 +7532,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
        "headline": "torch.utils.dlpack",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/dlpack.html",
-       "articleBody": "torch.utils.dlpack# Created On: Jul 11, 2018 | Last Updated On: Jun 13, 2025 torch.utils.dlpack.from_dlpack(ext_tensor) \u2192 Tensor[source]# Converts a tensor from an external library into a torch.Tensor. The returned PyTorch tensor will share the memory with the input tensor (which may have come from another library). Note that in-place operations will therefore also affect the data of the input tensor. This may lead to unexpected issues (e.g., other libraries may have read-only flags or immutable data structures), so the user should only do this if they know for sure that this is fine. Parameters: ext_tensor (object with __dlpack__ attribute, or a DLPack capsule) \u2013 The tensor or DLPack capsule to convert. If ext_tensor is a tensor (or ndarray) object, it must support the __dlpack__ protocol (i.e., have a ext_tensor.__dlpack__ method). Otherwise ext_tensor may be a DLPack capsule, which is an opaque PyCapsule instance, typically produced by a to_dlpack function or method. device (torch.device or str or None) \u2013 An optional PyTorch device specifying where to place the new tensor. If None (default), the new tensor will be on the same device as ext_tensor. copy (bool or None) \u2013 An optional boolean indicating whether or not to copy self. If None, PyTorch will copy only if necessary. Return type: Tensor Examples: \u003e\u003e\u003e import torch.utils.dlpack \u003e\u003e\u003e t = torch.arange(4) # Convert a tensor directly (supported in PyTorch \u003e= 1.10) \u003e\u003e\u003e t2 = torch.from_dlpack(t) \u003e\u003e\u003e t2[:2] = -1 # show that memory is shared \u003e\u003e\u003e t2 tensor([-1, -1, 2, 3]) \u003e\u003e\u003e t tensor([-1, -1, 2, 3]) # The old-style DLPack usage, with an intermediate capsule object \u003e\u003e\u003e capsule = torch.utils.dlpack.to_dlpack(t) \u003e\u003e\u003e capsule \u003ccapsule object \"dltensor\" at ...\u003e \u003e\u003e\u003e t3 = torch.from_dlpack(capsule) \u003e\u003e\u003e t3 tensor([-1, -1, 2, 3]) \u003e\u003e\u003e t3[0] = -9 # now we\u0027re sharing memory between 3 tensors \u003e\u003e\u003e t3 tensor([-9, -1, 2, 3]) \u003e\u003e\u003e t2 tensor([-9, -1, 2, 3]) \u003e\u003e\u003e t tensor([-9, -1, 2, 3]) torch.utils.dlpack.to_dlpack(tensor) \u2192 PyCapsule# Returns an opaque object (a \u201cDLPack capsule\u201d) representing the tensor. Note to_dlpack is a legacy DLPack interface. The capsule it returns cannot be used for anything in Python other than use it as input to from_dlpack. The more idiomatic use of DLPack is to call from_dlpack directly on the tensor object - this works when that object has a __dlpack__ method, which PyTorch and most other libraries indeed have now. Warning Only call from_dlpack once per capsule produced with to_dlpack. Behavior when a capsule is consumed multiple times is undefined. Parameters: tensor \u2013 a tensor to be exported The DLPack capsule shares the tensor\u2019s memory.",
+       "articleBody": "torch.utils.dlpack# Created On: Jul 11, 2018 | Last Updated On: Jul 01, 2026 torch.utils.dlpack.from_dlpack(ext_tensor) \u2192 Tensor[source]# Converts a tensor from an external library into a torch.Tensor. The returned PyTorch tensor will share the memory with the input tensor (which may have come from another library). Note that in-place operations will therefore also affect the data of the input tensor. This may lead to unexpected issues (e.g., other libraries may have read-only flags or immutable data structures), so the user should only do this if they know for sure that this is fine. Parameters: ext_tensor (object with __dlpack__ attribute, or a DLPack capsule) \u2013 The tensor or DLPack capsule to convert. If ext_tensor is a tensor (or ndarray) object, it must support the __dlpack__ protocol (i.e., have a ext_tensor.__dlpack__ method). Otherwise ext_tensor may be a DLPack capsule, which is an opaque PyCapsule instance, typically produced by a to_dlpack function or method. device (torch.device or str or None) \u2013 An optional PyTorch device specifying where to place the new tensor. If None (default), the new tensor will be on the same device as ext_tensor. copy (bool or None) \u2013 An optional boolean indicating whether or not to copy self. If None, PyTorch will copy only if necessary. Return type: Tensor Examples: \u003e\u003e\u003e import torch.utils.dlpack \u003e\u003e\u003e t = torch.arange(4) # Convert a tensor directly (supported in PyTorch \u003e= 1.10) \u003e\u003e\u003e t2 = torch.from_dlpack(t) \u003e\u003e\u003e t2[:2] = -1 # show that memory is shared \u003e\u003e\u003e t2 tensor([-1, -1, 2, 3]) \u003e\u003e\u003e t tensor([-1, -1, 2, 3]) # The old-style DLPack usage, with an intermediate capsule object \u003e\u003e\u003e capsule = torch.utils.dlpack.to_dlpack(t) \u003e\u003e\u003e capsule \u003ccapsule object \"dltensor\" at ...\u003e \u003e\u003e\u003e t3 = torch.from_dlpack(capsule) \u003e\u003e\u003e t3 tensor([-1, -1, 2, 3]) \u003e\u003e\u003e t3[0] = -9 # now we\u0027re sharing memory between 3 tensors \u003e\u003e\u003e t3 tensor([-9, -1, 2, 3]) \u003e\u003e\u003e t2 tensor([-9, -1, 2, 3]) \u003e\u003e\u003e t tensor([-9, -1, 2, 3]) torch.utils.dlpack.to_dlpack(tensor) \u2192 PyCapsule# Returns an opaque object (a \u201cDLPack capsule\u201d) representing the tensor. Note to_dlpack is a legacy DLPack interface. The capsule it returns cannot be used for anything in Python other than use it as input to from_dlpack. The more idiomatic use of DLPack is to call from_dlpack directly on the tensor object - this works when that object has a __dlpack__ method, which PyTorch and most other libraries indeed have now. Warning Only call from_dlpack once per capsule produced with to_dlpack. Behavior when a capsule is consumed multiple times is undefined. Parameters: tensor \u2013 a tensor to be exported The DLPack capsule shares the tensor\u2019s memory. class torch.utils.dlpack.ReadOnlyTensorWrapper(tensor)[source]# A zero-copy, read-only view of a tensor for DLPack interop only. Wrapping a tensor with ReadOnlyTensorWrapper declares the intent that consumers must not mutate its data. It changes only the DLPack export behavior; the wrapper shares storage with the source tensor and does not copy. Both DLPack export paths are routed to read-only variants: the fast __dlpack_c_exchange_api__ C exchange protocol (used by tvm-ffi / CuteDSL) points at the const exchange API, which exports through const_data_ptr() and sets DLPACK_FLAG_BITMASK_READ_ONLY; the __dlpack__() capsule protocol forces read_only=True. Because the export uses const_data_ptr(), exporting a copy-on-write tensor does not materialize it. The wrapper is export-only: every torch operation other than the DLPack protocol methods raises RuntimeError. Unwrap it (e.g. via the original tensor) to operate on the data. Example: x = torch.randn(8) ro = ReadOnlyTensorWrapper(x) cute.runtime.from_dlpack(ro, enable_tvm_ffi=True) # read-only export Return type: ReadOnlyTensorWrapper",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7509,7 +7544,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
          "@id": "/dlpack.html"
        },
        "datePublished": "Jul 11, 2018T00:00:00Z",
-       "dateModified": "Jun 13, 2025T00:00:00Z"
+       "dateModified": "Jul 01, 2026T00:00:00Z"
      }
  </script>
   <script>

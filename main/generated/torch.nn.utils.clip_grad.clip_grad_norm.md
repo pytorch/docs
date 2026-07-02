@@ -1,6 +1,6 @@
 # torch.nn.utils.clip_grad.clip_grad_norm
 
-torch.nn.utils.clip_grad.clip_grad_norm(*parameters*, *max_norm*, *norm_type=2.0*, *error_if_nonfinite=False*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/nn/utils/clip_grad.py#L235)
+torch.nn.utils.clip_grad.clip_grad_norm(*parameters*, *max_norm*, *norm_type=2.0*, *error_if_nonfinite=False*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/utils/clip_grad.py#L235)
 
 Clip the gradient norm of an iterable of parameters.
 

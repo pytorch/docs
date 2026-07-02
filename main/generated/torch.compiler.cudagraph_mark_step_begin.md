@@ -1,6 +1,6 @@
 # torch.compiler.cudagraph_mark_step_begin
 
-torch.compiler.cudagraph_mark_step_begin()[[source]](https://github.com/pytorch/pytorch/blob/df6ed392bccc6625dbf4f6a82bcecee03433aa18/torch/compiler/__init__.py#L489)
+torch.compiler.cudagraph_mark_step_begin()[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/compiler/__init__.py#L489)
 
 Indicates that a new iteration of inference or training is about to begin.
 
