@@ -1,6 +1,6 @@
 # torch.xpu.device_count
 
-torch.xpu.device_count()[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/xpu/__init__.py#L262)
+torch.xpu.device_count()[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/xpu/__init__.py#L262)
 
 Return the number of XPU device available.
 

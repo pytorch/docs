@@ -1,6 +1,6 @@
 # FormattedTimesMixin
 
-*class*torch.autograd.profiler_util.FormattedTimesMixin[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/autograd/profiler_util.py#L510)
+*class*torch.autograd.profiler_util.FormattedTimesMixin[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/autograd/profiler_util.py#L520)
 
 Helpers for FunctionEvent and FunctionEventAvg.
 

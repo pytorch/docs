@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git613fb8c )">
+<meta name="llm:version" content="main (2.14.0a0+git3d5b766 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git613fb8c )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3d5b766 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3499,10 +3499,10 @@ document.write(`
 <h1>torch.compiler.wrap_numpy<a class="headerlink" href="#torch-compiler-wrap-numpy" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.wrap_numpy">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">wrap_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/compiler/__init__.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.wrap_numpy" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">wrap_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/compiler/__init__.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.wrap_numpy" title="Link to this definition">#</a></dt>
 <dd><p>Decorator that turns a function from <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>s to <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>s into a function
 from <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>s to <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>s.</p>
-<p>It is designed to be used with <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code>. It allows to
+<p>It is designed to be used with <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code>. It allows you to
 compile a NumPy function as if it were a PyTorch function. This allows you to run NumPy code
 on CUDA or compute its gradients.</p>
 <div class="admonition note">
@@ -3881,7 +3881,7 @@ on CUDA or compute its gradients.</p>
        "headline": "torch.compiler.wrap_numpy",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.wrap_numpy.html",
-       "articleBody": "torch.compiler.wrap_numpy# torch.compiler.wrap_numpy(fn)[source]# Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors. It is designed to be used with torch.compile() with fullgraph=True. It allows to compile a NumPy function as if it were a PyTorch function. This allows you to run NumPy code on CUDA or compute its gradients. Note This decorator does not work without torch.compile(). Example: \u003e\u003e\u003e # Compile a NumPy function as a Tensor -\u003e Tensor function \u003e\u003e\u003e @torch.compile(fullgraph=True) \u003e\u003e\u003e @torch.compiler.wrap_numpy \u003e\u003e\u003e def fn(a: np.ndarray): \u003e\u003e\u003e return np.sum(a * a) \u003e\u003e\u003e # Execute the NumPy function using Tensors on CUDA and compute the gradients \u003e\u003e\u003e x = torch.arange(6, dtype=torch.float32, device=\"cuda\", requires_grad=True) \u003e\u003e\u003e out = fn(x) \u003e\u003e\u003e out.backward() \u003e\u003e\u003e print(x.grad) tensor([ 0., 2., 4., 6., 8., 10.], device=\u0027cuda:0\u0027)",
+       "articleBody": "torch.compiler.wrap_numpy# torch.compiler.wrap_numpy(fn)[source]# Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors. It is designed to be used with torch.compile() with fullgraph=True. It allows you to compile a NumPy function as if it were a PyTorch function. This allows you to run NumPy code on CUDA or compute its gradients. Note This decorator does not work without torch.compile(). Example: \u003e\u003e\u003e # Compile a NumPy function as a Tensor -\u003e Tensor function \u003e\u003e\u003e @torch.compile(fullgraph=True) \u003e\u003e\u003e @torch.compiler.wrap_numpy \u003e\u003e\u003e def fn(a: np.ndarray): \u003e\u003e\u003e return np.sum(a * a) \u003e\u003e\u003e # Execute the NumPy function using Tensors on CUDA and compute the gradients \u003e\u003e\u003e x = torch.arange(6, dtype=torch.float32, device=\"cuda\", requires_grad=True) \u003e\u003e\u003e out = fn(x) \u003e\u003e\u003e out.backward() \u003e\u003e\u003e print(x.grad) tensor([ 0., 2., 4., 6., 8., 10.], device=\u0027cuda:0\u0027)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

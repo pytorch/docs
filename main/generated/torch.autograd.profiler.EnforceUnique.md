@@ -1,9 +1,9 @@
 # EnforceUnique
 
-*class*torch.autograd.profiler.EnforceUnique[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/autograd/profiler.py#L1623)
+*class*torch.autograd.profiler.EnforceUnique[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/autograd/profiler.py#L1627)
 
 Raises an error if a key is seen more than once.
 
-see(**key*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/autograd/profiler.py#L1629)
+see(**key*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/autograd/profiler.py#L1633)
 
 Observe a key and raise an error if it is seen multiple times.

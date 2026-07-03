@@ -1,11 +1,11 @@
 # torch.compiler.wrap_numpy
 
-torch.compiler.wrap_numpy(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/compiler/__init__.py#L516)
+torch.compiler.wrap_numpy(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/compiler/__init__.py#L516)
 
 Decorator that turns a function from `np.ndarray`s to `np.ndarray`s into a function
 from `torch.Tensor`s to `torch.Tensor`s.
 
-It is designed to be used with [`torch.compile()`](torch.compile.html#torch.compile) with `fullgraph=True`. It allows to
+It is designed to be used with [`torch.compile()`](torch.compile.html#torch.compile) with `fullgraph=True`. It allows you to
 compile a NumPy function as if it were a PyTorch function. This allows you to run NumPy code
 on CUDA or compute its gradients.
 

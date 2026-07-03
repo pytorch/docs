@@ -13,8 +13,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 Tags
 
 - [torch.escape-hatch](torch.escape-hatch.html)
-- [torch.cond](torch.cond.html)
 - [torch.dynamic-shape](torch.dynamic-shape.html)
+- [torch.cond](torch.cond.html)
 - [python.closure](python.closure.html)
 - [torch.dynamic-value](torch.dynamic-value.html)
 - [python.data-structure](python.data-structure.html)
@@ -213,7 +213,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -290,7 +290,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -365,7 +365,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -465,7 +465,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [python.closure](python.closure.html)
+Tags: [python.closure](python.closure.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -536,7 +536,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -623,7 +623,7 @@ Range constraints: {s6: VR[0, int_oo]}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -1022,7 +1022,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -1075,7 +1075,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.map](torch.map.html)
+Tags: [torch.map](torch.map.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -2166,7 +2166,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.builtin](python.builtin.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.builtin](python.builtin.html)
 
 Support Level: NOT_SUPPORTED_YET
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.sym_or
 
-torch.fx.experimental.symbolic_shapes.sym_or(*x*, **others*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/fx/experimental/symbolic_shapes.py#L1698)
+torch.fx.experimental.symbolic_shapes.sym_or(*x*, **others*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/fx/experimental/symbolic_shapes.py#L1698)
 
 or, but for symbolic expressions, without bool casting.
 

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git613fb8c )">
+<meta name="llm:version" content="main (2.14.0a0+git3d5b766 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git613fb8c )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3d5b766 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3608,7 +3608,7 @@ document.write(`
 <h1>torch.autograd.profiler.profile.key_averages<a class="headerlink" href="#torch-autograd-profiler-profile-key-averages" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.profile.key_averages">
-<span class="sig-prename descclassname"><span class="pre">profile.</span></span><span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/autograd/profiler.py#L1002"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile.key_averages" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">profile.</span></span><span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_python_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/autograd/profiler.py#L1002"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile.key_averages" title="Link to this definition">#</a></dt>
 <dd><p>Averages all function events over their keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3621,6 +3621,12 @@ choosing the best candidates for quantization (aka fitting a roof line)</p></li>
 <li><p><strong>group_by_stack_n</strong> – group by top n stack trace entries</p></li>
 <li><p><strong>group_by_overload_name</strong> – Differentiate operators by their overload name e.g. aten::add.Tensor</p></li>
 <li><p><strong>separately</strong> (<em>and aten::add.out will be aggregated</em>) – </p></li>
+<li><p><strong>include_python_functions</strong> – include Python function events (e.g. individual
+Python callsite entries captured with <code class="docutils literal notranslate"><span class="pre">with_stack=True</span></code>) in the
+averages. By default these are excluded because they tend to appear as
+misleading hotspots (e.g. <code class="docutils literal notranslate"><span class="pre">threading.py:</span> <span class="pre">wait</span></code>) that obscure the
+real operator-level breakdown. Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to restore the raw
+per-callsite view.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -3985,7 +3991,7 @@ choosing the best candidates for quantization (aka fitting a roof line)</p></li>
        "headline": "torch.autograd.profiler.profile.key_averages",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.autograd.profiler.profile.key_averages.html",
-       "articleBody": "torch.autograd.profiler.profile.key_averages# profile.key_averages(group_by_input_shape=False, group_by_stack_n=0, group_by_overload_name=False)[source]# Averages all function events over their keys. Parameters: group_by_input_shapes \u2013 group entries by (event name, input shapes) rather than just event name. This is useful to see which input shapes contribute to the runtime the most and may help with size-specific optimizations or choosing the best candidates for quantization (aka fitting a roof line) group_by_stack_n \u2013 group by top n stack trace entries group_by_overload_name \u2013 Differentiate operators by their overload name e.g. aten::add.Tensor separately (and aten::add.out will be aggregated) \u2013 Returns: An EventList containing FunctionEventAvg objects.",
+       "articleBody": "torch.autograd.profiler.profile.key_averages# profile.key_averages(group_by_input_shape=False, group_by_stack_n=0, group_by_overload_name=False, include_python_functions=False)[source]# Averages all function events over their keys. Parameters: group_by_input_shapes \u2013 group entries by (event name, input shapes) rather than just event name. This is useful to see which input shapes contribute to the runtime the most and may help with size-specific optimizations or choosing the best candidates for quantization (aka fitting a roof line) group_by_stack_n \u2013 group by top n stack trace entries group_by_overload_name \u2013 Differentiate operators by their overload name e.g. aten::add.Tensor separately (and aten::add.out will be aggregated) \u2013 include_python_functions \u2013 include Python function events (e.g. individual Python callsite entries captured with with_stack=True) in the averages. By default these are excluded because they tend to appear as misleading hotspots (e.g. threading.py: wait) that obscure the real operator-level breakdown. Set to True to restore the raw per-callsite view. Returns: An EventList containing FunctionEventAvg objects.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

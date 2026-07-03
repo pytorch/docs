@@ -1,6 +1,6 @@
 # MaxPool1d
 
-*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/modules/pooling.py#L79)
+*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/nn/modules/pooling.py#L79)
 
 Applies a 1D max pooling over an input signal composed of several input planes.
 
@@ -46,10 +46,10 @@ Lout​=⌊strideLin​+2×padding−dilation×(kernel_size−1)−1​⌋+1
 
 where `ceil_mode = True`
 
-Lout=⌈Lin+2×padding−dilation×(kernel_size−1)−1+(stride−1)stride⌉+1L_{out} = \left\lceil \frac{L_{in} + 2 \times \text{padding} - \text{dilation}
- \times (\text{kernel\_size} - 1) - 1 + (stride - 1)}{\text{stride}}\right\rceil + 1
+Lout=⌊Lin+2×padding−dilation×(kernel_size−1)−1+(stride−1)stride⌋+1L_{out} = \left\lfloor \frac{L_{in} + 2 \times \text{padding} - \text{dilation}
+ \times (\text{kernel\_size} - 1) - 1 + (\text{stride} - 1)}{\text{stride}}\right\rfloor + 1
 
-Lout​=⌈strideLin​+2×padding−dilation×(kernel_size−1)−1+(stride−1)​⌉+1
+Lout​=⌊strideLin​+2×padding−dilation×(kernel_size−1)−1+(stride−1)​⌋+1
 - Ensure that the last pooling starts inside the image, make Lout=Lout−1L_{out} = L_{out} - 1Lout​=Lout​−1
 when (Lout−1)∗stride>=Lin+padding(L_{out} - 1) * \text{stride} >= L_{in} + \text{padding}(Lout​−1)∗stride>=Lin​+padding.
 
@@ -62,6 +62,6 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/613fb8c0f7fc1641d104e1ba45491d522964094c/torch/nn/modules/pooling.py#L142)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/nn/modules/pooling.py#L142)
 
 Runs the forward pass.
