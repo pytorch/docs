@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_cached
 
-torch.cuda.memory.memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/cuda/memory.py#L608)
+torch.cuda.memory.memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/cuda/memory.py#L608)
 
 Deprecated; see `memory_reserved()`.
 

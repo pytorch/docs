@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.itemmap
 
-torch.fx.experimental.unification.unification_tools.itemmap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/fx/experimental/unification/unification_tools.py#L137)
+torch.fx.experimental.unification.unification_tools.itemmap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/fx/experimental/unification/unification_tools.py#L137)
 
 Apply function to items of dictionary
 

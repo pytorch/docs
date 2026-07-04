@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3d5b766 )">
+<meta name="llm:version" content="main (2.14.0a0+git9a3243e )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3d5b766 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9a3243e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3611,7 +3611,7 @@ document.write(`
 <h1>torch.xpu.power_draw<a class="headerlink" href="#torch-xpu-power-draw" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.xpu.power_draw">
-<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">power_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5b7664e539957501eac5dad7ecab7d12aa2088/torch/xpu/__init__.py#L1045"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.power_draw" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">power_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/xpu/__init__.py#L1076"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.power_draw" title="Link to this definition">#</a></dt>
 <dd><p>Return the GPU card power draw in watts.</p>
 <p>The value is computed by dividing the energy delta by the time delta between
 two energy-counter reads separated by a 100ms sampling interval.</p>
@@ -3633,6 +3633,11 @@ sampling interval required to compute an accurate power reading.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This API may require elevated privileges (e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span></code>) to access GPU power information.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Intel Xe2 and newer GPUs, card-level power is reported directly. On older GPUs,
+package-level power is used as a fallback and may not reflect the full card power draw.</p>
 </div>
 </dd></dl>
 
@@ -3992,7 +3997,7 @@ sampling interval required to compute an accurate power reading.</p>
        "headline": "torch.xpu.power_draw",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.xpu.power_draw.html",
-       "articleBody": "torch.xpu.power_draw# torch.xpu.power_draw(device=None)[source]# Return the GPU card power draw in watts. The value is computed by dividing the energy delta by the time delta between two energy-counter reads separated by a 100ms sampling interval. Parameters: device (torch.device, str or int, optional) \u2013 selected device. Uses the current device, given by current_device(), if None (default). Return type: float Note This function blocks for approximately 100ms per call due to the sampling interval required to compute an accurate power reading. Note This API may require elevated privileges (e.g. sudo) to access GPU power information.",
+       "articleBody": "torch.xpu.power_draw# torch.xpu.power_draw(device=None)[source]# Return the GPU card power draw in watts. The value is computed by dividing the energy delta by the time delta between two energy-counter reads separated by a 100ms sampling interval. Parameters: device (torch.device, str or int, optional) \u2013 selected device. Uses the current device, given by current_device(), if None (default). Return type: float Note This function blocks for approximately 100ms per call due to the sampling interval required to compute an accurate power reading. Note This API may require elevated privileges (e.g. sudo) to access GPU power information. Note On Intel Xe2 and newer GPUs, card-level power is reported directly. On older GPUs, package-level power is used as a fallback and may not reflect the full card power draw.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
