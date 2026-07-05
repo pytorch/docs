@@ -1,6 +1,6 @@
 # get_combined_dict
 
-*class*torch.ao.quantization.utils.get_combined_dict(*default_dict*, *additional_dict*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/ao/quantization/utils.py#L140)
+*class*torch.ao.quantization.utils.get_combined_dict(*default_dict*, *additional_dict*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/ao/quantization/utils.py#L140)
 
 Combines two dictionaries.
 

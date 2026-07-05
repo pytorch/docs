@@ -1,6 +1,6 @@
 # RReLU
 
-*class*torch.nn.RReLU(*lower=0.125*, *upper=0.3333333333333333*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/nn/modules/activation.py#L153)
+*class*torch.nn.RReLU(*lower=0.125*, *upper=0.3333333333333333*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L153)
 
 Applies the randomized leaky rectified linear unit function, element-wise.
 
@@ -42,7 +42,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/nn/modules/activation.py#L211)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L211)
 
 Return the extra representation of the module.
 
@@ -50,7 +50,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/nn/modules/activation.py#L205)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L205)
 
 Runs the forward pass.
 

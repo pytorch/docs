@@ -203,7 +203,7 @@ To enable runtime checks on inputs, set the environment variable `AOTI_RUNTIME_C
 
 ## API Reference
 
-torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/_inductor/__init__.py#L57)
+torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/_inductor/__init__.py#L57)
 
 Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
@@ -254,7 +254,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*)[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/_inductor/__init__.py#L250)
+torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/_inductor/__init__.py#L250)
 
 Loads the model from the PT2 package.
 

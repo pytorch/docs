@@ -1,6 +1,6 @@
 # torch.cpu.is_available
 
-torch.cpu.is_available()[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/cpu/__init__.py#L117)
+torch.cpu.is_available()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/cpu/__init__.py#L117)
 
 Returns a bool indicating if CPU is currently available.
 

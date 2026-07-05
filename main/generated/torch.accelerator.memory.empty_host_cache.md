@@ -1,6 +1,6 @@
 # torch.accelerator.memory.empty_host_cache
 
-torch.accelerator.memory.empty_host_cache()[[source]](https://github.com/pytorch/pytorch/blob/9a3243ec510ddea6c63c86d01aef273f400f375f/torch/accelerator/memory.py#L35)
+torch.accelerator.memory.empty_host_cache()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/accelerator/memory.py#L35)
 
 Release all unoccupied cached host (pinned) memory currently held by the host caching
 allocator so that it can be used by other applications.
