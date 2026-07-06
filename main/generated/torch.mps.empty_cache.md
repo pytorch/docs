@@ -1,6 +1,6 @@
 # torch.mps.empty_cache
 
-torch.mps.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/mps/__init__.py#L78)
+torch.mps.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/mps/__init__.py#L78)
 
 Releases all unoccupied cached memory currently held by the caching
 allocator so that those can be used in other GPU applications.

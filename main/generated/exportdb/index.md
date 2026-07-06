@@ -13,8 +13,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 Tags
 
 - [torch.escape-hatch](torch.escape-hatch.html)
-- [torch.dynamic-shape](torch.dynamic-shape.html)
 - [torch.cond](torch.cond.html)
+- [torch.dynamic-shape](torch.dynamic-shape.html)
 - [python.closure](python.closure.html)
 - [torch.dynamic-value](torch.dynamic-value.html)
 - [python.data-structure](python.data-structure.html)
@@ -213,7 +213,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -290,7 +290,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -365,7 +365,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -465,7 +465,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.closure](python.closure.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [python.closure](python.closure.html)
 
 Support Level: SUPPORTED
 
@@ -536,7 +536,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -623,7 +623,7 @@ Range constraints: {s6: VR[0, int_oo]}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.cond](torch.cond.html)
+Tags: [torch.cond](torch.cond.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -682,7 +682,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
+Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
 
 Support Level: SUPPORTED
 
@@ -743,7 +743,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
 
 Note
 
-Tags: [torch.escape-hatch](torch.escape-hatch.html), [torch.dynamic-value](torch.dynamic-value.html)
+Tags: [torch.dynamic-value](torch.dynamic-value.html), [torch.escape-hatch](torch.escape-hatch.html)
 
 Support Level: SUPPORTED
 
@@ -1022,7 +1022,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.control-flow](python.control-flow.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.control-flow](python.control-flow.html)
 
 Support Level: SUPPORTED
 
@@ -1036,7 +1036,7 @@ class DynamicShapeIfGuard(torch.nn.Module):
  """
  `if` statement with backed dynamic shape predicate will be specialized into
  one particular branch and generate a guard. However, export will fail if the
- the dimension is marked as dynamic shape from higher level API.
+ dimension is marked as dynamic shape from higher level API.
  """
 
  def forward(self, x):
@@ -1075,7 +1075,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.map](torch.map.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.map](torch.map.html)
 
 Support Level: SUPPORTED
 
@@ -1319,7 +1319,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.data-structure](python.data-structure.html), [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html), [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 
@@ -1650,7 +1650,7 @@ ExportedProgram:
 
 Graph signature:
  # inputs
- c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
+ c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0'
  x: USER_INPUT
 
  # outputs
@@ -2166,7 +2166,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.builtin](python.builtin.html)
+Tags: [python.builtin](python.builtin.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: NOT_SUPPORTED_YET
 

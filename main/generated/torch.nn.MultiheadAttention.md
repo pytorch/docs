@@ -1,6 +1,6 @@
 # MultiheadAttention
 
-*class*torch.nn.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L1089)
+*class*torch.nn.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/modules/activation.py#L1089)
 
 Allows the model to jointly attend to information from different representation subspaces.
 
@@ -68,7 +68,7 @@ Examples:
 >>> attn_output, attn_output_weights = multihead_attn(query, key, value)
 ```
 
-forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L1255)
+forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/modules/activation.py#L1255)
 
 Compute attention outputs using query, key, and value embeddings.
 
@@ -137,7 +137,7 @@ Note
 
 batch_first argument is ignored for unbatched inputs.
 
-merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/nn/modules/activation.py#L1524)
+merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/modules/activation.py#L1524)
 
 Determine mask type and combine masks if necessary.
 

@@ -1,6 +1,6 @@
 # torch.xpu.random.set_rng_state_all
 
-torch.xpu.random.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/xpu/random.py#L65)
+torch.xpu.random.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/xpu/random.py#L65)
 
 Set the random number generator state of all devices.
 

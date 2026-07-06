@@ -116,7 +116,7 @@ Result:
         
     Graph signature:
         # inputs
-        c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
+        c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0'
         x: USER_INPUT
         
         # outputs

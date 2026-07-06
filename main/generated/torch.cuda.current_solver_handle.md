@@ -1,5 +1,5 @@
 # torch.cuda.current_solver_handle
 
-torch.cuda.current_solver_handle()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/cuda/__init__.py#L1323)
+torch.cuda.current_solver_handle()[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/cuda/__init__.py#L1323)
 
 Return cusolverDnHandle_t pointer to current cuSOLVER handle

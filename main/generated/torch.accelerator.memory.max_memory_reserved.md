@@ -1,6 +1,6 @@
 # torch.accelerator.memory.max_memory_reserved
 
-torch.accelerator.memory.max_memory_reserved(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/accelerator/memory.py#L178)
+torch.accelerator.memory.max_memory_reserved(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/accelerator/memory.py#L178)
 
 Return the current [accelerator](../torch.html#accelerators) maximum device memory managed by the caching allocator
 in bytes for a given device index.

@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_int
 
-torch.fx.experimental.symbolic_shapes.guard_int(*a*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/fx/experimental/symbolic_shapes.py#L1935)
+torch.fx.experimental.symbolic_shapes.guard_int(*a*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/experimental/symbolic_shapes.py#L1941)
 
 Return type:
 

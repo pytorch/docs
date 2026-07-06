@@ -1,6 +1,6 @@
 # FunctionEventAvg
 
-*class*torch.autograd.profiler_util.FunctionEventAvg[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/autograd/profiler_util.py#L1008)
+*class*torch.autograd.profiler_util.FunctionEventAvg[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/autograd/profiler_util.py#L1008)
 
 Averaged profiling statistics over multiple FunctionEvent objects.
 

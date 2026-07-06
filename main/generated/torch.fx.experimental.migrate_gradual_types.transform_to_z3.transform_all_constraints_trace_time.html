@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git5abd860 )">
+<meta name="llm:version" content="main (2.14.0a0+gita059c4a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git5abd860 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita059c4a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3878,7 +3878,7 @@ document.write(`
 <h1>torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time<a class="headerlink" href="#torch-fx-experimental-migrate-gradual-types-transform-to-z3-transform-all-constraints-trace-time" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.migrate_gradual_types.transform_to_z3.</span></span><span class="sig-name descname"><span class="pre">transform_all_constraints_trace_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracer_root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.migrate_gradual_types.transform_to_z3.</span></span><span class="sig-name descname"><span class="pre">transform_all_constraints_trace_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracer_root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time" title="Link to this definition">#</a></dt>
 <dd><p>Takes a node and a graph and generates two sets of constraints.
 One set constraints the node’s constraints and another set
 constraints the negation of the node’s constraints
@@ -3887,7 +3887,7 @@ constraints the negation of the node’s constraints
 :param node: node that represents a conditional
 :param counter: variable tracking</p>
 <p>Returns: Two sets of constraints. One with a conjunction with the
-the conditional constraint and the other with a conjunction with
+conditional constraint and the other with a conjunction with
 its negation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4252,7 +4252,7 @@ its negation.</p>
        "headline": "torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time.html",
-       "articleBody": "torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time# torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time(tracer_root, graph, node, counter=0)[source]# Takes a node and a graph and generates two sets of constraints. One set constraints the node\u2019s constraints and another set constraints the negation of the node\u2019s constraints :param tracer_root: the root for getting the module instances :param graph: the graph so far in the tracing process :param node: node that represents a conditional :param counter: variable tracking Returns: Two sets of constraints. One with a conjunction with the the conditional constraint and the other with a conjunction with its negation. Return type: tuple[Any, Any]",
+       "articleBody": "torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time# torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_all_constraints_trace_time(tracer_root, graph, node, counter=0)[source]# Takes a node and a graph and generates two sets of constraints. One set constraints the node\u2019s constraints and another set constraints the negation of the node\u2019s constraints :param tracer_root: the root for getting the module instances :param graph: the graph so far in the tracing process :param node: node that represents a conditional :param counter: variable tracking Returns: Two sets of constraints. One with a conjunction with the conditional constraint and the other with a conjunction with its negation. Return type: tuple[Any, Any]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -1,6 +1,6 @@
 # DTypeConfig
 
-*class*torch.ao.quantization.backend_config.DTypeConfig(*input_dtype=None*, *output_dtype=None*, *weight_dtype=None*, *bias_dtype=None*, *is_dynamic=None*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/ao/quantization/backend_config/backend_config.py#L114)
+*class*torch.ao.quantization.backend_config.DTypeConfig(*input_dtype=None*, *output_dtype=None*, *weight_dtype=None*, *bias_dtype=None*, *is_dynamic=None*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/ao/quantization/backend_config/backend_config.py#L114)
 
 Config object that specifies the supported data types passed as arguments to
 quantize ops in the reference model spec, for input and output activations,
@@ -69,7 +69,7 @@ torch.quint8
 DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=0, quant_max_upper_bound=255, scale_min_lower_bound=None, scale_max_upper_bound=None)
 ```
 
-*classmethod*from_dict(*dtype_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/ao/quantization/backend_config/backend_config.py#L233)
+*classmethod*from_dict(*dtype_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/ao/quantization/backend_config/backend_config.py#L233)
 
 Create a `DTypeConfig` from a dictionary with the following items (all optional):
 
@@ -83,7 +83,7 @@ Return type:
 
 *DTypeConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/5abd8608770f0b56abd2b52412c9b39feeb6153e/torch/ao/quantization/backend_config/backend_config.py#L268)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/ao/quantization/backend_config/backend_config.py#L268)
 
 Convert this `DTypeConfig` to a dictionary with the items described in
 `from_dict()`.
