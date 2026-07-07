@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.find_closure_group
 
-torch.utils.hipify.hipify_python.find_closure_group(*input_string*, *start*, *group*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/utils/hipify/hipify_python.py#L427)
+torch.utils.hipify.hipify_python.find_closure_group(*input_string*, *start*, *group*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/utils/hipify/hipify_python.py#L427)
 
 Generalization for finding a balancing closure group
 

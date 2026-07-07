@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/_higher_order_ops/associative_scan.py#L150)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/_higher_order_ops/associative_scan.py#L150)
 
 Performs an inclusive scan with an associative combine function.
 
@@ -129,8 +129,10 @@ does not support autograd and you may run into miscompiles.
 Read more about feature classification at:
 [https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype](https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype)
 
-This operator requires runtime code generation and so requires support for
-`torch.compile`. Further, only CUDA device codegen is supported at the moment.
+With `combine_mode="pointwise"`, efficient execution requires runtime code
+generation via `torch.compile`, and codegen is only supported on backends
+with scan support (currently CUDA and XPU). On other devices the operator
+still runs eagerly via the generic fallback.
 
 Parameters:
 
@@ -143,8 +145,9 @@ All inputs are expected to have the same shape.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over
 - **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
 - **combine_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A string indicating whether the `combine_fn` is `pointwise` or `generic`, default `pointwise`.
-If `combine_mode=pointwise`, `combine_fn` must be pure, may only contain pointwise operations
-and `xs` must be CUDA tensors.
+If `combine_mode=pointwise`, `combine_fn` must be pure and may only contain pointwise
+operations; under `torch.compile` `xs` must be on a backend with scan codegen support
+(CUDA or XPU), otherwise the generic fallback is used.
 In all other cases `combine_mode=generic` should be used.
 Note: `combine_mode=pointwise` is more efficient than `combine_mode=generic`.
 

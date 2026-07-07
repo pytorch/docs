@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gita059c4a )">
+<meta name="llm:version" content="main (2.14.0a0+git24e9a39 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita059c4a )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git24e9a39 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4353,8 +4353,10 @@ open a feature request.</p>
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the first matrix to be matrix multiplied</p></li>
 <li><p><strong>mat2</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the second matrix to be matrix multiplied</p></li>
 <li><p><strong>out_dtype</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.dtype" title="torch.dtype"><em>dtype</em></a>) – the dtype of the output tensor.
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes.</p></li>
+On CUDA and XPU, only <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> is supported given
+<code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>/<code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code> input dtypes. Other backends
+(including out-of-tree accelerators) may support additional
+input/output dtype combinations.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -4719,7 +4721,7 @@ torch.float16/torch.bfloat16 input dtypes.</p></li>
        "headline": "torch.mm",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.mm.html",
-       "articleBody": "torch.mm# torch.mm(input, mat2, *, out=None) \u2192 Tensor# Performs a matrix multiplication of the matrices input and mat2. If input is a (n\u00d7m)(n \\times m)(n\u00d7m) tensor, mat2 is a (m\u00d7p)(m \\times p)(m\u00d7p) tensor, out will be a (n\u00d7p)(n \\times p)(n\u00d7p) tensor. Note This function does not broadcast. For broadcasting matrix products, see torch.matmul(). Supports strided and sparse 2-D tensors as inputs, autograd with respect to strided inputs. This operation has support for arguments with sparse layouts. If out is provided its layout will be used. Otherwise, the result layout will be deduced from that of input. Warning Sparse support is a beta feature and some layout(s)/dtype/device combinations may not be supported, or may not have autograd support. If you notice missing functionality please open a feature request. This operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Parameters: input (Tensor) \u2013 the first matrix to be matrix multiplied mat2 (Tensor) \u2013 the second matrix to be matrix multiplied Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e mat1 = torch.randn(2, 3) \u003e\u003e\u003e mat2 = torch.randn(3, 3) \u003e\u003e\u003e torch.mm(mat1, mat2) tensor([[ 0.4851, 0.5037, -0.3633], [-0.0760, -3.6705, 2.4784]]) torch.mm(input, mat2, out_dtype, *, out=None) \u2192 Tensor Parameters: input (Tensor) \u2013 the first matrix to be matrix multiplied mat2 (Tensor) \u2013 the second matrix to be matrix multiplied out_dtype (dtype) \u2013 the dtype of the output tensor. Supported only on CUDA and for torch.float32 given torch.float16/torch.bfloat16 input dtypes. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor.",
+       "articleBody": "torch.mm# torch.mm(input, mat2, *, out=None) \u2192 Tensor# Performs a matrix multiplication of the matrices input and mat2. If input is a (n\u00d7m)(n \\times m)(n\u00d7m) tensor, mat2 is a (m\u00d7p)(m \\times p)(m\u00d7p) tensor, out will be a (n\u00d7p)(n \\times p)(n\u00d7p) tensor. Note This function does not broadcast. For broadcasting matrix products, see torch.matmul(). Supports strided and sparse 2-D tensors as inputs, autograd with respect to strided inputs. This operation has support for arguments with sparse layouts. If out is provided its layout will be used. Otherwise, the result layout will be deduced from that of input. Warning Sparse support is a beta feature and some layout(s)/dtype/device combinations may not be supported, or may not have autograd support. If you notice missing functionality please open a feature request. This operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Parameters: input (Tensor) \u2013 the first matrix to be matrix multiplied mat2 (Tensor) \u2013 the second matrix to be matrix multiplied Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e mat1 = torch.randn(2, 3) \u003e\u003e\u003e mat2 = torch.randn(3, 3) \u003e\u003e\u003e torch.mm(mat1, mat2) tensor([[ 0.4851, 0.5037, -0.3633], [-0.0760, -3.6705, 2.4784]]) torch.mm(input, mat2, out_dtype, *, out=None) \u2192 Tensor Parameters: input (Tensor) \u2013 the first matrix to be matrix multiplied mat2 (Tensor) \u2013 the second matrix to be matrix multiplied out_dtype (dtype) \u2013 the dtype of the output tensor. On CUDA and XPU, only torch.float32 is supported given torch.float16/torch.bfloat16 input dtypes. Other backends (including out-of-tree accelerators) may support additional input/output dtype combinations. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

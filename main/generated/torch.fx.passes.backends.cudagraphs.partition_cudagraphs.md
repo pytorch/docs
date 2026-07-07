@@ -1,6 +1,6 @@
 # torch.fx.passes.backends.cudagraphs.partition_cudagraphs
 
-torch.fx.passes.backends.cudagraphs.partition_cudagraphs(*gm*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/passes/backends/cudagraphs.py#L51)
+torch.fx.passes.backends.cudagraphs.partition_cudagraphs(*gm*, *inputs*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/passes/backends/cudagraphs.py#L51)
 
 Partition an FX graph into sub-GraphModules that can be validly run under
 CUDA graphs. For a subgraph to be runnable under CUDA, all of the operations

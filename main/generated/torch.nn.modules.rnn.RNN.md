@@ -1,6 +1,6 @@
 # RNN
 
-*class*torch.nn.modules.rnn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/modules/rnn.py#L486)
+*class*torch.nn.modules.rnn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/modules/rnn.py#L486)
 
 Apply a multi-layer Elman RNN with tanh⁡\tanhtanh or ReLU\text{ReLU}ReLU
 non-linearity to an input sequence. For each element in the input sequence,
@@ -159,7 +159,7 @@ Examples:
 >>> output, hn = rnn(input, h0)
 ```
 
-forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/modules/rnn.py#L675)
+forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/modules/rnn.py#L675)
 
 forward(*input: [PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence), [Tensor](../tensors.html#torch.Tensor)]
 

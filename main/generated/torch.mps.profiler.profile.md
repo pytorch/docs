@@ -1,6 +1,6 @@
 # torch.mps.profiler.profile
 
-torch.mps.profiler.profile(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/mps/profiler.py#L52)
+torch.mps.profiler.profile(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/mps/profiler.py#L52)
 
 Context Manager to enabling generating OS Signpost tracing from MPS backend.
 

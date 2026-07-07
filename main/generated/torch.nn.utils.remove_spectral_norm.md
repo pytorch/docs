@@ -1,6 +1,6 @@
 # torch.nn.utils.remove_spectral_norm
 
-torch.nn.utils.remove_spectral_norm(*module*, *name='weight'*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/utils/spectral_norm.py#L335)
+torch.nn.utils.remove_spectral_norm(*module*, *name='weight'*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/utils/spectral_norm.py#L335)
 
 Remove the spectral normalization reparameterization from a module.
 

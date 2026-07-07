@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.add_param_group
 
-Optimizer.add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/optim/optimizer.py#L1102)
+Optimizer.add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/optim/optimizer.py#L1102)
 
 Add a param group to the [`Optimizer`](../optim.html#torch.optim.Optimizer) s param_groups.
 

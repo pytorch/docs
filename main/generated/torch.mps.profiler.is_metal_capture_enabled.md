@@ -1,6 +1,6 @@
 # torch.mps.profiler.is_metal_capture_enabled
 
-torch.mps.profiler.is_metal_capture_enabled()[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/mps/profiler.py#L79)
+torch.mps.profiler.is_metal_capture_enabled()[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/mps/profiler.py#L79)
 
 Checks if metal_capture context manager is usable
 To enable metal capture, set MTL_CAPTURE_ENABLED envvar

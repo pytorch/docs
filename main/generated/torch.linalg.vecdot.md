@@ -1,6 +1,6 @@
 # torch.linalg.vecdot
 
-torch.linalg.vecdot(*x*, *y*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/linalg/__init__.py#L3096)
+torch.linalg.vecdot(*x*, *y*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/linalg/__init__.py#L3096)
 
 Computes the dot product of two batches of vectors along a dimension.
 

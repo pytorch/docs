@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gita059c4a )">
+<meta name="llm:version" content="main (2.14.0a0+git24e9a39 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita059c4a )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git24e9a39 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4349,8 +4349,10 @@ For broadcasting matrix products, see <a class="reference internal" href="torch.
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the first batch of matrices to be multiplied</p></li>
 <li><p><strong>mat2</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the second batch of matrices to be multiplied</p></li>
 <li><p><strong>out_dtype</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.dtype" title="torch.dtype"><em>dtype</em></a>) – the dtype of the output tensor.
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes.</p></li>
+On CUDA and XPU, only <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> is supported given
+<code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>/<code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code> input dtypes. Other backends
+(including out-of-tree accelerators) may support additional
+input/output dtype combinations.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -4715,7 +4717,7 @@ torch.float16/torch.bfloat16 input dtypes.</p></li>
        "headline": "torch.bmm",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.bmm.html",
-       "articleBody": "torch.bmm# torch.bmm(input, mat2, *, out=None) \u2192 Tensor# Performs a batch matrix-matrix product of matrices stored in input and mat2. input and mat2 must be 3-D tensors each containing the same number of matrices. If input is a (b\u00d7n\u00d7m)(b \\times n \\times m)(b\u00d7n\u00d7m) tensor, mat2 is a (b\u00d7m\u00d7p)(b \\times m \\times p)(b\u00d7m\u00d7p) tensor, out will be a (b\u00d7n\u00d7p)(b \\times n \\times p)(b\u00d7n\u00d7p) tensor. outi=inputi@mat2i\\text{out}_i = \\text{input}_i \\mathbin{@} \\text{mat2}_i outi\u200b=inputi\u200b@mat2i\u200bThis operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Note This function does not broadcast. For broadcasting matrix products, see torch.matmul(). Parameters: input (Tensor) \u2013 the first batch of matrices to be multiplied mat2 (Tensor) \u2013 the second batch of matrices to be multiplied Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e input = torch.randn(10, 3, 4) \u003e\u003e\u003e mat2 = torch.randn(10, 4, 5) \u003e\u003e\u003e res = torch.bmm(input, mat2) \u003e\u003e\u003e res.size() torch.Size([10, 3, 5]) torch.bmm(input, mat2, out_dtype, *, out=None) \u2192 Tensor Parameters: input (Tensor) \u2013 the first batch of matrices to be multiplied mat2 (Tensor) \u2013 the second batch of matrices to be multiplied out_dtype (dtype) \u2013 the dtype of the output tensor. Supported only on CUDA and for torch.float32 given torch.float16/torch.bfloat16 input dtypes. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor.",
+       "articleBody": "torch.bmm# torch.bmm(input, mat2, *, out=None) \u2192 Tensor# Performs a batch matrix-matrix product of matrices stored in input and mat2. input and mat2 must be 3-D tensors each containing the same number of matrices. If input is a (b\u00d7n\u00d7m)(b \\times n \\times m)(b\u00d7n\u00d7m) tensor, mat2 is a (b\u00d7m\u00d7p)(b \\times m \\times p)(b\u00d7m\u00d7p) tensor, out will be a (b\u00d7n\u00d7p)(b \\times n \\times p)(b\u00d7n\u00d7p) tensor. outi=inputi@mat2i\\text{out}_i = \\text{input}_i \\mathbin{@} \\text{mat2}_i outi\u200b=inputi\u200b@mat2i\u200bThis operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Note This function does not broadcast. For broadcasting matrix products, see torch.matmul(). Parameters: input (Tensor) \u2013 the first batch of matrices to be multiplied mat2 (Tensor) \u2013 the second batch of matrices to be multiplied Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e input = torch.randn(10, 3, 4) \u003e\u003e\u003e mat2 = torch.randn(10, 4, 5) \u003e\u003e\u003e res = torch.bmm(input, mat2) \u003e\u003e\u003e res.size() torch.Size([10, 3, 5]) torch.bmm(input, mat2, out_dtype, *, out=None) \u2192 Tensor Parameters: input (Tensor) \u2013 the first batch of matrices to be multiplied mat2 (Tensor) \u2013 the second batch of matrices to be multiplied out_dtype (dtype) \u2013 the dtype of the output tensor. On CUDA and XPU, only torch.float32 is supported given torch.float16/torch.bfloat16 input dtypes. Other backends (including out-of-tree accelerators) may support additional input/output dtype combinations. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

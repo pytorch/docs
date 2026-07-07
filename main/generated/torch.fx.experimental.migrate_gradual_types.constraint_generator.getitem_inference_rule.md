@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.getitem_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.getitem_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L749)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.getitem_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L749)
 
 Return type:
 

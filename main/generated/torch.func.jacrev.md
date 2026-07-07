@@ -1,6 +1,6 @@
 # torch.func.jacrev
 
-torch.func.jacrev(*func*, *argnums=0*, ***, *has_aux=False*, *chunk_size=None*, *_preallocate_and_copy=False*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/_functorch/eager_transforms.py#L505)
+torch.func.jacrev(*func*, *argnums=0*, ***, *has_aux=False*, *chunk_size=None*, *_preallocate_and_copy=False*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/_functorch/eager_transforms.py#L505)
 
 Computes the Jacobian of `func` with respect to the arg(s) at index
 `argnum` using reverse mode autodiff

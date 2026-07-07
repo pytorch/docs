@@ -1,3 +1,3 @@
 # torch.utils.hipify.hipify_python.preprocess_file_and_save_result
 
-torch.utils.hipify.hipify_python.preprocess_file_and_save_result(*output_directory*, *filepath*, *all_files*, *header_include_dirs*, *stats*, *hip_clang_launch*, *is_pytorch_extension*, *clean_ctx*, *show_progress*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/utils/hipify/hipify_python.py#L197)
+torch.utils.hipify.hipify_python.preprocess_file_and_save_result(*output_directory*, *filepath*, *all_files*, *header_include_dirs*, *stats*, *hip_clang_launch*, *is_pytorch_extension*, *clean_ctx*, *show_progress*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/utils/hipify/hipify_python.py#L197)

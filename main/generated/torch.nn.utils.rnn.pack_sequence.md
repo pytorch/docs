@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pack_sequence
 
-torch.nn.utils.rnn.pack_sequence(*sequences*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/utils/rnn.py#L522)
+torch.nn.utils.rnn.pack_sequence(*sequences*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/utils/rnn.py#L522)
 
 Packs a list of variable length Tensors.
 

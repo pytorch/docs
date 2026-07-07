@@ -8,12 +8,15 @@ can be used to explore the snapshot.
 
 Note
 
-The memory profiler and visualizer described in this document only have visibility into the CUDA memory that is
-allocated and managed through the PyTorch allocator. Any memory allocated directly from CUDA APIs will not be
-visible in the PyTorch memory profiler.
+By default, the memory profiler only has visibility into CUDA device memory allocated and managed through the
+PyTorch allocator (e.g., `torch.empty(..., device='cuda')`, :func:`torch.cuda.memory.CUDAPluggableAllocator`).
+CPU pinned memory (host memory) can optionally be included by passing `record_pinned_host_memory=True`
+to :func:`~torch.cuda.memory._record_memory_history`; see Including Pinned (Host) Memory below.
 
-NCCL (used for distributed communication on CUDA devices) is a common example of a library that allocates some
-GPU memory that is invisible to the PyTorch memory profiler. See Identifying Non-PyTorch allocations for more info.
+Any memory allocated directly from CUDA APIs in C++ (e.g., `cudaMalloc`, `cuMemCreate`) or via third-party
+Python bindings such as `cuda-python <https://github.com/NVIDIA/cuda-python>`_ will not be visible in the
+PyTorch memory profiler. NCCL (used for distributed communication on CUDA devices) is a common example of a
+library that allocates GPU memory outside of PyTorch's allocator. See Identifying Non-PyTorch allocations for more info.
 
 ## Generating a Snapshot
 
@@ -32,6 +35,33 @@ torch.cuda.memory._dump_snapshot("my_snapshot.pickle")
 
 Open [https://pytorch.org/memory_viz](https://pytorch.org/memory_viz) and drag/drop the pickled snapshot file into the visualizer.
 The visualizer is a javascript application that runs locally on your computer. It does not upload any snapshot data.
+
+## Including Pinned (Host) Memory
+
+By default, memory snapshots only include CUDA device memory. To also capture CPU pinned memory
+allocations (e.g., tensors created with `pin_memory=True`), pass `record_pinned_host_memory=True`:
+
+```
+torch.cuda.memory._record_memory_history(record_pinned_host_memory=True)
+
+run_your_code()
+snapshot = torch.cuda.memory._snapshot()
+# Host allocator data is in snapshot["host_segments"] and snapshot["host_traces"]
+torch.cuda.memory._dump_snapshot("my_snapshot.pickle")
+```
+
+To record only host pinned memory and skip the CUDA device allocator entirely, pair
+`record_pinned_host_memory=True` with `record_cuda=False`:
+
+```
+torch.cuda.memory._record_memory_history(record_pinned_host_memory=True, record_cuda=False)
+```
+
+Note
+
+The [pytorch.org/memory_viz](https://pytorch.org/memory_viz) visualizer does not yet support
+displaying host memory data. You can inspect `host_segments` and `host_traces` programmatically
+from the snapshot dict.
 
 ## Active Memory Timeline
 
@@ -71,7 +101,7 @@ print(torch.cuda.device_memory_used(device_idx))
 
 ## Snapshot API Reference
 
-torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/cuda/memory.py#L893)
+torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*, *record_pinned_host_memory=False*, *record_cuda=True*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L897)
 
 Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
@@ -191,7 +221,29 @@ type skip_actions:
 
 list[str], optional
 
-torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/cuda/memory.py#L1028)
+param record_pinned_host_memory:
+
+If True, also record memory history for
+the CPU pinned memory (host) allocator. Host allocator traces will
+appear in the `host_segments` and `host_traces` keys of the
+snapshot returned by `_snapshot()`. Defaults to False.
+
+type record_pinned_host_memory:
+
+bool, optional
+
+param record_cuda:
+
+If True, record memory history for the
+CUDA device allocator. Set to False (together with
+`record_pinned_host_memory=True`) to record only host pinned memory.
+Defaults to True.
+
+type record_cuda:
+
+bool, optional
+
+torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L1044)
 
 Save a snapshot of CUDA memory state at the time it was called.
 
@@ -286,7 +338,7 @@ Returns:
 
 The Snapshot dictionary object
 
-torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/cuda/memory.py#L1130)
+torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L1146)
 
 Save a pickled version of the torch.memory._snapshot() dictionary to a file.
 

@@ -1,6 +1,6 @@
 # check_min_max_valid
 
-*class*torch.ao.quantization.utils.check_min_max_valid(*min_val*, *max_val*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/ao/quantization/utils.py#L414)
+*class*torch.ao.quantization.utils.check_min_max_valid(*min_val*, *max_val*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/ao/quantization/utils.py#L414)
 
 Checks if the given minimum and maximum values are valid, meaning that
 they exist and the min value is less than the max value.

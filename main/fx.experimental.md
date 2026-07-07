@@ -4,7 +4,7 @@ Warning
 
 These APIs are experimental and subject to change without notice.
 
-*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/experimental/sym_node.py#L667)
+*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/sym_node.py#L667)
 
 User API for marking dynamic integers in torch.compile.
 Intended to be compatible with both compile and eager mode.

@@ -1,6 +1,6 @@
 # torch.cuda.memory.mem_get_info
 
-torch.cuda.memory.mem_get_info(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/cuda/memory.py#L847)
+torch.cuda.memory.mem_get_info(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L847)
 
 Return the global free and total GPU memory for a given device using cudaMemGetInfo.
 

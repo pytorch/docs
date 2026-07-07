@@ -1,6 +1,6 @@
 # torch.compiler.assume_constant_result
 
-torch.compiler.assume_constant_result(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/compiler/__init__.py#L307)
+torch.compiler.assume_constant_result(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/compiler/__init__.py#L307)
 
 This function is used to mark a function fn as having a constant result.
 This allows the compiler to optimize away your function.

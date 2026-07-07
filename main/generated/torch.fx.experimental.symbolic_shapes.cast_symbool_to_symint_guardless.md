@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless
 
-torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless(*symbool*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/fx/experimental/symbolic_shapes.py#L2696)
+torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless(*symbool*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/symbolic_shapes.py#L2696)
 
 Converts a SymBool or bool to a SymInt or int without introducing guards.
 

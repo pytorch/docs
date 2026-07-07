@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.unpack_sequence
 
-torch.nn.utils.rnn.unpack_sequence(*packed_sequences*)[[source]](https://github.com/pytorch/pytorch/blob/a059c4af8933be96044a8625669869fe560baf61/torch/nn/utils/rnn.py#L561)
+torch.nn.utils.rnn.unpack_sequence(*packed_sequences*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/utils/rnn.py#L561)
 
 Unpack PackedSequence into a list of variable length Tensors.
 

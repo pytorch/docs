@@ -51,8 +51,10 @@ Parameters:
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the first batch of matrices to be multiplied
 - **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second batch of matrices to be multiplied
 - **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - the dtype of the output tensor.
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes.
+On CUDA and XPU, only `torch.float32` is supported given
+`torch.float16`/`torch.bfloat16` input dtypes. Other backends
+(including out-of-tree accelerators) may support additional
+input/output dtype combinations.
 
 Keyword Arguments:
 

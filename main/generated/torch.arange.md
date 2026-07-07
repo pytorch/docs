@@ -30,7 +30,7 @@ Keyword Arguments:
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - the desired data type of returned tensor.
 Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](torch.set_default_dtype.html#torch.set_default_dtype)). If dtype is not given, infer the data type from the other input
-arguments. If any of start, end, or stop are floating-point, the
+arguments. If any of start, end, or step are floating-point, the
 dtype is inferred to be the default dtype, see
 [`get_default_dtype()`](torch.get_default_dtype.html#torch.get_default_dtype). Otherwise, the dtype is inferred to
 be torch.int64.
