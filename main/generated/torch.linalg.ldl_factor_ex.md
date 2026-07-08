@@ -1,9 +1,9 @@
 # torch.linalg.ldl_factor_ex
 
-torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/linalg/__init__.py#L974)
+torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/linalg/__init__.py#L974)
 
 This is a version of [`ldl_factor()`](torch.linalg.ldl_factor.html#torch.linalg.ldl_factor) that does not perform error checks unless `check_errors`= True.
-It also returns the `info` tensor returned by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html-3.6.1/d3/db6/group__double_s_ycomputational_gad91bde1212277b3e909eb6af7f64858a.html).
+It also returns the `info` tensor returned by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html/).
 `info` stores integer error codes from the backend library.
 A positive integer indicates the diagonal element of DDD that is zero.
 Division by 0 will occur if the result is used for solving a system of linear equations.

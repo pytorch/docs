@@ -1,6 +1,6 @@
 # DimDynamic
 
-*class*torch.fx.experimental.symbolic_shapes.DimDynamic(*value*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/symbolic_shapes.py#L1987)
+*class*torch.fx.experimental.symbolic_shapes.DimDynamic(*value*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/fx/experimental/symbolic_shapes.py#L1987)
 
 Controls how to perform symbol allocation for a dimension. It is always
 sound to default this to DYNAMIC, but the policies DUCK and STATIC can

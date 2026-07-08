@@ -1,6 +1,6 @@
 # torch.nn.functional.soft_margin_loss
 
-torch.nn.functional.soft_margin_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/functional.py#L4486)
+torch.nn.functional.soft_margin_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/nn/functional.py#L4486)
 
 Compute the soft margin loss.
 

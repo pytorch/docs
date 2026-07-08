@@ -1,6 +1,6 @@
 # Specialization
 
-*class*torch.fx.experimental.symbolic_shapes.Specialization(*source*, *check_fn*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/symbolic_shapes.py#L1168)
+*class*torch.fx.experimental.symbolic_shapes.Specialization(*source*, *check_fn*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/fx/experimental/symbolic_shapes.py#L1168)
 
 This class is used in multi-graph compilation contexts where we generate
 multiple specialized graphs and dispatch to the appropriate one at runtime.

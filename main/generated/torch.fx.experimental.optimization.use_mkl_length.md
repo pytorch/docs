@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.use_mkl_length
 
-torch.fx.experimental.optimization.use_mkl_length(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/optimization.py#L292)
+torch.fx.experimental.optimization.use_mkl_length(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/fx/experimental/optimization.py#L292)
 
 This is a heuristic that can be passed into optimize_for_inference that
 determines whether a subgraph should be run in MKL by checking if there

@@ -1,6 +1,6 @@
 # assert_and_get_unique_device
 
-*class*torch.ao.quantization.fx.utils.assert_and_get_unique_device(*module*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/ao/quantization/fx/utils.py#L250)
+*class*torch.ao.quantization.fx.utils.assert_and_get_unique_device(*module*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/ao/quantization/fx/utils.py#L250)
 
 Returns the unique device for a module, or None if no device is found.
 Throws an error if multiple devices are detected.

@@ -1,6 +1,6 @@
 # torch.cuda.is_tf32_supported
 
-torch.cuda.is_tf32_supported()[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/__init__.py#L225)
+torch.cuda.is_tf32_supported()[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/cuda/__init__.py#L225)
 
 Return a bool indicating if the current CUDA/ROCm device supports dtype tf32.
 

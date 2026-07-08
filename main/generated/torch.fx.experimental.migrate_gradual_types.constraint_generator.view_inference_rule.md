@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L591)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.view_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L591)
 
 Similar to reshape but with an extra condition on the strides
 

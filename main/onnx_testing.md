@@ -2,7 +2,7 @@
 
 Utilities to aid in testing exported ONNX models.
 
-torch.onnx.testing.assert_onnx_program(*program*, ***, *rtol=None*, *atol=None*, *args=None*, *kwargs=None*, *strategy='TorchExportNonStrictStrategy'*, *backend='onnxruntime'*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/onnx/_internal/exporter/_testing.py#L18)
+torch.onnx.testing.assert_onnx_program(*program*, ***, *rtol=None*, *atol=None*, *args=None*, *kwargs=None*, *strategy='TorchExportNonStrictStrategy'*, *backend='onnxruntime'*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/_internal/exporter/_testing.py#L18)
 
 Assert that the ONNX model produces the same output as the PyTorch ExportedProgram.
 

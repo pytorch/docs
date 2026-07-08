@@ -1,6 +1,6 @@
 # LinearReLU
 
-*class*torch.ao.nn.intrinsic.qat.LinearReLU(*in_features*, *out_features*, *bias=True*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/ao/nn/intrinsic/qat/modules/linear_relu.py#L19)
+*class*torch.ao.nn.intrinsic.qat.LinearReLU(*in_features*, *out_features*, *bias=True*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/ao/nn/intrinsic/qat/modules/linear_relu.py#L19)
 
 A LinearReLU module fused from Linear and ReLU modules, attached with
 FakeQuantize modules for weight, used in

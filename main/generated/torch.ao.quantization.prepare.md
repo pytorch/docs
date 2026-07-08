@@ -1,6 +1,6 @@
 # prepare
 
-*class*torch.ao.quantization.prepare(*model*, *inplace=False*, *allow_list=None*, *observer_non_leaf_module_list=None*, *prepare_custom_config_dict=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/ao/quantization/quantize.py#L343)
+*class*torch.ao.quantization.prepare(*model*, *inplace=False*, *allow_list=None*, *observer_non_leaf_module_list=None*, *prepare_custom_config_dict=None*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/ao/quantization/quantize.py#L343)
 
 Prepares a copy of the model for quantization calibration or quantization-aware training.
 

@@ -1,6 +1,6 @@
 # MemPool
 
-*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L1296)
+*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/cuda/memory.py#L1296)
 
 MemPool represents a pool of memory in a caching allocator. Currently,
 it's just the ID of the pool object maintained in the CUDACachingAllocator.
@@ -22,7 +22,7 @@ This is False by default.
 
 Returns the ID of this pool as a tuple of two ints.
 
-snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L1331)
+snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/cuda/memory.py#L1331)
 
 Return a snapshot of the CUDA memory allocator pool state across all
 devices.
@@ -41,7 +41,7 @@ Note
 See [Memory management](../notes/cuda.html#cuda-memory-management) for more details about GPU memory
 management.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/memory.py#L1327)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/cuda/memory.py#L1327)
 
 Returns the reference count of this pool.
 

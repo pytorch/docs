@@ -1,6 +1,6 @@
 # torch.nn.utils.parameters_to_vector
 
-torch.nn.utils.parameters_to_vector(*parameters*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/nn/utils/convert_parameters.py#L6)
+torch.nn.utils.parameters_to_vector(*parameters*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/nn/utils/convert_parameters.py#L6)
 
 Flatten an iterable of parameters into a single vector.
 

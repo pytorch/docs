@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L307)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.expand_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L307)
 
 We generate the exact constraints as we do for tensor additions but we constraint
 the rank of this expression to be equal to len(n.args[1:]) so that only

@@ -1,6 +1,6 @@
 # prepare_qat_fx
 
-*class*torch.ao.quantization.quantize_fx.prepare_qat_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/ao/quantization/quantize_fx.py#L405)
+*class*torch.ao.quantization.quantize_fx.prepare_qat_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/ao/quantization/quantize_fx.py#L405)
 
 Prepare a model for quantization aware training
 

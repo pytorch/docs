@@ -1,6 +1,6 @@
 # torch.autograd.graph.increment_version
 
-torch.autograd.graph.increment_version(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/autograd/graph.py#L245)
+torch.autograd.graph.increment_version(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/autograd/graph.py#L245)
 
 Update autograd metadata tracking whether the given Tensor was modified in place.
 

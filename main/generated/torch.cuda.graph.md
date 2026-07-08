@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/24e9a3928e16bb875a0a4ae3d26677dd7ddc8e02/torch/cuda/graphs.py#L566)
+*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/cuda/graphs.py#L566)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
