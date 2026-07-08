@@ -15,6 +15,7 @@ It is lazily initialized, so you can always import it, and use
 | [`can_device_access_peer`](generated/torch.cuda.can_device_access_peer.html#torch.cuda.can_device_access_peer) | Check if peer access between two devices is possible. |
 | [`check_error`](generated/torch.cuda.check_error.html#torch.cuda.check_error) | Raise an error if the result of a CUDA runtime API call is not success. |
 | [`current_blas_handle`](generated/torch.cuda.current_blas_handle.html#torch.cuda.current_blas_handle) | Return cublasHandle_t pointer to current cuBLAS handle |
+| [`current_solver_handle`](generated/torch.cuda.current_solver_handle.html#torch.cuda.current_solver_handle) | Return cusolverDnHandle_t pointer to current cuSOLVER handle |
 | [`current_device`](generated/torch.cuda.current_device.html#torch.cuda.current_device) | Return the index of a currently selected device. |
 | [`current_stream`](generated/torch.cuda.current_stream.html#torch.cuda.current_stream) | Return the currently selected [`Stream`](generated/torch.cuda.Stream_class.html#torch.cuda.Stream) for a given device. |
 | [`cudart`](generated/torch.cuda.cudart.html#torch.cuda.cudart) | Retrieves the CUDA runtime API module. |
@@ -127,7 +128,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/memory.py#L1319)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L1334)
 
 A context manager that routes allocations to a given pool.
 
@@ -146,6 +147,20 @@ the given pool. If a new thread is spawned inside the context manager
 (e.g. by calling backward) the allocations in that thread will not
 route to the given pool.
 
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/nccl.py#L35)
+
+Returns the version of the NCCL.
+
+This function returns a tuple containing the major, minor, and patch version numbers of the NCCL.
+The suffix is also included in the tuple if a version suffix exists.
+:returns: The version information of the NCCL.
+:rtype: tuple
+
+| [`profile`](generated/torch.cuda.profiler.profile.html#torch.cuda.profiler.profile) | Enable profiling. |
+| --- | --- |
+| [`start`](generated/torch.cuda.profiler.start.html#torch.cuda.profiler.start) | Starts cuda profiler data collection. |
+| [`stop`](generated/torch.cuda.profiler.stop.html#torch.cuda.profiler.stop) | Stops cuda profiler data collection. |
+
 ## NVIDIA Tools Extension (NVTX)
 
 | [`nvtx.mark`](generated/torch.cuda.nvtx.mark.html#torch.cuda.nvtx.mark) | Describe an instantaneous event that occurred at some point. |
@@ -153,6 +168,8 @@ route to the given pool.
 | [`nvtx.range_push`](generated/torch.cuda.nvtx.range_push.html#torch.cuda.nvtx.range_push) | Push a range onto a stack of nested range span. |
 | [`nvtx.range_pop`](generated/torch.cuda.nvtx.range_pop.html#torch.cuda.nvtx.range_pop) | Pop a range off of a stack of nested range spans. |
 | [`nvtx.range`](generated/torch.cuda.nvtx.range.html#torch.cuda.nvtx.range) | Context manager / decorator that pushes an NVTX range at the beginning of its scope, and pops it at the end. |
+| [`nvtx.range_end`](generated/torch.cuda.nvtx.range_end.html#torch.cuda.nvtx.range_end) | Mark the end of a range for a given range_id. |
+| [`nvtx.range_start`](generated/torch.cuda.nvtx.range_start.html#torch.cuda.nvtx.range_start) | Mark the start of a range with string message. |
 
 ## Jiterator (beta)
 
@@ -208,33 +225,6 @@ See the docs for [`GreenContext`](generated/torch.cuda.green_contexts.GreenConte
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.
-
-torch.cuda.nvtx.range_start(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/nvtx.py#L42)
-
-Mark the start of a range with string message. It returns an unique handle
-for this range to pass to the corresponding call to rangeEnd().
-
-A key difference between this and range_push/range_pop is that the
-range_start/range_end version supports range across threads (start on one
-thread and end on another thread).
-
-Returns: A range handle (uint64_t) that can be passed to range_end().
-
-Parameters:
-
-**msg** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - ASCII message to associate with the range.
-
-Return type:
-
-[int](https://docs.python.org/3/library/functions.html#int)
-
-torch.cuda.nvtx.range_end(*range_id*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/nvtx.py#L60)
-
-Mark the end of a range for a given range_id.
-
-Parameters:
-
-**range_id** ([*int*](https://docs.python.org/3/library/functions.html#int)) - an unique handle for the start range.

@@ -89,7 +89,8 @@ Assignment via either basic or advanced indexing is in-place. See more examples 
 
 It's also worth mentioning a few ops with special behaviors:
 
-- [`reshape()`](generated/torch.Tensor.reshape.html#torch.Tensor.reshape), [`reshape_as()`](generated/torch.Tensor.reshape_as.html#torch.Tensor.reshape_as) and [`flatten()`](generated/torch.Tensor.flatten.html#torch.Tensor.flatten) can return either a view or new tensor, user code shouldn't rely on whether it's view or not.
+- [`reshape()`](generated/torch.Tensor.reshape.html#torch.Tensor.reshape), [`reshape_as()`](generated/torch.Tensor.reshape_as.html#torch.Tensor.reshape_as) and [`flatten()`](generated/torch.Tensor.flatten.html#torch.Tensor.flatten) can return either a view or
+new tensor, user code shouldn't rely on whether it's view or not.
 - [`contiguous()`](generated/torch.Tensor.contiguous.html#torch.Tensor.contiguous) returns **itself** if input tensor is already contiguous, otherwise it returns a new contiguous tensor by copying data.
 
 For a more detailed walk-through of PyTorch internal implementation,

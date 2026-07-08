@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.keyfilter
 
-torch.fx.experimental.unification.unification_tools.keyfilter(*predicate*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/unification/unification_tools.py#L155)
+torch.fx.experimental.unification.unification_tools.keyfilter(*predicate*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/unification/unification_tools.py#L177)
 
 Filter items in dictionary by key
 
@@ -16,3 +16,7 @@ See also
 valfilter
 itemfilter
 keymap
+
+Return type:
+
+[dict](https://docs.python.org/3/library/stdtypes.html#dict)[_K, _V]

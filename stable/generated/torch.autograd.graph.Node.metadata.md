@@ -1,6 +1,6 @@
 # torch.autograd.graph.Node.metadata
 
-*abstract*Node.metadata()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L76)
+*abstract*Node.metadata()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L78)
 
 Return the metadata.
 

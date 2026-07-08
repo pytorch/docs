@@ -9,8 +9,8 @@ building deep neural networks using a tape-based autograd systems.
 
 ## Contribution Process
 
-The PyTorch organization is governed by [PyTorch
-Governance](governance.html) and the technical guide to contributing
+The PyTorch organization is governed by [PyTorch Governance](governance.html)
+and the technical guide to contributing
 can be found in [CONTRIBUTING.md](https://github.com/pytorch/pytorch/blob/main/CONTRIBUTING.md).
 
 The PyTorch development process involves a healthy amount of open
@@ -26,8 +26,7 @@ However, if you don't know what you want to work on, or are just
 looking to get more acquainted with the project, here are some tips
 for how to find appropriate tasks:
 
-- Look through the [issue
-tracker](https://github.com/pytorch/pytorch/issues/) and see if
+- Look through the [issue tracker](https://github.com/pytorch/pytorch/issues/) and see if
 there are any issues you know how to fix. Issues that are
 confirmed by other contributors tend to be better to investigate.
 We also maintain some labels for issues that are likely to be

@@ -1,12 +1,12 @@
 # torch.broadcast_shapes
 
-torch.broadcast_shapes(**shapes*) → [Size](../size.html#torch.Size)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/functional.py#L80)
+torch.broadcast_shapes(**shapes*) → [Size](../size.html#torch.Size)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/functional.py#L79)
 
 Similar to [`broadcast_tensors()`](torch.broadcast_tensors.html#torch.broadcast_tensors) but for shapes.
 
 This is equivalent to
 `torch.broadcast_tensors(*map(torch.empty, shapes))[0].shape`
-but avoids the need create to intermediate tensors. This is useful for
+but avoids the need to create intermediate tensors. This is useful for
 broadcasting tensors of common batch shape but different rightmost shape,
 e.g. to broadcast mean vectors with covariance matrices.
 

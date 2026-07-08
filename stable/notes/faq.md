@@ -16,7 +16,8 @@ e.g., when tracking statistics. Instead, you should detach the variable
 or access its underlying data.
 
 Sometimes, it can be non-obvious when differentiable variables can
-occur. Consider the following training loop (abridged from [source](https://discuss.pytorch.org/t/high-memory-usage-while-training/162)):
+occur. Consider the following training loop (abridged from
+[source](https://discuss.pytorch.org/t/high-memory-usage-while-training/162)):
 
 ```
 total_loss = 0
@@ -31,7 +32,7 @@ for i in range(10000):
 
 Here, `total_loss` is accumulating history across your training loop, since
 `loss` is a differentiable variable with autograd history. You can fix this by
-writing total_loss += float(loss) instead.
+writing `total_loss += float(loss)` instead.
 
 Other instances of this problem:
 [1](https://discuss.pytorch.org/t/resolved-gpu-out-of-memory-error-with-batch-size-1/3719).

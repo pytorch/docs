@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.bmm_flop
 
-torch.utils.flop_counter.bmm_flop(*a_shape*, *b_shape*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/flop_counter.py#L89)
+torch.utils.flop_counter.bmm_flop(*a_shape*, *b_shape*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/flop_counter.py#L92)
 
 Count flops for the bmm operation.
 

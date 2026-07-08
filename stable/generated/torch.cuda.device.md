@@ -1,6 +1,6 @@
 # device
 
-*class*torch.cuda.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/__init__.py#L604)
+*class*torch.cuda.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/__init__.py#L638)
 
 Context-manager that changes the selected device.
 

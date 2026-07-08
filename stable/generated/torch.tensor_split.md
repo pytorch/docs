@@ -7,26 +7,31 @@ along dimension `dim` according to the indices or number of sections specified
 by `indices_or_sections`. This function is based on NumPy's
 [`numpy.array_split()`](https://numpy.org/doc/stable/reference/generated/numpy.array_split.html#numpy.array_split).
 
+torch.tensor_split(*input*, *sections*, *dim=0*) → List of Tensors
+
+Splits `input` into `sections` sections along dimension `dim`.
+If `input` is divisible by `sections` along dimension `dim`, each
+section will be of equal size, `input.size(dim) / sections`. If `input`
+is not divisible by `sections`, the sizes of the first
+`int(input.size(dim) % sections)` sections will have size
+`int(input.size(dim) / sections) + 1`, and the rest will have size
+`int(input.size(dim) / sections)`.
+
+`sections` can also be a zero-dimensional long tensor.
+
+torch.tensor_split(*input*, *indices*, *dim=0*) → List of Tensors
+
+Splits `input` along dimension `dim` at each of the indices in
+`indices`. For instance, `indices=[2, 3]` and `dim=0`
+would result in the tensors `input[:2]`, `input[2:3]`, and
+`input[3:]`.
+
+`indices` can be a list or tuple of ints, or a one-dimensional long
+tensor on the CPU.
+
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to split
-- **indices_or_sections** ([*Tensor*](../tensors.html#torch.Tensor)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) -
-
-If `indices_or_sections` is an integer `n` or a zero dimensional long tensor
-with value `n`, `input` is split into `n` sections along dimension `dim`.
-If `input` is divisible by `n` along dimension `dim`, each
-section will be of equal size, `input.size(dim) / n`. If `input`
-is not divisible by `n`, the sizes of the first `int(input.size(dim) % n)`
-sections will have size `int(input.size(dim) / n) + 1`, and the rest will
-have size `int(input.size(dim) / n)`.
-
-If `indices_or_sections` is a list or tuple of ints, or a one-dimensional long
-tensor, then `input` is split along dimension `dim` at each of the indices
-in the list, tuple or tensor. For instance, `indices_or_sections=[2, 3]` and `dim=0`
-would result in the tensors `input[:2]`, `input[2:3]`, and `input[3:]`.
-
-If `indices_or_sections` is a tensor, it must be a zero-dimensional or one-dimensional
-long tensor on the CPU.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - dimension along which to split the tensor. Default: `0`
 
 Example:

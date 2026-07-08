@@ -1,6 +1,6 @@
 # torch.fx.experimental.recording.replay_shape_env_events
 
-torch.fx.experimental.recording.replay_shape_env_events(*events*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/recording.py#L361)
+torch.fx.experimental.recording.replay_shape_env_events(*events*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/recording.py#L361)
 
 Return type:
 

@@ -227,7 +227,7 @@ owner confirms the child `ForkId`. The figure below shows the message flow.
 Note that the `UserRRef` could be deleted on B before func finishes or even
 starts. However this is OK, as at the time B sends out ACK for the child
 `ForkId`, it already acquired the `OwnerRRef` instance, which would prevent
-it been deleted too soon.
+it being deleted too soon.
 
 ### Owner Share RRef with User
 

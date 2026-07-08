@@ -74,7 +74,7 @@ scaled_dot_product_attention.
 | [`softmin`](generated/torch.nn.functional.softmin.html#torch.nn.functional.softmin) | Apply a softmin function. |
 | [`softmax`](generated/torch.nn.functional.softmax.html#torch.nn.functional.softmax) | Apply a softmax function. |
 | [`softshrink`](generated/torch.nn.functional.softshrink.html#torch.nn.functional.softshrink) | Applies the soft shrinkage function elementwise |
-| [`gumbel_softmax`](generated/torch.nn.functional.gumbel_softmax.html#torch.nn.functional.gumbel_softmax) | Sample from the Gumbel-Softmax distribution ([Link 1](https://arxiv.org/abs/1611.00712) [Link 2](https://arxiv.org/abs/1611.01144)) and optionally discretize. |
+| [`gumbel_softmax`](generated/torch.nn.functional.gumbel_softmax.html#torch.nn.functional.gumbel_softmax) | Sample from the Gumbel-Softmax distribution (Link 1 Link 2) and optionally discretize. |
 | [`log_softmax`](generated/torch.nn.functional.log_softmax.html#torch.nn.functional.log_softmax) | Apply a softmax followed by a logarithm. |
 | [`tanh`](generated/torch.nn.functional.tanh.html#torch.nn.functional.tanh) | Applies element-wise, Tanh(x)=tanh⁡(x)=exp⁡(x)−exp⁡(−x)exp⁡(x)+exp⁡(−x)\text{Tanh}(x) = \tanh(x) = \frac{\exp(x) - \exp(-x)}{\exp(x) + \exp(-x)}Tanh(x)=tanh(x)=exp(x)+exp(−x)exp(x)−exp(−x)​ |
 | [`sigmoid`](generated/torch.nn.functional.sigmoid.html#torch.nn.functional.sigmoid) | Applies the element-wise function Sigmoid(x)=11+exp⁡(−x)\text{Sigmoid}(x) = \frac{1}{1 + \exp(-x)}Sigmoid(x)=1+exp(−x)1​ |
@@ -132,6 +132,7 @@ scaled_dot_product_attention.
 | [`hinge_embedding_loss`](generated/torch.nn.functional.hinge_embedding_loss.html#torch.nn.functional.hinge_embedding_loss) | Compute the hinge embedding loss. |
 | [`kl_div`](generated/torch.nn.functional.kl_div.html#torch.nn.functional.kl_div) | Compute the KL Divergence loss. |
 | [`l1_loss`](generated/torch.nn.functional.l1_loss.html#torch.nn.functional.l1_loss) | Compute the L1 loss, with optional weighting. |
+| [`linear_cross_entropy`](generated/torch.nn.functional.linear_cross_entropy.html#torch.nn.functional.linear_cross_entropy) | Compute the cross entropy loss between inputs, transformed linearly, and target. |
 | [`mse_loss`](generated/torch.nn.functional.mse_loss.html#torch.nn.functional.mse_loss) | Compute the element-wise mean squared error, with optional weighting. |
 | [`margin_ranking_loss`](generated/torch.nn.functional.margin_ranking_loss.html#torch.nn.functional.margin_ranking_loss) | Compute the margin ranking loss. |
 | [`multilabel_margin_loss`](generated/torch.nn.functional.multilabel_margin_loss.html#torch.nn.functional.multilabel_margin_loss) | Compute the multilabel margin loss. |

@@ -66,7 +66,12 @@ elif torch.cuda.is_available() and torch.version.cuda:
 
 ## TensorFloat-32(TF32) on ROCm
 
-TF32 is not supported on ROCm.
+TF32 is supported on AMD Instinct MI300 (gfx942, CDNA3) via hipBLASLt. The
+same `torch.backends.cuda.matmul.fp32_precision` and
+`torch.backends.cuda.matmul.allow_tf32` controls used on NVIDIA hardware
+also apply on ROCm. The TF32 path on MI300 has hardware-level numerical
+differences from the NVIDIA implementation; see [TensorFloat-32 (TF32) on AMD Instinct MI300 devices](numerical_accuracy.html#tf32-on-mi300) for
+details.
 
 ## Memory management
 

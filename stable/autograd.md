@@ -165,7 +165,7 @@ like the following:
 
 ## Function
 
-*class*torch.autograd.Function(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/function.py#L485)
+*class*torch.autograd.Function(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/function.py#L514)
 
 Base class to create custom autograd.Function.
 
@@ -209,6 +209,18 @@ Examples:
 
 When creating a new `Function`, the following methods are available to `ctx`.
 
+*class*torch.autograd.function.FunctionCtx[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/function.py#L39)
+
+*class*torch.autograd.function.FunctionMeta(*name*, *bases*, *attrs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/function.py#L346)
+
+Function metaclass.
+
+This metaclass sets up the following properties:
+_backward_cls: The Function class corresponding to the differentiated
+
+version of this function (which is generated on the fly by this
+metaclass).
+
 | [`function.FunctionCtx.mark_dirty`](generated/torch.autograd.function.FunctionCtx.mark_dirty.html#torch.autograd.function.FunctionCtx.mark_dirty) | Mark given tensors as modified in an in-place operation. |
 | --- | --- |
 | [`function.FunctionCtx.mark_non_differentiable`](generated/torch.autograd.function.FunctionCtx.mark_non_differentiable.html#torch.autograd.function.FunctionCtx.mark_non_differentiable) | Mark outputs as non-differentiable. |
@@ -235,6 +247,9 @@ Base custom `Function` used to build PyTorch utilities
 | --- | --- |
 | [`gradgradcheck`](generated/torch.autograd.gradcheck.gradgradcheck.html#torch.autograd.gradcheck.gradgradcheck) | Check gradients of gradients computed via small finite differences against analytical gradients wrt tensors in `inputs` and `grad_outputs` that are of floating point or complex type and with `requires_grad=True`. |
 | [`GradcheckError`](generated/torch.autograd.gradcheck.GradcheckError.html#torch.autograd.gradcheck.GradcheckError) | Error raised by [`gradcheck()`](generated/torch.autograd.gradcheck.gradcheck.html#torch.autograd.gradcheck.gradcheck) and [`gradgradcheck()`](generated/torch.autograd.gradcheck.gradgradcheck.html#torch.autograd.gradcheck.gradgradcheck). |
+| [`get_analytical_jacobian`](generated/torch.autograd.gradcheck.get_analytical_jacobian.html#torch.autograd.gradcheck.get_analytical_jacobian) | |
+| [`get_numerical_jacobian`](generated/torch.autograd.gradcheck.get_numerical_jacobian.html#torch.autograd.gradcheck.get_numerical_jacobian) | Compute the numerical Jacobian for a given fn and its inputs. |
+| [`get_numerical_jacobian_wrt_specific_input`](generated/torch.autograd.gradcheck.get_numerical_jacobian_wrt_specific_input.html#torch.autograd.gradcheck.get_numerical_jacobian_wrt_specific_input) | |
 
 ## Profiler
 
@@ -246,7 +261,7 @@ nvprof based (registers both CPU and GPU activity) using
 and vtune profiler based using
 `emit_itt`.
 
-*class*torch.autograd.profiler.profile(*enabled=True*, ***, *use_cuda=False*, *use_device=None*, *record_shapes=False*, *with_flops=False*, *profile_memory=False*, *with_stack=False*, *with_modules=False*, *use_kineto=False*, *use_cpu=True*, *experimental_config=None*, *acc_events=False*, *custom_trace_id_callback=None*, *post_processing_timeout_s=None*, *activity_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/profiler.py#L112)
+*class*torch.autograd.profiler.profile(*enabled=True*, ***, *use_cuda=False*, *use_device=None*, *record_shapes=False*, *with_flops=False*, *profile_memory=False*, *with_stack=False*, *with_modules=False*, *use_kineto=False*, *use_cpu=True*, *experimental_config=None*, *acc_events=False*, *custom_trace_id_callback=None*, *post_processing_timeout_s=None*, *activity_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler.py#L113)
 
 Context manager that manages autograd profiler state and holds a summary of results.
 
@@ -347,12 +362,16 @@ torch::autograd::GraphRoot 691.816us 691.816us 100
 | [`profiler.EnforceUnique`](generated/torch.autograd.profiler.EnforceUnique.html#torch.autograd.profiler.EnforceUnique) | Raises an error if a key is seen more than once. |
 | [`profiler.KinetoStepTracker`](generated/torch.autograd.profiler.KinetoStepTracker.html#torch.autograd.profiler.KinetoStepTracker) | Provides an abstraction for incrementing the step count globally. |
 | [`profiler.record_function`](generated/torch.autograd.profiler.record_function.html#torch.autograd.profiler.record_function) | Context manager/function decorator that adds a label to a code block/function when running autograd profiler. |
+| [`profiler_util.EventList`](generated/torch.autograd.profiler_util.EventList.html#torch.autograd.profiler_util.EventList) | A list of profiling events with helper methods for analysis and visualization. |
+| [`profiler_util.FormattedTimesMixin`](generated/torch.autograd.profiler_util.FormattedTimesMixin.html#torch.autograd.profiler_util.FormattedTimesMixin) | Helpers for FunctionEvent and FunctionEventAvg. |
+| [`profiler_util.FunctionEvent`](generated/torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent) | Profiling information about a single function. |
+| [`profiler_util.FunctionEventAvg`](generated/torch.autograd.profiler_util.FunctionEventAvg.html#torch.autograd.profiler_util.FunctionEventAvg) | Averaged profiling statistics over multiple FunctionEvent objects. |
 | [`profiler_util.Interval`](generated/torch.autograd.profiler_util.Interval.html#torch.autograd.profiler_util.Interval) | |
 | [`profiler_util.Kernel`](generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel) | |
 | [`profiler_util.MemRecordsAcc`](generated/torch.autograd.profiler_util.MemRecordsAcc.html#torch.autograd.profiler_util.MemRecordsAcc) | Acceleration structure for accessing mem_records in interval. |
 | [`profiler_util.StringTable`](generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable) | |
 
-*class*torch.autograd.profiler.emit_nvtx(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/profiler.py#L1012)
+*class*torch.autograd.profiler.emit_nvtx(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler.py#L1072)
 
 Context manager that makes every autograd operation emit an NVTX range.
 
@@ -427,7 +446,7 @@ the Function objects they create still stash those sequence numbers, and during 
 double-backward, the Function objects' `apply()` ranges are still tagged with `stashed seq`
 numbers, which can be compared to seq numbers from the backward pass.
 
-*class*torch.autograd.profiler.emit_itt(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/profiler.py#L941)
+*class*torch.autograd.profiler.emit_itt(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler.py#L1001)
 
 Context manager that makes every autograd operation emit an ITT range.
 
@@ -468,7 +487,7 @@ Example
 
 ## Debugging and anomaly detection
 
-*class*torch.autograd.detect_anomaly(*check_nan=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/anomaly_mode.py#L12)
+*class*torch.autograd.detect_anomaly(*check_nan=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/anomaly_mode.py#L12)
 
 Context-manager that enable anomaly detection for the autograd engine.
 
@@ -537,7 +556,7 @@ Example
  RuntimeError: Some error in backward
 ```
 
-*class*torch.autograd.set_detect_anomaly(*mode*, *check_nan=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/anomaly_mode.py#L97)
+*class*torch.autograd.set_detect_anomaly(*mode*, *check_nan=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/anomaly_mode.py#L97)
 
 Context-manager that sets the anomaly detection for the autograd engine on or off.
 
@@ -556,6 +575,7 @@ generate "nan"
 
 | [`grad_mode.set_multithreading_enabled`](generated/torch.autograd.grad_mode.set_multithreading_enabled.html#torch.autograd.grad_mode.set_multithreading_enabled) | Context-manager that enables or disables multithreaded backward. |
 | --- | --- |
+| [`grad_mode.enforce_grad_layout_policy`](generated/torch.autograd.grad_mode.enforce_grad_layout_policy.html#torch.autograd.grad_mode.enforce_grad_layout_policy) | Context-manager that controls the gradient layout policy enforcement. |
 
 ## Autograd graph
 
@@ -596,7 +616,7 @@ to disk or to CPU instead of leaving them on the GPU. This is especially useful 
 notice your model fits on GPU during evaluation, but not training.
 Also see [Hooks for saved tensors](notes/autograd.html#saved-tensors-hooks-doc).
 
-*class*torch.autograd.graph.saved_tensors_hooks(*pack_hook*, *unpack_hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L264)
+*class*torch.autograd.graph.saved_tensors_hooks(*pack_hook*, *unpack_hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L266)
 
 Context-manager that sets a pair of pack / unpack hooks for saved tensors.
 
@@ -670,7 +690,7 @@ To avoid reference cycle, the return value of `pack_hook` cannot hold a
 reference to the input tensor. For example, use lambda x: x.detach()
 instead of lambda x: x as the pack hook.
 
-*class*torch.autograd.graph.save_on_cpu(*pin_memory=False*, *device_type='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L348)
+*class*torch.autograd.graph.save_on_cpu(*pin_memory=False*, *device_type='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L350)
 
 Context manager under which tensors saved by the forward pass will be stored on cpu, then retrieved for backward.
 
@@ -720,7 +740,7 @@ Example:
 >>> # all intermediary tensors are released (deleted) after the call to backward
 ```
 
-*class*torch.autograd.graph.disable_saved_tensors_hooks(*error_message*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L421)
+*class*torch.autograd.graph.disable_saved_tensors_hooks(*error_message*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L423)
 
 Context-manager that disables the saved tensors default hooks feature.
 
@@ -730,7 +750,7 @@ tensors default hooks.
 Parameters:
 
 **error_message** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - When saved tensors default hooks are used when they
-have been are disabled, a RuntimeError with this
+have been disabled, a RuntimeError with this
 error message gets raised.
 
 Return type:
@@ -747,7 +767,7 @@ Example:
 ... pass
 ```
 
-*class*torch.autograd.graph.register_multi_grad_hook(*tensors*, *fn*, ***, *mode='all'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L481)
+*class*torch.autograd.graph.register_multi_grad_hook(*tensors*, *fn*, ***, *mode='all'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L578)
 
 Register a multi-grad backward hook.
 
@@ -803,7 +823,7 @@ Return type:
 
 *RemovableHandle*
 
-*class*torch.autograd.graph.allow_mutation_on_saved_tensors[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L771)
+*class*torch.autograd.graph.allow_mutation_on_saved_tensors[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L868)
 
 Context manager under which mutating tensors saved for backward is allowed.
 
@@ -841,14 +861,14 @@ tensor([[0.8415, 0.8415, 0.8415],
  [0.8415, 0.8415, 0.8415]], grad_fn=<SinBackward0>)
 ```
 
-*class*torch.autograd.graph.GradientEdge(*node*, *output_nr*, *ownership_token=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L201)
+*class*torch.autograd.graph.GradientEdge(*node*, *output_nr*, *ownership_token=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L203)
 
 Object representing a given gradient edge within the autograd graph.
 
 To get the gradient edge where a given Tensor gradient will be computed,
 you can do `edge = autograd.graph.get_gradient_edge(tensor)`.
 
-torch.autograd.graph.get_gradient_edge(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L215)
+torch.autograd.graph.get_gradient_edge(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L217)
 
 Get the gradient edge for computing the gradient of the given Tensor.
 
@@ -859,7 +879,87 @@ Return type:
 
 *GradientEdge*
 
-torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/graph.py#L457)
+torch.autograd.graph.region_activation_memory_budget(*budget*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L459)
+
+Context-manager that sets the activation memory budget for the region of
+a compiled forward traced under it.
+
+Warning
+
+This is a prototype feature and is subject to change.
+
+Under [`torch.compile()`](generated/torch.compile.html#torch.compile), the min-cut partitioner chooses which
+activations to save versus recompute in the backward pass to stay under a
+memory budget. `budget` is a ratio in `[0, 1]`: `0.0` corresponds to
+the activation memory from applying activation checkpointing to the full
+region, and `1.0` corresponds to the activation memory from the default
+runtime-optimized strategy. So `0.4` would result in a strategy that saves
+40% of the activations compared to the default strategy. It solves a 0-1
+knapsack to find the minimum recompute necessary to stay below the budget.
+This overrides the global `torch._functorch.config.activation_memory_budget`
+for the annotated region.
+
+Note
+
+Today the partitioner only supports a single budget per compiled graph,
+so the annotation must cover every forward op in the graph (a partial
+annotation is rejected rather than silently applied graph-wide), and all
+annotated nodes must agree on the budget. To use different budgets for
+different parts of a model, separate them with a graph break (e.g.
+`torch._dynamo.graph_break()`) so each part becomes its own graph.
+
+This only has an effect under [`torch.compile()`](generated/torch.compile.html#torch.compile); using it outside of a
+compiled region raises a `RuntimeError`.
+
+Parameters:
+
+**budget** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Activation memory budget ratio in `[0, 1]`.
+
+Return type:
+
+[*AbstractContextManager*](https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager)[None]
+
+Example:
+
+```
+>>> with torch.autograd.graph.region_activation_memory_budget(0.0):
+... x = layer(x) # recompute this region's activations in backward
+```
+
+torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L524)
 
 Whether to warn when the AccumulateGrad node's stream does not match the stream
 of the node that produced the incoming gradient.
+
+torch.autograd.graph.set_override_stale_capture_stream(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L531)
+
+Control behavior when autograd detects a stale non-capturing stream during
+CUDA graph capture.
+
+During CUDA graph capture, autograd nodes may reference a stale stream
+that is not part of the capture. With the flag disabled (the
+process-initial state), autograd raises a `RuntimeError` when the stale
+stream is the default stream (stream 0), because this case always
+invalidates the capture: `cudaStreamWaitEvent` on the default stream
+pulls a non-capturing stream into the graph. For non-default stale streams
+the stream reference is left unchanged; the capture will succeed if the
+user has joined the stream into the capture (e.g. via
+`capture_stream.wait_stream(stale_stream)`) and will otherwise fail with
+a CUDA runtime error.
+
+When `enabled=True`, any stale non-capturing stream (default or
+non-default) is automatically overridden with the producer's capturing
+stream, allowing the capture to proceed. This is a process-global setting
+and is not thread-local.
+
+Parameters:
+
+**enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, override stale non-capturing streams with
+the producer's capturing stream during CUDA graph capture. If
+`False` (the process-initial state), raise an error only when the
+stale stream is the default stream (stream 0); other stale streams
+are left unchanged.
+
+| [`Variable`](generated/torch.autograd.variable.Variable.html#torch.autograd.variable.Variable) | |
+| --- | --- |
+| [`VariableMeta`](generated/torch.autograd.variable.VariableMeta.html#torch.autograd.variable.VariableMeta) | |

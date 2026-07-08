@@ -1,6 +1,6 @@
 # torch.functional.meshgrid
 
-torch.functional.meshgrid(**tensors*, *indexing=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/functional.py#L396)
+torch.functional.meshgrid(**tensors*, *indexing=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/functional.py#L395)
 
 Creates grids of coordinates specified by the 1D inputs in attr:tensors.
 

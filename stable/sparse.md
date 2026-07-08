@@ -61,7 +61,7 @@ tensor(indices=tensor([[0, 1],
 PyTorch currently supports COO, CSR,
 CSC, BSR, and BSC.
 
-We also have a prototype implementation to support :ref: semi-structured sparsity<sparse-semi-structured-docs>.
+We also have a prototype implementation to support semi-structured sparsity.
 Please see the references for more details.
 
 Note that we provide slight generalizations of these formats.
@@ -147,7 +147,7 @@ tensor([[ 1.0000, -0.4161],
 ```
 
 We are aware that some users want to ignore compressed zeros for operations such
-as cos instead of preserving the exact semantics of the operation. For this we
+as `cos` instead of preserving the exact semantics of the operation. For this we
 can point to torch.masked and its MaskedTensor, which is in turn also backed and
 powered by sparse storage formats and kernels.
 
@@ -176,7 +176,7 @@ Sparse semi-structured tensors are currently a prototype feature and subject to 
 
 Semi-Structured sparsity is a sparse data layout that was first introduced in NVIDIA's Ampere architecture. It is also referred to as **fine-grained structured sparsity** or **2:4 structured sparsity**.
 
-This sparse layout stores n elements out of every 2n elements, with n being determined by the width of the Tensor's data type (dtype). The most frequently used dtype is float16, where n=2, thus the term "2:4 structured sparsity."
+This sparse layout stores `n` elements out of every `2n` elements, with `n` being determined by the width of the Tensor's data type (dtype). The most frequently used dtype is float16, where `n=2`, thus the term "2:4 structured sparsity."
 
 Semi-structured sparsity is explained in greater detail in [this NVIDIA blog post](https://developer.nvidia.com/blog/exploiting-ampere-structured-sparsity-with-cusparselt).
 
@@ -193,14 +193,14 @@ flat compressed tensor. They are appended to each other to form a contiguous chu
 
 compressed tensor = [ specified elements of original tensor | metadata_mask ]
 
-For an original tensor of size (r, c) we expect the first m * k // 2 elements to be the kept elements
+For an original tensor of size `(r, c)` we expect the first `m * k // 2` elements to be the kept elements
 and the rest of the tensor is metadata.
 
 In order to make it easier for the user to view the specified elements
 and mask, one can use `.indices()` and `.values()` to access the mask and specified elements respectively.
 
-- `.values()` returns the specified elements in a tensor of size (r, c//2) and with the same dtype as the dense matrix.
-- `.indices()` returns the metadata_mask in a tensor of size (r, c//2 ) and with element type `torch.int16` if dtype is torch.float16 or torch.bfloat16, and element type `torch.int32` if dtype is torch.int8.
+- `.values()` returns the specified elements in a tensor of size `(r, c//2)` and with the same dtype as the dense matrix.
+- `.indices()` returns the metadata_mask in a tensor of size `(r, c//2 )` and with element type `torch.int16` if dtype is torch.float16 or torch.bfloat16, and element type `torch.int32` if dtype is torch.int8.
 
 For 2:4 sparse tensors, the metadata overhead is minor - just 2 bits per specified element.
 
@@ -210,7 +210,7 @@ It's important to note that `torch.float32` is only supported for 1:2 sparsity. 
 
 Here, we break down how to calculate the compression ratio ( size dense / size sparse) of a 2:4 sparse tensor.
 
-Let (r, c) = tensor.shape and e = bitwidth(tensor.dtype), so e = 16 for `torch.float16` and `torch.bfloat16` and e = 8 for `torch.int8`.
+Let `(r, c) = tensor.shape` and `e = bitwidth(tensor.dtype)`, so `e = 16` for `torch.float16` and `torch.bfloat16` and `e = 8` for `torch.int8`.
 
 Mdense=r×c×eMsparse=Mspecified+Mmetadata=r×c2×e+r×c2×2=rce2+rc=rce(12+1e)M_{dense} = r \times c \times e \\
 M_{sparse} = M_{specified} + M_{metadata} = r \times \frac{c}{2} \times e + r \times \frac{c}{2} \times 2 = \frac{rce}{2} + rc =rce(\frac{1}{2} +\frac{1}{e})
@@ -305,7 +305,7 @@ You can accelerate the linear layers in your model if the weights are already se
 >>> linear.weight = nn.Parameter(to_sparse_semi_structured(linear.weight.masked_fill(~mask, 0)))
 ```
 
-torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/sparse/semi_structured.py#L309)
+torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/sparse/semi_structured.py#L309)
 
 This function converts a dense tensor into a sparse semi-structured tensor.
 It will return a SparseSemiStructuredTensor, a subclass of torch.Tensor.
@@ -365,6 +365,10 @@ tensor([[-4370, -4370, -4370, ..., -4370, -4370, -4370],
  [-4370, -4370, -4370, ..., -4370, -4370, -4370]], device='cuda:0', dtype=torch.int16))
 ```
 
+| [`SparseSemiStructuredTensorCUSPARSELT`](generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT) | The cuSPARSELt backend expects the specified elements and the metadata to be stored in a single tensor: packed = [ specified elements of original tensor \| metadata ] For an original tensor of size (m, k) we expect the first m * k // 2 elements to be the kept elements The rest of the tensor is metadata. |
+| --- | --- |
+| [`SparseSemiStructuredTensorCUTLASS`](generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS) | This class implements semi-structured sparsity for the CUTLASS backend. |
+
 ## Sparse COO tensors
 
 PyTorch implements the so-called Coordinate format, or COO
@@ -372,20 +376,20 @@ format, as one of the storage formats for implementing sparse
 tensors. In COO format, the specified elements are stored as tuples
 of element indices and the corresponding values. In particular,
 
-> - the indices of specified elements are collected in `indices`
-> tensor of size `(ndim, nse)` and with element type
-> `torch.int64`,
-> - the corresponding values are collected in `values` tensor of
-> size `(nse,)` and with an arbitrary integer or floating point
-> number element type,
+- the indices of specified elements are collected in `indices`
+tensor of size `(ndim, nse)` and with element type
+`torch.int64`,
+- the corresponding values are collected in `values` tensor of
+size `(nse,)` and with an arbitrary integer or floating point
+number element type,
 
 where `ndim` is the dimensionality of the tensor and `nse` is the
 number of specified elements.
 
 Note
 
-The memory consumption of a sparse COO tensor is at least `(ndim *
-8 + <size of element type in bytes>) * nse` bytes (plus a constant
+The memory consumption of a sparse COO tensor is at least
+`(ndim * 8 + <size of element type in bytes>) * nse` bytes (plus a constant
 overhead from storing other tensor data).
 
 The memory consumption of a strided tensor is at least
@@ -459,12 +463,12 @@ PyTorch hybrid COO tensor extends the sparse COO tensor by allowing
 the `values` tensor to be a multi-dimensional tensor so that we
 have:
 
-> - the indices of specified elements are collected in `indices`
-> tensor of size `(sparse_dims, nse)` and with element type
-> `torch.int64`,
-> - the corresponding (tensor) values are collected in `values`
-> tensor of size `(nse, dense_dims)` and with an arbitrary integer
-> or floating point number element type.
+- the indices of specified elements are collected in `indices`
+tensor of size `(sparse_dims, nse)` and with element type
+`torch.int64`,
+- the corresponding (tensor) values are collected in `values`
+tensor of size `(nse, dense_dims)` and with an arbitrary integer
+or floating point number element type.
 
 Note
 
@@ -488,9 +492,7 @@ tensor(indices=tensor([[0, 1, 1],
  [5, 6],
  [7, 8]]),
  size=(2, 3, 2), nnz=3, layout=torch.sparse_coo)
-```
 
-```
 >>> s.to_dense()
 tensor([[[0, 0],
  [0, 0],
@@ -500,18 +502,18 @@ tensor([[[0, 0],
  [7, 8]]])
 ```
 
-In general, if `s` is a sparse COO tensor and `M =
-s.sparse_dim()`, `K = s.dense_dim()`, then we have the following
+In general, if `s` is a sparse COO tensor and `M = s.sparse_dim()`,
+`K = s.dense_dim()`, then we have the following
 invariants:
 
-> - `M + K == len(s.shape) == s.ndim` - dimensionality of a tensor
-> is the sum of the number of sparse and dense dimensions,
-> - `s.indices().shape == (M, nse)` - sparse indices are stored
-> explicitly,
-> - `s.values().shape == (nse,) + s.shape[M : M + K]` - the values
-> of a hybrid tensor are K-dimensional tensors,
-> - `s.values().layout == torch.strided` - values are stored as
-> strided tensors.
+- `M + K == len(s.shape) == s.ndim` - dimensionality of a tensor
+is the sum of the number of sparse and dense dimensions,
+- `s.indices().shape == (M, nse)` - sparse indices are stored
+explicitly,
+- `s.values().shape == (nse,) + s.shape[M : M + K]` - the values
+of a hybrid tensor are K-dimensional tensors,
+- `s.values().layout == torch.strided` - values are stored as
+strided tensors.
 
 Note
 
@@ -604,7 +606,7 @@ Let's consider the following example:
 ```
 
 As mentioned above, a sparse COO tensor is a [`torch.Tensor`](tensors.html#torch.Tensor)
-instance and to distinguish it from the Tensor instances that use
+instance and to distinguish it from the `Tensor` instances that use
 some other layout, one can use [`torch.Tensor.is_sparse`](generated/torch.Tensor.is_sparse.html#torch.Tensor.is_sparse) or
 `torch.Tensor.layout` properties:
 
@@ -678,8 +680,8 @@ an account the additive nature of uncoalesced data: the values of the
 same indices are the terms of a sum that evaluation gives the value of
 the corresponding tensor element. For example, the scalar
 multiplication on a sparse uncoalesced tensor could be implemented by
-multiplying all the uncoalesced values with the scalar because `c *
-(a + b) == c * a + c * b` holds. However, any nonlinear operation,
+multiplying all the uncoalesced values with the scalar because
+`c * (a + b) == c * a + c * b` holds. However, any nonlinear operation,
 say, a square root, cannot be implemented by applying the operation to
 uncoalesced data because `sqrt(a + b) == sqrt(a) + sqrt(b)` does not
 hold in general.
@@ -705,6 +707,8 @@ explicitly and is assumed to be zero in general. However, there exists
 operations that may interpret the fill value differently. For
 instance, [`torch.sparse.softmax()`](generated/torch.sparse.softmax.html#torch.sparse.softmax) computes the softmax with the
 assumption that the fill value is negative infinity.
+
+ See https://github.com/Quansight-Labs/rfcs/tree/pearu/rfc-fill-value/RFC-0004-sparse-fill-value for a new API 
 
 ## Sparse Compressed Tensors
 
@@ -732,15 +736,13 @@ encoding if the following invariants are satisfied:
 
 - `compressed_indices` is a contiguous strided 32 or 64 bit
 integer tensor
-- `compressed_indices` shape is `(*batchsize,
-compressed_dim_size + 1)` where `compressed_dim_size` is the
+- `compressed_indices` shape is `(*batchsize, compressed_dim_size + 1)` where `compressed_dim_size` is the
 number of compressed dimensions (e.g. rows or columns)
 - `compressed_indices[..., 0] == 0` where `...` denotes batch
 indices
 - `compressed_indices[..., compressed_dim_size] == nse` where
 `nse` is the number of specified elements
-- `0 <= compressed_indices[..., i] - compressed_indices[..., i -
-1] <= plain_dim_size` for `i=1, ..., compressed_dim_size`,
+- `0 <= compressed_indices[..., i] - compressed_indices[..., i - 1] <= plain_dim_size` for `i=1, ..., compressed_dim_size`,
 where `plain_dim_size` is the number of plain dimensions
 (orthogonal to compressed dimensions, e.g. columns or rows).
 
@@ -781,17 +783,17 @@ In the simplest case, a (0 + 2 + 0)-dimensional sparse CSR tensor
 consists of three 1-D tensors: `crow_indices`, `col_indices` and
 `values`:
 
-> - The `crow_indices` tensor consists of compressed row
-> indices. This is a 1-D tensor of size `nrows + 1` (the number of
-> rows plus 1). The last element of `crow_indices` is the number
-> of specified elements, `nse`. This tensor encodes the index in
-> `values` and `col_indices` depending on where the given row
-> starts. Each successive number in the tensor subtracted by the
-> number before it denotes the number of elements in a given row.
-> - The `col_indices` tensor contains the column indices of each
-> element. This is a 1-D tensor of size `nse`.
-> - The `values` tensor contains the values of the CSR tensor
-> elements. This is a 1-D tensor of size `nse`.
+- The `crow_indices` tensor consists of compressed row
+indices. This is a 1-D tensor of size `nrows + 1` (the number of
+rows plus 1). The last element of `crow_indices` is the number
+of specified elements, `nse`. This tensor encodes the index in
+`values` and `col_indices` depending on where the given row
+starts. Each successive number in the tensor subtracted by the
+number before it denotes the number of elements in a given row.
+- The `col_indices` tensor contains the column indices of each
+element. This is a 1-D tensor of size `nse`.
+- The `values` tensor contains the values of the CSR tensor
+elements. This is a 1-D tensor of size `nse`.
 
 Note
 
@@ -806,12 +808,11 @@ consists of two (B + 1)-dimensional index tensors `crow_indices` and
 `col_indices`, and of (1 + K)-dimensional `values` tensor such
 that
 
-> - `crow_indices.shape == (*batchsize, nrows + 1)`
-> - `col_indices.shape == (*batchsize, nse)`
-> - `values.shape == (nse, *densesize)`
+- `crow_indices.shape == (*batchsize, nrows + 1)`
+- `col_indices.shape == (*batchsize, nse)`
+- `values.shape == (nse, *densesize)`
 
-while the shape of the sparse CSR tensor is `(*batchsize, nrows,
-ncols, *densesize)` where `len(batchsize) == B` and
+while the shape of the sparse CSR tensor is `(*batchsize, nrows, ncols, *densesize)` where `len(batchsize) == B` and
 `len(densesize) == K`.
 
 Note
@@ -826,18 +827,15 @@ Note
 The number of sparse and dense dimensions can be acquired using
 [`torch.Tensor.sparse_dim()`](generated/torch.Tensor.sparse_dim.html#torch.Tensor.sparse_dim) and [`torch.Tensor.dense_dim()`](generated/torch.Tensor.dense_dim.html#torch.Tensor.dense_dim)
 methods. The batch dimensions can be computed from the tensor
-shape: `batchsize = tensor.shape[:-tensor.sparse_dim() -
-tensor.dense_dim()]`.
+shape: `batchsize = tensor.shape[:-tensor.sparse_dim() - tensor.dense_dim()]`.
 
 Note
 
 The memory consumption of a sparse CSR tensor is at least
-`(nrows * 8 + (8 + <size of element type in bytes> *
-prod(densesize)) * nse) * prod(batchsize)` bytes (plus a constant
+`(nrows * 8 + (8 + <size of element type in bytes> * prod(densesize)) * nse) * prod(batchsize)` bytes (plus a constant
 overhead from storing other tensor data).
 
-With the same example data of the note in sparse COO format
-introduction, the memory consumption of a 10 000
+With the same example data of the note in sparse COO format introduction, the memory consumption of a 10 000
 x 10 000 tensor with 100 000 non-zero 32-bit floating point numbers
 is at least `(10000 * 8 + (8 + 4 * 1) * 100 000) * 1 = 1 280 000`
 bytes when using CSR tensor layout. Notice the 1.6 and 310 fold
@@ -921,17 +919,17 @@ Similarly to sparse CSR tensors, a sparse CSC
 tensor consists of three tensors: `ccol_indices`, `row_indices`
 and `values`:
 
-> - The `ccol_indices` tensor consists of compressed column
-> indices. This is a (B + 1)-D tensor of shape `(*batchsize, ncols + 1)`.
-> The last element is the number of specified
-> elements, `nse`. This tensor encodes the index in `values` and
-> `row_indices` depending on where the given column starts. Each
-> successive number in the tensor subtracted by the number before it
-> denotes the number of elements in a given column.
-> - The `row_indices` tensor contains the row indices of each
-> element. This is a (B + 1)-D tensor of shape `(*batchsize, nse)`.
-> - The `values` tensor contains the values of the CSC tensor
-> elements. This is a (1 + K)-D tensor of shape `(nse, *densesize)`.
+- The `ccol_indices` tensor consists of compressed column
+indices. This is a (B + 1)-D tensor of shape `(*batchsize, ncols + 1)`.
+The last element is the number of specified
+elements, `nse`. This tensor encodes the index in `values` and
+`row_indices` depending on where the given column starts. Each
+successive number in the tensor subtracted by the number before it
+denotes the number of elements in a given column.
+- The `row_indices` tensor contains the row indices of each
+element. This is a (B + 1)-D tensor of shape `(*batchsize, nse)`.
+- The `values` tensor contains the values of the CSC tensor
+elements. This is a (1 + K)-D tensor of shape `(nse, *densesize)`.
 
 #### Construction of CSC tensors
 
@@ -987,20 +985,17 @@ multi-dimensional tensors.
 A sparse BSR tensor consists of three tensors: `crow_indices`,
 `col_indices` and `values`:
 
-> - The `crow_indices` tensor consists of compressed row
-> indices. This is a (B + 1)-D tensor of shape `(*batchsize,
-> nrowblocks + 1)`. The last element is the number of specified blocks,
-> `nse`. This tensor encodes the index in `values` and
-> `col_indices` depending on where the given column block
-> starts. Each successive number in the tensor subtracted by the
-> number before it denotes the number of blocks in a given row.
-> - The `col_indices` tensor contains the column block indices of each
-> element. This is a (B + 1)-D tensor of shape `(*batchsize,
-> nse)`.
-> - The `values` tensor contains the values of the sparse BSR tensor
-> elements collected into two-dimensional blocks. This is a (1 + 2 +
-> K)-D tensor of shape `(nse, nrowblocks, ncolblocks,
-> *densesize)`.
+- The `crow_indices` tensor consists of compressed row
+indices. This is a (B + 1)-D tensor of shape `(*batchsize, nrowblocks + 1)`. The last element is the number of specified blocks,
+`nse`. This tensor encodes the index in `values` and
+`col_indices` depending on where the given column block
+starts. Each successive number in the tensor subtracted by the
+number before it denotes the number of blocks in a given row.
+- The `col_indices` tensor contains the column block indices of each
+element. This is a (B + 1)-D tensor of shape `(*batchsize, nse)`.
+- The `values` tensor contains the values of the sparse BSR tensor
+elements collected into two-dimensional blocks. This is a (1 + 2 +
+K)-D tensor of shape `(nse, nrowblocks, ncolblocks, *densesize)`.
 
 #### Construction of BSR tensors
 
@@ -1072,20 +1067,17 @@ multi-dimensional tensors.
 A sparse BSC tensor consists of three tensors: `ccol_indices`,
 `row_indices` and `values`:
 
-> - The `ccol_indices` tensor consists of compressed column
-> indices. This is a (B + 1)-D tensor of shape `(*batchsize,
-> ncolblocks + 1)`. The last element is the number of specified blocks,
-> `nse`. This tensor encodes the index in `values` and
-> `row_indices` depending on where the given row block
-> starts. Each successive number in the tensor subtracted by the
-> number before it denotes the number of blocks in a given column.
-> - The `row_indices` tensor contains the row block indices of each
-> element. This is a (B + 1)-D tensor of shape `(*batchsize,
-> nse)`.
-> - The `values` tensor contains the values of the sparse BSC tensor
-> elements collected into two-dimensional blocks. This is a (1 + 2 +
-> K)-D tensor of shape `(nse, nrowblocks, ncolblocks,
-> *densesize)`.
+- The `ccol_indices` tensor consists of compressed column
+indices. This is a (B + 1)-D tensor of shape `(*batchsize, ncolblocks + 1)`. The last element is the number of specified blocks,
+`nse`. This tensor encodes the index in `values` and
+`row_indices` depending on where the given row block
+starts. Each successive number in the tensor subtracted by the
+number before it denotes the number of blocks in a given column.
+- The `row_indices` tensor contains the row block indices of each
+element. This is a (B + 1)-D tensor of shape `(*batchsize, nse)`.
+- The `values` tensor contains the values of the sparse BSC tensor
+elements collected into two-dimensional blocks. This is a (1 + 2 +
+K)-D tensor of shape `(nse, nrowblocks, ncolblocks, *densesize)`.
 
 #### Construction of BSC tensors
 
@@ -1207,8 +1199,8 @@ Note
 
 Currently, PyTorch does not support matrix multiplication with the
 layout signature `M[strided] @ M[sparse_coo]`. However,
-applications can still compute this using the matrix relation `D @
-S == (S.t() @ D.t()).t()`.
+applications can still compute this using the matrix relation
+`D @ S == (S.t() @ D.t()).t()`.
 
 ### Tensor methods and sparse
 
@@ -1338,12 +1330,12 @@ The following [`torch`](torch.html#module-torch) functions support sparse tensor
 [`is_complex()`](generated/torch.is_complex.html#torch.is_complex)
 [`is_floating_point()`](generated/torch.is_floating_point.html#torch.is_floating_point)
 [`is_nonzero()`](generated/torch.is_nonzero.html#torch.is_nonzero)
-`is_same_size()`
-`is_signed()`
+[`is_same_size()`](generated/torch.is_same_size.html#torch.is_same_size)
+[`is_signed()`](generated/torch.is_signed.html#torch.is_signed)
 [`is_tensor()`](generated/torch.is_tensor.html#torch.is_tensor)
 [`lobpcg()`](generated/torch.lobpcg.html#torch.lobpcg)
 [`mm()`](generated/torch.mm.html#torch.mm)
-`native_norm()`
+[`native_norm()`](generated/torch.native_norm.html#torch.native_norm)
 [`pca_lowrank()`](generated/torch.pca_lowrank.html#torch.pca_lowrank)
 [`select()`](generated/torch.select.html#torch.select)
 [`stack()`](generated/torch.stack.html#torch.stack)

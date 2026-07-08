@@ -1,6 +1,6 @@
 # Granularity
 
-*class*torch.ao.quantization.observer.Granularity[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/ao/quantization/observer.py#L1689)
+*class*torch.ao.quantization.observer.Granularity[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/observer.py#L1689)
 
 Base class for representing the granularity of quantization.
 

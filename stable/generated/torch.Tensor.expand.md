@@ -1,6 +1,6 @@
 # torch.Tensor.expand
 
-Tensor.expand(**sizes*) → [Tensor](../tensors.html#torch.Tensor)
+Tensor.expand(**size*) → [Tensor](../tensors.html#torch.Tensor)
 
 Returns a new view of the `self` tensor with singleton dimensions expanded
 to a larger size.
@@ -18,9 +18,15 @@ expanded to a larger size by setting the `stride` to 0. Any dimension
 of size 1 can be expanded to an arbitrary value without allocating new
 memory.
 
+Note
+
+Operations on an expanded view may still allocate memory if they need to
+materialize the expanded values. For example, changing dtype after
+`expand()` can allocate memory for the full expanded shape.
+
 Parameters:
 
-***sizes** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired expanded size
+***size** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired expanded size
 
 Warning
 

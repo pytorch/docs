@@ -1,6 +1,6 @@
 # torch.addmm
 
-torch.addmm(*input*, *mat1*, *mat2*, *out_dtype=None*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.addmm(*input*, *mat1*, *mat2*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
 
 Performs a matrix multiplication of the matrices `mat1` and `mat2`.
 The matrix `input` is added to the final result.
@@ -42,9 +42,6 @@ Parameters:
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - matrix to be added
 - **mat1** ([*Tensor*](../tensors.html#torch.Tensor)) - the first matrix to be matrix multiplied
 - **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second matrix to be matrix multiplied
-- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*,**optional*) - the dtype of the output tensor,
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes
 
 Keyword Arguments:
 
@@ -62,3 +59,20 @@ Example:
 tensor([[-4.8716, 1.4671, -1.3746],
  [ 0.7573, -3.9555, -2.8681]])
 ```
+
+torch.addmm(*input*, *mat1*, *mat2*, *out_dtype*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - matrix to be added
+- **mat1** ([*Tensor*](../tensors.html#torch.Tensor)) - the first matrix to be matrix multiplied
+- **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second matrix to be matrix multiplied
+- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - the dtype of the output tensor.
+Supported only on CUDA and for torch.float32 given
+torch.float16/torch.bfloat16 input dtypes.
+
+Keyword Arguments:
+
+- **beta** (*Number**,**optional*) - multiplier for `input` (β\betaβ)
+- **alpha** (*Number**,**optional*) - multiplier for mat1@mat2mat1 @ mat2mat1@mat2 (α\alphaα)
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.

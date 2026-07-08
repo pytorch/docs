@@ -1,13 +1,13 @@
 # torch.linalg.ldl_factor
 
-torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)
+torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L914)
 
 Computes a compact representation of the LDL factorization of a Hermitian or symmetric (possibly indefinite) matrix.
 
 When `A` is complex valued it can be Hermitian (`hermitian`= True)
 or symmetric (`hermitian`= False).
 
-The factorization is of the form the form A=LDLTA = L D L^TA=LDLT.
+The factorization is of the form A=LDLTA = L D L^TA=LDLT.
 If `hermitian` is True then transpose operation is the conjugate transpose.
 
 LLL (or UUU) and DDD are stored in compact form in `LD`.

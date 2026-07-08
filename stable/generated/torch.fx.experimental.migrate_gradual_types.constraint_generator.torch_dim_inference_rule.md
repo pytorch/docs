@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1420)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.torch_dim_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1420)
 
 Return type:
 

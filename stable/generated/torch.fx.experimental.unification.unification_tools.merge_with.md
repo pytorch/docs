@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.merge_with
 
-torch.fx.experimental.unification.unification_tools.merge_with(*func*, **dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/unification/unification_tools.py#L58)
+torch.fx.experimental.unification.unification_tools.merge_with(*func*, **dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/unification/unification_tools.py#L70)
 
 Merge dictionaries and apply function to combined values
 
@@ -20,3 +20,7 @@ will be passed to the function as a list, such as func([val1, val2, ...]).
 See also
 
 merge
+
+Return type:
+
+[object](https://docs.python.org/3/library/functions.html#object)

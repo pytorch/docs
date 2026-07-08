@@ -1,6 +1,6 @@
 # torch.baddbmm
 
-torch.baddbmm(*input*, *batch1*, *batch2*, *out_dtype=None*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.baddbmm(*input*, *batch1*, *batch2*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
 
 Performs a batch matrix-matrix product of matrices in `batch1`
 and `batch2`.
@@ -35,9 +35,6 @@ Parameters:
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to be added
 - **batch1** ([*Tensor*](../tensors.html#torch.Tensor)) - the first batch of matrices to be multiplied
 - **batch2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second batch of matrices to be multiplied
-- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*,**optional*) - the dtype of the output tensor,
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes
 
 Keyword Arguments:
 
@@ -54,3 +51,20 @@ Example:
 >>> torch.baddbmm(M, batch1, batch2).size()
 torch.Size([10, 3, 5])
 ```
+
+torch.baddbmm(*input*, *batch1*, *batch2*, *out_dtype*, ***, *beta=1*, *alpha=1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to be added
+- **batch1** ([*Tensor*](../tensors.html#torch.Tensor)) - the first batch of matrices to be multiplied
+- **batch2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second batch of matrices to be multiplied
+- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - the dtype of the output tensor.
+Supported only on CUDA and for torch.float32 given
+torch.float16/torch.bfloat16 input dtypes.
+
+Keyword Arguments:
+
+- **beta** (*Number**,**optional*) - multiplier for `input` (β\betaβ)
+- **alpha** (*Number**,**optional*) - multiplier for batch1@batch2\text{batch1} \mathbin{@} \text{batch2}batch1@batch2 (α\alphaα)
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.

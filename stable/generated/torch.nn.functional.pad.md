@@ -1,6 +1,6 @@
 # torch.nn.functional.pad
 
-torch.nn.functional.pad(*input*, *pad*, *mode='constant'*, *value=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/functional.py#L5374)
+torch.nn.functional.pad(*input*, *pad*, *mode='constant'*, *value=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/functional.py#L5735)
 
 Pads tensor.
 

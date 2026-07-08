@@ -122,7 +122,7 @@ def train(model):
 if __name__ == '__main__':
  num_processes = 4
  model = MyModel()
- # NOTE: this is required for the ``fork`` method to work
+ # NOTE: this is required for the `fork` method to work
  model.share_memory()
  processes = []
  for rank in range(num_processes):
@@ -153,8 +153,7 @@ is frequent switching between processes, which increases processes
 switching overhead and decreases overall system efficiency.
 
 See CPU oversubscription with the code examples in the Hogwild
-implementation found in the [example
-repository](https://github.com/pytorch/examples/tree/main/mnist_hogwild).
+implementation found in the [example repository](https://github.com/pytorch/examples/tree/main/mnist_hogwild).
 
 When running the training example with the following command on CPU
 using 4 processes:
@@ -173,12 +172,12 @@ switching.
 The following observations indicate the presence of CPU over
 subscription:
 
-1. High CPU Utilization: By using the `htop` command, you can observe
+- High CPU Utilization: By using the `htop` command, you can observe
 that the CPU utilization is consistently high, often reaching or
 exceeding its maximum capacity. This indicates that the demand for
 CPU resources exceeds the available physical cores, causing
 contention and competition among processes for CPU time.
-2. Frequent Context Switching with Low System Efficiency: In an
+- Frequent Context Switching with Low System Efficiency: In an
 oversubscribed CPU scenario, processes compete for CPU time, and the
 operating system needs to rapidly switch between different processes
 to allocate resources fairly. This frequent context switching adds
@@ -199,8 +198,7 @@ Assuming there are N vCPUs on the machine and M processes will be
 generated, the maximum `num_threads` value used by each process would
 be `floor(N/M)`. To avoid CPU oversubscription in the mnist_hogwild
 example, the following changes are needed for the file `train.py` in
-[example
-repository](https://github.com/pytorch/examples/tree/main/mnist_hogwild).
+[example repository](https://github.com/pytorch/examples/tree/main/mnist_hogwild).
 
 ```
 def train(rank, args, model, device, dataset, dataloader_kwargs):

@@ -1,6 +1,6 @@
 # GRU
 
-*class*torch.ao.nn.quantized.dynamic.modules.rnn.GRU(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/ao/nn/quantized/dynamic/modules/rnn.py#L690)
+*class*torch.ao.nn.quantized.dynamic.modules.rnn.GRU(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/nn/quantized/dynamic/modules/rnn.py#L690)
 
 Applies a multi-layer gated recurrent unit (GRU) RNN to an input sequence.
 

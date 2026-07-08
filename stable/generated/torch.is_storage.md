@@ -1,6 +1,6 @@
 # torch.is_storage
 
-torch.is_storage(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/__init__.py#L1175)
+torch.is_storage(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1176)
 
 Returns True if obj is a PyTorch storage object.
 

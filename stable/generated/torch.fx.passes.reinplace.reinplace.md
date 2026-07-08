@@ -1,6 +1,6 @@
 # torch.fx.passes.reinplace.reinplace
 
-torch.fx.passes.reinplace.reinplace(*gm*, **sample_args*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/passes/reinplace.py#L310)
+torch.fx.passes.reinplace.reinplace(*gm*, **sample_args*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/passes/reinplace.py#L307)
 
 Given an fx.GraphModule, modifies it to perform "reinplacing",
 mutating the nodes of the graph.
@@ -249,3 +249,7 @@ ops in the graph.
 Note
 
 Backwards-compatibility for this API is guaranteed.
+
+Return type:
+
+[*GraphModule*](../fx.html#torch.fx.GraphModule)

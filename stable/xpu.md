@@ -9,11 +9,13 @@ This package is lazily initialized, so you can always import it, and use
 | [`StreamContext`](generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext) | Context-manager that selects a given stream. |
 | --- | --- |
 | [`can_device_access_peer`](generated/torch.xpu.can_device_access_peer.html#torch.xpu.can_device_access_peer) | Query whether a device can access a peer device's memory. |
+| [`clock_rate`](generated/torch.xpu.clock_rate.html#torch.xpu.clock_rate) | Return the GPU clock rate in MHz. |
 | [`current_device`](generated/torch.xpu.current_device.html#torch.xpu.current_device) | Return the index of a currently selected device. |
 | [`current_stream`](generated/torch.xpu.current_stream.html#torch.xpu.current_stream) | Return the currently selected [`Stream`](generated/torch.xpu.Stream_class.html#torch.xpu.Stream) for a given device. |
 | [`device`](generated/torch.xpu.device.html#torch.xpu.device) | Context-manager that changes the selected device. |
 | [`device_count`](generated/torch.xpu.device_count.html#torch.xpu.device_count) | Return the number of XPU device available. |
 | [`device_of`](generated/torch.xpu.device_of.html#torch.xpu.device_of) | Context-manager that changes the current device to that of given object. |
+| [`device_memory_used`](generated/torch.xpu.device_memory_used.html#torch.xpu.device_memory_used) | Return the current GPU used global (device) memory in bytes. |
 | [`get_arch_list`](generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list) | Return list XPU architectures this library was compiled for. |
 | [`get_device_capability`](generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability) | Get the xpu capability of a device. |
 | [`get_device_name`](generated/torch.xpu.get_device_name.html#torch.xpu.get_device_name) | Get the name of a device. |
@@ -25,10 +27,14 @@ This package is lazily initialized, so you can always import it, and use
 | [`is_bf16_supported`](generated/torch.xpu.is_bf16_supported.html#torch.xpu.is_bf16_supported) | Return a bool indicating if the current XPU device supports dtype bfloat16. |
 | [`is_initialized`](generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized) | Return whether PyTorch's XPU state has been initialized. |
 | [`is_tf32_supported`](generated/torch.xpu.is_tf32_supported.html#torch.xpu.is_tf32_supported) | Return a bool indicating if the current XPU device supports dtype tf32. |
+| [`memory_usage`](generated/torch.xpu.memory_usage.html#torch.xpu.memory_usage) | Return the GPU memory bandwidth usage as a percentage. |
+| [`power_draw`](generated/torch.xpu.power_draw.html#torch.xpu.power_draw) | Return the GPU card power draw in watts. |
 | [`set_device`](generated/torch.xpu.set_device.html#torch.xpu.set_device) | Set the current device. |
 | [`set_stream`](generated/torch.xpu.set_stream.html#torch.xpu.set_stream) | Set the current stream. This is a wrapper API to set the stream. |
 | [`stream`](generated/torch.xpu.stream_function.html#torch.xpu.stream) | Wrap around the Context-manager StreamContext that selects a given stream. |
 | [`synchronize`](generated/torch.xpu.synchronize.html#torch.xpu.synchronize) | Wait for all kernels in all streams on a XPU device to complete. |
+| [`temperature`](generated/torch.xpu.temperature.html#torch.xpu.temperature) | Return the GPU temperature in degrees Celsius. |
+| [`utilization`](generated/torch.xpu.utilization.html#torch.xpu.utilization) | Return the GPU engine utilization as a percentage. |
 
 ## Random Number Generator
 
@@ -78,7 +84,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`set_per_process_memory_fraction`](generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction) | Set the memory fraction for a single process on XPU device. |
 | [`MemPool`](generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
 
-*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/xpu/memory.py#L597)
+*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/memory.py#L597)
 
 A context manager that routes allocations to a given pool.
 

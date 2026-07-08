@@ -13,6 +13,6 @@ a PR that adds a person to the [persons of interests](https://pytorch.org/docs/m
 support. Decision criteria for approving the PR:
 
 - Not earlier than two business days passed before merging (ensure the majority of the contributors have seen it)
-- PR has the correct label (module: ci)
+- PR has the correct label (`module: ci`)
 - There are no objections from the current maintainers
 - There are at least three net *thumbs up* from current maintainers (or all maintainers vote *thumbs up* when the module has less than 3 maintainers).

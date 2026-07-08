@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.groupby
 
-torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/unification/unification_tools.py#L372)
+torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/unification/unification_tools.py#L420)
 
 Group a collection by a key function
 
@@ -37,3 +37,7 @@ Not to be confused with `itertools.groupby`
 See also
 
 countby
+
+Return type:
+
+[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[object](https://docs.python.org/3/library/functions.html#object), [list](https://docs.python.org/3/library/stdtypes.html#list)[[object](https://docs.python.org/3/library/functions.html#object)]]

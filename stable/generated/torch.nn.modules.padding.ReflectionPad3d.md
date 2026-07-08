@@ -1,6 +1,6 @@
 # ReflectionPad3d
 
-*class*torch.nn.modules.padding.ReflectionPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/padding.py#L480)
+*class*torch.nn.modules.padding.ReflectionPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/padding.py#L480)
 
 Pads the input tensor using the reflection of the input boundary.
 

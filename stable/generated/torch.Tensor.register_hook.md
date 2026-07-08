@@ -1,6 +1,6 @@
 # torch.Tensor.register_hook
 
-Tensor.register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/_tensor.py#L663)
+Tensor.register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L655)
 
 Registers a backward hook.
 

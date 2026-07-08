@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_accumulated_host_memory_stats
 
-torch.cuda.memory.reset_accumulated_host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/memory.py#L446)
+torch.cuda.memory.reset_accumulated_host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L461)
 
 Reset the "accumulated" (historical) stats tracked by the host memory allocator.
 

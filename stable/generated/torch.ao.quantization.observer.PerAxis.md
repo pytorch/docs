@@ -1,6 +1,6 @@
 # PerAxis
 
-*class*torch.ao.quantization.observer.PerAxis(*axis*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/ao/quantization/observer.py#L1724)
+*class*torch.ao.quantization.observer.PerAxis(*axis*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/observer.py#L1724)
 
 Represents per-axis granularity in quantization.
 

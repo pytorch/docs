@@ -21,5 +21,5 @@ turned on:
 > quantized
 > - [`torch.empty()`](generated/torch.empty.html#torch.empty)
 > - [`torch.empty_strided()`](generated/torch.empty_strided.html#torch.empty_strided)
-> - `torch.empty_permuted()`
+> - [`torch.empty_permuted()`](generated/torch.empty_permuted.html#torch.empty_permuted)
 > - [`torch.empty_like()`](generated/torch.empty_like.html#torch.empty_like)

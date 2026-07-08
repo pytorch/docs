@@ -1,11 +1,34 @@
 # torch.utils
 
-| [`rename_privateuse1_backend`](generated/torch.utils.rename_privateuse1_backend.html#torch.utils.rename_privateuse1_backend) | Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. |
-| --- | --- |
-| [`generate_methods_for_privateuse1_backend`](generated/torch.utils.generate_methods_for_privateuse1_backend.html#torch.utils.generate_methods_for_privateuse1_backend) | Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. |
 | [`get_cpp_backtrace`](generated/torch.utils.get_cpp_backtrace.html#torch.utils.get_cpp_backtrace) | Return a string containing the C++ stack trace of the current thread. |
+| --- | --- |
 | [`set_module`](generated/torch.utils.set_module.html#torch.utils.set_module) | Set the module attribute on a python object for a given object for nicer printing |
 | [`swap_tensors`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) | This function swaps the content of the two Tensor objects. |
+
+# torch.utils.backend_registration
+
+| [`generate_methods_for_privateuse1_backend`](generated/torch.utils.backend_registration.generate_methods_for_privateuse1_backend.html#torch.utils.backend_registration.generate_methods_for_privateuse1_backend) | Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. |
+| --- | --- |
+| [`rename_privateuse1_backend`](generated/torch.utils.backend_registration.rename_privateuse1_backend.html#torch.utils.backend_registration.rename_privateuse1_backend) | Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs. |
+
+# torch.utils.hooks
+
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/hooks.py#L72)
+
+Mark a function as an unserializable hook with this decorator.
+
+This suppresses warnings that would otherwise arise if you attempt
+to serialize a tensor that has a hook.
+
+# torch.utils.throughput_benchmark
+
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/throughput_benchmark.py#L6)
+
+Define time formatting.
+
+Return type:
+
+[str](https://docs.python.org/3/library/stdtypes.html#str)
 
 # torch.utils.collect_env
 
@@ -60,8 +83,9 @@ The Python Hipify script.
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-| [`compute_stats`](generated/torch.utils.hipify.hipify_python.compute_stats.html#torch.utils.hipify.hipify_python.compute_stats) | |
+| [`add_dim3`](generated/torch.utils.hipify.hipify_python.add_dim3.html#torch.utils.hipify.hipify_python.add_dim3) | adds dim3() to the second and third arguments in the kernel launch |
 | --- | --- |
+| [`compute_stats`](generated/torch.utils.hipify.hipify_python.compute_stats.html#torch.utils.hipify.hipify_python.compute_stats) | |
 | [`extract_arguments`](generated/torch.utils.hipify.hipify_python.extract_arguments.html#torch.utils.hipify.hipify_python.extract_arguments) | Return the list of arguments in the upcoming function parameter closure. |
 | [`file_add_header`](generated/torch.utils.hipify.hipify_python.file_add_header.html#torch.utils.hipify.hipify_python.file_add_header) | |
 | [`file_specific_replacement`](generated/torch.utils.hipify.hipify_python.file_specific_replacement.html#torch.utils.hipify.hipify_python.file_specific_replacement) | |
@@ -69,6 +93,7 @@ The Python Hipify script.
 | [`find_closure_group`](generated/torch.utils.hipify.hipify_python.find_closure_group.html#torch.utils.hipify.hipify_python.find_closure_group) | Generalization for finding a balancing closure group |
 | [`find_parentheses_group`](generated/torch.utils.hipify.hipify_python.find_parentheses_group.html#torch.utils.hipify.hipify_python.find_parentheses_group) | Finds the first balanced bracket. |
 | [`fix_static_global_kernels`](generated/torch.utils.hipify.hipify_python.fix_static_global_kernels.html#torch.utils.hipify.hipify_python.fix_static_global_kernels) | Static global kernels in HIP results in a compilation error. |
+| [`get_hip_file_path`](generated/torch.utils.hipify.hipify_python.get_hip_file_path.html#torch.utils.hipify.hipify_python.get_hip_file_path) | Returns the new name of the hipified file |
 | [`hip_header_magic`](generated/torch.utils.hipify.hipify_python.hip_header_magic.html#torch.utils.hipify.hipify_python.hip_header_magic) | If the file makes kernel builtin calls and does not include the cuda_runtime.h header, then automatically add an #include to match the "magic" includes provided by NVCC. |
 | [`hipify`](generated/torch.utils.hipify.hipify_python.hipify.html#torch.utils.hipify.hipify_python.hipify) | |
 | [`is_caffe2_gpu_file`](generated/torch.utils.hipify.hipify_python.is_caffe2_gpu_file.html#torch.utils.hipify.hipify_python.is_caffe2_gpu_file) | |
@@ -87,4 +112,7 @@ The Python Hipify script.
 | [`str2bool`](generated/torch.utils.hipify.hipify_python.str2bool.html#torch.utils.hipify.hipify_python.str2bool) | ArgumentParser doesn't support type=bool. |
 
  This module needs to be documented. Adding here in the meantime
-for tracking purposes
+for tracking purposes 
+
+| [`TensorWeakRef`](generated/torch.utils.weak.TensorWeakRef.html#torch.utils.weak.TensorWeakRef) | Wrapper around a weak ref of a Tensor that handles the _fix_weakref() call required when unwrapping a Tensor weakref. |
+| --- | --- |

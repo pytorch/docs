@@ -130,7 +130,7 @@ for input, target in dataset:
 
 ## Base class
 
-*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L339)
+*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L339)
 
 Base class for all optimizers.
 
@@ -162,7 +162,7 @@ options (used when a parameter group doesn't specify them).
 
 ## Module-level hooks
 
-torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L309)
+torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L309)
 
 Register a post hook common to all optimizers.
 
@@ -185,7 +185,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L289)
+torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L289)
 
 Register a pre hook common to all optimizers.
 
@@ -207,6 +207,72 @@ a handle that can be used to remove the added hook by calling
 Return type:
 
 `torch.utils.hooks.RemovableHandle`
+
+## Utilities
+
+torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/_stateless.py#L192)
+
+Temporarily replace an optimizer's parameters and state with the
+supplied params and optim states, then restore them on exit.
+
+For the duration of the context, all optimizer APIs (including
+user hooks) see the swap-in values; the live optimizer is restored on
+exit.
+
+The difference between this API and `optimizer.load_state_dict` is
+that `optimizer.load_state_dict` only updates the optimizer's state
+and leaves the parameters in `param_groups` untouched. This API also
+swaps in the parameters, so that `optimizer.step()` acts on the
+swap-in parameter tensors you supply.
+
+Parameters:
+
+- **optimizer** (*Optimizer*) - the live optimizer; its state must already be
+initialized.
+- **swapin_parameters** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - tensors to use as parameters during the context,
+provided in the same order as the existing input parameters to
+the optimizer (most commonly in `model.named_parameters()`
+order).
+- **swapin_optim_state** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - an `optimizer.state_dict()`-shaped dict
+(`{"state": ..., "param_groups": ...}`) holding the state to
+install. `"state"` is keyed by packed integer parameter ids
+and `"param_groups"` mirrors `optimizer.param_groups`,
+with each `"params"` entry as a list of those packed ids
+and the remaining keys carrying per-group hyperparameters
+(`lr`, `betas`, `foreach`, `capturable`, ...).
+Only in-place tensor edits propagate back to the user supplied
+`swapin_optim_state`; all other side-effects (e.g.,
+assigning a new tensor to the optim state)
+are ignored.
+
+Example
+
+One use of this API is to run `optimizer.step()` against
+`FakeTensor` versions of the parameters and state for nonstrict
+tracing -- capturing an FX graph of the step without touching the
+live optimizer:
+
+```
+from torch.fx.experimental.proxy_tensor import make_fx
+from torch._subclasses import FakeTensorMode
+from torch.utils import _pytree as pytree
+
+fake_mode = FakeTensorMode(allow_non_fake_inputs=True)
+with fake_mode:
+ fake_params = {
+ n: fake_mode.from_tensor(p) for n, p in model.named_parameters()
+ }
+ fake_osd = pytree.tree_map_only(
+ torch.Tensor, fake_mode.from_tensor, optimizer.state_dict()
+ )
+
+def step_fn(params, osd):
+ with swap_in_optimizer_params_and_state(optimizer, params, osd):
+ optimizer.step()
+ return params, osd
+
+gm = make_fx(step_fn)(fake_params, fake_osd)
+```
 
 ## Algorithms
 
@@ -715,8 +781,11 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 | [`swa_utils.AveragedModel`](generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel) | Implements averaged model for Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA). |
 | --- | --- |
 | [`swa_utils.SWALR`](generated/torch.optim.swa_utils.SWALR.html#torch.optim.swa_utils.SWALR) | Anneals the learning rate in each parameter group to a fixed value. |
+| [`swa_utils.get_ema_avg_fn`](generated/torch.optim.swa_utils.get_ema_avg_fn.html#torch.optim.swa_utils.get_ema_avg_fn) | Get the function applying exponential moving average (EMA) across multiple params. |
+| [`swa_utils.get_swa_avg_fn`](generated/torch.optim.swa_utils.get_swa_avg_fn.html#torch.optim.swa_utils.get_swa_avg_fn) | Get the function applying stochastic weight average (SWA) across a single param. |
+| [`swa_utils.get_swa_multi_avg_fn`](generated/torch.optim.swa_utils.get_swa_multi_avg_fn.html#torch.optim.swa_utils.get_swa_multi_avg_fn) | Get the function applying stochastic weight average (SWA) across multiple params. |
 
-torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/swa_utils.py#L42)
+torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/swa_utils.py#L42)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -745,7 +814,7 @@ Return type:
 
 Callable
 
-torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/swa_utils.py#L371)
+torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/swa_utils.py#L371)
 
 Update BatchNorm running_mean, running_var buffers in the model.
 

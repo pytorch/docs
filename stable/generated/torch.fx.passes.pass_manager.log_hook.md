@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.log_hook
 
-torch.fx.passes.pass_manager.log_hook(*fn*, *level=20*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/passes/pass_manager.py#L42)
+torch.fx.passes.pass_manager.log_hook(*fn*, *level=20*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/passes/pass_manager.py#L49)
 
 Logs callable output.
 
@@ -24,7 +24,7 @@ pm = PassManager(passes=[inplace_wrapper(log_hook(my_pass))])
 Parameters:
 
 - **fn** (*Callable**[**Type1**,**Type2**]*) -
-- **level** - logging level (e.g. logging.INFO)
+- **level** ([*int*](https://docs.python.org/3/library/functions.html#int)) - logging level (e.g. logging.INFO)
 
 Returns:
 
@@ -32,4 +32,4 @@ wrapped_fn (Callable[Type1, Type2])
 
 Return type:
 
-[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)
+[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[~_P], *_R*]

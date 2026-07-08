@@ -1,6 +1,6 @@
 # FakeQuantizeBase
 
-*class*torch.ao.quantization.fake_quantize.FakeQuantizeBase[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/ao/quantization/fake_quantize.py#L70)
+*class*torch.ao.quantization.fake_quantize.FakeQuantizeBase[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/fake_quantize.py#L70)
 
 Base fake quantize module.
 

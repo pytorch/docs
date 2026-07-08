@@ -73,7 +73,7 @@ the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.while_loop.while_loop(*cond_fn*, *body_fn*, *carried_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/_higher_order_ops/while_loop.py#L132)
+torch._higher_order_ops.while_loop.while_loop(*cond_fn*, *body_fn*, *carried_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_higher_order_ops/while_loop.py#L136)
 
 Run `body_fn(*carried_inputs)` while `cond_fn(*carried_inputs)` returns
 a True scalar tensor. Returns the output of body_fn or initial
@@ -136,9 +136,5 @@ Restrictions:
 > - body_fn and cond_fn must not in-place mutate the carried_inputs. A clone before the mutation is required.
 > - body_fn and cond_fn must not mutate python variables (e.g. list/dict) created outside of the body_fn.
 > - body_fn and cond_fn's output cannot alias any of the inputs. A clone is required.
-
-Warning
-
-Temporal Limitations:
-
-- 'while_loop' only supports **inference** right now. Autograd will be supported in the future.
+> - During inference, body_fn and cond_fn can in-place mutate tensors that are not
+> carried_inputs, such as module buffers and captured tensors from the enclosing scope.

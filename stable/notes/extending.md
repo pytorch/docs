@@ -54,10 +54,11 @@ effect, consider registering a
 ### How to use
 
 Take the following steps:
+
 1. Subclass [`Function`](../autograd.html#torch.autograd.Function) and implement the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward),
 (optional) `setup_context()` and
 [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward) methods.
-2. Call the proper methods on the ctx argument.
+2. Call the proper methods on the `ctx` argument.
 3. Declare whether your function supports
 [double backward](https://pytorch.org/tutorials/intermediate/custom_function_double_backward_tutorial.html).
 4. Validate whether your gradients are correct using gradcheck.
@@ -106,6 +107,7 @@ directly on `ctx`). You cannot use `save_for_backward` for non-tensors;
 you should store those directly on `ctx`.
 
 Saving tensors via `save_for_backward`:
+
 1. Allows the autograd engine to clear
 them as soon as the backward computation of the `autograd.Function` completes.
 (If a tensor is stored directly on `ctx`
@@ -135,7 +137,7 @@ to calling backward, and so your code will need to handle such objects as if the
 tensors filled with zeros. The default value of this setting is True.
 
 In addition to `ctx` methods, the [`Function`](../autograd.html#torch.autograd.Function) class supports the following
-class attribute:
+class attributes:
 
 - `clear_saved_tensors_on_access`: When set to `True` on the
 [`Function`](../autograd.html#torch.autograd.Function) subclass, accessing `ctx.saved_tensors` in the backward pass
@@ -145,6 +147,51 @@ rather than waiting for the buffers to be cleared at the end of the Node's execu
 This can reduce peak memory usage in backward passes where saved tensors are only
 needed once. The default is `False`. Note that `saved_tensors` can only be
 accessed once when this is enabled; a second access will raise an error.
+- `boxed_grads_call`: When set to `True` on the
+[`Function`](../autograd.html#torch.autograd.Function) subclass, backward receives grads as a single mutable list
+argument instead of individual args in an immutable tuple. This allows backward
+to free individual grads mid-execution by removing them from the list, reducing
+peak memory. When enabled, the backward calling convention changes from
+`backward(ctx, *grads) -> Tuple[Tensor, ...]` to `backward(ctx, grads) -> Tuple[Tensor, ...]` where `grads` is a list.
+The return convention is unchanged.
+The default is `False`.
+
+Here is an example using `boxed_grads_call` to reduce peak memory in the backward
+pass of a QKV projection -- a common building block of transformer models. The forward
+pass projects an input into three separate tensors (Q, K, V), so backward receives
+three gradients. Without `boxed_grads_call`, all three grad tensors are held alive
+for the entire backward call because they are unpacked from an immutable tuple.
+With `boxed_grads_call`, each grad can be freed as soon as it is consumed, so peak
+memory is reduced by up to 2/3 of the total grad memory:
+
+```
+class QKVProjection(Function):
+ """Projects input x into Q, K, V: q = x @ w_q, k = x @ w_k, v = x @ w_v."""
+ boxed_grads_call = True
+
+ @staticmethod
+ def forward(ctx, x, w_q, w_k, w_v):
+ ctx.save_for_backward(x, w_q, w_k, w_v)
+ return x.mm(w_q), x.mm(w_k), x.mm(w_v)
+
+ @staticmethod
+ def backward(ctx, grads):
+ x, w_q, w_k, w_v = ctx.saved_tensors
+ grad_x = torch.zeros_like(x)
+ grad_weights = []
+
+ # Process each grad independently and free it immediately.
+ # Without boxed_grads_call, all three grads would stay alive
+ # until backward returns, tripling peak grad memory.
+ for i, w in enumerate((w_q, w_k, w_v)):
+ grad_out = grads[i]
+ grads[i] = None # Release reference in the caller's list
+ grad_x += grad_out.mm(w.t())
+ grad_weights.append(x.t().mm(grad_out))
+ del grad_out # grad_out can now be freed by the runtime
+
+ return grad_x, *grad_weights
+```
 
 **Step 3:** If your [`Function`](../autograd.html#torch.autograd.Function) does not support double backward
 you should explicitly declare this by decorating backward with the
@@ -431,7 +478,7 @@ method, before the `apply()` returns.
 
 [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) has a few subtle differences with the [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward) function:
 
-- You can use the ctx to pass any data from the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) to the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
+- You can use the `ctx` to pass any data from the [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) to the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
 If that state will not be needed for the [`backward()`](../generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward),
 you can explicitly free it by doing `del ctx.foo` at the end of the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function.
 - The implementation of [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) must be backward differentiable or explicitly check that
@@ -443,7 +490,7 @@ a view of the given `k` th input gradient.
 - Because the user cannot specify which gradient needs to be computed, the [`jvp()`](../generated/torch.autograd.Function.jvp.html#torch.autograd.Function.jvp) function should
 always compute gradients for all the outputs.
 - The forward mode gradients do respect the flag set by [`set_materialize_grads()`](../generated/torch.autograd.function.FunctionCtx.set_materialize_grads.html#torch.autograd.function.FunctionCtx.set_materialize_grads)
-and you can get None input gradients when this is disabled.
+and you can get `None` input gradients when this is disabled.
 
 ### [`torch.func`](../func.api.html#module-torch.func) transforms and/or [`torch.vmap()`](../generated/torch.vmap.html#torch.vmap)
 
@@ -772,7 +819,7 @@ through operations in the [`torch`](../torch.html#module-torch) API.
 The `__torch_function__` protocol is designed for full coverage of the API,
 partial coverage may lead to undesirable results, in particular, certain
 functions raising a `TypeError`. This is especially true for subclasses,
-where all three of torch.add, torch.Tensor.__add__ and torch.Tensor.add
+where all three of `torch.add`, `torch.Tensor.__add__` and `torch.Tensor.add`
 must be covered, even if they return exactly the same result. Failing to do
 this may also lead to infinite recursion. If one requires the implementation
 of a function from `torch.Tensor` subclasses, they must use
@@ -995,7 +1042,7 @@ In a similar way where `__torch_function__` is able to interpose on all of torch
 Most of these functions are defined in `native_functions.yaml` which specifies the properties of these functions as well as their backend implementation. Their implementation alongside specified features are then automatically registered via codegen.
 Some more exotic functions or features are also registered in other places in the C++ codebase or in user-defined C++ extensions.
 
-It is also possible to add new native functions using [`torch.library`](../library.html#module-torch.library). This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions.
+It is also possible to add `new` native functions using [`torch.library`](../library.html#module-torch.library). This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions.
 
 You can find many examples of `__torch_dispatch__`-based subclasses in the [subclass zoo](https://github.com/albanD/subclass_zoo) repo.
 

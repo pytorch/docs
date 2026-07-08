@@ -1,7 +1,7 @@
 # Broadcasting semantics
 
 Many PyTorch operations support NumPy's broadcasting semantics.
-See [https://numpy.org/doc/stable/user/basics.broadcasting.html](https://numpy.org/doc/stable/user/basics.broadcasting.html) for details.
+See [Numpy Documentation](https://numpy.org/doc/stable/user/basics.broadcasting.html) for details.
 
 In short, if a PyTorch operation supports broadcast, then its Tensor arguments can be
 automatically expanded to be of equal sizes (without making copies of the data).
@@ -108,7 +108,7 @@ For Example:
 
 would previously produce a Tensor with size: torch.Size([4,1]), but now produces a Tensor with size: torch.Size([4,4]).
 In order to help identify cases in your code where backwards incompatibilities introduced by broadcasting may exist,
-you may set torch.utils.backcompat.broadcast_warning.enabled to True, which will generate a python warning
+you may set `torch.utils.backcompat.broadcast_warning.enabled` to `True`, which will generate a python warning
 in such cases.
 
 For Example:

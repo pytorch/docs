@@ -48,9 +48,7 @@ The two reconstructed Jacobian matrices are then compared elementwise for equali
 
 If we consider the elementary case of a one-dimensional function (N=M=1N = M = 1N=M=1), then we can use the basic finite difference formula from [the wikipedia article](https://en.wikipedia.org/wiki/Finite_difference). We use the "central difference" for better numerical properties:
 
-∂y∂x≈f(x+eps)−f(x−eps)2∗eps\frac{\partial y}{\partial x} \approx \frac{f(x + eps) - f(x - eps)}{2 * eps}
-
-∂x∂y​≈2∗epsf(x+eps)−f(x−eps)​
+∂y∂x≈f(x+eps)−f(x−eps)2∗eps\frac{\partial y}{\partial x} \approx \frac{f(x + eps) - f(x - eps)}{2 * eps}∂x∂y​≈2∗epsf(x+eps)−f(x−eps)​
 
 This formula easily generalizes for multiple outputs (M>1M \gt 1M>1) by having ∂y∂x\frac{\partial y}{\partial x}∂x∂y​ be a column vector of size M×1M \times 1M×1 like f(x+eps)f(x + eps)f(x+eps).
 In that case, the above formula can be reused as-is and approximates the full Jacobian matrix with only two evaluations of the user function (namely f(x+eps)f(x + eps)f(x+eps) and f(x−eps)f(x - eps)f(x−eps)).
@@ -72,9 +70,7 @@ To test a function g:CN→RM,z→yg: \mathcal{C}^N \to \mathcal{R}^M, z \to yg:C
 
 Consider the elementary case where N=M=1N = M = 1N=M=1 first. We know from (chapter 3 of) [this research paper](https://arxiv.org/pdf/1701.00392.pdf) that:
 
-CW:=∂y∂z∗=12∗(∂y∂a+i∂y∂b)CW := \frac{\partial y}{\partial z^*} = \frac{1}{2} * (\frac{\partial y}{\partial a} + i \frac{\partial y}{\partial b})
-
-CW:=∂z∗∂y​=21​∗(∂a∂y​+i∂b∂y​)
+CW:=∂y∂z∗=12∗(∂y∂a+i∂y∂b)CW := \frac{\partial y}{\partial z^*} = \frac{1}{2} * (\frac{\partial y}{\partial a} + i \frac{\partial y}{\partial b})CW:=∂z∗∂y​=21​∗(∂a∂y​+i∂b∂y​)
 
 Note that ∂y∂a\frac{\partial y}{\partial a}∂a∂y​ and ∂y∂b\frac{\partial y}{\partial b}∂b∂y​, in the above equation, are R→R\mathcal{R} \to \mathcal{R}R→R derivatives.
 To evaluate these numerically, we use the method described above for the real-to-real case.
@@ -112,9 +108,7 @@ To solve this, we will replace the test of the function h:PN→CMh: \mathcal{P}^
 hr(q):=real(f(q))hi(q):=imag(f(q))\begin{aligned}
  hr(q) &:= real(f(q)) \\
  hi(q) &:= imag(f(q))
-\end{aligned}
-
-hr(q)hi(q)​:=real(f(q)):=imag(f(q))​
+\end{aligned}hr(q)hi(q)​:=real(f(q)):=imag(f(q))​
 
 where q∈Pq \in \mathcal{P}q∈P.
 We then do a basic gradcheck for both hrhrhr and hihihi using either the real-to-real or complex-to-real case described above, depending on P\mathcal{P}P.
@@ -137,9 +131,7 @@ The scalar quantity that we want to compute here is vTJfuv^T J_f uvTJf​u for a
 
 For the numerical evaluation, we can efficiently compute
 
-Jfu≈f(x+u∗eps)−f(x−u∗eps)2∗eps.J_f u \approx \frac{f(x + u * eps) - f(x - u * eps)}{2 * eps}.
-
-Jf​u≈2∗epsf(x+u∗eps)−f(x−u∗eps)​.
+Jfu≈f(x+u∗eps)−f(x−u∗eps)2∗eps.J_f u \approx \frac{f(x + u * eps) - f(x - u * eps)}{2 * eps}.Jf​u≈2∗epsf(x+u∗eps)−f(x−u∗eps)​.
 
 We then perform the dot product between this vector and vvv to get the scalar value of interest.
 
@@ -151,9 +143,7 @@ Similar to the real-to-real case, we want to perform a reduction of the full mat
 
 Due to some constraints on what we can compute efficiently in the numerical case and to keep the number of numerical evaluations to a minimum, we compute the following (albeit surprising) scalar value:
 
-s:=2∗vT(real(CW)ur+i∗imag(CW)ui)s := 2 * v^T (real(CW) ur + i * imag(CW) ui)
-
-s:=2∗vT(real(CW)ur+i∗imag(CW)ui)
+s:=2∗vT(real(CW)ur+i∗imag(CW)ui)s := 2 * v^T (real(CW) ur + i * imag(CW) ui)s:=2∗vT(real(CW)ur+i∗imag(CW)ui)
 
 where v∈RMv \in \mathcal{R}^Mv∈RM, ur∈RNur \in \mathcal{R}^Nur∈RN and ui∈RNui \in \mathcal{R}^Nui∈RN.
 
@@ -166,9 +156,7 @@ s=2∗vT(real(CW)ur+i∗imag(CW)ui)=2∗vT(12∗∂y∂aur+i∗12∗∂y∂bui)=
  &= 2 * v^T (\frac{1}{2} * \frac{\partial y}{\partial a} ur + i * \frac{1}{2} * \frac{\partial y}{\partial b} ui) \\
  &= v^T (\frac{\partial y}{\partial a} ur + i * \frac{\partial y}{\partial b} ui) \\
  &= v^T ((\frac{\partial y}{\partial a} ur) + i * (\frac{\partial y}{\partial b} ui))
-\end{aligned}
-
-s​=2∗vT(real(CW)ur+i∗imag(CW)ui)=2∗vT(21​∗∂a∂y​ur+i∗21​∗∂b∂y​ui)=vT(∂a∂y​ur+i∗∂b∂y​ui)=vT((∂a∂y​ur)+i∗(∂b∂y​ui))​
+\end{aligned}s​=2∗vT(real(CW)ur+i∗imag(CW)ui)=2∗vT(21​∗∂a∂y​ur+i∗21​∗∂b∂y​ui)=vT(∂a∂y​ur+i∗∂b∂y​ui)=vT((∂a∂y​ur)+i∗(∂b∂y​ui))​
 
 In this formula, we can see that ∂y∂aur\frac{\partial y}{\partial a} ur∂a∂y​ur and ∂y∂bui\frac{\partial y}{\partial b} ui∂b∂y​ui can be evaluated the same way as the fast version for the real-to-real case.
 Once these real-valued quantities have been computed, we can reconstruct the complex vector on the right side and do a dot product with the real-valued vvv vector.
@@ -181,9 +169,7 @@ s=2∗vT(real(CW)ur+i∗imag(CW)ui)=vTreal(2∗CW)ur+i∗vTimag(2∗CW)ui)=real(
  s &= 2 * v^T (real(CW) ur + i * imag(CW) ui) \\
  &= v^T real(2 * CW) ur + i * v^T imag(2 * CW) ui) \\
  &= real(v^T (2 * CW)) ur + i * imag(v^T (2 * CW)) ui
-\end{aligned}
-
-s​=2∗vT(real(CW)ur+i∗imag(CW)ui)=vTreal(2∗CW)ur+i∗vTimag(2∗CW)ui)=real(vT(2∗CW))ur+i∗imag(vT(2∗CW))ui​
+\end{aligned}s​=2∗vT(real(CW)ur+i∗imag(CW)ui)=vTreal(2∗CW)ur+i∗vTimag(2∗CW)ui)=real(vT(2∗CW))ur+i∗imag(vT(2∗CW))ui​
 
 We can thus use the fact that the backward mode AD provides us with an efficient way to compute vT(2∗CW)v^T (2 * CW)vT(2∗CW) and then perform a dot product of the real part with ururur and the imaginary part with uiuiui before reconstructing the final complex scalar sss.
 
@@ -196,9 +182,7 @@ Using such complex u′u'u′, the problem is that when doing the numerical eval
 2∗CWu′=(∂y∂a+i∂y∂b)(ur′+iui′)=∂y∂aur′+i∂y∂aui′+i∂y∂bur′−∂y∂bui′\begin{aligned}
  2*CW u' &= (\frac{\partial y}{\partial a} + i \frac{\partial y}{\partial b})(ur' + i ui') \\
  &= \frac{\partial y}{\partial a} ur' + i \frac{\partial y}{\partial a} ui' + i \frac{\partial y}{\partial b} ur' - \frac{\partial y}{\partial b} ui'
-\end{aligned}
-
-2∗CWu′​=(∂a∂y​+i∂b∂y​)(ur′+iui′)=∂a∂y​ur′+i∂a∂y​ui′+i∂b∂y​ur′−∂b∂y​ui′​
+\end{aligned}2∗CWu′​=(∂a∂y​+i∂b∂y​)(ur′+iui′)=∂a∂y​ur′+i∂a∂y​ui′+i∂b∂y​ur′−∂b∂y​ui′​
 
 Which would require four evaluations of real-to-real finite difference (twice as much compared to the approached proposed above).
 Since this approach does not have more degrees of freedom (same number of real valued variables) and we try to get the fastest possible evaluation here, we use the other formulation above.

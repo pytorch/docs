@@ -1,6 +1,6 @@
 # AlphaDropout
 
-*class*torch.nn.modules.dropout.AlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/dropout.py#L227)
+*class*torch.nn.modules.dropout.AlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/dropout.py#L227)
 
 Applies Alpha Dropout over the input.
 
@@ -14,7 +14,7 @@ that the outputs have zero mean and unit standard deviation.
 
 During training, it randomly masks some of the elements of the input
 tensor with probability *p* using samples from a bernoulli distribution.
-The elements to masked are randomized on every forward call, and scaled
+The elements to be masked are randomized on every forward call, and scaled
 and shifted to maintain zero mean and unit standard deviation.
 
 During evaluation the module simply computes an identity function.
@@ -40,7 +40,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/dropout.py#L265)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/dropout.py#L265)
 
 Runs the forward pass.
 

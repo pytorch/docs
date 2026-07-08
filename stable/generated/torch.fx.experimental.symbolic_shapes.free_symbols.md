@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.free_symbols
 
-torch.fx.experimental.symbolic_shapes.free_symbols(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/symbolic_shapes.py#L1033)
+torch.fx.experimental.symbolic_shapes.free_symbols(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L1036)
 
 Recursively collect all free symbols from a value.
 

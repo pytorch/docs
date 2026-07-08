@@ -1,6 +1,6 @@
 # RNN
 
-*class*torch.nn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/rnn.py#L486)
+*class*torch.nn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/rnn.py#L486)
 
 Apply a multi-layer Elman RNN with tanh⁡\tanhtanh or ReLU\text{ReLU}ReLU
 non-linearity to an input sequence. For each element in the input sequence,
@@ -132,14 +132,11 @@ Warning
 There are known non-determinism issues for RNN functions on some versions of cuDNN and CUDA.
 You can enforce deterministic behavior by setting the following environment variables:
 
-On CUDA 10.1, set environment variable `CUDA_LAUNCH_BLOCKING=1`.
-This may affect performance.
-
-On CUDA 10.2 or later, set environment variable
+Set environment variable
 (note the leading colon symbol)
 `CUBLAS_WORKSPACE_CONFIG=:16:8`
 or
-`CUBLAS_WORKSPACE_CONFIG=:4096:2`.
+`CUBLAS_WORKSPACE_CONFIG=:4096:2`
 
 See the [cuDNN 8 Release Notes](https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-880/release-notes/rel_8.html) for more information.
 
@@ -162,7 +159,7 @@ Examples:
 >>> output, hn = rnn(input, h0)
 ```
 
-forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/rnn.py#L674)
+forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/rnn.py#L675)
 
 forward(*input: [PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence), [Tensor](../tensors.html#torch.Tensor)]
 

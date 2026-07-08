@@ -62,9 +62,9 @@ elastic_agent.run(spec.role)
 ## Metric Handler
 
 TorchElastic emits platform level metrics (see [Metrics](metrics.html#metrics-api)).
-By default metrics are emitted to /dev/null so you will not see them.
+By default metrics are emitted to `/dev/null` so you will not see them.
 To have the metrics pushed to a metric handling service in your infrastructure,
-implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your
+implement a `torch.distributed.elastic.metrics.MetricHandler` and `configure` it in your
 custom launcher.
 
 ```
@@ -90,9 +90,9 @@ TorchElastic supports events recording (see [Events](events.html#events-api)).
 The events module defines API that allows you to record events and
 implement custom EventHandler. EventHandler is used for publishing events
 produced during torchelastic execution to different sources, e.g. AWS CloudWatch.
-By default it uses torch.distributed.elastic.events.NullEventHandler that ignores
+By default it uses `torch.distributed.elastic.events.NullEventHandler` that ignores
 events. To configure custom events handler you need to implement
-torch.distributed.elastic.events.EventHandler interface and configure it
+`torch.distributed.elastic.events.EventHandler` interface and `configure` it
 in your custom launcher.
 
 ```

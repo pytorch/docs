@@ -1,6 +1,6 @@
 # torch.fft.rfft
 
-torch.fft.rfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.fft.rfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fft/__init__.py#L355)
 
 Computes the one dimensional Fourier transform of real-valued `input`.
 
@@ -57,5 +57,5 @@ tensor([ 6.+0.j, -2.+2.j, -2.+0.j, -2.-2.j])
 ```
 
 Notice that the symmetric element `T[-1] == T[1].conj()` is omitted.
-At the Nyquist frequency `T[-2] == T[2]` is it's own symmetric pair,
+At the Nyquist frequency `T[-2] == T[2]` is its own symmetric pair,
 and therefore must always be real-valued.

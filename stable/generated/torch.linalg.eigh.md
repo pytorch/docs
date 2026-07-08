@@ -1,6 +1,6 @@
 # torch.linalg.eigh
 
-torch.linalg.eigh(*A*, *UPLO='L'*, ***, *out=None*)
+torch.linalg.eigh(*A*, *UPLO='L'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L642)
 
 Computes the eigenvalue decomposition of a complex Hermitian or real symmetric matrix.
 

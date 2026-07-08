@@ -19,6 +19,7 @@ See [https://developer.apple.com/documentation/metalperformanceshaders](https://
 | [`driver_allocated_memory`](generated/torch.mps.driver_allocated_memory.html#torch.mps.driver_allocated_memory) | Returns total GPU memory allocated by Metal driver for the process in bytes. |
 | [`recommended_max_memory`](generated/torch.mps.recommended_max_memory.html#torch.mps.recommended_max_memory) | Returns recommended max Working set size for GPU memory in bytes. |
 | [`compile_shader`](generated/torch.mps.compile_shader.html#torch.mps.compile_shader) | Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. |
+| [`load_metallib`](generated/torch.mps.load_metallib.html#torch.mps.load_metallib) | Loads a precompiled Metal library (.metallib) and returns a shader library object that allows invoking kernels defined in it. |
 
 ## MPS Profiler
 

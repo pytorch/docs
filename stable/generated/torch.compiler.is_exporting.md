@@ -1,6 +1,6 @@
 # torch.compiler.is_exporting
 
-torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/compiler/__init__.py#L534)
+torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/compiler/__init__.py#L630)
 
 Indicated whether we're under exporting.
 

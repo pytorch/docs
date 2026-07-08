@@ -1,6 +1,6 @@
 # torch.linalg.matrix_norm
 
-torch.linalg.matrix_norm(*A*, *ord='fro'*, *dim=(-2, -1)*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.linalg.matrix_norm(*A*, *ord='fro'*, *dim=(-2, -1)*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L1574)
 
 Computes a matrix norm.
 

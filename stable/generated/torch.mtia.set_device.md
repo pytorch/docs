@@ -1,6 +1,6 @@
 # torch.mtia.set_device
 
-torch.mtia.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/mtia/__init__.py#L272)
+torch.mtia.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/mtia/__init__.py#L272)
 
 Set the current device.
 
