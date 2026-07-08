@@ -48,15 +48,12 @@ If no port number is specified `HOST_NODE_ADDR` defaults to 29400.
 Note
 
 The `--standalone` option can be passed to launch a single node job with a
-sidecar rendezvous backend. You don't have to pass `--rdzv-id`,
-`--rdzv-endpoint`, and `--rdzv-backend` when the `--standalone` option
+sidecar rendezvous backend. You don't have to pass `--rdzv-id`, `--rdzv-endpoint`, and `--rdzv-backend` when the `--standalone` option
 is used.
 
 Note
 
-Learn more about writing your distributed training script
-[here](train_script.html).
+Learn more about writing your distributed training script [here](train_script.html).
 
 If `torchrun` does not meet your requirements you may use our APIs directly
-for more powerful customization. Start by taking a look at the
-[elastic agent](agent.html) API.
+for more powerful customization. Start by taking a look at the [elastic agent](agent.html) API.

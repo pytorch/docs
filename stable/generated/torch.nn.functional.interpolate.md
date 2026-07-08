@@ -1,6 +1,6 @@
 # torch.nn.functional.interpolate
 
-torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/functional.py#L4617)
+torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/functional.py#L4977)
 
 Down/up samples the input.
 
@@ -36,8 +36,9 @@ points of their corner pixels, and the interpolation uses edge value padding
 for out-of-boundary values, making this operation *independent* of input size
 when `scale_factor` is kept the same. This only has an effect when `mode`
 is `'linear'`, `'bilinear'`, `'bicubic'` or `'trilinear'`.
-Default: `None`. When `None` and `mode` is one of the linear modes,
-it is treated as `False`.
+Default: `None`. `None` leaves `align_corners` unset for modes
+that do not use it. For modes that use `align_corners`, `None`
+is treated as `False`.
 - **recompute_scale_factor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - recompute the scale_factor for use in the
 interpolation calculation. If recompute_scale_factor is `True`, then
 scale_factor must be passed in and scale_factor is used to compute the

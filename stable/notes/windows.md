@@ -199,6 +199,5 @@ tensors cannot succeed, there are two alternatives for this.
 
 1. Don't use `multiprocessing`. Set the `num_worker` of
 [`DataLoader`](../data.html#torch.utils.data.DataLoader) to zero.
-
 2. Share CPU tensors instead. Make sure your custom
 `DataSet` returns CPU tensors.

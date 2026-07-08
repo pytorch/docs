@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.merge
 
-torch.fx.experimental.unification.unification_tools.merge(**dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/fx/experimental/unification/unification_tools.py#L34)
+torch.fx.experimental.unification.unification_tools.merge(**dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/unification/unification_tools.py#L46)
 
 Merge a collection of dictionaries
 
@@ -19,3 +19,7 @@ Later dictionaries have precedence
 See also
 
 merge_with
+
+Return type:
+
+[object](https://docs.python.org/3/library/functions.html#object)

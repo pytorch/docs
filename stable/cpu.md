@@ -6,6 +6,7 @@ to facilitate writing device-agnostic code.
 | [`current_device`](generated/torch.cpu.current_device.html#torch.cpu.current_device) | Returns current device for cpu. |
 | --- | --- |
 | [`current_stream`](generated/torch.cpu.current_stream.html#torch.cpu.current_stream) | Returns the currently selected [`Stream`](generated/torch.cpu.Stream_class.html#torch.cpu.Stream) for a given device. |
+| [`get_capabilities`](generated/torch.cpu.get_capabilities.html#torch.cpu.get_capabilities) | Returns an immutable mapping of CPU capabilities detected at runtime. |
 | [`is_available`](generated/torch.cpu.is_available.html#torch.cpu.is_available) | Returns a bool indicating if CPU is currently available. |
 | [`is_initialized`](generated/torch.cpu.is_initialized.html#torch.cpu.is_initialized) | Returns True if the CPU is initialized. |
 | [`synchronize`](generated/torch.cpu.synchronize.html#torch.cpu.synchronize) | Waits for all kernels in all streams on the CPU device to complete. |

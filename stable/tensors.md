@@ -216,7 +216,7 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.abs`](generated/torch.Tensor.abs.html#torch.Tensor.abs) | See [`torch.abs()`](generated/torch.abs.html#torch.abs) |
 | [`Tensor.abs_`](generated/torch.Tensor.abs_.html#torch.Tensor.abs_) | In-place version of [`abs()`](generated/torch.Tensor.abs.html#torch.Tensor.abs) |
 | [`Tensor.absolute`](generated/torch.Tensor.absolute.html#torch.Tensor.absolute) | Alias for [`abs()`](generated/torch.abs.html#torch.abs) |
-| [`Tensor.absolute_`](generated/torch.Tensor.absolute_.html#torch.Tensor.absolute_) | In-place version of [`absolute()`](generated/torch.Tensor.absolute.html#torch.Tensor.absolute) Alias for `abs_()` |
+| [`Tensor.absolute_`](generated/torch.Tensor.absolute_.html#torch.Tensor.absolute_) | In-place version of [`absolute()`](generated/torch.Tensor.absolute.html#torch.Tensor.absolute) Alias for [`abs_()`](generated/torch.abs_.html#torch.abs_) |
 | [`Tensor.acos`](generated/torch.Tensor.acos.html#torch.Tensor.acos) | See [`torch.acos()`](generated/torch.acos.html#torch.acos) |
 | [`Tensor.acos_`](generated/torch.Tensor.acos_.html#torch.Tensor.acos_) | In-place version of [`acos()`](generated/torch.Tensor.acos.html#torch.Tensor.acos) |
 | [`Tensor.arccos`](generated/torch.Tensor.arccos.html#torch.Tensor.arccos) | See [`torch.arccos()`](generated/torch.arccos.html#torch.arccos) |
@@ -331,6 +331,7 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.chalf`](generated/torch.Tensor.chalf.html#torch.Tensor.chalf) | `self.chalf()` is equivalent to `self.to(torch.complex32)`. |
 | [`Tensor.cfloat`](generated/torch.Tensor.cfloat.html#torch.Tensor.cfloat) | `self.cfloat()` is equivalent to `self.to(torch.complex64)`. |
 | [`Tensor.cdouble`](generated/torch.Tensor.cdouble.html#torch.Tensor.cdouble) | `self.cdouble()` is equivalent to `self.to(torch.complex128)`. |
+| [`Tensor.const_data_ptr`](generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr) | Returns the address of the first element of `self` tensor. |
 | [`Tensor.data_ptr`](generated/torch.Tensor.data_ptr.html#torch.Tensor.data_ptr) | Returns the address of the first element of `self` tensor. |
 | [`Tensor.deg2rad`](generated/torch.Tensor.deg2rad.html#torch.Tensor.deg2rad) | See [`torch.deg2rad()`](generated/torch.deg2rad.html#torch.deg2rad) |
 | [`Tensor.dequantize`](generated/torch.Tensor.dequantize.html#torch.Tensor.dequantize) | Given a quantized Tensor, dequantize it and return the dequantized float Tensor. |
@@ -450,7 +451,7 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.is_complex`](generated/torch.Tensor.is_complex.html#torch.Tensor.is_complex) | Returns True if the data type of `self` is a complex data type. |
 | [`Tensor.is_conj`](generated/torch.Tensor.is_conj.html#torch.Tensor.is_conj) | Returns True if the conjugate bit of `self` is set to true. |
 | [`Tensor.is_floating_point`](generated/torch.Tensor.is_floating_point.html#torch.Tensor.is_floating_point) | Returns True if the data type of `self` is a floating point data type. |
-| [`Tensor.is_inference`](generated/torch.Tensor.is_inference.html#torch.Tensor.is_inference) | See `torch.is_inference()` |
+| [`Tensor.is_inference`](generated/torch.Tensor.is_inference.html#torch.Tensor.is_inference) | See [`torch.is_inference()`](generated/torch.is_inference.html#torch.is_inference) |
 | [`Tensor.is_leaf`](generated/torch.Tensor.is_leaf.html#torch.Tensor.is_leaf) | All Tensors that have `requires_grad` which is `False` will be leaf Tensors by convention. |
 | [`Tensor.is_pinned`](generated/torch.Tensor.is_pinned.html#torch.Tensor.is_pinned) | Returns true if this tensor resides in pinned memory. |
 | [`Tensor.is_set_to`](generated/torch.Tensor.is_set_to.html#torch.Tensor.is_set_to) | Returns True if both tensors are pointing to the exact same memory (same storage, offset, size and stride). |
@@ -554,6 +555,7 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.nextafter`](generated/torch.Tensor.nextafter.html#torch.Tensor.nextafter) | See [`torch.nextafter()`](generated/torch.nextafter.html#torch.nextafter) |
 | [`Tensor.nextafter_`](generated/torch.Tensor.nextafter_.html#torch.Tensor.nextafter_) | In-place version of [`nextafter()`](generated/torch.Tensor.nextafter.html#torch.Tensor.nextafter) |
 | [`Tensor.nonzero`](generated/torch.Tensor.nonzero.html#torch.Tensor.nonzero) | See [`torch.nonzero()`](generated/torch.nonzero.html#torch.nonzero) |
+| [`Tensor.nonzero_static`](generated/torch.Tensor.nonzero_static.html#torch.Tensor.nonzero_static) | See [`torch.nonzero_static()`](generated/torch.nonzero_static.html#torch.nonzero_static) |
 | [`Tensor.norm`](generated/torch.Tensor.norm.html#torch.Tensor.norm) | See [`torch.linalg.norm()`](generated/torch.linalg.norm.html#torch.linalg.norm) |
 | [`Tensor.normal_`](generated/torch.Tensor.normal_.html#torch.Tensor.normal_) | Fills `self` tensor with elements samples from the normal distribution parameterized by [`mean`](generated/torch.mean.html#torch.mean) and [`std`](generated/torch.std.html#torch.std). |
 | [`Tensor.numel`](generated/torch.Tensor.numel.html#torch.Tensor.numel) | See [`torch.numel()`](generated/torch.numel.html#torch.numel) |

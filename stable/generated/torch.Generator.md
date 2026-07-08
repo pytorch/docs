@@ -1,29 +1,6 @@
 # Generator
 
-*class*torch.Generator(*device='cpu'*)
-
-Creates and returns a generator object that manages the state of the algorithm which
-produces pseudo random numbers. Used as a keyword argument in many [In-place random sampling](../torch.html#inplace-random-sampling)
-functions.
-
-Parameters:
-
-**device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device for the generator.
-
-Returns:
-
-An torch.Generator object.
-
-Return type:
-
-Generator
-
-Example:
-
-```
->>> g_cpu = torch.Generator()
->>> g_cuda = torch.Generator(device='cuda')
-```
+*class*torch.Generator
 
 clone_state() → torch.Generator
 

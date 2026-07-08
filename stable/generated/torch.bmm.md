@@ -1,6 +1,6 @@
 # torch.bmm
 
-torch.bmm(*input*, *mat2*, *out_dtype=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.bmm(*input*, *mat2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
 
 Performs a batch matrix-matrix product of matrices stored in `input`
 and `mat2`.
@@ -29,9 +29,6 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the first batch of matrices to be multiplied
 - **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second batch of matrices to be multiplied
-- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*,**optional*) - the dtype of the output tensor,
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes
 
 Keyword Arguments:
 
@@ -46,3 +43,17 @@ Example:
 >>> res.size()
 torch.Size([10, 3, 5])
 ```
+
+torch.bmm(*input*, *mat2*, *out_dtype*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the first batch of matrices to be multiplied
+- **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second batch of matrices to be multiplied
+- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - the dtype of the output tensor.
+Supported only on CUDA and for torch.float32 given
+torch.float16/torch.bfloat16 input dtypes.
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.

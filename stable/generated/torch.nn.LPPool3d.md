@@ -1,6 +1,6 @@
 # LPPool3d
 
-*class*torch.nn.LPPool3d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/pooling.py#L1230)
+*class*torch.nn.LPPool3d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/pooling.py#L1232)
 
 Applies a 3D power-average pooling over an input signal composed of several input planes.
 
@@ -10,7 +10,7 @@ f(X)=∑x∈Xxppf(X) = \sqrt[p]{\sum_{x \in X} x^{p}}
 
 f(X)=p​x∈X∑​xp​
 
-- At p = ∞\infty∞, one gets Max Pooling
+- At p = ∞\infty∞, one gets Max Pooling over absolute values
 - At p = 1, one gets Sum Pooling (which is proportional to average pooling)
 
 The parameters `kernel_size`, `stride` can either be:
@@ -62,7 +62,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/pooling.py#L1287)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/pooling.py#L1289)
 
 Runs the forward pass.
 

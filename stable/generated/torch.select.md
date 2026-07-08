@@ -10,7 +10,7 @@ Note
 If `input` is a sparse tensor and returning a view of
 the tensor is not possible, a RuntimeError exception is
 raised. In this is the case, consider using
-`torch.select_copy()` function.
+[`torch.select_copy()`](torch.select_copy.html#torch.select_copy) function.
 
 Parameters:
 

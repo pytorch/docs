@@ -26,8 +26,8 @@ its device with the CPU.
 
 Parameters:
 
-- **mean** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor of per-element means
-- **std** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor of per-element standard deviations
+- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element mean(s). Only floating point types are supported.
+- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element standard deviation(s). Only floating point types are supported.
 
 Keyword Arguments:
 

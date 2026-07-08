@@ -6,8 +6,7 @@ time in PyTorch. These are not meant to be hard-and-fast rules, but to
 serve as a guide to help trade off different concerns and to resolve
 disagreements that may come up while developing PyTorch. For more
 information on contributing, module maintainership, and how to escalate a
-disagreement to the Core Maintainers, please see [PyTorch
-Governance](https://pytorch.org/docs/main/community/governance.html).
+disagreement to the Core Maintainers, please see [PyTorch Governance](https://pytorch.org/docs/main/community/governance.html).
 
 ## Design Principles
 
@@ -15,11 +14,9 @@ Governance](https://pytorch.org/docs/main/community/governance.html).
 
 This principle may be surprising! As one Hacker News poster wrote:
 *PyTorch is amazing! [...] Although I'm confused. How can a ML framework be
-not obsessed with speed/performance?* See [Hacker News discussion on
-PyTorch](https://news.ycombinator.com/item?id=28066093).
+not obsessed with speed/performance?* See [Hacker News discussion on PyTorch](https://news.ycombinator.com/item?id=28066093).
 
-Soumith's blog post on [Growing the PyTorch
-Community](https://soumith.ch/posts/2021/02/growing-opensource/?fbclid=IwAR1bvN_xZ8avGvu14ODJzS8Zp7jX1BOyfuGUf-zoRawpyL-s95Vjxf88W7s)
+Soumith's blog post on [Growing the PyTorch Community](https://soumith.ch/posts/2021/02/growing-opensource/?fbclid=IwAR1bvN_xZ8avGvu14ODJzS8Zp7jX1BOyfuGUf-zoRawpyL-s95Vjxf88W7s)
 goes into this in some depth, but at a high-level:
 
 - PyTorch's primary goal is usability
@@ -51,14 +48,13 @@ of the PyTorch user experience, not a least common denominator subset.
 
 ### Principle 2: Simple Over Easy
 
-Here, we borrow from [The Zen of
-Python](https://peps.python.org/pep-0020/):
+Here, we borrow from [The Zen of Python](https://peps.python.org/pep-0020/):
 
 - *Explicit is better than implicit*
 - *Simple is better than complex*
 
-A more concise way of describing these two goals is [Simple Over
-Easy](https://www.infoq.com/presentations/Simple-Made-Easy/). Let's start with an example because *simple* and *easy* are
+A more concise way of describing these two goals is [Simple Over Easy](https://www.infoq.com/presentations/Simple-Made-Easy/).
+Let's start with an example because *simple* and *easy* are
 often used interchangeably in everyday English. Consider how one may
 model [devices](https://pytorch.org/docs/main/tensor_attributes.html#torch.device)
 in PyTorch:
@@ -81,12 +77,10 @@ system can be complex: How did the system make its determination? What
 is the API for plugging into such a system and how are objects
 represented in its IR?
 
-Some classic arguments in favor of this sort of design come from [A
-Note on Distributed
-Computation](https://dl.acm.org/doi/book/10.5555/974938) (TLDR: Do not
-model resources with very different performance characteristics
-uniformly, the details will leak) and the [End-to-End
-Principle](http://web.mit.edu/Saltzer/www/publications/endtoend/endtoend.pdf)
+Some classic arguments in favor of this sort of design come from
+[A Note on Distributed Computation](https://dl.acm.org/doi/book/10.5555/974938)
+(**TLDR:** Do not model resources with very different performance characteristics
+uniformly, the details will leak) and the [End-to-End Principle](http://web.mit.edu/Saltzer/www/publications/endtoend/endtoend.pdf)
 (TLDR: building smarts into the lower-layers of the stack can prevent
 building performant features at higher layers in the stack, and often
 doesn't work anyway). For example, we could build operator-level or
@@ -122,7 +116,7 @@ This principle began as **Python First**:
 > the wheel where appropriate.
 
 One thing PyTorch has needed to deal with over the years is Python
-overhead: we first rewrote the autograd engine in C++, then the majority
+overhead: we first rewrote the `autograd` engine in C++, then the majority
 of operator definitions, then developed TorchScript and the C++
 frontend.
 
@@ -139,8 +133,7 @@ eager-mode PyTorch programs with minimal user intervention.
 - [torch_function](https://pytorch.org/docs/main/notes/extending.html#extending-torch)
 and [torch_dispatch](https://dev-discuss.pytorch.org/t/what-and-why-is-torch-dispatch/557)
 extension points, which have enabled Python-first functionality to be
-built on-top of C++ internals, such as the [torch.fx
-tracer](https://pytorch.org/docs/stable/fx.html)
+built on-top of C++ internals, such as the [torch.fx tracer](https://pytorch.org/docs/stable/fx.html)
 and [functorch](https://github.com/pytorch/functorch)
 respectively.
 

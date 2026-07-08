@@ -1,12 +1,12 @@
 # MarginRankingLoss
 
-*class*torch.nn.MarginRankingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/loss.py#L1532)
+*class*torch.nn.MarginRankingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py#L1743)
 
 Creates a criterion that measures the loss given
 inputs x1x1x1, x2x2x2, two 1D mini-batch or 0D Tensors,
 and a label 1D mini-batch or 0D Tensor yyy (containing 1 or -1).
 
-If y=1y = 1y=1 then it assumed the first input should be ranked higher
+If y=1y = 1y=1 then it is assumed the first input should be ranked higher
 (have a larger value) than the second input, and vice-versa for y=−1y = -1y=−1.
 
 The loss function for each pair of samples in the mini-batch is:
@@ -51,7 +51,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/loss.py#L1592)
+forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py#L1803)
 
 Runs the forward pass.
 

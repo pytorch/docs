@@ -67,11 +67,11 @@ torch.backends.cudnn.conv.fp32_precision = "tf32"
 torch.backends.cudnn.rnn.fp32_precision = "tf32"
 ```
 
-The fp32_precision can be set to ieee or tf32 for cuda/cudnn.
-ieee fp32_precision indicate that we will use FP32 as internal computation precision.
-tf32 fp32_precision indicate that we will allow to use TF32 as internal computation precision.
+The fp32_precision can be set to `ieee` or `tf32` for `cuda/cudnn`.
+`ieee` fp32_precision indicate that we will use `FP32` as internal computation precision.
+`tf32` fp32_precision indicate that we will allow to use `TF32` as internal computation precision.
 
-We can override a generic setting for a specific operator if the fp32_precision is set to ieee.
+We can override a generic setting for a specific operator if the fp32_precision is set to `ieee`.
 
 ```
 torch.backends.cudnn.fp32_precision = "tf32"
@@ -79,7 +79,7 @@ torch.backends.cudnn.conv.fp32_precision = "ieee"
 torch.backends.cudnn.rnn.fp32_precision = "ieee"
 ```
 
-We can also override a generic setting for a specific backend if the fp32_precision is set to ieee.
+We can also override a generic setting for a specific backend if the fp32_precision is set to `ieee`.
 
 ```
 torch.backends.fp32_precision = "tf32"
@@ -88,24 +88,24 @@ torch.backends.cudnn.conv.fp32_precision = "ieee"
 torch.backends.cudnn.rnn.fp32_precision = "ieee"
 ```
 
-For above 2 cases, both torch.backends.cudnn.conv.fp32_precision and torch.backends.cudnn.rnn.fp32_precision
-is overridden to ieee.
+For above 2 cases, both `torch.backends.cudnn.conv.fp32_precision` and `torch.backends.cudnn.rnn.fp32_precision`
+is overridden to `ieee`.
 
 We suggest to use the new settings for better control. And we do not support to use mix of old and new settings.
 
 Warning
 
-Old settings with allow_tf32 as follows is going to be deprecated. We suggest to use the above new settings for
+Old settings with `allow_tf32` as follows is going to be deprecated. We suggest to use the above new settings for
 better control. And we do not support to use mix of old and new settings.
 
-Starting in PyTorch 1.7, there is a new flag called allow_tf32. This flag
+Starting in PyTorch 1.7, there is a new flag called `allow_tf32`. This flag
 defaults to True in PyTorch 1.7 to PyTorch 1.11, and False in PyTorch 1.12 and later.
 This flag controls whether PyTorch is allowed to use the TensorFloat32 (TF32) tensor cores,
 available on NVIDIA GPUs since Ampere, internally to compute matmul (matrix multiplies
 and batched matrix multiplies) and convolutions.
 
 TF32 tensor cores are designed to achieve better performance on matmul and convolutions on
-torch.float32 tensors by rounding input data to have 10 bits of mantissa, and accumulating
+`torch.float32` tensors by rounding input data to have 10 bits of mantissa, and accumulating
 results with FP32 precision, maintaining FP32 dynamic range.
 
 matmuls and convolutions are controlled separately, and their corresponding flags can be accessed at:
@@ -121,7 +121,7 @@ torch.backends.cudnn.allow_tf32 = True
 
 The precision of matmuls can also be set more broadly (limited not just to CUDA) via [`set_float32_matmul_precision()`](../generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision).
 Note that besides matmuls and convolutions themselves, functions and nn modules that internally uses
-matmuls or convolutions are also affected. These include nn.Linear, nn.Conv*, cdist, tensordot,
+matmuls or convolutions are also affected. These include `nn.Linear`, `nn.Conv*`, cdist, tensordot,
 affine grid and grid sample, adaptive log softmax, GRU and LSTM.
 
 To get an idea of the precision and speed, see the example code and benchmark data (on A100) below:
@@ -178,7 +178,7 @@ For more information about TF32, see:
 (Distinct from full FP16 accumulation that is intended for hardware that has higher throughput
 with FP16 accumulation than FP32 accumulation, see Full FP16 accumulation)
 
-fp16 GEMMs are potentially done with some intermediate reduced precision reductions (e.g., in fp16 rather than fp32). These selective reductions in precision can allow for higher performance on certain workloads (particularly those with a large k dimension) and GPU architectures at the cost of numerical precision and potential for overflow.
+fp16 GEMMs are potentially done with some intermediate reduced precision reductions (e.g., in fp16 rather than fp32). These selective reductions in precision can allow for higher performance on certain workloads (particularly those with a large `k` dimension) and GPU architectures at the cost of numerical precision and potential for overflow.
 
 Some example benchmark data on V100:
 
@@ -208,17 +208,33 @@ If full precision reductions are needed, users can disable reduced precision red
 torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 ```
 
+Assigning a boolean is equivalent to assigning
+`(allow_reduced_precision, True)` and sets `allow_splitk` to `True`. To
+disable both reduced precision reductions and split-k reductions, assign
+`(allow_reduced_precision, allow_splitk)` explicitly:
+
+```
+torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = (False, False)
+```
+
+The current split-k setting can be queried with
+`torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction_split_k`.
+The combination `(True, False)` is not supported because reduced precision
+reductions require split-k.
+
 To toggle the reduced precision reduction flags in C++, one can do
 
 ```
-at::globalContext().setAllowFP16ReductionCuBLAS(false);
+at::globalContext().setAllowFP16ReductionCuBLAS(false, false);
 ```
+
+The second argument is `allow_splitk` and defaults to `true` when omitted.
 
 ## Reduced Precision Reduction in BF16 GEMMs
 
 A similar flag (as above) exists for BFloat16 GEMMs.
-Note that this switch is set to True by default for BF16, if you observe
-numerical instability in your workload, you may wish to set it to False.
+Note that this switch is set to `True` by default for BF16, if you observe
+numerical instability in your workload, you may wish to set it to `False`.
 
 If reduced precision reductions are not desired, users can disable reduced
 precision reductions in bf16 GEMMs with:
@@ -227,15 +243,31 @@ precision reductions in bf16 GEMMs with:
 torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False
 ```
 
+Assigning a boolean is equivalent to assigning
+`(allow_reduced_precision, True)` and sets `allow_splitk` to `True`. To
+disable both reduced precision reductions and split-k reductions, assign
+`(allow_reduced_precision, allow_splitk)` explicitly:
+
+```
+torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = (False, False)
+```
+
+The current split-K setting can be queried with
+`torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction_split_k`.
+The combination `(True, False)` is not supported because reduced precision
+reductions require split-K.
+
 To toggle the reduced precision reduction flags in C++, one can do
 
 ```
-at::globalContext().setAllowBF16ReductionCuBLAS(true);
+at::globalContext().setAllowBF16ReductionCuBLAS(false, false);
 ```
+
+The second argument is `allow_splitk` and defaults to `true` when omitted.
 
 ## Full FP16 Accumulation in FP16 GEMMs
 
-Certain GPUs have increased performance when doing _all_ FP16 GEMM accumulation
+Certain GPUs have increased performance when doing *all* FP16 GEMM accumulation
 in FP16, at the cost of numerical precision and greater likelihood of overflow.
 Note that this setting only has an effect on GPUs of compute capability 7.0 (Volta)
 or newer.
@@ -522,7 +554,6 @@ set the knob value to: [256:1,512:2,1024:4,>:8].
 `roundup_power2_divisions` is only meaningful with `backend:native`.
 With `backend:cudaMallocAsync`, `roundup_power2_divisions` is ignored.
 - `max_non_split_rounding_mb` will allow non-split blocks for better reuse, eg,
-
 a 1024MB cached block can be reused for a 512MB allocation request. In the default
 case, we only allow up to 20MB of rounding of non-split blocks, so a 512MB block
 can only be served with between 512-532 MB size block. If we set the value of this
@@ -541,7 +572,7 @@ The default value is set at 1.0.
 
 `garbage_collection_threshold` is only meaningful with `backend:native`.
 With `backend:cudaMallocAsync`, `garbage_collection_threshold` is ignored.
-- `expandable_segments` (experimental, default: False) If set to True, this setting instructs
+- `expandable_segments` (experimental, default: `False`) If set to `True`, this setting instructs
 the allocator to create CUDA allocations that can later be expanded to better handle cases
 where a job changing allocation sizes frequently, such as having a changing batch size.
 Normally for large (>2MB) allocations, the allocator calls cudaMalloc to get allocations
@@ -551,47 +582,59 @@ when the program makes many requests of exactly the same size or of sizes that
 even multiples of that size. Many deep learning models follow this behavior.
 However, one common exception is when the batch size changes slightly from one
 iteration to the next, e.g. in batched inference. When the program runs
-initially with batch size N, it will make allocations appropriate for that size.
-If in the future, it runs at size N - 1, the existing allocations will still be
-big enough. However, if it runs at size N + 1, then it will have to make new
+initially with batch size `N`, it will make allocations appropriate for that size.
+If in the future, it runs at size `N - 1`, the existing allocations will still be
+big enough. However, if it runs at size `N + 1`, then it will have to make new
 allocations that are slightly larger. Not all the tensors are the same size.
-Some might be (N + 1)*A and others (N + 1)*A*B where A and B are some non-batch
+Some might be `(N + 1)*A` and others `(N + 1)*A*B` where `A` and `B` are some non-batch
 dimensions in the model. Because the allocator reuses existing allocations when
-they are big enough, some number of (N + 1)*A allocations will actually fit in
-the already existing N*B*A segments, though not perfectly. As the model runs it
+they are big enough, some number of `(N + 1)*A` allocations will actually fit in
+the already existing `N*B*A` segments, though not perfectly. As the model runs it
 will partially fill up all of these segments leaving unusable free slices of
 memory at the end of these segments. The allocator at some point will need to
-cudaMalloc a new (N + 1)*A*B segment. If there is not enough memory, there is
+`cudaMalloc` a new `(N + 1)*A*B` segment. If there is not enough memory, there is
 now no way to recover the slices of memory that are free at the end of existing
 segments. With models 50+ layers deep, this pattern might repeat 50+ times
 creating many slivers.
 
-expandable_segments allows the allocator to create a segment initially and then
+`expandable_segments` allows the allocator to create a segment initially and then
 expand its size later when more memory is needed. Instead of making one segment
 per allocation, it tries to make one segment (per stream) that grows as
-necessary. Now when the N + 1 case runs, the allocations will tile nicely into
+necessary. Now when the `N + 1` case runs, the allocations will tile nicely into
 the one large segment until it fills up. Then more memory is requested and
 appended to the end of the segment. This process does not create as many slivers
 of unusable memory, so it is more likely to succeed at finding this memory.
-- pinned_use_cuda_host_register option is a boolean flag that determines whether to
+- `pinned_use_cuda_host_register` option is a boolean flag that determines whether to
 use the CUDA API's cudaHostRegister function for allocating pinned memory instead
 of the default cudaHostAlloc. When set to True, the memory is allocated using regular
 malloc and then pages are mapped to the memory before calling cudaHostRegister.
 This pre-mapping of pages helps reduce the lock time during the execution
 of cudaHostRegister.
-- pinned_num_register_threads option is only valid when pinned_use_cuda_host_register
+- `pinned_num_register_threads` option is only valid when pinned_use_cuda_host_register
 is set to True. By default, one thread is used to map the pages. This option allows
 using more threads to parallelize the page mapping operations to reduce the overall
 allocation time of pinned memory. A good value for this option is 8 based on
 benchmarking results.
-- pinned_use_background_threads option is a boolean flag to enable background thread
+- `pinned_use_background_threads` option is a boolean flag to enable background thread
 for processing events. This avoids any slow path associated with querying/processing of
 events in the fast allocation path. This feature is disabled by default.
-- pinned_reserve_segment_size_mb option is a size in MB to reserve for pinned memory
+- `pinned_reserve_segment_size_mb` option is a size in MB to reserve for pinned memory
 segment. This allocates a large segment of pinned memory upfront and then uses to allocate
 small size requests. This helps reduce the number of expensive device library calls.
-- `graph_capture_record_stream_reuse` (experimental, default: False)
-If set to True, the CUDA caching allocator will attempt to reclaim device memory during
+- `pinned_max_round_threshold_mb` option sets the maximum allocation size (in MB)
+that will be rounded up to the nearest power-of-2. Allocations larger than this threshold
+will use their exact requested size, which can reduce memory waste for large pinned memory
+allocations. For example, with a threshold of 128 MB, a 129 MB allocation will use 129 MB
+instead of being rounded to 256 MB. By default, this option is disabled.
+Allocations that exceed `pinned_max_cached_size_mb` are never rounded up, regardless
+of this setting, since rounding is only useful for cached blocks.
+- `pinned_max_cached_size_mb` option sets the maximum block size (in MB) that will be cached
+in the free list for reuse. Blocks larger than this threshold will not be rounded up to
+power-of-2 and will be freed immediately when no longer in use, rather than being cached.
+This can help reduce peak memory usage for workloads with large pinned memory allocations
+that are used infrequently. By default, this option is disabled (all blocks are cached).
+- `graph_capture_record_stream_reuse` (experimental, default: `False`)
+If set to `True`, the CUDA caching allocator will attempt to reclaim device memory during
 CUDA Graph capture by using the graph topology (instead of CUDA events) to determine
 when a freed block is safe to reuse. This can reduce peak memory during long captures that free
 and reallocate buffers across multiple streams, especially when the capture DAG frequently
@@ -619,11 +662,13 @@ and reject the individual request while continuing to serve subsequent requests.
 
 Note
 
+```
 Some stats reported by the
-[CUDA memory management API](../cuda.html#cuda-memory-management-api)
+{ref}`CUDA memory management API<cuda-memory-management-api>`
 are specific to `backend:native`, and are not meaningful with
 `backend:cudaMallocAsync`.
 See each function's docstring for details.
+```
 
 ## Using custom memory allocators for CUDA
 
@@ -652,7 +697,7 @@ void my_free(void* ptr, ssize_t size, int device, cudaStream_t stream) {
 ```
 
 This can be used in python through the [`torch.cuda.memory.CUDAPluggableAllocator`](../generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator).
-The user is responsible for supplying the path to the .so file and the name
+The user is responsible for supplying the path to the `.so` file and the name
 of the alloc/free functions that match the signatures specified above.
 
 ```
@@ -678,6 +723,8 @@ new_alloc = torch.cuda.memory.CUDAPluggableAllocator(
 # This will error since the current allocator was already instantiated
 torch.cuda.memory.change_current_allocator(new_alloc)
 ```
+
+ cublas-workspaces 
 
 ## Mixing different CUDA system allocators in the same program
 
@@ -706,10 +753,12 @@ performance sensitive and doesn't fit in the GPU, then you could just allocate t
 
 Note
 
+```
 While `cudaMallocManaged` offers convenient automatic memory management using CUDA Unified Virtual Memory (UVM),
 it is not recommended for DL workloads. For DL workloads that fit in GPU memory, explicit placement consistently
 outperforms UVM, since there are no page faults and access patterns remain predictable. When GPU memory gets
 saturated, UVM has to perform costly double transfers, evicting pages to CPU before bringing in new ones.
+```
 
 The code below shows `ncclMemAlloc` wrapped in a [`torch.cuda.memory.CUDAPluggableAllocator`](../generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator).
 
@@ -874,8 +923,6 @@ their references, the use count of the pool will be 1, reflecting that only the
 `torch.cuda.MemPool` object is holding a reference. Only at that point, can the memory
 held by the pool be returned to the system when the pool's destructor is called using
 `del`.
-- `torch.cuda.MemPool` doesn't currently support `expandable_segments` mode of
-CUDACachingAllocator.
 - [NCCL has specific requirements](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/bufferreg.html#memory-allocator) for a buffer to be compatible with NVLS reductions.
 These requirements can be broken in a dynamic workload, for instance, the buffer being
 sent to NCCL by the CUDACachingAllocator might be split and hence, not correctly aligned.
@@ -1088,23 +1135,25 @@ else:
 
 Note
 
-When assessing the availability of CUDA in a given environment ([`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available)), PyTorch's default
+```
+When assessing the availability of CUDA in a given environment ({meth}`~torch.cuda.is_available`), PyTorch's default
 behavior is to call the CUDA Runtime API method [cudaGetDeviceCount](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE.html#group__CUDART__DEVICE_1g18808e54893cfcaafefeab31a73cc55f). Because this call in turn initializes the
 CUDA Driver API (via [cuInit](https://docs.nvidia.com/cuda/cuda-driver-api/group__CUDA__INITIALIZE.html#group__CUDA__INITIALIZE_1g0a2f1517e1bd8502c7194c3a8c134bc3)) if it is not already initialized, subsequent forks of a process that has run
-[`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available) will fail with a CUDA initialization error.
+{meth}`~torch.cuda.is_available` will fail with a CUDA initialization error.
 
 One can set `PYTORCH_NVML_BASED_CUDA_CHECK=1` in your environment before importing PyTorch modules that execute
-[`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available) (or before executing it directly) in order to direct
-[`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available) to attempt an NVML-based assessment ([nvmlDeviceGetCount_v2](https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ga93623b195bff04bbe3490ca33c8a42d)). If the
+{meth}`~torch.cuda.is_available` (or before executing it directly) in order to direct
+{meth}`~torch.cuda.is_available` to attempt an NVML-based assessment ([nvmlDeviceGetCount_v2](https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ga93623b195bff04bbe3490ca33c8a42d)). If the
 NVML-based assessment is successful (i.e. NVML discovery/initialization does not fail),
-[`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available) calls will not poison subsequent forks.
+{meth}`~torch.cuda.is_available` calls will not poison subsequent forks.
 
-If NVML discovery/initialization fails, [`is_available()`](../generated/torch.cuda.is_available.html#torch.cuda.is_available) will fallback to the standard CUDA Runtime
+If NVML discovery/initialization fails, {meth}`~torch.cuda.is_available` will fallback to the standard CUDA Runtime
 API assessment and the aforementioned fork constraint will apply.
 
 Note that the above NVML-based CUDA availability assessment provides a weaker guarantee than the default CUDA
 Runtime API approach (which requires CUDA initialization to succeed). In some circumstances, the NVML-based check
 may succeed while later CUDA initialization fails.
+```
 
 Now that we have `args.device`, we can use it to create a Tensor on the
 desired device.
@@ -1189,9 +1238,11 @@ y_gpu = torch.zeros_like(x_gpu)
 
 Warning
 
+```
 This is an advanced tip. If you overuse pinned memory, it can cause serious
 problems when running low on RAM, and you should be aware that pinning is
 often an expensive operation.
+```
 
 Host to GPU copies are much faster when they originate from pinned (page-locked)
 memory. CPU tensors and storages expose a [`pin_memory()`](../generated/torch.Tensor.pin_memory.html#torch.Tensor.pin_memory)
@@ -1228,7 +1279,7 @@ each GPU has its dedicated process, this avoids the performance overhead caused
 by GIL of Python interpreter.
 
 If you use [`DistributedDataParallel`](../generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel), you could use
-torch.distributed.launch utility to launch your program, see [Launch utility](../distributed.html#distributed-launch).
+`torch.distributed.launch` utility to launch your program, see [Launch utility](../distributed.html#distributed-launch).
 
 ## CUDA Graphs
 
@@ -1265,7 +1316,9 @@ and you suspect its runtime is at least somewhat CPU-limited.
 
 Warning
 
+```
 This API is in beta and may change in future releases.
+```
 
 PyTorch exposes graphs via a raw [`torch.cuda.CUDAGraph`](../generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) class
 and two convenience wrappers,
@@ -1322,7 +1375,7 @@ for realistic and advanced patterns.
 
 [`make_graphed_callables`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) is more sophisticated.
 [`make_graphed_callables`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) accepts Python functions and
-[`torch.nn.Module`](../generated/torch.nn.Module.html#torch.nn.Module)s. For each passed function or Module,
+[`torch.nn.Module`](../generated/torch.nn.Module.html#torch.nn.Module)\s. For each passed function or Module,
 it creates separate graphs of the forward-pass and backward-pass work. See
 Partial-network capture.
 
@@ -1431,7 +1484,7 @@ the capture-safe part(s).
 
 By default, callables returned by [`make_graphed_callables()`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables)
 are autograd-aware, and can be used in the training loop as direct replacements
-for the functions or [`nn.Module`](../generated/torch.nn.Module.html#torch.nn.Module)s you passed.
+for the functions or [`nn.Module`](../generated/torch.nn.Module.html#torch.nn.Module)\ s you passed.
 
 [`make_graphed_callables()`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) internally creates
 [`CUDAGraph`](../generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) objects, runs warmup iterations, and maintains
@@ -1560,11 +1613,13 @@ with torch.cuda.graph(g):
 
 Note
 
+```
 To avoid confusion for power users looking at replays in nsight systems or nvprof:
 Unlike eager execution, the graph interprets a nontrivial stream DAG in capture
 as a hint, not a command. During replay, the graph may reorganize independent ops
 onto different streams or enqueue them in a different order (while respecting your
 original DAG's overall dependencies).
+```
 
 ### Usage with DistributedDataParallel
 
@@ -1589,13 +1644,15 @@ are a viable option, but need three setup steps.
 os.environ["NCCL_ASYNC_ERROR_HANDLING"] = "0"
 torch.distributed.init_process_group(...)
 ```
-2. Before full-backward capture, DDP must be constructed in a side-stream context:
+
+1. Before full-backward capture, DDP must be constructed in a side-stream context:
 
 ```
 with torch.cuda.stream(s):
  model = DistributedDataParallel(model)
 ```
-3. Your warmup must run at least 11 DDP-enabled eager iterations before capture.
+
+1. Your warmup must run at least 11 DDP-enabled eager iterations before capture.
 
 ### Graph memory management
 

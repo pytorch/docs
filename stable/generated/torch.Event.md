@@ -9,7 +9,7 @@ Parameters:
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device for the Event.
 If not given, the current [accelerator](../torch.html#accelerators) type will be used.
 - **enable_timing** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicates if the event should measure time (default: `False`)
-- **blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, `wait()` will be blocking (default: `False`)
+- **blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, [`wait()`](torch.wait.html#torch.wait) will be blocking (default: `False`)
 - **interprocess** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, the event can be shared between processes (default: `False`)
 
 Warning

@@ -91,11 +91,35 @@ abort(*self: torch._C._distributed_c10d.ProcessGroup*) → [None](https://docs.p
 
 abort all operations and connections if supported by the backend
 
+all_gather_single(*self: torch._C._distributed_c10d.ProcessGroup*, *output: torch.Tensor*, *input: torch.Tensor*, *opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f631b195f30>*) → c10d::Work
+
+all_gather_single_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f6300546ff0>*) → c10d::Work
+
+Allgathers the input tensors from all processes across the process group.
+
+> See [`torch.distributed.all_gather()`](distributed.html#torch.distributed.all_gather) for more details.
+
+all_to_all_single(**args*, ***kwargs*)
+
+Overloaded function.
+
+1. all_to_all_single(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], input_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], opts: torch._C._distributed_c10d.AllToAllOptions = <torch._C._distributed_c10d.AllToAllOptions object at 0x7f63005549f0>) -> c10d::Work
+
+Alltoalls the input tensors from all processes across the process group.
+
+> See [`torch.distributed.all_to_all_single()`](distributed.html#torch.distributed.all_to_all_single) for more details.
+
+1. all_to_all_single(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], input_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], timeout: datetime.timedelta | None = None) -> c10d::Work
+
+Alltoalls the input tensors from all processes across the process group.
+
+> See [`torch.distributed.all_to_all_single()`](distributed.html#torch.distributed.all_to_all_single) for more details.
+
 allgather(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f5421dd80f0>) -> c10d::Work
+1. allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f63005607b0>) -> c10d::Work
 
 Allgathers the input tensors from all processes across the process group.
 
@@ -107,13 +131,13 @@ Allgathers the input tensors from all processes across the process group.
 
 > See [`torch.distributed.all_gather()`](distributed.html#torch.distributed.all_gather) for more details.
 
-allgather_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, output_lists: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_list: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f5421df37f0>*) → c10d::Work
+allgather_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, output_lists: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_list: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f6300560cb0>*) → c10d::Work
 
 Allgathers the input tensors from all processes across the process group.
 
 > See [`torch.distributed.all_gather()`](distributed.html#torch.distributed.all_gather) for more details.
 
-allgather_into_tensor_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f5421df3870>*) → c10d::Work
+allgather_into_tensor_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = <torch._C._distributed_c10d.AllgatherOptions object at 0x7f6300560e30>*) → c10d::Work
 
 Allgathers the input tensors from all processes across the process group.
 
@@ -123,7 +147,7 @@ allreduce(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceOptions = <torch._C._distributed_c10d.AllreduceOptions object at 0x7f5421df2a70>) -> c10d::Work
+1. allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceOptions = <torch._C._distributed_c10d.AllreduceOptions object at 0x7f6300547f70>) -> c10d::Work
 
 Allreduces the provided tensors across all processes in the process group.
 
@@ -141,13 +165,13 @@ Allreduces the provided tensors across all processes in the process group.
 
 > See [`torch.distributed.all_reduce()`](distributed.html#torch.distributed.all_reduce) for more details.
 
-allreduce_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceCoalescedOptions = <torch._C._distributed_c10d.AllreduceCoalescedOptions object at 0x7f5421df3070>*) → c10d::Work
+allreduce_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceCoalescedOptions = <torch._C._distributed_c10d.AllreduceCoalescedOptions object at 0x7f63005603b0>*) → c10d::Work
 
 Allreduces the provided tensors across all processes in the process group.
 
 > See [`torch.distributed.all_reduce()`](distributed.html#torch.distributed.all_reduce) for more details.
 
-alltoall(*self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllToAllOptions = <torch._C._distributed_c10d.AllToAllOptions object at 0x7f5421df8730>*) → c10d::Work
+alltoall(*self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.AllToAllOptions = <torch._C._distributed_c10d.AllToAllOptions object at 0x7f6300557f70>*) → c10d::Work
 
 Alltoalls the input tensors from all processes across the process group.
 
@@ -157,13 +181,13 @@ alltoall_base(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt], input_split_sizes: collections.abc.Sequence[typing.SupportsInt], opts: torch._C._distributed_c10d.AllToAllOptions = <torch._C._distributed_c10d.AllToAllOptions object at 0x7f5421def470>) -> c10d::Work
+1. alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], input_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], opts: torch._C._distributed_c10d.AllToAllOptions = <torch._C._distributed_c10d.AllToAllOptions object at 0x7f630053cb30>) -> c10d::Work
 
 Alltoalls the input tensors from all processes across the process group.
 
 > See [`torch.distributed.all_to_all()`](distributed.html#torch.distributed.all_to_all) for more details.
 
-1. alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt], input_split_sizes: collections.abc.Sequence[typing.SupportsInt], timeout: datetime.timedelta | None = None) -> c10d::Work
+1. alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], input_split_sizes: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], timeout: datetime.timedelta | None = None) -> c10d::Work
 
 Alltoalls the input tensors from all processes across the process group.
 
@@ -173,7 +197,7 @@ barrier(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. barrier(self: torch._C._distributed_c10d.ProcessGroup, opts: torch._C._distributed_c10d.BarrierOptions = <torch._C._distributed_c10d.BarrierOptions object at 0x7f542353d830>) -> c10d::Work
+1. barrier(self: torch._C._distributed_c10d.ProcessGroup, opts: torch._C._distributed_c10d.BarrierOptions = <torch._C._distributed_c10d.BarrierOptions object at 0x7f63005621f0>) -> c10d::Work
 
 Blocks until all processes in the group enter the call, and
 
@@ -197,13 +221,13 @@ broadcast(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.BroadcastOptions = <torch._C._distributed_c10d.BroadcastOptions object at 0x7f5421df27f0>) -> c10d::Work
+1. broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.BroadcastOptions = <torch._C._distributed_c10d.BroadcastOptions object at 0x7f6300557df0>) -> c10d::Work
 
 Broadcasts the tensor to all processes in the process group.
 
 > See [`torch.distributed.broadcast()`](distributed.html#torch.distributed.broadcast) for more details.
 
-1. broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: typing.SupportsInt, timeout: datetime.timedelta | None = None) -> c10d::Work
+1. broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: typing.SupportsInt | typing.SupportsIndex, timeout: datetime.timedelta | None = None) -> c10d::Work
 
 Broadcasts the tensor to all processes in the process group.
 
@@ -213,13 +237,13 @@ gather(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.GatherOptions = <torch._C._distributed_c10d.GatherOptions object at 0x7f54237dfa30>) -> c10d::Work
+1. gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], input_tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.GatherOptions = <torch._C._distributed_c10d.GatherOptions object at 0x7f6300560ef0>) -> c10d::Work
 
 Gathers the input tensors from all processes across the process group.
 
 > See [`torch.distributed.gather()`](distributed.html#torch.distributed.gather) for more details.
 
-1. gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensor: torch.Tensor, root: typing.SupportsInt, timeout: datetime.timedelta | None = None) -> c10d::Work
+1. gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensor: torch.Tensor, root: typing.SupportsInt | typing.SupportsIndex, timeout: datetime.timedelta | None = None) -> c10d::Work
 
 Gathers the input tensors from all processes across the process group.
 
@@ -237,7 +261,7 @@ Gets this process group description
 
 (Gets this process group name. It's cluster unique)
 
-merge_remote_group(*self: torch._C._distributed_c10d.ProcessGroup*, *store: torch._C._distributed_c10d.Store*, *size: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*, *timeout: [datetime.timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta) = datetime.timedelta(seconds=1800)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *group_desc: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → torch._C._distributed_c10d.ProcessGroup
+merge_remote_group(*self: torch._C._distributed_c10d.ProcessGroup*, *store: torch._C._distributed_c10d.Store*, *size: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*, *timeout: [datetime.timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta) = datetime.timedelta(seconds=1800)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *group_desc: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → torch._C._distributed_c10d.ProcessGroup
 
 monitored_barrier(*self: torch._C._distributed_c10d.ProcessGroup*, *timeout: [datetime.timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *wait_all_ranks: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → [None](https://docs.python.org/3/library/constants.html#None)
 
@@ -255,13 +279,13 @@ rank(*self: torch._C._distributed_c10d.ProcessGroup*) → [int](https://docs.pyt
 
 Get the rank of this process group.
 
-recv(*self: torch._C._distributed_c10d.ProcessGroup*, *tensors: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *srcRank: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*, *tag: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*) → c10d::Work
+recv(*self: torch._C._distributed_c10d.ProcessGroup*, *tensors: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *srcRank: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*, *tag: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*) → c10d::Work
 
 Receives the tensor from the specified rank.
 
 > See [`torch.distributed.recv()`](distributed.html#torch.distributed.recv) for more details.
 
-recv_anysource(*self: torch._C._distributed_c10d.ProcessGroup*, *arg0: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *arg1: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*) → c10d::Work
+recv_anysource(*self: torch._C._distributed_c10d.ProcessGroup*, *arg0: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *arg1: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*) → c10d::Work
 
 Receives the tensor from any source.
 
@@ -271,13 +295,13 @@ reduce(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. reduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.ReduceOptions = <torch._C._distributed_c10d.ReduceOptions object at 0x7f5421dcf030>) -> c10d::Work
+1. reduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.ReduceOptions = <torch._C._distributed_c10d.ReduceOptions object at 0x7f631b1e84b0>) -> c10d::Work
 
 Reduces the provided tensors across all processes in the process group.
 
 > See [`torch.distributed.reduce()`](distributed.html#torch.distributed.reduce) for more details.
 
-1. reduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: typing.SupportsInt, op: torch._C._distributed_c10d.ReduceOp = <RedOpType.SUM: 0>, timeout: datetime.timedelta | None = None) -> c10d::Work
+1. reduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: typing.SupportsInt | typing.SupportsIndex, op: torch._C._distributed_c10d.ReduceOp = <RedOpType.SUM: 0>, timeout: datetime.timedelta | None = None) -> c10d::Work
 
 Reduces the provided tensors across all processes in the process group.
 
@@ -287,7 +311,7 @@ reduce_scatter(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f5421df0a70>) -> c10d::Work
+1. reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f631650cab0>) -> c10d::Work
 
 Reduces and scatters the input tensors from all processes across the process group.
 
@@ -299,7 +323,15 @@ Reduces and scatters the input tensors from all processes across the process gro
 
 > See [`torch.distributed.reduce_scatter()`](distributed.html#torch.distributed.reduce_scatter) for more details.
 
-reduce_scatter_tensor_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f5421df3770>*) → c10d::Work
+reduce_scatter_single(*self: torch._C._distributed_c10d.ProcessGroup*, *outputTensor: torch.Tensor*, *inputTensor: torch.Tensor*, *opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f6300561570>*) → c10d::Work
+
+reduce_scatter_single_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f6300561870>*) → c10d::Work
+
+Reduces and scatters the input tensors from all processes across the process group.
+
+> See [`torch.distributed.reduce_scatter()`](distributed.html#torch.distributed.reduce_scatter) for more details.
+
+reduce_scatter_tensor_coalesced(*self: torch._C._distributed_c10d.ProcessGroup, outputs: collections.abc.Sequence[torch.Tensor], inputs: collections.abc.Sequence[torch.Tensor], opts: torch._C._distributed_c10d.ReduceScatterOptions = <torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f6300561930>*) → c10d::Work
 
 Reduces and scatters the input tensors from all processes across the process group.
 
@@ -309,19 +341,19 @@ scatter(**args*, ***kwargs*)
 
 Overloaded function.
 
-1. scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], opts: torch._C._distributed_c10d.ScatterOptions = <torch._C._distributed_c10d.ScatterOptions object at 0x7f5423593bf0>) -> c10d::Work
+1. scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: collections.abc.Sequence[torch.Tensor], input_tensors: collections.abc.Sequence[collections.abc.Sequence[torch.Tensor]], opts: torch._C._distributed_c10d.ScatterOptions = <torch._C._distributed_c10d.ScatterOptions object at 0x7f631b1990b0>) -> c10d::Work
 
 Scatters the input tensors from all processes across the process group.
 
 > See [`torch.distributed.scatter()`](distributed.html#torch.distributed.scatter) for more details.
 
-1. scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensor: torch.Tensor, input_tensors: collections.abc.Sequence[torch.Tensor], root: typing.SupportsInt, timeout: datetime.timedelta | None = None) -> c10d::Work
+1. scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensor: torch.Tensor, input_tensors: collections.abc.Sequence[torch.Tensor], root: typing.SupportsInt | typing.SupportsIndex, timeout: datetime.timedelta | None = None) -> c10d::Work
 
 Scatters the input tensors from all processes across the process group.
 
 > See [`torch.distributed.scatter()`](distributed.html#torch.distributed.scatter) for more details.
 
-send(*self: torch._C._distributed_c10d.ProcessGroup*, *tensors: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *dstRank: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*, *tag: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt)*) → c10d::Work
+send(*self: torch._C._distributed_c10d.ProcessGroup*, *tensors: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[torch.Tensor](tensors.html#torch.Tensor)]*, *dstRank: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*, *tag: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*) → c10d::Work
 
 Sends the tensor to the specified rank.
 
@@ -339,17 +371,19 @@ size(*self: torch._C._distributed_c10d.ProcessGroup*) → [int](https://docs.pyt
 
 Get the size of this process group.
 
-split_group(*self: torch._C._distributed_c10d.ProcessGroup, ranks: collections.abc.Sequence[typing.SupportsInt], timeout: datetime.timedelta | None = None, opts: c10d::Backend::Options | None = None, group_name: str | None = None, group_desc: str | None = None*) → torch._C._distributed_c10d.ProcessGroup
+split_group(*self: torch._C._distributed_c10d.ProcessGroup, ranks: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], timeout: datetime.timedelta | None = None, opts: c10d::Backend::Options | None = None, group_name: str | None = None, group_desc: str | None = None, device_types: collections.abc.Sequence[torch.device] | None = None*) → torch._C._distributed_c10d.ProcessGroup
 
 *static*unbox(*arg0: [object](https://docs.python.org/3/library/functions.html#object)*) → torch._C._distributed_c10d.ProcessGroup
 
-*class*torch.distributed._dist2.ProcessGroupFactory(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/distributed/_dist2.py#L36)
+*property*use_pg_for_symm_mem_rendezvous
+
+*class*torch.distributed._dist2.ProcessGroupFactory(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/distributed/_dist2.py#L36)
 
 Bases: [`Protocol`](https://docs.python.org/3/library/typing.html#typing.Protocol)
 
 Protocol for process group factories.
 
-torch.distributed._dist2.current_process_group()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/distributed/_dist2.py#L159)
+torch.distributed._dist2.current_process_group()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/distributed/_dist2.py#L159)
 
 Get the current process group. Thread local method.
 
@@ -361,7 +395,7 @@ Return type:
 
 *ProcessGroup*
 
-torch.distributed._dist2.new_group(*backend*, *timeout*, *device*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/distributed/_dist2.py#L127)
+torch.distributed._dist2.new_group(*backend*, *timeout*, *device*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/distributed/_dist2.py#L127)
 
 Create a new process group with the given backend and options. This group is
 independent and will not be globally registered and thus not usable via the
@@ -383,7 +417,7 @@ Return type:
 
 *ProcessGroup*
 
-torch.distributed._dist2.process_group(*pg*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/distributed/_dist2.py#L169)
+torch.distributed._dist2.process_group(*pg*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/distributed/_dist2.py#L169)
 
 Context manager for process groups. Thread local method.
 
@@ -395,7 +429,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-torch.distributed._dist2.register_backend(*name*, *func*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/distributed/_dist2.py#L50)
+torch.distributed._dist2.register_backend(*name*, *func*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/distributed/_dist2.py#L50)
 
 Register a new process group backend.
 

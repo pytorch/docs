@@ -4,7 +4,7 @@ This package introduces support for the current [accelerator](torch.html#acceler
 
 | [`device_count`](generated/torch.accelerator.device_count.html#torch.accelerator.device_count) | Return the number of current [accelerator](torch.html#accelerators) available. |
 | --- | --- |
-| [`is_available`](generated/torch.accelerator.is_available.html#torch.accelerator.is_available) | Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. |
+| [`is_available`](generated/torch.accelerator.is_available.html#torch.accelerator.is_available) | Check if the current accelerator is available at runtime: it was built, all the required drivers are available and at least one device is visible. |
 | [`current_accelerator`](generated/torch.accelerator.current_accelerator.html#torch.accelerator.current_accelerator) | Return the device of the accelerator available at compilation time. |
 | [`set_device_index`](generated/torch.accelerator.set_device_index.html#torch.accelerator.set_device_index) | Set the current device index to a given device. |
 | [`set_device_idx`](generated/torch.accelerator.set_device_idx.html#torch.accelerator.set_device_idx) | (Deprecated) Set the current device index to a given device. |

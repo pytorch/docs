@@ -1,6 +1,6 @@
 # torch.autograd.backward
 
-torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/__init__.py#L253)
+torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/__init__.py#L255)
 
 Compute the sum of gradients of given tensors with respect to graph leaves.
 
@@ -35,7 +35,7 @@ in a user-specified CUDA stream context, see
 Note
 
 When `inputs` are provided and a given input is not a leaf,
-the current implementation will call its grad_fn (even though it is not strictly needed to get this gradients).
+the current implementation will call its grad_fn (even though it is not strictly needed to get these gradients).
 It is an implementation detail on which the user should not rely.
 See [pytorch/pytorch#60521](https://github.com/pytorch/pytorch/pull/60521#issuecomment-867061780) for more details.
 
@@ -55,7 +55,9 @@ way. Defaults to the value of `create_graph`.
 - **create_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, graph of the derivative will
 be constructed, allowing to compute higher order derivative products.
 Defaults to `False`.
-- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*Tensor*](../tensors.html#torch.Tensor)*or**Sequence**[*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)*]**,**optional*) - Inputs w.r.t. which the gradient
-be will accumulated into `.grad`. All other Tensors will be ignored. If
-not provided, the gradient is accumulated into all the leaf Tensors that
-were used to compute the `tensors`.
+- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*Tensor*](../tensors.html#torch.Tensor)*or**Sequence**[*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)*] or*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which the gradient will be accumulated into `.grad`.
+All other Tensors will be ignored. If not provided, the gradient is
+accumulated into all the leaf Tensors that were used to compute the
+`tensors`. A dict of tensors (e.g.
+`dict(model.named_parameters())`) is also accepted, in which case
+the values are used as the input tensors.

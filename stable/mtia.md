@@ -17,6 +17,7 @@ This package enables an interface for accessing MTIA backend in python
 | [`is_initialized`](generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized) | Return whether PyTorch's MTIA state has been initialized. |
 | [`memory_stats`](generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats) | Return a dictionary of MTIA memory allocator statistics for a given device. |
 | [`get_device_capability`](generated/torch.mtia.get_device_capability.html#torch.mtia.get_device_capability) | Return capability of a given device as a tuple of (major version, minor version). |
+| [`get_device_properties`](generated/torch.mtia.get_device_properties.html#torch.mtia.get_device_properties) | Return a dictionary of MTIA device properties |
 | [`empty_cache`](generated/torch.mtia.empty_cache.html#torch.mtia.empty_cache) | Empty the MTIA device cache. |
 | [`record_memory_history`](generated/torch.mtia.record_memory_history.html#torch.mtia.record_memory_history) | Enable/Disable the memory profiler on MTIA allocator |
 | [`snapshot`](generated/torch.mtia.snapshot.html#torch.mtia.snapshot) | Return a dictionary of MTIA memory allocator history |

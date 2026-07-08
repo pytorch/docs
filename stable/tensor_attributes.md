@@ -17,15 +17,15 @@ A `torch.dtype` is an object that represents the data type of a
 | `torch.float64` or `torch.double` | 64-bit floating point, as defined in [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754) |
 | `torch.float16` or `torch.half` | 16-bit floating point, as defined in [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754), S-E-M 1-5-10 |
 | `torch.bfloat16` | 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 |
-| `torch.complex32` or `torch.chalf` | 32-bit complex with two float16 components |
-| `torch.complex64` or `torch.cfloat` | 64-bit complex with two float32 components |
-| `torch.complex128` or `torch.cdouble` | 128-bit complex with two float64 components |
-| `torch.float8_e4m3fn` [shell], [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
-| `torch.float8_e5m2` [shell] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
-| `torch.float8_e4m3fnuz` [shell], [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
-| `torch.float8_e5m2fnuz` [shell], [1] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
-| `torch.float8_e8m0fnu` [shell], [1] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
-| `torch.float4_e2m1fn_x2` [shell], [1], [3] | packed 4-bit floating point, S-E-M 1-2-1, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
+| `torch.complex32` or `torch.chalf` | 32-bit complex with two `float16` components |
+| `torch.complex64` or `torch.cfloat` | 64-bit complex with two `float32` components |
+| `torch.complex128` or `torch.cdouble` | 128-bit complex with two `float64` components |
+| `torch.float8_e4m3fn` [4] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
+| `torch.float8_e5m2` [4] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
+| `torch.float8_e4m3fnuz` [4] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
+| `torch.float8_e5m2fnuz` [4] [1] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
+| `torch.float8_e8m0fnu` [4] [1] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
+| `torch.float4_e2m1fn_x2` [4] [1] [3] | packed 4-bit floating point, S-E-M 1-2-1, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
 
 **Integer dtypes**
 
@@ -33,24 +33,13 @@ A `torch.dtype` is an object that represents the data type of a
 | --- | --- |
 | `torch.uint8` | 8-bit integer (unsigned) |
 | `torch.int8` | 8-bit integer (signed) |
-| `torch.uint16` [shell], [2] | 16-bit integer (unsigned) |
+| `torch.uint16` [4] [2] | 16-bit integer (unsigned) |
 | `torch.int16` or `torch.short` | 16-bit integer (signed) |
-| `torch.uint32` [shell], [2] | 32-bit integer (unsigned) |
+| `torch.uint32` [4] [2] | 32-bit integer (unsigned) |
 | `torch.int32` or `torch.int` | 32-bit integer (signed) |
-| `torch.uint64` [shell], [2] | 64-bit integer (unsigned) |
+| `torch.uint64` [4] [2] | 64-bit integer (unsigned) |
 | `torch.int64` or `torch.long` | 64-bit integer (signed) |
 | `torch.bool` | Boolean |
-
-[shell]
-(1,2,3,4,5,6,7,8,9)
-
-a shell dtype is a specialized dtype with limited op and backend support.
-Specifically, ops that support tensor creation (`torch.empty`, `torch.fill`, `torch.zeros`)
-and operations which do not peek inside the data elements (`torch.cat`, `torch.view`, `torch.reshape`)
-are supported. Ops that peek inside the data elements such as casting,
-matrix multiplication, nan/inf checks are supported only on a case by
-case basis, depending on maturity and presence of hardware accelerated kernels
-and established use cases.
 
 **Note**: legacy constructors such as `torch.*.FloatTensor`, `torch.*.DoubleTensor`, `torch.*.HalfTensor`,
 `torch.*.BFloat16Tensor`, `torch.*.ByteTensor`, `torch.*.CharTensor`, `torch.*.ShortTensor`, `torch.*.IntTensor`,
@@ -62,7 +51,10 @@ can be used, which returns `True` if the data type is a floating point data type
 To find out if a `torch.dtype` is a complex data type, the property [`is_complex`](generated/torch.is_complex.html#torch.is_complex)
 can be used, which returns `True` if the data type is a complex data type.
 
-When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote
+Each `torch.dtype` has an `abbr` property that returns a short abbreviation
+string for the dtype (e.g., `torch.float32.abbr` returns `"f32"`).
+
+When the dtypes of inputs to an arithmetic operation (*add*, *sub*, *div*, *mul*) differ, we promote
 by finding the minimum dtype that satisfies the following rules:
 
 - If the type of a scalar operand is of a higher category than tensor operands
@@ -74,9 +66,9 @@ that category.
 - If there are no higher-category zero-dim operands, we promote to a type with sufficient size
 and category to hold all dimensioned operands.
 
-A floating point scalar operand has dtype torch.get_default_dtype() and an integral
-non-boolean scalar operand has dtype torch.int64. Unlike numpy, we do not inspect
-values when determining the minimum dtypes of an operand. Complex types
+A floating point scalar operand has dtype *torch.get_default_dtype()* and an integral
+non-boolean scalar operand has dtype *torch.int64*. Unlike numpy, we do not inspect
+values when determining the minimum *dtypes* of an operand. Complex types
 are not yet supported. Promotion for shell dtypes is not defined.
 
 Promotion Examples:
@@ -119,7 +111,7 @@ torch.int32
 torch.float32
 ```
 
-When the output tensor of an arithmetic operation is specified, we allow casting to its dtype except that:
+When the output tensor of an arithmetic operation is specified, we allow casting to its *dtype* except that:
 
 - An integral output tensor cannot accept a floating point tensor.
 - A boolean output tensor cannot accept a non-boolean tensor.
@@ -164,9 +156,9 @@ A [`torch.Tensor`](tensors.html#torch.Tensor)'s device can be accessed via the [
 
 A `torch.device` can be constructed using:
 
-> - A device string, which is a string representation of the device type and optionally the device ordinal.
-> - A device type and a device ordinal.
-> - A device ordinal, where the current [accelerator](torch.html#accelerators) type will be used.
+- A device string, which is a string representation of the device type and optionally the device ordinal.
+- A device type and a device ordinal.
+- A device ordinal, where the current [accelerator](torch.html#accelerators) type will be used.
 
 Via a device string:
 
@@ -339,6 +331,6 @@ Tensor is or will be allocated in dense non-overlapping memory. Strides represen
 Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in
 `strides[0] > strides[2] > strides[3] > strides[4] > strides[1] == 1` aka NDHWC order.
 - `torch.preserve_format`:
-Used in functions like clone to preserve the memory format of the input tensor. If input tensor is
+Used in functions like *clone* to preserve the memory format of the input tensor. If input tensor is
 allocated in dense non-overlapping memory, the output tensor strides will be copied from the input.
 Otherwise output strides will follow `torch.contiguous_format`

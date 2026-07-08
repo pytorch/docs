@@ -1,6 +1,6 @@
 # torch.sym_int
 
-torch.sym_int(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/__init__.py#L875)
+torch.sym_int(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L876)
 
 SymInt-aware utility for int casting.
 

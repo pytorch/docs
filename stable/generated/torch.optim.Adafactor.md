@@ -4,7 +4,7 @@
 
 Implements Adafactor algorithm.
 
-input:γ(lr), τ(β2 decay), θ0(params), f(θ)(objective), ϵ1,ϵ2 (epsilons), d(clipping threshold), λ(weight decay), maximizeinitialize: R0←0 (second moment row factor), C0←0 (second moment col factor), V^0←0 (second moment for vectors)for t=1 to ... doif maximize:Gt←−∇θft(θt−1)elseGt←∇θft(θt−1)β^2t←1−tτρt←min(lr,1t)αt←max(ϵ2,RMS(θt−1))ρtθt←θt−1−γλθt−1if dim(Gt)>1:Rt←β^2tRt−1+(1−β^2t)(Gt⊙Gt)⋅1mCt←β^2tCt−1+(1−β^2t)1n⊤⋅(Gt⊙Gt)V^t←Rt⋅Ctmax(1n⊤⋅Rt,ϵ1)elseV^t←β^2tV^t−1+(1−β^2t)⋅(Gt⊙Gt)Ut←Gtmax(V^t,ϵ1)U^t←Utmax(1,RMS(Ut)d)θt←θt−1−αtU^treturn θt\begin{aligned}
+input:γ(lr), τ(β2 decay), θ0(params), f(θ)(objective), ϵ1,ϵ2 (epsilons), d(clipping threshold), λ(weight decay), maximizeinitialize: R0←0 (second moment row factor), C0←0 (second moment col factor), V^0←0 (second moment for vectors)for t=1 to ... doif maximize:Gt←−∇θft(θt−1)elseGt←∇θft(θt−1)β^2t←1−tτρt←min(γ,1t)αt←max(ϵ2,RMS(θt−1))ρtθt←θt−1−γλθt−1if dim(Gt)>1:Rt←β^2tRt−1+(1−β^2t)(Gt⊙Gt)⋅1mCt←β^2tCt−1+(1−β^2t)1n⊤⋅(Gt⊙Gt)V^t←Rt⋅Ctmax(1n⊤⋅Rt,ϵ1)elseV^t←β^2tV^t−1+(1−β^2t)⋅(Gt⊙Gt)Ut←Gtmax(V^t,ϵ1)U^t←Utmax(1,RMS(Ut)d)θt←θt−1−αtU^treturn θt\begin{aligned}
  &\rule{110mm}{0.4pt} \\
  &\textbf{input} : \gamma \text{(lr)}, \: \tau
  \text{(}\beta_2\text{ decay)}, \: \theta_0 \text{(params)}, \: f(\theta) \text{(objective)}, \\
@@ -22,7 +22,7 @@ input:γ(lr), τ(β2 decay), θ0(params), f(θ)(objective), ϵ1,ϵ2 (eps
  &\hspace{5mm}\textbf{else} \\
  &\hspace{10mm}G_t \leftarrow \nabla_{\theta} f_t (\theta_{t-1}) \\
  &\hspace{5mm}\widehat{\beta}_{2_t} \leftarrow 1 - t^{\tau} \\
- &\hspace{5mm}\rho_t \leftarrow min(lr, \frac{1}{\sqrt{t}}) \\
+ &\hspace{5mm}\rho_t \leftarrow min(\gamma, \frac{1}{\sqrt{t}}) \\
  &\hspace{5mm}\alpha_t \leftarrow max(\epsilon_2,
  \text{RMS}(\theta_{t-1}))\rho_t \\
  &\hspace{5mm}\theta_t \leftarrow \theta_{t-1} - \gamma \lambda \theta_{t-1} \\
@@ -44,7 +44,7 @@ input:γ(lr), τ(β2 decay), θ0(params), f(θ)(objective), ϵ1,ϵ2 (eps
  &\rule{110mm}{0.4pt} \\[-1.ex]
  &\bf{return} \: \theta_t \\[-1.ex]
  &\rule{110mm}{0.4pt} \\[-1.ex]
-\end{aligned}​input:γ(lr),τ(β2​ decay),θ0​(params),f(θ)(objective),ϵ1​,ϵ2​ (epsilons),d(clipping threshold),λ(weight decay),maximizeinitialize:R0​←0 (second moment row factor),C0​←0 (second moment col factor),V0​←0 (second moment for vectors)fort=1to...doifmaximize:Gt​←−∇θ​ft​(θt−1​)elseGt​←∇θ​ft​(θt−1​)β​2t​​←1−tτρt​←min(lr,t​1​)αt​←max(ϵ2​,RMS(θt−1​))ρt​θt​←θt−1​−γλθt−1​ifdim(Gt​)>1:Rt​←β​2t​​Rt−1​+(1−β​2t​​)(Gt​⊙Gt​)⋅1m​Ct​←β​2t​​Ct−1​+(1−β​2t​​)1n⊤​⋅(Gt​⊙Gt​)Vt​←max(1n⊤​⋅Rt​,ϵ1​)Rt​⋅Ct​​elseVt​←β​2t​​Vt−1​+(1−β​2t​​)⋅(Gt​⊙Gt​)Ut​←max(Vt​​,ϵ1​)Gt​​Ut​←max(1,dRMS(Ut​)​)Ut​​θt​←θt−1​−αt​Ut​returnθt​​
+\end{aligned}​input:γ(lr),τ(β2​ decay),θ0​(params),f(θ)(objective),ϵ1​,ϵ2​ (epsilons),d(clipping threshold),λ(weight decay),maximizeinitialize:R0​←0 (second moment row factor),C0​←0 (second moment col factor),V0​←0 (second moment for vectors)fort=1to...doifmaximize:Gt​←−∇θ​ft​(θt−1​)elseGt​←∇θ​ft​(θt−1​)β​2t​​←1−tτρt​←min(γ,t​1​)αt​←max(ϵ2​,RMS(θt−1​))ρt​θt​←θt−1​−γλθt−1​ifdim(Gt​)>1:Rt​←β​2t​​Rt−1​+(1−β​2t​​)(Gt​⊙Gt​)⋅1m​Ct​←β​2t​​Ct−1​+(1−β​2t​​)1n⊤​⋅(Gt​⊙Gt​)Vt​←max(1n⊤​⋅Rt​,ϵ1​)Rt​⋅Ct​​elseVt​←β​2t​​Vt−1​+(1−β​2t​​)⋅(Gt​⊙Gt​)Ut​←max(Vt​​,ϵ1​)Gt​​Ut​←max(1,dRMS(Ut​)​)Ut​​θt​←θt−1​−αt​Ut​returnθt​​
 
 For further details regarding the algorithm we refer to [Adafactor: Adaptive Learning Rates with Sublinear Memory Cost](https://arxiv.org/pdf/1804.04235).
 
@@ -92,11 +92,11 @@ affect the step size.
 
 This implementation allows lr to influence the maximum value for ρt\rho_tρt​:
 
-ρt←min(lr,1t)\begin{aligned}
- &\hspace{5mm}\rho_t \leftarrow min(lr, \frac{1}{\sqrt{t}})
+ρt←min(γ,1t)\begin{aligned}
+ &\hspace{5mm}\rho_t \leftarrow min(\gamma, \frac{1}{\sqrt{t}})
 \end{aligned}
 
-​ρt​←min(lr,t​1​)​
+​ρt​←min(γ,t​1​)​
 
 This differs from Noam Shazeer and Mitchell Stern, who use a constant of 0.01 as
 the maximum value of ρt\rho_tρt​
@@ -152,7 +152,7 @@ You may note that Noam Shazeer and Mitchell Stern describe using the sum of squa
 while this implementation uses the mean instead. This choice is mathematically equivalent and
 allows for greater numerical stability for large sums.
 
-add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L1108)
+add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L1102)
 
 Add a param group to the [`Optimizer`](../optim.html#torch.optim.Optimizer) s param_groups.
 
@@ -164,7 +164,7 @@ Parameters:
 **param_group** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Specifies what Tensors should be optimized along with group
 specific optimization options.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L885)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L880)
 
 Load the optimizer state.
 
@@ -193,30 +193,29 @@ the optimizer `param_names` will remain unchanged.
 Example
 
 ```
->>> model = torch.nn.Linear(10, 10)
->>> optim = torch.optim.SGD(model.parameters(), lr=3e-4)
+>>> optimizer = ... # initialized optimizer matching the saved state
 >>> scheduler1 = torch.optim.lr_scheduler.LinearLR(
-... optim,
+... optimizer,
 ... start_factor=0.1,
 ... end_factor=1,
 ... total_iters=20,
 ... )
 >>> scheduler2 = torch.optim.lr_scheduler.CosineAnnealingLR(
-... optim,
+... optimizer,
 ... T_max=80,
 ... eta_min=3e-5,
 ... )
 >>> lr = torch.optim.lr_scheduler.SequentialLR(
-... optim,
+... optimizer,
 ... schedulers=[scheduler1, scheduler2],
 ... milestones=[20],
 ... )
 >>> lr.load_state_dict(torch.load("./save_seq.pt"))
 >>> # now load the optimizer checkpoint after loading the LRScheduler
->>> optim.load_state_dict(torch.load("./save_optim.pt"))
+>>> optimizer.load_state_dict(torch.load("./save_optim.pt"))
 ```
 
-register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L849)
+register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L844)
 
 Register a load_state_dict post-hook which will be called after
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -250,7 +249,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L810)
+register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L805)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -287,7 +286,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L651)
+register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L646)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -319,7 +318,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L619)
+register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L614)
 
 Register a state dict pre-hook which will be called before [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -351,7 +350,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L598)
+register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L593)
 
 Register an optimizer step post hook which will be called after optimizer step.
 
@@ -376,7 +375,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L575)
+register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L570)
 
 Register an optimizer step pre hook which will be called before optimizer step.
 
@@ -403,7 +402,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L685)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L680)
 
 Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -462,7 +461,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/_adafactor.py#L121)
+step(*closure=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/_adafactor.py#L121)
 
 Perform a single optimization step.
 
@@ -471,7 +470,7 @@ Parameters:
 **closure** (*Callable**,**optional*) - A closure that reevaluates the model
 and returns the loss.
 
-zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/optim/optimizer.py#L1029)
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/optim/optimizer.py#L1023)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 

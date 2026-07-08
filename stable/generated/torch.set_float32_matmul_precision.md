@@ -1,6 +1,6 @@
 # torch.set_float32_matmul_precision
 
-torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/__init__.py#L1617)
+torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1618)
 
 Sets the internal precision of float32 matrix multiplications.
 

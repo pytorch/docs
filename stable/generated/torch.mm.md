@@ -1,6 +1,6 @@
 # torch.mm
 
-torch.mm(*input*, *mat2*, *out_dtype=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.mm(*input*, *mat2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
 
 Performs a matrix multiplication of the matrices `input` and `mat2`.
 
@@ -33,9 +33,6 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the first matrix to be matrix multiplied
 - **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second matrix to be matrix multiplied
-- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*,**optional*) - the dtype of the output tensor,
-Supported only on CUDA and for torch.float32 given
-torch.float16/torch.bfloat16 input dtypes
 
 Keyword Arguments:
 
@@ -50,3 +47,17 @@ Example:
 tensor([[ 0.4851, 0.5037, -0.3633],
  [-0.0760, -3.6705, 2.4784]])
 ```
+
+torch.mm(*input*, *mat2*, *out_dtype*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the first matrix to be matrix multiplied
+- **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second matrix to be matrix multiplied
+- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - the dtype of the output tensor.
+Supported only on CUDA and for torch.float32 given
+torch.float16/torch.bfloat16 input dtypes.
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.

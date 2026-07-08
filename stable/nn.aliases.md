@@ -224,6 +224,23 @@ The following are aliases to their counterparts in `torch.nn` in the `torch.nn.m
 | [`channelshuffle.ChannelShuffle`](generated/torch.nn.modules.channelshuffle.ChannelShuffle.html#torch.nn.modules.channelshuffle.ChannelShuffle) | Divides and rearranges the channels in a tensor. |
 | --- | --- |
 
+## torch.nn.modules.utils
+
+torch.nn.modules.utils.consume_prefix_in_state_dict_if_present(*state_dict*, *prefix*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/utils.py#L48)
+
+Strip the prefix in state_dict in place, if any.
+
+Note
+
+Given a state_dict from a DP/DDP model, a local model can load it by applying
+consume_prefix_in_state_dict_if_present(state_dict, "module.") before calling
+[`torch.nn.Module.load_state_dict()`](generated/torch.nn.Module.html#torch.nn.Module.load_state_dict).
+
+Parameters:
+
+- **state_dict** (*OrderedDict*) - a state-dict to be loaded to the model.
+- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - prefix.
+
 ## torch.nn.utils
 
 The following are aliases to their counterparts in `torch.nn.utils` in nested namespaces.

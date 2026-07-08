@@ -12,7 +12,7 @@
 
 | Supported OS | Validated Hardware |
 | --- | --- |
-| Windows 11 & Ubuntu 24.04/25.04 | Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Arc B-Series Graphics (CodeName: Battlemage) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) |
+| Windows 11 & Ubuntu 24.04/25.10 | Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Arc B-Series Graphics (CodeName: Battlemage) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) |
 | Windows 11 & Ubuntu 25.10 | Intel® Core™ Ultra Mobile Processors (Series 3) with Intel® Arc™ Graphics (CodeName: Panther Lake) |
 
 Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel® Client GPUs and Intel® Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios.
@@ -47,16 +47,16 @@ pip3 install --pre torch torchvision torchaudio --index-url https://download.pyt
 
 #### Previous Versions
 
+**v2.11.0**
+
+```
+pip install torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/xpu
+```
+
 **v2.10.0**
 
 ```
 pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/xpu
-```
-
-**v2.9.1**
-
-```
-pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 --index-url https://download.pytorch.org/whl/xpu
 ```
 
 Note
@@ -65,7 +65,7 @@ For older wheels, please refer to the [previous versions](https://pytorch.org/ge
 
 ### From Source
 
-Now that we have [Intel GPU Driver and Intel® Deep Learning Essentials](https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html) installed. Follow guides to build `pytorch`, `torchvision`, `torchaudio` from source.
+Now that we have [Intel GPU Driver and Intel® Deep Learning Essentials](https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu.html) installed, follow the guides to build `pytorch`, `torchvision`, `torchaudio` from source.
 
 Build from source for `torch` refer to [PyTorch Installation Build from source](https://github.com/pytorch/pytorch?tab=readme-ov-file#from-source).
 
@@ -99,7 +99,7 @@ tensor = torch.tensor([1.0, 2.0]).to("xpu")
 The following points outline the support and limitations for PyTorch with Intel GPU:
 
 1. Both training and inference workflows are supported.
-2. Both eager mode and `torch.compile` is supported. The feature `torch.compile` is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to [How to use torch.compile on Windows CPU/XPU](https://pytorch.org/tutorials/unstable/inductor_windows.html).
+2. Both eager mode and `torch.compile` are supported. The feature `torch.compile` is also supported on Windows from PyTorch* 2.7 with Intel GPU, refer to [How to use torch.compile on Windows CPU/XPU](https://pytorch.org/tutorials/unstable/inductor_windows.html).
 3. Data types such as FP32, BF16, FP16, and Automatic Mixed Precision (AMP) are all supported.
 
 ## Examples
@@ -189,7 +189,7 @@ print("Execution finished")
 
 ### Training Examples
 
-Here is a few training workflow examples.
+Here are a few training workflow examples.
 
 #### Train with FP32
 

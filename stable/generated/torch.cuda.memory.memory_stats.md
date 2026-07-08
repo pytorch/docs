@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_stats
 
-torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/cuda/memory.py#L230)
+torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L231)
 
 Return a dictionary of CUDA memory allocator statistics for a given device.
 
@@ -77,6 +77,12 @@ rounding adds too much overhead:
 - `"requested_bytes.{all,large_pool,small_pool}.{current,peak,allocated,freed}"`:
 memory requested by client code, compare this with allocated_bytes to check if
 allocation rounding adds too much overhead.
+- `"reserved_bytes_by_private_pools"`: nested dictionary keyed by
+`torch.cuda.MemPool.id` tuples. Each value has the same
+`{all,large_pool,small_pool}.{current,peak,allocated,freed}` structure
+as `reserved_bytes`, but scoped to a single private pool. In
+`memory_stats()`, tuple keys are flattened by joining
+their stringified elements with `"_"`, so `(0, 1)` becomes `"0_1"`.
 
 Parameters:
 

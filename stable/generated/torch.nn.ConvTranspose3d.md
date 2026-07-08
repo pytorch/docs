@@ -1,6 +1,6 @@
 # ConvTranspose3d
 
-*class*torch.nn.ConvTranspose3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/nn/modules/conv.py#L1210)
+*class*torch.nn.ConvTranspose3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/conv.py#L1210)
 
 Applies a 3D transposed convolution operator over an input image composed of several input
 planes.
@@ -48,7 +48,7 @@ can either be:
 Note
 
 The `padding` argument effectively adds `dilation * (kernel_size - 1) - padding`
-amount of zero padding to both sizes of the input. This is set so that
+amount of zero padding to both sides of the input. This is set so that
 when a [`Conv3d`](torch.nn.Conv3d.html#torch.nn.Conv3d) and a `ConvTranspose3d`
 are initialized with same parameters, they are inverses of each other in
 regard to the input and output shapes. However, when `stride > 1`,

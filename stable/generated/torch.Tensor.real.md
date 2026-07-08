@@ -5,7 +5,7 @@ Tensor.real
 Returns a new tensor containing real values of the `self` tensor for a complex-valued input tensor.
 The returned tensor and `self` share the same underlying storage.
 
-Returns `self` if `self` is a real-valued tensor tensor.
+Returns `self` if `self` is a real-valued tensor.
 
 Example:
 

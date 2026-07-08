@@ -1,6 +1,6 @@
 # PerBlock
 
-*class*torch.ao.quantization.observer.PerBlock(*block_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/ao/quantization/observer.py#L1699)
+*class*torch.ao.quantization.observer.PerBlock(*block_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/observer.py#L1699)
 
 Represents per-block granularity in quantization. See
 `quantize_affine()` for docs for

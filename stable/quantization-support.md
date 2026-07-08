@@ -25,8 +25,9 @@ This module contains Eager mode quantization APIs.
 
 ### Utility functions
 
-| [`swap_module`](generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module) | Swaps the module if it has a quantized counterpart and it has an observer attached. |
+| [`ObserverOrFakeQuantize`](generated/torch.ao.quantization.ObserverOrFakeQuantize.html#torch.ao.quantization.ObserverOrFakeQuantize) | Create named, parameterized type aliases. |
 | --- | --- |
+| [`swap_module`](generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module) | Swaps the module if it has a quantized counterpart and it has an observer attached. |
 | [`propagate_qconfig_`](generated/torch.ao.quantization.propagate_qconfig_.html#torch.ao.quantization.propagate_qconfig_) | Propagate qconfig through the module hierarchy and assign qconfig attribute on each leaf module |
 | [`default_eval_fn`](generated/torch.ao.quantization.default_eval_fn.html#torch.ao.quantization.default_eval_fn) | Define the default evaluation function. |
 
@@ -39,14 +40,69 @@ Utils shared by different modes of quantization (eager/graph)
 | [`activation_is_int32_quantized`](generated/torch.ao.quantization.utils.activation_is_int32_quantized.html#torch.ao.quantization.utils.activation_is_int32_quantized) | Given a qconfig, decide if the activation needs to be quantized to int32 or not |
 | [`activation_is_int8_quantized`](generated/torch.ao.quantization.utils.activation_is_int8_quantized.html#torch.ao.quantization.utils.activation_is_int8_quantized) | Given a qconfig, decide if the activation needs to be quantized to int8 or not, this includes quantizing to quint8, qint8 |
 | [`activation_is_statically_quantized`](generated/torch.ao.quantization.utils.activation_is_statically_quantized.html#torch.ao.quantization.utils.activation_is_statically_quantized) | Given a qconfig, decide if the activation needs to be quantized or not, this includes quantizing to quint8, qint8 and qint32 and float16 |
-| [`determine_qparams`](generated/torch.ao.quantization.utils.determine_qparams.html#torch.ao.quantization.utils.determine_qparams) | Calculates the quantization parameters, given min and max value tensors. |
-| [`check_min_max_valid`](generated/torch.ao.quantization.utils.check_min_max_valid.html#torch.ao.quantization.utils.check_min_max_valid) | Checks if the given minimum and maximum values are valid, meaning that they exist and the min value is less than the max value. |
 | [`calculate_qmin_qmax`](generated/torch.ao.quantization.utils.calculate_qmin_qmax.html#torch.ao.quantization.utils.calculate_qmin_qmax) | Calculates actual qmin and qmax based on the quantization range, observer datatype and if range is reduced. |
+| [`check_min_max_valid`](generated/torch.ao.quantization.utils.check_min_max_valid.html#torch.ao.quantization.utils.check_min_max_valid) | Checks if the given minimum and maximum values are valid, meaning that they exist and the min value is less than the max value. |
+| [`determine_qparams`](generated/torch.ao.quantization.utils.determine_qparams.html#torch.ao.quantization.utils.determine_qparams) | Calculates the quantization parameters, given min and max value tensors. |
+| [`get_combined_dict`](generated/torch.ao.quantization.utils.get_combined_dict.html#torch.ao.quantization.utils.get_combined_dict) | Combines two dictionaries. |
+| [`get_fqn_to_example_inputs`](generated/torch.ao.quantization.utils.get_fqn_to_example_inputs.html#torch.ao.quantization.utils.get_fqn_to_example_inputs) | Given a model and its example inputs, return a dictionary from fully qualified name of submodules to example_inputs for that submodule, e.g. `{"linear1": (tensor1,), "linear2": (tensor2,), "sub": (tensor3,), "sub.linear1": (tensor4,), ...}`. |
+| [`get_qconfig_dtypes`](generated/torch.ao.quantization.utils.get_qconfig_dtypes.html#torch.ao.quantization.utils.get_qconfig_dtypes) | returns the qconfig tuple for qconfig: (activation_dtype, weight_dtype, activation_is_dynamic) |
+| [`get_qparam_dict`](generated/torch.ao.quantization.utils.get_qparam_dict.html#torch.ao.quantization.utils.get_qparam_dict) | |
+| [`get_quant_type`](generated/torch.ao.quantization.utils.get_quant_type.html#torch.ao.quantization.utils.get_quant_type) | |
+| [`get_swapped_custom_module_class`](generated/torch.ao.quantization.utils.get_swapped_custom_module_class.html#torch.ao.quantization.utils.get_swapped_custom_module_class) | Get the observed/quantized custom module class that we need to swap `custom_module` to. |
+| [`getattr_from_fqn`](generated/torch.ao.quantization.utils.getattr_from_fqn.html#torch.ao.quantization.utils.getattr_from_fqn) | Given an obj and a fqn such as "foo.bar.baz", returns gm.foo.bar.baz. |
+| [`NodePattern`](generated/torch.ao.quantization.utils.NodePattern.html#torch.ao.quantization.utils.NodePattern) | Create named, parameterized type aliases. |
+| [`Pattern`](generated/torch.ao.quantization.utils.Pattern.html#torch.ao.quantization.utils.Pattern) | Create named, parameterized type aliases. |
 | [`validate_qmin_qmax`](generated/torch.ao.quantization.utils.validate_qmin_qmax.html#torch.ao.quantization.utils.validate_qmin_qmax) | Validates that the user-specified quantization range is properly initialized and within the given bound supported by the observer dtype. |
 
 ## torch.ao.quantization.quantize_fx
 
 This module contains FX graph mode quantization APIs (prototype).
+
+torch.ao.quantization.quantize_fx.attach_preserved_attrs_to_model(*model*, *preserved_attrs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/quantize_fx.py#L25)
+
+Store preserved attributes to the model.meta so that it can be preserved during deepcopy
+
+torch.ao.quantization.quantize_fx.convert_to_reference_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/quantize_fx.py#L636)
+
+Convert a calibrated or trained model to a reference quantized model,
+see [pytorch/rfcs](https://github.com/pytorch/rfcs/blob/master/RFC-0019-Extending-PyTorch-Quantization-to-Custom-Backends.md) for more details,
+reference quantized model is a standard representation of a quantized model provided
+by FX Graph Mode Quantization, it can be further lowered to run on the target
+hardware, like accelerators
+
+Parameters:
+
+- **graph_module** (***) - A prepared and calibrated/trained model (GraphModule)
+- **convert_custom_config** (***) - custom configurations for convert function.
+See [`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+- **_remove_qconfig** (***) - Option to remove the qconfig attributes in the model after convert.
+- **qconfig_mapping** (***) -
+
+config for specifying how to convert a model for quantization.
+
+See [`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+
+- backend_config (BackendConfig): A configuration for the backend which describes how
+
+operators should be quantized in the backend. See
+[`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx) for more details.
+
+Returns:
+
+A reference quantized model (GraphModule)
+
+Return type:
+
+[*GraphModule*](fx.html#torch.fx.GraphModule)
+
+Example:
+
+```
+# prepared_model: the model after prepare_fx/prepare_qat_fx and calibration/training
+# TODO: add backend_config after we split the backend_config for fbgemm and qnnpack
+# e.g. backend_config = get_default_backend_config("fbgemm")
+reference_quantized_model = convert_to_reference_fx(prepared_model)
+```
 
 | [`prepare_fx`](generated/torch.ao.quantization.quantize_fx.prepare_fx.html#torch.ao.quantization.quantize_fx.prepare_fx) | Prepare a model for post training quantization |
 | --- | --- |
@@ -76,10 +132,40 @@ Quantization to work with this as well.
 | [`DTypeWithConstraints`](generated/torch.ao.quantization.backend_config.DTypeWithConstraints.html#torch.ao.quantization.backend_config.DTypeWithConstraints) | Config for specifying additional constraints for a given dtype, such as quantization value ranges, scale value ranges, and fixed quantization params, to be used in [`DTypeConfig`](generated/torch.ao.quantization.backend_config.DTypeConfig.html#torch.ao.quantization.backend_config.DTypeConfig). |
 | [`ObservationType`](generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType) | An enum that represents different ways of how an operator/operator pattern should be observed |
 
+torch.ao.quantization.backend_config.executorch.get_executorch_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/backend_config/executorch.py#L485)
+
+Return the BackendConfig for backends PyTorch lowers to through the Executorch stack.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
+
+torch.ao.quantization.backend_config.fbgemm.get_fbgemm_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/backend_config/fbgemm.py#L85)
+
+Return the BackendConfig for PyTorch's native FBGEMM backend.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
+
+torch.ao.quantization.backend_config.onednn.get_onednn_backend_config()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/backend_config/onednn.py#L613)
+
+Return the BackendConfig for PyTorch's native ONEDNN backend.
+
+Return type:
+[*BackendConfig*](generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig)
+
 ## torch.ao.quantization.backend_config.utils
 
 | [`entry_to_pretty_str`](generated/torch.ao.quantization.backend_config.utils.entry_to_pretty_str.html#torch.ao.quantization.backend_config.utils.entry_to_pretty_str) | Given a backend_config_dict entry, returns a string with the human readable representation of it. |
 | --- | --- |
+| [`get_fused_module_classes`](generated/torch.ao.quantization.backend_config.utils.get_fused_module_classes.html#torch.ao.quantization.backend_config.utils.get_fused_module_classes) | |
+| [`get_fuser_method_mapping`](generated/torch.ao.quantization.backend_config.utils.get_fuser_method_mapping.html#torch.ao.quantization.backend_config.utils.get_fuser_method_mapping) | |
+| [`get_fusion_pattern_to_extra_inputs_getter`](generated/torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_extra_inputs_getter.html#torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_extra_inputs_getter) | Get a map from fusion pattern to a function that returns extra input nodes from the fusion pattern, in the order required by the root node. |
+| [`get_fusion_pattern_to_root_node_getter`](generated/torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_root_node_getter.html#torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_root_node_getter) | Get a map from fusion pattern to a function that returns the root node from the fusion pattern, e.g. the most common one is::. |
+| [`get_module_to_qat_module`](generated/torch.ao.quantization.backend_config.utils.get_module_to_qat_module.html#torch.ao.quantization.backend_config.utils.get_module_to_qat_module) | |
+| [`get_pattern_to_dtype_configs`](generated/torch.ao.quantization.backend_config.utils.get_pattern_to_dtype_configs.html#torch.ao.quantization.backend_config.utils.get_pattern_to_dtype_configs) | |
+| [`get_pattern_to_input_type_to_index`](generated/torch.ao.quantization.backend_config.utils.get_pattern_to_input_type_to_index.html#torch.ao.quantization.backend_config.utils.get_pattern_to_input_type_to_index) | |
+| [`get_qat_module_classes`](generated/torch.ao.quantization.backend_config.utils.get_qat_module_classes.html#torch.ao.quantization.backend_config.utils.get_qat_module_classes) | |
+| [`get_root_module_to_quantized_reference_module`](generated/torch.ao.quantization.backend_config.utils.get_root_module_to_quantized_reference_module.html#torch.ao.quantization.backend_config.utils.get_root_module_to_quantized_reference_module) | |
 | [`pattern_to_human_readable`](generated/torch.ao.quantization.backend_config.utils.pattern_to_human_readable.html#torch.ao.quantization.backend_config.utils.pattern_to_human_readable) | |
 | [`remove_boolean_dispatch_from_name`](generated/torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name.html#torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name) | Some ops have a default string representation such as '<function boolean_dispatch.<locals>.fn at 0x7ff1106bf280>', this function replaces them with the hardcoded function names. |
 
@@ -93,18 +179,31 @@ This module contains a few CustomConfig classes that's used in both eager mode a
 | [`ConvertCustomConfig`](generated/torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html#torch.ao.quantization.fx.custom_config.ConvertCustomConfig) | Custom configuration for [`convert_fx()`](generated/torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx). |
 | [`StandaloneModuleConfigEntry`](generated/torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry.html#torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry) | |
 
+## torch.ao.quantization.fx.graph_module
+
+| [`QuantizedGraphModule`](generated/torch.ao.quantization.fx.graph_module.QuantizedGraphModule.html#torch.ao.quantization.fx.graph_module.QuantizedGraphModule) | This class is created to make sure PackedParams (e.g. LinearPackedParams, Conv2dPackedParams) to appear in state_dict so that we can serialize and deserialize quantized graph module with torch.save(m.state_dict()) and m.load_state_dict(state_dict). |
+| --- | --- |
+
 ## torch.ao.quantization.fx.utils
 
 | [`all_node_args_except_first`](generated/torch.ao.quantization.fx.utils.all_node_args_except_first.html#torch.ao.quantization.fx.utils.all_node_args_except_first) | Returns all node arg indices after first |
 | --- | --- |
 | [`all_node_args_have_no_tensors`](generated/torch.ao.quantization.fx.utils.all_node_args_have_no_tensors.html#torch.ao.quantization.fx.utils.all_node_args_have_no_tensors) | If we know for sure that all of this node's args have no tensors (are primitives), return True. |
+| [`assert_and_get_unique_device`](generated/torch.ao.quantization.fx.utils.assert_and_get_unique_device.html#torch.ao.quantization.fx.utils.assert_and_get_unique_device) | Returns the unique device for a module, or None if no device is found. |
 | [`collect_producer_nodes`](generated/torch.ao.quantization.fx.utils.collect_producer_nodes.html#torch.ao.quantization.fx.utils.collect_producer_nodes) | Starting from a target node, trace back until we hit input or getattr node. This is used to extract the chain of operators starting from getattr to the target node, for example::. |
 | [`create_getattr_from_value`](generated/torch.ao.quantization.fx.utils.create_getattr_from_value.html#torch.ao.quantization.fx.utils.create_getattr_from_value) | Given a value of any type, creates a getattr node corresponding to the value and registers the value as a buffer to the module. |
 | [`create_node_from_old_node_preserve_meta`](generated/torch.ao.quantization.fx.utils.create_node_from_old_node_preserve_meta.html#torch.ao.quantization.fx.utils.create_node_from_old_node_preserve_meta) | Creates new_node and copies the necessary metadata to it from old_node. |
+| [`get_custom_module_class_keys`](generated/torch.ao.quantization.fx.utils.get_custom_module_class_keys.html#torch.ao.quantization.fx.utils.get_custom_module_class_keys) | Get all the unique custom module keys in the custom config dict. |
+| [`get_linear_prepack_op_for_dtype`](generated/torch.ao.quantization.fx.utils.get_linear_prepack_op_for_dtype.html#torch.ao.quantization.fx.utils.get_linear_prepack_op_for_dtype) | |
+| [`get_new_attr_name_with_prefix`](generated/torch.ao.quantization.fx.utils.get_new_attr_name_with_prefix.html#torch.ao.quantization.fx.utils.get_new_attr_name_with_prefix) | |
+| [`get_non_observable_arg_indexes_and_types`](generated/torch.ao.quantization.fx.utils.get_non_observable_arg_indexes_and_types.html#torch.ao.quantization.fx.utils.get_non_observable_arg_indexes_and_types) | Returns a dict with of non float tensor types as keys and values which correspond to a function to retrieve the list (which takes the node as an argument) |
+| [`get_qconv_prepack_op`](generated/torch.ao.quantization.fx.utils.get_qconv_prepack_op.html#torch.ao.quantization.fx.utils.get_qconv_prepack_op) | |
+| [`get_skipped_module_name_and_classes`](generated/torch.ao.quantization.fx.utils.get_skipped_module_name_and_classes.html#torch.ao.quantization.fx.utils.get_skipped_module_name_and_classes) | |
 | [`graph_module_from_producer_nodes`](generated/torch.ao.quantization.fx.utils.graph_module_from_producer_nodes.html#torch.ao.quantization.fx.utils.graph_module_from_producer_nodes) | Construct a graph module from extracted producer nodes from collect_producer_nodes function :param root: the root module for the original graph :param producer_nodes: a list of nodes we use to construct the graph |
 | [`maybe_get_next_module`](generated/torch.ao.quantization.fx.utils.maybe_get_next_module.html#torch.ao.quantization.fx.utils.maybe_get_next_module) | Gets the next module that matches what is needed in is_target_module_type if it exists |
 | [`node_arg_is_bias`](generated/torch.ao.quantization.fx.utils.node_arg_is_bias.html#torch.ao.quantization.fx.utils.node_arg_is_bias) | Returns if node arg is bias |
 | [`node_arg_is_weight`](generated/torch.ao.quantization.fx.utils.node_arg_is_weight.html#torch.ao.quantization.fx.utils.node_arg_is_weight) | Returns if node arg is weight |
+| [`NodeInfo`](generated/torch.ao.quantization.fx.utils.NodeInfo.html#torch.ao.quantization.fx.utils.NodeInfo) | |
 | [`return_arg_list`](generated/torch.ao.quantization.fx.utils.return_arg_list.html#torch.ao.quantization.fx.utils.return_arg_list) | Constructs a function that takes a node as arg and returns the arg_indices that are valid for node.args |
 
 ## torch (quantization related functions)
@@ -167,6 +266,7 @@ the values observed during calibration (PTQ) or training (QAT).
 | [`NoopObserver`](generated/torch.ao.quantization.observer.NoopObserver.html#torch.ao.quantization.observer.NoopObserver) | Observer that doesn't do anything and just passes its configuration to the quantized module's `.from_float()`. |
 | [`get_observer_state_dict`](generated/torch.ao.quantization.observer.get_observer_state_dict.html#torch.ao.quantization.observer.get_observer_state_dict) | Returns the state dict corresponding to the observer stats. |
 | [`load_observer_state_dict`](generated/torch.ao.quantization.observer.load_observer_state_dict.html#torch.ao.quantization.observer.load_observer_state_dict) | Given input model and a state_dict containing model observer stats, load the stats back into the model. |
+| [`default_affine_fixed_qparams_observer`](generated/torch.ao.quantization.observer.default_affine_fixed_qparams_observer.html#torch.ao.quantization.observer.default_affine_fixed_qparams_observer) | Default observers for fixed qparams operations. |
 | [`default_observer`](generated/torch.ao.quantization.observer.default_observer.html#torch.ao.quantization.observer.default_observer) | Default observer for static quantization, usually used for debugging. |
 | [`default_placeholder_observer`](generated/torch.ao.quantization.observer.default_placeholder_observer.html#torch.ao.quantization.observer.default_placeholder_observer) | Default placeholder observer, usually used for quantization to torch.float16. |
 | [`default_debug_observer`](generated/torch.ao.quantization.observer.default_debug_observer.html#torch.ao.quantization.observer.default_debug_observer) | Default debug-only observer. |
@@ -174,7 +274,13 @@ the values observed during calibration (PTQ) or training (QAT).
 | [`default_histogram_observer`](generated/torch.ao.quantization.observer.default_histogram_observer.html#torch.ao.quantization.observer.default_histogram_observer) | Default histogram observer, usually used for PTQ. |
 | [`default_per_channel_weight_observer`](generated/torch.ao.quantization.observer.default_per_channel_weight_observer.html#torch.ao.quantization.observer.default_per_channel_weight_observer) | Default per-channel weight observer, usually used on backends where per-channel weight quantization is supported, such as fbgemm. |
 | [`default_dynamic_quant_observer`](generated/torch.ao.quantization.observer.default_dynamic_quant_observer.html#torch.ao.quantization.observer.default_dynamic_quant_observer) | Default observer for dynamic quantization. |
+| [`default_fixed_qparams_range_0to1_observer`](generated/torch.ao.quantization.observer.default_fixed_qparams_range_0to1_observer.html#torch.ao.quantization.observer.default_fixed_qparams_range_0to1_observer) | |
+| [`default_fixed_qparams_range_neg1to1_observer`](generated/torch.ao.quantization.observer.default_fixed_qparams_range_neg1to1_observer.html#torch.ao.quantization.observer.default_fixed_qparams_range_neg1to1_observer) | |
 | [`default_float_qparams_observer`](generated/torch.ao.quantization.observer.default_float_qparams_observer.html#torch.ao.quantization.observer.default_float_qparams_observer) | Default observer for a floating point zero-point. |
+| [`default_float_qparams_observer_4bit`](generated/torch.ao.quantization.observer.default_float_qparams_observer_4bit.html#torch.ao.quantization.observer.default_float_qparams_observer_4bit) | Default observer for a floating point zero-point and 4 bit activations. |
+| [`default_symmetric_fixed_qparams_observer`](generated/torch.ao.quantization.observer.default_symmetric_fixed_qparams_observer.html#torch.ao.quantization.observer.default_symmetric_fixed_qparams_observer) | |
+| [`per_channel_weight_observer_range_neg_127_to_127`](generated/torch.ao.quantization.observer.per_channel_weight_observer_range_neg_127_to_127.html#torch.ao.quantization.observer.per_channel_weight_observer_range_neg_127_to_127) | Per-channel, symmetric weight observer with the 8-bit values restricted to [-127, +127], excluding -128. |
+| [`weight_observer_range_neg_127_to_127`](generated/torch.ao.quantization.observer.weight_observer_range_neg_127_to_127.html#torch.ao.quantization.observer.weight_observer_range_neg_127_to_127) | Symmetric weight observer with the 8-bit values restricted to [-127, +127], excluding -128. |
 | [`AffineQuantizedObserverBase`](generated/torch.ao.quantization.observer.AffineQuantizedObserverBase.html#torch.ao.quantization.observer.AffineQuantizedObserverBase) | Observer module for affine quantization ([pytorch/ao](https://github.com/pytorch/ao/tree/main/torchao/quantization#affine-quantization)) |
 | [`Granularity`](generated/torch.ao.quantization.observer.Granularity.html#torch.ao.quantization.observer.Granularity) | Base class for representing the granularity of quantization. |
 | [`MappingType`](generated/torch.ao.quantization.observer.MappingType.html#torch.ao.quantization.observer.MappingType) | How floating point number is mapped to integer number |
@@ -198,25 +304,66 @@ during QAT.
 | [`FakeQuantize`](generated/torch.ao.quantization.fake_quantize.FakeQuantize.html#torch.ao.quantization.fake_quantize.FakeQuantize) | Simulate the quantize and dequantize operations in training time. |
 | [`FixedQParamsFakeQuantize`](generated/torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize.html#torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize) | Simulate quantize and dequantize in training time. |
 | [`FusedMovingAvgObsFakeQuantize`](generated/torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize.html#torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize) | Define a fused module to observe the tensor. |
+| [`default_affine_fixed_qparams_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_affine_fixed_qparams_fake_quant.html#torch.ao.quantization.fake_quantize.default_affine_fixed_qparams_fake_quant) | |
+| [`default_dynamic_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_dynamic_fake_quant.html#torch.ao.quantization.fake_quantize.default_dynamic_fake_quant) | Default dynamic fake_quant for activations. |
+| [`default_embedding_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_embedding_fake_quant.html#torch.ao.quantization.fake_quantize.default_embedding_fake_quant) | Default fake_quant for embeddings. |
+| [`default_embedding_fake_quant_4bit`](generated/torch.ao.quantization.fake_quantize.default_embedding_fake_quant_4bit.html#torch.ao.quantization.fake_quantize.default_embedding_fake_quant_4bit) | |
 | [`default_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fake_quant.html#torch.ao.quantization.fake_quantize.default_fake_quant) | Default fake_quant for activations. |
-| [`default_weight_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_weight_fake_quant) | Default fake_quant for weights. |
-| [`default_per_channel_weight_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_per_channel_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_per_channel_weight_fake_quant) | Default fake_quant for per-channel weights. |
-| [`default_histogram_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_histogram_fake_quant.html#torch.ao.quantization.fake_quantize.default_histogram_fake_quant) | Fake_quant for activations using a histogram.. |
+| [`default_fixed_qparams_range_0to1_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fixed_qparams_range_0to1_fake_quant.html#torch.ao.quantization.fake_quantize.default_fixed_qparams_range_0to1_fake_quant) | |
+| [`default_fixed_qparams_range_neg1to1_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fixed_qparams_range_neg1to1_fake_quant.html#torch.ao.quantization.fake_quantize.default_fixed_qparams_range_neg1to1_fake_quant) | |
 | [`default_fused_act_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fused_act_fake_quant.html#torch.ao.quantization.fake_quantize.default_fused_act_fake_quant) | Fused version of default_fake_quant, with improved performance. |
-| [`default_fused_wt_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fused_wt_fake_quant.html#torch.ao.quantization.fake_quantize.default_fused_wt_fake_quant) | Fused version of default_weight_fake_quant, with improved performance. |
 | [`default_fused_per_channel_wt_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fused_per_channel_wt_fake_quant.html#torch.ao.quantization.fake_quantize.default_fused_per_channel_wt_fake_quant) | Fused version of default_per_channel_weight_fake_quant, with improved performance. |
+| [`default_fused_wt_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_fused_wt_fake_quant.html#torch.ao.quantization.fake_quantize.default_fused_wt_fake_quant) | Fused version of default_weight_fake_quant, with improved performance. |
+| [`default_histogram_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_histogram_fake_quant.html#torch.ao.quantization.fake_quantize.default_histogram_fake_quant) | Fake_quant for activations using a histogram.. |
+| [`default_per_channel_weight_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_per_channel_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_per_channel_weight_fake_quant) | Default fake_quant for per-channel weights. |
+| [`default_symmetric_fixed_qparams_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_symmetric_fixed_qparams_fake_quant.html#torch.ao.quantization.fake_quantize.default_symmetric_fixed_qparams_fake_quant) | |
+| [`default_weight_fake_quant`](generated/torch.ao.quantization.fake_quantize.default_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_weight_fake_quant) | Default fake_quant for weights. |
 | [`disable_fake_quant`](generated/torch.ao.quantization.fake_quantize.disable_fake_quant.html#torch.ao.quantization.fake_quantize.disable_fake_quant) | Disable fake quantization for the module. |
-| [`enable_fake_quant`](generated/torch.ao.quantization.fake_quantize.enable_fake_quant.html#torch.ao.quantization.fake_quantize.enable_fake_quant) | Enable fake quantization for the module. |
 | [`disable_observer`](generated/torch.ao.quantization.fake_quantize.disable_observer.html#torch.ao.quantization.fake_quantize.disable_observer) | Disable observation for this module. |
+| [`enable_fake_quant`](generated/torch.ao.quantization.fake_quantize.enable_fake_quant.html#torch.ao.quantization.fake_quantize.enable_fake_quant) | Enable fake quantization for the module. |
 | [`enable_observer`](generated/torch.ao.quantization.fake_quantize.enable_observer.html#torch.ao.quantization.fake_quantize.enable_observer) | Enable observation for this module. |
+| [`fused_per_channel_wt_fake_quant_range_neg_127_to_127`](generated/torch.ao.quantization.fake_quantize.fused_per_channel_wt_fake_quant_range_neg_127_to_127.html#torch.ao.quantization.fake_quantize.fused_per_channel_wt_fake_quant_range_neg_127_to_127) | Fused version of default_per_channel_weight_fake_quant, with the 8-bit values restricted to [-127, +127], excluding -128. |
+| [`fused_wt_fake_quant_range_neg_127_to_127`](generated/torch.ao.quantization.fake_quantize.fused_wt_fake_quant_range_neg_127_to_127.html#torch.ao.quantization.fake_quantize.fused_wt_fake_quant_range_neg_127_to_127) | Fused version of default_weight_fake_quant, with the 8-bit values restricted to [-127, +127], excluding -128. |
 
 ## torch.ao.quantization.qconfig
 
 This module defines `QConfig` objects which are used
 to configure quantization settings for individual ops.
 
+torch.ao.quantization.qconfig.get_default_qat_qconfig(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/qconfig.py#L374)
+
+Returns the default QAT qconfig for the specified backend.
+
+Parameters:
+
+- **backend** (***) - a string representing the target backend. Currently supports
+x86 (default), fbgemm, qnnpack and onednn.
+- **version** (***) - version, for backwards compatibility. Can be None or 1.
+
+Returns:
+
+qconfig
+
+torch.ao.quantization.qconfig.get_default_qconfig(*backend='x86'*, *version=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/qconfig.py#L259)
+
+Returns the default PTQ qconfig for the specified backend.
+
+Parameters:
+
+**backend** (***) - a string representing the target backend. Currently supports
+x86 (default), fbgemm, qnnpack and onednn.
+
+Returns:
+
+qconfig
+
+torch.ao.quantization.qconfig.qconfig_equals(*q1*, *q2*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/qconfig.py#L663)
+
+Returns True if q1 equals q2, and False otherwise.
+
 | [`QConfig`](generated/torch.ao.quantization.qconfig.QConfig.html#torch.ao.quantization.qconfig.QConfig) | Describes how to quantize a layer or a part of the network by providing settings (observer classes) for activations and weights respectively. |
 | --- | --- |
+| [`QConfigAny`](generated/torch.ao.quantization.qconfig.QConfigAny.html#torch.ao.quantization.qconfig.QConfigAny) | Create named, parameterized type aliases. |
 | [`default_qconfig`](generated/torch.ao.quantization.qconfig.default_qconfig.html#torch.ao.quantization.qconfig.default_qconfig) | Default qconfig configuration. |
 | [`default_debug_qconfig`](generated/torch.ao.quantization.qconfig.default_debug_qconfig.html#torch.ao.quantization.qconfig.default_debug_qconfig) | Default qconfig configuration for debugging. |
 | [`default_per_channel_qconfig`](generated/torch.ao.quantization.qconfig.default_per_channel_qconfig.html#torch.ao.quantization.qconfig.default_per_channel_qconfig) | Default qconfig configuration for per channel weight quantization. |
@@ -232,8 +379,22 @@ to configure quantization settings for individual ops.
 
 ## torch.ao.quantization.quantization_mappings
 
-| [`no_observer_set`](generated/torch.ao.quantization.quantization_mappings.no_observer_set.html#torch.ao.quantization.quantization_mappings.no_observer_set) | These modules cannot have observers inserted by default. |
+| [`get_default_compare_output_module_list`](generated/torch.ao.quantization.quantization_mappings.get_default_compare_output_module_list.html#torch.ao.quantization.quantization_mappings.get_default_compare_output_module_list) | Get list of module class types that we will record output in numeric suite |
 | --- | --- |
+| [`get_default_dynamic_quant_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_dynamic_quant_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_dynamic_quant_module_mappings) | Get module mapping for post training dynamic quantization |
+| [`get_default_dynamic_sparse_quant_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_dynamic_sparse_quant_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_dynamic_sparse_quant_module_mappings) | Get module mapping for post training dynamic sparse quantization |
+| [`get_default_float_to_quantized_operator_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings.html#torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings) | |
+| [`get_default_qat_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_qat_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_qat_module_mappings) | Get default module mapping for quantization aware training |
+| [`get_default_qconfig_propagation_list`](generated/torch.ao.quantization.quantization_mappings.get_default_qconfig_propagation_list.html#torch.ao.quantization.quantization_mappings.get_default_qconfig_propagation_list) | Get the default list of module types that we'll attach qconfig attribute to in prepare |
+| [`get_default_static_quant_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_static_quant_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_static_quant_module_mappings) | Get module mapping for post training static quantization |
+| [`get_default_static_quant_reference_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_static_quant_reference_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_static_quant_reference_module_mappings) | Get reference module mapping for post training static quantization |
+| [`get_default_static_sparse_quant_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_default_static_sparse_quant_module_mappings.html#torch.ao.quantization.quantization_mappings.get_default_static_sparse_quant_module_mappings) | Get module mapping for post training static sparse quantization |
+| [`get_dynamic_quant_module_class`](generated/torch.ao.quantization.quantization_mappings.get_dynamic_quant_module_class.html#torch.ao.quantization.quantization_mappings.get_dynamic_quant_module_class) | n Get the dynamically quantized module class corresponding to the floating point module class |
+| [`get_embedding_qat_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_embedding_qat_module_mappings.html#torch.ao.quantization.quantization_mappings.get_embedding_qat_module_mappings) | Get module mapping for quantization aware training This is includes default values in addition to enabling qat for embeddings. |
+| [`get_embedding_static_quant_module_mappings`](generated/torch.ao.quantization.quantization_mappings.get_embedding_static_quant_module_mappings.html#torch.ao.quantization.quantization_mappings.get_embedding_static_quant_module_mappings) | Get module mapping, including mapping for embedding QAT |
+| [`get_quantized_operator`](generated/torch.ao.quantization.quantization_mappings.get_quantized_operator.html#torch.ao.quantization.quantization_mappings.get_quantized_operator) | Get the quantized operator corresponding to the float operator |
+| [`get_static_quant_module_class`](generated/torch.ao.quantization.quantization_mappings.get_static_quant_module_class.html#torch.ao.quantization.quantization_mappings.get_static_quant_module_class) | n Get the statically quantized module class corresponding to the floating point module class |
+| [`no_observer_set`](generated/torch.ao.quantization.quantization_mappings.no_observer_set.html#torch.ao.quantization.quantization_mappings.no_observer_set) | These modules cannot have observers inserted by default. |
 
 ## torch.ao.nn.intrinsic
 
@@ -492,7 +653,7 @@ If you are adding a new entry/functionality, please, add it to the
 appropriate file under the torch/ao/nn/quantized/dynamic,
 while adding an import statement here.
 
-torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/quantization/__init__.py#L14)
+torch.quantization.default_eval_fn(*model*, *calib_data*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/quantization/__init__.py#L14)
 
 Default evaluation function takes a torch.utils.data.Dataset or a list of
 input Tensors and run the model on the dataset

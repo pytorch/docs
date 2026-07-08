@@ -1,6 +1,6 @@
 # torch.autograd.function.once_differentiable
 
-torch.autograd.function.once_differentiable(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/autograd/function.py#L617)
+torch.autograd.function.once_differentiable(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/function.py#L646)
 
 Return type:
 

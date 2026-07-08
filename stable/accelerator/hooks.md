@@ -126,48 +126,50 @@ This function unpacks the device index from Python, creates a `PrivateUse1` devi
 PyTorch's `Context` class dispatches to the appropriate accelerator hooks ([`aten/src/ATen/Context.h`](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/Context.h#L61-L102)):
 
 ```
-1 const Generator& defaultGenerator(Device device) {
- 2 c10::DeviceType device_type = device.type();
- 3 lazyInitDevice(device_type);
+1TORCH_API std::string precision2str(Float32Precision prec);
+ 2TORCH_API CuDNNDepthwiseKernel str2cudnn_depthwise(const std::string& name);
+ 3TORCH_API std::string cudnn_depthwise2str(CuDNNDepthwiseKernel k);
  4
- 5 if (device_type == at::kCPU) {
- 6 return at::detail::getDefaultCPUGenerator();
- 7 } else {
- 8 return getAcceleratorHooksInterface(device_type)
- 9 .getDefaultGenerator(device.index());
-10 }
-11 }
+ 5class TORCH_API Context {
+ 6 public:
+ 7 Context();
+ 8
+ 9 const Generator& defaultGenerator(Device device) {
+10 c10::DeviceType device_type = device.type();
+11 lazyInitDevice(device_type);
 12
-13 const AcceleratorHooksInterface& getAcceleratorHooksInterface(
-14 std::optional<c10::DeviceType> opt_device_type = std::nullopt) {
-15 if (!opt_device_type.has_value()) {
-16 opt_device_type = at::getAccelerator(true);
-17 }
-18 if (opt_device_type == at::kCUDA) {
-19 return at::detail::getCUDAHooks();
-20 } else if (opt_device_type == at::kXPU) {
-21 return at::detail::getXPUHooks();
-22 } else if (opt_device_type == at::kMPS) {
-23 return at::detail::getMPSHooks();
-24 } else if (opt_device_type == at::kPrivateUse1) {
-25 return at::detail::getPrivateUse1Hooks();
-26 } else if (opt_device_type == at::kMTIA) {
-27 return at::detail::getMTIAHooks();
-28 } else if (opt_device_type == at::kHIP) {
-29 return at::detail::getHIPHooks();
-30 } else if (opt_device_type == at::kHPU) {
-31 return at::detail::getHPUHooks();
-32 } else if (opt_device_type == at::kXLA) {
-33 return at::detail::getXLAHooks();
-34 } else {
-35 TORCH_CHECK(
-36 false,
-37 opt_device_type.has_value()
-38 ? c10::DeviceTypeName(opt_device_type.value())
-39 : "None",
-40 " device type not an accelerator.");
-41 }
-42 }
+13 if (device_type == at::kCPU) {
+14 return at::detail::getDefaultCPUGenerator();
+15 } else {
+16 return getAcceleratorHooksInterface(device_type)
+17 .getDefaultGenerator(device.index());
+18 }
+19 }
+20
+21 const AcceleratorHooksInterface& getAcceleratorHooksInterface(
+22 std::optional<c10::DeviceType> opt_device_type = std::nullopt) {
+23 if (!opt_device_type.has_value()) {
+24 opt_device_type = at::getAccelerator(true);
+25 }
+26 if (opt_device_type == at::kCUDA) {
+27 return at::detail::getCUDAHooks();
+28 } else if (opt_device_type == at::kXPU) {
+29 return at::detail::getXPUHooks();
+30 } else if (opt_device_type == at::kMPS) {
+31 return at::detail::getMPSHooks();
+32 } else if (opt_device_type == at::kPrivateUse1) {
+33 return at::detail::getPrivateUse1Hooks();
+34 } else if (opt_device_type == at::kMTIA) {
+35 return at::detail::getMTIAHooks();
+36 } else if (opt_device_type == at::kHIP) {
+37 return at::detail::getHIPHooks();
+38 } else if (opt_device_type == at::kHPU) {
+39 return at::detail::getHPUHooks();
+40 } else if (opt_device_type == at::kXLA) {
+41 return at::detail::getXLAHooks();
+42 } else {
+43 TORCH_CHECK(
+44 false,
 ```
 
 This layered architecture keeps PyTorch device‑agnostic while delegating hardware‑specific operations to accelerator implementations. Hooks are registered once at module load time:

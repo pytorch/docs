@@ -63,7 +63,7 @@ if __name__=="__main__":
 
 DDP works with TorchDynamo. When used with TorchDynamo, apply the DDP model wrapper
 before compiling the model, such that torchdynamo can apply `DDPOptimizer`
-(graph-break optimizations) based on DDP bucket sizes. (See [TorchDynamo DDPOptimizer](./ddp.html#torchdynamo-ddpoptimizer) for more information.)
+(graph-break optimizations) based on DDP bucket sizes. (See TorchDynamo DDPOptimizer for more information.)
 
 ```
 ddp_model = DDP(model, device_ids=[rank])
@@ -86,7 +86,7 @@ exact same state. Then, each DDP process creates a local `Reducer`, which
 later will take care of the gradients synchronization during the backward
 pass. To improve communication efficiency, the `Reducer` organizes parameter
 gradients into buckets, and reduces one bucket at a time. Bucket size can be
-configured by setting the bucket_cap_mb argument in DDP constructor. The
+configured by setting the `bucket_cap_mb` argument in DDP constructor. The
 mapping from parameter gradients to buckets is determined at the construction
 time, based on the bucket size limit and parameter sizes. Model parameters are
 allocated into buckets in (roughly) the reverse order of
@@ -122,7 +122,7 @@ ready for reduction. When gradients in one bucket are all ready, the
 calculate mean of gradients across all processes. When all buckets are ready,
 the `Reducer` will block waiting for all `allreduce` operations to finish.
 When this is done, averaged gradients are written to the `param.grad` field
-of all parameters. So after the backward pass, the grad field on the same
+of all parameters. So after the backward pass, the `grad` field on the same
 corresponding parameter across different DDP processes should be the same.
 - **Optimizer Step**: From the optimizer's perspective, it is optimizing a local
 model. Model replicas on all DDP processes can keep in sync because they all
@@ -149,7 +149,7 @@ the structure of the code.
 - [ProcessGroup.hpp](https://github.com/pytorch/pytorch/blob/v1.7.0/torch/lib/c10d/ProcessGroup.hpp):
 contains the abstract API of all process group implementations. The `c10d`
 library provides 3 implementations out of the box, namely,
-ProcessGroupGloo, ProcessGroupNCCL, and ProcessGroupMPI.
+`ProcessGroupGloo`, `ProcessGroupNCCL`, and `ProcessGroupMPI`.
 `DistributedDataParallel` uses `ProcessGroup::broadcast()` to send
 model states from the process with rank 0 to others during initialization
 and `ProcessGroup::allreduce()` to sum gradients.
@@ -189,7 +189,7 @@ constructor.
 
 DDP's performance advantage comes from overlapping allreduce collectives with computations during backwards.
 AotAutograd prevents this overlap when used with TorchDynamo for compiling a whole forward and whole backward graph,
-because allreduce ops are launched by autograd hooks _after_ the whole optimized backwards computation finishes.
+because allreduce ops are launched by autograd hooks *after* the whole optimized backwards computation finishes.
 
 TorchDynamo's DDPOptimizer helps by breaking the forward graph at the logical boundaries of DDP's allreduce buckets
 during backwards. Note: the goal is to break the graph during backwards, and the simplest implementation is to
@@ -200,6 +200,6 @@ See [this blog post](https://dev-discuss.pytorch.org/t/torchdynamo-update-9-maki
 a more in-depth explanation and experimental results, or read the docs and code at
 [torch/_dynamo/optimizations/distributed.py](https://github.com/pytorch/pytorch/blob/bbc39b7bb48d28d67e3253a89cc82df3687ddd1b/torch/_dynamo/backends/distributed.py#L124)
 
-To Debug DDPOptimizer, set TORCH_LOGS='ddp_graphs' for full graph dumps. For logs without graphs, add any of 'dynamo', 'distributed', or 'dist_ddp' to TORCH_LOGS
-(for basic info about bucket boundaries). To disable DDPOptimizer, set torch._dynamo.config.optimize_ddp=False.
+To Debug DDPOptimizer, set `TORCH_LOGS='ddp_graphs'` for full graph dumps. For logs without graphs, add any of 'dynamo', 'distributed', or 'dist_ddp' to `TORCH_LOGS`
+(for basic info about bucket boundaries). To disable DDPOptimizer, set `torch._dynamo.config.optimize_ddp=False`.
 DDP and TorchDynamo should still work correctly without DDPOptimizer, but with performance degradation.

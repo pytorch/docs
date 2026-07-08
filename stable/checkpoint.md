@@ -31,7 +31,7 @@ Tensors to a new device ("new" meaning not belonging to the set of
 [current device + devices of Tensor arguments]) within `run_fn`, deterministic
 output compared to non-checkpointed passes is never guaranteed.
 
-torch.utils.checkpoint.checkpoint(*function*, **args*, *use_reentrant=None*, *context_fn=<function noop_context_fn>*, *determinism_check='default'*, *debug=False*, *early_stop=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L354)
+torch.utils.checkpoint.checkpoint(*function*, **args*, *use_reentrant=None*, *context_fn=<function noop_context_fn>*, *determinism_check='default'*, *debug=False*, *early_stop=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L354)
 
 Checkpoint a model or part of the model.
 
@@ -151,7 +151,7 @@ Returns:
 
 Output of running `function` on `*args`
 
-torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L526)
+torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L542)
 
 Checkpoint a sequential model to save memory.
 
@@ -200,7 +200,7 @@ Example
 >>> input_var = checkpoint_sequential(model, chunks, input_var)
 ```
 
-torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L49)
+torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L49)
 
 Context manager that sets whether checkpoint should print additional debug
 information when running. See the `debug` flag for
@@ -213,7 +213,7 @@ Parameters:
 **enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether checkpoint should print debug information.
 Default is 'None'.
 
-*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L1274)
+*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L1290)
 
 Enum for specifying the policy for checkpointing during backpropagation.
 
@@ -239,20 +239,23 @@ NOT equivalent to not using checkpointing. Using such a policy would
 save additional tensors not limited to ones that are actually needed for
 gradient computation.
 
-*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L1247)
+*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L1260)
 
 Context passed to policy function during selective checkpointing.
 
 This class is used to pass relevant metadata to the policy function during
-selective checkpointing. The metadata includes whether the current invocation
-of the policy function is during recomputation or not.
+selective checkpointing.
+
+The policy function is only called during the forward pass. During
+recomputation, cached values are retrieved by index, so `is_recompute`
+is deprecated and always `False`.
 
 Example
 
 ```
 >>>
 >>> def policy_fn(ctx, op, *args, **kwargs):
->>> print(ctx.is_recompute)
+>>> print(ctx.op_output)
 >>>
 >>> context_fn = functools.partial(create_selective_checkpoint_contexts, policy_fn)
 >>>
@@ -263,7 +266,7 @@ Example
 >>> )
 ```
 
-torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/utils/checkpoint.py#L1416)
+torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L1470)
 
 Helper to avoid recomputing certain ops during activation checkpointing.
 
@@ -323,3 +326,54 @@ Example
 >>> context_fn=context_fn,
 >>> )
 ```
+
+*class*torch.utils.checkpoint.GraphExecGroup[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L1732)
+
+Any checkpointed regions encountered by backward under the same instance
+of this context manager will trigger recompute at most once, even if
+there are multiple calls to backward.
+
+Backward calls under the same instance of this context manager must execute
+over non-overlapping regions of the backward graph even if retain_graph=True.
+In particular, any two backward call cannot use the same saved activation for
+gradient computation.
+
+Note
+
+This context manager only affects checkpoint with use_reentrant=False, and
+is a no-op otherwise.
+
+torch.utils.checkpoint.set_checkpoint_early_stop(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L776)
+
+Controls whether checkpoint should stop recomputation early.
+
+By default, non-reentrant checkpoint stops recomputation as soon as it
+has computed all needed Tensors. This context manager can be used to disable
+that feature if it is problematic for your specific application.
+
+This context manager only needs to be active when forward is run. It does
+not need to be active during backward.
+
+Example:
+
+```
+>>> message = "saved tensors default hooks are disabled"
+>>> with set_checkpoint_early_stop(False):
+... # Any checkpoint under this context manager will respect this
+... # context manager, even if its backward is performed outside.
+... out = checkpoint(fn, inputs)
+...
+>>> out.backward()
+```
+
+torch.utils.checkpoint.set_device_states(*devices*, *states*, ***, *device_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py#L195)
+
+Sets random number generator states for the specified devices.
+
+Parameters:
+
+- **devices** - Device ids to set states for.
+- **states** - States to set.
+- **device_type** - `device_type` of the devices to set states for. Default
+is the device returned by a call to `DefaultDeviceType.get_device_type()`,
+which is `cuda` if not changed by calling `DefaultDeviceType::set_device_type()`.

@@ -1,6 +1,6 @@
 # torch.mtia.snapshot
 
-torch.mtia.snapshot()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/mtia/__init__.py#L224)
+torch.mtia.snapshot()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/mtia/__init__.py#L224)
 
 Return a dictionary of MTIA memory allocator history
 

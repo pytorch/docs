@@ -3,10 +3,10 @@
 If your train script works with `torch.distributed.launch` it will continue
 working with `torchrun` with these differences:
 
-1. No need to manually pass `RANK`, `WORLD_SIZE`,
-`MASTER_ADDR`, and `MASTER_PORT`.
+1. No need to manually pass `RANK`, `WORLD_SIZE`, `MASTER_ADDR`, and
+`MASTER_PORT`.
 2. `rdzv_backend` and `rdzv_endpoint` can be provided. For most users
-this will be set to `c10d` (see [rendezvous](rendezvous.html)). The default
+this will be set to `c10d` (see [Rendezvous](rendezvous.html)). The default
 `rdzv_backend` creates a non-elastic rendezvous where `rdzv_endpoint` holds
 the master address.
 3. Make sure you have a `load_checkpoint(path)` and

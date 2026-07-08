@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/__init__.py#L1387)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1388)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -47,6 +47,7 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.index_copy()`](torch.Tensor.index_copy.html#torch.Tensor.index_copy) when called on a CPU or CUDA tensor
 > - [`torch.Tensor.scatter()`](torch.Tensor.scatter.html#torch.Tensor.scatter) when src type is Tensor and called on CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='sum'` or `reduce='mean'` and called on CUDA tensor
+> - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
 [`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when `mode=True`:
@@ -54,7 +55,6 @@ The following normally-nondeterministic operations will throw a
 > - [`torch.nn.AvgPool3d`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.AdaptiveAvgPool2d`](torch.nn.AdaptiveAvgPool2d.html#torch.nn.AdaptiveAvgPool2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.AdaptiveAvgPool3d`](torch.nn.AdaptiveAvgPool3d.html#torch.nn.AdaptiveAvgPool3d) when attempting to differentiate a CUDA tensor
-> - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.AdaptiveMaxPool2d`](torch.nn.AdaptiveMaxPool2d.html#torch.nn.AdaptiveMaxPool2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.FractionalMaxPool2d`](torch.nn.FractionalMaxPool2d.html#torch.nn.FractionalMaxPool2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.FractionalMaxPool3d`](torch.nn.FractionalMaxPool3d.html#torch.nn.FractionalMaxPool3d) when attempting to differentiate a CUDA tensor
@@ -112,7 +112,7 @@ that affect numerics. This includes:
 > will use some heuristics to pick the most promising configs rather
 > than do autotuning.
 > - Skip autotuning for reduction in coordinate descent tuning.
-> - Don't benchmarking for the computation/communication reordering pass
+> - Don't benchmark for the computation/communication reordering pass
 > - Disable the feature that dynamically scale down RBLOCK triton config for higher
 > occupancy.
 

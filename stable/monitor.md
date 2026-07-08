@@ -83,11 +83,11 @@ comparable across windows when the number of samples might vary.
 When the Stat is destructed it will log any remaining data even if the
 window hasn't elapsed.
 
-__init__(*self: torch._C._monitor.Stat*, *name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *aggregations: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[torch._C._monitor.Aggregation]*, *window_size: [datetime.timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta)*, *max_samples: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) = 9223372036854775807*) → [None](https://docs.python.org/3/library/constants.html#None)
+__init__(*self: torch._C._monitor.Stat*, *name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *aggregations: [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[torch._C._monitor.Aggregation]*, *window_size: [datetime.timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta)*, *max_samples: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = 9223372036854775807*) → [None](https://docs.python.org/3/library/constants.html#None)
 
 Constructs the `Stat`.
 
-add(*self: torch._C._monitor.Stat*, *v: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat)*) → [None](https://docs.python.org/3/library/constants.html#None)
+add(*self: torch._C._monitor.Stat*, *v: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex)*) → [None](https://docs.python.org/3/library/constants.html#None)
 
 Adds a value to the stat to be aggregated according to the
 configured stat type and aggregations.
@@ -164,7 +164,7 @@ unregister_event_handler unregisters the `EventHandlerHandle` returned
 after calling `register_event_handler`. After this returns the event
 handler will no longer receive events.
 
-*class*torch.monitor.TensorboardEventHandler(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/monitor/__init__.py#L13)
+*class*torch.monitor.TensorboardEventHandler(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/monitor/__init__.py#L13)
 
 TensorboardEventHandler is an event handler that will write known events to
 the provided SummaryWriter.
@@ -181,6 +181,6 @@ Example
 >>> register_event_handler(TensorboardEventHandler(writer))
 ```
 
-__init__(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/monitor/__init__.py#L30)
+__init__(*writer*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/monitor/__init__.py#L30)
 
 Constructs the `TensorboardEventHandler`.

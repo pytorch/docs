@@ -9,9 +9,9 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Maintain public user and development documentation
 - Run meetings and share minutes plus roadmap on a half or quarterly basis
 
-## Lead Core Maintainer (BDFL)
+## Lead Core Maintainer
 
-- Soumith Chintala ([soumith](https://github.com/soumith))
+- Alban Desmaison ([albanD](https://github.com/albanD))
 
 ## Core Maintainers
 
@@ -19,7 +19,6 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Edward Yang ([ezyang](https://github.com/ezyang))
 - Greg Chanan ([gchanan](https://github.com/gchanan))
 - Nikita Shulga ([malfet](https://github.com/malfet))
-- Alban Desmaison ([albanD](https://github.com/albanD))
 - Piotr Bialecki ([ptrblck](https://github.com/ptrblck))
 - Natalia Gimelshein ([ngimel](https://github.com/ngimel))
 - Horace He ([Chillee](https://github.com/Chillee))
@@ -93,7 +92,7 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 ### AOT Inductor (AOTI) & AOTI Runtime
 
 - Bin Bao ([desertfire](https://github.com/desertfire))
-- Shangdi Yu ([shangdiy](https://github.com/shangdiy))
+- Shangdi Yu ([yushangdi](https://github.com/yushangdi))
 - (emeritus) Angela Yi ([angelayi](https://github.com/angelayi))
 - (emeritus) Yang Chen ([chenyang78](https://github.com/chenyang78))
 
@@ -108,13 +107,14 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 
 - Will Constable ([wconstab](https://github.com/wconstab))
 - Howard Huang ([H-Huang](https://github.com/H-Huang))
-- (emeritus) Wanchao Liang ([wanchaol](https://github.com/wanchaol))
-- (emeritus) Ke Wen ([kwen2501](https://github.com/kwen2501))
+- Ke Wen ([kwen2501](https://github.com/kwen2501))
 - Chien-Chin Huang ([fegin](https://github.com/fegin))
 - Tristan Rice ([d4l3k](https://github.com/d4l3k))
 - Junjie Wang ([fduwjj](https://github.com/fduwjj))
 - Wei Feng ([weifengpy](https://github.com/weifengpy))
 - Pei Zhang ([zpcore](https://github.com/zpcore))
+- Kapil Sharma ([kapilsh](https://github.com/kapilsh))
+- (emeritus) Wanchao Liang ([wanchaol](https://github.com/wanchaol))
 - (emeritus) Shen Li ([mrshenli](https://github.com/mrshenli))
 - (emeritus) Pritam Damania ([pritamdamania87](https://github.com/pritamdamania87))
 - (emeritus) Yanli Zhao ([zhaojuanmao](https://github.com/zhaojuanmao))
@@ -388,7 +388,7 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Mark Saroufim ([msaroufIm](https://github.com/msaroufIm))
 - Manoj Rao ([mycpuorg](https://github.com/mycpuorg))
 - Vamshi Dantu ([vdantu](https://github.com/vdantu))
-- Dhanasekar Karuppasamy ([dhanainme](https://github.com/dhanainme))
+- Dhanasekar Karuppasamy
 
 ### Other Compilers (JIT / TorchScript / Package / Deploy)
 

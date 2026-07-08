@@ -1,8 +1,8 @@
 # torch.accelerator.is_available
 
-torch.accelerator.is_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.12.0/torch/accelerator/__init__.py#L73)
+torch.accelerator.is_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/accelerator/__init__.py#L73)
 
-Check if the current accelerator is available at runtime: it was build, all the
+Check if the current accelerator is available at runtime: it was built, all the
 required drivers are available and at least one device is visible.
 See [accelerator](../torch.html#accelerators) for details.
 
