@@ -71,7 +71,7 @@ also be interested in reading our [development wiki](https://github.com/pytorch/
 
 ### Functions
 
-torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/__init__.py#L65)
+torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/onnx/__init__.py#L65)
 
 Exports a model into ONNX format.
 
@@ -102,6 +102,9 @@ to a file instead.
 - **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Whether to enable verbose logging.
 - **input_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the input nodes of the graph, in order.
 - **output_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the output nodes of the graph, in order.
+These are labels only and do not affect the order of outputs. If the model
+returns a dictionary, outputs are flattened in the dictionary's iteration
+order regardless of the names specified here.
 - **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The version of the
 [default (ai.onnx) opset](https://github.com/onnx/onnx/blob/master/docs/Operators.md)
 to target. You should set `opset_version` according to the supported opset versions
@@ -271,7 +274,7 @@ Changed in version 2.9: `dynamo` is now True by default.
 
 Changed in version 2.11: `fallback` option has been removed.
 
-torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/__init__.py#L356)
+torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/onnx/__init__.py#L359)
 
 Returns whether it is in the middle of ONNX export.
 
@@ -298,7 +301,7 @@ Errors raised by the ONNX exporter. This is the base class for all exporter erro
 
 Deprecated since version 2.6: These functions are deprecated and will be removed in a future version.
 
-torch.onnx.register_custom_op_symbolic(*symbolic_name*, *symbolic_fn*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/_internal/torchscript_exporter/utils.py#L1839)
+torch.onnx.register_custom_op_symbolic(*symbolic_name*, *symbolic_fn*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/onnx/_internal/torchscript_exporter/utils.py#L1842)
 
 Registers a symbolic function for a custom operator.
 
@@ -318,7 +321,7 @@ the input arguments to the current operator, and returns new
 operator nodes to add to the graph.
 - **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The ONNX opset version in which to register.
 
-torch.onnx.unregister_custom_op_symbolic(*symbolic_name*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/_internal/torchscript_exporter/utils.py#L1869)
+torch.onnx.unregister_custom_op_symbolic(*symbolic_name*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/onnx/_internal/torchscript_exporter/utils.py#L1872)
 
 Unregisters `symbolic_name`.
 
@@ -330,7 +333,7 @@ Parameters:
 format.
 - **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The ONNX opset version in which to unregister.
 
-torch.onnx.select_model_mode_for_export(*model*, *mode*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/onnx/_internal/torchscript_exporter/utils.py#L91)
+torch.onnx.select_model_mode_for_export(*model*, *mode*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/onnx/_internal/torchscript_exporter/utils.py#L91)
 
 A context manager to temporarily set the training mode of `model`
 to `mode`, resetting it when we exit the with-block.

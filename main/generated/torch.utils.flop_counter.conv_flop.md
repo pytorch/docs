@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.conv_flop
 
-torch.utils.flop_counter.conv_flop(*x_shape*, *w_shape*, *_bias*, *_stride*, *_padding*, *_dilation*, *transposed*, **args*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/502e93eb52e0fcf07a908796ccd61af06c4b58b9/torch/utils/flop_counter.py#L169)
+torch.utils.flop_counter.conv_flop(*x_shape*, *w_shape*, *_bias*, *_stride*, *_padding*, *_dilation*, *transposed*, **args*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/utils/flop_counter.py#L169)
 
 Count flops for convolution.
 

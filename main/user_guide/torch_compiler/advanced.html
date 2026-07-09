@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git502e93e )">
+<meta name="llm:version" content="main (2.14.0a0+git7a37a01 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git502e93e )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git7a37a01 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3339,7 +3339,7 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Pytorch Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">PyTorch Overview</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://pytorch.org/get-started/locally/">Get Started</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a></li>
 </ul>
@@ -3387,6 +3387,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_complex_number_support.html">Complex Number Support in <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="troubleshooting_faqs.html">Troubleshooting FAQs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3452,8 +3453,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3657,7 +3658,7 @@ document.write(`
                   
   <section id="advanced">
 <h1>Advanced<a class="headerlink" href="#advanced" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 03, 2025 | Last Updated On: Apr 14, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 03, 2025 | Last Updated On: Jul 08, 2026</p>
 <p>Deep dive into compiler internals, custom backends, transformations, and advanced features.</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -3667,6 +3668,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_custom_backends.html">Custom Backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_aot_compile.html">Ahead-of-Time Compilation with torch.compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.compiler_complex_number_support.html">Complex Number Support in <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 </ul>
 </div>
 </section>
@@ -4029,7 +4031,7 @@ document.write(`
        "headline": "Advanced",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/advanced.html",
-       "articleBody": "Advanced# Created On: Dec 03, 2025 | Last Updated On: Apr 14, 2026 Deep dive into compiler internals, custom backends, transformations, and advanced features. Dynamo Deep-Dive Writing Graph Transformations on ATen IR Fake tensor Custom Backends Dynamic Shapes Ahead-of-Time Compilation with torch.compile",
+       "articleBody": "Advanced# Created On: Dec 03, 2025 | Last Updated On: Jul 08, 2026 Deep dive into compiler internals, custom backends, transformations, and advanced features. Dynamo Deep-Dive Writing Graph Transformations on ATen IR Fake tensor Custom Backends Dynamic Shapes Ahead-of-Time Compilation with torch.compile Complex Number Support in torch.compile",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4041,7 +4043,7 @@ document.write(`
          "@id": "/user_guide/torch_compiler/advanced.html"
        },
        "datePublished": "Dec 03, 2025T00:00:00Z",
-       "dateModified": "Apr 14, 2026T00:00:00Z"
+       "dateModified": "Jul 08, 2026T00:00:00Z"
      }
  </script>
   <script>
