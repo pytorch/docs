@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git7a37a01 )">
+<meta name="llm:version" content="main (2.14.0a0+git01d9abd )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git7a37a01 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git01d9abd )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4341,11 +4341,11 @@ to the left of the decimal point.</p></li>
 <span class="go">tensor([ 5.,  -2.,  9., -8.])</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Values equidistant from two integers are rounded towards the</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1">#   the nearest even value (zero is treated as even)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#   nearest even value (zero is treated as even)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]))</span>
 <span class="go">tensor([-0., 0., 2., 2.])</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># A positive decimals argument rounds to the to that decimal place</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># A positive decimals argument rounds to that decimal place</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.1234567</span><span class="p">]),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">tensor([0.1230])</span>
 
@@ -4712,7 +4712,7 @@ to the left of the decimal point.</p></li>
        "headline": "torch.round",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.round.html",
-       "articleBody": "torch.round# torch.round(input, *, decimals=0, out=None) \u2192 Tensor# Rounds elements of input to the nearest integer. For integer inputs, follows the array-api convention of returning a copy of the input tensor. The return type of output is same as that of input\u2019s dtype. Note This function implements the \u201cround half to even\u201d to break ties when a number is equidistant from two integers (e.g. round(2.5) is 2). When the :attr:`decimals` argument is specified the algorithm used is similar to NumPy\u2019s around. This algorithm is fast but inexact and it can easily overflow for low precision dtypes. Eg. round(tensor([10000], dtype=torch.float16), decimals=3) is inf. See also torch.ceil(), which rounds up. torch.floor(), which rounds down. torch.trunc(), which rounds towards zero. Parameters: input (Tensor) \u2013 the input tensor. decimals (int) \u2013 Number of decimal places to round to (default: 0). If decimals is negative, it specifies the number of positions to the left of the decimal point. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e torch.round(torch.tensor((4.7, -2.3, 9.1, -7.7))) tensor([ 5., -2., 9., -8.]) \u003e\u003e\u003e # Values equidistant from two integers are rounded towards the \u003e\u003e\u003e # the nearest even value (zero is treated as even) \u003e\u003e\u003e torch.round(torch.tensor([-0.5, 0.5, 1.5, 2.5])) tensor([-0., 0., 2., 2.]) \u003e\u003e\u003e # A positive decimals argument rounds to the to that decimal place \u003e\u003e\u003e torch.round(torch.tensor([0.1234567]), decimals=3) tensor([0.1230]) \u003e\u003e\u003e # A negative decimals argument rounds to the left of the decimal \u003e\u003e\u003e torch.round(torch.tensor([1200.1234567]), decimals=-3) tensor([1000.])",
+       "articleBody": "torch.round# torch.round(input, *, decimals=0, out=None) \u2192 Tensor# Rounds elements of input to the nearest integer. For integer inputs, follows the array-api convention of returning a copy of the input tensor. The return type of output is same as that of input\u2019s dtype. Note This function implements the \u201cround half to even\u201d to break ties when a number is equidistant from two integers (e.g. round(2.5) is 2). When the :attr:`decimals` argument is specified the algorithm used is similar to NumPy\u2019s around. This algorithm is fast but inexact and it can easily overflow for low precision dtypes. Eg. round(tensor([10000], dtype=torch.float16), decimals=3) is inf. See also torch.ceil(), which rounds up. torch.floor(), which rounds down. torch.trunc(), which rounds towards zero. Parameters: input (Tensor) \u2013 the input tensor. decimals (int) \u2013 Number of decimal places to round to (default: 0). If decimals is negative, it specifies the number of positions to the left of the decimal point. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e torch.round(torch.tensor((4.7, -2.3, 9.1, -7.7))) tensor([ 5., -2., 9., -8.]) \u003e\u003e\u003e # Values equidistant from two integers are rounded towards the \u003e\u003e\u003e # nearest even value (zero is treated as even) \u003e\u003e\u003e torch.round(torch.tensor([-0.5, 0.5, 1.5, 2.5])) tensor([-0., 0., 2., 2.]) \u003e\u003e\u003e # A positive decimals argument rounds to that decimal place \u003e\u003e\u003e torch.round(torch.tensor([0.1234567]), decimals=3) tensor([0.1230]) \u003e\u003e\u003e # A negative decimals argument rounds to the left of the decimal \u003e\u003e\u003e torch.round(torch.tensor([1200.1234567]), decimals=-3) tensor([1000.])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

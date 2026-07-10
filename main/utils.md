@@ -13,7 +13,7 @@
 
 # torch.utils.hooks
 
-torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/utils/hooks.py#L72)
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/utils/hooks.py#L72)
 
 Mark a function as an unserializable hook with this decorator.
 
@@ -22,7 +22,7 @@ to serialize a tensor that has a hook.
 
 # torch.utils.throughput_benchmark
 
-torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/utils/throughput_benchmark.py#L6)
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/utils/throughput_benchmark.py#L6)
 
 Define time formatting.
 
@@ -44,8 +44,90 @@ Return type:
 
 # torch.utils.flop_counter
 
-| [`baddbmm_flop`](generated/torch.utils.flop_counter.baddbmm_flop.html#torch.utils.flop_counter.baddbmm_flop) | Count flops for the baddbmm operation. |
+Utilities for counting theoretical floating point operations.
+
+`FlopCounterMode` is a context manager that intercepts PyTorch operators and
+adds up their registered FLOP formulas. The result is a shape-based,
+theoretical FLOP count for the operators that ran inside the context, not a
+hardware performance measurement.
+
+The counter is useful when comparing model graphs, activation checkpointing
+plans, or shape changes with a stable FLOP accounting rule. It should not be
+read as kernel instructions, wall-clock time, memory bandwidth, achieved
+FLOP/s, Tensor Core utilization, or the exact work done by a fused kernel.
+
+## Counting semantics
+
+- Counts are produced by formulas in `flop_registry`. Operators without a
+formula may be decomposed into registered operators; otherwise they add zero
+FLOPs.
+- Formula inputs have tensor arguments replaced by their shapes by default.
+Non-tensor arguments pass through unchanged. Use
+`register_flop_formula(..., get_raw=True)` only when the formula needs the
+original tensor arguments or metadata.
+- Forward and backward operations are counted only if they execute while the
+context manager is active.
+- The default formulas use dense, naive mathematical definitions. For example,
+matrix multiplication counts `2 * m * n * k` FLOPs.
+- Counts do not automatically adjust for dtype-specific throughput, Tensor
+Cores, sparsity, quantization, masking, skipped elements, memory movement, or
+data-dependent early exits. A formula must explicitly model those semantics.
+For example, the built-in attention formulas are upper bounds for causal or
+otherwise masked attention unless the formula explicitly models the mask.
+- Higher-order operators and `torch.compile` may expose decomposed or fused
+work differently from eager execution. Custom operators and custom Triton
+kernels need a formula or a decomposition if they should contribute FLOPs.
+- Module attribution is tracked through `ModuleTracker`. Totals are always
+available under `"Global"`; submodule rows are best-effort attribution for
+module calls observed during the context.
+- The workload still executes normally. Use this mode for a few representative
+iterations rather than long training runs if overhead or memory use matters.
+
+Example
+
+```
+import torch
+from torch.utils.flop_counter import FlopCounterMode
+
+model = torch.nn.Linear(16, 32)
+x = torch.randn(4, 16)
+
+with FlopCounterMode(display=False) as mode:
+ model(x).sum().backward()
+
+print(mode.get_total_flops())
+print(mode.get_flop_counts()["Global"])
+```
+
+## Registering a formula for a custom op
+
+Register custom FLOP formulas before constructing `FlopCounterMode`. The
+mode snapshots the global registry during initialization.
+
+```
+from math import prod
+
+import torch
+from torch.utils.flop_counter import FlopCounterMode, register_flop_formula
+
+@torch.library.custom_op("example::scale", mutates_args=())
+def scale(x: torch.Tensor) -> torch.Tensor:
+ return x * 2
+
+@register_flop_formula(torch.ops.example.scale)
+def scale_flops(x_shape, *, out_shape=None) -> int:
+ return prod(x_shape)
+
+x = torch.randn(8)
+with FlopCounterMode(display=False) as mode:
+ scale(x)
+
+assert mode.get_total_flops() == 8
+```
+
+| [`FlopCounterMode`](generated/torch.utils.flop_counter.FlopCounterMode.html#torch.utils.flop_counter.FlopCounterMode) | Count theoretical FLOPs for operators that run inside the context. |
 | --- | --- |
+| [`baddbmm_flop`](generated/torch.utils.flop_counter.baddbmm_flop.html#torch.utils.flop_counter.baddbmm_flop) | Count flops for the baddbmm operation. |
 | [`bmm_flop`](generated/torch.utils.flop_counter.bmm_flop.html#torch.utils.flop_counter.bmm_flop) | Count flops for the bmm operation. |
 | [`conv_backward_flop`](generated/torch.utils.flop_counter.conv_backward_flop.html#torch.utils.flop_counter.conv_backward_flop) | |
 | [`conv_flop`](generated/torch.utils.flop_counter.conv_flop.html#torch.utils.flop_counter.conv_flop) | Count flops for convolution. |

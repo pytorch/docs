@@ -1,6 +1,6 @@
 # torch.autograd.functional.hvp
 
-torch.autograd.functional.hvp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/autograd/functional.py#L1098)
+torch.autograd.functional.hvp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/autograd/functional.py#L1098)
 
 Compute the dot product between the scalar function's Hessian and a vector `v` at a specified point.
 
@@ -71,6 +71,6 @@ Example
 Note
 
 This function is significantly slower than vhp due to backward mode AD constraints.
-If your functions is twice continuously differentiable, then hvp = vhp.t(). So if you
+If your function is twice continuously differentiable, then hvp = vhp.t(). So if you
 know that your function satisfies this condition, you should use vhp instead that is
 much faster with the current implementation.

@@ -91,6 +91,84 @@ It is lazily initialized, so you can always import it, and use
 | [`export_dot`](generated/torch.cuda.export_dot.html#torch.cuda.export_dot) | Return a capture-end hook that dumps the captured graph to `path` in Graphviz DOT format. |
 | [`export_graph_data`](generated/torch.cuda.export_graph_data.html#torch.cuda.export_graph_data) | Return a post-instantiate hook that pickles [`CUDAGraph.get_graph_data()`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data) to `path`. |
 
+## Graph Kernel Annotations (prototype)
+
+`torch.cuda.graph_annotations` annotates the kernels captured in a CUDA
+graph with user metadata, keyed so the annotations can be joined against
+the `graph node id` field on kernel events in profiler traces. Enable
+recording per capture with the `enable_annotations` argument of
+[`torch.cuda.graph`](generated/torch.cuda.graph.html#torch.cuda.graph), then wrap regions of the captured workload in
+[`mark_kernels()`](generated/torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) scopes.
+
+These APIs require the `cuda-bindings` package and a CUDA driver that
+supports `cudaGraphNodeGetToolsId` (CUDA 13.1 or newer, or an equivalent
+cuda-compat package); recording silently degrades to a no-op otherwise, and
+is not supported on ROCm. Use
+[`is_available()`](generated/torch.cuda.graph_annotations.is_available.html#torch.cuda.graph_annotations.is_available) to check support.
+
+The end-to-end workflow: annotate during capture, profile the replay,
+then merge the annotations into the exported trace and view it in
+[Perfetto](https://ui.perfetto.dev). During capture:
+
+```
+import torch
+from torch.cuda.graph_annotations import mark_kernels, get_kernel_annotations
+
+x = torch.randn(1024, 1024, device="cuda")
+
+# Warmup: run the workload once outside capture so lazy initialization
+# (e.g. cuBLAS handles) does not end up in -- or invalidate -- the capture.
+y = x @ x.t()
+z = torch.relu(y) @ x
+torch.cuda.synchronize()
+
+g = torch.cuda.CUDAGraph()
+with torch.cuda.graph(g, enable_annotations=True):
+ with mark_kernels("attention"):
+ y = x @ x.t()
+ with mark_kernels({"name": "mlp", "layer": 3}):
+ z = torch.relu(y) @ x
+
+with torch.profiler.profile() as prof:
+ g.replay()
+ torch.cuda.synchronize()
+prof.export_chrome_trace("trace.json")
+```
+
+Each kernel event in the exported trace carries a `graph node id` in its
+`args`; the recorded annotations are keyed by the same ids, so merging
+them into the trace is a dictionary lookup:
+
+```
+import json
+
+annotations = get_kernel_annotations()
+with open("trace.json") as f:
+ trace = json.load(f)
+for event in trace["traceEvents"]:
+ node_id = event.get("args", {}).get("graph node id")
+ for ann in annotations.get(node_id, []):
+ event["args"].update(ann)
+with open("trace_annotated.json", "w") as f:
+ json.dump(trace, f)
+```
+
+Opening `trace_annotated.json` in [Perfetto](https://ui.perfetto.dev)
+(or `chrome://tracing`) and clicking a kernel from the graph replay now
+shows the annotation fields - `name: attention` or `name: mlp`,
+`layer: 3` - alongside the kernel's grid and block sizes, identifying
+which region of the captured workload each kernel came from.
+
+Because annotations live in a process-global registry keyed by ids that
+match the profiler's, the pickle of `dict(get_kernel_annotations())`
+can equally be saved next to a trace and joined offline.
+
+| [`is_available`](generated/torch.cuda.graph_annotations.is_available.html#torch.cuda.graph_annotations.is_available) | Return whether CUDA graph annotation recording is supported. |
+| --- | --- |
+| [`mark_kernels`](generated/torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) | Context manager that annotates GPU work captured within its scope. |
+| [`get_kernel_annotations`](generated/torch.cuda.graph_annotations.get_kernel_annotations.html#torch.cuda.graph_annotations.get_kernel_annotations) | Return the live registry of recorded kernel annotations. |
+| [`clear_kernel_annotations`](generated/torch.cuda.graph_annotations.clear_kernel_annotations.html#torch.cuda.graph_annotations.clear_kernel_annotations) | Clear all recorded kernel annotations. |
+
 This package adds support for device memory management implemented in CUDA.
 
 ## Memory management
@@ -130,7 +208,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/cuda/memory.py#L1351)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/cuda/memory.py#L1369)
 
 A context manager that routes allocations to a given pool.
 
@@ -154,7 +232,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -253,6 +331,6 @@ deprecated compatibility APIs.
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

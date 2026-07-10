@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git7a37a01 )">
+<meta name="llm:version" content="main (2.14.0a0+git01d9abd )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git7a37a01 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git01d9abd )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3418,6 +3418,10 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.clear_kernel_annotations.html">torch.cuda.graph_annotations.clear_kernel_annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.empty_cache.html">torch.cuda.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.get_per_process_memory_fraction.html">torch.cuda.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.list_gpu_processes.html">torch.cuda.memory.list_gpu_processes</a></li>
@@ -3661,7 +3665,7 @@ document.write(`
 <h1>torch.cuda.set_rng_state_all<a class="headerlink" href="#torch-cuda-set-rng-state-all" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.set_rng_state_all">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">set_rng_state_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_states</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7a37a01092627acd59ddfcb9cefe5a578f5f6996/torch/cuda/random.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.set_rng_state_all" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">set_rng_state_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_states</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/cuda/random.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.set_rng_state_all" title="Link to this definition">#</a></dt>
 <dd><p>Set the random number generator state of all devices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
