@@ -139,7 +139,7 @@ There are several useful invariants for `torch.ops.higher_order.switch`:
 
 ## API Reference
 
-torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/_higher_order_ops/switch.py#L98)
+torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/_higher_order_ops/switch.py#L104)
 
 Selects and runs one of N branch functions by index.
 
@@ -173,7 +173,3 @@ output structure (shape, dtype, etc.). Constant `int` and `None` leaves
 are also permitted in branch outputs and are merged across branches (an
 unbacked SymInt is introduced when `int` leaves differ between branches).
 - Branches cannot have in-place mutations on inputs or global variables.
-- Autograd is not supported in this prototype: the autograd dispatch
-key is a no-op that redispatches below autograd, so gradients will
-not flow through `torch.switch`. Full autograd support is planned
-for a future release.

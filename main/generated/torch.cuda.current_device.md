@@ -1,6 +1,6 @@
 # torch.cuda.current_device
 
-torch.cuda.current_device()[[source]](https://github.com/pytorch/pytorch/blob/01d9abd0bb0eeea5416b0ceb75d243362cc90aee/torch/cuda/__init__.py#L1261)
+torch.cuda.current_device()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/cuda/__init__.py#L1261)
 
 Return the index of a currently selected device.
 
