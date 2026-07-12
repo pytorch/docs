@@ -1,6 +1,6 @@
 # Softshrink
 
-*class*torch.nn.Softshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/nn/modules/activation.py#L1010)
+*class*torch.nn.Softshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/nn/modules/activation.py#L1010)
 
 Applies the soft shrinkage function element-wise.
 
@@ -31,7 +31,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/nn/modules/activation.py#L1050)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/nn/modules/activation.py#L1050)
 
 Return the extra representation of the module.
 
@@ -39,7 +39,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/nn/modules/activation.py#L1044)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/nn/modules/activation.py#L1044)
 
 Run forward pass.
 

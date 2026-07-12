@@ -255,7 +255,7 @@ There are a few more in-place random sampling functions defined on Tensors as we
 | --- | --- |
 | [`load`](generated/torch.load.html#torch.load) | Loads an object saved with [`torch.save()`](generated/torch.save.html#torch.save) from a file. |
 
-torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/serialization.py#L489)
+torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/serialization.py#L489)
 
 Check if a module's version satisfies requirements
 
@@ -278,7 +278,7 @@ Return type:
 
 requirement_is_met
 
-torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/serialization.py#L713)
+torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/serialization.py#L713)
 
 Restores storage using a deserializer function registered for the location.
 
@@ -834,7 +834,6 @@ False
 | [`pinverse`](generated/torch.pinverse.html#torch.pinverse) | Alias for [`torch.linalg.pinv()`](generated/torch.linalg.pinv.html#torch.linalg.pinv) |
 | [`saddmm`](generated/torch.saddmm.html#torch.saddmm) | |
 | [`spmm`](generated/torch.spmm.html#torch.spmm) | |
-| [`qr`](generated/torch.qr.html#torch.qr) | Computes the QR decomposition of a matrix or a batch of matrices `input`, and returns a namedtuple (Q, R) of tensors such that input=QR\text{input} = Q Rinput=QR with QQQ being an orthogonal matrix or batch of orthogonal matrices and RRR being an upper triangular matrix or batch of upper triangular matrices. |
 | [`svd`](generated/torch.svd.html#torch.svd) | Computes the singular value decomposition of either a matrix or batch of matrices `input`. |
 | [`svd_lowrank`](generated/torch.svd_lowrank.html#torch.svd_lowrank) | Return the singular value decomposition `(U, S, V)` of a matrix, batches of matrices, or a sparse matrix AAA such that A≈Udiag⁡(S)VHA \approx U \operatorname{diag}(S) V^{\text{H}}A≈Udiag(S)VH. |
 | [`pca_lowrank`](generated/torch.pca_lowrank.html#torch.pca_lowrank) | Performs linear Principal Component Analysis (PCA) on a low-rank matrix, batches of such matrices, or sparse matrix. |
@@ -972,13 +971,13 @@ Forward-mode AD is not supported.
 
 ## Symbolic Numbers
 
-*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L869)
+*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L869)
 
 Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L998)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L998)
 
 Represent this int as an exact integer ratio
 
@@ -986,13 +985,13 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[SymInt, [int](https://docs.python.org/3/library/functions.html#int)]
 
-*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1024)
+*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1024)
 
 Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1100)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1100)
 
 Represent this float as an exact integer ratio
 
@@ -1000,7 +999,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]
 
-conjugate()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1113)
+conjugate()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1113)
 
 Returns the complex conjugate of the float.
 
@@ -1008,7 +1007,7 @@ Return type:
 
 *SymFloat*
 
-hex()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1117)
+hex()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1117)
 
 Returns the hexadecimal representation of the float.
 
@@ -1016,7 +1015,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-is_integer()[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1096)
+is_integer()[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1096)
 
 Return True if the float is an integer.
 
@@ -1024,7 +1023,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/__init__.py#L1133)
+*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/__init__.py#L1133)
 
 Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations

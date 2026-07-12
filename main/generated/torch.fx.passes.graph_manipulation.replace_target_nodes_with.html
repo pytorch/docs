@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gite708521 )">
+<meta name="llm:version" content="main (2.14.0a0+gitdea5f56 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gite708521 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitdea5f56 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3600,7 +3600,7 @@ document.write(`
 <h1>torch.fx.passes.graph_manipulation.replace_target_nodes_with<a class="headerlink" href="#torch-fx-passes-graph-manipulation-replace-target-nodes-with" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.passes.graph_manipulation.replace_target_nodes_with">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.passes.graph_manipulation.</span></span><span class="sig-name descname"><span class="pre">replace_target_nodes_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/fx/passes/graph_manipulation.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.passes.graph_manipulation.replace_target_nodes_with" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.passes.graph_manipulation.</span></span><span class="sig-name descname"><span class="pre">replace_target_nodes_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/fx/passes/graph_manipulation.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.passes.graph_manipulation.replace_target_nodes_with" title="Link to this definition">#</a></dt>
 <dd><p>Modifies all nodes in fx_module.graph.nodes which match the specified op code
 and target, and updates them to match the new op code and target.</p>
 <div class="admonition warning">

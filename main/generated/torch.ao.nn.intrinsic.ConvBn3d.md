@@ -1,6 +1,6 @@
 # ConvBn3d
 
-*class*torch.ao.nn.intrinsic.ConvBn3d(*conv*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/ao/nn/intrinsic/modules/fused.py#L182)
+*class*torch.ao.nn.intrinsic.ConvBn3d(*conv*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/ao/nn/intrinsic/modules/fused.py#L182)
 
 This is a sequential container which calls the Conv 3d and Batch Norm 3d modules.
 During quantization this will be replaced with the corresponding fused module.

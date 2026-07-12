@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gite708521 )">
+<meta name="llm:version" content="main (2.14.0a0+gitdea5f56 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gite708521 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitdea5f56 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3960,7 +3960,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.pinverse.html">torch.pinverse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.saddmm.html">torch.saddmm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.spmm.html">torch.spmm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.qr.html">torch.qr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.svd.html">torch.svd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.svd_lowrank.html">torch.svd_lowrank</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.pca_lowrank.html">torch.pca_lowrank</a></li>
@@ -5023,7 +5022,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.pow_.html">torch.Tensor.pow_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.prod.html">torch.Tensor.prod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.put_.html">torch.Tensor.put_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.qr.html">torch.Tensor.qr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.qscheme.html">torch.Tensor.qscheme</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.quantile.html">torch.Tensor.quantile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.Tensor.nanquantile.html">torch.Tensor.nanquantile</a></li>
@@ -7052,7 +7050,7 @@ optimizer can use any of the local optimizer <a class="reference internal" href=
 apply the gradients on each worker.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.DistributedOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">DistributedOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_rref</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/optimizer.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">DistributedOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_rref</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/optimizer.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>DistributedOptimizer takes remote references to parameters scattered
 across workers and applies the given optimizer locally for each parameter.</p>
 <p>This class uses <a class="reference internal" href="rpc.html#torch.distributed.autograd.get_gradients" title="torch.distributed.autograd.get_gradients"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_gradients()</span></code></a> in order
@@ -7112,7 +7110,7 @@ to optimize.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.DistributedOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/optimizer.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/optimizer.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Performs a single optimization step.</p>
 <p>This will call <a class="reference internal" href="generated/torch.optim.Optimizer.step.html#torch.optim.Optimizer.step" title="torch.optim.Optimizer.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.optim.Optimizer.step()</span></code></a> on each worker
 containing parameters to be optimized, and will block until all workers
@@ -7131,7 +7129,7 @@ optimizer step.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">PostLocalSGDOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averager</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/post_localSGD_optimizer.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">PostLocalSGDOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averager</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/post_localSGD_optimizer.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>Wraps an arbitrary <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> and runs <a class="reference external" href="https://arxiv.org/abs/1808.07217">post-local SGD</a>,
 This optimizer runs local optimizer at every step.
 After the warm-up stage, it averages parameters periodically after the local optimizer is applied.</p>
@@ -7183,7 +7181,7 @@ After the warm-up stage, it averages parameters periodically after the local opt
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/post_localSGD_optimizer.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/post_localSGD_optimizer.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>This is the same as <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> <a class="reference internal" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a>,
 but also restores model averager’s step value to the one
 saved in the provided <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>.</p>
@@ -7193,7 +7191,7 @@ it will raise a warning and initialize the model averager’s step to 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/post_localSGD_optimizer.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/post_localSGD_optimizer.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>This is the same as <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> <a class="reference internal" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="torch.distributed.optim.PostLocalSGDOptimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>,
 but adds an extra entry to record model averager’s step to the checkpoint
 to ensure reload does not cause unnecessary warm up again.</p>
@@ -7201,7 +7199,7 @@ to ensure reload does not cause unnecessary warm up again.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/post_localSGD_optimizer.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/post_localSGD_optimizer.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Performs a single optimization step (parameter update).</p>
 </dd></dl>
 
@@ -7209,7 +7207,7 @@ to ensure reload does not cause unnecessary warm up again.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">ZeroRedundancyOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_with_ddp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">ZeroRedundancyOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_with_ddp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>Wrap an arbitrary <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">optim.Optimizer</span></code></a> and shards its states across ranks in the group.</p>
 <p>The sharing is done as described by <a class="reference external" href="https://arxiv.org/abs/1910.02054">ZeRO</a>.</p>
 <p>The local optimizer instance in each rank is only
@@ -7299,7 +7297,7 @@ is to prepend dummy inputs.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group">
-<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group" title="Link to this definition">#</a></dt>
 <dd><p>Add a parameter group to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> ‘s <code class="docutils literal notranslate"><span class="pre">param_groups</span></code>.</p>
 <p>This can be useful when fine tuning a pre-trained network, as frozen
 layers can be made trainable and added to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> as
@@ -7322,7 +7320,7 @@ expect all the ranks to participate on the same set of parameters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">
-<span class="sig-name descname"><span class="pre">consolidate_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">consolidate_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Consolidate a list of <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> s (one per rank) on the target rank.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7350,7 +7348,7 @@ expect all the ranks to participate on the same set of parameters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.join_hook">
-<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L1155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.join_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L1155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.join_hook" title="Link to this definition">#</a></dt>
 <dd><p>Return the ZeRO join hook.</p>
 <p>It enables training on uneven inputs by
 shadowing the collective communications in the optimizer step.</p>
@@ -7378,7 +7376,7 @@ unused.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Load the state pertaining to the given rank from the input <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>, updating the local optimizer as needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7397,7 +7395,7 @@ from a call to <a class="reference internal" href="#torch.distributed.optim.Zero
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L1223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L1223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Return the last global optimizer state known to this rank.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -7416,7 +7414,7 @@ from a call to <a class="reference internal" href="#torch.distributed.optim.Zero
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/zero_redundancy_optimizer.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/zero_redundancy_optimizer.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Perform a single optimizer step and syncs parameters across all ranks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7440,7 +7438,7 @@ returns the loss; optional for most optimizers.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.optim.utils.register_functional_optim">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.utils.</span></span><span class="sig-name descname"><span class="pre">register_functional_optim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e708521bdf92712674ed3a0d332b56c356502328/torch/distributed/optim/utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.utils.register_functional_optim" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.utils.</span></span><span class="sig-name descname"><span class="pre">register_functional_optim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dea5f568512cef2ab009ee7858b1cfd9be8ba924/torch/distributed/optim/utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.utils.register_functional_optim" title="Link to this definition">#</a></dt>
 <dd><p>Interface to insert a new functional optimizer to functional_optim_map.
 <code class="docutils literal notranslate"><span class="pre">fn_optim_key</span></code> and <code class="docutils literal notranslate"><span class="pre">fn_optimizer</span></code> are user defined. The optimizer and key
 need not be of <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> (e.g. for custom optimizers).</p>
