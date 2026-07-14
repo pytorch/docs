@@ -1,6 +1,6 @@
 # torch.set_deterministic_debug_mode
 
-torch.set_deterministic_debug_mode(*debug_mode*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/__init__.py#L1982)
+torch.set_deterministic_debug_mode(*debug_mode*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/__init__.py#L1982)
 
 Sets the debug mode for deterministic operations.
 

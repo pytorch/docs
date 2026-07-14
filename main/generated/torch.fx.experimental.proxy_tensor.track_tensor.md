@@ -1,3 +1,3 @@
 # torch.fx.experimental.proxy_tensor.track_tensor
 
-torch.fx.experimental.proxy_tensor.track_tensor(*tensor*, *proxy*, ***, *constant*, *tracer*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/fx/experimental/proxy_tensor.py#L850)
+torch.fx.experimental.proxy_tensor.track_tensor(*tensor*, *proxy*, ***, *constant*, *tracer*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/fx/experimental/proxy_tensor.py#L850)

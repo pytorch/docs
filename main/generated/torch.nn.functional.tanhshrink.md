@@ -1,6 +1,6 @@
 # torch.nn.functional.tanhshrink
 
-torch.nn.functional.tanhshrink(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/nn/functional.py#L2091)
+torch.nn.functional.tanhshrink(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/functional.py#L2091)
 
 Applies element-wise, Tanhshrink(x)=x−Tanh(x)\text{Tanhshrink}(x) = x - \text{Tanh}(x)Tanhshrink(x)=x−Tanh(x)
 

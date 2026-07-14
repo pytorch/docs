@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git9abc546 )">
+<meta name="llm:version" content="main (2.14.0a0+gitb251a9e )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9abc546 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitb251a9e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3453,8 +3453,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3669,9 +3669,9 @@ document.write(`
                   
   <section id="pytorch-2-0-performance-dashboard">
 <h1>PyTorch 2.0 Performance Dashboard<a class="headerlink" href="#pytorch-2-0-performance-dashboard" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2023 | Last Updated On: Dec 03, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2023 | Last Updated On: Jul 13, 2026</p>
 <p><strong>Author:</strong> <a class="reference external" href="https://github.com/desertfire">Bin Bao</a> and <a class="reference external" href="https://github.com/huydhn">Huy Do</a></p>
-<p>PyTorch 2.0’s performance is tracked nightly on this <a class="reference external" href="https://hud.pytorch.org/benchmark/compilers">dashboard</a>.
+<p>PyTorch 2.0’s performance is tracked nightly on this <a class="reference external" href="https://hud.pytorch.org/benchmark/compilers">dashboard</a>. <!-- @lint-ignore hud.pytorch.org is live but its WAF blocks the URL linter -->
 The performance collection runs on 12 GCP A100 nodes every night. Each node contains a 40GB A100 Nvidia GPU and
 a 6-core 2.2GHz Intel Xeon CPU. The corresponding CI workflow file can be found
 <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/.github/workflows/inductor-perf-test-nightly.yml">here</a>.</p>
@@ -4089,7 +4089,7 @@ and run them locally if you have a GPU working with PyTorch 2.0.
        "headline": "PyTorch 2.0 Performance Dashboard",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/torch.compiler_performance_dashboard.html",
-       "articleBody": "PyTorch 2.0 Performance Dashboard# Created On: May 04, 2023 | Last Updated On: Dec 03, 2025 Author: Bin Bao and Huy Do PyTorch 2.0\u2019s performance is tracked nightly on this dashboard. The performance collection runs on 12 GCP A100 nodes every night. Each node contains a 40GB A100 Nvidia GPU and a 6-core 2.2GHz Intel Xeon CPU. The corresponding CI workflow file can be found here. How to read the dashboard?# The landing page shows tables for all three benchmark suites we measure, TorchBench, Huggingface, and TIMM, and graphs for one benchmark suite with the default setting. For example, the default graphs currently show the AMP training performance trend in the past 7 days for TorchBench. Droplists on the top of that page can be selected to view tables and graphs with different options. In addition to the pass rate, there are 3 key performance metrics reported there: Geometric mean speedup, Mean compilation time, and Peak memory footprint compression ratio. Both Geometric mean speedup and Peak memory footprint compression ratio are compared against the PyTorch eager performance, and the larger the better. Each individual performance number on those tables can be clicked, which will bring you to a view with detailed numbers for all the tests in that specific benchmark suite. What is measured on the dashboard?# All the dashboard tests are defined in this function. The exact test configurations are subject to change, but at the moment, we measure both inference and training performance with AMP precision on the three benchmark suites. We also measure different settings of TorchInductor, including default, with_cudagraphs (default + cudagraphs), and dynamic (default + dynamic_shapes). Can I check if my PR affects TorchInductor\u2019s performance on the dashboard before merging?# Individual dashboard runs can be triggered manually by clicking the Run workflow button here and submitting with your PR\u2019s branch selected. This will kick off a whole dashboard run with your PR\u2019s changes. Once it is done, you can check the results by selecting the corresponding branch name and commit ID on the performance dashboard UI. Be aware that this is an expensive CI run. With the limited resources, please use this functionality wisely. How can I run any performance test locally?# The exact command lines used during a complete dashboard run can be found in any recent CI run logs. The workflow page is a good place to look for logs from some of the recent runs. In those logs, you can search for lines like python benchmarks/dynamo/huggingface.py --performance --cold-start-latency --inference --amp --backend inductor --disable-cudagraphs --device cuda and run them locally if you have a GPU working with PyTorch 2.0. python benchmarks/dynamo/huggingface.py -h will give you a detailed explanation on options of the benchmarking script.",
+       "articleBody": "PyTorch 2.0 Performance Dashboard# Created On: May 04, 2023 | Last Updated On: Jul 13, 2026 Author: Bin Bao and Huy Do PyTorch 2.0\u2019s performance is tracked nightly on this dashboard. The performance collection runs on 12 GCP A100 nodes every night. Each node contains a 40GB A100 Nvidia GPU and a 6-core 2.2GHz Intel Xeon CPU. The corresponding CI workflow file can be found here. How to read the dashboard?# The landing page shows tables for all three benchmark suites we measure, TorchBench, Huggingface, and TIMM, and graphs for one benchmark suite with the default setting. For example, the default graphs currently show the AMP training performance trend in the past 7 days for TorchBench. Droplists on the top of that page can be selected to view tables and graphs with different options. In addition to the pass rate, there are 3 key performance metrics reported there: Geometric mean speedup, Mean compilation time, and Peak memory footprint compression ratio. Both Geometric mean speedup and Peak memory footprint compression ratio are compared against the PyTorch eager performance, and the larger the better. Each individual performance number on those tables can be clicked, which will bring you to a view with detailed numbers for all the tests in that specific benchmark suite. What is measured on the dashboard?# All the dashboard tests are defined in this function. The exact test configurations are subject to change, but at the moment, we measure both inference and training performance with AMP precision on the three benchmark suites. We also measure different settings of TorchInductor, including default, with_cudagraphs (default + cudagraphs), and dynamic (default + dynamic_shapes). Can I check if my PR affects TorchInductor\u2019s performance on the dashboard before merging?# Individual dashboard runs can be triggered manually by clicking the Run workflow button here and submitting with your PR\u2019s branch selected. This will kick off a whole dashboard run with your PR\u2019s changes. Once it is done, you can check the results by selecting the corresponding branch name and commit ID on the performance dashboard UI. Be aware that this is an expensive CI run. With the limited resources, please use this functionality wisely. How can I run any performance test locally?# The exact command lines used during a complete dashboard run can be found in any recent CI run logs. The workflow page is a good place to look for logs from some of the recent runs. In those logs, you can search for lines like python benchmarks/dynamo/huggingface.py --performance --cold-start-latency --inference --amp --backend inductor --disable-cudagraphs --device cuda and run them locally if you have a GPU working with PyTorch 2.0. python benchmarks/dynamo/huggingface.py -h will give you a detailed explanation on options of the benchmarking script.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4101,7 +4101,7 @@ and run them locally if you have a GPU working with PyTorch 2.0.
          "@id": "/user_guide/torch_compiler/torch.compiler_performance_dashboard.html"
        },
        "datePublished": "May 04, 2023T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "dateModified": "Jul 13, 2026T00:00:00Z"
      }
  </script>
   <script>

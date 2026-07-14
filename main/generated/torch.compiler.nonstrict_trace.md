@@ -1,6 +1,6 @@
 # torch.compiler.nonstrict_trace
 
-torch.compiler.nonstrict_trace(*traceable_fn*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/compiler/__init__.py#L163)
+torch.compiler.nonstrict_trace(*traceable_fn*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/compiler/__init__.py#L163)
 
 Decorator to mark a function as nonstrict-traceable for dynamo.
 

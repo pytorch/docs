@@ -1,3 +1,3 @@
 # update_bn_stats
 
-*class*torch.ao.nn.intrinsic.qat.update_bn_stats(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L950)
+*class*torch.ao.nn.intrinsic.qat.update_bn_stats(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L950)

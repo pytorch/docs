@@ -1,6 +1,6 @@
 # torch.mtia.device_count
 
-torch.mtia.device_count()[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/mtia/__init__.py#L169)
+torch.mtia.device_count()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/mtia/__init__.py#L169)
 
 Return the number of MTIA devices available.
 

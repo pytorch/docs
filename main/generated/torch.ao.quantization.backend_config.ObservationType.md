@@ -1,6 +1,6 @@
 # ObservationType
 
-*class*torch.ao.quantization.backend_config.ObservationType(*value*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/ao/quantization/backend_config/backend_config.py#L55)
+*class*torch.ao.quantization.backend_config.ObservationType(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/ao/quantization/backend_config/backend_config.py#L55)
 
 An enum that represents different ways of how an operator/operator pattern
 should be observed

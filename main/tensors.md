@@ -171,7 +171,7 @@ If `n` is the number of dimensions in `x`,
 
 Warning
 
-The use of `Tensor.T()` on tensors of dimension other than 2 to reverse their shape
+The use of `Tensor.T` on tensors of dimension other than 2 to reverse their shape
 is deprecated and it will throw an error in a future release. Consider `mT`
 to transpose batches of matrices or x.permute(*torch.arange(x.ndim - 1, -1, -1)) to reverse
 the dimensions of a tensor.

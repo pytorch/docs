@@ -104,7 +104,7 @@ When the script is run again, there are no errors reported.
 
 ## API Reference
 
-torch.cuda._sanitizer.enable_cuda_sanitizer()[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/cuda/_sanitizer.py#L659)
+torch.cuda._sanitizer.enable_cuda_sanitizer()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/_sanitizer.py#L659)
 
 Enable CUDA Sanitizer.
 
@@ -113,13 +113,13 @@ for synchronization errors. All data races found will be printed to the standard
 error output along with stack traces of suspected causes. For best results, the
 sanitizer should be enabled at the very beginning of the program.
 
-torch.cuda._sanitizer.zip_arguments(*schema*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/cuda/_sanitizer.py#L474)
+torch.cuda._sanitizer.zip_arguments(*schema*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/_sanitizer.py#L474)
 
 Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*Argument*, [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
 
-torch.cuda._sanitizer.zip_by_key(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/9abc5460749ef85e489d960cb5facefc8cc1eb7c/torch/cuda/_sanitizer.py#L468)
+torch.cuda._sanitizer.zip_by_key(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/_sanitizer.py#L468)
 
 Return type:
 
