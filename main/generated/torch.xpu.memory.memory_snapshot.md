@@ -1,6 +1,6 @@
 # torch.xpu.memory.memory_snapshot
 
-torch.xpu.memory.memory_snapshot(*mempool_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/xpu/memory.py#L257)
+torch.xpu.memory.memory_snapshot(*mempool_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/xpu/memory.py#L257)
 
 Return a snapshot of the XPU memory allocator state across all devices.
 Provides detailed information for each memory segment managed by the allocator

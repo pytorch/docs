@@ -1,6 +1,6 @@
 # torch.fx.experimental.recording.record_shapeenv_event
 
-torch.fx.experimental.recording.record_shapeenv_event(***, *save_tracked_fakes=False*, *name=None*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/fx/experimental/recording.py#L255)
+torch.fx.experimental.recording.record_shapeenv_event(***, *save_tracked_fakes=False*, *name=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/fx/experimental/recording.py#L255)
 
 Return type:
 

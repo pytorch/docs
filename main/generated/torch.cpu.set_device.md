@@ -1,6 +1,6 @@
 # torch.cpu.set_device
 
-torch.cpu.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cpu/__init__.py#L232)
+torch.cpu.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/cpu/__init__.py#L232)
 
 Sets the current device, in CPU we do nothing.
 

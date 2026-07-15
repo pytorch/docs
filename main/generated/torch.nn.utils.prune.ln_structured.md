@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.ln_structured
 
-torch.nn.utils.prune.ln_structured(*module*, *name*, *amount*, *n*, *dim*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/utils/prune.py#L991)
+torch.nn.utils.prune.ln_structured(*module*, *name*, *amount*, *n*, *dim*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/utils/prune.py#L991)
 
 Prune tensor by removing channels with the lowest L`n`-norm along the specified dimension.
 

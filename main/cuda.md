@@ -208,7 +208,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/memory.py#L1384)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/cuda/memory.py#L1384)
 
 A context manager that routes allocations to a given pool.
 
@@ -232,7 +232,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -331,6 +331,6 @@ deprecated compatibility APIs.
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

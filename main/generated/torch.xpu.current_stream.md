@@ -1,6 +1,6 @@
 # torch.xpu.current_stream
 
-torch.xpu.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/xpu/__init__.py#L650)
+torch.xpu.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/xpu/__init__.py#L650)
 
 Return the currently selected [`Stream`](torch.xpu.Stream_class.html#torch.xpu.Stream) for a given device.
 

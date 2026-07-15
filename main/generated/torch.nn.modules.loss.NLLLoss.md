@@ -1,6 +1,6 @@
 # NLLLoss
 
-*class*torch.nn.modules.loss.NLLLoss(*weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/loss.py#L136)
+*class*torch.nn.modules.loss.NLLLoss(*weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/loss.py#L136)
 
 The negative log likelihood loss. It is useful to train a classification
 problem with C classes.
@@ -111,7 +111,7 @@ Examples
 >>> loss.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/loss.py#L256)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/loss.py#L256)
 
 Runs the forward pass.
 

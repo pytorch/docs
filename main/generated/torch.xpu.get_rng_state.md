@@ -1,6 +1,6 @@
 # torch.xpu.get_rng_state
 
-torch.xpu.get_rng_state(*device='xpu'*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/xpu/random.py#L10)
+torch.xpu.get_rng_state(*device='xpu'*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/xpu/random.py#L10)
 
 Return the random number generator state of the specified GPU as a ByteTensor.
 

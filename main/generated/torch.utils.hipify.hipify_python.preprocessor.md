@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.preprocessor
 
-torch.utils.hipify.hipify_python.preprocessor(*output_directory*, *filepath*, *all_files*, *header_include_dirs*, *stats*, *hip_clang_launch*, *is_pytorch_extension*, *clean_ctx*, *show_progress*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/utils/hipify/hipify_python.py#L817)
+torch.utils.hipify.hipify_python.preprocessor(*output_directory*, *filepath*, *all_files*, *header_include_dirs*, *stats*, *hip_clang_launch*, *is_pytorch_extension*, *clean_ctx*, *show_progress*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/hipify/hipify_python.py#L817)
 
 Executes the CUDA -> HIP conversion on the specified file.
 

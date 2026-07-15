@@ -1,6 +1,6 @@
 # SiLU
 
-*class*torch.nn.modules.activation.SiLU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/activation.py#L436)
+*class*torch.nn.modules.activation.SiLU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/activation.py#L436)
 
 Applies the Sigmoid Linear Unit (SiLU) function, element-wise.
 
@@ -34,7 +34,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/activation.py#L478)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/activation.py#L478)
 
 Return the extra representation of the module.
 
@@ -42,7 +42,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/activation.py#L472)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/activation.py#L472)
 
 Runs the forward pass.
 

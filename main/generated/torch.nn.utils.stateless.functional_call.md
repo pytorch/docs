@@ -1,6 +1,6 @@
 # torch.nn.utils.stateless.functional_call
 
-torch.nn.utils.stateless.functional_call(*module*, *parameters_and_buffers*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/utils/stateless.py#L159)
+torch.nn.utils.stateless.functional_call(*module*, *parameters_and_buffers*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/utils/stateless.py#L159)
 
 Perform a functional call on the module by replacing the module parameters and buffers with the provided ones.
 

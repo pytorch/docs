@@ -1,6 +1,6 @@
 # torch.fft.fftn
 
-torch.fft.fftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/fft/__init__.py#L243)
+torch.fft.fftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/fft/__init__.py#L243)
 
 Computes the N dimensional discrete Fourier transform of `input`.
 

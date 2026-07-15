@@ -1,6 +1,6 @@
 # torch.Tensor.storage
 
-Tensor.storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/_tensor.py#L290)
+Tensor.storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/_tensor.py#L290)
 
 Returns the underlying [`TypedStorage`](../storage.html#torch.TypedStorage).
 

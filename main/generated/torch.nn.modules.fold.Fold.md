@@ -1,6 +1,6 @@
 # Fold
 
-*class*torch.nn.modules.fold.Fold(*output_size*, *kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/fold.py#L11)
+*class*torch.nn.modules.fold.Fold(*output_size*, *kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/fold.py#L11)
 
 Combines an array of sliding local blocks into a large containing tensor.
 
@@ -115,7 +115,7 @@ Examples:
 torch.Size([1, 3, 4, 5])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/fold.py#L162)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/fold.py#L162)
 
 Return the extra representation of the module.
 
@@ -123,7 +123,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/modules/fold.py#L149)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/modules/fold.py#L149)
 
 Runs the forward pass.
 

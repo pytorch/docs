@@ -1,6 +1,6 @@
 # torch.nn.factory_kwargs
 
-torch.nn.factory_kwargs(*kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/nn/__init__.py#L21)
+torch.nn.factory_kwargs(*kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/nn/__init__.py#L21)
 
 Return a canonicalized dict of factory kwargs.
 

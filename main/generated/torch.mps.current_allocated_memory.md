@@ -1,6 +1,6 @@
 # torch.mps.current_allocated_memory
 
-torch.mps.current_allocated_memory()[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/mps/__init__.py#L110)
+torch.mps.current_allocated_memory()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/mps/__init__.py#L110)
 
 Returns the current GPU memory occupied by tensors in bytes.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.has_static_value
 
-torch.fx.experimental.symbolic_shapes.has_static_value(*a*)[[source]](https://github.com/pytorch/pytorch/blob/b251a9ea25c953bfac6da40dfc57f259e2b120ee/torch/fx/experimental/symbolic_shapes.py#L504)
+torch.fx.experimental.symbolic_shapes.has_static_value(*a*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/fx/experimental/symbolic_shapes.py#L505)
 
 User-code friendly utility to check if a value is static or dynamic.
 Returns true if given a constant, or a symbolic expression with a fixed value.
