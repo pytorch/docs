@@ -1,6 +1,6 @@
 # Benchmark Utils - torch.utils.benchmark
 
-*class*torch.utils.benchmark.Timer(*stmt='pass'*, *setup='pass'*, *global_setup=''*, *timer=<function timer>*, *globals=None*, *label=None*, *sub_label=None*, *description=None*, *env=None*, *num_threads=1*, *language=Language.PYTHON*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/timer.py#L66)
+*class*torch.utils.benchmark.Timer(*stmt='pass'*, *setup='pass'*, *global_setup=''*, *timer=<function timer>*, *globals=None*, *label=None*, *sub_label=None*, *description=None*, *env=None*, *num_threads=1*, *language=Language.PYTHON*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/timer.py#L66)
 
 Helper class for measuring execution time of PyTorch statements.
 
@@ -99,7 +99,7 @@ and a good indicator of intrinsic algorithmic efficiency, so the
 default is set to one. This is in contrast to the default PyTorch
 threadpool size which tries to utilize all cores.
 
-adaptive_autorange(*threshold=0.1*, ***, *min_run_time=0.01*, *max_run_time=10.0*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/timer.py#L384)
+adaptive_autorange(*threshold=0.1*, ***, *min_run_time=0.01*, *max_run_time=10.0*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/timer.py#L384)
 
 Similar to blocked_autorange but also checks for variability in measurements
 and repeats until iqr/median is smaller than threshold or max_run_time is reached.
@@ -139,7 +139,7 @@ Return type:
 
 *Measurement*
 
-blocked_autorange(*callback=None*, *min_run_time=0.2*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/timer.py#L324)
+blocked_autorange(*callback=None*, *min_run_time=0.2*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/timer.py#L324)
 
 Measure many replicates while keeping timer overhead to a minimum.
 
@@ -183,7 +183,7 @@ Return type:
 
 *Measurement*
 
-collect_callgrind(*number: [int](https://docs.python.org/3/library/functions.html#int)*, ***, *repeats: [None](https://docs.python.org/3/library/constants.html#None)*, *collect_baseline: [bool](https://docs.python.org/3/library/functions.html#bool)*, *retain_out_file: [bool](https://docs.python.org/3/library/functions.html#bool)*) → CallgrindStats[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/timer.py#L469)
+collect_callgrind(*number: [int](https://docs.python.org/3/library/functions.html#int)*, ***, *repeats: [None](https://docs.python.org/3/library/constants.html#None)*, *collect_baseline: [bool](https://docs.python.org/3/library/functions.html#bool)*, *retain_out_file: [bool](https://docs.python.org/3/library/functions.html#bool)*) → CallgrindStats[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/timer.py#L469)
 
 collect_callgrind(*number: [int](https://docs.python.org/3/library/functions.html#int)*, ***, *repeats: [int](https://docs.python.org/3/library/functions.html#int)*, *collect_baseline: [bool](https://docs.python.org/3/library/functions.html#bool)*, *retain_out_file: [bool](https://docs.python.org/3/library/functions.html#bool)*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[CallgrindStats, ...]
 
@@ -219,7 +219,7 @@ Returns:
 A CallgrindStats object which provides instruction counts and
 some basic facilities for analyzing and manipulating results.
 
-timeit(*number=1000000*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/timer.py#L259)
+timeit(*number=1000000*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/timer.py#L259)
 
 Mirrors the semantics of timeit.Timer.timeit().
 
@@ -230,7 +230,7 @@ Return type:
 
 *Measurement*
 
-*class*torch.utils.benchmark.Measurement(*number_per_run*, *raw_times*, *task_spec*, *metadata=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/common.py#L74)
+*class*torch.utils.benchmark.Measurement(*number_per_run*, *raw_times*, *task_spec*, *metadata=None*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/common.py#L74)
 
 The result of a Timer measurement.
 
@@ -238,7 +238,7 @@ This class stores one or more measurements of a given statement. It is
 serializable and provides several convenience methods
 (including a detailed __repr__) for downstream consumers.
 
-*static*merge(*measurements*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/common.py#L230)
+*static*merge(*measurements*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/common.py#L230)
 
 Convenience method for merging replicates.
 
@@ -264,7 +264,7 @@ trim_sigfig method to provide a more human interpretable data
 summary. __repr__ does not use this method; it simply displays raw
 values. Significant figure estimation is intended for Compare.
 
-*class*torch.utils.benchmark.CallgrindStats(*task_spec*, *number_per_run*, *built_with_debug_symbols*, *baseline_inclusive_stats*, *baseline_exclusive_stats*, *stmt_inclusive_stats*, *stmt_exclusive_stats*, *stmt_callgrind_out*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L169)
+*class*torch.utils.benchmark.CallgrindStats(*task_spec*, *number_per_run*, *built_with_debug_symbols*, *baseline_inclusive_stats*, *baseline_exclusive_stats*, *stmt_inclusive_stats*, *stmt_exclusive_stats*, *stmt_callgrind_out*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L169)
 
 Top level container for Callgrind results collected by Timer.
 
@@ -273,7 +273,7 @@ obtained by calling CallgrindStats.stats(...). Several convenience
 methods are provided as well; the most significant is
 CallgrindStats.as_standardized().
 
-as_standardized()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L244)
+as_standardized()[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L244)
 
 Strip library names and some prefixes from function strings.
 
@@ -302,7 +302,7 @@ Return type:
 
 *CallgrindStats*
 
-counts(***, *denoise=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L218)
+counts(***, *denoise=False*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L218)
 
 Returns the total number of instructions executed.
 
@@ -312,7 +312,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-delta(*other*, *inclusive=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L227)
+delta(*other*, *inclusive=False*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L227)
 
 Diff two sets of counts.
 
@@ -328,7 +328,7 @@ Return type:
 
 *FunctionCounts*
 
-stats(*inclusive=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L204)
+stats(*inclusive=False*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L204)
 
 Returns detailed function counts.
 
@@ -345,7 +345,7 @@ Return type:
 
 *FunctionCounts*
 
-*class*torch.utils.benchmark.FunctionCounts(*_data*, *inclusive*, *truncate_rows=True*, *_linewidth=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L44)
+*class*torch.utils.benchmark.FunctionCounts(*_data*, *inclusive*, *truncate_rows=True*, *_linewidth=None*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L44)
 
 Container for manipulating Callgrind results.
 
@@ -358,7 +358,7 @@ be non-deterministic and quite noisy.
 4. Two higher order methods (filter and transform) for custom
 manipulation.
 
-denoise()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L137)
+denoise()[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L137)
 
 Remove known noisy instructions.
 
@@ -372,7 +372,7 @@ Return type:
 
 *FunctionCounts*
 
-filter(*filter_fn*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L130)
+filter(*filter_fn*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L130)
 
 Keep only the elements where filter_fn applied to function name returns True.
 
@@ -380,7 +380,7 @@ Return type:
 
 FunctionCounts
 
-transform(*map_fn*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L117)
+transform(*map_fn*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/valgrind_wrapper/timer_interface.py#L117)
 
 Apply map_fn to all of the function names.
 
@@ -392,7 +392,7 @@ Return type:
 
 FunctionCounts
 
-*class*torch.utils.benchmark.Compare(*results*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L269)
+*class*torch.utils.benchmark.Compare(*results*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L269)
 
 Helper class for displaying the results of many measurements in a
 formatted table.
@@ -410,31 +410,31 @@ Parameters:
 
 **results** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Measurement**]*) - List of Measurement to display.
 
-colorize(*rowwise=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L311)
+colorize(*rowwise=False*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L311)
 
 Colorize formatted table.
 
 Colorize columnwise by default.
 
-extend_results(*results*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L295)
+extend_results(*results*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L295)
 
 Append results to already stored ones.
 
 All added results must be instances of `Measurement`.
 
-highlight_warnings()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L318)
+highlight_warnings()[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L318)
 
 Enables warning highlighting when building formatted table.
 
-print()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L322)
+print()[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L322)
 
 Print formatted table
 
-trim_significant_figures()[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compare.py#L307)
+trim_significant_figures()[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compare.py#L307)
 
 Enables trimming of significant figures when building the formatted table.
 
-torch.utils.benchmark.examples.op_benchmark.assert_dicts_equal(*dict_0*, *dict_1*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/examples/op_benchmark.py#L19)
+torch.utils.benchmark.examples.op_benchmark.assert_dicts_equal(*dict_0*, *dict_1*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/examples/op_benchmark.py#L19)
 
 Builtin dict comparison will not compare numpy arrays.
 
@@ -445,7 +445,7 @@ x = {"a": np.ones((2, 1))}
 x == x # Raises ValueError
 ```
 
-torch.utils.benchmark.utils.fuzzer.prod(*values*, *base=1*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/fuzzer.py#L177)
+torch.utils.benchmark.utils.fuzzer.prod(*values*, *base=1*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/fuzzer.py#L177)
 
 np.prod can overflow, so for sizes the product should be done in Python.
 
@@ -453,7 +453,7 @@ Even though np.prod type promotes to int64, it can still overflow in which
 case the negative value will pass the size check and OOM when attempting to
 actually allocate the Tensor.
 
-torch.utils.benchmark.utils.common.select_unit(*t*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/common.py#L258)
+torch.utils.benchmark.utils.common.select_unit(*t*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/common.py#L258)
 
 Determine how to scale times for O(1) magnitude.
 
@@ -463,7 +463,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [float](https://docs.python.org/3/library/functions.html#float)]
 
-torch.utils.benchmark.utils.common.trim_sigfig(*x*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/common.py#L277)
+torch.utils.benchmark.utils.common.trim_sigfig(*x*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/common.py#L277)
 
 Trim x to n significant figures. (e.g. 3.14159, 2 -> 3.10000)
 
@@ -471,7 +471,7 @@ Return type:
 
 [float](https://docs.python.org/3/library/functions.html#float)
 
-torch.utils.benchmark.utils.compile.bench_all(*model*, *sample_input*, *num_iters=5*, *optimizer=None*, *loss_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compile.py#L121)
+torch.utils.benchmark.utils.compile.bench_all(*model*, *sample_input*, *num_iters=5*, *optimizer=None*, *loss_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compile.py#L121)
 
 This is a simple utility that can be used to benchmark torch.compile
 In particular it ensures that your GPU is setup to use tensor cores if it supports its
@@ -488,7 +488,7 @@ we will enable it automatically by setting torch.set_float32_matmul_precision('h
 If a compilation fails for any reason including the dependency not being included
 then we will print Failed to compile {backend} with mode {mode}
 
-torch.utils.benchmark.utils.compile.benchmark_compile(*model*, *sample_input*, *num_iters=5*, *backend=None*, *mode='default'*, *optimizer=None*, *loss_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/benchmark/utils/compile.py#L76)
+torch.utils.benchmark.utils.compile.benchmark_compile(*model*, *sample_input*, *num_iters=5*, *backend=None*, *mode='default'*, *optimizer=None*, *loss_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/benchmark/utils/compile.py#L76)
 
 Use this utility to benchmark torch.compile
 

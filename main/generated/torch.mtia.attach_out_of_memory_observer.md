@@ -1,5 +1,5 @@
 # torch.mtia.attach_out_of_memory_observer
 
-torch.mtia.attach_out_of_memory_observer(*observer*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/mtia/__init__.py#L230)
+torch.mtia.attach_out_of_memory_observer(*observer*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/mtia/__init__.py#L230)
 
 Attach an out-of-memory observer to MTIA memory allocator

@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.baddbmm_flop
 
-torch.utils.flop_counter.baddbmm_flop(*self_shape*, *a_shape*, *b_shape*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f5932e5e82c3a4da21331c6cf7cddf6bce55cff/torch/utils/flop_counter.py#L191)
+torch.utils.flop_counter.baddbmm_flop(*self_shape*, *a_shape*, *b_shape*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/utils/flop_counter.py#L191)
 
 Count flops for the baddbmm operation.
 
