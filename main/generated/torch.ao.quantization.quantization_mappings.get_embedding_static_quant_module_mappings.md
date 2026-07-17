@@ -1,6 +1,6 @@
 # get_embedding_static_quant_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_embedding_static_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/ao/quantization/quantization_mappings.py#L225)
+*class*torch.ao.quantization.quantization_mappings.get_embedding_static_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/ao/quantization/quantization_mappings.py#L225)
 
 Get module mapping, including mapping for embedding QAT
 

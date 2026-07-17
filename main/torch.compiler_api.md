@@ -30,3 +30,5 @@ For a quick overview of `torch.compiler`, see [torch.compiler](user_guide/torch_
 | [`load_compiled_function`](generated/torch.compiler.load_compiled_function.html#torch.compiler.load_compiled_function) | Load an aot-compiled function from a file. |
 | [`save_cache_artifacts`](generated/torch.compiler.save_cache_artifacts.html#torch.compiler.save_cache_artifacts) | Serializes all the cache artifacts that were created during the compilation |
 | [`wrap_numpy`](generated/torch.compiler.wrap_numpy.html#torch.compiler.wrap_numpy) | Decorator that turns a function from `np.ndarray`s to `np.ndarray`s into a function from `torch.Tensor`s to `torch.Tensor`s. |
+| [`precompile`](generated/torch.compiler.precompile.html#torch.compiler.precompile) | Ahead-of-time precompile `fn` against `example_inputs`. |
+| [`PrecompileError`](generated/torch.compiler.PrecompileError.html#torch.compiler.PrecompileError) | The error type raised by `torch.compiler.precompile` and its artifacts. |

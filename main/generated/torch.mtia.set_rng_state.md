@@ -1,6 +1,6 @@
 # torch.mtia.set_rng_state
 
-torch.mtia.set_rng_state(*new_state*, *device='mtia'*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/mtia/__init__.py#L422)
+torch.mtia.set_rng_state(*new_state*, *device='mtia'*)[[source]](https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/mtia/__init__.py#L422)
 
 Sets the random number generator state of the specified MTIA device.
 

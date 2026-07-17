@@ -1,6 +1,6 @@
 # torch.autograd.function.FunctionCtx.save_for_backward
 
-FunctionCtx.save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/a37249c7e9824d557710fe7682d943593ef355d8/torch/autograd/function.py#L40)
+FunctionCtx.save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/autograd/function.py#L40)
 
 Save given tensors for a future call to `backward()`.
 
