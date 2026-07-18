@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3fadfe4 )">
+<meta name="llm:version" content="main (2.14.0a0+gitc8080db )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3fadfe4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitc8080db )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3502,7 +3502,7 @@ document.write(`
 <h2>dynamic_shape_map<a class="headerlink" href="#dynamic-shape-map" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.map</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.map</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -3912,7 +3912,7 @@ document.write(`
        "headline": "torch.map",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/torch.map.html",
-       "articleBody": "torch.map# dynamic_shape_map# Note Tags: torch.dynamic-shape, torch.map Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {}",
+       "articleBody": "torch.map# dynamic_shape_map# Note Tags: torch.map, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

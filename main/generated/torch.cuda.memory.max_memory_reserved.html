@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3fadfe4 )">
+<meta name="llm:version" content="main (2.14.0a0+gitc8080db )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3fadfe4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitc8080db )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3665,7 +3665,7 @@ document.write(`
 <h1>torch.cuda.memory.max_memory_reserved<a class="headerlink" href="#torch-cuda-memory-max-memory-reserved" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory.max_memory_reserved">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">max_memory_reserved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/cuda/memory.py#L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.max_memory_reserved" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">max_memory_reserved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c8080db61856d74ad76795af1c6aa1fd41b7b862/torch/cuda/memory.py#L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.max_memory_reserved" title="Link to this definition">#</a></dt>
 <dd><p>Return the maximum GPU memory managed by the caching allocator in bytes for a given device.</p>
 <p>By default, this returns the peak cached memory since the beginning of this
 program. <code class="xref py py-func docutils literal notranslate"><span class="pre">reset_peak_memory_stats()</span></code> can be used to reset
@@ -3686,6 +3686,16 @@ if <code class="xref py py-attr docutils literal notranslate"><span class="pre">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../notes/cuda.html#cuda-memory-management"><span class="std std-ref">Memory management</span></a> for more details about GPU memory
 management.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under <code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync</span></code>, the peak is
+computed by summing the high-water marks of the default mempool and the
+device graph-memory pool (CUDA graph captures reserve backing in the
+latter). Because those two high-water marks need not occur at the same
+instant, the reported peak is a conservative <em>upper bound</em> on the true
+simultaneous peak. The current value
+(<code class="xref py py-func docutils literal notranslate"><span class="pre">memory_reserved()</span></code>) is exact.</p>
 </div>
 </dd></dl>
 
@@ -4045,7 +4055,7 @@ management.</p>
        "headline": "torch.cuda.memory.max_memory_reserved",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.memory.max_memory_reserved.html",
-       "articleBody": "torch.cuda.memory.max_memory_reserved# torch.cuda.memory.max_memory_reserved(device=None)[source]# Return the maximum GPU memory managed by the caching allocator in bytes for a given device. By default, this returns the peak cached memory since the beginning of this program. reset_peak_memory_stats() can be used to reset the starting point in tracking this metric. For example, these two functions can measure the peak cached memory amount of each iteration in a training loop. Parameters: device (torch.device or int, optional) \u2013 selected device. Returns statistic for the current device, given by current_device(), if device is None (default). Return type: int Note See Memory management for more details about GPU memory management.",
+       "articleBody": "torch.cuda.memory.max_memory_reserved# torch.cuda.memory.max_memory_reserved(device=None)[source]# Return the maximum GPU memory managed by the caching allocator in bytes for a given device. By default, this returns the peak cached memory since the beginning of this program. reset_peak_memory_stats() can be used to reset the starting point in tracking this metric. For example, these two functions can measure the peak cached memory amount of each iteration in a training loop. Parameters: device (torch.device or int, optional) \u2013 selected device. Returns statistic for the current device, given by current_device(), if device is None (default). Return type: int Note See Memory management for more details about GPU memory management. Note Under PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync, the peak is computed by summing the high-water marks of the default mempool and the device graph-memory pool (CUDA graph captures reserve backing in the latter). Because those two high-water marks need not occur at the same instant, the reported peak is a conservative upper bound on the true simultaneous peak. The current value (memory_reserved()) is exact.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.merge
 
-torch.fx.experimental.unification.unification_tools.merge(**dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/fx/experimental/unification/unification_tools.py#L46)
+torch.fx.experimental.unification.unification_tools.merge(**dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8080db61856d74ad76795af1c6aa1fd41b7b862/torch/fx/experimental/unification/unification_tools.py#L46)
 
 Merge a collection of dictionaries
 

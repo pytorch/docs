@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3fadfe4 )">
+<meta name="llm:version" content="main (2.14.0a0+gitc8080db )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3fadfe4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitc8080db )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4091,6 +4091,13 @@ cases, this argument has no effect. Default: <code class="docutils literal notra
 </ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code class="xref py py-attr docutils literal notranslate"><span class="pre">non_blocking</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and the copy is issued on a
+non-default CUDA stream, the caller is responsible for proper
+cross-stream synchronization. See <a class="reference internal" href="../notes/cuda.html#cuda-stream-semantics"><span class="std std-ref">CUDA streams</span></a> for
+the required pattern.</p>
+</div>
 </dd></dl>
 
 </section>
@@ -4449,7 +4456,7 @@ cases, this argument has no effect. Default: <code class="docutils literal notra
        "headline": "torch.Tensor.copy_",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.Tensor.copy_.html",
-       "articleBody": "torch.Tensor.copy_# Tensor.copy_(src, non_blocking=False) \u2192 Tensor# Copies the elements from src into self tensor and returns self. The src tensor must be broadcastable with the self tensor. It may be of a different data type or reside on a different device. Parameters: src (Tensor) \u2013 the source tensor to copy from non_blocking (bool, optional) \u2013 if True and this copy is between CPU and GPU, the copy may occur asynchronously with respect to the host. For other cases, this argument has no effect. Default: False",
+       "articleBody": "torch.Tensor.copy_# Tensor.copy_(src, non_blocking=False) \u2192 Tensor# Copies the elements from src into self tensor and returns self. The src tensor must be broadcastable with the self tensor. It may be of a different data type or reside on a different device. Parameters: src (Tensor) \u2013 the source tensor to copy from non_blocking (bool, optional) \u2013 if True and this copy is between CPU and GPU, the copy may occur asynchronously with respect to the host. For other cases, this argument has no effect. Default: False Note When non_blocking is True and the copy is issued on a non-default CUDA stream, the caller is responsible for proper cross-stream synchronization. See CUDA streams for the required pattern.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

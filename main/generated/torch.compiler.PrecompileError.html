@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3fadfe4 )">
+<meta name="llm:version" content="main (2.14.0a0+gitc8080db )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3fadfe4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitc8080db )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3501,10 +3501,11 @@ document.write(`
 <dt class="sig sig-object py" id="torch.compiler.PrecompileError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">PrecompileError</span></span><a class="headerlink" href="#torch.compiler.PrecompileError" title="Link to this definition">#</a></dt>
 <dd><p>The error type raised by <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> and its artifacts.</p>
-<p>Raised when capture, <code class="docutils literal notranslate"><span class="pre">load</span></code>, or a runtime call violates the precompile contract –
-e.g. a tensor baked as a constant (invariant 1), an unsupported / effectful op, or a
-runtime input whose shape / dtype / device differs from the example (invariants 3 and
-6). See Note [precompile programming model] in this module for the full contract.</p>
+<p>Raised when capture, lowering, <code class="docutils literal notranslate"><span class="pre">load</span></code>, or a runtime call violates the precompile
+contract – e.g. a tensor baked as a constant (invariant 1), an unsupported /
+effectful op, a non-tensor output the inductor backend cannot lower, or a runtime
+input whose shape or memory format differs from the example (invariants 3 and 6).
+See Note [precompile programming model] in this module for the full contract.</p>
 </dd></dl>
 
 </section>
@@ -3863,7 +3864,7 @@ runtime input whose shape / dtype / device differs from the example (invariants 
        "headline": "torch.compiler.PrecompileError",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.PrecompileError.html",
-       "articleBody": "torch.compiler.PrecompileError# exception torch.compiler.PrecompileError# The error type raised by torch.compiler.precompile and its artifacts. Raised when capture, load, or a runtime call violates the precompile contract \u2013 e.g. a tensor baked as a constant (invariant 1), an unsupported / effectful op, or a runtime input whose shape / dtype / device differs from the example (invariants 3 and 6). See Note [precompile programming model] in this module for the full contract.",
+       "articleBody": "torch.compiler.PrecompileError# exception torch.compiler.PrecompileError# The error type raised by torch.compiler.precompile and its artifacts. Raised when capture, lowering, load, or a runtime call violates the precompile contract \u2013 e.g. a tensor baked as a constant (invariant 1), an unsupported / effectful op, a non-tensor output the inductor backend cannot lower, or a runtime input whose shape or memory format differs from the example (invariants 3 and 6). See Note [precompile programming model] in this module for the full contract.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -15,3 +15,10 @@ Parameters:
 - **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
 the copy may occur asynchronously with respect to the host. For other
 cases, this argument has no effect. Default: `False`
+
+Note
+
+When `non_blocking` is `True` and the copy is issued on a
+non-default CUDA stream, the caller is responsible for proper
+cross-stream synchronization. See [CUDA streams](../notes/cuda.html#cuda-stream-semantics) for
+the required pattern.

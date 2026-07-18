@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git3fadfe4 )">
+<meta name="llm:version" content="main (2.14.0a0+gitc8080db )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git3fadfe4 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitc8080db )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3504,20 +3504,32 @@ document.write(`
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> is NOT
-<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> caching
-mode); it captures <code class="docutils literal notranslate"><span class="pre">fn</span></code> ahead of time to a self-contained source artifact.</p>
+<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
+guard-serialization caching mode); it captures <code class="docutils literal notranslate"><span class="pre">fn</span></code> ahead of time and
+lowers it to a self-contained Python source artifact.</p>
 </div>
 <p>With the default <code class="docutils literal notranslate"><span class="pre">make_fx</span></code> tracer this is a non-strict trace with an explicit
 contract; read Note [precompile programming model] before using it. The artifact
 faithfully reproduces <code class="docutils literal notranslate"><span class="pre">fn</span></code> only for callers that uphold that contract.</p>
+<p>THREADING: the inductor lowering step drives process-global compiler state
+and is serialized by an internal lock, so concurrent <code class="docutils literal notranslate"><span class="pre">backend=&quot;inductor&quot;</span></code>
+calls lower one at a time. The make_fx capture phase and the <code class="docutils literal notranslate"><span class="pre">backend=&quot;eager&quot;</span></code>
+path are NOT serialized.</p>
 <p><code class="docutils literal notranslate"><span class="pre">backend</span></code> selects how the captured graph is realized:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> (default): keep the captured ATen graph and run it as-is
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;inductor&quot;</span></code> (default): lower the graph through
+<code class="docutils literal notranslate"><span class="pre">torch._functorch.aot_autograd.compile_to_python</span></code> (the full AOTAutograd +
+Inductor pipeline, composed into one self-contained module). <code class="docutils literal notranslate"><span class="pre">python_code</span></code>
+is the inlined Inductor output with AOTAutograd’s prelude/epilogue; the cache
+holds the save_cache_artifacts bundle that primes the inductor cache on load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code>: do NOT lower – keep the captured ATen graph and run it as-is
 (analogous to <code class="docutils literal notranslate"><span class="pre">torch.compile(backend=&quot;eager&quot;)</span></code>). <code class="docutils literal notranslate"><span class="pre">python_code</span></code> inlines
-the readable captured graph (both the inspectable rendering and the executable
-artifact); the eager cache carries no compiled artifact (artifact=None) but is
-still a full integrity-tagged envelope. The inductor backend is added in a
-follow-up.</p></li>
+the readable captured graph (both the inspectable rendering and the
+executable artifact); the eager cache carries no compiled artifact
+(artifact=None) but is still a full integrity-tagged envelope – with no
+kernels there is nothing to accelerate, so <code class="docutils literal notranslate"><span class="pre">load</span></code> runs the inlined graph.
+Useful for
+inspecting/debugging exactly what was traced without an Inductor dependency.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">tracer</span></code> selects the capture front-end:</p>
 <ul class="simple">
@@ -3563,9 +3575,18 @@ resulting parameter gradients are scattered (accumulated) onto that runtime
 model’s <code class="docutils literal notranslate"><span class="pre">parameters()</span></code> <code class="docutils literal notranslate"><span class="pre">.grad</span></code> fields, exactly like eager <code class="docutils literal notranslate"><span class="pre">.backward()</span></code>,
 so a <code class="docutils literal notranslate"><span class="pre">zero_grad()</span></code> / <code class="docutils literal notranslate"><span class="pre">optimizer.step()</span></code> loop works unchanged; the artifact
 returns <code class="docutils literal notranslate"><span class="pre">fn</span></code>’s own result (<code class="docutils literal notranslate"><span class="pre">None</span></code> for a bare <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> step), not the
-grads (invariant 5). Caller responsibilities NOT checked here, and violations
-that ARE checked (a baked constant, effectful ops), are in Note [precompile
-programming model].</p>
+grads (invariant 5).</p>
+<p>Input mutation (incl. module buffers, e.g. BatchNorm running stats in
+training mode), tensor subclasses (e.g. DTensor), and outputs aliasing inputs
+are supported – AOTAutograd’s prelude/epilogue is composed into the artifact
+(invariant 4), as is functionalized RNG. Caller responsibilities NOT checked
+here (see the Note): the runtime model must be structurally identical to the
+example, and control flow / shapes are specialized to <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>
+(invariants 2 and 3). Violations that ARE checked raise <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code>: a
+tensor baked
+as a constant (invariant 1), effectful ops (invariant 4), and – for the
+inductor backend – a runtime input whose stride / memory format differs from
+the example’s (invariant 6).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)">bytes</a>]</p>
@@ -3929,7 +3950,7 @@ programming model].</p>
        "headline": "torch.compiler.precompile",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.precompile.html",
-       "articleBody": "torch.compiler.precompile# torch.compiler.precompile = torch.compiler.precompile# Ahead-of-time precompile fn against example_inputs. Note torch.compiler.precompile is NOT torch._dynamo.config.caching_precompile (a torch.compile caching mode); it captures fn ahead of time to a self-contained source artifact. With the default make_fx tracer this is a non-strict trace with an explicit contract; read Note [precompile programming model] before using it. The artifact faithfully reproduces fn only for callers that uphold that contract. backend selects how the captured graph is realized: \"eager\" (default): keep the captured ATen graph and run it as-is (analogous to torch.compile(backend=\"eager\")). python_code inlines the readable captured graph (both the inspectable rendering and the executable artifact); the eager cache carries no compiled artifact (artifact=None) but is still a full integrity-tagged envelope. The inductor backend is added in a follow-up. tracer selects the capture front-end: \"make_fx\" (default): a NON-STRICT make_fx trace \u2013 it records the ATen ops that actually run when fn executes once on the example inputs and does not analyze your Python, so control flow and shapes are specialized to the example (the source of the programming-model contract). The only tracer implemented today. \"dynamo\": planned (a Dynamo-based front-end that analyzes the Python); raises NotImplementedError for now. decompositions is an optional decomposition table (a dict mapping each OpOverload to a decomposition function) forwarded to make_fx as its decomposition_table during capture, so you can control how ATen ops are broken down in the captured graph. Defaults to None (make_fx\u2019s default). Returns (python_code, cache) \u2013 a self-contained, executable Python source string (the single source of truth for the calling convention) and a binary cache holding ONLY the backend artifact (NO metadata, NO weights). Reload a runnable with torch.compiler.precompile.load(python_code, cache). fn is the whole computation, e.g.: python_code, cache = torch.compiler.precompile( lambda model, x: model(x), model, x ) def train_step(model, x, t): loss_fn(model(x), t).backward() # or return autograd.grad(...) python_code, cache = torch.compiler.precompile(train_step, model, x, t) Among example_inputs, the nn.Module arguments have their params/buffers lifted to graph inputs (no weights are baked into the artifact \u2013 invariant 1); the rest are the runtime inputs. The reloaded callable is invoked with the SAME argument structure \u2013 pass the model(s) again at runtime, e.g. f_c(model, x), and that runtime model must match the example model\u2019s parameter/buffer structure (invariant 2). Arguments are matched POSITIONALLY: pass the model(s) and inputs positionally both here and at load time; keyword- argument calling conventions are not supported (a fn that relies on them would surface as a raw arity error). If fn ran a backward, the resulting parameter gradients are scattered (accumulated) onto that runtime model\u2019s parameters() .grad fields, exactly like eager .backward(), so a zero_grad() / optimizer.step() loop works unchanged; the artifact returns fn\u2019s own result (None for a bare .backward() step), not the grads (invariant 5). Caller responsibilities NOT checked here, and violations that ARE checked (a baked constant, effectful ops), are in Note [precompile programming model]. Return type: tuple[str, bytes]",
+       "articleBody": "torch.compiler.precompile# torch.compiler.precompile = torch.compiler.precompile# Ahead-of-time precompile fn against example_inputs. Note torch.compiler.precompile is NOT torch._dynamo.config.caching_precompile (a torch.compile guard-serialization caching mode); it captures fn ahead of time and lowers it to a self-contained Python source artifact. With the default make_fx tracer this is a non-strict trace with an explicit contract; read Note [precompile programming model] before using it. The artifact faithfully reproduces fn only for callers that uphold that contract. THREADING: the inductor lowering step drives process-global compiler state and is serialized by an internal lock, so concurrent backend=\"inductor\" calls lower one at a time. The make_fx capture phase and the backend=\"eager\" path are NOT serialized. backend selects how the captured graph is realized: \"inductor\" (default): lower the graph through torch._functorch.aot_autograd.compile_to_python (the full AOTAutograd + Inductor pipeline, composed into one self-contained module). python_code is the inlined Inductor output with AOTAutograd\u2019s prelude/epilogue; the cache holds the save_cache_artifacts bundle that primes the inductor cache on load. \"eager\": do NOT lower \u2013 keep the captured ATen graph and run it as-is (analogous to torch.compile(backend=\"eager\")). python_code inlines the readable captured graph (both the inspectable rendering and the executable artifact); the eager cache carries no compiled artifact (artifact=None) but is still a full integrity-tagged envelope \u2013 with no kernels there is nothing to accelerate, so load runs the inlined graph. Useful for inspecting/debugging exactly what was traced without an Inductor dependency. tracer selects the capture front-end: \"make_fx\" (default): a NON-STRICT make_fx trace \u2013 it records the ATen ops that actually run when fn executes once on the example inputs and does not analyze your Python, so control flow and shapes are specialized to the example (the source of the programming-model contract). The only tracer implemented today. \"dynamo\": planned (a Dynamo-based front-end that analyzes the Python); raises NotImplementedError for now. decompositions is an optional decomposition table (a dict mapping each OpOverload to a decomposition function) forwarded to make_fx as its decomposition_table during capture, so you can control how ATen ops are broken down in the captured graph. Defaults to None (make_fx\u2019s default). Returns (python_code, cache) \u2013 a self-contained, executable Python source string (the single source of truth for the calling convention) and a binary cache holding ONLY the backend artifact (NO metadata, NO weights). Reload a runnable with torch.compiler.precompile.load(python_code, cache). fn is the whole computation, e.g.: python_code, cache = torch.compiler.precompile( lambda model, x: model(x), model, x ) def train_step(model, x, t): loss_fn(model(x), t).backward() # or return autograd.grad(...) python_code, cache = torch.compiler.precompile(train_step, model, x, t) Among example_inputs, the nn.Module arguments have their params/buffers lifted to graph inputs (no weights are baked into the artifact \u2013 invariant 1); the rest are the runtime inputs. The reloaded callable is invoked with the SAME argument structure \u2013 pass the model(s) again at runtime, e.g. f_c(model, x), and that runtime model must match the example model\u2019s parameter/buffer structure (invariant 2). Arguments are matched POSITIONALLY: pass the model(s) and inputs positionally both here and at load time; keyword- argument calling conventions are not supported (a fn that relies on them would surface as a raw arity error). If fn ran a backward, the resulting parameter gradients are scattered (accumulated) onto that runtime model\u2019s parameters() .grad fields, exactly like eager .backward(), so a zero_grad() / optimizer.step() loop works unchanged; the artifact returns fn\u2019s own result (None for a bare .backward() step), not the grads (invariant 5). Input mutation (incl. module buffers, e.g. BatchNorm running stats in training mode), tensor subclasses (e.g. DTensor), and outputs aliasing inputs are supported \u2013 AOTAutograd\u2019s prelude/epilogue is composed into the artifact (invariant 4), as is functionalized RNG. Caller responsibilities NOT checked here (see the Note): the runtime model must be structurally identical to the example, and control flow / shapes are specialized to example_inputs (invariants 2 and 3). Violations that ARE checked raise PrecompileError: a tensor baked as a constant (invariant 1), effectful ops (invariant 4), and \u2013 for the inductor backend \u2013 a runtime input whose stride / memory format differs from the example\u2019s (invariant 6). Return type: tuple[str, bytes]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

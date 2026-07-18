@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.maxpool2d_check
 
-torch.fx.experimental.graph_gradual_typechecker.maxpool2d_check(*typ*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/3fadfe4be9707a8a43a23db6e0da32dc1b507694/torch/fx/experimental/graph_gradual_typechecker.py#L476)
+torch.fx.experimental.graph_gradual_typechecker.maxpool2d_check(*typ*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/c8080db61856d74ad76795af1c6aa1fd41b7b862/torch/fx/experimental/graph_gradual_typechecker.py#L476)
 
 Applies the maxpool2d shape information to the input
 this affects the last two dimensions
