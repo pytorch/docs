@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.remove_dropout
 
-torch.fx.experimental.optimization.remove_dropout(*model*)[[source]](https://github.com/pytorch/pytorch/blob/c8080db61856d74ad76795af1c6aa1fd41b7b862/torch/fx/experimental/optimization.py#L118)
+torch.fx.experimental.optimization.remove_dropout(*model*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/fx/experimental/optimization.py#L118)
 
 Removes all dropout layers from the module.
 
