@@ -1,6 +1,6 @@
 # torch.utils.get_cpp_backtrace
 
-torch.utils.get_cpp_backtrace(*frames_to_skip=0*, *maximum_number_of_frames=64*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/utils/cpp_backtrace.py#L4)
+torch.utils.get_cpp_backtrace(*frames_to_skip=0*, *maximum_number_of_frames=64*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/utils/cpp_backtrace.py#L4)
 
 Return a string containing the C++ stack trace of the current thread.
 

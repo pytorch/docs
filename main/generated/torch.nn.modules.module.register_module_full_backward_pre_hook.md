@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_full_backward_pre_hook
 
-torch.nn.modules.module.register_module_full_backward_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/module.py#L325)
+torch.nn.modules.module.register_module_full_backward_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/module.py#L325)
 
 Register a backward pre-hook common to all the modules.
 

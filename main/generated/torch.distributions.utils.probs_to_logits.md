@@ -1,6 +1,6 @@
 # torch.distributions.utils.probs_to_logits
 
-torch.distributions.utils.probs_to_logits(*probs*, *is_binary=False*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/distributions/utils.py#L128)
+torch.distributions.utils.probs_to_logits(*probs*, *is_binary=False*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/distributions/utils.py#L128)
 
 Converts a tensor of probabilities into logits. For the binary case,
 this denotes the probability of occurrence of the event indexed by 1.

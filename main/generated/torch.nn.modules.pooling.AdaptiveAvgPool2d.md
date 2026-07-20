@@ -1,6 +1,6 @@
 # AdaptiveAvgPool2d
 
-*class*torch.nn.modules.pooling.AdaptiveAvgPool2d(*output_size*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/pooling.py#L1477)
+*class*torch.nn.modules.pooling.AdaptiveAvgPool2d(*output_size*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/pooling.py#L1477)
 
 Applies a 2D adaptive average pooling over an input signal composed of several input planes.
 
@@ -37,7 +37,7 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/pooling.py#L1512)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/pooling.py#L1512)
 
 Runs the forward pass.
 

@@ -1,6 +1,6 @@
 # Conv2d
 
-*class*torch.ao.nn.quantized.Conv2d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/ao/nn/quantized/modules/conv.py#L481)
+*class*torch.ao.nn.quantized.Conv2d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/ao/nn/quantized/modules/conv.py#L481)
 
 Applies a 2D convolution over a quantized input signal composed of
 several quantized input planes.
@@ -40,7 +40,7 @@ Examples:
 >>> output = m(q_input)
 ```
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/ao/nn/quantized/modules/conv.py#L598)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/ao/nn/quantized/modules/conv.py#L598)
 
 Creates a quantized module from a float module or qparams_dict.
 

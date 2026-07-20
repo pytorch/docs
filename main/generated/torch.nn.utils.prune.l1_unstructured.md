@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.l1_unstructured
 
-torch.nn.utils.prune.l1_unstructured(*module*, *name*, *amount*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/utils/prune.py#L908)
+torch.nn.utils.prune.l1_unstructured(*module*, *name*, *amount*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/utils/prune.py#L908)
 
 Prune tensor by removing units with the lowest L1-norm.
 

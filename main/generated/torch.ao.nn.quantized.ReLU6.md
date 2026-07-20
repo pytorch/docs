@@ -1,6 +1,6 @@
 # ReLU6
 
-*class*torch.ao.nn.quantized.ReLU6(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/ao/nn/quantized/modules/activation.py#L19)
+*class*torch.ao.nn.quantized.ReLU6(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/ao/nn/quantized/modules/activation.py#L19)
 
 Applies the element-wise function:
 

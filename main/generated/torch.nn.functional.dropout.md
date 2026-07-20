@@ -1,6 +1,6 @@
 # torch.nn.functional.dropout
 
-torch.nn.functional.dropout(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/functional.py#L1473)
+torch.nn.functional.dropout(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/functional.py#L1473)
 
 During training, randomly zeroes some elements of the input tensor with probability `p`.
 

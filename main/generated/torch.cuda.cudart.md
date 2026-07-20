@@ -1,6 +1,6 @@
 # torch.cuda.cudart
 
-torch.cuda.cudart()[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/cuda/__init__.py#L610)
+torch.cuda.cudart()[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/cuda/__init__.py#L610)
 
 Retrieves the CUDA runtime API module.
 

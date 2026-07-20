@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.constrain_range
 
-torch.fx.experimental.symbolic_shapes.constrain_range(*a*, ***, *min*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/fx/experimental/symbolic_shapes.py#L1819)
+torch.fx.experimental.symbolic_shapes.constrain_range(*a*, ***, *min*, *max=None*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/fx/experimental/symbolic_shapes.py#L1819)
 
 Applies a constraint that the passed in SymInt must lie between min-max
 inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning

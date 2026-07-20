@@ -1,6 +1,6 @@
 # torch.masked.maskedtensor.core.is_masked_tensor
 
-torch.masked.maskedtensor.core.is_masked_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/masked/maskedtensor/core.py#L18)
+torch.masked.maskedtensor.core.is_masked_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/masked/maskedtensor/core.py#L18)
 
 Returns True if the input is a MaskedTensor, else False
 

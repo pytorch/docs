@@ -1,6 +1,6 @@
 # torch.cuda.memory.list_gpu_processes
 
-torch.cuda.memory.list_gpu_processes(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/cuda/memory.py#L790)
+torch.cuda.memory.list_gpu_processes(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/cuda/memory.py#L790)
 
 Return a human-readable printout of the running processes and their GPU memory use for a given device.
 

@@ -1,6 +1,6 @@
 # torch.linalg.lu_solve
 
-torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/linalg/__init__.py#L2565)
+torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/linalg/__init__.py#L2565)
 
 Computes the solution of a square system of linear equations with a unique solution given an LU decomposition.
 

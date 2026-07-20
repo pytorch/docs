@@ -1,6 +1,6 @@
 # torch.mtia.memory_stats
 
-torch.mtia.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/mtia/memory.py#L13)
+torch.mtia.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/mtia/memory.py#L13)
 
 Return a dictionary of MTIA memory allocator statistics for a given device.
 

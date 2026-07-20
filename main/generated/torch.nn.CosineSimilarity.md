@@ -1,6 +1,6 @@
 # CosineSimilarity
 
-*class*torch.nn.CosineSimilarity(*dim=1*, *eps=1e-08*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/distance.py#L64)
+*class*torch.nn.CosineSimilarity(*dim=1*, *eps=1e-08*, *keepdim=False*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/distance.py#L64)
 
 Returns cosine similarity between x1x_1x1​ and x2x_2x2​, computed along dim.
 
@@ -12,13 +12,16 @@ Parameters:
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Dimension where cosine similarity is computed. Default: 1
 - **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Small value to avoid division by zero.
 Default: 1e-8
+- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether the output tensor retains `dim`.
+Default: False
 
 Shape:
 
 - Input1: (∗1,D,∗2)(\ast_1, D, \ast_2)(∗1​,D,∗2​) where D is at position dim
 - Input2: (∗1,D,∗2)(\ast_1, D, \ast_2)(∗1​,D,∗2​), same number of dimensions as x1, matching x1 size at dimension dim,
 and broadcastable with x1 at other dimensions.
-- Output: (∗1,∗2)(\ast_1, \ast_2)(∗1​,∗2​)
+- Output: (∗1,∗2)(\ast_1, \ast_2)(∗1​,∗2​) if `keepdim` is `False`,
+(∗1,1,∗2)(\ast_1, 1, \ast_2)(∗1​,1,∗2​) if `keepdim` is `True`
 
 Examples
 
@@ -29,7 +32,7 @@ Examples
 >>> output = cos(input1, input2)
 ```
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/distance.py#L96)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/distance.py#L101)
 
 Runs the forward pass.
 

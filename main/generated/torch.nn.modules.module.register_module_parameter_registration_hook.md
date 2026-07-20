@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_parameter_registration_hook
 
-torch.nn.modules.module.register_module_parameter_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/module.py#L191)
+torch.nn.modules.module.register_module_parameter_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/module.py#L191)
 
 Register a parameter registration hook common to all modules.
 

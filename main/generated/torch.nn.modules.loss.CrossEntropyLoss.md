@@ -1,6 +1,6 @@
 # CrossEntropyLoss
 
-*class*torch.nn.modules.loss.CrossEntropyLoss(*weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/loss.py#L1200)
+*class*torch.nn.modules.loss.CrossEntropyLoss(*weight=None*, *size_average=None*, *ignore_index=-100*, *reduce=None*, *reduction='mean'*, *label_smoothing=0.0*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/loss.py#L1200)
 
 This criterion computes the cross entropy loss between input logits
 and target.
@@ -192,7 +192,7 @@ tensor([1.0000, 1.0000, 1.0000])
 2.55349063873291
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/nn/modules/loss.py#L1398)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/nn/modules/loss.py#L1398)
 
 Runs the forward pass.
 

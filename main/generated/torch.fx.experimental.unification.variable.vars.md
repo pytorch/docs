@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.variable.vars
 
-torch.fx.experimental.unification.variable.vars()[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/fx/experimental/unification/variable.py#L51)
+torch.fx.experimental.unification.variable.vars()[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/fx/experimental/unification/variable.py#L51)
 
 Return type:
 

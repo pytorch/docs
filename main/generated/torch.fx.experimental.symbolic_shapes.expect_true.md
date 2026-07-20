@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.expect_true
 
-torch.fx.experimental.symbolic_shapes.expect_true(*a*, *skip=0*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/fx/experimental/symbolic_shapes.py#L1918)
+torch.fx.experimental.symbolic_shapes.expect_true(*a*, *skip=0*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/fx/experimental/symbolic_shapes.py#L1918)
 
 Return type:
 

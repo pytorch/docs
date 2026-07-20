@@ -1,6 +1,6 @@
 # get_quantized_operator
 
-*class*torch.ao.quantization.quantization_mappings.get_quantized_operator(*float_op*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/ao/quantization/quantization_mappings.py#L346)
+*class*torch.ao.quantization.quantization_mappings.get_quantized_operator(*float_op*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/ao/quantization/quantization_mappings.py#L346)
 
 Get the quantized operator corresponding to the float operator
 

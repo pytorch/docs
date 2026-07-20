@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.flatten_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.flatten_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1268)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.flatten_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1268)
 
 Return type:
 

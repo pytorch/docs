@@ -1,6 +1,6 @@
 # torch.sym_float
 
-torch.sym_float(*a: PySymType*) → [SymFloat](../torch.html#torch.SymFloat)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/__init__.py#L1248)
+torch.sym_float(*a: PySymType*) → [SymFloat](../torch.html#torch.SymFloat)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/__init__.py#L1248)
 
 torch.sym_float(*a: [object](https://docs.python.org/3/library/functions.html#object)*) → FloatLikeType
 

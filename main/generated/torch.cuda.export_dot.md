@@ -1,6 +1,6 @@
 # torch.cuda.export_dot
 
-torch.cuda.export_dot(*path*, ***, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/c69ee1f95bf01999272fb9964a85290e019ec24d/torch/cuda/graphs.py#L538)
+torch.cuda.export_dot(*path*, ***, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/cuda/graphs.py#L538)
 
 Return a capture-end hook that dumps the captured graph to `path` in
 Graphviz DOT format. Register it with
