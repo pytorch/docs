@@ -1,11 +1,11 @@
 # torch.fx.operator_schemas.get_signature_for_torch_op
 
-torch.fx.operator_schemas.get_signature_for_torch_op(*op: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]*, *return_schemas: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[True]*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[list](https://docs.python.org/3/library/stdtypes.html#list)[[Signature](https://docs.python.org/3/library/inspect.html#inspect.Signature)] | [None](https://docs.python.org/3/library/constants.html#None), [list](https://docs.python.org/3/library/stdtypes.html#list)[FunctionSchema] | [None](https://docs.python.org/3/library/constants.html#None)][[source]](https://github.com/pytorch/pytorch/blob/e7003ce301964b7a4ef5d2d4777331489745a93c/torch/fx/operator_schemas.py#L226)
+torch.fx.operator_schemas.get_signature_for_torch_op(*op: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]*, *return_schemas: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[True]*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[list](https://docs.python.org/3/library/stdtypes.html#list)[[Signature](https://docs.python.org/3/library/inspect.html#inspect.Signature)] | [None](https://docs.python.org/3/library/constants.html#None), [list](https://docs.python.org/3/library/stdtypes.html#list)[FunctionSchema] | [None](https://docs.python.org/3/library/constants.html#None)][[source]](https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/fx/operator_schemas.py#L226)
 
 torch.fx.operator_schemas.get_signature_for_torch_op(*op: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]*, *return_schemas: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)[False] = False*) → [list](https://docs.python.org/3/library/stdtypes.html#list)[[Signature](https://docs.python.org/3/library/inspect.html#inspect.Signature)] | [None](https://docs.python.org/3/library/constants.html#None)
 
 Given an operator on the torch namespace, return a list of inspect.Signature
-objects corresponding to the overloads of that op.. May return None if a signature
+objects corresponding to the overloads of that op. May return None if a signature
 could not be retrieved.
 
 Parameters:
