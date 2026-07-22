@@ -1,6 +1,6 @@
 # torch.nn.functional.dropout2d
 
-torch.nn.functional.dropout2d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/nn/functional.py#L1575)
+torch.nn.functional.dropout2d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/functional.py#L1575)
 
 Randomly zero out entire channels (a channel is a 2D feature map).
 

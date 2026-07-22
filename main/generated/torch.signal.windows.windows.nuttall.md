@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.nuttall
 
-torch.signal.windows.windows.nuttall(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/signal/windows/windows.py#L822)
+torch.signal.windows.windows.nuttall(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/signal/windows/windows.py#L822)
 
 Computes the minimum 4-term Blackman-Harris window according to Nuttall.
 

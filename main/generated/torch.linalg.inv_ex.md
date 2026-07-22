@@ -1,6 +1,6 @@
 # torch.linalg.inv_ex
 
-torch.linalg.inv_ex(*A*, ***, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/linalg/__init__.py#L336)
+torch.linalg.inv_ex(*A*, ***, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/linalg/__init__.py#L336)
 
 Computes the inverse of a square matrix if it is invertible.
 

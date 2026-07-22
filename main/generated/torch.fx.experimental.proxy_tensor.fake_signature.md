@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.fake_signature
 
-torch.fx.experimental.proxy_tensor.fake_signature(*fn*, *nargs*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/fx/experimental/proxy_tensor.py#L167)
+torch.fx.experimental.proxy_tensor.fake_signature(*fn*, *nargs*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/fx/experimental/proxy_tensor.py#L167)
 
 FX gets confused by varargs, de-confuse it
 

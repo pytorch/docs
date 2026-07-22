@@ -1,6 +1,6 @@
 # torch.linalg.inv
 
-torch.linalg.inv(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/linalg/__init__.py#L214)
+torch.linalg.inv(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/linalg/__init__.py#L214)
 
 Computes the inverse of a square matrix if it exists.
 Throws a RuntimeError if the matrix is not invertible.

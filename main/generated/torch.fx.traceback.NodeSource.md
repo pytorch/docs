@@ -1,6 +1,6 @@
 # NodeSource
 
-*class*torch.fx.traceback.NodeSource(*node*, *pass_name=''*, *action=None*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/fx/traceback.py#L89)
+*class*torch.fx.traceback.NodeSource(*node*, *pass_name=''*, *action=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/fx/traceback.py#L89)
 
 NodeSource is a data structure that contains the provenance information of a node.
 If node a is created from node b, then a.meta["from_node"] may contain NodeSource(b).

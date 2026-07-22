@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git964b36d )">
+<meta name="llm:version" content="main (2.14.0a0+git2a8ba15 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git964b36d )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git2a8ba15 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3499,7 +3499,7 @@ document.write(`
 <h1>torch.compiler.nonstrict_trace<a class="headerlink" href="#torch-compiler-nonstrict-trace" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.nonstrict_trace">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nonstrict_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traceable_fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/compiler/__init__.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nonstrict_trace" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">nonstrict_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traceable_fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/compiler/__init__.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.nonstrict_trace" title="Link to this definition">#</a></dt>
 <dd><p>Decorator to mark a function as nonstrict-traceable for dynamo.</p>
 <p>A nonstrict-traced function appears as an opaque call in the dynamo graph.
 Dynamo does not trace into the function body (hence the “nonstrict”), but

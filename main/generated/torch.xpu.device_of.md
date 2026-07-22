@@ -1,6 +1,6 @@
 # device_of
 
-*class*torch.xpu.device_of(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/xpu/__init__.py#L416)
+*class*torch.xpu.device_of(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/xpu/__init__.py#L416)
 
 Context-manager that changes the current device to that of given object.
 

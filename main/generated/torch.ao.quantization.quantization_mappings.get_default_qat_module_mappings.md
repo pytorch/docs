@@ -1,6 +1,6 @@
 # get_default_qat_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_qat_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/ao/quantization/quantization_mappings.py#L284)
+*class*torch.ao.quantization.quantization_mappings.get_default_qat_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/ao/quantization/quantization_mappings.py#L284)
 
 Get default module mapping for quantization aware training
 

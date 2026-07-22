@@ -1,6 +1,6 @@
 # torch.linalg.eig
 
-torch.linalg.eig(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/linalg/__init__.py#L474)
+torch.linalg.eig(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/linalg/__init__.py#L474)
 
 Computes the eigenvalue decomposition of a square matrix if it exists.
 
