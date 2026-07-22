@@ -1,13 +1,13 @@
 # dual_level
 
-*class*torch.autograd.forward_ad.dual_level[[source]](https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/autograd/forward_ad.py#L185)
+*class*torch.autograd.forward_ad.dual_level[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/autograd/forward_ad.py#L185)
 
 Context-manager for forward AD, where all forward AD computation must occur within the `dual_level` context.
 
 Note
 
-The `dual_level` context appropriately enters and exit the dual level to
-controls the current forward AD level, which is used by default by the other
+The `dual_level` context appropriately enters and exits the dual level to
+control the current forward AD level, which is used by default by the other
 functions in this API.
 
 We currently don't plan to support nested `dual_level` contexts, however, so

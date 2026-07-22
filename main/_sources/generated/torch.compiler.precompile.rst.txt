@@ -1,6 +1,0 @@
-﻿torch.compiler.precompile
-=========================
-
-.. currentmodule:: torch.compiler
-
-.. autodata:: precompile

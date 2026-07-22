@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git08fea85 )">
+<meta name="llm:version" content="main (2.14.0a0+gita80ae34 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git08fea85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita80ae34 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -10046,6 +10046,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.gather.html#torch.Tensor.gather">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed.gather_into_tensor">gather_into_tensor() (in module torch.distributed)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.gather_object">gather_object() (in module torch.distributed)</a>
 </li>
       <li><a href="generated/torch.signal.windows.windows.gaussian.html#torch.signal.windows.windows.gaussian">gaussian() (in module torch.signal.windows.windows)</a>
@@ -10564,10 +10566,10 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.device_mesh.DeviceMesh.get_local_rank">get_local_rank() (torch.distributed.device_mesh.DeviceMesh method)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.elastic.utils.logging.get_logger">get_logger() (in module torch.distributed.elastic.utils.logging)</a>
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
@@ -13260,6 +13262,8 @@ document.write(`
         <li><a href="hub.html#torch.hub.load">(in module torch.hub)</a>
 </li>
         <li><a href="cpp_extension.html#torch.utils.cpp_extension.load">(in module torch.utils.cpp_extension)</a>
+</li>
+        <li><a href="torch.compiler_api.html#torch.compiler.precompile.load">(torch.compiler.precompile method)</a>
 </li>
       </ul></li>
       <li><a href="package.html#torch.package.PackageImporter.load_binary">load_binary() (torch.package.PackageImporter method)</a>
@@ -17753,9 +17757,9 @@ document.write(`
         <li><a href="distributions.html#torch.distributions.wishart.Wishart.precision_matrix">(torch.distributions.wishart.Wishart property)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.compiler.precompile.html#torch.compiler.precompile">precompile (in module torch.compiler)</a>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile">precompile() (in module torch.compiler)</a>
 </li>
-      <li><a href="generated/torch.compiler.PrecompileError.html#torch.compiler.PrecompileError">PrecompileError</a>
+      <li><a href="torch.compiler_api.html#torch.compiler.PrecompileError">PrecompileError</a>
 </li>
       <li><a href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss.predict">predict() (torch.nn.AdaptiveLogSoftmaxWithLoss method)</a>
 
@@ -18551,6 +18555,12 @@ document.write(`
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.register_ddp_comm_hook">register_ddp_comm_hook() (in module torch.distributed.algorithms.ddp_comm_hooks)</a>
 </li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_destroy_callback">register_destroy_callback() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_destroy_callback">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="monitor.html#torch.monitor.register_event_handler">register_event_handler() (in module torch.monitor)</a>
 </li>
       <li><a href="package.html#torch.package.PackageExporter.register_extern_hook">register_extern_hook() (torch.package.PackageExporter method)</a>
@@ -18801,6 +18811,18 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.rendezvous.register_rendezvous_handler">register_rendezvous_handler() (in module torch.distributed.rendezvous)</a>
 </li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_replay_end_hook">register_replay_end_hook() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_replay_end_hook">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_replay_start_hook">register_replay_start_hook() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_replay_start_hook">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.experimental.register_sharding">register_sharding() (in module torch.distributed.tensor.experimental)</a>
 </li>
       <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_state_dict_post_hook">register_state_dict_post_hook() (torch.nn.Module method)</a>
@@ -19537,6 +19559,12 @@ document.write(`
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.retain_grad">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.retain_grad.html#torch.Tensor.retain_grad">(torch.Tensor method)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.retain_object">retain_object() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.retain_object">(torch.cuda.graphs.CUDAGraph method)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.retains_grad">retains_grad (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT attribute)</a>

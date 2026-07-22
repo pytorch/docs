@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git08fea85 )">
+<meta name="llm:version" content="main (2.14.0a0+gita80ae34 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git08fea85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita80ae34 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3564,7 +3564,7 @@ document.write(`
 <h1>torch.func.replace_all_batch_norm_modules_<a class="headerlink" href="#torch-func-replace-all-batch-norm-modules" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.replace_all_batch_norm_modules_">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Link to this definition">#</a></dt>
 <dd><p>In place updates <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">running_mean</span></code> and <code class="docutils literal notranslate"><span class="pre">running_var</span></code> to be None and
 setting track_running_stats to be False for any nn.BatchNorm module in <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code></p>
 <dl class="field-list simple">

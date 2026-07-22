@@ -1,6 +1,0 @@
-﻿torch.compiler.PrecompileError
-==============================
-
-.. currentmodule:: torch.compiler
-
-.. autoexception:: PrecompileError

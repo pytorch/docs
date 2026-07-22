@@ -1,6 +1,6 @@
 # SyncBatchNorm
 
-*class*torch.nn.SyncBatchNorm(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *process_group=None*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/nn/modules/batchnorm.py#L650)
+*class*torch.nn.SyncBatchNorm(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *process_group=None*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/nn/modules/batchnorm.py#L650)
 
 Applies Batch Normalization over a N-Dimensional input.
 
@@ -108,7 +108,7 @@ Examples:
 >>> output_device=args.local_rank)
 ```
 
-*classmethod*convert_sync_batchnorm(*module*, *process_group=None*)[[source]](https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/nn/modules/batchnorm.py#L889)
+*classmethod*convert_sync_batchnorm(*module*, *process_group=None*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/nn/modules/batchnorm.py#L889)
 
 Converts all `BatchNorm*D` layers in the model to `torch.nn.SyncBatchNorm` layers.
 
@@ -145,7 +145,7 @@ Example:
 >>> sync_bn_module = torch.nn.SyncBatchNorm.convert_sync_batchnorm(module, process_group)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/08fea85059e6f8092daa38319f7ea5bd7603d5e9/torch/nn/modules/batchnorm.py#L790)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/nn/modules/batchnorm.py#L790)
 
 Runs the forward pass.
 
