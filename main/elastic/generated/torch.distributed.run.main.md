@@ -1,3 +1,3 @@
 # torch.distributed.run.main
 
-torch.distributed.run.main(*args=None*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/distributed/run.py#L1025)
+torch.distributed.run.main(*args=None*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/distributed/run.py#L1025)

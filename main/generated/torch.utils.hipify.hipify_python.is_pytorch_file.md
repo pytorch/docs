@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.is_pytorch_file
 
-torch.utils.hipify.hipify_python.is_pytorch_file(*rel_filepath*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/utils/hipify/hipify_python.py#L632)
+torch.utils.hipify.hipify_python.is_pytorch_file(*rel_filepath*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/utils/hipify/hipify_python.py#L632)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint.is_dim
 
-torch.fx.experimental.migrate_gradual_types.constraint.is_dim(*d*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/fx/experimental/migrate_gradual_types/constraint.py#L732)
+torch.fx.experimental.migrate_gradual_types.constraint.is_dim(*d*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/fx/experimental/migrate_gradual_types/constraint.py#L732)
 
 Return type:
 

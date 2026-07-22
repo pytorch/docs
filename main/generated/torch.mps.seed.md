@@ -1,5 +1,5 @@
 # torch.mps.seed
 
-torch.mps.seed()[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/mps/__init__.py#L73)
+torch.mps.seed()[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/mps/__init__.py#L73)
 
 Sets the seed for generating random numbers to a random number.

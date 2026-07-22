@@ -1,9 +1,9 @@
 # MemRecordsAcc
 
-*class*torch.autograd.profiler_util.MemRecordsAcc(*mem_records*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/autograd/profiler_util.py#L1148)
+*class*torch.autograd.profiler_util.MemRecordsAcc(*mem_records*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/autograd/profiler_util.py#L1148)
 
 Acceleration structure for accessing mem_records in interval.
 
-in_interval(*start_ns*, *end_ns*)[[source]](https://github.com/pytorch/pytorch/blob/a80ae34b7e3aa7b408f0e56e089ae40dad2c1a9a/torch/autograd/profiler_util.py#L1159)
+in_interval(*start_ns*, *end_ns*)[[source]](https://github.com/pytorch/pytorch/blob/964b36dfdeb2262f10adc277503b2c3dda372818/torch/autograd/profiler_util.py#L1159)
 
 Return all records in the given interval
