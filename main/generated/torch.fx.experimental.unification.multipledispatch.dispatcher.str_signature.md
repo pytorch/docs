@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature(*sig*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L467)
+torch.fx.experimental.unification.multipledispatch.dispatcher.str_signature(*sig*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L467)
 
 String representation of type signature
 >>> str_signature((int, float))

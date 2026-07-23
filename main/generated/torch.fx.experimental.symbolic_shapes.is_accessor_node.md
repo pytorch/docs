@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.is_accessor_node
 
-torch.fx.experimental.symbolic_shapes.is_accessor_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/fx/experimental/symbolic_shapes.py#L744)
+torch.fx.experimental.symbolic_shapes.is_accessor_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/fx/experimental/symbolic_shapes.py#L744)
 
 Helper function to determine if a node is trying to access
 a symbolic integer such as size, stride, offset or item. Currently

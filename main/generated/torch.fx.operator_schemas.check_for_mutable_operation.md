@@ -1,6 +1,6 @@
 # torch.fx.operator_schemas.check_for_mutable_operation
 
-torch.fx.operator_schemas.check_for_mutable_operation(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/fx/operator_schemas.py#L172)
+torch.fx.operator_schemas.check_for_mutable_operation(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/fx/operator_schemas.py#L172)
 
 Warning
 

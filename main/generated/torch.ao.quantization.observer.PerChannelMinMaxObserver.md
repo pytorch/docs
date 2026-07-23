@@ -1,6 +1,6 @@
 # PerChannelMinMaxObserver
 
-*class*torch.ao.quantization.observer.PerChannelMinMaxObserver(*ch_axis=0*, *dtype=torch.quint8*, *qscheme=torch.per_channel_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/ao/quantization/observer.py#L686)
+*class*torch.ao.quantization.observer.PerChannelMinMaxObserver(*ch_axis=0*, *dtype=torch.quint8*, *qscheme=torch.per_channel_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/observer.py#L686)
 
 Observer module for computing the quantization parameters based on the
 running per channel min and max values.
@@ -31,6 +31,6 @@ Note
 If the running minimum equals to the running maximum, the scales
 and zero_points are set to 1.0 and 0.
 
-reset_min_max_vals()[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/ao/quantization/observer.py#L883)
+reset_min_max_vals()[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/observer.py#L883)
 
 Resets the min/max values.

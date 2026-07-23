@@ -1,6 +1,6 @@
 # torch.cuda.memory.host_memory_stats
 
-torch.cuda.memory.host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/cuda/memory.py#L400)
+torch.cuda.memory.host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/cuda/memory.py#L400)
 
 Return a dictionary of pinned (host) allocator statistics.
 

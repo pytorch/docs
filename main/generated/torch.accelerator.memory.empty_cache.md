@@ -1,6 +1,6 @@
 # torch.accelerator.memory.empty_cache
 
-torch.accelerator.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/accelerator/memory.py#L23)
+torch.accelerator.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/accelerator/memory.py#L23)
 
 Release all unoccupied cached memory currently held by the caching
 allocator so that those can be used in other application.

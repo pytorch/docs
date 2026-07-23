@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_reserved
 
-torch.cuda.memory.memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/cuda/memory.py#L572)
+torch.cuda.memory.memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/cuda/memory.py#L572)
 
 Return the current GPU memory managed by the caching allocator in bytes for a given device.
 

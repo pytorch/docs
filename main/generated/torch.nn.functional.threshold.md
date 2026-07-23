@@ -1,6 +1,6 @@
 # torch.nn.functional.threshold
 
-torch.nn.functional.threshold(*input*, *threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/functional.py#L1730)
+torch.nn.functional.threshold(*input*, *threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/functional.py#L1730)
 
 Apply a threshold to each element of the input Tensor.
 

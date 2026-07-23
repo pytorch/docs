@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.hip_header_magic
 
-torch.utils.hipify.hipify_python.hip_header_magic(*input_string*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/utils/hipify/hipify_python.py#L497)
+torch.utils.hipify.hipify_python.hip_header_magic(*input_string*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/utils/hipify/hipify_python.py#L497)
 
 If the file makes kernel builtin calls and does not include the cuda_runtime.h header,
 then automatically add an #include to match the "magic" includes provided by NVCC.

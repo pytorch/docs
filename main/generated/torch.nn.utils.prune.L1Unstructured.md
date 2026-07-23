@@ -1,6 +1,6 @@
 # L1Unstructured
 
-*class*torch.nn.utils.prune.L1Unstructured(*amount*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/utils/prune.py#L503)
+*class*torch.nn.utils.prune.L1Unstructured(*amount*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/utils/prune.py#L503)
 
 Prune (currently unpruned) units in a tensor by zeroing out the ones with the lowest L1-norm.
 
@@ -11,7 +11,7 @@ If `float`, should be between 0.0 and 1.0 and represent the
 fraction of parameters to prune. If `int`, it represents the
 absolute number of parameters to prune.
 
-*classmethod*apply(*module*, *name*, *amount*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/utils/prune.py#L542)
+*classmethod*apply(*module*, *name*, *amount*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/utils/prune.py#L542)
 
 Add pruning on the fly and reparameterization of a tensor.
 
@@ -34,7 +34,7 @@ The values in this tensor indicate the importance of the corresponding
 elements in the parameter being pruned.
 If unspecified or None, the module parameter will be used in its place.
 
-apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/utils/prune.py#L53)
+apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/utils/prune.py#L53)
 
 Simply handles the multiplication between the parameter being pruned and the generated mask.
 
@@ -53,7 +53,7 @@ Return type:
 
 pruned_tensor ([torch.Tensor](../tensors.html#torch.Tensor))
 
-prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/utils/prune.py#L208)
+prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/utils/prune.py#L208)
 
 Compute and returns a pruned version of input tensor `t`.
 
@@ -77,7 +77,7 @@ Returns:
 
 pruned version of tensor `t`.
 
-remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/2a8ba15825312e681c7dc6b12b79dec216aecd30/torch/nn/utils/prune.py#L240)
+remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/utils/prune.py#L240)
 
 Remove the pruning reparameterization from a module.
 
