@@ -1,6 +1,6 @@
 # LinearBn1d
 
-*class*torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d(*in_features*, *out_features*, *bias=True*, *eps=1e-05*, *momentum=0.1*, *freeze_bn=False*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L16)
+*class*torch.ao.nn.intrinsic.qat.modules.linear_fused.LinearBn1d(*in_features*, *out_features*, *bias=True*, *eps=1e-05*, *momentum=0.1*, *freeze_bn=False*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L16)
 
 A LinearBn1d module is a module fused from Linear and BatchNorm1d, attached
 with FakeQuantize modules for weight, used in quantization aware training.
@@ -16,7 +16,7 @@ Variables:
 - **freeze_bn** -
 - **weight_fake_quant** - fake quant module for weight
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L145)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L145)
 
 Create a qat module from a float module or qparams_dict
 
@@ -25,7 +25,7 @@ Parameters:
 **mod** - A float module, either produced by torch.ao.quantization
 utilities or directly from the user.
 
-train(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L133)
+train(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/nn/intrinsic/qat/modules/linear_fused.py#L133)
 
 Batchnorm's training behavior is using the self.training flag. Prevent
 changing it if BN is frozen. This makes sure that calling model.train()

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1595)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.adaptive_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1595)
 
 Return type:
 

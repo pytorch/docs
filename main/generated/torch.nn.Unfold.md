@@ -1,6 +1,6 @@
 # Unfold
 
-*class*torch.nn.Unfold(*kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/modules/fold.py#L174)
+*class*torch.nn.Unfold(*kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/modules/fold.py#L174)
 
 Extracts sliding local blocks from a batched input tensor.
 
@@ -125,7 +125,7 @@ torch.Size([2, 30, 4])
 tensor(1.9073e-06)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/modules/fold.py#L328)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/modules/fold.py#L328)
 
 Return the extra representation of the module.
 
@@ -133,7 +133,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/nn/modules/fold.py#L320)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/modules/fold.py#L320)
 
 Runs the forward pass.
 

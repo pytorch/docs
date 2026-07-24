@@ -1,11 +1,11 @@
 # BackendPatternConfig
 
-*class*torch.ao.quantization.backend_config.BackendPatternConfig(*pattern=None*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L439)
+*class*torch.ao.quantization.backend_config.BackendPatternConfig(*pattern=None*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L439)
 
 Config object that specifies quantization behavior for a given operator pattern.
 For a detailed example usage, see [`BackendConfig`](torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig).
 
-add_dtype_config(*dtype_config*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L514)
+add_dtype_config(*dtype_config*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L514)
 
 Add a set of supported data types passed as arguments to quantize ops in the
 reference model spec.
@@ -14,7 +14,7 @@ Return type:
 
 *BackendPatternConfig*
 
-*classmethod*from_dict(*backend_pattern_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L632)
+*classmethod*from_dict(*backend_pattern_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L632)
 
 Create a `BackendPatternConfig` from a dictionary with the following items:
 
@@ -34,7 +34,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_dtype_configs(*dtype_configs*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L522)
+set_dtype_configs(*dtype_configs*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L522)
 
 Set the supported data types passed as arguments to quantize ops in the
 reference model spec, overriding all previously registered data types.
@@ -43,7 +43,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_fused_module(*fused_module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L569)
+set_fused_module(*fused_module*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L569)
 
 Set the module that represents the fused implementation for this pattern.
 
@@ -51,7 +51,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_fuser_method(*fuser_method*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L578)
+set_fuser_method(*fuser_method*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L578)
 
 Set the function that specifies how to fuse this BackendPatternConfig's pattern.
 
@@ -71,7 +71,7 @@ Return type:
 
 BackendPatternConfig
 
-set_observation_type(*observation_type*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L488)
+set_observation_type(*observation_type*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L488)
 
 Set how observers should be inserted in the graph for this pattern.
 
@@ -99,7 +99,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_pattern(*pattern*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L473)
+set_pattern(*pattern*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L473)
 
 Set the pattern to configure.
 
@@ -111,7 +111,7 @@ Return type:
 
 BackendPatternConfig
 
-set_qat_module(*qat_module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L550)
+set_qat_module(*qat_module*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L550)
 
 Set the module that represents the QAT implementation for this pattern.
 
@@ -119,7 +119,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_reference_quantized_module(*reference_quantized_module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L557)
+set_reference_quantized_module(*reference_quantized_module*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L557)
 
 Set the module that represents the reference quantized implementation for
 this pattern's root module.
@@ -130,7 +130,7 @@ Return type:
 
 *BackendPatternConfig*
 
-set_root_module(*root_module*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L532)
+set_root_module(*root_module*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L532)
 
 Set the module that represents the root for this pattern.
 
@@ -147,7 +147,7 @@ Return type:
 
 *BackendPatternConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/ao/quantization/backend_config/backend_config.py#L708)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/backend_config/backend_config.py#L708)
 
 Convert this `BackendPatternConfig` to a dictionary with the items described in
 `from_dict()`.

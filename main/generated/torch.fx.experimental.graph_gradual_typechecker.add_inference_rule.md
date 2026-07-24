@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.add_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.add_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/051c786d044a8aa490884192d549c8057aa4d2e7/torch/fx/experimental/graph_gradual_typechecker.py#L164)
+torch.fx.experimental.graph_gradual_typechecker.add_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/experimental/graph_gradual_typechecker.py#L164)
 
 Apply the addition inference rule. This includes:
 - scalar addition
