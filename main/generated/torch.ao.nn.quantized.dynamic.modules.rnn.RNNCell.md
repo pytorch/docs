@@ -1,6 +1,6 @@
 # RNNCell
 
-*class*torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell(*input_size*, *hidden_size*, *bias=True*, *nonlinearity='tanh'*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1211)
+*class*torch.ao.nn.quantized.dynamic.modules.rnn.RNNCell(*input_size*, *hidden_size*, *bias=True*, *nonlinearity='tanh'*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1211)
 
 An Elman RNN cell with tanh or ReLU non-linearity.
 A dynamic quantized RNNCell module with floating point tensor as inputs and outputs.

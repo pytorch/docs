@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitd1e2802 )">
+<meta name="llm:version" content="main (2.14.0a0+git55d1820 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitd1e2802 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git55d1820 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3600,7 +3600,7 @@ document.write(`
 <h1>torch.fx.experimental.const_fold.split_const_subgraphs<a class="headerlink" href="#torch-fx-experimental-const-fold-split-const-subgraphs" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.const_fold.split_const_subgraphs">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.const_fold.</span></span><span class="sig-name descname"><span class="pre">split_const_subgraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_folding_node_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_for_folded_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/experimental/const_fold.py#L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.const_fold.split_const_subgraphs" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.const_fold.</span></span><span class="sig-name descname"><span class="pre">split_const_subgraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_folding_node_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_for_folded_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_impure_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/experimental/const_fold.py#L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.const_fold.split_const_subgraphs" title="Link to this definition">#</a></dt>
 <dd><p>Looks through <cite>module</cite> for any nodes that have all constant attribute inputs
 and separates them out into their own constant subgraph, and returns a
 FoldedGraphModule which runs that constant subgraph on the first run to set
@@ -3612,6 +3612,10 @@ folded atomically, so it is skipped if any node inside its subgraph is
 skipped. Predicates must therefore be node-local; one that needs to resolve a
 node’s <cite>target</cite> to a submodule must use <cite>node.graph.owning_module</cite> rather than
 a captured top-level module.</p>
+<p><cite>is_impure_node</cite>, if provided, is forwarded to <cite>eliminate_dead_code</cite> so DCE
+preserves nodes the caller considers impure beyond the default
+<cite>Node.is_impure()</cite> check (e.g. out-variant ops that write a pre-allocated
+buffer via an <cite>out=</cite> kwarg not declared mutable in their schema).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>FoldedGraphModule</em></p>
@@ -3975,7 +3979,7 @@ a captured top-level module.</p>
        "headline": "torch.fx.experimental.const_fold.split_const_subgraphs",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.const_fold.split_const_subgraphs.html",
-       "articleBody": "torch.fx.experimental.const_fold.split_const_subgraphs# torch.fx.experimental.const_fold.split_const_subgraphs(module, skip_folding_node_fn=None, device_for_folded_attrs=\u0027cpu\u0027)[source]# Looks through module for any nodes that have all constant attribute inputs and separates them out into their own constant subgraph, and returns a FoldedGraphModule which runs that constant subgraph on the first run to set attributes on the module prior to running the non-constant portion of the graph. skip_folding_node_fn, if provided, may be invoked on nodes owned by nested call_module subgraphs, not just top-level nodes: a call_module node is folded atomically, so it is skipped if any node inside its subgraph is skipped. Predicates must therefore be node-local; one that needs to resolve a node\u2019s target to a submodule must use node.graph.owning_module rather than a captured top-level module. Return type: FoldedGraphModule",
+       "articleBody": "torch.fx.experimental.const_fold.split_const_subgraphs# torch.fx.experimental.const_fold.split_const_subgraphs(module, skip_folding_node_fn=None, device_for_folded_attrs=\u0027cpu\u0027, is_impure_node=None)[source]# Looks through module for any nodes that have all constant attribute inputs and separates them out into their own constant subgraph, and returns a FoldedGraphModule which runs that constant subgraph on the first run to set attributes on the module prior to running the non-constant portion of the graph. skip_folding_node_fn, if provided, may be invoked on nodes owned by nested call_module subgraphs, not just top-level nodes: a call_module node is folded atomically, so it is skipped if any node inside its subgraph is skipped. Predicates must therefore be node-local; one that needs to resolve a node\u2019s target to a submodule must use node.graph.owning_module rather than a captured top-level module. is_impure_node, if provided, is forwarded to eliminate_dead_code so DCE preserves nodes the caller considers impure beyond the default Node.is_impure() check (e.g. out-variant ops that write a pre-allocated buffer via an out= kwarg not declared mutable in their schema). Return type: FoldedGraphModule",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

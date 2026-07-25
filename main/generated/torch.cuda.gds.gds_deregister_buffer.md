@@ -1,6 +1,6 @@
 # torch.cuda.gds.gds_deregister_buffer
 
-torch.cuda.gds.gds_deregister_buffer(*s*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/cuda/gds.py#L69)
+torch.cuda.gds.gds_deregister_buffer(*s*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/cuda/gds.py#L69)
 
 Deregisters a previously registered storage on a CUDA device as a cufile buffer.
 

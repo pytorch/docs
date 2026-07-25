@@ -1,6 +1,6 @@
 # torch.set_rng_state
 
-torch.set_rng_state(*new_state*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/random.py#L27)
+torch.set_rng_state(*new_state*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/random.py#L27)
 
 Sets the random number generator state.
 

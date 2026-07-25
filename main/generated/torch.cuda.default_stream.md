@@ -1,6 +1,6 @@
 # torch.cuda.default_stream
 
-torch.cuda.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/cuda/__init__.py#L1311)
+torch.cuda.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/cuda/__init__.py#L1311)
 
 Return the default [`Stream`](torch.cuda.Stream_class.html#torch.cuda.Stream) for a given device.
 

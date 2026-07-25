@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing
 
-torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing()[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/experimental/proxy_tensor.py#L3434)
+torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing()[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/experimental/proxy_tensor.py#L3434)
 
 Return type:
 

@@ -12,7 +12,7 @@ in which they are defined. Feel free to use either the top-level version in `tor
 | [`broadcast_shapes`](generated/torch.functional.broadcast_shapes.html#torch.functional.broadcast_shapes) | Similar to [`broadcast_tensors()`](generated/torch.functional.broadcast_tensors.html#torch.functional.broadcast_tensors) but for shapes. |
 | [`broadcast_tensors`](generated/torch.functional.broadcast_tensors.html#torch.functional.broadcast_tensors) | Broadcasts the given tensors according to [Broadcasting semantics](notes/broadcasting.html#broadcasting-semantics). |
 | [`cartesian_prod`](generated/torch.functional.cartesian_prod.html#torch.functional.cartesian_prod) | Do cartesian product of the given sequence of tensors. |
-| [`cdist`](generated/torch.functional.cdist.html#torch.functional.cdist) | Computes batched the p-norm distance between each pair of the two collections of row vectors. |
+| [`cdist`](generated/torch.functional.cdist.html#torch.functional.cdist) | Computes the batched p-norm distance between each pair of the two collections of row vectors. |
 | [`chain_matmul`](generated/torch.functional.chain_matmul.html#torch.functional.chain_matmul) | Returns the matrix product of the NNN 2-D tensors. |
 | [`einsum`](generated/torch.functional.einsum.html#torch.functional.einsum) | Sums the product of the elements of the input `operands` along dimensions specified using a notation based on the Einstein summation convention. |
 | [`lu`](generated/torch.functional.lu.html#torch.functional.lu) | Computes the LU factorization of a matrix or batches of matrices `A`. |

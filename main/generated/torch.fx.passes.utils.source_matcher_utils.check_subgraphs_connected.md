@@ -1,6 +1,6 @@
 # torch.fx.passes.utils.source_matcher_utils.check_subgraphs_connected
 
-torch.fx.passes.utils.source_matcher_utils.check_subgraphs_connected(*subgraph1*, *subgraph2*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/passes/utils/source_matcher_utils.py#L177)
+torch.fx.passes.utils.source_matcher_utils.check_subgraphs_connected(*subgraph1*, *subgraph2*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/passes/utils/source_matcher_utils.py#L177)
 
 Given two subgraphs A and B (in the form of a list of nodes), checks if
 A has nodes connecting to at least one node in B - aka there exists a node

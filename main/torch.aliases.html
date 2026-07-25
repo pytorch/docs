@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitd1e2802 )">
+<meta name="llm:version" content="main (2.14.0a0+git55d1820 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitd1e2802 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git55d1820 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5595,8 +5595,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7075,7 +7075,7 @@ in which they are defined. Feel free to use either the top-level version in <cod
 <td><p>Do cartesian product of the given sequence of tensors.</p></td>
 </tr>
 <tr class="row-even"><td><p><p id="torch.functional.cdist"/><p id="torch.functional.cdist"/><a class="reference internal" href="generated/torch.functional.cdist.html#torch.functional.cdist" title="torch.functional.cdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cdist</span></code></a></p></td>
-<td><p>Computes batched the p-norm distance between each pair of the two collections of row vectors.</p></td>
+<td><p>Computes the batched p-norm distance between each pair of the two collections of row vectors.</p></td>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.functional.chain_matmul"/><p id="torch.functional.chain_matmul"/><a class="reference internal" href="generated/torch.functional.chain_matmul.html#torch.functional.chain_matmul" title="torch.functional.chain_matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chain_matmul</span></code></a></p></td>
 <td><p>Returns the matrix product of the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> 2-D tensors.</p></td>
@@ -7473,7 +7473,7 @@ in which they are defined. Feel free to use either the top-level version in <cod
        "headline": "Aliases in torch",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch.aliases.html",
-       "articleBody": "Aliases in torch# Created On: Jul 22, 2025 | Last Updated On: Jun 03, 2026 The following are aliases in torch to their counterparts in the nested namespaces in which they are defined. Feel free to use either the top-level version in torch (e.g. torch.broadcast_tensors()) or the nested version torch.functional.broadcast_tensors(). atleast_1d Returns a 1-dimensional view of each input tensor with zero dimensions. atleast_2d Returns a 2-dimensional view of each input tensor with zero dimensions. atleast_3d Returns a 3-dimensional view of each input tensor with zero dimensions. block_diag Create a block diagonal matrix from provided tensors. broadcast_shapes Similar to broadcast_tensors() but for shapes. broadcast_tensors Broadcasts the given tensors according to Broadcasting semantics. cartesian_prod Do cartesian product of the given sequence of tensors. cdist Computes batched the p-norm distance between each pair of the two collections of row vectors. chain_matmul Returns the matrix product of the NNN 2-D tensors. einsum Sums the product of the elements of the input operands along dimensions specified using a notation based on the Einstein summation convention. lu Computes the LU factorization of a matrix or batches of matrices A. meshgrid Creates grids of coordinates specified by the 1D inputs in attr:tensors. norm Returns the matrix norm or vector norm of a given tensor. split Splits the tensor into chunks. stft Short-time Fourier transform (STFT). tensordot Returns a contraction of a and b over multiple dimensions. unique Returns the unique elements of the input tensor. unique_consecutive Eliminates all but the first element from every consecutive group of equivalent elements. unravel_index Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape.",
+       "articleBody": "Aliases in torch# Created On: Jul 22, 2025 | Last Updated On: Jun 03, 2026 The following are aliases in torch to their counterparts in the nested namespaces in which they are defined. Feel free to use either the top-level version in torch (e.g. torch.broadcast_tensors()) or the nested version torch.functional.broadcast_tensors(). atleast_1d Returns a 1-dimensional view of each input tensor with zero dimensions. atleast_2d Returns a 2-dimensional view of each input tensor with zero dimensions. atleast_3d Returns a 3-dimensional view of each input tensor with zero dimensions. block_diag Create a block diagonal matrix from provided tensors. broadcast_shapes Similar to broadcast_tensors() but for shapes. broadcast_tensors Broadcasts the given tensors according to Broadcasting semantics. cartesian_prod Do cartesian product of the given sequence of tensors. cdist Computes the batched p-norm distance between each pair of the two collections of row vectors. chain_matmul Returns the matrix product of the NNN 2-D tensors. einsum Sums the product of the elements of the input operands along dimensions specified using a notation based on the Einstein summation convention. lu Computes the LU factorization of a matrix or batches of matrices A. meshgrid Creates grids of coordinates specified by the 1D inputs in attr:tensors. norm Returns the matrix norm or vector norm of a given tensor. split Splits the tensor into chunks. stft Short-time Fourier transform (STFT). tensordot Returns a contraction of a and b over multiple dimensions. unique Returns the unique elements of the input tensor. unique_consecutive Eliminates all but the first element from every consecutive group of equivalent elements. unravel_index Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

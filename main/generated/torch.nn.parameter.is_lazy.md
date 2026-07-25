@@ -1,6 +1,6 @@
 # torch.nn.parameter.is_lazy
 
-torch.nn.parameter.is_lazy(*param*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/parameter.py#L193)
+torch.nn.parameter.is_lazy(*param*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/parameter.py#L193)
 
 Returns whether `param` is an `UninitializedParameter` or `UninitializedBuffer`.
 

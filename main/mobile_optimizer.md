@@ -5,12 +5,12 @@ PyTorch Mobile is no longer actively supported. Redirecting to [ExecuTorch docum
 Warning
 
 PyTorch Mobile is no longer actively supported. Please check out
-[ExecuTorch](https://pytorch.org/executorch-overview), PyTorch's
+[ExecuTorch](https://docs.pytorch.org/executorch/), PyTorch's
 all-new on-device inference library. You can also review
 documentation on [XNNPACK](https://pytorch.org/executorch/stable/backends-xnnpack.html)
 and [Vulkan](https://pytorch.org/executorch/stable/native-delegates-executorch-vulkan-delegate.html) delegates.
 
-torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/utils/mobile_optimizer.py#L15)
+torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/utils/mobile_optimizer.py#L15)
 
 Optimize a torch script module for mobile deployment.
 
@@ -31,7 +31,7 @@ Return type:
 
 *RecursiveScriptModule*
 
-torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/utils/mobile_optimizer.py#L76)
+torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/utils/mobile_optimizer.py#L76)
 
 Generate a list of lints for a given torch script module.
 

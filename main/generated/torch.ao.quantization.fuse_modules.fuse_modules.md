@@ -1,6 +1,6 @@
 # fuse_modules
 
-*class*torch.ao.quantization.fuse_modules.fuse_modules(*model*, *modules_to_fuse*, *inplace=False*, *fuser_func=<function fuse_known_modules>*, *fuse_custom_config_dict=None*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/ao/quantization/fuse_modules.py#L129)
+*class*torch.ao.quantization.fuse_modules.fuse_modules(*model*, *modules_to_fuse*, *inplace=False*, *fuser_func=<function fuse_known_modules>*, *fuse_custom_config_dict=None*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/ao/quantization/fuse_modules.py#L129)
 
 Fuse a list of modules into a single module.
 

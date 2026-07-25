@@ -1,6 +1,6 @@
 # torch.fx.experimental.const_fold.split_const_subgraphs
 
-torch.fx.experimental.const_fold.split_const_subgraphs(*module*, *skip_folding_node_fn=None*, *device_for_folded_attrs='cpu'*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/fx/experimental/const_fold.py#L194)
+torch.fx.experimental.const_fold.split_const_subgraphs(*module*, *skip_folding_node_fn=None*, *device_for_folded_attrs='cpu'*, *is_impure_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/experimental/const_fold.py#L197)
 
 Looks through module for any nodes that have all constant attribute inputs
 and separates them out into their own constant subgraph, and returns a
@@ -14,6 +14,11 @@ folded atomically, so it is skipped if any node inside its subgraph is
 skipped. Predicates must therefore be node-local; one that needs to resolve a
 node's target to a submodule must use node.graph.owning_module rather than
 a captured top-level module.
+
+is_impure_node, if provided, is forwarded to eliminate_dead_code so DCE
+preserves nodes the caller considers impure beyond the default
+Node.is_impure() check (e.g. out-variant ops that write a pre-allocated
+buffer via an out= kwarg not declared mutable in their schema).
 
 Return type:
 

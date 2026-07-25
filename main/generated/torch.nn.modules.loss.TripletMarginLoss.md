@@ -1,6 +1,6 @@
 # TripletMarginLoss
 
-*class*torch.nn.modules.loss.TripletMarginLoss(*margin=1.0*, *p=2.0*, *eps=1e-06*, *swap=False*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/modules/loss.py#L1906)
+*class*torch.nn.modules.loss.TripletMarginLoss(*margin=1.0*, *p=2.0*, *eps=1e-06*, *swap=False*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/modules/loss.py#L1906)
 
 Creates a criterion that measures the triplet loss given an input
 tensors x1x1x1, x2x2x2, x3x3x3 and a margin with a value greater than 000.
@@ -72,7 +72,7 @@ Examples:
 >>> output.backward()
 ```
 
-forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/d1e2802e366c287c4773a50f4f0e8c35e8647bbb/torch/nn/modules/loss.py#L2002)
+forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/modules/loss.py#L2002)
 
 Runs the forward pass.
 
