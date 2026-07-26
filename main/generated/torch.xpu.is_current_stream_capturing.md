@@ -1,6 +1,6 @@
 # torch.xpu.is_current_stream_capturing
 
-torch.xpu.is_current_stream_capturing()[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/xpu/graphs.py#L40)
+torch.xpu.is_current_stream_capturing()[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/xpu/graphs.py#L40)
 
 Return True if XPU graph capture is underway on the current XPU stream, False otherwise.
 

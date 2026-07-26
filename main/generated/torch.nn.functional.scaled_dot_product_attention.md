@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_dot_product_attention
 
-torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/functional.py#L6368)
+torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/nn/functional.py#L6368)
 
 scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0,
 
@@ -109,8 +109,9 @@ For math backend, all intermediates are kept in torch.float if inputs are in tor
 
 For more information please see [Numerical accuracy](../notes/numerical_accuracy.html)
 
-> Grouped Query Attention (GQA) is an experimental feature. It currently works only for Flash_attention
-> and math kernel on CUDA tensor, and does not support Nested tensor.
+> Grouped Query Attention (GQA) is an experimental feature. It works with FlashAttention,
+> cuDNN attention, and the math kernel on CUDA tensors. Memory-efficient attention also supports
+> GQA on NVIDIA CUDA. GQA does not support Nested tensors.
 > Constraints for GQA:
 > 
 > 

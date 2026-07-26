@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.core.ismethod
 
-torch.fx.experimental.unification.multipledispatch.core.ismethod(*func*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/experimental/unification/multipledispatch/core.py#L86)
+torch.fx.experimental.unification.multipledispatch.core.ismethod(*func*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/fx/experimental/unification/multipledispatch/core.py#L86)
 
 Is func a method?
 Note that this has to work as the method is defined but before the class is

@@ -1,6 +1,6 @@
 # DeQuantStub
 
-*class*torch.ao.quantization.DeQuantStub(*qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/ao/quantization/stubs.py#L29)
+*class*torch.ao.quantization.DeQuantStub(*qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/ao/quantization/stubs.py#L29)
 
 Dequantize stub module, before calibration, this is same as identity,
 this will be swapped as nnq.DeQuantize in convert.

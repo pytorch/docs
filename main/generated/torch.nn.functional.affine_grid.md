@@ -1,6 +1,6 @@
 # torch.nn.functional.affine_grid
 
-torch.nn.functional.affine_grid(*theta*, *size*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/functional.py#L5657)
+torch.nn.functional.affine_grid(*theta*, *size*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/nn/functional.py#L5657)
 
 Generate 2D or 3D flow field (sampling grid), given a batch of affine matrices `theta`.
 

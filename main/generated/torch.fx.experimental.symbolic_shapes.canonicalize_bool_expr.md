@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr
 
-torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/fx/experimental/symbolic_shapes.py#L776)
+torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/fx/experimental/symbolic_shapes.py#L776)
 
 Canonicalize a boolean expression by transforming it into a lt / le
 inequality and moving all the non-constant terms to the rhs.

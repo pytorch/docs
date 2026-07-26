@@ -1,6 +1,6 @@
 # get_fusion_pattern_to_root_node_getter
 
-*class*torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_root_node_getter(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/ao/quantization/backend_config/utils.py#L103)
+*class*torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_root_node_getter(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/ao/quantization/backend_config/utils.py#L103)
 
 Get a map from fusion pattern to a function that returns the root node
 from the fusion pattern, e.g. the most common one is:

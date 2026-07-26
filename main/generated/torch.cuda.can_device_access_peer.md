@@ -1,6 +1,6 @@
 # torch.cuda.can_device_access_peer
 
-torch.cuda.can_device_access_peer(*device*, *peer_device*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/cuda/__init__.py#L802)
+torch.cuda.can_device_access_peer(*device*, *peer_device*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/cuda/__init__.py#L802)
 
 Check if peer access between two devices is possible.
 

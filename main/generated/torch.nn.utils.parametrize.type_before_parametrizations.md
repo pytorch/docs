@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.type_before_parametrizations
 
-torch.nn.utils.parametrize.type_before_parametrizations(*module*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/nn/utils/parametrize.py#L799)
+torch.nn.utils.parametrize.type_before_parametrizations(*module*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/nn/utils/parametrize.py#L799)
 
 Return the module type before parametrizations were applied and if not, then it returns the module type.
 

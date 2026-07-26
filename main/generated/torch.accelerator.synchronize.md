@@ -1,6 +1,6 @@
 # torch.accelerator.synchronize
 
-torch.accelerator.synchronize(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/55d182046edce7face6d9eb894f23b3a2588d876/torch/accelerator/__init__.py#L247)
+torch.accelerator.synchronize(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/accelerator/__init__.py#L247)
 
 Wait for all kernels in all streams on the given device to complete.
 
