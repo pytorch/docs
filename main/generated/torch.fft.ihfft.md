@@ -1,6 +1,6 @@
 # torch.fft.ihfft
 
-torch.fft.ihfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/fft/__init__.py#L876)
+torch.fft.ihfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/fft/__init__.py#L876)
 
 Computes the inverse of [`hfft()`](torch.fft.hfft.html#torch.fft.hfft).
 

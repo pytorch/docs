@@ -1,5 +1,5 @@
 # torch.linalg.diagonal
 
-torch.linalg.diagonal(*A*, ***, *offset=0*, *dim1=-2*, *dim2=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/linalg/__init__.py#L1655)
+torch.linalg.diagonal(*A*, ***, *offset=0*, *dim1=-2*, *dim2=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/linalg/__init__.py#L1655)
 
 Alias for [`torch.diagonal()`](torch.diagonal.html#torch.diagonal) with defaults `dim1`= -2, `dim2`= -1.

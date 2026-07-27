@@ -1,6 +1,6 @@
 # ConstantPad1d
 
-*class*torch.nn.modules.padding.ConstantPad1d(*padding*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/nn/modules/padding.py#L227)
+*class*torch.nn.modules.padding.ConstantPad1d(*padding*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/nn/modules/padding.py#L227)
 
 Pads the input tensor boundaries with a constant value.
 

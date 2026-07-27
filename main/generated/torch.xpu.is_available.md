@@ -1,6 +1,6 @@
 # torch.xpu.is_available
 
-torch.xpu.is_available()[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/xpu/__init__.py#L287)
+torch.xpu.is_available()[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/xpu/__init__.py#L287)
 
 Return a bool indicating if XPU is currently available.
 

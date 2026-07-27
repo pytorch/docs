@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/fx/experimental/graph_gradual_typechecker.py#L330)
+torch.fx.experimental.graph_gradual_typechecker.bn2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/fx/experimental/graph_gradual_typechecker.py#L330)
 
 Given a BatchNorm2D instance and a node check the following conditions:
 - the input type can be expanded to a size 4 tensor: t = (x_1, x_2, x_3, x_4)

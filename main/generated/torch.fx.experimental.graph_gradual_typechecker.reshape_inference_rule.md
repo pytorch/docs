@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.reshape_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.reshape_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/fx/experimental/graph_gradual_typechecker.py#L287)
+torch.fx.experimental.graph_gradual_typechecker.reshape_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/fx/experimental/graph_gradual_typechecker.py#L287)
 
 Without dynamism, the rule checks that the
 product of the elements of the argument tensor

@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.get_kernel_annotations
 
-torch.cuda.graph_annotations.get_kernel_annotations() → Mapping[[int](https://docs.python.org/3/library/functions.html#int), [list](https://docs.python.org/3/library/stdtypes.html#list)][[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/cuda/_graph_annotations.py#L530)
+torch.cuda.graph_annotations.get_kernel_annotations() → Mapping[[int](https://docs.python.org/3/library/functions.html#int), [list](https://docs.python.org/3/library/stdtypes.html#list)][[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/cuda/_graph_annotations.py#L530)
 
 Return the live registry of recorded kernel annotations.
 

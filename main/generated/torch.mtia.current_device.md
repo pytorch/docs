@@ -1,6 +1,6 @@
 # torch.mtia.current_device
 
-torch.mtia.current_device()[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/mtia/__init__.py#L174)
+torch.mtia.current_device()[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/mtia/__init__.py#L174)
 
 Return the index of a currently selected device.
 

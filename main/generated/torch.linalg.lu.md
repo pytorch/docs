@@ -1,6 +1,6 @@
 # torch.linalg.lu
 
-torch.linalg.lu(*A*, ***, *pivot=True*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/c0efb74fed099321e3bbddbd846a41d15257615d/torch/linalg/__init__.py#L2641)
+torch.linalg.lu(*A*, ***, *pivot=True*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/linalg/__init__.py#L2641)
 
 Computes the LU decomposition with partial pivoting of a matrix.
 
