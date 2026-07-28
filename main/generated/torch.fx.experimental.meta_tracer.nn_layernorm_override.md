@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.nn_layernorm_override
 
-torch.fx.experimental.meta_tracer.nn_layernorm_override(*self*, *input*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/fx/experimental/meta_tracer.py#L38)
+torch.fx.experimental.meta_tracer.nn_layernorm_override(*self*, *input*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/fx/experimental/meta_tracer.py#L38)
 
 Return type:
 

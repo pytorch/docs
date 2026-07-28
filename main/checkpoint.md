@@ -31,7 +31,16 @@ Tensors to a new device ("new" meaning not belonging to the set of
 [current device + devices of Tensor arguments]) within `run_fn`, deterministic
 output compared to non-checkpointed passes is never guaranteed.
 
-torch.utils.checkpoint.checkpoint(*function*, **args*, *use_reentrant=None*, *context_fn=<function noop_context_fn>*, *determinism_check='default'*, *debug=False*, *early_stop=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L354)
+`checkpoint` may also be called without a function to produce a decorator. This
+keeps checkpoint configuration separate from the keyword arguments passed to the
+checkpointed function:
+
+```
+checkpointed_fn = checkpoint(use_reentrant=False, preserve_rng_state=False)(fn)
+out = checkpointed_fn(*args, **kwargs)
+```
+
+torch.utils.checkpoint.checkpoint(*function=None*, **args*, *use_reentrant=None*, *preserve_rng_state=True*, *context_fn=<function noop_context_fn>*, *determinism_check='default'*, *debug=False*, *early_stop=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L390)
 
 Checkpoint a model or part of the model.
 
@@ -107,7 +116,9 @@ Parameters:
 part of the model. It should also know how to handle the inputs
 passed as the tuple. For example, in LSTM, if user passes
 `(activation, hidden)`, `function` should correctly use the
-first input as `activation` and the second input as `hidden`
+first input as `activation` and the second input as `hidden`.
+If omitted, `checkpoint` returns a decorator that can be used to
+wrap a function before passing user arguments.
 - **args** - tuple containing inputs to the `function`
 
 Keyword Arguments:
@@ -149,9 +160,30 @@ Default: `True`.
 
 Returns:
 
-Output of running `function` on `*args`
+Output of running `function` on `*args`, or a decorator
+when `function` is omitted.
 
-torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L542)
+Example
+
+```
+>>> # Direct call: checkpoint the function immediately.
+>>> out = torch.utils.checkpoint.checkpoint(
+... fn, *args, use_reentrant=False, **kwargs
+... )
+>>> # Decorator/curried form: configure once, then call.
+>>> checkpointed_fn = torch.utils.checkpoint.checkpoint(
+... use_reentrant=False,
+... preserve_rng_state=False,
+... )(fn)
+>>> out = checkpointed_fn(*args, **kwargs)
+>>> # The same decorator can be applied directly to a function or method.
+>>> @torch.utils.checkpoint.checkpoint(use_reentrant=False)
+... def fn(*args, **kwargs):
+... ...
+>>> out = fn(*args, **kwargs)
+```
+
+torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L647)
 
 Checkpoint a sequential model to save memory.
 
@@ -200,7 +232,7 @@ Example
 >>> input_var = checkpoint_sequential(model, chunks, input_var)
 ```
 
-torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L49)
+torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L50)
 
 Context manager that sets whether checkpoint should print additional debug
 information when running. See the `debug` flag for
@@ -213,7 +245,7 @@ Parameters:
 **enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether checkpoint should print debug information.
 Default is 'None'.
 
-*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L1290)
+*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L1395)
 
 Enum for specifying the policy for checkpointing during backpropagation.
 
@@ -239,7 +271,7 @@ NOT equivalent to not using checkpointing. Using such a policy would
 save additional tensors not limited to ones that are actually needed for
 gradient computation.
 
-*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L1260)
+*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L1365)
 
 Context passed to policy function during selective checkpointing.
 
@@ -266,7 +298,7 @@ Example
 >>> )
 ```
 
-torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L1470)
+torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L1575)
 
 Helper to avoid recomputing certain ops during activation checkpointing.
 
@@ -327,7 +359,7 @@ Example
 >>> )
 ```
 
-*class*torch.utils.checkpoint.GraphExecGroup[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L1736)
+*class*torch.utils.checkpoint.GraphExecGroup[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L1876)
 
 Any checkpointed regions encountered by backward under the same instance
 of this context manager will trigger recompute at most once, even if
@@ -343,7 +375,7 @@ Note
 This context manager only affects checkpoint with use_reentrant=False, and
 is a no-op otherwise.
 
-torch.utils.checkpoint.set_checkpoint_early_stop(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L776)
+torch.utils.checkpoint.set_checkpoint_early_stop(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L881)
 
 Controls whether checkpoint should stop recomputation early.
 
@@ -366,7 +398,7 @@ Example:
 >>> out.backward()
 ```
 
-torch.utils.checkpoint.set_device_states(*devices*, *states*, ***, *device_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/utils/checkpoint.py#L195)
+torch.utils.checkpoint.set_device_states(*devices*, *states*, ***, *device_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/checkpoint.py#L196)
 
 Sets random number generator states for the specified devices.
 

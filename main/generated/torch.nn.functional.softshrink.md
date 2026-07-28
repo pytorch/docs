@@ -1,6 +1,6 @@
 # torch.nn.functional.softshrink
 
-torch.nn.functional.softshrink(*input*, *lambd=0.5*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/94de2113ebf2891e498dd58ed1a16fedac39b5c6/torch/nn/functional.py#L2327)
+torch.nn.functional.softshrink(*input*, *lambd=0.5*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/nn/functional.py#L2327)
 
 Applies the soft shrinkage function elementwise
 
