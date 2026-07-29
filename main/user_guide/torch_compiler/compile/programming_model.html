@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitb7ee739 )">
+<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitb7ee739 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3357,6 +3357,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="programming_model.graph_breaks_index.html">Working with Graph Breaks</a></li>
 <li class="toctree-l4"><a class="reference internal" href="programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="programming_model.reducing_compile_time.html">Reducing Compile Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="programming_model.reducing_guard_overhead.html">Reducing Guard Overhead</a></li>
 <li class="toctree-l4"><a class="reference internal" href="programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="programming_model.reporting_issues.html">Reporting Issues</a></li>
 </ul>
@@ -3669,7 +3671,7 @@ document.write(`
                   
   <section id="torch-compile-programming-model">
 <span id="compile-programming-model"></span><h1>torch.compile Programming Model<a class="headerlink" href="#torch-compile-programming-model" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Jul 27, 2026</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> programming model:</p>
 <ol class="arabic simple">
 <li><p>Clarifies some internal behaviors of <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> so that one can better predict compiler behavior on user code and</p></li>
@@ -3745,6 +3747,22 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="programming_model.recompilation.html#wrapping-constants-with-tensors">Wrapping Constants with Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programming_model.recompilation.html#changing-the-cache-size-limit">Changing the Cache Size Limit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programming_model.recompilation.html#graph-breaking-to-reduce-recompilation-costs">Graph Breaking to Reduce Recompilation Costs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="programming_model.reducing_compile_time.html">Reducing Compile Time</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_compile_time.html#avoid-unnecessary-recompilations">Avoid unnecessary recompilations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_compile_time.html#use-dynamic-shapes-to-avoid-shape-driven-recompiles">Use dynamic shapes to avoid shape-driven recompiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_compile_time.html#regional-compilation">Regional compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_compile_time.html#hierarchical-compilation-with-nested-compile-region">Hierarchical compilation with <code class="docutils literal notranslate"><span class="pre">nested_compile_region</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_compile_time.html#measuring-compile-time">Measuring compile time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="programming_model.reducing_guard_overhead.html">Reducing Guard Overhead</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_guard_overhead.html#reduce-pre-graph-bytecode-time-with-install-free-tensors">1. Reduce pre-graph bytecode time with <code class="docutils literal notranslate"><span class="pre">install_free_tensors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_guard_overhead.html#skip-guards-on-nn-modules-with-guard-filter-fn">2. Skip guards on <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>s with <code class="docutils literal notranslate"><span class="pre">guard_filter_fn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_guard_overhead.html#try-use-recursive-dict-tags-for-guards-first">3. Try <code class="docutils literal notranslate"><span class="pre">use_recursive_dict_tags_for_guards</span></code> first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_guard_overhead.html#skip-guard-evaluation-after-warmup-with-skip-guard-eval-unsafe">4. Skip guard evaluation after warmup with <code class="docutils literal notranslate"><span class="pre">skip_guard_eval_unsafe</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.reducing_guard_overhead.html#putting-it-together">Putting it together</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="programming_model.observability.html">tlparse / TORCH_TRACE</a><ul>
@@ -4120,7 +4138,7 @@ document.write(`
        "headline": "torch.compile Programming Model",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.html",
-       "articleBody": "torch.compile Programming Model# Created On: Jul 28, 2025 | Last Updated On: Dec 03, 2025 The torch.compile programming model: Clarifies some internal behaviors of torch.compile so that one can better predict compiler behavior on user code and Provides ways for one to take more fine-grained control over torch.compile. By understanding the torch.compile programming model, one can systematically unblock themselves when encountering issues with torch.compile. Dynamo Core Concepts Dynamo Tracing Graph Breaks Guards Recompilations Dynamic Shapes Working with Graph Breaks Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don\u2019t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions Non-strict Tracing Programming Model Pure Functions Example 1: No explicit input (e.g. accesses global tensor) Example 2: Side effect (printing) Example 3: Side effect (input list mutation) No direct data_ptr manipulation Specialization and Constants Dealing with Recompilations Is Dynamic Shapes Enabled? Wrapping Constants with Tensors Changing the Cache Size Limit Graph Breaking to Reduce Recompilation Costs tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Reporting Issues Ablation Bisecting Creating a reproducer",
+       "articleBody": "torch.compile Programming Model# Created On: Jul 28, 2025 | Last Updated On: Jul 27, 2026 The torch.compile programming model: Clarifies some internal behaviors of torch.compile so that one can better predict compiler behavior on user code and Provides ways for one to take more fine-grained control over torch.compile. By understanding the torch.compile programming model, one can systematically unblock themselves when encountering issues with torch.compile. Dynamo Core Concepts Dynamo Tracing Graph Breaks Guards Recompilations Dynamic Shapes Working with Graph Breaks Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don\u2019t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions Non-strict Tracing Programming Model Pure Functions Example 1: No explicit input (e.g. accesses global tensor) Example 2: Side effect (printing) Example 3: Side effect (input list mutation) No direct data_ptr manipulation Specialization and Constants Dealing with Recompilations Is Dynamic Shapes Enabled? Wrapping Constants with Tensors Changing the Cache Size Limit Graph Breaking to Reduce Recompilation Costs Reducing Compile Time Avoid unnecessary recompilations Use dynamic shapes to avoid shape-driven recompiles Regional compilation Hierarchical compilation with nested_compile_region Measuring compile time Reducing Guard Overhead 1. Reduce pre-graph bytecode time with install_free_tensors 2. Skip guards on nn.Modules with guard_filter_fn 3. Try use_recursive_dict_tags_for_guards first 4. Skip guard evaluation after warmup with skip_guard_eval_unsafe Putting it together tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Reporting Issues Ablation Bisecting Creating a reproducer",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4132,7 +4150,7 @@ document.write(`
          "@id": "/user_guide/torch_compiler/compile/programming_model.html"
        },
        "datePublished": "Jul 28, 2025T00:00:00Z",
-       "dateModified": "Dec 03, 2025T00:00:00Z"
+       "dateModified": "Jul 27, 2026T00:00:00Z"
      }
  </script>
   <script>

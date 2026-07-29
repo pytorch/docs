@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.register_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.register_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/fx/experimental/graph_gradual_typechecker.py#L128)
+torch.fx.experimental.graph_gradual_typechecker.register_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/fx/experimental/graph_gradual_typechecker.py#L128)
 
 Return type:
 

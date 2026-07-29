@@ -91,6 +91,20 @@ It is lazily initialized, so you can always import it, and use
 | [`export_dot`](generated/torch.cuda.export_dot.html#torch.cuda.export_dot) | Return a capture-end hook that dumps the captured graph to `path` in Graphviz DOT format. |
 | [`export_graph_data`](generated/torch.cuda.export_graph_data.html#torch.cuda.export_graph_data) | Return a post-instantiate hook that pickles [`CUDAGraph.get_graph_data()`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data) to `path`. |
 
+### CUDA graph lifecycle hooks
+
+Register callbacks that fire when any CUDA graph is instantiated or destroyed -
+for example, a profiler observing graph lifecycle without the graph code carrying
+any consumer knowledge. Registering a hook is the opt-in; with none registered
+both are no-ops. Live in `torch.cuda.graphs`.
+
+| [`register_graph_instantiate_hook`](generated/torch.cuda.graphs.register_graph_instantiate_hook.html#torch.cuda.graphs.register_graph_instantiate_hook) | Register a hook run with each CUDA graph right after it is instantiated. |
+| --- | --- |
+| [`run_graph_instantiate_hooks`](generated/torch.cuda.graphs.run_graph_instantiate_hooks.html#torch.cuda.graphs.run_graph_instantiate_hooks) | Run every registered instantiate hook with the graph. |
+| [`register_graph_destroy_hook`](generated/torch.cuda.graphs.register_graph_destroy_hook.html#torch.cuda.graphs.register_graph_destroy_hook) | Register `fn(exec_ids)` to run when a CUDA graph is destroyed. |
+| [`run_graph_destroy_hooks`](generated/torch.cuda.graphs.run_graph_destroy_hooks.html#torch.cuda.graphs.run_graph_destroy_hooks) | Invoke every registered hook with the destroyed exec graph ids, swallowing per-hook errors so one failure does not abort the rest (matching the destroy-callback fire semantics). |
+| [`graph_destroy_hooks_active`](generated/torch.cuda.graphs.graph_destroy_hooks_active.html#torch.cuda.graphs.graph_destroy_hooks_active) | True when any graph-destroy hook is registered -- the gate a CUDAGraph checks before arming its destroy callback. |
+
 ## Graph Kernel Annotations (prototype)
 
 `torch.cuda.graph_annotations` annotates the kernels captured in a CUDA
@@ -208,7 +222,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/cuda/memory.py#L1432)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/cuda/memory.py#L1432)
 
 A context manager that routes allocations to a given pool.
 
@@ -232,7 +246,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -331,6 +345,6 @@ deprecated compatibility APIs.
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitb7ee739 )">
+<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitb7ee739 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5349,6 +5349,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.graph_destroy_hooks_active.html">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -7216,7 +7221,7 @@ handler will no longer receive events.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.monitor.TensorboardEventHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.monitor.</span></span><span class="sig-name descname"><span class="pre">TensorboardEventHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/monitor/__init__.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.monitor.</span></span><span class="sig-name descname"><span class="pre">TensorboardEventHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/monitor/__init__.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler" title="Link to this definition">#</a></dt>
 <dd><p>TensorboardEventHandler is an event handler that will write known events to
 the provided SummaryWriter.</p>
 <p>This currently only supports <code class="docutils literal notranslate"><span class="pre">torch.monitor.Stat</span></code> events which are logged
@@ -7232,7 +7237,7 @@ as scalars.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.monitor.TensorboardEventHandler.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/monitor/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler.__init__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/monitor/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Constructs the <code class="docutils literal notranslate"><span class="pre">TensorboardEventHandler</span></code>.</p>
 <dl class="field-list simple">
 </dl>

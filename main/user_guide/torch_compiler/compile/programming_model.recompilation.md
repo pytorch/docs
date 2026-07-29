@@ -110,6 +110,10 @@ for i in range(1, 10):
  gn(torch.ones(i))
 ```
 
+Reducing recompilations is one way to lower compile time; for other levers
+(regional and hierarchical compilation, measuring compile time), see
+[Reducing Compile Time](programming_model.reducing_compile_time.html).
+
 ## Graph Breaking to Reduce Recompilation Costs
 
 If a large graph is recompiling and causing high compile time, you can intentionally introduce

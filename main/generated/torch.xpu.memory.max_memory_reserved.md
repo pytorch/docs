@@ -1,6 +1,6 @@
 # torch.xpu.memory.max_memory_reserved
 
-torch.xpu.memory.max_memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/xpu/memory.py#L177)
+torch.xpu.memory.max_memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/xpu/memory.py#L177)
 
 Return the maximum GPU memory managed by the caching allocator in bytes for a given device.
 

@@ -80,6 +80,9 @@ def h(x):
 which are runtime checks for these assumptions. Guards are run in future calls to the compiled function to determine if we
 can reuse previously compiled code. Examples of runtime checks are constant values, types, and object IDs.
 
+Because guards run on every call, they add some per-call overhead. If that overhead is significant for your model,
+see [Reducing Guard Overhead](programming_model.reducing_guard_overhead.html).
+
 Below is an example of generated guards. The `TENSOR_MATCH` guard checks for the input's type, device, dtype, shape, etc.
 
 ```
@@ -94,6 +97,8 @@ print(fn(torch.ones(3, 3)))
 
 If the guards fail for every instance of previously compiled code, then `torch.compile` must "recompile" the function,
 requiring the original code to be traced again. In the example below, recompilation is necessary because the guard checking the tensor argument's shape failed.
+Recompilations add to overall compile time; see [Dealing with Recompilations](programming_model.recompilation.html) and
+[Reducing Compile Time](programming_model.reducing_compile_time.html) for how to reduce that cost.
 
 ```
 @torch.compile

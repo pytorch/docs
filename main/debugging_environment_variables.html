@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitb7ee739 )">
+<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitb7ee739 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5349,6 +5349,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.graph_destroy_hooks_active.html">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -7047,7 +7052,7 @@ document.write(`
                   
   <section id="debugging-environment-variables">
 <span id="id1"></span><h1>Debugging Environment Variables<a class="headerlink" href="#debugging-environment-variables" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 15, 2024 | Last Updated On: Jun 06, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 15, 2024 | Last Updated On: Jul 28, 2026</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Variable</p></th>
@@ -7063,6 +7068,9 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code></p></td>
 <td><p>For a more in depth explanation of this environment variable, see <a class="reference internal" href="logging.html"><span class="doc">torch._logging</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_DIST_NAN_CHECK</span></code></p></td>
+<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, checks the input (send) buffers of every <code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> collective for NaNs, for any backend. Unlike <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_NAN_CHECK</span></code>, which is implemented natively by the NCCL backend, this is driven by the backend-agnostic <code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code> collective hooks.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7427,7 +7435,7 @@ document.write(`
        "headline": "Debugging Environment Variables",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/debugging_environment_variables.html",
-       "articleBody": "Debugging Environment Variables# Created On: Feb 15, 2024 | Last Updated On: Jun 06, 2025 Variable Description TORCH_SHOW_CPP_STACKTRACES If set to 1, makes PyTorch print out a stack trace when it detects a C++ error. TORCH_CPP_LOG_LEVEL Set the log level of c10 logging facility (supports both GLOG and c10 loggers). Valid values are INFO, WARNING, ERROR, and FATAL or their numerical equivalents 0, 1, 2, and 3. TORCH_LOGS For a more in depth explanation of this environment variable, see torch._logging.",
+       "articleBody": "Debugging Environment Variables# Created On: Feb 15, 2024 | Last Updated On: Jul 28, 2026 Variable Description TORCH_SHOW_CPP_STACKTRACES If set to 1, makes PyTorch print out a stack trace when it detects a C++ error. TORCH_CPP_LOG_LEVEL Set the log level of c10 logging facility (supports both GLOG and c10 loggers). Valid values are INFO, WARNING, ERROR, and FATAL or their numerical equivalents 0, 1, 2, and 3. TORCH_LOGS For a more in depth explanation of this environment variable, see torch._logging. TORCH_DIST_NAN_CHECK If set to 1, checks the input (send) buffers of every torch.distributed collective for NaNs, for any backend. Unlike TORCH_NCCL_NAN_CHECK, which is implemented natively by the NCCL backend, this is driven by the backend-agnostic ProcessGroup collective hooks.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7439,7 +7447,7 @@ document.write(`
          "@id": "/debugging_environment_variables.html"
        },
        "datePublished": "Feb 15, 2024T00:00:00Z",
-       "dateModified": "Jun 06, 2025T00:00:00Z"
+       "dateModified": "Jul 28, 2026T00:00:00Z"
      }
  </script>
   <script>

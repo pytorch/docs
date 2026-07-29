@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitb7ee739 )">
+<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitb7ee739 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5349,6 +5349,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.graph_destroy_hooks_active.html">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -7072,7 +7077,7 @@ document.write(`
 <h1>torch.utils.hooks<a class="headerlink" href="#torch-utils-hooks" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.hooks.unserializable_hook">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.hooks.</span></span><span class="sig-name descname"><span class="pre">unserializable_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/hooks.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hooks.unserializable_hook" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.hooks.</span></span><span class="sig-name descname"><span class="pre">unserializable_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/utils/hooks.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.hooks.unserializable_hook" title="Link to this definition">#</a></dt>
 <dd><p>Mark a function as an unserializable hook with this decorator.</p>
 <p>This suppresses warnings that would otherwise arise if you attempt
 to serialize a tensor that has a hook.</p>
@@ -7083,7 +7088,7 @@ to serialize a tensor that has a hook.</p>
 <h1>torch.utils.throughput_benchmark<a class="headerlink" href="#torch-utils-throughput-benchmark" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.throughput_benchmark.format_time">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.throughput_benchmark.</span></span><span class="sig-name descname"><span class="pre">format_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_us</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/utils/throughput_benchmark.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.throughput_benchmark.format_time" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.throughput_benchmark.</span></span><span class="sig-name descname"><span class="pre">format_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_us</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/utils/throughput_benchmark.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.throughput_benchmark.format_time" title="Link to this definition">#</a></dt>
 <dd><p>Define time formatting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

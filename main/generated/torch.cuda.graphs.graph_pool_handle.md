@@ -1,6 +1,6 @@
 # torch.cuda.graphs.graph_pool_handle
 
-torch.cuda.graphs.graph_pool_handle()[[source]](https://github.com/pytorch/pytorch/blob/b7ee7397ead012835c2d80ee53f64800630b1ab9/torch/cuda/graphs.py#L88)
+torch.cuda.graphs.graph_pool_handle()[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/cuda/graphs.py#L93)
 
 Return an opaque token representing the id of a graph memory pool.
 
