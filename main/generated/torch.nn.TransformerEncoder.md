@@ -1,6 +1,6 @@
 # TransformerEncoder
 
-*class*torch.nn.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/modules/transformer.py#L318)
+*class*torch.nn.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/transformer.py#L320)
 
 TransformerEncoder is a stack of N encoder layers.
 
@@ -30,13 +30,15 @@ TransformerEncoder when padding rate is high. Default: `True` (enabled).
 Examples
 
 ```
->>> encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8)
+>>> encoder_layer = nn.TransformerEncoderLayer(
+... d_model=512, nhead=8, batch_first=True
+... )
 >>> transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
->>> src = torch.rand(10, 32, 512)
+>>> src = torch.rand(32, 10, 512)
 >>> out = transformer_encoder(src)
 ```
 
-forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/modules/transformer.py#L405)
+forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/transformer.py#L409)
 
 Pass the input through the encoder layers in turn.
 

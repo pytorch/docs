@@ -1,6 +1,6 @@
 # torch.xpu.temperature
 
-torch.xpu.temperature(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/xpu/__init__.py#L896)
+torch.xpu.temperature(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/xpu/__init__.py#L896)
 
 Return the GPU temperature in degrees Celsius.
 

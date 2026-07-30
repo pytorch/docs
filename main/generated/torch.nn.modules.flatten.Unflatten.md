@@ -1,6 +1,6 @@
 # Unflatten
 
-*class*torch.nn.modules.flatten.Unflatten(*dim*, *unflattened_size*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/modules/flatten.py#L64)
+*class*torch.nn.modules.flatten.Unflatten(*dim*, *unflattened_size*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/flatten.py#L64)
 
 Unflattens a tensor dim expanding it to a desired shape. For use with `Sequential`.
 
@@ -42,7 +42,7 @@ torch.Size([2, 2, 5, 5])
 torch.Size([2, 2, 5, 5])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/modules/flatten.py#L132)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/flatten.py#L132)
 
 Returns the extra representation of the module.
 
@@ -50,7 +50,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/modules/flatten.py#L126)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/flatten.py#L126)
 
 Runs the forward pass.
 

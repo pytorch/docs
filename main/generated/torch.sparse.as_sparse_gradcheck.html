@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
+<meta name="llm:version" content="main (2.14.0a0+git9179f20 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9179f20 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3592,7 +3592,7 @@ document.write(`
 <h1>torch.sparse.as_sparse_gradcheck<a class="headerlink" href="#torch-sparse-as-sparse-gradcheck" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.sparse.as_sparse_gradcheck">
-<span class="sig-prename descclassname"><span class="pre">torch.sparse.</span></span><span class="sig-name descname"><span class="pre">as_sparse_gradcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gradcheck</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/sparse/__init__.py#L566"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.as_sparse_gradcheck" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.sparse.</span></span><span class="sig-name descname"><span class="pre">as_sparse_gradcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gradcheck</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/sparse/__init__.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.as_sparse_gradcheck" title="Link to this definition">#</a></dt>
 <dd><p>Decorate function, to extend gradcheck for sparse tensors.</p>
 <p>Decorator for torch.autograd.gradcheck or its functools.partial
 variants that extends the gradcheck function with support to input
@@ -3600,7 +3600,10 @@ functions that operate on or/and return sparse tensors.</p>
 <p>The specified gradcheck function itself is guaranteed to operate
 on strided tensors only.</p>
 <p>For example:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gradcheck</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">as_sparse_gradcheck</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">gradcheck</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;.*Sparse CSR tensor support is in beta state&quot;</span>
+<span class="gp">... </span><span class="p">)</span>  <span class="c1"># docs: hide</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gradcheck</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">as_sparse_gradcheck</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">gradcheck</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="o">.</span><span class="n">to_sparse_coo</span><span class="p">()</span>
@@ -3968,7 +3971,7 @@ on strided tensors only.</p>
        "headline": "torch.sparse.as_sparse_gradcheck",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.sparse.as_sparse_gradcheck.html",
-       "articleBody": "torch.sparse.as_sparse_gradcheck# torch.sparse.as_sparse_gradcheck(gradcheck)[source]# Decorate function, to extend gradcheck for sparse tensors. Decorator for torch.autograd.gradcheck or its functools.partial variants that extends the gradcheck function with support to input functions that operate on or/and return sparse tensors. The specified gradcheck function itself is guaranteed to operate on strided tensors only. For example: \u003e\u003e\u003e gradcheck = torch.sparse.as_sparse_gradcheck(torch.autograd.gradcheck) \u003e\u003e\u003e x = ( ... torch.tensor([[0, 1], [2, 3]], dtype=torch.float64) ... .to_sparse_coo() ... .requires_grad_(True) ... ) \u003e\u003e\u003e gradcheck(lambda x: x.to_sparse_csr(), x) True",
+       "articleBody": "torch.sparse.as_sparse_gradcheck# torch.sparse.as_sparse_gradcheck(gradcheck)[source]# Decorate function, to extend gradcheck for sparse tensors. Decorator for torch.autograd.gradcheck or its functools.partial variants that extends the gradcheck function with support to input functions that operate on or/and return sparse tensors. The specified gradcheck function itself is guaranteed to operate on strided tensors only. For example: \u003e\u003e\u003e warnings.filterwarnings( ... \"ignore\", message=\".*Sparse CSR tensor support is in beta state\" ... ) # docs: hide \u003e\u003e\u003e gradcheck = torch.sparse.as_sparse_gradcheck(torch.autograd.gradcheck) \u003e\u003e\u003e x = ( ... torch.tensor([[0, 1], [2, 3]], dtype=torch.float64) ... .to_sparse_coo() ... .requires_grad_(True) ... ) \u003e\u003e\u003e gradcheck(lambda x: x.to_sparse_csr(), x) True",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

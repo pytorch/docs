@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git25af31d )">
+<meta name="llm:version" content="main (2.14.0a0+git9179f20 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git25af31d )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9179f20 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3730,7 +3730,7 @@ document.write(`
 <h1>torch.nn.utils.weight_norm.remove_weight_norm<a class="headerlink" href="#torch-nn-utils-weight-norm-remove-weight-norm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.weight_norm.remove_weight_norm">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.weight_norm.</span></span><span class="sig-name descname"><span class="pre">remove_weight_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/nn/utils/weight_norm.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.weight_norm.remove_weight_norm" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.weight_norm.</span></span><span class="sig-name descname"><span class="pre">remove_weight_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/utils/weight_norm.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.weight_norm.remove_weight_norm" title="Link to this definition">#</a></dt>
 <dd><p>Remove the weight normalization reparameterization from a module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3744,7 +3744,10 @@ document.write(`
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">weight_norm</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;.*torch.nn.utils.weight_norm&quot;</span>
+<span class="gp">... </span><span class="p">)</span>  <span class="c1"># docs: hide</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">weight_norm</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">remove_weight_norm</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -4106,7 +4109,7 @@ document.write(`
        "headline": "torch.nn.utils.weight_norm.remove_weight_norm",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.utils.weight_norm.remove_weight_norm.html",
-       "articleBody": "torch.nn.utils.weight_norm.remove_weight_norm# torch.nn.utils.weight_norm.remove_weight_norm(module, name=\u0027weight\u0027)[source]# Remove the weight normalization reparameterization from a module. Parameters: module (Module) \u2013 containing module name (str, optional) \u2013 name of weight parameter Return type: T_module Example \u003e\u003e\u003e m = weight_norm(nn.Linear(20, 40)) \u003e\u003e\u003e remove_weight_norm(m)",
+       "articleBody": "torch.nn.utils.weight_norm.remove_weight_norm# torch.nn.utils.weight_norm.remove_weight_norm(module, name=\u0027weight\u0027)[source]# Remove the weight normalization reparameterization from a module. Parameters: module (Module) \u2013 containing module name (str, optional) \u2013 name of weight parameter Return type: T_module Example \u003e\u003e\u003e warnings.filterwarnings( ... \"ignore\", message=\".*torch.nn.utils.weight_norm\" ... ) # docs: hide \u003e\u003e\u003e m = weight_norm(nn.Linear(20, 40)) \u003e\u003e\u003e remove_weight_norm(m)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

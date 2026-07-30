@@ -1,6 +1,6 @@
 # torch.sparse.as_sparse_gradcheck
 
-torch.sparse.as_sparse_gradcheck(*gradcheck*)[[source]](https://github.com/pytorch/pytorch/blob/25af31d252bc789059a6c3b5511977f4fa7d1d4e/torch/sparse/__init__.py#L566)
+torch.sparse.as_sparse_gradcheck(*gradcheck*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/sparse/__init__.py#L567)
 
 Decorate function, to extend gradcheck for sparse tensors.
 
@@ -14,6 +14,9 @@ on strided tensors only.
 For example:
 
 ```
+>>> warnings.filterwarnings(
+... "ignore", message=".*Sparse CSR tensor support is in beta state"
+... ) # docs: hide
 >>> gradcheck = torch.sparse.as_sparse_gradcheck(torch.autograd.gradcheck)
 >>> x = (
 ... torch.tensor([[0, 1], [2, 3]], dtype=torch.float64)
