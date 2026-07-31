@@ -1,6 +1,6 @@
 # torch.cuda.export_graph_data
 
-torch.cuda.export_graph_data(*path*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/cuda/graphs.py#L839)
+torch.cuda.export_graph_data(*path*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/cuda/graphs.py#L861)
 
 Return a post-instantiate hook that pickles [`CUDAGraph.get_graph_data()`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data)
 to `path`. Register it with [`CUDAGraph.register_post_instantiate_hook()`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_post_instantiate_hook):

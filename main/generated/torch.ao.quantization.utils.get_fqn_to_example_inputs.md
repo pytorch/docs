@@ -1,6 +1,6 @@
 # get_fqn_to_example_inputs
 
-*class*torch.ao.quantization.utils.get_fqn_to_example_inputs(*model*, *example_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/ao/quantization/utils.py#L734)
+*class*torch.ao.quantization.utils.get_fqn_to_example_inputs(*model*, *example_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/ao/quantization/utils.py#L734)
 
 Given a model and its example inputs, return a dictionary from
 fully qualified name of submodules to example_inputs for that submodule,

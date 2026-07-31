@@ -1,6 +1,6 @@
 # NodeEvent
 
-*class*torch.fx.passes.splitter_base.NodeEvent(*source*, *desc*, *dep=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fx/passes/splitter_base.py#L150)
+*class*torch.fx.passes.splitter_base.NodeEvent(*source*, *desc*, *dep=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fx/passes/splitter_base.py#L150)
 
 An event in graph split that happened on a node.
 source: Subject of the event

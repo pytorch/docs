@@ -135,6 +135,24 @@ Note
 
 If no port number is specified `HOST_NODE_ADDR` defaults to 29400.
 
+## Shell completion
+
+`torchrun` can emit a completion script for `bash`, `zsh` or `tcsh`. The
+script is generated from the argument parser, so it stays in sync with the
+options above. This requires the optional [shtab](https://tqdm.github.io/shtab)
+package (`pip install shtab`); torchrun only imports it when the flag is used.
+
+```
+# zsh
+torchrun --print-completion zsh > ~/.zsh/completions/_torchrun
+
+# bash
+torchrun --print-completion bash > ~/.local/share/bash-completion/completions/torchrun
+```
+
+Refer to your shell's documentation for the directory it loads completions from;
+the paths above are the common defaults.
+
 ## Note on rendezvous backend
 
 For multi-node training you need to specify:

@@ -1,6 +1,6 @@
 # torch.linalg.solve_ex
 
-torch.linalg.solve_ex(*A*, *B*, ***, *left=True*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/linalg/__init__.py#L294)
+torch.linalg.solve_ex(*A*, *B*, ***, *left=True*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/linalg/__init__.py#L294)
 
 A version of [`solve()`](torch.linalg.solve.html#torch.linalg.solve) that does not perform error checks unless `check_errors`= True.
 It also returns the `info` tensor returned by [LAPACK's getrf](https://www.netlib.org/lapack/explore-html/).

@@ -1,6 +1,6 @@
 # torch.fft.ihfftn
 
-torch.fft.ihfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fft/__init__.py#L1161)
+torch.fft.ihfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fft/__init__.py#L1161)
 
 Computes the N-dimensional inverse discrete Fourier transform of real `input`.
 

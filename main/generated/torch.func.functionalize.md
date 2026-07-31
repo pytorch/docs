@@ -1,6 +1,6 @@
 # torch.func.functionalize
 
-torch.func.functionalize(*func*, ***, *remove='mutations'*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/_functorch/eager_transforms.py#L1603)
+torch.func.functionalize(*func*, ***, *remove='mutations'*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/_functorch/eager_transforms.py#L1603)
 
 functionalize is a transform that can be used to remove (intermediate)
 mutations and aliasing from a function, while preserving the function's

@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git9179f20 )">
+<meta name="llm:version" content="main (2.14.0a0+gitf613b2a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git9179f20 )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitf613b2a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5710,6 +5710,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.cudagraph_mark_warmup_incomplete.html">torch.compiler.cudagraph_mark_warmup_incomplete</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.compiler.is_exporting.html">torch.compiler.is_exporting</a></li>
@@ -7048,7 +7049,7 @@ document.write(`
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.module_tracker.ModuleTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ModuleTracker</span></code> is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being
 executed).</p>

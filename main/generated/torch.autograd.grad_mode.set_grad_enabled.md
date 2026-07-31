@@ -1,6 +1,6 @@
 # set_grad_enabled
 
-*class*torch.autograd.grad_mode.set_grad_enabled(*mode*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/autograd/grad_mode.py#L144)
+*class*torch.autograd.grad_mode.set_grad_enabled(*mode*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/autograd/grad_mode.py#L144)
 
 Context-manager that sets gradient calculation on or off.
 
@@ -45,7 +45,7 @@ True
 False
 ```
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/autograd/grad_mode.py#L206)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/autograd/grad_mode.py#L206)
 
 Create a copy of this class
 

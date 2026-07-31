@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.conflict.ambiguous
 
-torch.fx.experimental.unification.multipledispatch.conflict.ambiguous(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fx/experimental/unification/multipledispatch/conflict.py#L103)
+torch.fx.experimental.unification.multipledispatch.conflict.ambiguous(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fx/experimental/unification/multipledispatch/conflict.py#L103)
 
 A is consistent with B but neither is strictly more specific
 

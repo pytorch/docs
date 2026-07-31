@@ -1219,6 +1219,7 @@
 - [torch.compiler.assume_constant_result](https://docs.pytorch.org/docs/stable/generated/torch.compiler.assume_constant_result.md)
 - [torch.compiler.compile](https://docs.pytorch.org/docs/stable/generated/torch.compiler.compile.md)
 - [torch.compiler.cudagraph_mark_step_begin](https://docs.pytorch.org/docs/stable/generated/torch.compiler.cudagraph_mark_step_begin.md)
+- [torch.compiler.cudagraph_mark_warmup_incomplete](https://docs.pytorch.org/docs/stable/generated/torch.compiler.cudagraph_mark_warmup_incomplete.md)
 - [torch.compiler.disable](https://docs.pytorch.org/docs/stable/generated/torch.compiler.disable.md)
 - [torch.compiler.get_default_backend](https://docs.pytorch.org/docs/stable/generated/torch.compiler.get_default_backend.md)
 - [torch.compiler.is_compiling](https://docs.pytorch.org/docs/stable/generated/torch.compiler.is_compiling.md)

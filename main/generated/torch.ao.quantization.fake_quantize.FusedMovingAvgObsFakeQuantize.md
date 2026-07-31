@@ -1,6 +1,6 @@
 # FusedMovingAvgObsFakeQuantize
 
-*class*torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=0*, *quant_max=255*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/ao/quantization/fake_quantize.py#L371)
+*class*torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=0*, *quant_max=255*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/ao/quantization/fake_quantize.py#L371)
 
 Define a fused module to observe the tensor.
 

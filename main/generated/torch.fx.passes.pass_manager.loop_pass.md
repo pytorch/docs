@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.loop_pass
 
-torch.fx.passes.pass_manager.loop_pass(*base_pass*, *n_iter=None*, *predicate=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fx/passes/pass_manager.py#L86)
+torch.fx.passes.pass_manager.loop_pass(*base_pass*, *n_iter=None*, *predicate=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fx/passes/pass_manager.py#L86)
 
 Convenience wrapper for passes which need to be applied multiple times.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.mse_loss
 
-torch.nn.functional.mse_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/functional.py#L4271)
+torch.nn.functional.mse_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/functional.py#L4271)
 
 Compute the element-wise mean squared error, with optional weighting.
 

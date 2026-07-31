@@ -1,6 +1,6 @@
 # GroupNorm
 
-*class*torch.nn.GroupNorm(*num_groups*, *num_channels*, *eps=1e-05*, *affine=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/normalization.py#L239)
+*class*torch.nn.GroupNorm(*num_groups*, *num_channels*, *eps=1e-05*, *affine=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/normalization.py#L239)
 
 Applies Group Normalization over a mini-batch of inputs.
 

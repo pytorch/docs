@@ -1,6 +1,6 @@
 # torch.nn.utils.remove_weight_norm
 
-torch.nn.utils.remove_weight_norm(*module*, *name='weight'*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/utils/weight_norm.py#L149)
+torch.nn.utils.remove_weight_norm(*module*, *name='weight'*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/utils/weight_norm.py#L149)
 
 Remove the weight normalization reparameterization from a module.
 

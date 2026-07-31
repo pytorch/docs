@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_t
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_t(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L305)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_binconstraint_t(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L305)
 
 Transform binary constraints for tensors
 

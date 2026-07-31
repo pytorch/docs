@@ -1,6 +1,6 @@
 # torch.nn.functional.poisson_nll_loss
 
-torch.nn.functional.poisson_nll_loss(*input*, *target*, *log_input=True*, *full=False*, *size_average=None*, *eps=1e-08*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/functional.py#L3247)
+torch.nn.functional.poisson_nll_loss(*input*, *target*, *log_input=True*, *full=False*, *size_average=None*, *eps=1e-08*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/functional.py#L3247)
 
 Compute the Poisson negative log likelihood loss.
 

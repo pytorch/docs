@@ -1,6 +1,6 @@
 # torch.xpu.seed
 
-torch.xpu.seed()[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/xpu/random.py#L115)
+torch.xpu.seed()[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/xpu/random.py#L115)
 
 Set the seed for generating random numbers to a random number for the current GPU.
 

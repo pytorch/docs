@@ -1,6 +1,6 @@
 # torch.linalg.ldl_solve
 
-torch.linalg.ldl_solve(*LD*, *pivots*, *B*, ***, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/linalg/__init__.py#L1032)
+torch.linalg.ldl_solve(*LD*, *pivots*, *B*, ***, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/linalg/__init__.py#L1032)
 
 Computes the solution of a system of linear equations using the LDL factorization.
 

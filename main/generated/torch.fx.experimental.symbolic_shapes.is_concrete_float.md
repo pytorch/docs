@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.is_concrete_float
 
-torch.fx.experimental.symbolic_shapes.is_concrete_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/fx/experimental/symbolic_shapes.py#L462)
+torch.fx.experimental.symbolic_shapes.is_concrete_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/fx/experimental/symbolic_shapes.py#L462)
 
 Utility to check if underlying object
 in SymInt is concrete value. Also returns

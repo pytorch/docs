@@ -1,6 +1,6 @@
 # torch.func.jvp
 
-torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/_functorch/eager_transforms.py#L1093)
+torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/_functorch/eager_transforms.py#L1093)
 
 Standing for the Jacobian-vector product, returns a tuple containing
 the output of func(*primals) and the "Jacobian of `func` evaluated at

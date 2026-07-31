@@ -1,6 +1,6 @@
 # AlphaDropout
 
-*class*torch.nn.modules.dropout.AlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/dropout.py#L227)
+*class*torch.nn.modules.dropout.AlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/dropout.py#L227)
 
 Applies Alpha Dropout over the input.
 
@@ -40,7 +40,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/dropout.py#L265)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/dropout.py#L265)
 
 Runs the forward pass.
 

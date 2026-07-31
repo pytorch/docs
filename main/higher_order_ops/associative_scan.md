@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/_higher_order_ops/associative_scan.py#L150)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/_higher_order_ops/associative_scan.py#L149)
 
 Performs an inclusive scan with an associative combine function.
 
@@ -141,7 +141,6 @@ or if input is a pytree `(pytree, pytree) -> pytree`.
 This function must be pure, i.e., no lifted arguments are supported at the moment,
 satisfy the associative property and have no side-effects.
 - **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - The input tensor, or nested pytree of tensors.
-All inputs are expected to have the same shape.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over
 - **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
 - **combine_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A string indicating whether the `combine_fn` is `pointwise` or `generic`, default `pointwise`.
@@ -150,6 +149,12 @@ operations; under `torch.compile` `xs` must be on a backend with scan codegen su
 (CUDA or XPU), otherwise the generic fallback is used.
 In all other cases `combine_mode=generic` should be used.
 Note: `combine_mode=pointwise` is more efficient than `combine_mode=generic`.
+
+Returns:
+
+A pytree of the same structure and shape as `xs`. If the scan dimension has size 0,
+the output mirrors the (empty) input unchanged. The gradient with respect to `xs`
+is also empty (size 0 along `dim`), since there are no elements to differentiate through.
 
 Return type:
 

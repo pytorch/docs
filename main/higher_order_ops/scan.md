@@ -79,7 +79,7 @@ Notice that the combine function becomes a sub-graph attribute of the top-level 
 
 ## API Reference
 
-torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/_higher_order_ops/scan.py#L83)
+torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/_higher_order_ops/scan.py#L84)
 
 Performs an inclusive scan with a combine function.
 
@@ -122,6 +122,9 @@ the final carry of the scan operation with same pytree structure as init.
 out (torch.Tensor or pytree with tensor leaves),
 
 each tensor leaf is a stacked output along first dim, where each slice is the output of a scan iteration.
+If the scan dimension has size 0, `final_carry` equals `init` unchanged and each output leaf has
+size 0 along `dim`. The gradient of `final_carry` with respect to `init` is the identity
+(not zero), since the body is never called and the carry passes through untouched.
 
 Return type:
 

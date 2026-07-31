@@ -1,6 +1,6 @@
 # torch.xpu.memory.empty_cache
 
-torch.xpu.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/xpu/memory.py#L26)
+torch.xpu.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/xpu/memory.py#L26)
 
 Release all unoccupied cached memory currently held by the caching
 allocator so that those can be used in other XPU application.

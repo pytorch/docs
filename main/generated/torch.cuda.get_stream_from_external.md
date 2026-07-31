@@ -1,6 +1,6 @@
 # torch.cuda.get_stream_from_external
 
-torch.cuda.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/cuda/__init__.py#L1329)
+torch.cuda.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/cuda/__init__.py#L1329)
 
 Return a [`Stream`](torch.cuda.Stream_class.html#torch.cuda.Stream) from an externally allocated CUDA stream.
 

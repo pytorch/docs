@@ -1,6 +1,6 @@
 # avg_pool3d
 
-*class*torch.ao.nn.quantized.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/ao/nn/quantized/functional.py#L89)
+*class*torch.ao.nn.quantized.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/ao/nn/quantized/functional.py#L89)
 
 Applies 3D average-pooling operation in kD timeskH×kWkD \ times kH \times kWkD timeskH×kW regions by step size
 sD×sH×sWsD \times sH \times sWsD×sH×sW steps. The number of output features is equal to the number of

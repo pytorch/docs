@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.is_pruned
 
-torch.nn.utils.prune.is_pruned(*module*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/utils/prune.py#L1227)
+torch.nn.utils.prune.is_pruned(*module*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/utils/prune.py#L1227)
 
 Check if a module is pruned by looking for pruning pre-hooks.
 

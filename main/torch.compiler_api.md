@@ -16,6 +16,7 @@ For a quick overview of `torch.compiler`, see [torch.compiler](user_guide/torch_
 | [`set_stance`](generated/torch.compiler.set_stance.html#torch.compiler.set_stance) | Set the current stance of the compiler. |
 | [`set_enable_guard_collectives`](generated/torch.compiler.set_enable_guard_collectives.html#torch.compiler.set_enable_guard_collectives) | Enables use of collectives *during* guard evaluation to synchronize behavior across ranks. |
 | [`cudagraph_mark_step_begin`](generated/torch.compiler.cudagraph_mark_step_begin.html#torch.compiler.cudagraph_mark_step_begin) | Indicates that a new iteration of inference or training is about to begin. |
+| [`cudagraph_mark_warmup_incomplete`](generated/torch.compiler.cudagraph_mark_warmup_incomplete.html#torch.compiler.cudagraph_mark_warmup_incomplete) | Request another warmup for the active CUDA Graph Trees function. |
 | [`is_compiling`](generated/torch.compiler.is_compiling.html#torch.compiler.is_compiling) | Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). |
 | [`is_dynamo_compiling`](generated/torch.compiler.is_dynamo_compiling.html#torch.compiler.is_dynamo_compiling) | Indicates whether a graph is traced via TorchDynamo. |
 | [`is_exporting`](generated/torch.compiler.is_exporting.html#torch.compiler.is_exporting) | Indicates whether we're under exporting. |
@@ -99,7 +100,7 @@ f = torch.compiler.precompile.load(python_code, cache)
 out = f(model, x) # pass the model again at runtime
 ```
 
-precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/_precompile.py#L1742)
+precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/_precompile.py#L1742)
 
 Reconstruct a runnable from the `(python_code, cache)` pair returned by
 `precompile`. The calling convention is read from `python_code` (the single

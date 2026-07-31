@@ -1,6 +1,6 @@
 # Transformer
 
-*class*torch.nn.modules.transformer.Transformer(*d_model=512*, *nhead=8*, *num_encoder_layers=6*, *num_decoder_layers=6*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *custom_encoder=None*, *custom_decoder=None*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/transformer.py#L58)
+*class*torch.nn.modules.transformer.Transformer(*d_model=512*, *nhead=8*, *num_encoder_layers=6*, *num_decoder_layers=6*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *custom_encoder=None*, *custom_decoder=None*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/transformer.py#L58)
 
 A basic transformer layer.
 
@@ -47,7 +47,7 @@ Examples
 Note: A full example to apply nn.Transformer module for the word language model is available in
 [pytorch/examples](https://github.com/pytorch/examples/tree/master/word_language_model)
 
-forward(*src*, *tgt*, *src_mask=None*, *tgt_mask=None*, *memory_mask=None*, *src_key_padding_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *src_is_causal=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/transformer.py#L181)
+forward(*src*, *tgt*, *src_mask=None*, *tgt_mask=None*, *memory_mask=None*, *src_key_padding_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *src_is_causal=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/transformer.py#L181)
 
 Take in and process masked source/target sequences.
 
@@ -134,7 +134,7 @@ Examples
 ... )
 ```
 
-*static*generate_square_subsequent_mask(*sz*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/modules/transformer.py#L301)
+*static*generate_square_subsequent_mask(*sz*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/modules/transformer.py#L301)
 
 Generate a square causal mask for the sequence.
 

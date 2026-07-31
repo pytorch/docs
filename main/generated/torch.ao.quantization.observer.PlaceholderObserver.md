@@ -1,6 +1,6 @@
 # PlaceholderObserver
 
-*class*torch.ao.quantization.observer.PlaceholderObserver(*dtype=torch.float32*, *custom_op_name=''*, *compute_dtype=None*, *quant_min=None*, *quant_max=None*, *qscheme=None*, *eps=None*, *is_dynamic=False*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/ao/quantization/observer.py#L1468)
+*class*torch.ao.quantization.observer.PlaceholderObserver(*dtype=torch.float32*, *custom_op_name=''*, *compute_dtype=None*, *quant_min=None*, *quant_max=None*, *qscheme=None*, *eps=None*, *is_dynamic=False*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/ao/quantization/observer.py#L1468)
 
 Observer that doesn't do anything and just passes its configuration to the
 quantized module's `.from_float()`.

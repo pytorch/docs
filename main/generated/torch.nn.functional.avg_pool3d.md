@@ -1,6 +1,6 @@
 # torch.nn.functional.avg_pool3d
 
-torch.nn.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/nn/functional.py#L410)
+torch.nn.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/nn/functional.py#L410)
 
 Applies 3D average-pooling operation in kT×kH×kWkT \times kH \times kWkT×kH×kW regions by step
 size sT×sH×sWsT \times sH \times sWsT×sH×sW steps. The number of output features is equal to

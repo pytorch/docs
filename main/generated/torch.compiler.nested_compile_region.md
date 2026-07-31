@@ -1,6 +1,6 @@
 # torch.compiler.nested_compile_region
 
-torch.compiler.nested_compile_region(*fn=None*, ***, *options=None*, *max_reuse_entries=8*, *reuse_hash_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/9179f2014ca7f941551131fc2315cfcf9e206bd3/torch/compiler/__init__.py#L904)
+torch.compiler.nested_compile_region(*fn=None*, ***, *options=None*, *max_reuse_entries=8*, *reuse_hash_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/compiler/__init__.py#L919)
 
 Tells **``torch.compile``** that the marked set of operations forms a nested
 compile region (which is often repeated in the full model) whose code can be
