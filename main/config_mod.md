@@ -1,6 +1,6 @@
 # torch.**config**
 
-torch.__config__.show()[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/__config__.py#L4)
+torch.__config__.show()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/__config__.py#L4)
 
 Return a human-readable string with descriptions of the
 configuration of PyTorch.
@@ -9,7 +9,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch.__config__.parallel_info()[[source]](https://github.com/pytorch/pytorch/blob/f613b2a0a05cebc8f0b0095458f6f2219008b0dd/torch/__config__.py#L20)
+torch.__config__.parallel_info()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/__config__.py#L20)
 
 Returns detailed string with parallelization settings
 
