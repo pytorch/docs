@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.set_meta
 
-torch.fx.experimental.proxy_tensor.set_meta(*proxy*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/fx/experimental/proxy_tensor.py#L824)
+torch.fx.experimental.proxy_tensor.set_meta(*proxy*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/fx/experimental/proxy_tensor.py#L824)
 
 Return type:
 

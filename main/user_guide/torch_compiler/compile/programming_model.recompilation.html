@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+git2e3c34c )">
+<meta name="llm:version" content="main (2.14.0a0+git30731ee )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git2e3c34c )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git30731ee )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3678,7 +3678,7 @@ document.write(`
                   
   <section id="dealing-with-recompilations">
 <h1>Dealing with Recompilations<a class="headerlink" href="#dealing-with-recompilations" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 29, 2025 | Last Updated On: Jul 27, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 29, 2025 | Last Updated On: Jul 28, 2026</p>
 <p>Recompilations are necessary for <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> soundness, but can result in significantly increased compile time.
 Thus, minimizing recompilations while preserving soundness is essential for reducing compile time.</p>
 <p>You can view recompilations and their reasons using tlparse or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=recompiles</span></code>.</p>
@@ -3758,6 +3758,45 @@ opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01))
 sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9))
 for i in range(5):
     gn(torch.ones(3, 3))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="unspecializing-integer-attributes-on-nn-modules">
+<h2>Unspecializing Integer Attributes on <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>s<a class="headerlink" href="#unspecializing-integer-attributes-on-nn-modules" title="Link to this heading">#</a></h2>
+<p>By default, Dynamo specializes on (guards the exact value of) integer attributes of an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.
+An integer that changes every call – such as a step counter incremented inside <code class="docutils literal notranslate"><span class="pre">forward</span></code> –
+therefore triggers a recompilation on each call, quickly hitting the recompilation limit and falling back to eager.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>class Mod(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.c = 0
+
+    def forward(self, x):
+        self.c += 1  # specialized on -&gt; recompiles every call
+        return x * self.c
+
+mod = Mod()
+opt_mod = torch.compile(mod, backend=&quot;eager&quot;)
+for _ in range(5):
+    opt_mod(torch.randn(4))
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you do not need the integer specialized, set the flag below so Dynamo treats it as dynamic instead of recompiling.
+See <a class="reference internal" href="dynamic_shapes_advanced_control_options.html#dynamic-shapes-advanced-control-options"><span class="std std-ref">Advanced Options to Control Dynamic Behavior</span></a> for related static/dynamic control flags.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>torch._dynamo.config.allow_unspec_int_on_nn_module = True
+mod = Mod()
+opt_mod = torch.compile(mod, backend=&quot;eager&quot;)
+for _ in range(5):
+    opt_mod(torch.randn(4))
+torch._dynamo.config.allow_unspec_int_on_nn_module = False
 </pre></div>
 </div>
 </div>
@@ -3957,6 +3996,7 @@ for i in range(1, 5):
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-dynamic-shapes-enabled">Is Dynamic Shapes Enabled?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-constants-with-tensors">Wrapping Constants with Tensors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unspecializing-integer-attributes-on-nn-modules">Unspecializing Integer Attributes on <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>s</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-cache-size-limit">Changing the Cache Size Limit</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-breaking-to-reduce-recompilation-costs">Graph Breaking to Reduce Recompilation Costs</a></li>
 </ul>
@@ -4211,7 +4251,7 @@ for i in range(1, 5):
        "headline": "Dealing with Recompilations",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/user_guide/torch_compiler/compile/programming_model.recompilation.html",
-       "articleBody": "Dealing with Recompilations# Created On: Jul 29, 2025 | Last Updated On: Jul 27, 2026 Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): gn(torch.ones(3, 3)) Changing the Cache Size Limit# There is a limit to how many times a function can be recompiled, determined by torch._dynamo.config.cache_size_limit and torch._dynamo.config.accumulated_cache_size_limit (The exact difference between these 2 values is detailed in torch/_dynamo/cache_size.py). If the Dynamo cache limit is hit, then all future compilation attempts will result in the function being skipped (run eagerly). Dynamo will still attempt to use previously compiled bytecode for future function calls, if the guards pass. Note that in the case of a recompilation limit hit, all nested function calls WILL be skipped (Dynamo will try to use previously compiled bytecode for the nested functions). Dynamo will also issue a warning containing the affected function and which limit was hit. In the example below, each function call results in a recompile attempt. When we hit the cache size limit (by default, 8), we stop attempting to recompile. (Note that we set dynamic=False for demonstration purposes to force recompilation every time). @torch.compile(dynamic=False) def fn(x): return x + 1 for i in range(1, 10): # recompile every time due to dynamic=False fn(torch.ones(i)) If you know that the number of recompilations has a reasonable constant upper bound, you can raise the cache size limit. If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit. torch._dynamo.config.cache_size_limit = 16 @torch.compile(dynamic=False) def gn(x): return x + 1 for i in range(1, 10): gn(torch.ones(i)) Reducing recompilations is one way to lower compile time; for other levers (regional and hierarchical compilation, measuring compile time), see Reducing Compile Time. Graph Breaking to Reduce Recompilation Costs# If a large graph is recompiling and causing high compile time, you can intentionally introduce a graph break in order to reduce recompilation costs, at the expense of introducing a performance hit. def very_large_function(x): return x + 1 @torch.compile(dynamic=False) def fn(x, c): y = very_large_function(x) # recompiled every time return y + c for i in range(1, 5): fn(torch.ones(3), i) @torch.compile(dynamic=False) def gn(x, c): y = very_large_function(x) # compiled only once torch._dynamo.graph_break() return y + c # recompiled every time for i in range(1, 5): gn(torch.ones(3), i)",
+       "articleBody": "Dealing with Recompilations# Created On: Jul 29, 2025 | Last Updated On: Jul 28, 2026 Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): gn(torch.ones(3, 3)) Unspecializing Integer Attributes on nn.Modules# By default, Dynamo specializes on (guards the exact value of) integer attributes of an nn.Module. An integer that changes every call \u2013 such as a step counter incremented inside forward \u2013 therefore triggers a recompilation on each call, quickly hitting the recompilation limit and falling back to eager. class Mod(torch.nn.Module): def __init__(self): super().__init__() self.c = 0 def forward(self, x): self.c += 1 # specialized on -\u003e recompiles every call return x * self.c mod = Mod() opt_mod = torch.compile(mod, backend=\"eager\") for _ in range(5): opt_mod(torch.randn(4)) If you do not need the integer specialized, set the flag below so Dynamo treats it as dynamic instead of recompiling. See Advanced Options to Control Dynamic Behavior for related static/dynamic control flags. torch._dynamo.config.allow_unspec_int_on_nn_module = True mod = Mod() opt_mod = torch.compile(mod, backend=\"eager\") for _ in range(5): opt_mod(torch.randn(4)) torch._dynamo.config.allow_unspec_int_on_nn_module = False Changing the Cache Size Limit# There is a limit to how many times a function can be recompiled, determined by torch._dynamo.config.cache_size_limit and torch._dynamo.config.accumulated_cache_size_limit (The exact difference between these 2 values is detailed in torch/_dynamo/cache_size.py). If the Dynamo cache limit is hit, then all future compilation attempts will result in the function being skipped (run eagerly). Dynamo will still attempt to use previously compiled bytecode for future function calls, if the guards pass. Note that in the case of a recompilation limit hit, all nested function calls WILL be skipped (Dynamo will try to use previously compiled bytecode for the nested functions). Dynamo will also issue a warning containing the affected function and which limit was hit. In the example below, each function call results in a recompile attempt. When we hit the cache size limit (by default, 8), we stop attempting to recompile. (Note that we set dynamic=False for demonstration purposes to force recompilation every time). @torch.compile(dynamic=False) def fn(x): return x + 1 for i in range(1, 10): # recompile every time due to dynamic=False fn(torch.ones(i)) If you know that the number of recompilations has a reasonable constant upper bound, you can raise the cache size limit. If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit. torch._dynamo.config.cache_size_limit = 16 @torch.compile(dynamic=False) def gn(x): return x + 1 for i in range(1, 10): gn(torch.ones(i)) Reducing recompilations is one way to lower compile time; for other levers (regional and hierarchical compilation, measuring compile time), see Reducing Compile Time. Graph Breaking to Reduce Recompilation Costs# If a large graph is recompiling and causing high compile time, you can intentionally introduce a graph break in order to reduce recompilation costs, at the expense of introducing a performance hit. def very_large_function(x): return x + 1 @torch.compile(dynamic=False) def fn(x, c): y = very_large_function(x) # recompiled every time return y + c for i in range(1, 5): fn(torch.ones(3), i) @torch.compile(dynamic=False) def gn(x, c): y = very_large_function(x) # compiled only once torch._dynamo.graph_break() return y + c # recompiled every time for i in range(1, 5): gn(torch.ones(3), i)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4223,7 +4263,7 @@ for i in range(1, 5):
          "@id": "/user_guide/torch_compiler/compile/programming_model.recompilation.html"
        },
        "datePublished": "Jul 29, 2025T00:00:00Z",
-       "dateModified": "Jul 27, 2026T00:00:00Z"
+       "dateModified": "Jul 28, 2026T00:00:00Z"
      }
  </script>
   <script>

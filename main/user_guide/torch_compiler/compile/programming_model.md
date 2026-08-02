@@ -63,6 +63,7 @@ By understanding the `torch.compile` programming model, one can systematically u
 
 - [Is Dynamic Shapes Enabled?](programming_model.recompilation.html#is-dynamic-shapes-enabled)
 - [Wrapping Constants with Tensors](programming_model.recompilation.html#wrapping-constants-with-tensors)
+- [Unspecializing Integer Attributes on `nn.Module`s](programming_model.recompilation.html#unspecializing-integer-attributes-on-nn-modules)
 - [Changing the Cache Size Limit](programming_model.recompilation.html#changing-the-cache-size-limit)
 - [Graph Breaking to Reduce Recompilation Costs](programming_model.recompilation.html#graph-breaking-to-reduce-recompilation-costs)
 - [Reducing Compile Time](programming_model.reducing_compile_time.html)
@@ -79,6 +80,7 @@ By understanding the `torch.compile` programming model, one can systematically u
 - [3. Try `use_recursive_dict_tags_for_guards` first](programming_model.reducing_guard_overhead.html#try-use-recursive-dict-tags-for-guards-first)
 - [4. Skip guard evaluation after warmup with `skip_guard_eval_unsafe`](programming_model.reducing_guard_overhead.html#skip-guard-evaluation-after-warmup-with-skip-guard-eval-unsafe)
 - [Putting it together](programming_model.reducing_guard_overhead.html#putting-it-together)
+- [Further reading](programming_model.reducing_guard_overhead.html#further-reading)
 - [tlparse / TORCH_TRACE](programming_model.observability.html)
 
 - [TORCH_LOGS](programming_model.observability.html#torch-logs)

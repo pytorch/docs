@@ -1,6 +1,6 @@
 # ModuleDict
 
-*class*torch.nn.ModuleDict(*modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L511)
+*class*torch.nn.ModuleDict(*modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L511)
 
 Holds submodules in a dictionary.
 
@@ -43,11 +43,11 @@ class MyModule(nn.Module):
  return x
 ```
 
-clear()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L581)
+clear()[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L581)
 
 Remove all items from the ModuleDict.
 
-items()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L600)
+items()[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L600)
 
 Return an iterable of the ModuleDict key/value pairs.
 
@@ -55,7 +55,7 @@ Return type:
 
 [*ItemsView*](https://docs.python.org/3/library/collections.abc.html#collections.abc.ItemsView)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Module*](torch.nn.Module.html#torch.nn.Module)]
 
-keys()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L595)
+keys()[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L595)
 
 Return an iterable of the ModuleDict keys.
 
@@ -63,7 +63,7 @@ Return type:
 
 [*KeysView*](https://docs.python.org/3/library/collections.abc.html#collections.abc.KeysView)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L585)
+pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L585)
 
 Remove key from the ModuleDict and return its module.
 
@@ -75,7 +75,7 @@ Return type:
 
 [*Module*](torch.nn.Module.html#torch.nn.Module)
 
-update(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L610)
+update(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L610)
 
 Update the `ModuleDict` with key-value pairs from a mapping, overwriting existing keys.
 
@@ -89,7 +89,7 @@ Parameters:
 **modules** (*iterable*) - a mapping (dictionary) from string to [`Module`](torch.nn.Module.html#torch.nn.Module),
 or an iterable of key-value pairs of type (string, [`Module`](torch.nn.Module.html#torch.nn.Module))
 
-values()[[source]](https://github.com/pytorch/pytorch/blob/2e3c34c8bd8296fe6b14c14ec67f82e8af85507e/torch/nn/modules/container.py#L605)
+values()[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/nn/modules/container.py#L605)
 
 Return an iterable of the ModuleDict values.
 
