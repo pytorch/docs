@@ -1,6 +1,6 @@
 # LinearBn1d
 
-*class*torch.ao.nn.intrinsic.modules.fused.LinearBn1d(*linear*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/30731ee8f01763cf1d32dc2e3962f51fc034c482/torch/ao/nn/intrinsic/modules/fused.py#L252)
+*class*torch.ao.nn.intrinsic.modules.fused.LinearBn1d(*linear*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/ao/nn/intrinsic/modules/fused.py#L252)
 
 This is a sequential container which calls the Linear and BatchNorm1d modules.
 During quantization this will be replaced with the corresponding fused module.
