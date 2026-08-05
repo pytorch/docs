@@ -1,6 +1,6 @@
 # torch.fx.experimental.merge_matmul.merge_matmul
 
-torch.fx.experimental.merge_matmul.merge_matmul(*in_mod*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/fx/experimental/merge_matmul.py#L90)
+torch.fx.experimental.merge_matmul.merge_matmul(*in_mod*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/fx/experimental/merge_matmul.py#L90)
 
 A graph transformation that merges matrix multiplication operations that share the same right-hand
 side operand into one large matrix multiplication.

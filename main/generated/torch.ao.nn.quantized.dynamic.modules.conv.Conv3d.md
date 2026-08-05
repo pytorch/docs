@@ -1,6 +1,6 @@
 # Conv3d
 
-*class*torch.ao.nn.quantized.dynamic.modules.conv.Conv3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/ao/nn/quantized/dynamic/modules/conv.py#L197)
+*class*torch.ao.nn.quantized.dynamic.modules.conv.Conv3d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/nn/quantized/dynamic/modules/conv.py#L197)
 
 A dynamically quantized conv module with floating point tensors as inputs and outputs.
 

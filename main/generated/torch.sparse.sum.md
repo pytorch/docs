@@ -1,6 +1,6 @@
 # torch.sparse.sum
 
-torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/sparse/__init__.py#L217)
+torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/sparse/__init__.py#L217)
 
 Return the sum of each row of the given sparse tensor.
 

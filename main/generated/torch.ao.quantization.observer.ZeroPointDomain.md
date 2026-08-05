@@ -1,6 +1,6 @@
 # ZeroPointDomain
 
-*class*torch.ao.quantization.observer.ZeroPointDomain(*value*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/ao/quantization/observer.py#L1660)
+*class*torch.ao.quantization.observer.ZeroPointDomain(*value*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/quantization/observer.py#L1660)
 
 Enum that indicate whether zero_point is in integer domain or floating point domain
 

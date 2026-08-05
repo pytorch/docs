@@ -1,6 +1,6 @@
 # torch.autograd.profiler.profile.key_averages
 
-profile.key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/autograd/profiler.py#L578)
+profile.key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/profiler.py#L578)
 
 Averages all function events over their keys.
 

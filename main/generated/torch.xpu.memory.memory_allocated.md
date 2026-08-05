@@ -1,6 +1,6 @@
 # torch.xpu.memory.memory_allocated
 
-torch.xpu.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/xpu/memory.py#L136)
+torch.xpu.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/xpu/memory.py#L136)
 
 Return the current GPU memory occupied by tensors in bytes for a given device.
 

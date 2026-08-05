@@ -1,6 +1,6 @@
 # torch.nn.functional.embedding_bag
 
-torch.nn.functional.embedding_bag(*input*, *weight*, *offsets=None*, *max_norm=None*, *norm_type=2*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *per_sample_weights=None*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/nn/functional.py#L2624)
+torch.nn.functional.embedding_bag(*input*, *weight*, *offsets=None*, *max_norm=None*, *norm_type=2*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *per_sample_weights=None*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/functional.py#L2624)
 
 Compute sums, means or maxes of bags of embeddings.
 

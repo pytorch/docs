@@ -122,7 +122,7 @@ Below is a state diagram describing how rendezvous works.
 
 ## Registry
 
-*class*torch.distributed.elastic.rendezvous.RendezvousParameters(*backend*, *endpoint*, *run_id*, *min_nodes*, *max_nodes*, *local_addr=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L241)
+*class*torch.distributed.elastic.rendezvous.RendezvousParameters(*backend*, *endpoint*, *run_id*, *min_nodes*, *max_nodes*, *local_addr=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L241)
 
 Hold the parameters to construct a `RendezvousHandler`.
 
@@ -136,7 +136,7 @@ Parameters:
 - **local_addr** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - The address of the local node.
 - ****kwargs** - Additional parameters for the specified backend.
 
-get(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L292)
+get(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L292)
 
 Return the value for `key` if `key` exists, else `default`.
 
@@ -144,7 +144,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-get_as_bool(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L296)
+get_as_bool(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L296)
 
 Return the value for `key` as a `bool`.
 
@@ -152,7 +152,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool) | None
 
-get_as_int(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L315)
+get_as_int(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L315)
 
 Return the value for `key` as an `int`.
 
@@ -160,11 +160,11 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int) | None
 
-*class*torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L332)
+*class*torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L332)
 
 Represent a registry of `RendezvousHandler` backends.
 
-torch.distributed.elastic.rendezvous.registry.get_rendezvous_handler(*params*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/registry.py#L74)
+torch.distributed.elastic.rendezvous.registry.get_rendezvous_handler(*params*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/registry.py#L74)
 
 Obtain a reference to a :py:class`RendezvousHandler`.
 
@@ -190,7 +190,7 @@ Return type:
 
 ## Handler
 
-*class*torch.distributed.elastic.rendezvous.RendezvousHandler[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L145)
+*class*torch.distributed.elastic.rendezvous.RendezvousHandler[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L145)
 
 Main rendezvous interface.
 
@@ -200,7 +200,7 @@ Distributed Torch users normally **do not** need to implement their own
 `RendezvousHandler`. An implementation based on C10d Store is already
 provided, and is recommended for most users.
 
-*abstract*get_backend()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L154)
+*abstract*get_backend()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L154)
 
 Return the name of the rendezvous backend.
 
@@ -208,7 +208,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-*abstract*get_run_id()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L218)
+*abstract*get_run_id()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L218)
 
 Return the run id of the rendezvous.
 
@@ -220,7 +220,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-*abstract*is_closed()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L190)
+*abstract*is_closed()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L190)
 
 Check whether the rendezvous has been closed.
 
@@ -237,7 +237,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*abstract*next_rendezvous()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L168)
+*abstract*next_rendezvous()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L168)
 
 Main entry-point into the rendezvous barrier.
 
@@ -260,7 +260,7 @@ Return type:
 
 *RendezvousInfo*
 
-*abstract*num_nodes_waiting()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L208)
+*abstract*num_nodes_waiting()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L208)
 
 Return the number of nodes who arrived late at the rendezvous
 barrier, hence were not included in the current worker group.
@@ -273,11 +273,11 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-*abstract*set_closed()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L204)
+*abstract*set_closed()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L204)
 
 Mark the rendezvous as closed.
 
-*abstract*shutdown()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L227)
+*abstract*shutdown()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L227)
 
 Close all resources that were open for the rendezvous.
 
@@ -305,15 +305,15 @@ Applications as a convention use MASTER_ADDR/MASTER_PORT env variables to lookup
 
 ## Dataclasses
 
-*class*torch.distributed.elastic.rendezvous.RendezvousInfo(*store*, *rank*, *world_size*, *bootstrap_store_info*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L109)
+*class*torch.distributed.elastic.rendezvous.RendezvousInfo(*store*, *rank*, *world_size*, *bootstrap_store_info*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L109)
 
 Holds the information about the rendezvous.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo(*master_addr*, *master_port*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L62)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo(*master_addr*, *master_port*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L62)
 
 Store address and port that can be used to bootstrap trainer distributed comms
 
-*static*build(*rank*, *store*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L71)
+*static*build(*rank*, *store*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L71)
 
 Factory method, finds unused new port on rank0 host and addr/port info with all ranks.
 
@@ -332,27 +332,27 @@ Return type:
 
 ## Exceptions
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L35)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L35)
 
 Represents the base type for rendezvous errors.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousClosedError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L39)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousClosedError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L39)
 
 Raised when a rendezvous is closed.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L43)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L43)
 
 Raised when a rendezvous did not complete on time.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousConnectionError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L47)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousConnectionError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L47)
 
 Raised when the connection to a rendezvous backend has failed.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousStateError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L51)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousStateError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L51)
 
 Raised when the state of a rendezvous is corrupt.
 
-*class*torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/api.py#L55)
+*class*torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/api.py#L55)
 
 Raised when node wasn't included in rendezvous and gracefully exits.
 
@@ -362,7 +362,7 @@ Exception is a mechanism to exit the stack, however does not mean a failure.
 
 ### Dynamic Rendezvous
 
-torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler(*store*, *backend*, *params*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1391)
+torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler(*store*, *backend*, *params*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1391)
 
 Create a new `DynamicRendezvousHandler` from the specified parameters.
 
@@ -382,11 +382,11 @@ Return type:
 | close_timeout | The time, in seconds, within which the rendezvous is expected to close after a call to `RendezvousHandler.set_closed()` or `RendezvousHandler.shutdown()`. Defaults to 30 seconds. |
 | heartbeat | The time, in seconds, within which a keep-alive heartbeat is expected to complete |
 
-*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L996)
+*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L996)
 
 Represent a handler that sets up a rendezvous among a set of nodes.
 
-*classmethod*from_backend(*run_id*, *store*, *backend*, *min_nodes*, *max_nodes*, *local_addr=None*, *timeout=None*, *keep_alive_interval=5*, *keep_alive_max_attempt=3*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1011)
+*classmethod*from_backend(*run_id*, *store*, *backend*, *min_nodes*, *max_nodes*, *local_addr=None*, *timeout=None*, *keep_alive_interval=5*, *keep_alive_max_attempt=3*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L1011)
 
 Create a new `DynamicRendezvousHandler`.
 
@@ -404,11 +404,11 @@ it alive in the rendezvous.
 - **keep_alive_max_attempt** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The maximum number of failed heartbeat attempts after which a node
 is considered dead.
 
-*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L62)
+*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L62)
 
 Represent a backend that holds the rendezvous state.
 
-*abstract*get_state()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L70)
+*abstract*get_state()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L70)
 
 Get the rendezvous state.
 
@@ -430,7 +430,7 @@ Return type:
 
 Get the name of the backend.
 
-*abstract*set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L85)
+*abstract*set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L85)
 
 Set the rendezvous state.
 
@@ -467,7 +467,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[bytes](https://docs.python.org/3/library/stdtypes.html#bytes), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [bool](https://docs.python.org/3/library/functions.html#bool)] | None
 
-*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout(*join=None*, *last_call=None*, *close=None*, *heartbeat=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L123)
+*class*torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout(*join=None*, *last_call=None*, *close=None*, *heartbeat=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py#L123)
 
 Hold the timeout configuration of a rendezvous.
 
@@ -500,7 +500,7 @@ Get the last call timeout.
 
 #### C10d Backend
 
-torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend(*params*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L211)
+torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend(*params*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L211)
 
 Create a new `C10dRendezvousBackend` from the specified parameters.
 
@@ -514,7 +514,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*C10dRendezvousBackend*, [*Store*](../distributed.html#torch.distributed.Store)]
 
-*class*torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend(*store*, *run_id*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L35)
+*class*torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend(*store*, *run_id*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L35)
 
 Represents a C10d-backed rendezvous backend.
 
@@ -524,7 +524,7 @@ Parameters:
 communicate with the C10d store.
 - **run_id** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The run id of the rendezvous.
 
-get_state()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L73)
+get_state()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L73)
 
 See base class.
 
@@ -536,7 +536,7 @@ Return type:
 
 See base class.
 
-set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L79)
+set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py#L79)
 
 See base class.
 
@@ -546,7 +546,7 @@ Return type:
 
 #### Etcd Backend
 
-torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend(*params*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L184)
+torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend(*params*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L184)
 
 Create a new `EtcdRendezvousBackend` from the specified parameters.
 
@@ -562,7 +562,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*EtcdRendezvousBackend*, [*Store*](../distributed.html#torch.distributed.Store)]
 
-*class*torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend(*client*, *run_id*, *key_prefix=None*, *ttl=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L28)
+*class*torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend(*client*, *run_id*, *key_prefix=None*, *ttl=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L28)
 
 Represents an etcd-based rendezvous backend.
 
@@ -573,7 +573,7 @@ Parameters:
 - **key_prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - The path under which to store the rendezvous state in etcd.
 - **ttl** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The TTL of the rendezvous state. If not specified, defaults to two hours.
 
-get_state()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L75)
+get_state()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L75)
 
 See base class.
 
@@ -585,7 +585,7 @@ Return type:
 
 See base class.
 
-set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L88)
+set_state(*state*, *token=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py#L88)
 
 See base class.
 
@@ -601,7 +601,7 @@ The `DynamicRendezvousHandler` class supersedes the `EtcdRendezvousHandler`
 class, and is recommended for most users. `EtcdRendezvousHandler` is in
 maintenance mode and will be deprecated in the future.
 
-*class*torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler(*rdzv_impl*, *local_addr*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_rendezvous.py#L91)
+*class*torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler(*rdzv_impl*, *local_addr*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_rendezvous.py#L91)
 
 Implements a
 `torch.distributed.elastic.rendezvous.RendezvousHandler` interface
@@ -650,13 +650,13 @@ rendezvous:
 The `EtcdStore` is the C10d `Store` instance type returned by
 `next_rendezvous()` when etcd is used as the rendezvous backend.
 
-*class*torch.distributed.elastic.rendezvous.etcd_store.EtcdStore(*etcd_client*, *etcd_store_prefix*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L30)
+*class*torch.distributed.elastic.rendezvous.etcd_store.EtcdStore(*etcd_client*, *etcd_store_prefix*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L30)
 
 Implement a c10 Store interface by piggybacking on the rendezvous etcd instance.
 
 This is the store object returned by `EtcdRendezvous`.
 
-add(*key*, *num*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L85)
+add(*key*, *num*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L85)
 
 Atomically increment a value by an integer amount.
 
@@ -671,7 +671,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-check(*keys*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L137)
+check(*keys*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L137)
 
 Check if all of the keys are immediately present (without waiting).
 
@@ -679,7 +679,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-get(*key*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L63)
+get(*key*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L63)
 
 Get a value by key, possibly doing a blocking wait.
 
@@ -698,13 +698,13 @@ Return type:
 
 [bytes](https://docs.python.org/3/library/stdtypes.html#bytes)
 
-set(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L55)
+set(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L55)
 
 Write a key/value pair into `EtcdStore`.
 
 Both key and value may be either Python `str` or `bytes`.
 
-wait(*keys*, *override_timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_store.py#L124)
+wait(*keys*, *override_timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_store.py#L124)
 
 Wait until all of the keys are published, or until timeout.
 
@@ -725,7 +725,7 @@ For production and multi-node deployments please consider properly deploying
 a highly available etcd server as this is the single point of failure for your
 distributed jobs.
 
-*class*torch.distributed.elastic.rendezvous.etcd_server.EtcdServer(*data_dir=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/distributed/elastic/rendezvous/etcd_server.py#L78)
+*class*torch.distributed.elastic.rendezvous.etcd_server.EtcdServer(*data_dir=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/distributed/elastic/rendezvous/etcd_server.py#L78)
 
 Note
 

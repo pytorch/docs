@@ -1,6 +1,6 @@
 # MaxUnpool3d
 
-*class*torch.nn.modules.pooling.MaxUnpool3d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/nn/modules/pooling.py#L503)
+*class*torch.nn.modules.pooling.MaxUnpool3d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/pooling.py#L503)
 
 Computes a partial inverse of [`MaxPool3d`](torch.nn.modules.pooling.MaxPool3d.html#torch.nn.modules.pooling.MaxPool3d).
 
@@ -64,7 +64,7 @@ Example:
 torch.Size([20, 16, 51, 33, 15])
 ```
 
-forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/nn/modules/pooling.py#L573)
+forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/pooling.py#L573)
 
 Runs the forward pass.
 

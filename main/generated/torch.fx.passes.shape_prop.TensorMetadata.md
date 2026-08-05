@@ -1,6 +1,6 @@
 # TensorMetadata
 
-*class*torch.fx.passes.shape_prop.TensorMetadata(*shape*, *dtype*, *requires_grad*, *stride*, *memory_format*, *is_quantized*, *qparams*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/fx/passes/shape_prop.py#L17)
+*class*torch.fx.passes.shape_prop.TensorMetadata(*shape*, *dtype*, *requires_grad*, *stride*, *memory_format*, *is_quantized*, *qparams*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/fx/passes/shape_prop.py#L17)
 
 A structure containing pertinent information about a tensor within a PyTorch program.
 

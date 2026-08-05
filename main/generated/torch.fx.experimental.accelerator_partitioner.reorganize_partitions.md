@@ -1,6 +1,6 @@
 # torch.fx.experimental.accelerator_partitioner.reorganize_partitions
 
-torch.fx.experimental.accelerator_partitioner.reorganize_partitions(*partitions*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/fx/experimental/accelerator_partitioner.py#L121)
+torch.fx.experimental.accelerator_partitioner.reorganize_partitions(*partitions*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/fx/experimental/accelerator_partitioner.py#L121)
 
 Given a list of partitions, reorganize partition id,
 its parents and its children for each partition

@@ -1,6 +1,6 @@
 # torch.accelerator.random.get_rng_state_all
 
-torch.accelerator.random.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/accelerator/random.py#L45)
+torch.accelerator.random.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/accelerator/random.py#L45)
 
 Return a list of torch.Tensor of dtype torch.uint8 representing the RNG states of all devices for
 the current [accelerator](../torch.html#accelerators).

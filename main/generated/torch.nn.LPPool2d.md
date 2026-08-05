@@ -1,6 +1,6 @@
 # LPPool2d
 
-*class*torch.nn.LPPool2d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/nn/modules/pooling.py#L1174)
+*class*torch.nn.LPPool2d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/pooling.py#L1174)
 
 Applies a 2D power-average pooling over an input signal composed of several input planes.
 
@@ -58,7 +58,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/nn/modules/pooling.py#L1227)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/pooling.py#L1227)
 
 Runs the forward pass.
 

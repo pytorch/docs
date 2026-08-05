@@ -1,6 +1,6 @@
 # torch.fx.experimental.const_fold.split_const_subgraphs
 
-torch.fx.experimental.const_fold.split_const_subgraphs(*module*, *skip_folding_node_fn=None*, *device_for_folded_attrs='cpu'*, *is_impure_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/fx/experimental/const_fold.py#L197)
+torch.fx.experimental.const_fold.split_const_subgraphs(*module*, *skip_folding_node_fn=None*, *device_for_folded_attrs='cpu'*, *is_impure_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/fx/experimental/const_fold.py#L198)
 
 Looks through module for any nodes that have all constant attribute inputs
 and separates them out into their own constant subgraph, and returns a

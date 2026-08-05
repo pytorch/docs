@@ -1,6 +1,6 @@
 # get_dynamic_quant_module_class
 
-*class*torch.ao.quantization.quantization_mappings.get_dynamic_quant_module_class(*float_module_class*, *additional_dynamic_quant_mapping=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/ao/quantization/quantization_mappings.py#L263)
+*class*torch.ao.quantization.quantization_mappings.get_dynamic_quant_module_class(*float_module_class*, *additional_dynamic_quant_mapping=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/quantization/quantization_mappings.py#L263)
 
 Get the dynamically quantized module class corresponding to
 the floating point module class

@@ -1,6 +1,6 @@
 # torch.compiler.keep_portable_guards_unsafe
 
-torch.compiler.keep_portable_guards_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/compiler/__init__.py#L793)
+torch.compiler.keep_portable_guards_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/compiler/__init__.py#L793)
 
 A common function to only keep guards that can be used in both Python and non-Python environments.
 This includes:

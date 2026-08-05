@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gita533e5c )">
+<meta name="llm:version" content="main (2.14.0a0+gite3b3670 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gita533e5c )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gite3b3670 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3670,7 +3670,7 @@ document.write(`
 <h1>torch.cuda.graph_annotations.mark_kernels<a class="headerlink" href="#torch-cuda-graph-annotations-mark-kernels" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.graph_annotations.mark_kernels">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">mark_kernels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/cuda/_graph_annotations.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.mark_kernels" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">mark_kernels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/cuda/_graph_annotations.py#L417"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.mark_kernels" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that annotates GPU work captured within its scope.</p>
 <p>Must be used inside an active <a class="reference internal" href="torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.graph</span></code></a> capture with
 <code class="docutils literal notranslate"><span class="pre">enable_annotations=True</span></code>. Every kernel, memcpy, and memset node the
@@ -3698,6 +3698,19 @@ tooling; <code class="docutils literal notranslate"><span class="pre">&quot;stre
 the stream that is current on scope entry. Work on a different
 already-capturing stream must be synchronized with the current
 stream first.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Child-graph and conditional nodes have bodies in a separate
+<code class="docutils literal notranslate"><span class="pre">cudaGraph_t</span></code> that this walk does not descend into, so their work is
+left unannotated and a warning is issued. Descending is possible
+(<code class="docutils literal notranslate"><span class="pre">cudaGraphNodeGetParams</span></code> exposes the body graphs), but would not be
+enough on its own: a body’s nodes are numbered in that graph’s id space
+and are renumbered again when the exec graph inlines them, and nothing
+exposes that renumbering, so <code class="xref py py-func docutils literal notranslate"><span class="pre">remap_to_exec_graph()</span></code> could not key
+the annotations to what a profiler reports. For the same reason a scope
+<em>inside</em> a conditional body (<code class="docutils literal notranslate"><span class="pre">torch.cond</span></code> / <code class="docutils literal notranslate"><span class="pre">torch.while_loop</span></code>)
+records nothing at all.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4069,7 +4082,7 @@ stream first.</p>
        "headline": "torch.cuda.graph_annotations.mark_kernels",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graph_annotations.mark_kernels.html",
-       "articleBody": "torch.cuda.graph_annotations.mark_kernels# torch.cuda.graph_annotations.mark_kernels(annotation)[source]# Context manager that annotates GPU work captured within its scope. Must be used inside an active torch.cuda.graph capture with enable_annotations=True. Every kernel, memcpy, and memset node the capture adds within the scope is tagged with annotation. Outside a capture, with annotations disabled, or when is_available() is False, the context manager is a no-op. When scopes overlap on the same node (e.g. nested scopes), their annotation dicts are merged key-by-key with the inner scope winning common keys. Implementation: on entry, records the current stream\u2019s capture frontier and its existing direct dependents; on scope exit, walks only the dependent nodes added since entry (falling back to newly created graph roots when the scope is the first captured work). Parameters: annotation (str or dict) \u2013 Metadata to attach to each captured node. A string s is recorded as {\"name\": s}. Dict values must be picklable. The key \"name\" names the region in trace tooling; \"stream\" is reserved for stream-lane assignment. Note The nodes to annotate must be reachable from the capture frontier of the stream that is current on scope entry. Work on a different already-capturing stream must be synchronized with the current stream first. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e g = torch.cuda.CUDAGraph() \u003e\u003e\u003e x = torch.randn(8, device=\"cuda\") \u003e\u003e\u003e with torch.cuda.graph(g, enable_annotations=True): ... with torch.cuda.graph_annotations.mark_kernels(\"phase_A\"): ... y = x + 1",
+       "articleBody": "torch.cuda.graph_annotations.mark_kernels# torch.cuda.graph_annotations.mark_kernels(annotation)[source]# Context manager that annotates GPU work captured within its scope. Must be used inside an active torch.cuda.graph capture with enable_annotations=True. Every kernel, memcpy, and memset node the capture adds within the scope is tagged with annotation. Outside a capture, with annotations disabled, or when is_available() is False, the context manager is a no-op. When scopes overlap on the same node (e.g. nested scopes), their annotation dicts are merged key-by-key with the inner scope winning common keys. Implementation: on entry, records the current stream\u2019s capture frontier and its existing direct dependents; on scope exit, walks only the dependent nodes added since entry (falling back to newly created graph roots when the scope is the first captured work). Parameters: annotation (str or dict) \u2013 Metadata to attach to each captured node. A string s is recorded as {\"name\": s}. Dict values must be picklable. The key \"name\" names the region in trace tooling; \"stream\" is reserved for stream-lane assignment. Note The nodes to annotate must be reachable from the capture frontier of the stream that is current on scope entry. Work on a different already-capturing stream must be synchronized with the current stream first. Note Child-graph and conditional nodes have bodies in a separate cudaGraph_t that this walk does not descend into, so their work is left unannotated and a warning is issued. Descending is possible (cudaGraphNodeGetParams exposes the body graphs), but would not be enough on its own: a body\u2019s nodes are numbered in that graph\u2019s id space and are renumbered again when the exec graph inlines them, and nothing exposes that renumbering, so remap_to_exec_graph() could not key the annotations to what a profiler reports. For the same reason a scope inside a conditional body (torch.cond / torch.while_loop) records nothing at all. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e g = torch.cuda.CUDAGraph() \u003e\u003e\u003e x = torch.randn(8, device=\"cuda\") \u003e\u003e\u003e with torch.cuda.graph(g, enable_annotations=True): ... with torch.cuda.graph_annotations.mark_kernels(\"phase_A\"): ... y = x + 1",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

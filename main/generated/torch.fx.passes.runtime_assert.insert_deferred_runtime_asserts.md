@@ -1,6 +1,6 @@
 # torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts
 
-torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(*gm*, *shape_env*, *name*, *export=False*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/fx/passes/runtime_assert.py#L54)
+torch.fx.passes.runtime_assert.insert_deferred_runtime_asserts(*gm*, *shape_env*, *name*, *export=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/fx/passes/runtime_assert.py#L54)
 
 During tracing, we may have discovered that some data-dependent values
 had runtime assert on them; e.g., torch.empty(x.item()) induces a runtime

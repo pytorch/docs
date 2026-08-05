@@ -1,6 +1,6 @@
 # interpolate
 
-*class*torch.ao.nn.quantized.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/ao/nn/quantized/functional.py#L396)
+*class*torch.ao.nn.quantized.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/nn/quantized/functional.py#L396)
 
 Down/up samples the input to either the given `size` or the given
 `scale_factor`

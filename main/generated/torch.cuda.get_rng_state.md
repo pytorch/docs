@@ -1,6 +1,6 @@
 # torch.cuda.get_rng_state
 
-torch.cuda.get_rng_state(*device='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/cuda/random.py#L23)
+torch.cuda.get_rng_state(*device='cuda'*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/cuda/random.py#L23)
 
 Return the random number generator state of the specified GPU as a ByteTensor.
 

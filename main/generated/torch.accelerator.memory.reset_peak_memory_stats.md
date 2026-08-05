@@ -1,6 +1,6 @@
 # torch.accelerator.memory.reset_peak_memory_stats
 
-torch.accelerator.memory.reset_peak_memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/a533e5c93d4fb8c4eb7bd23c7d297cbba493caa1/torch/accelerator/memory.py#L218)
+torch.accelerator.memory.reset_peak_memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/accelerator/memory.py#L218)
 
 Reset the "peak" stats tracked by the current [accelerator](../torch.html#accelerators)
 memory allocator for a given device index.
