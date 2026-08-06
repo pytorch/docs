@@ -1,6 +1,6 @@
 # Hardswish
 
-*class*torch.nn.modules.activation.Hardswish(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/activation.py#L531)
+*class*torch.nn.modules.activation.Hardswish(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/nn/modules/activation.py#L531)
 
 Applies the Hardswish function, element-wise.
 
@@ -34,7 +34,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/nn/modules/activation.py#L569)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/nn/modules/activation.py#L569)
 
 Runs the forward pass.
 

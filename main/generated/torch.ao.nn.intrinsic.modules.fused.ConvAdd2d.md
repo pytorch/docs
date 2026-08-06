@@ -1,10 +1,10 @@
 # ConvAdd2d
 
-*class*torch.ao.nn.intrinsic.modules.fused.ConvAdd2d(*conv*, *add*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/nn/intrinsic/modules/fused.py#L295)
+*class*torch.ao.nn.intrinsic.modules.fused.ConvAdd2d(*conv*, *add*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/ao/nn/intrinsic/modules/fused.py#L295)
 
 This is a sequential container which calls the Conv2d modules with extra Add.
 During quantization this will be replaced with the corresponding fused module.
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/ao/nn/intrinsic/modules/fused.py#L303)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/ao/nn/intrinsic/modules/fused.py#L303)
 
 Applies convolution to x1 and adds the result to x2.

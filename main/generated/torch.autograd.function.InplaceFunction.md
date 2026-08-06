@@ -1,11 +1,11 @@
 # InplaceFunction
 
-*class*torch.autograd.function.InplaceFunction(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L687)
+*class*torch.autograd.function.InplaceFunction(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L687)
 
 This class is here only for backward compatibility reasons.
 Use [`Function`](../autograd.html#torch.autograd.Function) instead of this for any new use case.
 
-*static*backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L431)
+*static*backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L431)
 
 Define a formula for differentiating the operation with backward mode automatic differentiation.
 
@@ -32,7 +32,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*static*forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L367)
+*static*forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L367)
 
 Define the forward of the custom autograd Function.
 
@@ -82,7 +82,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*static*jvp(*ctx*, **grad_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L489)
+*static*jvp(*ctx*, **grad_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L489)
 
 Define a formula for differentiating the operation with forward mode automatic differentiation.
 
@@ -104,7 +104,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-mark_dirty(**args*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L156)
+mark_dirty(**args*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L156)
 
 Mark given tensors as modified in an in-place operation.
 
@@ -140,7 +140,7 @@ Examples::
 >>> # computation has been modified by an inplace operation
 ```
 
-mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L202)
+mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L202)
 
 Mark outputs as non-differentiable.
 
@@ -173,7 +173,7 @@ This is used e.g. for indices returned from a sort. See example::
 >>> return grad_input
 ```
 
-save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L39)
+save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L39)
 
 Save given tensors for a future call to `backward()`.
 
@@ -233,7 +233,7 @@ Example:
 >>> d = Func.apply(a, b, c)
 ```
 
-save_for_forward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L100)
+save_for_forward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L100)
 
 Save given tensors for a future call to `jvp()`.
 
@@ -281,7 +281,7 @@ Example:
 >>> d = Func.apply(a_dual, b, c)
 ```
 
-set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L234)
+set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L234)
 
 Set whether to materialize grad tensors. Default is `True`.
 
@@ -327,7 +327,7 @@ Example:
 >>> b, _ = Func.apply(a) # induces g2 to be undefined
 ```
 
-*static*setup_context(*ctx*, *inputs*, *output*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L414)
+*static*setup_context(*ctx*, *inputs*, *output*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L414)
 
 There are two ways to define the forward pass of an autograd.Function.
 
@@ -346,7 +346,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*static*vjp(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L431)
+*static*vjp(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L431)
 
 Define a formula for differentiating the operation with backward mode automatic differentiation.
 
@@ -373,7 +373,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*static*vmap(*info*, *in_dims*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/e3b3670d208b9e770a7ca36a3fed1ea0f052f799/torch/autograd/function.py#L575)
+*static*vmap(*info*, *in_dims*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/autograd/function.py#L575)
 
 Define the behavior for this autograd.Function underneath [`torch.vmap()`](torch.vmap.html#torch.vmap).
 
