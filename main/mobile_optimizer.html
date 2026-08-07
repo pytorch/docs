@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+giteaa2ebb )">
+<meta name="llm:version" content="main (2.14.0a0+git6f990b7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+giteaa2ebb )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6f990b7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5349,11 +5349,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_capture_start_hook.html">torch.cuda.graphs.register_graph_capture_start_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_capture_end_hook.html">torch.cuda.graphs.register_graph_capture_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_replay_start_hook.html">torch.cuda.graphs.register_graph_replay_start_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_replay_end_hook.html">torch.cuda.graphs.register_graph_replay_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graphs.graph_destroy_hooks_active.html">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -7056,7 +7057,7 @@ and <a class="reference external" href="https://pytorch.org/executorch/stable/na
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.mobile_optimizer.optimize_for_mobile">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Link to this definition">#</a></dt>
 <dd><p>Optimize a torch script module for mobile deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7080,7 +7081,7 @@ method will run the optimization pass that is not included inside optimization_b
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.mobile_optimizer.generate_mobile_module_lints">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">generate_mobile_module_lints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/utils/mobile_optimizer.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.generate_mobile_module_lints" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">generate_mobile_module_lints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/utils/mobile_optimizer.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.generate_mobile_module_lints" title="Link to this definition">#</a></dt>
 <dd><p>Generate a list of lints for a given torch script module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

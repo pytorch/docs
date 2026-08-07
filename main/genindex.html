@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+giteaa2ebb )">
+<meta name="llm:version" content="main (2.14.0a0+git6f990b7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+giteaa2ebb )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6f990b7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -10574,10 +10574,10 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.device_mesh.DeviceMesh.get_local_rank">get_local_rank() (torch.distributed.device_mesh.DeviceMesh method)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.elastic.utils.logging.get_logger">get_logger() (in module torch.distributed.elastic.utils.logging)</a>
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
@@ -10953,8 +10953,6 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="fx.html#torch.fx.Graph.graph_copy">graph_copy() (torch.fx.Graph method)</a>
-</li>
-      <li><a href="generated/torch.cuda.graphs.graph_destroy_hooks_active.html#torch.cuda.graphs.graph_destroy_hooks_active">graph_destroy_hooks_active() (in module torch.cuda.graphs)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.graph_module">graph_module (torch.export.ExportedProgram property)</a>
 </li>
@@ -18557,6 +18555,12 @@ document.write(`
         <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_end_hook">(torch.cuda.graphs.CUDAGraph method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.register_capture_start_hook">register_capture_start_hook() (torch.cuda.CUDAGraph method)</a>
+
+      <ul>
+        <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_start_hook">(torch.cuda.graphs.CUDAGraph method)</a>
+</li>
+      </ul></li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.register_comm_hook">register_comm_hook() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 
       <ul>
@@ -18613,9 +18617,17 @@ document.write(`
       </ul></li>
       <li><a href="distributed.optim.html#torch.distributed.optim.utils.register_functional_optim">register_functional_optim() (in module torch.distributed.optim.utils)</a>
 </li>
+      <li><a href="generated/torch.cuda.graphs.register_graph_capture_end_hook.html#torch.cuda.graphs.register_graph_capture_end_hook">register_graph_capture_end_hook() (in module torch.cuda.graphs)</a>
+</li>
+      <li><a href="generated/torch.cuda.graphs.register_graph_capture_start_hook.html#torch.cuda.graphs.register_graph_capture_start_hook">register_graph_capture_start_hook() (in module torch.cuda.graphs)</a>
+</li>
       <li><a href="generated/torch.cuda.graphs.register_graph_destroy_hook.html#torch.cuda.graphs.register_graph_destroy_hook">register_graph_destroy_hook() (in module torch.cuda.graphs)</a>
 </li>
       <li><a href="generated/torch.cuda.graphs.register_graph_instantiate_hook.html#torch.cuda.graphs.register_graph_instantiate_hook">register_graph_instantiate_hook() (in module torch.cuda.graphs)</a>
+</li>
+      <li><a href="generated/torch.cuda.graphs.register_graph_replay_end_hook.html#torch.cuda.graphs.register_graph_replay_end_hook">register_graph_replay_end_hook() (in module torch.cuda.graphs)</a>
+</li>
+      <li><a href="generated/torch.cuda.graphs.register_graph_replay_start_hook.html#torch.cuda.graphs.register_graph_replay_start_hook">register_graph_replay_start_hook() (in module torch.cuda.graphs)</a>
 </li>
       <li><a href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile.register_handle">register_handle() (torch.cuda.gds.GdsFile method)</a>
 </li>
@@ -19854,10 +19866,6 @@ document.write(`
       <li><a href="generated/torch.utils.benchmark.examples.spectral_ops_fuzz_test.run_benchmark.html#torch.utils.benchmark.examples.spectral_ops_fuzz_test.run_benchmark">run_benchmark() (in module torch.utils.benchmark.examples.spectral_ops_fuzz_test)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram.run_decompositions">run_decompositions() (torch.export.ExportedProgram method)</a>
-</li>
-      <li><a href="generated/torch.cuda.graphs.run_graph_destroy_hooks.html#torch.cuda.graphs.run_graph_destroy_hooks">run_graph_destroy_hooks() (in module torch.cuda.graphs)</a>
-</li>
-      <li><a href="generated/torch.cuda.graphs.run_graph_instantiate_hooks.html#torch.cuda.graphs.run_graph_instantiate_hooks">run_graph_instantiate_hooks() (in module torch.cuda.graphs)</a>
 </li>
       <li><a href="generated/torch.utils.jit.log_extract.run_nnc.html#torch.utils.jit.log_extract.run_nnc">run_nnc() (in module torch.utils.jit.log_extract)</a>
 </li>

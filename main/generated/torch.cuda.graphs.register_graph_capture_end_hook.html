@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>torch.cuda.graphs.graph_destroy_hooks_active &#8212; PyTorch main documentation</title>
+    <title>torch.cuda.graphs.register_graph_capture_end_hook &#8212; PyTorch main documentation</title>
   
   
   
@@ -49,18 +49,18 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=940804e7"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.cuda.graphs.graph_destroy_hooks_active';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.cuda.graphs.register_graph_capture_end_hook';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.graphs.graph_destroy_hooks_active.html" />
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.graphs.register_graph_capture_end_hook.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.cuda.graph_annotations.is_available" href="torch.cuda.graph_annotations.is_available.html" />
-    <link rel="prev" title="torch.cuda.graphs.run_graph_destroy_hooks" href="torch.cuda.graphs.run_graph_destroy_hooks.html" />
+    <link rel="next" title="torch.cuda.graphs.register_graph_instantiate_hook" href="torch.cuda.graphs.register_graph_instantiate_hook.html" />
+    <link rel="prev" title="torch.cuda.graphs.register_graph_capture_start_hook" href="torch.cuda.graphs.register_graph_capture_start_hook.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -70,7 +70,7 @@
 <meta name="llm:site-type" content="documentation">
 <meta name="llm:framework" content="PyTorch">
 
-<meta name="llm:description" content="torch.cuda.graphs.graph_destroy_hooks_active - Documentation for PyTorch, part of the PyTorch ecosystem.">
+<meta name="llm:description" content="torch.cuda.graphs.register_graph_capture_end_hook - Documentation for PyTorch, part of the PyTorch ecosystem.">
 
 
 
@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+giteaa2ebb )">
+<meta name="llm:version" content="main (2.14.0a0+git6f990b7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+giteaa2ebb )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6f990b7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3418,11 +3418,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_capture_start_hook.html">torch.cuda.graphs.register_graph_capture_start_hook</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.cuda.graphs.register_graph_capture_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_replay_start_hook.html">torch.cuda.graphs.register_graph_replay_start_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_replay_end_hook.html">torch.cuda.graphs.register_graph_replay_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -3652,7 +3653,7 @@ document.write(`
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <meta itemprop="name" content="torch.cuda.graphs.graph_destroy_hooks_active">
+      <meta itemprop="name" content="torch.cuda.graphs.register_graph_capture_end_hook">
       <meta itemprop="position" content="3">
     </div>
   </div>
@@ -3666,16 +3667,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="torch-cuda-graphs-graph-destroy-hooks-active">
-<h1>torch.cuda.graphs.graph_destroy_hooks_active<a class="headerlink" href="#torch-cuda-graphs-graph-destroy-hooks-active" title="Link to this heading">#</a></h1>
+  <section id="torch-cuda-graphs-register-graph-capture-end-hook">
+<h1>torch.cuda.graphs.register_graph_capture_end_hook<a class="headerlink" href="#torch-cuda-graphs-register-graph-capture-end-hook" title="Link to this heading">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.cuda.graphs.graph_destroy_hooks_active">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graphs.</span></span><span class="sig-name descname"><span class="pre">graph_destroy_hooks_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/cuda/graphs.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graphs.graph_destroy_hooks_active" title="Link to this definition">#</a></dt>
-<dd><p>True when any graph-destroy hook is registered – the gate a CUDAGraph checks before
-arming its destroy callback.</p>
+<dt class="sig sig-object py" id="torch.cuda.graphs.register_graph_capture_end_hook">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graphs.</span></span><span class="sig-name descname"><span class="pre">register_graph_capture_end_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/graphs.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graphs.register_graph_capture_end_hook" title="Link to this definition">#</a></dt>
+<dd><p>Register a hook run with each CUDA graph when its capture ends, while the captured
+<code class="docutils literal notranslate"><span class="pre">cudaGraph_t</span></code> is still live (see <a class="reference internal" href="torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_end_hook" title="torch.cuda.graphs.CUDAGraph.register_capture_end_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CUDAGraph.register_capture_end_hook()</span></code></a>). Returns a
+RemovableHandle; call <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> to unregister.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p>RemovableHandle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3725,20 +3727,20 @@ arming its destroy callback.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cuda.graphs.run_graph_destroy_hooks.html"
+       href="torch.cuda.graphs.register_graph_capture_start_hook.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cuda.graphs.run_graph_destroy_hooks</p>
+        <p class="prev-next-title">torch.cuda.graphs.register_graph_capture_start_hook</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.graph_annotations.is_available.html"
+       href="torch.cuda.graphs.register_graph_instantiate_hook.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.graph_annotations.is_available</p>
+        <p class="prev-next-title">torch.cuda.graphs.register_graph_instantiate_hook</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3764,20 +3766,20 @@ arming its destroy callback.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.cuda.graphs.run_graph_destroy_hooks.html"
+       href="torch.cuda.graphs.register_graph_capture_start_hook.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.cuda.graphs.run_graph_destroy_hooks</p>
+        <p class="prev-next-title">torch.cuda.graphs.register_graph_capture_start_hook</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.graph_annotations.is_available.html"
+       href="torch.cuda.graphs.register_graph_instantiate_hook.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.graph_annotations.is_available</p>
+        <p class="prev-next-title">torch.cuda.graphs.register_graph_instantiate_hook</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3799,13 +3801,13 @@ arming its destroy callback.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.graphs.graph_destroy_hooks_active"><code class="docutils literal notranslate"><span class="pre">graph_destroy_hooks_active()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.graphs.register_graph_capture_end_hook"><code class="docutils literal notranslate"><span class="pre">register_graph_capture_end_hook()</span></code></a></li>
 </ul>
   </nav></div>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="../_sources/generated/torch.cuda.graphs.graph_destroy_hooks_active.rst.txt">
+      <a href="../_sources/generated/torch.cuda.graphs.register_graph_capture_end_hook.rst.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4032,11 +4034,11 @@ arming its destroy callback.</p>
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "torch.cuda.graphs.graph_destroy_hooks_active",
-       "headline": "torch.cuda.graphs.graph_destroy_hooks_active",
+       "name": "torch.cuda.graphs.register_graph_capture_end_hook",
+       "headline": "torch.cuda.graphs.register_graph_capture_end_hook",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
-       "url": "/generated/torch.cuda.graphs.graph_destroy_hooks_active.html",
-       "articleBody": "torch.cuda.graphs.graph_destroy_hooks_active# torch.cuda.graphs.graph_destroy_hooks_active()[source]# True when any graph-destroy hook is registered \u2013 the gate a CUDAGraph checks before arming its destroy callback. Return type: bool",
+       "url": "/generated/torch.cuda.graphs.register_graph_capture_end_hook.html",
+       "articleBody": "torch.cuda.graphs.register_graph_capture_end_hook# torch.cuda.graphs.register_graph_capture_end_hook(fn)[source]# Register a hook run with each CUDA graph when its capture ends, while the captured cudaGraph_t is still live (see CUDAGraph.register_capture_end_hook()). Returns a RemovableHandle; call .remove() to unregister. Return type: RemovableHandle",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4045,7 +4047,7 @@ arming its destroy callback.</p>
        "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "/generated/torch.cuda.graphs.graph_destroy_hooks_active.html"
+         "@id": "/generated/torch.cuda.graphs.register_graph_capture_end_hook.html"
        },
        "datePublished": "2023-01-01T00:00:00Z",
        "dateModified": "2023-01-01T00:00:00Z"

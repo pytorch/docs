@@ -1,6 +1,0 @@
-﻿torch.cuda.graphs.graph\_destroy\_hooks\_active
-===============================================
-
-.. currentmodule:: torch.cuda.graphs
-
-.. autofunction:: graph_destroy_hooks_active

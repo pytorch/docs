@@ -93,17 +93,20 @@ It is lazily initialized, so you can always import it, and use
 
 ### CUDA graph lifecycle hooks
 
-Register callbacks that fire when any CUDA graph is instantiated or destroyed -
-for example, a profiler observing graph lifecycle without the graph code carrying
-any consumer knowledge. Registering a hook is the opt-in; with none registered
-both are no-ops. Live in `torch.cuda.graphs`.
+Register callbacks that fire at each point in any CUDA graph's lifecycle - capture
+start, capture end, instantiate, each replay, and destroy - for example, a profiler
+observing graph lifecycle without the graph code carrying any consumer knowledge, and
+including graphs the consumer did not build. Registering a hook is the opt-in and the whole
+API - the graph fires them; with none registered they are no-ops. Each has a per-graph
+counterpart on [`torch.cuda.CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph). Live in `torch.cuda.graphs`.
 
-| [`register_graph_instantiate_hook`](generated/torch.cuda.graphs.register_graph_instantiate_hook.html#torch.cuda.graphs.register_graph_instantiate_hook) | Register a hook run with each CUDA graph right after it is instantiated. |
+| [`register_graph_capture_start_hook`](generated/torch.cuda.graphs.register_graph_capture_start_hook.html#torch.cuda.graphs.register_graph_capture_start_hook) | Register a hook run with each CUDA graph as its capture begins. |
 | --- | --- |
-| [`run_graph_instantiate_hooks`](generated/torch.cuda.graphs.run_graph_instantiate_hooks.html#torch.cuda.graphs.run_graph_instantiate_hooks) | Run every registered instantiate hook with the graph. |
+| [`register_graph_capture_end_hook`](generated/torch.cuda.graphs.register_graph_capture_end_hook.html#torch.cuda.graphs.register_graph_capture_end_hook) | Register a hook run with each CUDA graph when its capture ends, while the captured `cudaGraph_t` is still live (see [`CUDAGraph.register_capture_end_hook()`](generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_end_hook)). |
+| [`register_graph_instantiate_hook`](generated/torch.cuda.graphs.register_graph_instantiate_hook.html#torch.cuda.graphs.register_graph_instantiate_hook) | Register a hook run with each CUDA graph right after it is instantiated. |
+| [`register_graph_replay_start_hook`](generated/torch.cuda.graphs.register_graph_replay_start_hook.html#torch.cuda.graphs.register_graph_replay_start_hook) | Register a hook run with each CUDA graph at the start of every replay, just before it is launched. |
+| [`register_graph_replay_end_hook`](generated/torch.cuda.graphs.register_graph_replay_end_hook.html#torch.cuda.graphs.register_graph_replay_end_hook) | Register a hook run with each CUDA graph at the end of every replay, once the replay is *enqueued* (the launch is asynchronous, so the GPU work has not completed). |
 | [`register_graph_destroy_hook`](generated/torch.cuda.graphs.register_graph_destroy_hook.html#torch.cuda.graphs.register_graph_destroy_hook) | Register `fn(exec_ids)` to run when a CUDA graph is destroyed. |
-| [`run_graph_destroy_hooks`](generated/torch.cuda.graphs.run_graph_destroy_hooks.html#torch.cuda.graphs.run_graph_destroy_hooks) | Invoke every registered hook with the destroyed exec graph ids, swallowing per-hook errors so one failure does not abort the rest (matching the destroy-callback fire semantics). |
-| [`graph_destroy_hooks_active`](generated/torch.cuda.graphs.graph_destroy_hooks_active.html#torch.cuda.graphs.graph_destroy_hooks_active) | True when any graph-destroy hook is registered -- the gate a CUDAGraph checks before arming its destroy callback. |
 
 ## Graph Kernel Annotations (prototype)
 
@@ -222,7 +225,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/cuda/memory.py#L1423)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/memory.py#L1423)
 
 A context manager that routes allocations to a given pool.
 
@@ -246,7 +249,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -345,6 +348,6 @@ deprecated compatibility APIs.
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

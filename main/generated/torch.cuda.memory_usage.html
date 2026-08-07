@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+giteaa2ebb )">
+<meta name="llm:version" content="main (2.14.0a0+git6f990b7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+giteaa2ebb )');
+  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+git6f990b7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3418,11 +3418,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_dot.html">torch.cuda.export_dot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.export_graph_data.html">torch.cuda.export_graph_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_capture_start_hook.html">torch.cuda.graphs.register_graph_capture_start_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_capture_end_hook.html">torch.cuda.graphs.register_graph_capture_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_instantiate_hook.html">torch.cuda.graphs.register_graph_instantiate_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.run_graph_instantiate_hooks.html">torch.cuda.graphs.run_graph_instantiate_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_replay_start_hook.html">torch.cuda.graphs.register_graph_replay_start_hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_replay_end_hook.html">torch.cuda.graphs.register_graph_replay_end_hook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.register_graph_destroy_hook.html">torch.cuda.graphs.register_graph_destroy_hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.run_graph_destroy_hooks.html">torch.cuda.graphs.run_graph_destroy_hooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graphs.graph_destroy_hooks_active.html">torch.cuda.graphs.graph_destroy_hooks_active</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.get_kernel_annotations.html">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
@@ -3670,7 +3671,7 @@ document.write(`
 <h1>torch.cuda.memory_usage<a class="headerlink" href="#torch-cuda-memory-usage" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory_usage">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">memory_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/cuda/__init__.py#L1623"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory_usage" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">memory_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/__init__.py#L1623"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory_usage" title="Link to this definition">#</a></dt>
 <dd><p>Return the percent of time over the past sample period during which global (device)
 memory was being read or written as given by <cite>nvidia-smi</cite>.</p>
 <dl class="field-list simple">

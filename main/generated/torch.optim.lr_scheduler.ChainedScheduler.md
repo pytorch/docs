@@ -1,6 +1,6 @@
 # ChainedScheduler
 
-*class*torch.optim.lr_scheduler.ChainedScheduler(*schedulers*, *optimizer=None*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L1478)
+*class*torch.optim.lr_scheduler.ChainedScheduler(*schedulers*, *optimizer=None*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L1478)
 
 Chains a list of learning rate schedulers.
 
@@ -16,13 +16,13 @@ Example
 
 ```
 >>> # Assuming optimizer uses lr = 0.05 for all groups
->>> # lr = 0.05 if epoch == 0
->>> # lr = 0.0450 if epoch == 1
->>> # lr = 0.0405 if epoch == 2
+>>> # lr = 0.005 if epoch == 0
+>>> # lr = 0.00450 if epoch == 1
+>>> # lr = 0.00405 if epoch == 2
 >>> # ...
->>> # lr = 0.00675 if epoch == 19
->>> # lr = 0.06078 if epoch == 20
->>> # lr = 0.05470 if epoch == 21
+>>> # lr = 0.000675 if epoch == 19
+>>> # lr = 0.006078 if epoch == 20
+>>> # lr = 0.005470 if epoch == 21
 >>> scheduler1 = ConstantLR(optimizer, factor=0.1, total_iters=20)
 >>> scheduler2 = ExponentialLR(optimizer, gamma=0.9)
 >>> scheduler = ChainedScheduler([scheduler1, scheduler2], optimizer=optimizer)
@@ -34,7 +34,7 @@ Example
 
 ![../_images/ChainedScheduler.png](../_images/ChainedScheduler.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -54,7 +54,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L219)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L219)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -79,7 +79,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L1566)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L1566)
 
 Load the scheduler's state.
 
@@ -88,7 +88,7 @@ Parameters:
 **state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - scheduler state. Should be an object returned
 from a call to `state_dict()`.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L1545)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L1545)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 
@@ -100,6 +100,6 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step()[[source]](https://github.com/pytorch/pytorch/blob/eaa2ebb41a524b2e9d0d3223864d2f48ab132992/torch/optim/lr_scheduler.py#L1539)
+step()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/optim/lr_scheduler.py#L1539)
 
 Perform a step.
