@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_peak_memory_stats
 
-torch.cuda.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/cuda/memory.py#L381)
+torch.cuda.memory.reset_peak_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/cuda/memory.py#L381)
 
 Reset the "peak" stats tracked by the CUDA memory allocator.
 

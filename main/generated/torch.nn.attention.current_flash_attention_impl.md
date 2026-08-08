@@ -1,6 +1,6 @@
 # torch.nn.attention.current_flash_attention_impl
 
-torch.nn.attention.current_flash_attention_impl()[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/nn/attention/_registry.py#L107)
+torch.nn.attention.current_flash_attention_impl()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/nn/attention/_registry.py#L107)
 
 Return the currently activated flash attention impl name, if any.
 

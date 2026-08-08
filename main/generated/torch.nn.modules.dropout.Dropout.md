@@ -1,6 +1,6 @@
 # Dropout
 
-*class*torch.nn.modules.dropout.Dropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/nn/modules/dropout.py#L35)
+*class*torch.nn.modules.dropout.Dropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/nn/modules/dropout.py#L35)
 
 During training, randomly zeroes some of the elements of the input tensor with probability `p`.
 
@@ -35,7 +35,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6f990b7ff484061525619d9776bb4c8174e00a4c/torch/nn/modules/dropout.py#L69)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/nn/modules/dropout.py#L69)
 
 Runs the forward pass.
 
