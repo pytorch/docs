@@ -331,7 +331,7 @@ if `weights_only` was not passed as an argument.
 
 The following utility functions are related to serialization:
 
-torch.serialization.register_package(*priority*, *tagger*, *deserializer*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L444)
+torch.serialization.register_package(*priority*, *tagger*, *deserializer*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L444)
 
 Registers callables for tagging and deserializing storage objects with an associated priority.
 Tagging associates a device with a storage object at save time while deserializing moves a
@@ -372,7 +372,7 @@ Example
 >>> torch.serialization.register_package(11, ipu_tag, ipu_deserialize)
 ```
 
-torch.serialization.get_crc32_options()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L172)
+torch.serialization.get_crc32_options()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L172)
 
 Get whether [`torch.save()`](../generated/torch.save.html#torch.save) computes and writes crc32 for each record.
 
@@ -382,7 +382,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.serialization.set_crc32_options(*compute_crc32*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L183)
+torch.serialization.set_crc32_options(*compute_crc32*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L183)
 
 Set whether [`torch.save()`](../generated/torch.save.html#torch.save) computes and writes crc32 for each record.
 
@@ -396,7 +396,7 @@ Parameters:
 
 **compute_crc32** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - set crc32 computation flag
 
-torch.serialization.get_default_load_endianness()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L138)
+torch.serialization.get_default_load_endianness()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L138)
 
 Get fallback byte order for loading files
 
@@ -412,7 +412,7 @@ Return type:
 
 default_load_endian
 
-torch.serialization.set_default_load_endianness(*endianness*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L154)
+torch.serialization.set_default_load_endianness(*endianness*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L154)
 
 Set fallback byte order for loading files
 
@@ -424,7 +424,7 @@ Parameters:
 
 **endianness** - the new fallback byte order
 
-torch.serialization.get_default_mmap_options()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L200)
+torch.serialization.get_default_mmap_options()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L200)
 
 Get default mmap options for [`torch.load()`](../generated/torch.load.html#torch.load) with `mmap=True`.
 
@@ -438,7 +438,7 @@ Return type:
 
 default_mmap_options
 
-torch.serialization.set_default_mmap_options(*flags*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L229)
+torch.serialization.set_default_mmap_options(*flags*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L229)
 
 Context manager or function to set default mmap options for [`torch.load()`](../generated/torch.load.html#torch.load) with `mmap=True` to flags.
 
@@ -453,7 +453,7 @@ Parameters:
 
 **flags** ([*int*](https://docs.python.org/3/library/functions.html#int)) - `mmap.MAP_PRIVATE` or `mmap.MAP_SHARED`
 
-torch.serialization.add_safe_globals(*safe_globals*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L282)
+torch.serialization.add_safe_globals(*safe_globals*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L282)
 
 Marks the given globals as safe for `weights_only` load. For example, functions
 added to this list can be called during unpickling, classes could be instantiated
@@ -489,11 +489,11 @@ Example
 # [-0.8234, 2.0500, -0.3657]])
 ```
 
-torch.serialization.clear_safe_globals()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L268)
+torch.serialization.clear_safe_globals()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L268)
 
 Clears the list of globals that are safe for `weights_only` load.
 
-torch.serialization.get_safe_globals()[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L275)
+torch.serialization.get_safe_globals()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L275)
 
 Returns the list of user-added globals that are safe for `weights_only` load.
 
@@ -501,7 +501,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable) | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable), [str](https://docs.python.org/3/library/stdtypes.html#str)]]
 
-torch.serialization.get_unsafe_globals_in_checkpoint(*f*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L343)
+torch.serialization.get_unsafe_globals_in_checkpoint(*f*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L343)
 
 Returns a list of strings of functions/classes in a `torch.save` object that are not safe for `weights_only`.
 
@@ -530,7 +530,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-*class*torch.serialization.safe_globals(*safe_globals*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L318)
+*class*torch.serialization.safe_globals(*safe_globals*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L318)
 
 Context-manager that adds certain globals as safe for `weights_only` load.
 
@@ -557,7 +557,7 @@ Example
 >>> assert torch.serialization.get_safe_globals() == []
 ```
 
-*class*torch.serialization.skip_data(*materialize_fake_tensors=False*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/serialization.py#L385)
+*class*torch.serialization.skip_data(*materialize_fake_tensors=False*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/serialization.py#L385)
 
 Context-manager that skips writing/reading storage bytes for `torch.save` / `torch.load` calls.
 

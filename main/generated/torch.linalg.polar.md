@@ -1,6 +1,6 @@
 # torch.linalg.polar
 
-torch.linalg.polar(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ab645165510131aa973a5b8880aa56f565e59c7b/torch/linalg/__init__.py#L2968)
+torch.linalg.polar(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/linalg/__init__.py#L2968)
 
 Computes the polar decomposition of a matrix.
 
