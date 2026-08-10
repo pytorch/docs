@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.extract_arguments
 
-torch.utils.hipify.hipify_python.extract_arguments(*start*, *string*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/utils/hipify/hipify_python.py#L1037)
+torch.utils.hipify.hipify_python.extract_arguments(*start*, *string*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/utils/hipify/hipify_python.py#L1037)
 
 Return the list of arguments in the upcoming function parameter closure.
 Example:

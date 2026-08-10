@@ -7,7 +7,7 @@ can be executed as normal. For example, it is used to implement autoparallel,
 a system that takes a model and reshards inputs and parameters to make it
 a distributed SPMD program.
 
-torch._functorch.aot_autograd.aot_export_joint_with_descriptors(*stack*, *mod*, *args*, *kwargs=None*, ***, *decompositions=None*, *keep_inference_input_mutations=False*, *ignore_shape_env=False*, *disable_functionalization=False*, *_record_nn_module_stack=False*, *_disable_torch_fn_metadata_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/aot_autograd.py#L1320)
+torch._functorch.aot_autograd.aot_export_joint_with_descriptors(*stack*, *mod*, *args*, *kwargs=None*, ***, *decompositions=None*, *keep_inference_input_mutations=False*, *ignore_shape_env=False*, *disable_functionalization=False*, *_record_nn_module_stack=False*, *_disable_torch_fn_metadata_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/aot_autograd.py#L1320)
 
 This API captures the joint graph for an nn.Module. However, unlike
 aot_export_joint_simple or aot_export_module(trace_joint=True), the
@@ -70,7 +70,7 @@ Return type:
 
 JointWithDescriptors
 
-torch._functorch.aot_autograd.aot_compile_joint_with_descriptors(*jd*, ***, *partition_fn=<function default_partition>*, *fw_compiler=<function boxed_nop_preserve_node_meta>*, *bw_compiler=<function boxed_nop_preserve_node_meta>*, *serializable=False*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/aot_autograd.py#L1458)
+torch._functorch.aot_autograd.aot_compile_joint_with_descriptors(*jd*, ***, *partition_fn=<function default_partition>*, *fw_compiler=<function boxed_nop_preserve_node_meta>*, *bw_compiler=<function boxed_nop_preserve_node_meta>*, *serializable=False*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/aot_autograd.py#L1458)
 
 Companion function for aot_export_joint_with_descriptors which compiles the joint
 graph into a callable function that follows a standard calling convention.
@@ -92,11 +92,11 @@ Callable[..., Any]
 
 ## Descriptors
 
-*class*torch._functorch._aot_autograd.descriptors.AOTInput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L327)
+*class*torch._functorch._aot_autograd.descriptors.AOTInput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L327)
 
 Describes where an input from an AOTAutograd produced FX graph comes from
 
-is_buffer()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L338)
+is_buffer()[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L338)
 
 True if this input is a buffer or derived from a buffer (e.g., subclass attr)
 
@@ -104,7 +104,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-is_param()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L334)
+is_param()[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L334)
 
 True if this input is a parameter or derived from a parameter (e.g., subclass attr)
 
@@ -112,7 +112,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-is_tangent()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L342)
+is_tangent()[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L342)
 
 True if this input is a tangent or derived from a tangent (e.g., subclass attr)
 
@@ -120,12 +120,12 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch._functorch._aot_autograd.descriptors.AOTOutput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L356)
+*class*torch._functorch._aot_autograd.descriptors.AOTOutput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L356)
 
 Describes where an output from an AOTAutograd produced FX graph will
 eventually be bundled into the final output
 
-is_grad()[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L364)
+is_grad()[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L364)
 
 True if this output is a grad or derived from a grad (e.g., subclass attr)
 
@@ -133,19 +133,19 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L559)
+*class*torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L559)
 
 The world token which is threaded through side-effectful operations, for backwards
 
-*class*torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L689)
+*class*torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L689)
 
 The world token output for side-effectful calls, returned so we cannot DCE it, backward only
 
-*class*torch._functorch._aot_autograd.descriptors.BufferAOTInput(*target*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L397)
+*class*torch._functorch._aot_autograd.descriptors.BufferAOTInput(*target*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L397)
 
 The input is a buffer, whose FQN is target
 
-*class*torch._functorch._aot_autograd.descriptors.DummyAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L413)
+*class*torch._functorch._aot_autograd.descriptors.DummyAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L413)
 
 In some circumstances, we want to call into a function that expects AOTInput, but
 we don't actually care about that logic (most typically, because some code is being used
@@ -153,53 +153,53 @@ for both compile-time and run-time; AOTInput processing is not needed in this si
 Pass a dummy in this situation; but it is better to just have a version of the function
 that doesn't have this at all.
 
-*class*torch._functorch._aot_autograd.descriptors.DummyAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L739)
+*class*torch._functorch._aot_autograd.descriptors.DummyAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L739)
 
 For cases when you don't actually care about descriptor propagation, do not use under normal
 circumstances.
 
-*class*torch._functorch._aot_autograd.descriptors.GradAOTOutput(*grad_of*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L644)
+*class*torch._functorch._aot_autograd.descriptors.GradAOTOutput(*grad_of*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L644)
 
 An output representing the computed gradient for a differentiable input, in the joint graph
 
-*class*torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput(*mutated_input*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L610)
+*class*torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput(*mutated_input*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L610)
 
 The mutated value of an input tensor, returned so we can appropriately propagate autograd.
 
-*class*torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L620)
+*class*torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L620)
 
 An intermediate base of multiple outputs which alias each other. We only report ONE of
 the outputs that contributed to this base
 
-*class*torch._functorch._aot_autograd.descriptors.ParamAOTInput(*target*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L381)
+*class*torch._functorch._aot_autograd.descriptors.ParamAOTInput(*target*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L381)
 
 The input is a parameter, whose FQN is target
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L541)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L541)
 
 The offset for functionalized Philox RNG calls, specifically for backward graph.
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L533)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L533)
 
 The seed for functionalized Philox RNG calls, specifically for backward graph.
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L525)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L525)
 
 The offset for functionalized Philox RNG calls, specifically for forward graph.
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L517)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L517)
 
 The seed for functionalized Philox RNG calls, specifically for forward graph.
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L671)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L671)
 
 The final offset from the functionalized RNG calls, backward only
 
-*class*torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L663)
+*class*torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L663)
 
 The final offset from the functionalized RNG calls, forward only
 
-*class*torch._functorch._aot_autograd.descriptors.PlainAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L427)
+*class*torch._functorch._aot_autograd.descriptors.PlainAOTInput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L427)
 
 The input is a plain input, corresponding to a particular positional index.
 
@@ -208,45 +208,45 @@ e.g., as accepted by aot_module_simplified. There are some AOTAutograd APIs that
 flatten pytrees, and we don't record PyTree key paths from the flattening (but we
 could and should!)
 
-*class*torch._functorch._aot_autograd.descriptors.PlainAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L600)
+*class*torch._functorch._aot_autograd.descriptors.PlainAOTOutput(*idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L600)
 
 A plain tensor output at position idx of the output tuple
 
-*class*torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput(*idx: [int](https://docs.python.org/3/library/functions.html#int)*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L750)
+*class*torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput(*idx: [int](https://docs.python.org/3/library/functions.html#int)*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L750)
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput(*base*, *attr*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L443)
+*class*torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput(*base*, *attr*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L443)
 
 Subclass inputs get unpacked into their constituent pieces before going into an FX
 graph. This tells you which particular attribute of the subclass this particular
 input corresponds to (of the 'base' originally subclass argument.)
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput(*base*, *attr*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L703)
+*class*torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput(*base*, *attr*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L703)
 
 This output will be bundled into a subclass at this location
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L466)
+*class*torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L466)
 
 Which subclass this particular outer size SymInt input (at dim idx) came from.
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L717)
+*class*torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L717)
 
 This output size will be bundled into a subclass at this location
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L477)
+*class*torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L477)
 
 Which subclass this particular outer stride SymInt input (at dim idx) came from.
 
-*class*torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L728)
+*class*torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput(*base*, *idx*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L728)
 
 This output stride will be bundled into a subclass at this location
 
-*class*torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L504)
+*class*torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L504)
 
 This is similar to ViewBaseAOTInput, but this happens when none of the views were differentiable, so
 we weren't able to get our hands on the true original view and constructed a synthetic one instead
 for the sake of autograd.
 
-*class*torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/descriptors.py#L488)
+*class*torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput(*base_of*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/descriptors.py#L488)
 
 When multiple differentiable inputs are views of the same input, AOTAutograd will replace all of these
 views with a single input representing the base. If this is undesirable, you can clone the views
@@ -261,7 +261,7 @@ that are produced by AOTAutograd. They will NOT work on generic FX graphs. See a
 `torch._functorch.aot_autograd.aot_export_joint_with_descriptors()`. We also
 recommend reading :mod:torch._functorch._aot_autograd.descriptors`.
 
-torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes(*g*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L44)
+torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes(*g*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L44)
 
 Given a joint graph with descriptors (meta['desc'] on placeholders and
 output), returns the node for every input and its corresponding grad
@@ -294,7 +294,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[*DifferentiableAOTInput*, [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Node*](../../../fx.html#torch.fx.Node), [*Node*](../../../fx.html#torch.fx.Node) | None]]
 
-torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes(*g*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L100)
+torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes(*g*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L100)
 
 Get all output nodes and their corresponding tangent nodes from a joint graph.
 
@@ -327,7 +327,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[*DifferentiableAOTOutput*, [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Node*](../../../fx.html#torch.fx.Node), [*Node*](../../../fx.html#torch.fx.Node) | None]]
 
-torch._functorch._aot_autograd.fx_utils.get_buffer_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L307)
+torch._functorch._aot_autograd.fx_utils.get_buffer_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L307)
 
 Get all buffer nodes from a graph as a list.
 
@@ -352,7 +352,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Node*](../../../fx.html#torch.fx.Node)]
 
-torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L258)
+torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L258)
 
 Get buffer nodes mapped by their fully qualified names.
 
@@ -377,7 +377,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Node*](../../../fx.html#torch.fx.Node)]
 
-torch._functorch._aot_autograd.fx_utils.get_named_param_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L230)
+torch._functorch._aot_autograd.fx_utils.get_named_param_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L230)
 
 Get parameter nodes mapped by their fully qualified names.
 
@@ -402,7 +402,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Node*](../../../fx.html#torch.fx.Node)]
 
-torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L154)
+torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L154)
 
 Get parameter nodes and their corresponding gradient nodes from a joint graph.
 
@@ -419,7 +419,7 @@ Return type:
 
 A dictionary mapping each ParamAOTInput descriptor to a tuple containing
 
-torch._functorch._aot_autograd.fx_utils.get_param_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L286)
+torch._functorch._aot_autograd.fx_utils.get_param_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L286)
 
 Get all parameter nodes from a graph as a list.
 
@@ -445,7 +445,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Node*](../../../fx.html#torch.fx.Node)]
 
-torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L174)
+torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L174)
 
 Get plain input nodes and their corresponding gradient nodes from a joint graph.
 
@@ -462,7 +462,7 @@ Return type:
 
 A dictionary mapping each PlainAOTInput descriptor to a tuple containing
 
-torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/_functorch/_aot_autograd/fx_utils.py#L194)
+torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/_functorch/_aot_autograd/fx_utils.py#L194)
 
 Get plain output nodes and their corresponding tangent nodes from a joint graph.
 

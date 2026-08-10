@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.first
 
-torch.fx.experimental.unification.unification_tools.first(*seq*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/fx/experimental/unification/unification_tools.py#L461)
+torch.fx.experimental.unification.unification_tools.first(*seq*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/fx/experimental/unification/unification_tools.py#L461)
 
 The first element in a sequence
 

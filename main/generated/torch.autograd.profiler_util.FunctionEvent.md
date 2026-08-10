@@ -1,6 +1,6 @@
 # FunctionEvent
 
-*class*torch.autograd.profiler_util.FunctionEvent(*id*, *name*, *thread*, *start_us*, *end_us*, *overload_name=None*, *fwd_thread=None*, *input_shapes=None*, *stack=None*, *scope=0*, *use_device=None*, *cpu_memory_usage=0*, *device_memory_usage=0*, *is_async=False*, *is_remote=False*, *sequence_nr=-1*, *node_id=-1*, *device_type=<DeviceType.CPU: 0>*, *device_index=0*, *device_resource_id=None*, *is_legacy=False*, *flops=None*, *trace_name=None*, *concrete_inputs=None*, *kwinputs=None*, *is_user_annotation=False*, *is_python_function=False*, *activity_type=None*, *metadata_json=None*, *flow_id=None*, *flow_type=None*, *flow_start=None*, *external_id=0*, *linked_correlation_id=0*, *extra_meta=None*, *structured_input_shapes=None*, *structured_input_strides=None*, *input_dtypes=None*, *python_id=-1*, *python_parent_id=-1*, *python_module_id=-1*, *typed_metadata=None*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/autograd/profiler_util.py#L668)
+*class*torch.autograd.profiler_util.FunctionEvent(*id*, *name*, *thread*, *start_us*, *end_us*, *overload_name=None*, *fwd_thread=None*, *input_shapes=None*, *stack=None*, *scope=0*, *use_device=None*, *cpu_memory_usage=0*, *device_memory_usage=0*, *is_async=False*, *is_remote=False*, *sequence_nr=-1*, *node_id=-1*, *device_type=<DeviceType.CPU: 0>*, *device_index=0*, *device_resource_id=None*, *is_legacy=False*, *flops=None*, *trace_name=None*, *concrete_inputs=None*, *kwinputs=None*, *is_user_annotation=False*, *is_python_function=False*, *activity_type=None*, *metadata_json=None*, *flow_id=None*, *flow_type=None*, *flow_start=None*, *external_id=0*, *linked_correlation_id=0*, *extra_meta=None*, *structured_input_shapes=None*, *structured_input_strides=None*, *input_dtypes=None*, *python_id=-1*, *python_parent_id=-1*, *python_module_id=-1*, *typed_metadata=None*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/autograd/profiler_util.py#L668)
 
 Profiling information about a single function.
 
@@ -79,14 +79,14 @@ See also
 - [`EventList`](torch.autograd.profiler_util.EventList.html#torch.autograd.profiler_util.EventList): List container for FunctionEvent objects with helper methods
 - [`FunctionEventAvg`](torch.autograd.profiler_util.FunctionEventAvg.html#torch.autograd.profiler_util.FunctionEventAvg): Averaged statistics over multiple FunctionEvent objects
 
-append_cpu_child(*child*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/autograd/profiler_util.py#L855)
+append_cpu_child(*child*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/autograd/profiler_util.py#L855)
 
 Append a CPU child of type FunctionEvent.
 
 One is supposed to append only direct children to the event to have
 correct self cpu time being reported.
 
-set_cpu_parent(*parent*)[[source]](https://github.com/pytorch/pytorch/blob/a471a58d241b08025dcb4ec69c2d30e5a49a757a/torch/autograd/profiler_util.py#L869)
+set_cpu_parent(*parent*)[[source]](https://github.com/pytorch/pytorch/blob/2ba6a0a1865e48bce91c6a36d4d11218b52baee7/torch/autograd/profiler_util.py#L869)
 
 Set the immediate CPU parent of type FunctionEvent.
 
