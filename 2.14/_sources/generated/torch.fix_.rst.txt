@@ -1,0 +1,6 @@
+﻿torch.fix\_
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: fix_

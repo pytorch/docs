@@ -1,0 +1,6 @@
+﻿torch.mtia.memory.reset\_peak\_memory\_stats
+============================================
+
+.. currentmodule:: torch.mtia.memory
+
+.. autofunction:: reset_peak_memory_stats

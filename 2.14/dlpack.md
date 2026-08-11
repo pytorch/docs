@@ -1,0 +1,123 @@
+# torch.utils.dlpack
+
+torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/dlpack.py#L124)
+
+Converts a tensor from an external library into a `torch.Tensor`.
+
+The returned PyTorch tensor will share the memory with the input tensor
+(which may have come from another library). Note that in-place operations
+will therefore also affect the data of the input tensor. This may lead to
+unexpected issues (e.g., other libraries may have read-only flags or
+immutable data structures), so the user should only do this if they know
+for sure that this is fine.
+
+Parameters:
+
+- **ext_tensor** (object with `__dlpack__` attribute, or a DLPack capsule) -
+
+The tensor or DLPack capsule to convert.
+
+If `ext_tensor` is a tensor (or ndarray) object, it must support
+the `__dlpack__` protocol (i.e., have a `ext_tensor.__dlpack__`
+method). Otherwise `ext_tensor` may be a DLPack capsule, which is
+an opaque `PyCapsule` instance, typically produced by a
+`to_dlpack` function or method.
+- **device** ([*torch.device*](tensor_attributes.html#torch.device)*or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**None*) - An optional PyTorch device
+specifying where to place the new tensor. If None (default), the
+new tensor will be on the same device as `ext_tensor`.
+- **copy** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) - An optional boolean indicating whether or not to copy
+`self`. If None, PyTorch will copy only if necessary.
+
+Return type:
+
+[*Tensor*](tensors.html#torch.Tensor)
+
+Examples:
+
+```
+>>> import torch.utils.dlpack
+>>> t = torch.arange(4)
+
+# Convert a tensor directly (supported in PyTorch >= 1.10)
+>>> t2 = torch.from_dlpack(t)
+>>> t2[:2] = -1 # show that memory is shared
+>>> t2
+tensor([-1, -1, 2, 3])
+>>> t
+tensor([-1, -1, 2, 3])
+
+# The old-style DLPack usage, with an intermediate capsule object
+>>> capsule = torch.utils.dlpack.to_dlpack(t)
+>>> capsule
+<capsule object "dltensor" at ...>
+>>> t3 = torch.from_dlpack(capsule)
+>>> t3
+tensor([-1, -1, 2, 3])
+>>> t3[0] = -9 # now we're sharing memory between 3 tensors
+>>> t3
+tensor([-9, -1, 2, 3])
+>>> t2
+tensor([-9, -1, 2, 3])
+>>> t
+tensor([-9, -1, 2, 3])
+```
+
+torch.utils.dlpack.to_dlpack(*tensor*) → PyCapsule
+
+Returns an opaque object (a "DLPack capsule") representing the tensor.
+
+Note
+
+`to_dlpack` is a legacy DLPack interface. The capsule it returns
+cannot be used for anything in Python other than use it as input to
+`from_dlpack`. The more idiomatic use of DLPack is to call
+`from_dlpack` directly on the tensor object - this works when that
+object has a `__dlpack__` method, which PyTorch and most other
+libraries indeed have now.
+
+Warning
+
+Only call `from_dlpack` once per capsule produced with `to_dlpack`.
+Behavior when a capsule is consumed multiple times is undefined.
+
+Parameters:
+
+**tensor** - a tensor to be exported
+
+The DLPack capsule shares the tensor's memory.
+
+*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/dlpack.py#L34)
+
+A zero-copy, read-only view of a tensor for DLPack interop only.
+
+Wrapping a tensor with `ReadOnlyTensorWrapper` declares the intent that
+consumers must not mutate its data. It changes only the DLPack export
+behavior; the wrapper shares storage with the source tensor and does not
+copy.
+
+Both DLPack export paths are routed to read-only variants:
+
+- the fast `__dlpack_c_exchange_api__` C exchange protocol (used by
+tvm-ffi / CuteDSL) points at the const exchange API, which exports
+through `const_data_ptr()` and sets
+`DLPACK_FLAG_BITMASK_READ_ONLY`;
+- the `__dlpack__()` capsule protocol forces `read_only=True`.
+
+Because the export uses `const_data_ptr()`, exporting a copy-on-write
+tensor does not materialize it.
+
+The wrapper is export-only: every torch operation other than the DLPack
+protocol methods raises `RuntimeError`. Unwrap it (e.g. via the original
+tensor) to operate on the data.
+
+Example:
+
+```
+x = torch.randn(8)
+ro = ReadOnlyTensorWrapper(x)
+cute.runtime.from_dlpack(ro, enable_tvm_ffi=True) # read-only export
+```
+
+Return type:
+
+ReadOnlyTensorWrapper

@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.memory\_summary
+=================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: memory_summary

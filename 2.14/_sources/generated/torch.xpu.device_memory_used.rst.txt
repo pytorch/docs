@@ -1,0 +1,6 @@
+﻿torch.xpu.device\_memory\_used
+==============================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: device_memory_used

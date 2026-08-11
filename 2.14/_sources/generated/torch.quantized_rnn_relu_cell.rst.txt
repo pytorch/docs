@@ -1,0 +1,6 @@
+﻿torch.quantized\_rnn\_relu\_cell
+================================
+
+.. currentmodule:: torch
+
+.. autofunction:: quantized_rnn_relu_cell

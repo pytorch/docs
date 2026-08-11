@@ -1,0 +1,6 @@
+﻿torch.nn.functional.scaled\_mm
+==============================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: scaled_mm

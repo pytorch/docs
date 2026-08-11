@@ -1,0 +1,62 @@
+# torch.diag_embed
+
+torch.diag_embed(*input*, *offset=0*, *dim1=-2*, *dim2=-1*) → [Tensor](../tensors.html#torch.Tensor)
+
+Creates a tensor whose diagonals of certain 2D planes (specified by
+`dim1` and `dim2`) are filled by `input`.
+To facilitate creating batched diagonal matrices, the 2D planes formed by
+the last two dimensions of the returned tensor are chosen by default.
+
+The argument `offset` controls which diagonal to consider:
+
+- If `offset` = 0, it is the main diagonal.
+- If `offset` > 0, it is above the main diagonal.
+- If `offset` < 0, it is below the main diagonal.
+
+The size of the new matrix will be calculated to make the specified diagonal
+of the size of the last input dimension.
+Note that for `offset` other than 000, the order of `dim1`
+and `dim2` matters. Exchanging them is equivalent to changing the
+sign of `offset`.
+
+Applying [`torch.diagonal()`](torch.diagonal.html#torch.diagonal) to the output of this function with
+the same arguments yields a matrix identical to input. However,
+[`torch.diagonal()`](torch.diagonal.html#torch.diagonal) has different default dimensions, so those
+need to be explicitly specified.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor. Must be at least 1-dimensional.
+- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - which diagonal to consider. Default: 0
+(main diagonal).
+- **dim1** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - first dimension with respect to which to
+take diagonal. Default: -2.
+- **dim2** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - second dimension with respect to which to
+take diagonal. Default: -1.
+
+Example:
+
+```
+>>> a = torch.randn(2, 3)
+>>> torch.diag_embed(a)
+tensor([[[ 1.5410, 0.0000, 0.0000],
+ [ 0.0000, -0.2934, 0.0000],
+ [ 0.0000, 0.0000, -2.1788]],
+
+ [[ 0.5684, 0.0000, 0.0000],
+ [ 0.0000, -1.0845, 0.0000],
+ [ 0.0000, 0.0000, -1.3986]]])
+
+>>> torch.diag_embed(a, offset=1, dim1=0, dim2=2)
+tensor([[[ 0.0000, 1.5410, 0.0000, 0.0000],
+ [ 0.0000, 0.5684, 0.0000, 0.0000]],
+
+ [[ 0.0000, 0.0000, -0.2934, 0.0000],
+ [ 0.0000, 0.0000, -1.0845, 0.0000]],
+
+ [[ 0.0000, 0.0000, 0.0000, -2.1788],
+ [ 0.0000, 0.0000, 0.0000, -1.3986]],
+
+ [[ 0.0000, 0.0000, 0.0000, 0.0000],
+ [ 0.0000, 0.0000, 0.0000, 0.0000]]])
+```

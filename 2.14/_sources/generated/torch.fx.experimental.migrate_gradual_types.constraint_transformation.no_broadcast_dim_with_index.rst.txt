@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_transformation.no\_broadcast\_dim\_with\_index
+========================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_transformation
+
+.. autofunction:: no_broadcast_dim_with_index

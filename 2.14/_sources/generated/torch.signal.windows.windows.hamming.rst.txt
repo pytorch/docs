@@ -1,0 +1,6 @@
+﻿torch.signal.windows.windows.hamming
+====================================
+
+.. currentmodule:: torch.signal.windows.windows
+
+.. autofunction:: hamming

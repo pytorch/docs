@@ -1,0 +1,6 @@
+﻿torch.view\_as\_real\_copy
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: view_as_real_copy

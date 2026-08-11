@@ -1,0 +1,6 @@
+﻿torch.triplet\_margin\_loss
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: triplet_margin_loss

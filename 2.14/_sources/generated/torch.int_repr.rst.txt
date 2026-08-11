@@ -1,0 +1,6 @@
+﻿torch.int\_repr
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: int_repr

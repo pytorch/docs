@@ -1,0 +1,6 @@
+﻿torch.nn.utils.parametrize.transfer\_parametrizations\_and\_params
+==================================================================
+
+.. currentmodule:: torch.nn.utils.parametrize
+
+.. autofunction:: transfer_parametrizations_and_params

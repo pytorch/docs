@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.recording.shape\_env\_check\_state\_equal
+===============================================================
+
+.. currentmodule:: torch.fx.experimental.recording
+
+.. autofunction:: shape_env_check_state_equal

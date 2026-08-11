@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.thunkify
+============================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: thunkify

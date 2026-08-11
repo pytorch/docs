@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.proxys\_to\_metas
+====================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: proxys_to_metas

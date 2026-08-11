@@ -1,0 +1,6 @@
+﻿torch.signal.windows.windows.cosine
+===================================
+
+.. currentmodule:: torch.signal.windows.windows
+
+.. autofunction:: cosine

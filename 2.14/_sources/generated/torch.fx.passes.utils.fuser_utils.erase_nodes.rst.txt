@@ -1,0 +1,6 @@
+﻿torch.fx.passes.utils.fuser\_utils.erase\_nodes
+===============================================
+
+.. currentmodule:: torch.fx.passes.utils.fuser_utils
+
+.. autofunction:: erase_nodes

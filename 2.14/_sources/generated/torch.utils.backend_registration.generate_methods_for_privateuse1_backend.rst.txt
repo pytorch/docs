@@ -1,0 +1,6 @@
+﻿torch.utils.backend\_registration.generate\_methods\_for\_privateuse1\_backend
+==============================================================================
+
+.. currentmodule:: torch.utils.backend_registration
+
+.. autofunction:: generate_methods_for_privateuse1_backend

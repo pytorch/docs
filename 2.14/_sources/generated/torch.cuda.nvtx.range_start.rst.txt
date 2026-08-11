@@ -1,0 +1,6 @@
+﻿torch.cuda.nvtx.range\_start
+============================
+
+.. currentmodule:: torch.cuda.nvtx
+
+.. autofunction:: range_start

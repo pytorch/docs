@@ -1,0 +1,33 @@
+# torch.cuda.comm.gather
+
+torch.cuda.comm.gather(*tensors*, *dim=0*, *destination=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/parallel/comm.py#L222)
+
+Gathers tensors from multiple GPU devices.
+
+Parameters:
+
+- **tensors** (*Iterable**[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - an iterable of tensors to gather.
+Tensor sizes in all dimensions other than `dim` have to match.
+- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - a dimension along which the tensors will be
+concatenated. Default: `0`.
+- **destination** ([*torch.device*](../tensor_attributes.html#torch.device)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*, or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the output device.
+Can be CPU or CUDA. Default: the current CUDA device.
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional**,**keyword-only*) - the tensor to store gather result.
+Its sizes must match those of `tensors`, except for `dim`,
+where the size must equal `sum(tensor.size(dim) for tensor in tensors)`.
+Can be on CPU or CUDA.
+
+Note
+
+`destination` must not be specified when `out` is specified.
+
+Returns:
+
+- If `destination` is specified,
+
+a tensor located on `destination` device, that is a result of
+concatenating `tensors` along `dim`.
+- If `out` is specified,
+
+the `out` tensor, now containing results of concatenating
+`tensors` along `dim`.

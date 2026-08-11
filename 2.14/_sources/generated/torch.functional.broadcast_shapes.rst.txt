@@ -1,0 +1,6 @@
+﻿torch.functional.broadcast\_shapes
+==================================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: broadcast_shapes

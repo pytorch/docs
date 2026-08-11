@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_gpu\_dtype
+===============================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_gpu_dtype

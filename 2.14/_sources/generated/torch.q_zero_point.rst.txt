@@ -1,0 +1,6 @@
+﻿torch.q\_zero\_point
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: q_zero_point

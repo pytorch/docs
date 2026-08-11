@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.symbolic\_trace
+==================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: symbolic_trace

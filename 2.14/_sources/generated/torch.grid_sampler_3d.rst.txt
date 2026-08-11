@@ -1,0 +1,6 @@
+﻿torch.grid\_sampler\_3d
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: grid_sampler_3d

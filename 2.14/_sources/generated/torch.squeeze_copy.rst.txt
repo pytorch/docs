@@ -1,0 +1,6 @@
+﻿torch.squeeze\_copy
+===================
+
+.. currentmodule:: torch
+
+.. autofunction:: squeeze_copy

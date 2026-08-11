@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.selective\_decompose
+========================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: selective_decompose

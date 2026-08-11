@@ -1,0 +1,6 @@
+﻿torch.rsqrt\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: rsqrt_

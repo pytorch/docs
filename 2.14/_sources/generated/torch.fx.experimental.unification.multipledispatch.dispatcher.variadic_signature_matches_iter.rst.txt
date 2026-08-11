@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.dispatcher.variadic\_signature\_matches\_iter
+================================================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.dispatcher
+
+.. autofunction:: variadic_signature_matches_iter

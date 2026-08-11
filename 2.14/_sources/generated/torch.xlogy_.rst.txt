@@ -1,0 +1,6 @@
+﻿torch.xlogy\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: xlogy_

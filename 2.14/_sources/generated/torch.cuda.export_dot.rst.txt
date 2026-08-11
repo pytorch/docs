@@ -1,0 +1,6 @@
+﻿torch.cuda.export\_dot
+======================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: export_dot

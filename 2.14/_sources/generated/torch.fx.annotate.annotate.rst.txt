@@ -1,0 +1,6 @@
+﻿torch.fx.annotate.annotate
+==========================
+
+.. currentmodule:: torch.fx.annotate
+
+.. autofunction:: annotate

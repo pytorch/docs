@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.set\_per\_process\_memory\_fraction
+=====================================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: set_per_process_memory_fraction

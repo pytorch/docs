@@ -1,0 +1,6 @@
+﻿torch.rms\_norm
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: rms_norm

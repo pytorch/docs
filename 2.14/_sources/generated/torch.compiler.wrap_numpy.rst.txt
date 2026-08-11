@@ -1,0 +1,6 @@
+﻿torch.compiler.wrap\_numpy
+==========================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: wrap_numpy

@@ -1,0 +1,6 @@
+﻿torch.empty\_quantized
+======================
+
+.. currentmodule:: torch
+
+.. autofunction:: empty_quantized

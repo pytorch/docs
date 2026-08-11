@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.gen\_constructor\_wrapper
+============================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: gen_constructor_wrapper

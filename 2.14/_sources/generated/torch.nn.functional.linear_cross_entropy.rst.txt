@@ -1,0 +1,6 @@
+﻿torch.nn.functional.linear\_cross\_entropy
+==========================================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: linear_cross_entropy

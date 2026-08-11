@@ -1,0 +1,6 @@
+﻿torch.fx.passes.graph\_manipulation.replace\_target\_nodes\_with
+================================================================
+
+.. currentmodule:: torch.fx.passes.graph_manipulation
+
+.. autofunction:: replace_target_nodes_with

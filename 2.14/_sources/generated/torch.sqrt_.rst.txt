@@ -1,0 +1,6 @@
+﻿torch.sqrt\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: sqrt_

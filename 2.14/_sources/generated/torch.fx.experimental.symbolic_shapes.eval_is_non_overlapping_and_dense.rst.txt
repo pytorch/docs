@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.eval\_is\_non\_overlapping\_and\_dense
+=============================================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: eval_is_non_overlapping_and_dense

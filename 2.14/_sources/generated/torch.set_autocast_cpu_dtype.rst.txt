@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_cpu\_dtype
+===============================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_cpu_dtype

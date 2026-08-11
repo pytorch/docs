@@ -1,0 +1,6 @@
+﻿torch.fx.tensor\_type.is\_more\_precise
+=======================================
+
+.. currentmodule:: torch.fx.tensor_type
+
+.. autofunction:: is_more_precise

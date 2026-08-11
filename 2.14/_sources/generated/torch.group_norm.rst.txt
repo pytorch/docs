@@ -1,0 +1,6 @@
+﻿torch.group\_norm
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: group_norm

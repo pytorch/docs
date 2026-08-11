@@ -1,0 +1,6 @@
+﻿torch.addmv\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: addmv_

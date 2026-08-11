@@ -1,0 +1,3 @@
+# torch.binomial
+
+torch.binomial()

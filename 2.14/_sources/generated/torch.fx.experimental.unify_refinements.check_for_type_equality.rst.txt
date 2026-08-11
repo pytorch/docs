@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unify\_refinements.check\_for\_type\_equality
+===================================================================
+
+.. currentmodule:: torch.fx.experimental.unify_refinements
+
+.. autofunction:: check_for_type_equality

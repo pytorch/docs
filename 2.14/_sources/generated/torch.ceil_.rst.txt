@@ -1,0 +1,6 @@
+﻿torch.ceil\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: ceil_

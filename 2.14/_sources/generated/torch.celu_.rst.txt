@@ -1,0 +1,6 @@
+﻿torch.celu\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: celu_

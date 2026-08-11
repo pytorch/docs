@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_xla\_dtype
+===============================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_xla_dtype

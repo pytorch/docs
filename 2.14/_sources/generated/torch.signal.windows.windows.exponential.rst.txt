@@ -1,0 +1,6 @@
+﻿torch.signal.windows.windows.exponential
+========================================
+
+.. currentmodule:: torch.signal.windows.windows
+
+.. autofunction:: exponential

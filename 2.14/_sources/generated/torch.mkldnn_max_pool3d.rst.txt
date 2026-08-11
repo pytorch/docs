@@ -1,0 +1,6 @@
+﻿torch.mkldnn\_max\_pool3d
+=========================
+
+.. currentmodule:: torch
+
+.. autofunction:: mkldnn_max_pool3d

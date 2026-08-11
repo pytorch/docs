@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.dispatcher.source
+====================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.dispatcher
+
+.. autofunction:: source

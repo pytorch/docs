@@ -1,0 +1,6 @@
+﻿torch.dsmm
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: dsmm

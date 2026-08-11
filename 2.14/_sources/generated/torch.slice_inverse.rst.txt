@@ -1,0 +1,6 @@
+﻿torch.slice\_inverse
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: slice_inverse

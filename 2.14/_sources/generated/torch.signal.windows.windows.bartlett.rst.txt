@@ -1,0 +1,6 @@
+﻿torch.signal.windows.windows.bartlett
+=====================================
+
+.. currentmodule:: torch.signal.windows.windows
+
+.. autofunction:: bartlett

@@ -1,0 +1,6 @@
+﻿torch.cuda.gds.is\_available
+============================
+
+.. currentmodule:: torch.cuda.gds
+
+.. autofunction:: is_available

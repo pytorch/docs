@@ -1,0 +1,6 @@
+﻿torch.clamp\_max\_
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: clamp_max_

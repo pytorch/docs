@@ -1,0 +1,6 @@
+﻿torch.bilinear
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: bilinear

@@ -1,0 +1,6 @@
+﻿torch.compiler.set\_default\_backend
+====================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: set_default_backend

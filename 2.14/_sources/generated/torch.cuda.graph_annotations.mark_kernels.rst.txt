@@ -1,0 +1,6 @@
+﻿torch.cuda.graph\_annotations.mark\_kernels
+===========================================
+
+.. currentmodule:: torch.cuda.graph_annotations
+
+.. autofunction:: mark_kernels

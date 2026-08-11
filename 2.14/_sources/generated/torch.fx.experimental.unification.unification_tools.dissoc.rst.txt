@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.unification\_tools.dissoc
+===========================================================
+
+.. currentmodule:: torch.fx.experimental.unification.unification_tools
+
+.. autofunction:: dissoc

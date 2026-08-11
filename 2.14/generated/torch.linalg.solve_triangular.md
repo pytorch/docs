@@ -1,0 +1,77 @@
+# torch.linalg.solve_triangular
+
+torch.linalg.solve_triangular(*A*, *B*, ***, *upper*, *left=True*, *unitriangular=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L2365)
+
+Computes the solution of a triangular system of linear equations with a unique solution.
+
+Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C,
+this function computes the solution X∈Kn×kX \in \mathbb{K}^{n \times k}X∈Kn×k of the **linear system**
+associated to the triangular matrix A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n without zeros on the diagonal
+(that is, it is [invertible](https://en.wikipedia.org/wiki/Invertible_matrix#The_invertible_matrix_theorem)) and the rectangular matrix , B∈Kn×kB \in \mathbb{K}^{n \times k}B∈Kn×k,
+which is defined as
+
+AX=BAX = B
+
+AX=B
+
+The argument `upper` signals whether AAA is upper or lower triangular.
+
+If `left`= False, this function returns the matrix X∈Kn×kX \in \mathbb{K}^{n \times k}X∈Kn×k that
+solves the system
+
+XA=BA∈Kk×k,B∈Kn×k.XA = B\mathrlap{\qquad A \in \mathbb{K}^{k \times k}, B \in \mathbb{K}^{n \times k}.}XA=BA∈Kk×k,B∈Kn×k.
+
+If `upper`= True (resp. False) just the upper (resp. lower) triangular half of `A`
+will be accessed. The elements below the main diagonal will be considered to be zero and will not be accessed.
+
+If `unitriangular`= True, the diagonal of `A` is assumed to be ones and will not be accessed.
+
+The result may contain NaN s if the diagonal of `A` contains zeros or elements that
+are very close to zero and `unitriangular`= False (default) or if the input matrix
+has very small eigenvalues.
+
+Supports inputs of float, double, cfloat and cdouble dtypes.
+Also supports batches of matrices, and if the inputs are batches of matrices then
+the output has the same batch dimensions.
+
+See also
+
+[`torch.linalg.solve()`](torch.linalg.solve.html#torch.linalg.solve) computes the solution of a general square system of linear
+equations with a unique solution.
+
+Parameters:
+
+- **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n, n) (or (*, k, k) if `left`= False)
+where * is zero or more batch dimensions.
+- **B** ([*Tensor*](../tensors.html#torch.Tensor)) - right-hand side tensor of shape (*, n, k).
+
+Keyword Arguments:
+
+- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether `A` is an upper or lower triangular matrix.
+- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
+- **unitriangular** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, the diagonal elements of `A` are assumed to be
+all equal to 1. Default: False.
+- **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. B may be passed as out and the result is computed in-place on B.
+Ignored if None. Default: None.
+
+Examples:
+
+```
+>>> A = torch.randn(3, 3).triu_()
+>>> B = torch.randn(3, 4)
+>>> X = torch.linalg.solve_triangular(A, B, upper=True)
+>>> torch.allclose(A @ X, B)
+True
+
+>>> A = torch.randn(2, 3, 3).tril_()
+>>> B = torch.randn(2, 3, 4)
+>>> X = torch.linalg.solve_triangular(A, B, upper=False)
+>>> torch.allclose(A @ X, B)
+True
+
+>>> A = torch.randn(2, 4, 4).tril_()
+>>> B = torch.randn(2, 3, 4)
+>>> X = torch.linalg.solve_triangular(A, B, upper=False, left=False)
+>>> torch.allclose(X @ A, B)
+True
+```

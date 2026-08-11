@@ -1,0 +1,6 @@
+﻿torch.nn.utils.rnn.invert\_permutation
+======================================
+
+.. currentmodule:: torch.nn.utils.rnn
+
+.. autofunction:: invert_permutation

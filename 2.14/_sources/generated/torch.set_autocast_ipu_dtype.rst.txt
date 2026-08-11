@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_ipu\_dtype
+===============================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_ipu_dtype
