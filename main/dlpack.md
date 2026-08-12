@@ -1,6 +1,6 @@
 # torch.utils.dlpack
 
-torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/utils/dlpack.py#L124)
+torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/utils/dlpack.py#L129)
 
 Converts a tensor from an external library into a `torch.Tensor`.
 
@@ -80,13 +80,19 @@ Warning
 Only call `from_dlpack` once per capsule produced with `to_dlpack`.
 Behavior when a capsule is consumed multiple times is undefined.
 
+Note
+
+`data` is the base address of the tensor's storage and `byte_offset` the
+tensor's offset into that storage in bytes; consumers must add
+`byte_offset` to `data` to reach the first element.
+
 Parameters:
 
 **tensor** - a tensor to be exported
 
 The DLPack capsule shares the tensor's memory.
 
-*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/utils/dlpack.py#L34)
+*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/utils/dlpack.py#L34)
 
 A zero-copy, read-only view of a tensor for DLPack interop only.
 
@@ -99,11 +105,11 @@ Both DLPack export paths are routed to read-only variants:
 
 - the fast `__dlpack_c_exchange_api__` C exchange protocol (used by
 tvm-ffi / CuteDSL) points at the const exchange API, which exports
-through `const_data_ptr()` and sets
+through the storage's const data pointer and sets
 `DLPACK_FLAG_BITMASK_READ_ONLY`;
 - the `__dlpack__()` capsule protocol forces `read_only=True`.
 
-Because the export uses `const_data_ptr()`, exporting a copy-on-write
+Because the export uses the const data pointer, exporting a copy-on-write
 tensor does not materialize it.
 
 The wrapper is export-only: every torch operation other than the DLPack

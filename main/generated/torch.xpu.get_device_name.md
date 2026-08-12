@@ -1,6 +1,6 @@
 # torch.xpu.get_device_name
 
-torch.xpu.get_device_name(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/xpu/__init__.py#L444)
+torch.xpu.get_device_name(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/xpu/__init__.py#L444)
 
 Get the name of a device.
 

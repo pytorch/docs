@@ -517,7 +517,7 @@ def test_create_local_tensor(self):
 
 ### Core Classes
 
-*class*torch.distributed._local_tensor.LocalTensor(*local_tensors*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L922)
+*class*torch.distributed._local_tensor.LocalTensor(*local_tensors*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L922)
 
 LocalTensor is a Tensor subclass that simulates a tensor distributed across multiple SPMD
 (Single Program, Multiple Data) ranks. Each LocalTensor instance internally holds a mapping from
@@ -534,7 +534,7 @@ Return type:
 
 LocalTensor
 
-reconcile()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1124)
+reconcile()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1124)
 
 Reconciles the LocalTensor into a single torch.Tensor by ensuring all local
 shards are identical and returning a detached clone of one of them.
@@ -549,7 +549,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-tolist()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1103)
+tolist()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1103)
 
 Try to reconcile, if successful convert to list, otherwise if dtype is integer,
 convert to list of local integers.
@@ -558,7 +558,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*class*torch.distributed._local_tensor.LocalTensorMode(*ranks*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1227)
+*class*torch.distributed._local_tensor.LocalTensorMode(*ranks*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1227)
 
 A TorchDispatchMode that simulates SPMD (Single Program, Multiple Data) execution
 for LocalTensor objects across a set of ranks.
@@ -575,7 +575,7 @@ training. It maintains a stack of active modes, patches DeviceMesh coordinate
 resolution, and provides utilities for temporarily disabling the mode or mapping
 functions over ranks.
 
-disable()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1476)
+disable()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1476)
 
 Disables LocalTensorMode temporarily. Primarily is intended to be used to perform
 rank specific computations and merge results back before enabling LocalTensorMode back.
@@ -584,7 +584,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-rank_map(*cb*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1499)
+rank_map(*cb*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1499)
 
 Creates a LocalTensor instance by mapping rank id to its local shard.
 
@@ -592,7 +592,7 @@ Return type:
 
 *LocalTensor*
 
-tensor_map(*tensor*, *cb*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1508)
+tensor_map(*tensor*, *cb*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1508)
 
 Creates a LocalTensor instance by mapping rank id to its local shard.
 
@@ -600,7 +600,7 @@ Return type:
 
 *LocalTensor*
 
-*class*torch.distributed._local_tensor.LocalIntNode(*local_ints*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L423)
+*class*torch.distributed._local_tensor.LocalIntNode(*local_ints*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L423)
 
 Like a LocalTensor, but for an int. We can't use a 0D tensor to represent this
 because often only a SymInt is accepted where we wish to use this.
@@ -611,7 +611,7 @@ ConstantIntNode | LocalIntNode
 
 ### Utility Functions
 
-torch.distributed._local_tensor.local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1794)
+torch.distributed._local_tensor.local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1794)
 
 Returns the current active LocalTensorMode if one exists.
 
@@ -627,7 +627,7 @@ Return type:
 
 Optional[LocalTensorMode]
 
-torch.distributed._local_tensor.enabled_local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1811)
+torch.distributed._local_tensor.enabled_local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1811)
 
 Returns the current active LocalTensorMode only if it's enabled.
 
@@ -642,7 +642,7 @@ Return type:
 
 Optional[LocalTensorMode]
 
-torch.distributed._local_tensor.maybe_run_for_local_tensor(*func*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1827)
+torch.distributed._local_tensor.maybe_run_for_local_tensor(*func*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1827)
 
 Decorator that ensures a function is executed for each local tensor shard
 when running under LocalTensorMode. If not in LocalTensorMode, the function
@@ -669,7 +669,7 @@ Return type:
 
 Callable[..., Any]
 
-torch.distributed._local_tensor.maybe_disable_local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/distributed/_local_tensor/__init__.py#L1898)
+torch.distributed._local_tensor.maybe_disable_local_tensor_mode()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/distributed/_local_tensor/__init__.py#L1898)
 
 Context manager that disables LocalTensorMode for the duration of the context.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_dot_product_attention
 
-torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/nn/functional.py#L6367)
+torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/nn/functional.py#L6365)
 
 scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0,
 

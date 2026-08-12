@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.clear_kernel_annotations
 
-torch.cuda.graph_annotations.clear_kernel_annotations() → [None](https://docs.python.org/3/library/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/cuda/_graph_annotations.py#L686)
+torch.cuda.graph_annotations.clear_kernel_annotations() → [None](https://docs.python.org/3/library/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/cuda/_graph_annotations.py#L927)
 
 Clear all recorded kernel annotations.
 
@@ -8,6 +8,11 @@ The annotation registry is process-global and accumulates across
 captures; long-running workloads that capture many graphs should clear
 it once recorded annotations have been consumed (e.g. after saving
 them alongside a profiler trace).
+
+Clearing forgets everything recorded so far and revokes recording from
+every scope opened before the clear: backward hooks that
+[`mark_kernels()`](torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) attached to existing autograd nodes stay on the
+graph but become inert. Scopes opened after the clear record normally.
 
 Warning
 

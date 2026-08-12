@@ -34,7 +34,7 @@ launch the training - what you run is what you differentiate.
 
 Some operations need intermediary results to be saved during the forward pass
 in order to execute the backward pass. For example, the function
-$x\mapsto x^2$ saves the input $x$ to compute the gradient.
+x↦x2x\mapsto x^2x↦x2 saves the input xxx to compute the gradient.
 
 When defining a custom Python [`Function`](../autograd.html#torch.autograd.Function), you can use
 `save_for_backward()` to save
@@ -432,15 +432,15 @@ proper thread locking code to ensure the hooks are thread safe.
 
 The short version:
 
-- When you use PyTorch to differentiate any function $f(z)$ with complex domain and/or codomain,
+- When you use PyTorch to differentiate any function f(z)f(z)f(z) with complex domain and/or codomain,
 the gradients are computed under the assumption that the function is a part of a larger real-valued
-loss function $g(input)=L$. The gradient computed is $\frac{\partial L}{\partial z^*}$
+loss function g(input)=Lg(input)=Lg(input)=L. The gradient computed is ∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​
 (note the conjugation of z), the negative of which is precisely the direction of steepest descent
 used in Gradient Descent algorithm. Thus, there is a viable path in making the existing optimizers
 work out of the box with complex parameters.
 - This convention matches TensorFlow's convention for complex
 differentiation, but is different from JAX (which computes
-$\frac{\partial L}{\partial z}$).
+∂L∂z\frac{\partial L}{\partial z}∂z∂L​).
 - If you have a real-to-real function which internally uses complex
 operations, the convention here doesn't matter: you will always get
 the same result that you would have gotten if it had been implemented
@@ -453,20 +453,20 @@ to define complex derivatives in PyTorch, read on.
 
 The mathematical definition of complex-differentiability takes the
 limit definition of a derivative and generalizes it to operate on
-complex numbers. Consider a function $f: ℂ → ℂ$,
+complex numbers. Consider a function f:C→Cf: ℂ → ℂf:C→C,
 
 f(z=x+yj)=u(x,y)+v(x,y)j f(z=x+yj) = u(x, y) + v(x, y)jf(z=x+yj)=u(x,y)+v(x,y)j
 
-where $u$ and $v$ are two variable real valued functions
-and $j$ is the imaginary unit.
+where uuu and vvv are two variable real valued functions
+and jjj is the imaginary unit.
 
 Using the derivative definition, we can write:
 
 f′(z)=lim⁡h→0,h∈Cf(z+h)−f(z)h f'(z) = \lim_{h \to 0, h \in C} \frac{f(z+h) - f(z)}{h}f′(z)=h→0,h∈Clim​hf(z+h)−f(z)​
 
-In order for this limit to exist, not only must $u$ and $v$ must be
-real differentiable, but $f$ must also satisfy the [Cauchy-Riemann equations](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Riemann_equations). In
-other words: the limit computed for real and imaginary steps ($h$)
+In order for this limit to exist, not only must uuu and vvv must be
+real differentiable, but fff must also satisfy the [Cauchy-Riemann equations](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Riemann_equations). In
+other words: the limit computed for real and imaginary steps (hhh)
 must be equal. This is a more restrictive condition.
 
 The complex differentiable functions are commonly known as holomorphic
@@ -485,25 +485,25 @@ used for optimization and most people therefore use the Wirtinger calculus.
 So, we have this great theory of complex differentiability and
 holomorphic functions, and we can't use any of it at all, because many
 of the commonly used functions are not holomorphic. What's a poor
-mathematician to do? Well, Wirtinger observed that even if $f(z)$
+mathematician to do? Well, Wirtinger observed that even if f(z)f(z)f(z)
 isn't holomorphic, one could rewrite it as a two variable function
-$f(z, z*)$ which is always holomorphic. This is because real and
-imaginary of the components of $z$ can be expressed in terms of
-$z$ and $z^*$ as:
+f(z,z∗)f(z, z*)f(z,z∗) which is always holomorphic. This is because real and
+imaginary of the components of zzz can be expressed in terms of
+zzz and z∗z^*z∗ as:
 
 Re(z)=z+z∗2Im(z)=z−z∗2j \begin{aligned}
  \mathrm{Re}(z) &= \frac {z + z^*}{2} \\
  \mathrm{Im}(z) &= \frac {z - z^*}{2j}
  \end{aligned}Re(z)Im(z)​=2z+z∗​=2jz−z∗​​
 
-Wirtinger calculus suggests to study $f(z, z^*)$ instead, which is
-guaranteed to be holomorphic if $f$ was real differentiable (another
-way to think of it is as a change of coordinate system, from $f(x, y)$
-to $f(z, z^*)$.) This function has partial derivatives
-$\frac{\partial }{\partial z}$ and $\frac{\partial}{\partial z^{*}}$.
+Wirtinger calculus suggests to study f(z,z∗)f(z, z^*)f(z,z∗) instead, which is
+guaranteed to be holomorphic if fff was real differentiable (another
+way to think of it is as a change of coordinate system, from f(x,y)f(x, y)f(x,y)
+to f(z,z∗)f(z, z^*)f(z,z∗).) This function has partial derivatives
+∂∂z\frac{\partial }{\partial z}∂z∂​ and ∂∂z∗\frac{\partial}{\partial z^{*}}∂z∗∂​.
 We can use the chain rule to establish a
 relationship between these partial derivatives and the partial
-derivatives w.r.t., the real and imaginary components of $z$.
+derivatives w.r.t., the real and imaginary components of zzz.
 
 ∂∂x=∂z∂x∗∂∂z+∂z∗∂x∗∂∂z∗=∂∂z+∂∂z∗∂∂y=∂z∂y∗∂∂z+∂z∗∂y∗∂∂z∗=1j∗(∂∂z−∂∂z∗) \begin{aligned}
  \frac{\partial }{\partial x} &= \frac{\partial z}{\partial x} * \frac{\partial }{\partial z} + \frac{\partial z^*}{\partial x} * \frac{\partial }{\partial z^*} \\
@@ -524,10 +524,10 @@ which is the classic definition of Wirtinger calculus that you would find on [Wi
 
 There are a lot of beautiful consequences of this change.
 
-- For one, the Cauchy-Riemann equations translate into simply saying that $\frac{\partial f}{\partial z^*} = 0$ (that is to say, the function $f$ can be written
-entirely in terms of $z$, without making reference to $z^*$).
+- For one, the Cauchy-Riemann equations translate into simply saying that ∂f∂z∗=0\frac{\partial f}{\partial z^*} = 0∂z∗∂f​=0 (that is to say, the function fff can be written
+entirely in terms of zzz, without making reference to z∗z^*z∗).
 - Another important (and somewhat counterintuitive) result, as we'll see later, is that when we do optimization on a real-valued loss, the step we should
-take while making variable update is given by $\frac{\partial Loss}{\partial z^*}$ (not $\frac{\partial Loss}{\partial z}$).
+take while making variable update is given by ∂Loss∂z∗\frac{\partial Loss}{\partial z^*}∂z∗∂Loss​ (not ∂Loss∂z\frac{\partial Loss}{\partial z}∂z∂Loss​).
 
 For more reading, check out: https://arxiv.org/pdf/0906.4835.pdf
 
@@ -536,15 +536,15 @@ For more reading, check out: https://arxiv.org/pdf/0906.4835.pdf
 Researchers in audio and other fields, more commonly, use gradient
 descent to optimize real valued loss functions with complex variables.
 Typically, these people treat the real and imaginary values as separate
-channels that can be updated. For a step size $\alpha/2$ and loss
-$L$, we can write the following equations in $ℝ^2$:
+channels that can be updated. For a step size α/2\alpha/2α/2 and loss
+LLL, we can write the following equations in R2ℝ^2R2:
 
 xn+1=xn−(α/2)∗∂L∂xyn+1=yn−(α/2)∗∂L∂y \begin{aligned}
  x_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} \\
  y_{n+1} &= y_n - (\alpha/2) * \frac{\partial L}{\partial y}
  \end{aligned}xn+1​yn+1​​=xn​−(α/2)∗∂x∂L​=yn​−(α/2)∗∂y∂L​​
 
-How do these equations translate into complex space $ℂ$?
+How do these equations translate into complex space CℂC?
 
 zn+1=xn−(α/2)∗∂L∂x+1j∗(yn−(α/2)∗∂L∂y)=zn−α∗1/2∗(∂L∂x+j∂L∂y)=zn−α∗∂L∂z∗ \begin{aligned}
  z_{n+1} &= x_n - (\alpha/2) * \frac{\partial L}{\partial x} + 1j * (y_n - (\alpha/2) * \frac{\partial L}{\partial y}) \\
@@ -555,7 +555,7 @@ zn+1=xn−(α/2)∗∂L∂x+1j∗(yn−(α/2)∗∂L∂y)=zn−α∗1/2∗(∂L�
 Something very interesting has happened: Wirtinger calculus tells us
 that we can simplify the complex variable update formula above to only
 refer to the conjugate Wirtinger derivative
-$\frac{\partial L}{\partial z^*}$, giving us exactly the step we take in optimization.
+∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​, giving us exactly the step we take in optimization.
 
 Because the conjugate Wirtinger derivative gives us exactly the correct step for a real valued loss function, PyTorch gives you this derivative
 when you differentiate a function with a real valued loss.
@@ -564,22 +564,22 @@ when you differentiate a function with a real valued loss.
 
 Typically, our derivative formulas take in `grad_output` as an input,
 representing the incoming Vector-Jacobian product that we've already
-computed, aka, $\frac{\partial L}{\partial s^*}$, where $L$
+computed, aka, ∂L∂s∗\frac{\partial L}{\partial s^*}∂s∗∂L​, where LLL
 is the loss of the entire computation (producing a real loss) and
-$s$ is the output of our function. The goal here is to compute
-$\frac{\partial L}{\partial z^*}$, where $z$ is the input of
+sss is the output of our function. The goal here is to compute
+∂L∂z∗\frac{\partial L}{\partial z^*}∂z∗∂L​, where zzz is the input of
 the function. It turns out that in the case of real loss, we can
-get away with *only* calculating $\frac{\partial L}{\partial s^*}$,
+get away with *only* calculating ∂L∂s∗\frac{\partial L}{\partial s^*}∂s∗∂L​,
 even though the chain rule implies that we also need to
-have access to $\frac{\partial L}{\partial s}$. If you want
+have access to ∂L∂s\frac{\partial L}{\partial s}∂s∂L​. If you want
 to skip this derivation, look at the last equation in this section
 and then skip to the next section.
 
-Let's continue working with $f: ℂ → ℂ$ defined as
-$f(z) = f(x+yj) = u(x, y) + v(x, y)j$. As discussed above,
+Let's continue working with f:C→Cf: ℂ → ℂf:C→C defined as
+f(z)=f(x+yj)=u(x,y)+v(x,y)jf(z) = f(x+yj) = u(x, y) + v(x, y)jf(z)=f(x+yj)=u(x,y)+v(x,y)j. As discussed above,
 autograd's gradient convention is centered around optimization for real
-valued loss functions, so let's assume $f$ is a part of larger
-real valued loss function $g$. Using chain rule, we can write:
+valued loss functions, so let's assume fff is a part of larger
+real valued loss function ggg. Using chain rule, we can write:
 
 (1)∂L∂z∗=∂L∂u∗∂u∂z∗+∂L∂v∗∂v∂z∗ \frac{\partial L}{\partial z^*} = \frac{\partial L}{\partial u} * \frac{\partial u}{\partial z^*} + \frac{\partial L}{\partial v} * \frac{\partial v}{\partial z^*}∂z∗∂L​=∂u∂L​∗∂z∗∂u​+∂v∂L​∗∂z∗∂v​
 
@@ -590,15 +590,15 @@ Now using Wirtinger derivative definition, we can write:
  \frac{\partial L}{\partial s^*} = 1/2 * \left(\frac{\partial L}{\partial u} + \frac{\partial L}{\partial v} j\right)
  \end{aligned}∂s∂L​=1/2∗(∂u∂L​−∂v∂L​j)∂s∗∂L​=1/2∗(∂u∂L​+∂v∂L​j)​
 
-It should be noted here that since $u$ and $v$ are real
-functions, and $L$ is real by our assumption that $f$ is a
+It should be noted here that since uuu and vvv are real
+functions, and LLL is real by our assumption that fff is a
 part of a real valued function, we have:
 
 (2)(∂L∂s)∗=∂L∂s∗ \left( \frac{\partial L}{\partial s} \right)^* = \frac{\partial L}{\partial s^*}(∂s∂L​)∗=∂s∗∂L​
 
-i.e., $\frac{\partial L}{\partial s}$ equals to $grad_output^*$.
+i.e., ∂L∂s\frac{\partial L}{\partial s}∂s∂L​ equals to grad_output∗grad\_output^*grad_output∗.
 
-Solving the above equations for $\frac{\partial L}{\partial u}$ and $\frac{\partial L}{\partial v}$, we get:
+Solving the above equations for ∂L∂u\frac{\partial L}{\partial u}∂u∂L​ and ∂L∂v\frac{\partial L}{\partial v}∂v∂L​, we get:
 
 (3)∂L∂u=∂L∂s+∂L∂s∗∂L∂v=1j∗(∂L∂s−∂L∂s∗) \begin{aligned}
  \frac{\partial L}{\partial u} = \frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*} \\
@@ -629,18 +629,16 @@ to compute by hand.
 
 The above boxed equation gives us the general formula for all
 derivatives on complex functions. However, we still need to
-compute $\frac{\partial s}{\partial z}$ and $\frac{\partial s}{\partial z^*}$.
+compute ∂s∂z\frac{\partial s}{\partial z}∂z∂s​ and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​.
 There are two ways you could do this:
 
-```
-- The first way is to just use the definition of Wirtinger derivatives directly and calculate $\frac{\partial s}{\partial z}$ and $\frac{\partial s}{\partial z^*}$ by
- using $\frac{\partial s}{\partial x}$ and $\frac{\partial s}{\partial y}$
- (which you can compute in the normal way).
-- The second way is to use the change of variables trick and rewrite $f(z)$ as a two variable function $f(z, z^*)$, and compute
- the conjugate Wirtinger derivatives by treating $z$ and $z^*$ as independent variables. This is often easier; for example, if the function in question is holomorphic, only $z$ will be used (and $\frac{\partial s}{\partial z^*}$ will be zero).
-```
+- The first way is to just use the definition of Wirtinger derivatives directly and calculate ∂s∂z\frac{\partial s}{\partial z}∂z∂s​ and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​ by
+using ∂s∂x\frac{\partial s}{\partial x}∂x∂s​ and ∂s∂y\frac{\partial s}{\partial y}∂y∂s​
+(which you can compute in the normal way).
+- The second way is to use the change of variables trick and rewrite f(z)f(z)f(z) as a two variable function f(z,z∗)f(z, z^*)f(z,z∗), and compute
+the conjugate Wirtinger derivatives by treating zzz and z∗z^*z∗ as independent variables. This is often easier; for example, if the function in question is holomorphic, only zzz will be used (and ∂s∂z∗\frac{\partial s}{\partial z^*}∂z∗∂s​ will be zero).
 
-Let's consider the function $f(z = x + yj) = c * z = c * (x+yj)$ as an example, where $c \in ℝ$.
+Let's consider the function f(z=x+yj)=c∗z=c∗(x+yj)f(z = x + yj) = c * z = c * (x+yj)f(z=x+yj)=c∗z=c∗(x+yj) as an example, where c∈Rc \in ℝc∈R.
 
 Using the first way to compute the Wirtinger derivatives, we have.
 
@@ -668,7 +666,7 @@ Using the second way to compute Wirtinger derivatives, we directly get:
  &= 0
  \end{aligned}∂z∂s​∂z∗∂s​​=∂z∂(c∗z)​=c=∂z∗∂(c∗z)​=0​
 
-And using (4) again, we get $\frac{\partial L}{\partial z^*} = c$. As you can see, the second way involves lesser calculations, and comes
+And using (4) again, we get ∂L∂z∗=c\frac{\partial L}{\partial z^*} = c∂z∗∂L​=c. As you can see, the second way involves lesser calculations, and comes
 in more handy for faster calculations.
 
 ### What about cross-domain functions?
@@ -677,10 +675,10 @@ Some functions map from complex inputs to real outputs, or vice versa.
 These functions form a special case of (4), which we can derive using the
 chain rule:
 
-- For $f: ℂ → ℝ$, we get:
+- For f:C→Rf: ℂ → ℝf:C→R, we get:
 
 ∂L∂z∗=2∗grad_output∗∂s∂z∗\frac{\partial L}{\partial z^*} = 2 * grad\_output * \frac{\partial s}{\partial z^{*}}∂z∗∂L​=2∗grad_output∗∂z∗∂s​
-- For $f: ℝ → ℂ$, we get:
+- For f:R→Cf: ℝ → ℂf:R→C, we get:
 
 ∂L∂z∗=2∗Re(grad_output∗∗∂s∂z∗)\frac{\partial L}{\partial z^*} = 2 * \mathrm{Re}(grad\_output^* * \frac{\partial s}{\partial z^{*}})∂z∗∂L​=2∗Re(grad_output∗∗∂z∗∂s​)
 

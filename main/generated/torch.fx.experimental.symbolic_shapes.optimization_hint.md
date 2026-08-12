@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.optimization_hint
 
-torch.fx.experimental.symbolic_shapes.optimization_hint(*a*, *fallback=None*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/fx/experimental/symbolic_shapes.py#L156)
+torch.fx.experimental.symbolic_shapes.optimization_hint(*a*, *fallback=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/fx/experimental/symbolic_shapes.py#L156)
 
 Return a concrete hint for a symbolic integer, for use in optimization decisions.
 

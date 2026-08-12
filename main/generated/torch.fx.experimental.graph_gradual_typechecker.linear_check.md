@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.linear_check
 
-torch.fx.experimental.graph_gradual_typechecker.linear_check(*tensor_type*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/fx/experimental/graph_gradual_typechecker.py#L520)
+torch.fx.experimental.graph_gradual_typechecker.linear_check(*tensor_type*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/fx/experimental/graph_gradual_typechecker.py#L520)
 
 Checks that an input tensor type satisfies the conditions for linear operation
 and returns the output type based on in and out features given by module_instance

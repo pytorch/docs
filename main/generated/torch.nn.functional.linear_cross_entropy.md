@@ -1,6 +1,6 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/nn/functional.py#L3704)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/nn/functional.py#L3704)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
@@ -29,10 +29,10 @@ Parameters:
 - **linear_weight** ([*Tensor*](../tensors.html#torch.Tensor)) - linear weight.
 - **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth class indices or class probabilities.
 With `options != None`, class probabilities use the chunked
-path for `reduction` `'mean'` / `'sum'` when the target
-dtype matches the `input` dtype and the target does not
-require grad; other probability-target configurations fall
-back to the reference implementation with a warning
+path when the target dtype matches the `input` dtype and the
+target does not require grad; other probability-target
+configurations fall back to the reference implementation with a
+warning
 (gradients w.r.t. the target are only available on the
 reference path).
 - **linear_bias** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - bias added to the linear
@@ -41,7 +41,8 @@ K-dimensional loss, matching `linear_weight`).
 With `options != None`, K-dimensional bias
 (`out_features != ()`) falls back to the reference
 implementation with a warning; the chunked path supports
-only `(C,)`-shaped bias. Default: `None`.
+`(C,)`-shaped bias with both class-index and probability
+targets. Default: `None`.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight given to each class.
 - **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
 the output: `'none'` | `'mean'` |

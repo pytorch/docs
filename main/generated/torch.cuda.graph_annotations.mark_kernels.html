@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.14.0a0+gitab02f71 )">
+<meta name="llm:version" content="main (2.15.0a0+git5ad9b8a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.14.0a0+gitab02f71 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5ad9b8a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3672,7 +3672,7 @@ document.write(`
 <h1>torch.cuda.graph_annotations.mark_kernels<a class="headerlink" href="#torch-cuda-graph-annotations-mark-kernels" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.graph_annotations.mark_kernels">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">mark_kernels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab02f71479d3b0fb41d5b722bbe1943340f2022b/torch/cuda/_graph_annotations.py#L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.mark_kernels" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">mark_kernels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/cuda/_graph_annotations.py#L626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.mark_kernels" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that annotates GPU work captured within its scope.</p>
 <p>Must be used inside an active <a class="reference internal" href="torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.graph</span></code></a> capture with
 <code class="docutils literal notranslate"><span class="pre">enable_annotations=True</span></code>. Every kernel, memcpy, and memset node the
@@ -3682,16 +3682,38 @@ a capture, with annotations disabled, or when <a class="reference internal" href
 <p>When scopes overlap on the same node (e.g. nested scopes), their
 annotation dicts are merged key-by-key with the inner scope winning
 common keys.</p>
+<p>By default backward work is annotated too: autograd nodes created by
+forward operations inside the scope get hooks (via
+<a class="reference internal" href="../autograd.html#torch.autograd.graph.node_creation_hook" title="torch.autograd.graph.node_creation_hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.graph.node_creation_hook</span></code></a>) that bracket their
+backward execution, so when the backward pass is itself captured –
+in the same capture as the forward or in a later one – its kernels
+are tagged with the same annotation, plus an <code class="docutils literal notranslate"><span class="pre">&quot;autograd_phase&quot;:</span>
+<span class="pre">&quot;backward&quot;</span></code> key marking them as backward work (<code class="docutils literal notranslate"><span class="pre">&quot;autograd_phase&quot;</span></code>
+is therefore reserved: backward annotation overwrites it). When
+backward runs outside a capture the hooks are a no-op. Ownership
+extends to higher-order gradients: nodes created while a hooked node
+executes (<code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code>, checkpoint recomputation) inherit its
+annotations, so a later grad-of-grad capture is attributed too.
+<code class="docutils literal notranslate"><span class="pre">AccumulateGrad</span></code> nodes are never annotated: a leaf’s node is created
+once and cached, so scope ownership would be an accident of first use.
+Pass <code class="docutils literal notranslate"><span class="pre">backward=False</span></code> to annotate only the forward work, e.g. when a
+wrapper implements its own backward attribution. The keyword’s
+presence also serves as the feature probe for that native backward
+support: <code class="docutils literal notranslate"><span class="pre">&quot;backward&quot;</span> <span class="pre">in</span> <span class="pre">inspect.signature(mark_kernels).parameters</span></code>.</p>
 <p>Implementation: on entry, records the current stream’s capture frontier
 and its existing direct dependents; on scope exit, walks only the
 dependent nodes added since entry (falling back to newly created graph
 roots when the scope is the first captured work).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>annotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Metadata to attach to each captured node.
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>annotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Metadata to attach to each captured node.
 A string <code class="docutils literal notranslate"><span class="pre">s</span></code> is recorded as <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">s}</span></code>. Dict values must
 be picklable. The key <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code> names the region in trace
-tooling; <code class="docutils literal notranslate"><span class="pre">&quot;stream&quot;</span></code> is reserved for stream-lane assignment.</p>
+tooling; <code class="docutils literal notranslate"><span class="pre">&quot;stream&quot;</span></code> is reserved for stream-lane assignment.</p></li>
+<li><p><strong>backward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to also annotate the backward kernels of
+autograd nodes created inside the scope. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
 </dd>
 </dl>
 <div class="admonition note">
@@ -4084,7 +4106,7 @@ records nothing at all.</p>
        "headline": "torch.cuda.graph_annotations.mark_kernels",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graph_annotations.mark_kernels.html",
-       "articleBody": "torch.cuda.graph_annotations.mark_kernels# torch.cuda.graph_annotations.mark_kernels(annotation)[source]# Context manager that annotates GPU work captured within its scope. Must be used inside an active torch.cuda.graph capture with enable_annotations=True. Every kernel, memcpy, and memset node the capture adds within the scope is tagged with annotation. Outside a capture, with annotations disabled, or when is_available() is False, the context manager is a no-op. When scopes overlap on the same node (e.g. nested scopes), their annotation dicts are merged key-by-key with the inner scope winning common keys. Implementation: on entry, records the current stream\u2019s capture frontier and its existing direct dependents; on scope exit, walks only the dependent nodes added since entry (falling back to newly created graph roots when the scope is the first captured work). Parameters: annotation (str or dict) \u2013 Metadata to attach to each captured node. A string s is recorded as {\"name\": s}. Dict values must be picklable. The key \"name\" names the region in trace tooling; \"stream\" is reserved for stream-lane assignment. Note The nodes to annotate must be reachable from the capture frontier of the stream that is current on scope entry. Work on a different already-capturing stream must be synchronized with the current stream first. Note Child-graph and conditional nodes have bodies in a separate cudaGraph_t that this walk does not descend into, so their work is left unannotated and a warning is issued. Descending is possible (cudaGraphNodeGetParams exposes the body graphs), but would not be enough on its own: a body\u2019s nodes are numbered in that graph\u2019s id space and are renumbered again when the exec graph inlines them, and nothing exposes that renumbering, so remap_to_exec_graph() could not key the annotations to what a profiler reports. For the same reason a scope inside a conditional body (torch.cond / torch.while_loop) records nothing at all. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e g = torch.cuda.CUDAGraph() \u003e\u003e\u003e x = torch.randn(8, device=\"cuda\") \u003e\u003e\u003e with torch.cuda.graph(g, enable_annotations=True): ... with torch.cuda.graph_annotations.mark_kernels(\"phase_A\"): ... y = x + 1",
+       "articleBody": "torch.cuda.graph_annotations.mark_kernels# torch.cuda.graph_annotations.mark_kernels(annotation, *, backward=True)[source]# Context manager that annotates GPU work captured within its scope. Must be used inside an active torch.cuda.graph capture with enable_annotations=True. Every kernel, memcpy, and memset node the capture adds within the scope is tagged with annotation. Outside a capture, with annotations disabled, or when is_available() is False, the context manager is a no-op. When scopes overlap on the same node (e.g. nested scopes), their annotation dicts are merged key-by-key with the inner scope winning common keys. By default backward work is annotated too: autograd nodes created by forward operations inside the scope get hooks (via torch.autograd.graph.node_creation_hook) that bracket their backward execution, so when the backward pass is itself captured \u2013 in the same capture as the forward or in a later one \u2013 its kernels are tagged with the same annotation, plus an \"autograd_phase\": \"backward\" key marking them as backward work (\"autograd_phase\" is therefore reserved: backward annotation overwrites it). When backward runs outside a capture the hooks are a no-op. Ownership extends to higher-order gradients: nodes created while a hooked node executes (create_graph=True, checkpoint recomputation) inherit its annotations, so a later grad-of-grad capture is attributed too. AccumulateGrad nodes are never annotated: a leaf\u2019s node is created once and cached, so scope ownership would be an accident of first use. Pass backward=False to annotate only the forward work, e.g. when a wrapper implements its own backward attribution. The keyword\u2019s presence also serves as the feature probe for that native backward support: \"backward\" in inspect.signature(mark_kernels).parameters. Implementation: on entry, records the current stream\u2019s capture frontier and its existing direct dependents; on scope exit, walks only the dependent nodes added since entry (falling back to newly created graph roots when the scope is the first captured work). Parameters: annotation (str or dict) \u2013 Metadata to attach to each captured node. A string s is recorded as {\"name\": s}. Dict values must be picklable. The key \"name\" names the region in trace tooling; \"stream\" is reserved for stream-lane assignment. backward (bool) \u2013 Whether to also annotate the backward kernels of autograd nodes created inside the scope. Default: True. Note The nodes to annotate must be reachable from the capture frontier of the stream that is current on scope entry. Work on a different already-capturing stream must be synchronized with the current stream first. Note Child-graph and conditional nodes have bodies in a separate cudaGraph_t that this walk does not descend into, so their work is left unannotated and a warning is issued. Descending is possible (cudaGraphNodeGetParams exposes the body graphs), but would not be enough on its own: a body\u2019s nodes are numbered in that graph\u2019s id space and are renumbered again when the exec graph inlines them, and nothing exposes that renumbering, so remap_to_exec_graph() could not key the annotations to what a profiler reports. For the same reason a scope inside a conditional body (torch.cond / torch.while_loop) records nothing at all. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e g = torch.cuda.CUDAGraph() \u003e\u003e\u003e x = torch.randn(8, device=\"cuda\") \u003e\u003e\u003e with torch.cuda.graph(g, enable_annotations=True): ... with torch.cuda.graph_annotations.mark_kernels(\"phase_A\"): ... y = x + 1",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
