@@ -83,7 +83,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git5ad9b8a )">
+<meta name="llm:version" content="main (2.15.0a0+gite740212 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +189,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5ad9b8a )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gite740212 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6829,6 +6829,8 @@ document.write(`
         <li><a href="storage.html#torch.UntypedStorage.cpu">(torch.UntypedStorage method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._watchdog.cpu_timeout">cpu_timeout() (in module torch.distributed._watchdog)</a>
+</li>
       <li><a href="fsdp.html#torch.distributed.fsdp.CPUOffload">CPUOffload (class in torch.distributed.fsdp)</a>
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.CPUOffloadPolicy">CPUOffloadPolicy (class in torch.distributed.fsdp)</a>
@@ -17239,6 +17241,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.fx.utils.NodeInfo.html#torch.ao.quantization.fx.utils.NodeInfo.op">op (torch.ao.quantization.fx.utils.NodeInfo attribute)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._watchdog.op_timeout">op_timeout() (in module torch.distributed._watchdog)</a>
+</li>
       <li><a href="library.html#torch.library.opcheck">opcheck() (in module torch.library)</a>
 </li>
       <li><a href="generated/torch.utils.hipify.hipify_python.openf.html#torch.utils.hipify.hipify_python.openf">openf() (in module torch.utils.hipify.hipify_python)</a>
@@ -20745,9 +20749,11 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.distributed_c10d.shrink_group">shrink_group() (in module torch.distributed.distributed_c10d)</a>
 </li>
-      <li><a href="rpc.html#torch.distributed.rpc.shutdown">shutdown() (in module torch.distributed.rpc)</a>
+      <li><a href="distributed.html#torch.distributed._watchdog.shutdown">shutdown() (in module torch.distributed._watchdog)</a>
 
       <ul>
+        <li><a href="rpc.html#torch.distributed.rpc.shutdown">(in module torch.distributed.rpc)</a>
+</li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.shutdown">(torch.distributed.elastic.rendezvous.RendezvousHandler method)</a>
 </li>
       </ul></li>
@@ -21664,6 +21670,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.Stream">Stream() (torch.cuda.green_contexts.GreenContext method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._watchdog.stream_timeout">stream_timeout() (in module torch.distributed._watchdog)</a>
 </li>
       <li><a href="generated/torch.cpu.StreamContext.html#torch.cpu.StreamContext">StreamContext (class in torch.cpu)</a>
 

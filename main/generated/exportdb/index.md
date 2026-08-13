@@ -1075,7 +1075,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.map](torch.map.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [torch.map](torch.map.html)
 
 Support Level: SUPPORTED
 
@@ -1370,7 +1370,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.control-flow](python.control-flow.html), [python.data-structure](python.data-structure.html)
+Tags: [python.data-structure](python.data-structure.html), [python.control-flow](python.control-flow.html)
 
 Support Level: SUPPORTED
 

@@ -1,6 +1,6 @@
 # torch.cuda.init
 
-torch.cuda.init()[[source]](https://github.com/pytorch/pytorch/blob/5ad9b8adb58904fa51d72bb483f93b8514080068/torch/cuda/__init__.py#L549)
+torch.cuda.init()[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/cuda/__init__.py#L549)
 
 Initialize PyTorch's CUDA state.
 
