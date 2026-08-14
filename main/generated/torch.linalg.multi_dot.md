@@ -1,6 +1,6 @@
 # torch.linalg.multi_dot
 
-torch.linalg.multi_dot(*tensors*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/linalg/__init__.py#L1664)
+torch.linalg.multi_dot(*tensors*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/linalg/__init__.py#L1664)
 
 Efficiently multiplies two or more matrices by reordering the multiplications so that
 the fewest arithmetic operations are performed.

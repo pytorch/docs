@@ -1,6 +1,6 @@
 # torch.compiler.substitute_in_graph
 
-torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/compiler/__init__.py#L248)
+torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/compiler/__init__.py#L248)
 
 Register a polyfill handler for a function, usually a C function from the C extension, to be
 used in place of the original function when inlining the original function in the graph.
@@ -37,22 +37,20 @@ Return type:
 Example:
 
 ```
->>> import operator
->>> operator.indexOf([1, 2, 3, 4, 5], 3)
-2
->>> torch.compile(operator.indexOf, fullgraph=True)([1, 2, 3, 4, 5], 3)
-... # xdoctest: +SKIP("Long tracebacks")
+>>> import binascii
+>>> binascii.b2a_base64(b"abc")
+b'YWJj\n'
+>>> torch.compile(
+... binascii.b2a_base64, fullgraph=True
+... )(b"abc") # xdoctest: +SKIP("Long tracebacks")
+...
 Traceback (most recent call last):
 ...
 torch._dynamo.exc.Unsupported: ...
-
->>> @torch.compiler.substitute_in_graph(operator.indexOf)
-... def indexOf(a, b, /):
-... for i, item in enumerate(a):
-... if item is b or item == b:
-... return i
-... raise ValueError("sequence.index(x): x not in sequence")
->>>
->>> torch.compile(operator.indexOf, fullgraph=True)([1, 2, 3, 4, 5], 3)
-2
+>>> @torch.compiler.substitute_in_graph(binascii.b2a_base64)
+... def b2a_base64(data, /, *, newline=True):
+... return b"YWJj\n"
+...
+>>> torch.compile(binascii.b2a_base64, fullgraph=True)(b"abc")
+b'YWJj\n'
 ```

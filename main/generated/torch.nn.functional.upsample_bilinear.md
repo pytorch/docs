@@ -1,6 +1,6 @@
 # torch.nn.functional.upsample_bilinear
 
-torch.nn.functional.upsample_bilinear(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/functional.py#L5449)
+torch.nn.functional.upsample_bilinear(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/functional.py#L5449)
 
 Upsamples the input, using bilinear upsampling.
 

@@ -1,6 +1,6 @@
 # MSELoss
 
-*class*torch.nn.MSELoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/loss.py#L567)
+*class*torch.nn.MSELoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/loss.py#L567)
 
 Creates a criterion that measures the mean squared error (squared L2 norm) between
 each element in the input xxx and target yyy.
@@ -63,7 +63,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/loss.py#L626)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/loss.py#L626)
 
 Runs the forward pass.
 

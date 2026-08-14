@@ -1,6 +1,6 @@
 # Upsample
 
-*class*torch.nn.modules.upsampling.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/upsampling.py#L13)
+*class*torch.nn.modules.upsampling.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/upsampling.py#L13)
 
 Upsamples a given multi-channel 1D (temporal), 2D (spatial) or 3D (volumetric) data.
 
@@ -126,7 +126,7 @@ tensor([[[[1.0000, 1.4000, 1.8000, 1.6000, 0.8000, 0.0000],
  [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000]]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/upsampling.py#L189)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/upsampling.py#L189)
 
 Return the extra representation of the module.
 
@@ -134,7 +134,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/upsampling.py#L170)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/upsampling.py#L170)
 
 Runs the forward pass.
 

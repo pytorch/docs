@@ -1,6 +1,6 @@
 # LazyConv1d
 
-*class*torch.nn.LazyConv1d(*out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/conv.py#L1492)
+*class*torch.nn.LazyConv1d(*out_channels*, *kernel_size*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *bias=True*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/conv.py#L1492)
 
 A [`torch.nn.Conv1d`](torch.nn.Conv1d.html#torch.nn.Conv1d) module with lazy initialization of the `in_channels` argument.
 
@@ -30,6 +30,6 @@ See also
 
 [`torch.nn.Conv1d`](torch.nn.Conv1d.html#torch.nn.Conv1d) and [`torch.nn.modules.lazy.LazyModuleMixin`](torch.nn.modules.lazy.LazyModuleMixin.html#torch.nn.modules.lazy.LazyModuleMixin)
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/conv.py#L225)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/conv.py#L225)
 
 alias of [`Conv1d`](torch.nn.modules.conv.Conv1d.html#torch.nn.modules.conv.Conv1d)

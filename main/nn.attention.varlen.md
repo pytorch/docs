@@ -5,7 +5,7 @@ Variable-length attention implementation using Flash Attention.
 This module provides a high-level Python interface for variable-length attention
 that calls into the optimized Flash Attention kernels.
 
-torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/attention/varlen.py#L206)
+torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/attention/varlen.py#L206)
 
 Compute variable-length attention using Flash Attention.
 
@@ -117,7 +117,7 @@ Example:
 ... )
 ```
 
-torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/attention/varlen.py#L437)
+torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/attention/varlen.py#L437)
 
 Compute variable-length attention using Flash Attention with a pre-allocated output tensor.
 
@@ -128,7 +128,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor) | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)]
 
-*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/attention/varlen.py#L73)
+*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/attention/varlen.py#L73)
 
 Request which auxiliary outputs to compute from varlen_attn.
 

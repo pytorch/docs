@@ -1,6 +1,6 @@
 # Embedding
 
-*class*torch.ao.nn.qat.modules.embedding_ops.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *device=None*, *dtype=None*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/ao/nn/qat/modules/embedding_ops.py#L11)
+*class*torch.ao.nn.qat.modules.embedding_ops.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *device=None*, *dtype=None*, *qconfig=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/ao/nn/qat/modules/embedding_ops.py#L11)
 
 An embedding bag module attached with FakeQuantize modules for weight,
 used for quantization aware training.
@@ -16,7 +16,7 @@ Variables:
 
 **weight** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - fake quant module for weight
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/ao/nn/qat/modules/embedding_ops.py#L77)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/ao/nn/qat/modules/embedding_ops.py#L77)
 
 Create a qat module from a float module
 

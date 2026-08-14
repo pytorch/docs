@@ -1,6 +1,6 @@
 # TransformerDecoderLayer
 
-*class*torch.nn.TransformerDecoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/transformer.py#L985)
+*class*torch.nn.TransformerDecoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/transformer.py#L985)
 
 TransformerDecoderLayer is made up of self-attn, multi-head-attn and feedforward network.
 
@@ -50,7 +50,7 @@ Alternatively, when `batch_first` is `True`:
 >>> out = decoder_layer(tgt, memory)
 ```
 
-forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=False*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/transformer.py#L1086)
+forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=False*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/transformer.py#L1086)
 
 Pass the inputs (and mask) through the decoder layer.
 

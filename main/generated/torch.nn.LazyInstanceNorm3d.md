@@ -1,6 +1,6 @@
 # LazyInstanceNorm3d
 
-*class*torch.nn.LazyInstanceNorm3d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/instancenorm.py#L455)
+*class*torch.nn.LazyInstanceNorm3d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/instancenorm.py#L455)
 
 A [`torch.nn.InstanceNorm3d`](torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d) module with lazy initialization of the `num_features` argument.
 
@@ -32,6 +32,6 @@ Shape:
 - Input: (N,C,D,H,W)(N, C, D, H, W)(N,C,D,H,W) or (C,D,H,W)(C, D, H, W)(C,D,H,W)
 - Output: (N,C,D,H,W)(N, C, D, H, W)(N,C,D,H,W) or (C,D,H,W)(C, D, H, W)(C,D,H,W) (same shape as input)
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/instancenorm.py#L375)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/instancenorm.py#L375)
 
 alias of [`InstanceNorm3d`](torch.nn.modules.instancenorm.InstanceNorm3d.html#torch.nn.modules.instancenorm.InstanceNorm3d)

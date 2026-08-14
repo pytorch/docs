@@ -1,6 +1,6 @@
 # torch.fx.experimental.accelerator_partitioner.combine_two_partitions
 
-torch.fx.experimental.accelerator_partitioner.combine_two_partitions(*partition_0*, *partition_1*, *partitions*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/fx/experimental/accelerator_partitioner.py#L80)
+torch.fx.experimental.accelerator_partitioner.combine_two_partitions(*partition_0*, *partition_1*, *partitions*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/fx/experimental/accelerator_partitioner.py#L80)
 
 Given a list of partitions and its two partitions,
 combine these two partitions into a new one appending to the partitions

@@ -1,6 +1,6 @@
 # SubgraphMatcherWithNameNodeMap
 
-*class*torch.fx.passes.utils.matcher_with_name_node_map_utils.SubgraphMatcherWithNameNodeMap(*pattern_gm*, *match_output=False*, *match_placeholder=False*, *remove_overlapping_matches=True*, *ignore_literals=False*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/fx/passes/utils/matcher_with_name_node_map_utils.py#L43)
+*class*torch.fx.passes.utils.matcher_with_name_node_map_utils.SubgraphMatcherWithNameNodeMap(*pattern_gm*, *match_output=False*, *match_placeholder=False*, *remove_overlapping_matches=True*, *ignore_literals=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/fx/passes/utils/matcher_with_name_node_map_utils.py#L43)
 
 Extends SubgraphMatcher to support querying the matched subgraph nodes through node name,
 
@@ -36,7 +36,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-match(*graph*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/fx/passes/utils/matcher_with_name_node_map_utils.py#L94)
+match(*graph*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/fx/passes/utils/matcher_with_name_node_map_utils.py#L94)
 
 The returned InternalMatch will have name_node_map populated with a map
 from node name (str) to the target node, e.g.

@@ -1,6 +1,6 @@
 # MaxUnpool1d
 
-*class*torch.nn.MaxUnpool1d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/pooling.py#L324)
+*class*torch.nn.MaxUnpool1d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/pooling.py#L324)
 
 Computes a partial inverse of [`MaxPool1d`](torch.nn.MaxPool1d.html#torch.nn.MaxPool1d).
 
@@ -67,7 +67,7 @@ tensor([[[ 0., 2., 0., 4., 0., 6., 0., 8., 0.]]])
 tensor([[[ 0., 2., 0., 4., 0., 6., 0., 8.]]])
 ```
 
-forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/e74021214a802c9136769de0046dff0e7710d800/torch/nn/modules/pooling.py#L398)
+forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/modules/pooling.py#L398)
 
 Runs the forward pass.
 
