@@ -48,7 +48,7 @@ This package introduces support for the current [accelerator](torch.html#acceler
 
 ## Memory management
 
-| [`empty_cache`](generated/torch.accelerator.memory.empty_cache.html#torch.accelerator.memory.empty_cache) | Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. |
+| [`empty_cache`](generated/torch.accelerator.memory.empty_cache.html#torch.accelerator.memory.empty_cache) | Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other applications. |
 | --- | --- |
 | [`empty_host_cache`](generated/torch.accelerator.memory.empty_host_cache.html#torch.accelerator.memory.empty_host_cache) | Release all unoccupied cached host (pinned) memory currently held by the host caching allocator so that it can be used by other applications. |
 | [`get_memory_info`](generated/torch.accelerator.memory.get_memory_info.html#torch.accelerator.memory.get_memory_info) | Return the current device memory information for a given device index. |

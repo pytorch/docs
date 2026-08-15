@@ -1,5 +1,6 @@
 # torch._foreach_tan_
 
-torch._foreach_tan_(*self: List[[Tensor](../tensors.html#torch.Tensor)]*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch._foreach_tan_(*self: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/library/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/library/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]
 
-Apply [`torch.tan()`](torch.tan.html#torch.tan) to each Tensor of the input list.
+Applies [`torch.tan()`](torch.tan.html#torch.tan) in-place to each tensor in `self` and
+returns `self`. The returned object is the exact list or tuple passed as input.

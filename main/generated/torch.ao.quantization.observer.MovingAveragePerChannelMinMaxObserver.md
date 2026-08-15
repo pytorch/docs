@@ -1,6 +1,6 @@
 # MovingAveragePerChannelMinMaxObserver
 
-*class*torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver(*averaging_constant=0.01*, *ch_axis=0*, *dtype=torch.quint8*, *qscheme=torch.per_channel_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/ao/quantization/observer.py#L897)
+*class*torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver(*averaging_constant=0.01*, *ch_axis=0*, *dtype=torch.quint8*, *qscheme=torch.per_channel_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/ao/quantization/observer.py#L897)
 
 Observer module for computing the quantization parameters based on the
 running per channel min and max values.

@@ -1,5 +1,5 @@
 # torch.nn.functional.rrelu_
 
-torch.nn.functional.rrelu_(*input*, *lower=1. / 8*, *upper=1. / 3*, *training=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/nn/functional.py#L2040)
+torch.nn.functional.rrelu_(*input*, *lower=1. / 8*, *upper=1. / 3*, *training=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/nn/functional.py#L2040)
 
 In-place version of [`rrelu()`](torch.nn.functional.rrelu.html#torch.nn.functional.rrelu).

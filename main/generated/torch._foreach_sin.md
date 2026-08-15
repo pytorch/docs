@@ -1,5 +1,6 @@
 # torch._foreach_sin
 
-torch._foreach_sin(*self: List[[Tensor](../tensors.html#torch.Tensor)]*) → List[[Tensor](../tensors.html#torch.Tensor)]
+torch._foreach_sin(*self: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/library/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 
-Apply [`torch.sin()`](torch.sin.html#torch.sin) to each Tensor of the input list.
+Applies [`torch.sin()`](torch.sin.html#torch.sin) to each tensor in `self` and returns the
+results as a tuple.

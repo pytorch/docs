@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/cuda/graphs.py#L1086)
+*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/cuda/graphs.py#L1117)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -27,6 +27,18 @@ recording on entry and automatically calls
 the capture ends. Annotations are **not** cleared on exit so that multiple
 graphs in the same workload can accumulate annotations.
 Requires `cuda.bindings` package and cuda-compat >= 13.1 or CUDA driver >= 13.1.
+Requires single-threaded autograd; wrap the capture in
+`torch.autograd.grad_mode.set_multithreading_enabled(False)`.
+- **annotation_config** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - Options for annotation recording, used when
+`enable_annotations=True`. An unrecognized key or value raises. Currently
+supports `"backend"`, which selects how `mark_kernels` scopes discover their
+nodes: `"auto"` (default) uses CUPTI node-creation callbacks when the CUPTI
+monitor already holds a subscription and otherwise walks the capture graph's
+dependent edges; `"cupti"` requires the CUPTI path, bringing the monitor up if
+needed - which prevents kineto from initializing, so a later
+[`torch.profiler.profile`](../profiler.html#torch.profiler.profile) records no GPU activity; `"edge_walk"` forces
+the walk, which cannot see nodes created while the current stream was not yet
+capturing.
 - **check_input_liveness** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
 
 If `True`, tracks external tensor inputs during graph capture and

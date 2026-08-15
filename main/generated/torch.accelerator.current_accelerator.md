@@ -1,6 +1,6 @@
 # torch.accelerator.current_accelerator
 
-torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/376d1c0177cbef050466ee028e0ef84f4e0d30e5/torch/accelerator/__init__.py#L103)
+torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/accelerator/__init__.py#L103)
 
 Return the device of the accelerator available at compilation time.
 If no accelerator were available at compilation time, returns None.
@@ -30,7 +30,7 @@ This API does NOT poison fork. For more details, see [Poison fork in multiproces
 Example:
 
 ```
->>> # If an accelerator is available, sent the model to it
+>>> # If an accelerator is available, send the model to it
 >>> model = torch.nn.Linear(2, 2)
 >>> if (current_device := current_accelerator(check_available=True)) is not None:
 >>> model.to(current_device)
