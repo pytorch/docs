@@ -221,7 +221,7 @@ The original name of the node in the PyTorch FX graph that produced this value i
 
 ## API Reference
 
-torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/__init__.py#L65)
+torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/__init__.py#L65)
 
 Exports a model into ONNX format.
 
@@ -433,7 +433,7 @@ Variables:
 - **model** - The ONNX model as an ONNX IR model object.
 - **exported_program** - The exported program that produced the ONNX model.
 
-apply_weights(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L391)
+apply_weights(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L391)
 
 Apply the weights from the specified state dict to the ONNX model.
 
@@ -443,7 +443,7 @@ Parameters:
 
 **state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - The state dict containing the weights to apply to the ONNX model.
 
-call_reference(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L263)
+call_reference(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L263)
 
 Run the ONNX model using the reference backend.
 
@@ -451,7 +451,7 @@ Return type:
 
 [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[*Tensor*](tensors.html#torch.Tensor)]
 
-compute_values(*value_names*, *args=()*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L279)
+compute_values(*value_names*, *args=()*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L279)
 
 Compute the values of the specified names in the ONNX model.
 
@@ -470,7 +470,7 @@ Return type:
 
 [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[*Tensor*](tensors.html#torch.Tensor)]
 
-initialize_inference_session(*initializer=<function _ort_session_initializer>*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L413)
+initialize_inference_session(*initializer=<function _ort_session_initializer>*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L413)
 
 Initialize the ONNX Runtime inference session.
 
@@ -484,20 +484,20 @@ session with the specified model. By default, it uses the
 
 Return the ONNX `ModelProto` object.
 
-optimize()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L316)
+optimize()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L316)
 
 Optimize the ONNX model.
 
 This method optimizes the ONNX model by performing constant folding and
 eliminating redundancies in the graph. The optimization is done in-place.
 
-release()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L443)
+release()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L443)
 
 Release the inference session.
 
 You may call this method to release the resources used by the inference session.
 
-rename_axes(*rename_mapping*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L456)
+rename_axes(*rename_mapping*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L456)
 
 Rename axes in a model according to the specified rename mapping.
 
@@ -526,7 +526,7 @@ Keys can be either:
 
 Values must be strings representing the new axis names.
 
-save(*destination*, ***, *include_initializers=True*, *keep_initializers_as_inputs=False*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_onnx_program.py#L324)
+save(*destination*, ***, *include_initializers=True*, *keep_initializers_as_inputs=False*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_onnx_program.py#L324)
 
 Save the ONNX model to the specified destination.
 
@@ -603,7 +603,7 @@ onnx_program = exportable_module.to_onnx()
 onnx_program = torch.onnx.export(exportable_module)
 ```
 
-dynamic_shapes()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_exportable_module.py#L85)
+dynamic_shapes()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_exportable_module.py#L85)
 
 Return dynamic shape specifications for the model's inputs.
 
@@ -643,7 +643,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*abstract*example_arguments()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_exportable_module.py#L55)
+*abstract*example_arguments()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_exportable_module.py#L55)
 
 Return example arguments for the model's forward method.
 
@@ -675,7 +675,7 @@ Return type:
 
 A tuple containing
 
-input_names()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_exportable_module.py#L119)
+input_names()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_exportable_module.py#L119)
 
 Return names for the model's input tensors.
 
@@ -708,7 +708,7 @@ Return type:
 
 Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)] | None
 
-output_names()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_exportable_module.py#L146)
+output_names()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_exportable_module.py#L146)
 
 Return names for the model's output tensors.
 
@@ -741,7 +741,7 @@ Return type:
 
 Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)] | None
 
-to_onnx(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_exportable_module.py#L173)
+to_onnx(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_exportable_module.py#L173)
 
 Export the module to ONNX format.
 
@@ -770,7 +770,7 @@ Return type:
 
 *ONNXProgram*
 
-torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/__init__.py#L359)
+torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/__init__.py#L359)
 
 Returns whether it is in the middle of ONNX export.
 
@@ -875,7 +875,7 @@ with observer(pipe.model):
 
 New in version 2.11.0.
 
-check_discrepancies(*onnx_program*, *atol=0.0001*, *rtol=0.1*, *progress_bar=False*, *initializer=<function _ort_session_initializer>*, *skip_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_input_observer.py#L1114)
+check_discrepancies(*onnx_program*, *atol=0.0001*, *rtol=0.1*, *progress_bar=False*, *initializer=<function _ort_session_initializer>*, *skip_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_input_observer.py#L1114)
 
 Computes the discrepancies between the saved inputs and outputs
 with the saved onnx model.
@@ -902,7 +902,7 @@ Return type:
 The function catches exceptions, it shows the error in the returned
 summary.
 
-infer_arguments(*index_or_args_or_kwargs=None*, *flat=False*, *as_args_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_input_observer.py#L1035)
+infer_arguments(*index_or_args_or_kwargs=None*, *flat=False*, *as_args_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_input_observer.py#L1035)
 
 Infers arguments based on the collected tensors.
 
@@ -934,7 +934,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor) | None] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...] | [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...], [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)]]
 
-infer_dynamic_shapes(*set_batch_dimension_for=None*)[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_input_observer.py#L1011)
+infer_dynamic_shapes(*set_batch_dimension_for=None*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_input_observer.py#L1011)
 
 Infers dynamic shapes. Most of the time, models do support a batch dimension
 but this batch dimension has the same value for every input sample.
@@ -954,7 +954,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None, ...] | [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None]
 
-num_obs()[[source]](https://github.com/pytorch/pytorch/blob/55dfacc69b3a9156f68cfe07b61553e4bdc7de29/torch/onnx/_internal/exporter/_input_observer.py#L936)
+num_obs()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/onnx/_internal/exporter/_input_observer.py#L936)
 
 Returns the number of stored set of inputs.
 
