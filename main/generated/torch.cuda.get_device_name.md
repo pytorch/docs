@@ -1,6 +1,6 @@
 # torch.cuda.get_device_name
 
-torch.cuda.get_device_name(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/cuda/__init__.py#L754)
+torch.cuda.get_device_name(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/cuda/__init__.py#L754)
 
 Get the name of a device.
 

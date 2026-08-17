@@ -1,6 +1,6 @@
 # torch.Tensor.is_shared
 
-Tensor.is_shared()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/_tensor.py#L827)
+Tensor.is_shared()[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/_tensor.py#L827)
 
 Checks if tensor is in shared memory.
 

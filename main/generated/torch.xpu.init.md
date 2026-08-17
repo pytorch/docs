@@ -1,6 +1,6 @@
 # torch.xpu.init
 
-torch.xpu.init()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/xpu/__init__.py#L334)
+torch.xpu.init()[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/xpu/__init__.py#L334)
 
 Initialize PyTorch's XPU state.
 This is a Python API about lazy initialization that avoids initializing

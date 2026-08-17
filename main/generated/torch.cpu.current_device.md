@@ -1,6 +1,6 @@
 # torch.cpu.current_device
 
-torch.cpu.current_device()[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/cpu/__init__.py#L239)
+torch.cpu.current_device()[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/cpu/__init__.py#L239)
 
 Returns current device for cpu. Always 'cpu'.
 

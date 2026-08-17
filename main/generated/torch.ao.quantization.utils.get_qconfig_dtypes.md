@@ -1,6 +1,6 @@
 # get_qconfig_dtypes
 
-*class*torch.ao.quantization.utils.get_qconfig_dtypes(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/8aac66fb022576e2d13144ab636372f686f23cfa/torch/ao/quantization/utils.py#L365)
+*class*torch.ao.quantization.utils.get_qconfig_dtypes(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/ao/quantization/utils.py#L365)
 
 returns the qconfig tuple for qconfig:
 (activation_dtype, weight_dtype, activation_is_dynamic)
