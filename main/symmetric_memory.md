@@ -557,7 +557,7 @@ communicator for the process group if it doesn't already exist.
 
 ## API Reference
 
-torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2185)
+torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2185)
 
 torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)
 
@@ -584,9 +584,10 @@ Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](gen
 - **device** ([`torch.device`](tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](generated/torch.set_default_device.html#torch.set_default_device)). `device` will be the CPU
-for CPU tensor types and the current CUDA device for CUDA tensor types.
+for CPU tensor types, the current CUDA device for CUDA tensor types,
+and the current XPU device for XPU tensor types.
 
-torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2249)
+torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2250)
 
 Establish a symmetric memory tensor among participating processes. This is
 a collective operation.
@@ -612,7 +613,7 @@ Return type:
 
 _SymmetricMemory
 
-torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2435)
+torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2436)
 
 Copy `dst.numel()` elements starting at `offset` from `peer`'s
 symmetric allocation into local `dst` using one-sided symmetric memory
@@ -636,7 +637,7 @@ source.
 - **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - element offset into the peer allocation to
 start reading from. Defaults to `0`.
 
-torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2277)
+torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2278)
 
 Check if NVSHMEM (CUDA) or rocSHMEM (ROCm) is available in the current
 build and usable at runtime. On ROCm, rocSHMEM `VERSION` must be at
@@ -646,7 +647,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2295)
+torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2296)
 
 Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
@@ -658,7 +659,7 @@ Parameters:
 **backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
 only "NVSHMEM", "CUDA", "NCCL" are supported.
 
-torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2309)
+torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2310)
 
 Get the backend for symmetric memory allocation for a given device. If not
 found, return None.
@@ -671,7 +672,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str) | None
 
-torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2379)
+torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2380)
 
 Get the symmetric memory pool for a given device. If not found, create a new
 pool.
@@ -701,7 +702,7 @@ Example:
 >>> tensor = torch.ops.symm_mem.one_shot_all_reduce(tensor, "sum", group_name)
 ```
 
-torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2617)
+torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2618)
 
 Returns `True` if `tensor` was allocated via symmetric memory
 (i.e. via `torch.distributed._symmetric_memory.empty()` or
@@ -717,7 +718,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2331)
+torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2332)
 
 Set the signal pad size for future symmetric memory allocations.
 
@@ -742,7 +743,7 @@ Example:
 >>> torch.distributed._symmetric_memory.set_signal_pad_size(1024 * 1024) # 1MB
 ```
 
-torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2356)
+torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2357)
 
 Get the current signal pad size for symmetric memory allocations.
 
@@ -771,7 +772,7 @@ Note
 The following ops are hosted in the `torch.ops.symm_mem` namespace. You can call
 them directly via `torch.ops.symm_mem.<op_name>`.
 
-torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/library/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/99fcf9fd884002c14d4c19cce5dfe2469ba5a7fc/torch/distributed/_symmetric_memory/__init__.py#L2542)
+torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/library/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/distributed/_symmetric_memory/__init__.py#L2543)
 
 Simultaneously reduce N blocks of a 2-D `input` tensor from a symmetric
 memory buffer, routing each block to a specific destination rank. Only
@@ -907,6 +908,106 @@ Parameters:
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-reduce on. Must be symmetric.
 - **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
 - **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-reduce on.
+
+torch.ops.symm_mem.nvshmem_broadcast(*input: [Tensor](tensors.html#torch.Tensor)*, *root: [int](https://docs.python.org/3/library/functions.html#int)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+
+Broadcasts the input tensor from the root rank to all ranks in the group
+using NVSHMEM, in place. This op is host/stream-initiated and works both
+intra-node and across nodes. On non-root ranks the contents of input are
+overwritten with the data from the root; on the root rank they are unchanged.
+The operation is issued on the current CUDA stream and returns input.
+
+Parameters:
+
+- **input** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor to broadcast (on the root) or receive into (on other ranks). Must be symmetric.
+- **root** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank within the group that holds the source data. Must be smaller than the group size.
+- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform the broadcast on.
+
+torch.ops.symm_mem.nvshmem_put(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+
+Performs a one-sided, host/stream-initiated put over NVSHMEM: copies the
+local tensor into the same symmetric allocation on peer. Works both
+intra-node and across nodes (e.g. over RDMA/RoCE). The op only issues the
+transfer on the current CUDA stream; it does not wait for remote completion,
+so you must provide your own synchronization (e.g. nvshmem_put_with_signal
+/ nvshmem_wait_for_signal) before consuming the data on the peer.
+
+Parameters:
+
+- **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric, contiguous tensor whose data is sent, and which also names the destination allocation on the peer.
+- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to send the data to. Must be smaller than the world size.
+
+torch.ops.symm_mem.nvshmem_get(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+
+Performs a one-sided, host/stream-initiated get over NVSHMEM: copies the data
+from the same symmetric allocation on peer into the local tensor. Works
+both intra-node and across nodes. The transfer is issued on the current CUDA
+stream.
+
+Parameters:
+
+- **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric, contiguous tensor that receives the data, and which also names the source allocation on the peer.
+- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to read the data from. Must be smaller than the world size.
+
+torch.ops.symm_mem.nvshmem_get_out(*dst: [Tensor](tensors.html#torch.Tensor)*, *hdl: SymmetricMemory*, *offset: [int](https://docs.python.org/3/library/functions.html#int)*, *size: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+
+Low-level, host/stream-initiated get that copies size elements starting at
+element offset from the peer's symmetric allocation (the one backing hdl)
+into dst. This is the primitive backing the higher-level
+`get()` helper; most users should
+prefer that helper. The copy is issued on the current CUDA stream.
+
+Parameters:
+
+- **dst** ([*Tensor*](tensors.html#torch.Tensor)) - Local CUDA tensor to receive the data. Must be contiguous, on the same device as hdl, and hold at least size elements.
+- **hdl** (*SymmetricMemory*) - Handle returned by rendezvous, identifying the peer's symmetric allocation to read from.
+- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Starting element (in dst's dtype) within the peer allocation. Must be non-negative.
+- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of elements to copy. Must be non-negative.
+- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to read the data from. Must be a valid rank in the group.
+
+torch.ops.symm_mem.nvshmem_put_with_signal(*tensor: [Tensor](tensors.html#torch.Tensor)*, *sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+
+Performs a one-sided put of tensor to the same symmetric allocation on
+peer, and atomically sets the peer's signal location sigpad to signal
+once the data transfer has completed. This lets the peer detect arrival of
+the data via nvshmem_wait_for_signal. Issued on the current CUDA stream.
+
+Parameters:
+
+- **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric tensor whose data is sent, and which also names the destination allocation on the peer.
+- **sigpad** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric signal pad on the peer to set once the transfer completes.
+- **signal** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Value to set the peer's sigpad to.
+- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to send the data to.
+
+torch.ops.symm_mem.nvshmem_wait_for_signal(*sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+
+Blocks the current CUDA stream until the local signal location sigpad
+equals signal. Typically paired with nvshmem_put_with_signal on the
+sender side to wait for incoming data.
+
+Parameters:
+
+- **sigpad** ([*Tensor*](tensors.html#torch.Tensor)) - Local signal pad to poll.
+- **signal** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Value to wait for.
+- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Reserved for future use.
+
+torch.ops.symm_mem.nvshmem_all_to_all(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+
+Performs an equal-split all-to-all operation using NVSHMEM. Unlike the
+pointer-based collectives, this op is host/stream-initiated and runs over the
+NVSHMEM transport, so it works both intra-node and across nodes (e.g. over
+RDMA/RoCE) without requiring peer buffers to be directly addressable from the
+GPU.
+
+The input is divided into group_size equal-sized chunks; chunk i is sent
+to rank i, and the chunk received from rank i is placed at position i in
+the output.
+
+Parameters:
+
+- **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-to-all on. Must be symmetric and contiguous. Its number of elements must be divisible by the group size.
+- **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-to-all operation. Must be symmetric and contiguous, and have the same number of elements and dtype as input.
+- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-to-all on.
 
 torch.ops.symm_mem.all_to_all_vdev(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *in_splits: [Tensor](tensors.html#torch.Tensor)*, *out_splits_offsets: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [None](https://docs.python.org/3/library/constants.html#None)
 
