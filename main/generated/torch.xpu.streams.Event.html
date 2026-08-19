@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git723eb3f )">
+<meta name="llm:version" content="main (2.15.0a0+git3af0757 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git723eb3f )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git3af0757 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3622,7 +3622,7 @@ document.write(`
 <h1>Event<a class="headerlink" href="#event" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.streams.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.streams.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a XPU event.</p>
 <p>XPU events are synchronization markers that can be used to monitor the
 device’s progress, and to synchronize XPU streams.</p>
@@ -3631,13 +3631,18 @@ recorded. After creation, only streams on the same device may record the
 event. However, streams on any device can wait on the event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable_timing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – indicates if the event should measure time
-(default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enable_timing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – indicates if the event should measure time
+(default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – unused and reserved (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>interprocess</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – indicates if the event should be shareable
+between processes (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.elapsed_time">
-<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.elapsed_time" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.elapsed_time" title="Link to this definition">#</a></dt>
 <dd><p>Return the time elapsed.</p>
 <p>Time reported in milliseconds after the event was recorded and
 before the end_event was recorded.</p>
@@ -3649,8 +3654,52 @@ before the end_event was recorded.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.xpu.streams.Event.from_ipc_handle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ipc_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipc_handle</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.from_ipc_handle" title="Link to this definition">#</a></dt>
+<dd><p>Reconstruct an event from an IPC handle on the given device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the device on which to open the handle.</p></li>
+<li><p><strong>ipc_handle</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – the IPC handle returned by <a class="reference internal" href="#torch.xpu.streams.Event.ipc_handle" title="torch.xpu.streams.Event.ipc_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ipc_handle()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an event reconstructed from the IPC handle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.xpu.streams.Event" title="torch.xpu.streams.Event">Event</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.xpu.streams.Event.ipc_handle">
+<span class="sig-name descname"><span class="pre">ipc_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.ipc_handle" title="Link to this definition">#</a></dt>
+<dd><p>Return an IPC handle of this event.</p>
+<p>The event must have been constructed with <code class="docutils literal notranslate"><span class="pre">interprocess=True</span></code>.
+If not yet recorded, the event is eagerly initialized on the current device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The event reconstructed with <a class="reference internal" href="#torch.xpu.streams.Event.from_ipc_handle" title="torch.xpu.streams.Event.from_ipc_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_ipc_handle()</span></code></a> cannot be re-exported via <a class="reference internal" href="#torch.xpu.streams.Event.ipc_handle" title="torch.xpu.streams.Event.ipc_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ipc_handle()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>an opaque byte string that can be passed to <a class="reference internal" href="#torch.xpu.streams.Event.from_ipc_handle" title="torch.xpu.streams.Event.from_ipc_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_ipc_handle()</span></code></a></dt><dd><p>in another process to reconstruct this event.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)">bytes</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.query" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.query" title="Link to this definition">#</a></dt>
 <dd><p>Check if all work currently captured by event has completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -3665,7 +3714,7 @@ completed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.record">
-<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.record" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.record" title="Link to this definition">#</a></dt>
 <dd><p>Record the event in a given stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3677,7 +3726,7 @@ The stream’s device must match the event’s device.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.synchronize" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.synchronize" title="Link to this definition">#</a></dt>
 <dd><p>Wait for the event to complete.</p>
 <p>Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.</p>
@@ -3687,7 +3736,7 @@ This prevents the CPU thread from proceeding until the event completes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.streams.Event.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/xpu/streams.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.wait" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/xpu/streams.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.streams.Event.wait" title="Link to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3819,6 +3868,8 @@ This prevents the CPU thread from proceeding until the event completes.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.elapsed_time"><code class="docutils literal notranslate"><span class="pre">Event.elapsed_time()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.from_ipc_handle"><code class="docutils literal notranslate"><span class="pre">Event.from_ipc_handle()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.ipc_handle"><code class="docutils literal notranslate"><span class="pre">Event.ipc_handle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.query"><code class="docutils literal notranslate"><span class="pre">Event.query()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.record"><code class="docutils literal notranslate"><span class="pre">Event.record()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.xpu.streams.Event.synchronize"><code class="docutils literal notranslate"><span class="pre">Event.synchronize()</span></code></a></li>
@@ -4061,7 +4112,7 @@ This prevents the CPU thread from proceeding until the event completes.</p>
        "headline": "Event",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.xpu.streams.Event.html",
-       "articleBody": "Event# class torch.xpu.streams.Event(enable_timing=False)[source]# Wrapper around a XPU event. XPU events are synchronization markers that can be used to monitor the device\u2019s progress, and to synchronize XPU streams. The underlying XPU events are lazily initialized when the event is first recorded. After creation, only streams on the same device may record the event. However, streams on any device can wait on the event. Parameters: enable_timing (bool, optional) \u2013 indicates if the event should measure time (default: False) elapsed_time(end_event)[source]# Return the time elapsed. Time reported in milliseconds after the event was recorded and before the end_event was recorded. Parameters: end_event (Event) \u2013 the end event. query()[source]# Check if all work currently captured by event has completed. Returns: A boolean indicating if all work currently captured by event has completed. Return type: bool record(stream=None)[source]# Record the event in a given stream. Parameters: stream (Stream, torch.Stream, optional) \u2013 Uses torch.xpu.current_stream() if no stream is specified. The stream\u2019s device must match the event\u2019s device. synchronize()[source]# Wait for the event to complete. Waits until the completion of all work currently captured in this event. This prevents the CPU thread from proceeding until the event completes. wait(stream=None)[source]# Make all future work submitted to the given stream wait for this event. Parameters: stream (Stream, torch.Stream, optional) \u2013 Uses torch.xpu.current_stream() if no stream is specified.",
+       "articleBody": "Event# class torch.xpu.streams.Event(enable_timing=False, blocking=False, interprocess=False)[source]# Wrapper around a XPU event. XPU events are synchronization markers that can be used to monitor the device\u2019s progress, and to synchronize XPU streams. The underlying XPU events are lazily initialized when the event is first recorded. After creation, only streams on the same device may record the event. However, streams on any device can wait on the event. Parameters: enable_timing (bool, optional) \u2013 indicates if the event should measure time (default: False) blocking (bool, optional) \u2013 unused and reserved (default: False) interprocess (bool, optional) \u2013 indicates if the event should be shareable between processes (default: False) elapsed_time(end_event)[source]# Return the time elapsed. Time reported in milliseconds after the event was recorded and before the end_event was recorded. Parameters: end_event (Event) \u2013 the end event. classmethod from_ipc_handle(device, ipc_handle)[source]# Reconstruct an event from an IPC handle on the given device. Parameters: device (torch.device, int, or str) \u2013 the device on which to open the handle. ipc_handle (bytes) \u2013 the IPC handle returned by ipc_handle(). Returns: an event reconstructed from the IPC handle. Return type: Event ipc_handle()[source]# Return an IPC handle of this event. The event must have been constructed with interprocess=True. If not yet recorded, the event is eagerly initialized on the current device. Note The event reconstructed with from_ipc_handle() cannot be re-exported via ipc_handle(). Returns: an opaque byte string that can be passed to from_ipc_handle()in another process to reconstruct this event. Return type: bytes query()[source]# Check if all work currently captured by event has completed. Returns: A boolean indicating if all work currently captured by event has completed. Return type: bool record(stream=None)[source]# Record the event in a given stream. Parameters: stream (Stream, torch.Stream, optional) \u2013 Uses torch.xpu.current_stream() if no stream is specified. The stream\u2019s device must match the event\u2019s device. synchronize()[source]# Wait for the event to complete. Waits until the completion of all work currently captured in this event. This prevents the CPU thread from proceeding until the event completes. wait(stream=None)[source]# Make all future work submitted to the given stream wait for this event. Parameters: stream (Stream, torch.Stream, optional) \u2013 Uses torch.xpu.current_stream() if no stream is specified.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

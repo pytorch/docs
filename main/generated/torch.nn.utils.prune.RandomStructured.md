@@ -1,6 +1,6 @@
 # RandomStructured
 
-*class*torch.nn.utils.prune.RandomStructured(*amount*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L569)
+*class*torch.nn.utils.prune.RandomStructured(*amount*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L569)
 
 Prune entire (currently unpruned) channels in a tensor at random.
 
@@ -13,7 +13,7 @@ absolute number of parameters to prune.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - index of the dim along which we define
 channels to prune. Default: -1.
 
-*classmethod*apply(*module*, *name*, *amount*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L653)
+*classmethod*apply(*module*, *name*, *amount*, *dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L653)
 
 Add pruning on the fly and reparameterization of a tensor.
 
@@ -33,7 +33,7 @@ absolute number of parameters to prune.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - index of the dim along which we define
 channels to prune. Default: -1.
 
-apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L53)
+apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L53)
 
 Simply handles the multiplication between the parameter being pruned and the generated mask.
 
@@ -52,7 +52,7 @@ Return type:
 
 pruned_tensor ([torch.Tensor](../tensors.html#torch.Tensor))
 
-compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L589)
+compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L589)
 
 Compute and returns a mask for the input tensor `t`.
 
@@ -80,7 +80,7 @@ Raises:
 
 [**IndexError**](https://docs.python.org/3/library/exceptions.html#IndexError) - if `self.dim >= len(t.shape)`
 
-prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L208)
+prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L208)
 
 Compute and returns a pruned version of input tensor `t`.
 
@@ -104,7 +104,7 @@ Returns:
 
 pruned version of tensor `t`.
 
-remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/nn/utils/prune.py#L240)
+remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L240)
 
 Remove the pruning reparameterization from a module.
 

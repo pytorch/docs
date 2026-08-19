@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor_ex
 
-torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/linalg/__init__.py#L974)
+torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/linalg/__init__.py#L974)
 
 This is a version of [`ldl_factor()`](torch.linalg.ldl_factor.html#torch.linalg.ldl_factor) that does not perform error checks unless `check_errors`= True.
 It also returns the `info` tensor returned by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html/).

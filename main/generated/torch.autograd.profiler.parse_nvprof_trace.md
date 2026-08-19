@@ -1,3 +1,3 @@
 # torch.autograd.profiler.parse_nvprof_trace
 
-torch.autograd.profiler.parse_nvprof_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/autograd/profiler.py#L1224)
+torch.autograd.profiler.parse_nvprof_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/autograd/profiler.py#L1224)

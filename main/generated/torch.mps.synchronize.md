@@ -1,5 +1,5 @@
 # torch.mps.synchronize
 
-torch.mps.synchronize()[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/mps/__init__.py#L30)
+torch.mps.synchronize()[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/mps/__init__.py#L30)
 
 Waits for all kernels in all streams on a MPS device to complete.

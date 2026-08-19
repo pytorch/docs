@@ -1,6 +1,6 @@
 # BNReLU3d
 
-*class*torch.ao.nn.intrinsic.quantized.BNReLU3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L64)
+*class*torch.ao.nn.intrinsic.quantized.BNReLU3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L64)
 
 A BNReLU3d module is a fused module of BatchNorm3d and ReLU
 
@@ -10,14 +10,14 @@ Variables:
 
 **torch.ao.nn.quantized.BatchNorm3d** (*Same as*) -
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L82)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L82)
 
 Applies fused BatchNorm3d and ReLU.
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L102)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L102)
 
 Creates a quantized module from a float module.
 
-*classmethod*from_reference(*bn_relu*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/723eb3fb6c3ae1126d6b4104bb6a9c32b42e5f2e/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L110)
+*classmethod*from_reference(*bn_relu*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L110)
 
 Creates a quantized module from a reference module.
