@@ -1,6 +1,6 @@
 # torch.fx.annotate.annotate
 
-torch.fx.annotate.annotate(*val*, *type*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/annotate.py#L11)
+torch.fx.annotate.annotate(*val*, *type*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/annotate.py#L11)
 
 Annotates a Proxy object with a given type.
 

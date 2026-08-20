@@ -1,6 +1,6 @@
 # leaky_relu
 
-*class*torch.ao.nn.quantized.functional.leaky_relu(*input*, *negative_slope=0.01*, *inplace=False*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/quantized/functional.py#L559)
+*class*torch.ao.nn.quantized.functional.leaky_relu(*input*, *negative_slope=0.01*, *inplace=False*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/quantized/functional.py#L559)
 
 Quantized version of the.
 leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -> Tensor

@@ -1,6 +1,6 @@
 # torch.fx.passes.regional_inductor.regional_inductor
 
-torch.fx.passes.regional_inductor.regional_inductor(*gm*, **example_args*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/passes/regional_inductor.py#L269)
+torch.fx.passes.regional_inductor.regional_inductor(*gm*, **example_args*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/passes/regional_inductor.py#L269)
 
 Scoops out inductor marked regions and compiles them with inductor.
 

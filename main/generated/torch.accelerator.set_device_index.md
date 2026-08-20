@@ -1,6 +1,6 @@
 # torch.accelerator.set_device_index
 
-torch.accelerator.set_device_index(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/accelerator/__init__.py#L189)
+torch.accelerator.set_device_index(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/accelerator/__init__.py#L189)
 
 Set the current device index to a given device.
 

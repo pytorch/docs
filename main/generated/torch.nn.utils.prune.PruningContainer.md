@@ -1,6 +1,6 @@
 # PruningContainer
 
-*class*torch.nn.utils.prune.PruningContainer(**args*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L269)
+*class*torch.nn.utils.prune.PruningContainer(**args*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L269)
 
 Container holding a sequence of pruning methods for iterative pruning.
 
@@ -10,7 +10,7 @@ combining successive pruning calls.
 Accepts as argument an instance of a BasePruningMethod or an iterable of
 them.
 
-add_pruning_method(*method*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L293)
+add_pruning_method(*method*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L293)
 
 Add a child pruning `method` to the container.
 
@@ -19,7 +19,7 @@ Parameters:
 **method** (*subclass**of*[*BasePruningMethod*](torch.nn.utils.prune.BasePruningMethod.html#torch.nn.utils.prune.BasePruningMethod)) - child pruning method
 to be added to the container.
 
-*classmethod*apply(*module*, *name*, **args*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L76)
+*classmethod*apply(*module*, *name*, **args*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L76)
 
 Add pruning on the fly and reparameterization of a tensor.
 
@@ -42,7 +42,7 @@ If unspecified or None, the parameter will be used in its place.
 - **kwargs** - keyword arguments passed on to a subclass of a
 [`BasePruningMethod`](torch.nn.utils.prune.BasePruningMethod.html#torch.nn.utils.prune.BasePruningMethod)
 
-apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L53)
+apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L53)
 
 Simply handles the multiplication between the parameter being pruned and the generated mask.
 
@@ -61,7 +61,7 @@ Return type:
 
 pruned_tensor ([torch.Tensor](../tensors.html#torch.Tensor))
 
-compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L321)
+compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L321)
 
 Apply the latest `method` by computing the new partial masks and returning its combination with the `default_mask`.
 
@@ -93,7 +93,7 @@ Return type:
 
 mask ([torch.Tensor](../tensors.html#torch.Tensor))
 
-prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L208)
+prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L208)
 
 Compute and returns a pruned version of input tensor `t`.
 
@@ -117,7 +117,7 @@ Returns:
 
 pruned version of tensor `t`.
 
-remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/prune.py#L240)
+remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/prune.py#L240)
 
 Remove the pruning reparameterization from a module.
 

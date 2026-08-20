@@ -1,6 +1,6 @@
 # LinearTanh
 
-*class*torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearTanh(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L135)
+*class*torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearTanh(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L135)
 
 A LinearTanh module fused from Linear and Tanh modules
 

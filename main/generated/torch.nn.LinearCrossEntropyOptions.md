@@ -1,6 +1,6 @@
 # LinearCrossEntropyOptions
 
-*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/modules/linear_cross_entropy_options.py#L29)
+*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/linear_cross_entropy_options.py#L29)
 
 Configuration for the chunked implementation of
 `linear_cross_entropy()`.

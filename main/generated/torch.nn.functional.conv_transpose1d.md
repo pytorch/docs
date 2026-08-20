@@ -1,6 +1,6 @@
 # torch.nn.functional.conv_transpose1d
 
-torch.nn.functional.conv_transpose1d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/functional.py#L203)
+torch.nn.functional.conv_transpose1d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/functional.py#L203)
 
 Applies a 1D transposed convolution operator over an input signal
 composed of several input planes, sometimes also called "deconvolution".

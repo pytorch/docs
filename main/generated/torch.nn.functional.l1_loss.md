@@ -1,6 +1,6 @@
 # torch.nn.functional.l1_loss
 
-torch.nn.functional.l1_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/functional.py#L4193)
+torch.nn.functional.l1_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/functional.py#L4193)
 
 Compute the L1 loss, with optional weighting.
 

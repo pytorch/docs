@@ -1,6 +1,6 @@
 # torch.fft.hfftn
 
-torch.fft.hfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fft/__init__.py#L1068)
+torch.fft.hfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fft/__init__.py#L1068)
 
 Computes the n-dimensional discrete Fourier transform of a Hermitian symmetric
 `input` signal.

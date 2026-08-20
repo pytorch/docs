@@ -1,6 +1,6 @@
 # torch.nn.utils.fusion.fuse_linear_bn_weights
 
-torch.nn.utils.fusion.fuse_linear_bn_weights(*linear_w*, *linear_b*, *bn_rm*, *bn_rv*, *bn_eps*, *bn_w*, *bn_b*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/fusion.py#L162)
+torch.nn.utils.fusion.fuse_linear_bn_weights(*linear_w*, *linear_b*, *bn_rm*, *bn_rv*, *bn_eps*, *bn_w*, *bn_b*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/fusion.py#L162)
 
 Fuse linear module parameters and BatchNorm module parameters into new linear module parameters.
 

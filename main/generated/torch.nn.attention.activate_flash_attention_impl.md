@@ -1,6 +1,6 @@
 # torch.nn.attention.activate_flash_attention_impl
 
-torch.nn.attention.activate_flash_attention_impl(*impl*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/attention/_registry.py#L61)
+torch.nn.attention.activate_flash_attention_impl(*impl*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/attention/_registry.py#L61)
 
 Activate into the dispatcher a previously registered flash attention impl.
 

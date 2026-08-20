@@ -1,6 +1,6 @@
 # CTCLoss
 
-*class*torch.nn.modules.loss.CTCLoss(*blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/modules/loss.py#L2151)
+*class*torch.nn.modules.loss.CTCLoss(*blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/loss.py#L2151)
 
 The Connectionist Temporal Classification loss.
 
@@ -155,7 +155,7 @@ a performance cost) by setting `torch.backends.cudnn.deterministic =
 True`.
 Please see the notes on [Reproducibility](../notes/randomness.html) for background.
 
-forward(*log_probs*, *targets*, *input_lengths*, *target_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/modules/loss.py#L2313)
+forward(*log_probs*, *targets*, *input_lengths*, *target_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/loss.py#L2313)
 
 Runs the forward pass.
 

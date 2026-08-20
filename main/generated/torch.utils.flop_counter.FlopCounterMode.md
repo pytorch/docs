@@ -1,6 +1,6 @@
 # FlopCounterMode
 
-*class*torch.utils.flop_counter.FlopCounterMode(*mods=None*, *depth=2*, *display=True*, *custom_mapping=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/utils/flop_counter.py#L887)
+*class*torch.utils.flop_counter.FlopCounterMode(*mods=None*, *depth=2*, *display=True*, *custom_mapping=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/flop_counter.py#L887)
 
 Count theoretical FLOPs for operators that run inside the context.
 
@@ -26,7 +26,7 @@ with FlopCounterMode(display=False) as flop_counter:
 total = flop_counter.get_total_flops()
 ```
 
-get_flop_counts()[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/utils/flop_counter.py#L938)
+get_flop_counts()[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/flop_counter.py#L938)
 
 Return the flop counts as a dictionary of dictionaries.
 

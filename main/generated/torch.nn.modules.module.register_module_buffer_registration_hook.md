@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_buffer_registration_hook
 
-torch.nn.modules.module.register_module_buffer_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/modules/module.py#L139)
+torch.nn.modules.module.register_module_buffer_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/module.py#L139)
 
 Register a buffer registration hook common to all modules.
 

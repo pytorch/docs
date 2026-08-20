@@ -1,6 +1,6 @@
 # torch.functional.tensordot
 
-torch.functional.tensordot(*a*, *b*, *dims=2*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/functional.py#L1306)
+torch.functional.tensordot(*a*, *b*, *dims=2*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/functional.py#L1306)
 
 Returns a contraction of a and b over multiple dimensions.
 

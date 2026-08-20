@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.statically_known_false
 
-torch.fx.experimental.symbolic_shapes.statically_known_false(*x*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/experimental/symbolic_shapes.py#L1628)
+torch.fx.experimental.symbolic_shapes.statically_known_false(*x*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/experimental/symbolic_shapes.py#L1628)
 
 Returns True if x can be simplified to a constant and is False.
 If x cannot be evaluated from static, we return False

@@ -1,6 +1,6 @@
 # torch.sparse.addmm
 
-torch.sparse.addmm(*mat*, *mat1*, *mat2*, ***, *beta=1.*, *alpha=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/sparse/__init__.py#L45)
+torch.sparse.addmm(*mat*, *mat1*, *mat2*, ***, *beta=1.*, *alpha=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/sparse/__init__.py#L45)
 
 This function does exact same thing as [`torch.addmm()`](torch.addmm.html#torch.addmm) in the forward,
 except that it supports backward for sparse COO and CSR matrix `mat1`.

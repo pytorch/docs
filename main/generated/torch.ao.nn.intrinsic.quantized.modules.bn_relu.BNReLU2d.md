@@ -1,6 +1,6 @@
 # BNReLU2d
 
-*class*torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L12)
+*class*torch.ao.nn.intrinsic.quantized.modules.bn_relu.BNReLU2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L12)
 
 A BNReLU2d module is a fused module of BatchNorm2d and ReLU
 
@@ -10,14 +10,14 @@ Variables:
 
 **torch.ao.nn.quantized.BatchNorm2d** (*Same as*) -
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L30)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L30)
 
 Applies fused BatchNorm2d and ReLU.
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L50)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L50)
 
 Creates a quantized module from a float module.
 
-*classmethod*from_reference(*bn_relu*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L58)
+*classmethod*from_reference(*bn_relu*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/nn/intrinsic/quantized/modules/bn_relu.py#L58)
 
 Creates a quantized module from a reference module.

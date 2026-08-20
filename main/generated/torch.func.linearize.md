@@ -1,6 +1,6 @@
 # torch.func.linearize
 
-torch.func.linearize(*func*, **primals*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/_functorch/eager_transforms.py#L1819)
+torch.func.linearize(*func*, **primals*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/_functorch/eager_transforms.py#L1819)
 
 Returns the value of `func` at `primals` and linear approximation
 at `primals`.

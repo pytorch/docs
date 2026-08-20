@@ -1,8 +1,8 @@
 # PropagateUnbackedSymInts
 
-*class*torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/experimental/symbolic_shapes.py#L9208)
+*class*torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/experimental/symbolic_shapes.py#L9208)
 
-boxed_run(*args_list*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L239)
+boxed_run(*args_list*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L239)
 
 Run module via interpretation and return the result. This uses the "boxed"
 calling convention, where you pass a list of arguments, which will be cleared
@@ -16,7 +16,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L356)
+call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L356)
 
 Execute a `call_function` node and return the result.
 
@@ -40,7 +40,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_method(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L379)
+call_method(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L379)
 
 Execute a `call_method` node and return the result.
 
@@ -64,7 +64,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L404)
+call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L404)
 
 Execute a `call_module` node and return the result.
 
@@ -88,7 +88,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-fetch_args_kwargs_from_env(*n*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L472)
+fetch_args_kwargs_from_env(*n*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L472)
 
 Fetch the concrete values of `args` and `kwargs` of node `n`
 from the current execution environment.
@@ -109,7 +109,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-fetch_attr(*target*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L451)
+fetch_attr(*target*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L451)
 
 Fetch an attribute from the `Module` hierarchy of `self.module`.
 
@@ -129,7 +129,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L334)
+get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L334)
 
 Execute a `get_attr` node. Will retrieve an attribute
 value from the `Module` hierarchy of `self.module`.
@@ -154,7 +154,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-map_nodes_to_values(*args*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L494)
+map_nodes_to_values(*args*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L494)
 
 Recursively descend through `args` and look up the concrete value
 for each `Node` in the current execution environment.
@@ -172,7 +172,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-output(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L430)
+output(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L430)
 
 Execute an `output` node. This really just retrieves
 the value referenced by the `output` node and returns it.
@@ -197,7 +197,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L297)
+placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L297)
 
 Execute a `placeholder` node. Note that this is stateful:
 `Interpreter` maintains an internal iterator over
@@ -224,7 +224,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-run(**args*, *initial_env=None*, *enable_io_processing=True*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/interpreter.py#L147)
+run(**args*, *initial_env=None*, *enable_io_processing=True*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/interpreter.py#L147)
 
 Run module via interpretation and return the result.
 
@@ -250,7 +250,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/experimental/symbolic_shapes.py#L9209)
+run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/experimental/symbolic_shapes.py#L9209)
 
 Run an FX node, propagating unbacked Symbol bindings to the new fake tensor
 

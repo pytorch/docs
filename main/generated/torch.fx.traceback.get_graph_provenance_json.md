@@ -1,6 +1,6 @@
 # torch.fx.traceback.get_graph_provenance_json
 
-torch.fx.traceback.get_graph_provenance_json(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/traceback.py#L594)
+torch.fx.traceback.get_graph_provenance_json(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/traceback.py#L594)
 
 Given an fx.Graph, return a json that contains the provenance information of each node.
 

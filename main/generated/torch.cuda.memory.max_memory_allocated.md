@@ -1,6 +1,6 @@
 # torch.cuda.memory.max_memory_allocated
 
-torch.cuda.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/cuda/memory.py#L542)
+torch.cuda.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/cuda/memory.py#L542)
 
 Return the maximum GPU memory occupied by tensors in bytes for a given device.
 

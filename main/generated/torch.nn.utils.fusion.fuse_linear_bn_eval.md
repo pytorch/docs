@@ -1,6 +1,6 @@
 # torch.nn.utils.fusion.fuse_linear_bn_eval
 
-torch.nn.utils.fusion.fuse_linear_bn_eval(*linear*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/nn/utils/fusion.py#L111)
+torch.nn.utils.fusion.fuse_linear_bn_eval(*linear*, *bn*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/utils/fusion.py#L111)
 
 Fuse a linear module and a BatchNorm module into a single, new linear module.
 

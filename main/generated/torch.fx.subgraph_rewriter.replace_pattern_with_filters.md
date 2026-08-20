@@ -1,6 +1,6 @@
 # torch.fx.subgraph_rewriter.replace_pattern_with_filters
 
-torch.fx.subgraph_rewriter.replace_pattern_with_filters(*gm*, *pattern*, *replacement=None*, *match_filters=None*, *ignore_literals=False*, *replacement_callback=None*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/3af07571b9d7402fd74352d079e6ff5fa307ec5f/torch/fx/subgraph_rewriter.py#L225)
+torch.fx.subgraph_rewriter.replace_pattern_with_filters(*gm*, *pattern*, *replacement=None*, *match_filters=None*, *ignore_literals=False*, *replacement_callback=None*, *node_name_match=''*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/subgraph_rewriter.py#L225)
 
 See replace_pattern for documentation. This function is an overload with an additional match_filter argument.
 
