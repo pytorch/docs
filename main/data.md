@@ -410,7 +410,7 @@ for batch_ndx, sample in enumerate(loader):
  print(sample.tgt.is_pinned())
 ```
 
-*class*torch.utils.data.DataLoader(*dataset*, *batch_size=1*, *shuffle=None*, *sampler=None*, *batch_sampler=None*, *num_workers=0*, *collate_fn=None*, *pin_memory=False*, *drop_last=False*, *timeout=0*, *worker_init_fn=None*, *multiprocessing_context=None*, *generator=None*, ***, *prefetch_factor=None*, *persistent_workers=False*, *pin_memory_device=''*, *in_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataloader.py#L149)
+*class*torch.utils.data.DataLoader(*dataset*, *batch_size=1*, *shuffle=None*, *sampler=None*, *batch_sampler=None*, *num_workers=0*, *collate_fn=None*, *pin_memory=False*, *drop_last=False*, *timeout=0*, *worker_init_fn=None*, *multiprocessing_context=None*, *generator=None*, ***, *prefetch_factor=None*, *persistent_workers=False*, *pin_memory_device=''*, *in_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataloader.py#L149)
 
 Data loader combines a dataset and a sampler, and provides an iterable over the given dataset.
 
@@ -511,7 +511,7 @@ Warning
 Setting in_order to False can harm reproducibility and may lead to a skewed data
 distribution being fed to the trainer in cases with imbalanced data.
 
-*class*torch.utils.data.Dataset[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L39)
+*class*torch.utils.data.Dataset[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L39)
 
 An abstract class representing a `Dataset`.
 
@@ -531,7 +531,7 @@ Note
 sampler that yields integral indices. To make it work with a map-style
 dataset with non-integral indices/keys, a custom sampler must be provided.
 
-*class*torch.utils.data.IterableDataset[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L73)
+*class*torch.utils.data.IterableDataset[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L73)
 
 An iterable Dataset.
 
@@ -638,7 +638,7 @@ Example 2: splitting workload across all workers using `worker_init_fn`:
 [3, 4, 5, 6]
 ```
 
-*class*torch.utils.data.TensorDataset(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L189)
+*class*torch.utils.data.TensorDataset(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L189)
 
 Dataset wrapping tensors.
 
@@ -648,7 +648,7 @@ Parameters:
 
 ***tensors** ([*Tensor*](tensors.html#torch.Tensor)) - tensors that have the same size of the first dimension.
 
-*class*torch.utils.data.StackDataset(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L212)
+*class*torch.utils.data.StackDataset(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L212)
 
 Dataset as a stacking of multiple datasets.
 
@@ -670,7 +670,7 @@ Parameters:
 - ***args** (*Dataset*) - Datasets for stacking returned as tuple.
 - ****kwargs** (*Dataset*) - Datasets for stacking returned as dict.
 
-*class*torch.utils.data.ConcatDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L299)
+*class*torch.utils.data.ConcatDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L299)
 
 Dataset as a concatenation of multiple datasets.
 
@@ -680,7 +680,7 @@ Parameters:
 
 **datasets** (*sequence*) - List of datasets to be concatenated
 
-*class*torch.utils.data.ChainDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L356)
+*class*torch.utils.data.ChainDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L356)
 
 Dataset for chaining multiple `IterableDataset` s.
 
@@ -692,7 +692,7 @@ Parameters:
 
 **datasets** (*iterable**of**IterableDataset*) - datasets to be chained together
 
-*class*torch.utils.data.Subset(*dataset*, *indices*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L386)
+*class*torch.utils.data.Subset(*dataset*, *indices*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L386)
 
 Subset of a dataset at specified indices.
 
@@ -718,7 +718,7 @@ Parameters:
 - **dataset** (*Dataset*) - The whole Dataset
 - **indices** (*sequence*) - Indices in the whole set selected for subset
 
-torch.utils.data._utils.collate.collate(*batch*, ***, *collate_fn_map=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/_utils/collate.py#L118)
+torch.utils.data._utils.collate.collate(*batch*, ***, *collate_fn_map=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/_utils/collate.py#L118)
 
 General collate function that handles collection type of element within each batch.
 
@@ -751,7 +751,7 @@ Note
 Each collate function requires a positional argument for batch and a keyword argument
 for the dictionary of collate functions as collate_fn_map.
 
-torch.utils.data.default_collate(*batch*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/_utils/collate.py#L340)
+torch.utils.data.default_collate(*batch*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/_utils/collate.py#L340)
 
 Take in a batch of data and put the elements within the batch into a tensor with an additional outer dimension - batch size.
 
@@ -815,7 +815,7 @@ Point(x=tensor([0, 1]), y=tensor([0, 1]))
 >>> default_collate(batch) # Handle `CustomType` automatically
 ```
 
-torch.utils.data.default_convert(*data*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/_utils/collate.py#L23)
+torch.utils.data.default_convert(*data*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/_utils/collate.py#L23)
 
 Convert each NumPy array element into a [`torch.Tensor`](tensors.html#torch.Tensor).
 
@@ -851,7 +851,7 @@ Point(x=tensor(0), y=tensor(0))
 [tensor([0, 1]), tensor([2, 3])]
 ```
 
-torch.utils.data.get_worker_info()[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/_utils/worker.py#L99)
+torch.utils.data.get_worker_info()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/_utils/worker.py#L99)
 
 Returns the information about the current
 `DataLoader` iterator worker process.
@@ -883,7 +883,7 @@ Return type:
 
 *WorkerInfo* | None
 
-torch.utils.data.dataset.random_split(*dataset*, *lengths*, *generator=<torch._C.Generator object>*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/dataset.py#L449)
+torch.utils.data.dataset.random_split(*dataset*, *lengths*, *generator=<torch._C.Generator object>*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/dataset.py#L449)
 
 Randomly split a dataset into non-overlapping new datasets of given lengths.
 
@@ -916,7 +916,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[*Subset*[*_T*]]
 
-*class*torch.utils.data.Sampler[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L28)
+*class*torch.utils.data.Sampler[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L28)
 
 Base class for all Samplers.
 
@@ -958,7 +958,7 @@ The `__len__()` method isn't strictly required by
 `DataLoader`, but is expected in any
 calculation involving the length of a `DataLoader`.
 
-*class*torch.utils.data.SequentialSampler(*data_source*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L97)
+*class*torch.utils.data.SequentialSampler(*data_source*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L97)
 
 Samples elements sequentially, always in the same order.
 
@@ -966,7 +966,7 @@ Parameters:
 
 **data_source** (*Sized*) - data source to sample from. Must implement __len__.
 
-*class*torch.utils.data.RandomSampler(*data_source*, *replacement=False*, *num_samples=None*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L116)
+*class*torch.utils.data.RandomSampler(*data_source*, *replacement=False*, *num_samples=None*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L116)
 
 Samples elements randomly. If without replacement, then sample from a shuffled dataset.
 
@@ -979,7 +979,7 @@ Parameters:
 - **num_samples** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of samples to draw, default=`len(dataset)`.
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)) - Generator used in sampling.
 
-*class*torch.utils.data.SubsetRandomSampler(*indices*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L191)
+*class*torch.utils.data.SubsetRandomSampler(*indices*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L191)
 
 Samples elements randomly from a given list of indices, without replacement.
 
@@ -988,7 +988,7 @@ Parameters:
 - **indices** (*sequence*) - a sequence of indices
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)) - Generator used in sampling.
 
-*class*torch.utils.data.WeightedRandomSampler(*weights*, *num_samples*, *replacement=True*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L213)
+*class*torch.utils.data.WeightedRandomSampler(*weights*, *num_samples*, *replacement=True*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L213)
 
 Samples elements from `[0,..,len(weights)-1]` with given probabilities (weights).
 
@@ -1018,7 +1018,7 @@ Example
 [0, 1, 4, 3, 2]
 ```
 
-*class*torch.utils.data.BatchSampler(*sampler*, *batch_size*, *drop_last*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/sampler.py#L286)
+*class*torch.utils.data.BatchSampler(*sampler*, *batch_size*, *drop_last*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/sampler.py#L286)
 
 Wraps another sampler to yield a mini-batch of indices.
 
@@ -1044,7 +1044,7 @@ Example
 [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 ```
 
-*class*torch.utils.data.distributed.DistributedSampler(*dataset*, *num_replicas=None*, *rank=None*, *shuffle=True*, *seed=0*, *drop_last=False*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/distributed.py#L17)
+*class*torch.utils.data.distributed.DistributedSampler(*dataset*, *num_replicas=None*, *rank=None*, *shuffle=True*, *seed=0*, *drop_last=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/distributed.py#L17)
 
 Sampler that restricts data loading to a subset of the dataset.
 
@@ -1097,7 +1097,7 @@ Example:
 ... train(loader)
 ```
 
-torch.utils.data.graph.traverse(*datapipe*, *only_datapipe=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/graph.py#L109)
+torch.utils.data.graph.traverse(*datapipe*, *only_datapipe=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/graph.py#L109)
 
 Traverse the DataPipes and their attributes to extract the DataPipe graph.
 
@@ -1125,7 +1125,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
 
-torch.utils.data.graph.traverse_dps(*datapipe*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/graph.py#L91)
+torch.utils.data.graph.traverse_dps(*datapipe*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/graph.py#L91)
 
 Traverse the DataPipes and their attributes to extract the DataPipe graph.
 
@@ -1146,7 +1146,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
 
-torch.utils.data.datapipes.utils.decoder.basichandlers(*extension*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/datapipes/utils/decoder.py#L32)
+torch.utils.data.datapipes.utils.decoder.basichandlers(*extension*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/datapipes/utils/decoder.py#L32)
 
 Transforms raw data (byte stream) into python objects.
 
@@ -1186,7 +1186,7 @@ The transformation of data for extensions are:
 - pickle, pyd: pickle loaded data
 - pt: torch loaded data
 
-torch.utils.data.datapipes.utils.decoder.handle_extension(*extensions*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/datapipes/utils/decoder.py#L115)
+torch.utils.data.datapipes.utils.decoder.handle_extension(*extensions*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/datapipes/utils/decoder.py#L115)
 
 Return a decoder handler function for the list of extensions.
 
@@ -1198,7 +1198,7 @@ Examples:
 handle_extension("jpg jpeg", my_decode_jpg) # invoked for any file.jpg
 handle_extension("seg.jpg", special_case_jpg) # invoked only for file.seg.jpg
 
-torch.utils.data.datapipes.utils.common.validate_input_col(*fn*, *input_col*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/data/datapipes/utils/common.py#L28)
+torch.utils.data.datapipes.utils.common.validate_input_col(*fn*, *input_col*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/data/datapipes/utils/common.py#L28)
 
 Check that function used in a callable datapipe works with the input column.
 

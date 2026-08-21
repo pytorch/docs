@@ -26,6 +26,7 @@
 - [PyTorch Governance | Mechanics](https://docs.pytorch.org/docs/stable/community/governance.md)
 - [Community](https://docs.pytorch.org/docs/stable/community/index.md)
 - [PyTorch Governance | Maintainers](https://docs.pytorch.org/docs/stable/community/persons_of_interest.md)
+- [viable/strict CI Jobs](https://docs.pytorch.org/docs/stable/community/viable_strict.md)
 - [Complex Numbers](https://docs.pytorch.org/docs/stable/complex_numbers.md)
 - [torch.config](https://docs.pytorch.org/docs/stable/config_mod.md)
 - [torch.utils.cpp_extension](https://docs.pytorch.org/docs/stable/cpp_extension.md)

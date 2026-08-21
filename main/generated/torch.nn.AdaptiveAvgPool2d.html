@@ -78,7 +78,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gite01c6ae )">
+<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +184,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gite01c6ae )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1280,6 +1280,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../community/persons_of_interest.html">
                   PyTorch Governance | Maintainers
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/viable_strict.html">
+                  viable/strict CI Jobs
                 </a>
               </li>
             
@@ -2726,6 +2732,12 @@ document.write(`
                 </a>
               </li>
             
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../community/viable_strict.html">
+                  viable/strict CI Jobs
+                </a>
+              </li>
+            
           </ul>
         
       </li>
@@ -3779,7 +3791,7 @@ document.write(`
 <h1>AdaptiveAvgPool2d<a class="headerlink" href="#adaptiveavgpool2d" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.AdaptiveAvgPool2d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">AdaptiveAvgPool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/pooling.py#L1477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">AdaptiveAvgPool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/pooling.py#L1477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d" title="Link to this definition">#</a></dt>
 <dd><p>Applies a 2D adaptive average pooling over an input signal composed of several input planes.</p>
 <p>The output is of size H x W, for any input size.
 The number of output features is equal to the number of input planes.</p>
@@ -3787,7 +3799,7 @@ The number of output features is equal to the number of input planes.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>output_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em><em>]</em>) – the target output size of the image of the form H x W.
 Can be a tuple (H, W) or a single H for a square image H x H.
-H and W can be either a <code class="docutils literal notranslate"><span class="pre">int</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> which means the size will
+H and W can be either an <code class="docutils literal notranslate"><span class="pre">int</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> which means the size will
 be the same as that of the input.</p>
 </dd>
 </dl>
@@ -3816,7 +3828,7 @@ be the same as that of the input.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.AdaptiveAvgPool2d.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/nn/modules/pooling.py#L1512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/pooling.py#L1512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d.forward" title="Link to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -4186,7 +4198,7 @@ be the same as that of the input.</p>
        "headline": "AdaptiveAvgPool2d",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.AdaptiveAvgPool2d.html",
-       "articleBody": "AdaptiveAvgPool2d# class torch.nn.AdaptiveAvgPool2d(output_size)[source]# Applies a 2D adaptive average pooling over an input signal composed of several input planes. The output is of size H x W, for any input size. The number of output features is equal to the number of input planes. Parameters: output_size (int | None | tuple[int | None, int | None]) \u2013 the target output size of the image of the form H x W. Can be a tuple (H, W) or a single H for a square image H x H. H and W can be either a int, or None which means the size will be the same as that of the input. Shape: Input: (N,C,Hin,Win)(N, C, H_{in}, W_{in})(N,C,Hin\u200b,Win\u200b) or (C,Hin,Win)(C, H_{in}, W_{in})(C,Hin\u200b,Win\u200b). Output: (N,C,S0,S1)(N, C, S_{0}, S_{1})(N,C,S0\u200b,S1\u200b) or (C,S0,S1)(C, S_{0}, S_{1})(C,S0\u200b,S1\u200b), where S=output_sizeS=\\text{output\\_size}S=output_size. Examples \u003e\u003e\u003e # target output size of 5x7 \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d((5, 7)) \u003e\u003e\u003e input = torch.randn(1, 64, 8, 9) \u003e\u003e\u003e output = m(input) \u003e\u003e\u003e # target output size of 7x7 (square) \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d(7) \u003e\u003e\u003e input = torch.randn(1, 64, 10, 9) \u003e\u003e\u003e output = m(input) \u003e\u003e\u003e # target output size of 10x7 \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d((None, 7)) \u003e\u003e\u003e input = torch.randn(1, 64, 10, 9) \u003e\u003e\u003e output = m(input) forward(input)[source]# Runs the forward pass. Return type: Tensor",
+       "articleBody": "AdaptiveAvgPool2d# class torch.nn.AdaptiveAvgPool2d(output_size)[source]# Applies a 2D adaptive average pooling over an input signal composed of several input planes. The output is of size H x W, for any input size. The number of output features is equal to the number of input planes. Parameters: output_size (int | None | tuple[int | None, int | None]) \u2013 the target output size of the image of the form H x W. Can be a tuple (H, W) or a single H for a square image H x H. H and W can be either an int, or None which means the size will be the same as that of the input. Shape: Input: (N,C,Hin,Win)(N, C, H_{in}, W_{in})(N,C,Hin\u200b,Win\u200b) or (C,Hin,Win)(C, H_{in}, W_{in})(C,Hin\u200b,Win\u200b). Output: (N,C,S0,S1)(N, C, S_{0}, S_{1})(N,C,S0\u200b,S1\u200b) or (C,S0,S1)(C, S_{0}, S_{1})(C,S0\u200b,S1\u200b), where S=output_sizeS=\\text{output\\_size}S=output_size. Examples \u003e\u003e\u003e # target output size of 5x7 \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d((5, 7)) \u003e\u003e\u003e input = torch.randn(1, 64, 8, 9) \u003e\u003e\u003e output = m(input) \u003e\u003e\u003e # target output size of 7x7 (square) \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d(7) \u003e\u003e\u003e input = torch.randn(1, 64, 10, 9) \u003e\u003e\u003e output = m(input) \u003e\u003e\u003e # target output size of 10x7 \u003e\u003e\u003e m = nn.AdaptiveAvgPool2d((None, 7)) \u003e\u003e\u003e input = torch.randn(1, 64, 10, 9) \u003e\u003e\u003e output = m(input) forward(input)[source]# Runs the forward pass. Return type: Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

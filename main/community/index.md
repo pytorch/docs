@@ -14,3 +14,4 @@ core framework, report and fix bugs, improve documentation, and much more.
 - [PyTorch Design Philosophy](design.html)
 - [PyTorch Governance | Mechanics](governance.html)
 - [PyTorch Governance | Maintainers](persons_of_interest.html)
+- [viable/strict CI Jobs](viable_strict.html)

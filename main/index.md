@@ -150,6 +150,7 @@ The APIs and performance characteristics of these features may change.
 - [PyTorch Design Philosophy](community/design.html)
 - [PyTorch Governance | Mechanics](community/governance.html)
 - [PyTorch Governance | Maintainers](community/persons_of_interest.html)
+- [viable/strict CI Jobs](community/viable_strict.html)
 
 ## Indices and tables
 

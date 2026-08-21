@@ -40,7 +40,7 @@ checkpointed_fn = checkpoint(use_reentrant=False, preserve_rng_state=False)(fn)
 out = checkpointed_fn(*args, **kwargs)
 ```
 
-torch.utils.checkpoint.checkpoint(*function: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], _T]*, **args: Any*, *use_reentrant: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *preserve_rng_state: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *context_fn: Callable[[], Tuple[ContextManager, ContextManager]] = noop_context_fn*, *determinism_check: [str](https://docs.python.org/3/library/stdtypes.html#str) = _DEFAULT_DETERMINISM_MODE*, *debug: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *early_stop: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *respect_saved_tensors_hooks: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, ***kwargs: Any*) → _T[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L422)
+torch.utils.checkpoint.checkpoint(*function: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], _T]*, **args: Any*, *use_reentrant: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *preserve_rng_state: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *context_fn: Callable[[], Tuple[ContextManager, ContextManager]] = noop_context_fn*, *determinism_check: [str](https://docs.python.org/3/library/stdtypes.html#str) = _DEFAULT_DETERMINISM_MODE*, *debug: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *early_stop: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *respect_saved_tensors_hooks: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, ***kwargs: Any*) → _T[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L422)
 
 torch.utils.checkpoint.checkpoint(*function: [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *use_reentrant: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *preserve_rng_state: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *context_fn: Callable[[], Tuple[ContextManager, ContextManager]] = noop_context_fn*, *determinism_check: [str](https://docs.python.org/3/library/stdtypes.html#str) = _DEFAULT_DETERMINISM_MODE*, *debug: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *early_stop: [bool](https://docs.python.org/3/library/functions.html#bool) = True*, *respect_saved_tensors_hooks: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_P], _T]], [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_P], _T]]
 
@@ -70,8 +70,8 @@ error being raised or leading to silently incorrect gradients.
 
 Warning
 
-The `use_reentrant` parameter should be passed explicitly. In version
-2.9 we will raise an exception if `use_reentrant` is not passed.
+The `use_reentrant` parameter should be passed explicitly. In a future
+release, we will raise an exception if `use_reentrant` is not passed.
 If you are using the `use_reentrant=True` variant, please refer to the
 note below for important considerations and potential limitations.
 
@@ -131,7 +131,7 @@ this flag doesn't take effect and we always preserve RNG state.
 Default: `True`
 - **use_reentrant** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - specify whether to use the activation checkpoint variant that
 requires reentrant autograd. This parameter should be passed
-explicitly. In version 2.9 we will raise an exception if
+explicitly. In a future release, we will raise an exception if
 `use_reentrant` is not passed. If `use_reentrant=False`,
 `checkpoint` will use an implementation that does not require
 reentrant autograd. This allows `checkpoint` to support additional
@@ -198,7 +198,7 @@ Example
 >>> out = fn(*args, **kwargs)
 ```
 
-torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L701)
+torch.utils.checkpoint.checkpoint_sequential(*functions*, *segments*, *input*, *use_reentrant=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L701)
 
 Checkpoint a sequential model to save memory.
 
@@ -210,8 +210,8 @@ be saved for re-running the segment in the backward pass.
 
 Warning
 
-The `use_reentrant` parameter should be passed explicitly. In version
-2.9 we will raise an exception if `use_reentrant` is not passed.
+The `use_reentrant` parameter should be passed explicitly. In a future
+release, we will raise an exception if `use_reentrant` is not passed.
 If you are using the use_reentrant=True` variant, please see
 :func:`~torch.utils.checkpoint.checkpoint` for
 the important considerations and limitations of this variant. It is
@@ -247,7 +247,7 @@ Example
 >>> input_var = checkpoint_sequential(model, chunks, input_var)
 ```
 
-torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L53)
+torch.utils.checkpoint.set_checkpoint_debug_enabled(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L53)
 
 Context manager that sets whether checkpoint should print additional debug
 information when running. See the `debug` flag for
@@ -260,7 +260,7 @@ Parameters:
 **enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether checkpoint should print debug information.
 Default is 'None'.
 
-*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L1480)
+*class*torch.utils.checkpoint.CheckpointPolicy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L1480)
 
 Enum for specifying the policy for checkpointing during backpropagation.
 
@@ -286,7 +286,7 @@ NOT equivalent to not using checkpointing. Using such a policy would
 save additional tensors not limited to ones that are actually needed for
 gradient computation.
 
-*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L1450)
+*class*torch.utils.checkpoint.SelectiveCheckpointContext(***, *is_recompute*, *op_output=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L1450)
 
 Context passed to policy function during selective checkpointing.
 
@@ -313,7 +313,7 @@ Example
 >>> )
 ```
 
-torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L1702)
+torch.utils.checkpoint.create_selective_checkpoint_contexts(*policy_fn_or_list*, *allow_cache_entry_mutation=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L1702)
 
 Helper to avoid recomputing certain ops during activation checkpointing.
 
@@ -374,7 +374,7 @@ Example
 >>> )
 ```
 
-*class*torch.utils.checkpoint.GraphExecGroup[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L2014)
+*class*torch.utils.checkpoint.GraphExecGroup[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L2014)
 
 Any checkpointed regions encountered by backward under the same instance
 of this context manager will trigger recompute at most once, even if
@@ -390,7 +390,7 @@ Note
 This context manager only affects checkpoint with use_reentrant=False, and
 is a no-op otherwise.
 
-torch.utils.checkpoint.set_checkpoint_early_stop(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L935)
+torch.utils.checkpoint.set_checkpoint_early_stop(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L935)
 
 Controls whether checkpoint should stop recomputation early.
 
@@ -413,7 +413,7 @@ Example:
 >>> out.backward()
 ```
 
-torch.utils.checkpoint.set_device_states(*devices*, *states*, ***, *device_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/checkpoint.py#L199)
+torch.utils.checkpoint.set_device_states(*devices*, *states*, ***, *device_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/checkpoint.py#L199)
 
 Sets random number generator states for the specified devices.
 

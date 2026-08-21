@@ -1,6 +1,6 @@
 # BackendConfig
 
-*class*torch.ao.quantization.backend_config.BackendConfig(*name=''*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L291)
+*class*torch.ao.quantization.backend_config.BackendConfig(*name=''*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L291)
 
 Config that defines the set of patterns that can be quantized on a given backend, and how reference
 quantized models can be produced from these patterns.
@@ -52,7 +52,7 @@ backend_config = BackendConfig("my_backend") .set_backend_pattern_config(linear_
 
 Return a copy of the list of configs set in this BackendConfig.
 
-*classmethod*from_dict(*backend_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L406)
+*classmethod*from_dict(*backend_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L406)
 
 Create a `BackendConfig` from a dictionary with the following items:
 
@@ -67,16 +67,16 @@ Return type:
 
 *BackendConfig*
 
-set_backend_pattern_config(*config*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L376)
+set_backend_pattern_config(*config*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L376)
 
-Set the config for an pattern that can be run on the target backend.
+Set the config for a pattern that can be run on the target backend.
 This overrides any existing config for the given pattern.
 
 Return type:
 
 *BackendConfig*
 
-set_backend_pattern_configs(*configs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L388)
+set_backend_pattern_configs(*configs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L388)
 
 Set the configs for patterns that can be run on the target backend.
 This overrides any existing config for a given pattern if it was previously registered already.
@@ -85,7 +85,7 @@ Return type:
 
 *BackendConfig*
 
-set_name(*name*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L369)
+set_name(*name*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L369)
 
 Set the name of the target backend.
 
@@ -93,7 +93,7 @@ Return type:
 
 *BackendConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/ao/quantization/backend_config/backend_config.py#L428)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/backend_config/backend_config.py#L428)
 
 Convert this `BackendConfig` to a dictionary with the items described in
 `from_dict()`.

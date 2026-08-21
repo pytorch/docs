@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.handle_sym_dispatch
 
-torch.fx.experimental.proxy_tensor.handle_sym_dispatch(*func*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/fx/experimental/proxy_tensor.py#L3461)
+torch.fx.experimental.proxy_tensor.handle_sym_dispatch(*func*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/experimental/proxy_tensor.py#L3461)
 
 Call into the currently active proxy tracing mode to do a
 SymInt/SymFloat/SymBool dispatch trace on a function that operates on

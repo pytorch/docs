@@ -1,6 +1,6 @@
 # torch.utils.cpp_extension
 
-torch.utils.cpp_extension.CppExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L1394)
+torch.utils.cpp_extension.CppExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L1394)
 
 Create a `setuptools.Extension` for C++.
 
@@ -48,7 +48,7 @@ Example
 ... })
 ```
 
-torch.utils.cpp_extension.CUDAExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L1464)
+torch.utils.cpp_extension.CUDAExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L1464)
 
 Create a `setuptools.Extension` for CUDA/C++.
 
@@ -172,7 +172,7 @@ Example
 ... 'nvcc': ['-O2', '-rdc=true']})
 ```
 
-torch.utils.cpp_extension.SyclExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L1661)
+torch.utils.cpp_extension.SyclExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L1661)
 
 Creates a `setuptools.Extension` for SYCL/C++.
 
@@ -231,7 +231,7 @@ slower the building process will be, as it will build a separate kernel image fo
 
 Note: Ninja is required to build SyclExtension.
 
-torch.utils.cpp_extension.BuildExtension(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L750)
+torch.utils.cpp_extension.BuildExtension(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L750)
 
 A custom `setuptools` build extension .
 
@@ -258,7 +258,7 @@ extension. This may use up too many resources on some systems. One
 can control the number of workers by setting the MAX_JOBS environment
 variable to a non-negative number.
 
-torch.utils.cpp_extension.load(*name*, *sources*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *is_standalone=False*, *keep_intermediates=True*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L1839)
+torch.utils.cpp_extension.load(*name*, *sources*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *is_standalone=False*, *keep_intermediates=True*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L1839)
 
 Load a PyTorch C++ extension just-in-time (JIT).
 
@@ -363,7 +363,7 @@ Example
 ... verbose=True)
 ```
 
-torch.utils.cpp_extension.load_inline(*name*, *cpp_sources*, *cuda_sources=None*, *sycl_sources=None*, *functions=None*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *with_pytorch_error_handling=True*, *keep_intermediates=True*, *use_pch=False*, *no_implicit_headers=False*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L2121)
+torch.utils.cpp_extension.load_inline(*name*, *cpp_sources*, *cuda_sources=None*, *sycl_sources=None*, *functions=None*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *with_pytorch_error_handling=True*, *keep_intermediates=True*, *use_pch=False*, *no_implicit_headers=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L2121)
 
 Load a PyTorch C++ extension just-in-time (JIT) from string sources.
 
@@ -465,7 +465,7 @@ the extension. This may use up too many resources on some systems. One
 can control the number of workers by setting the MAX_JOBS environment
 variable to a non-negative number.
 
-torch.utils.cpp_extension.include_paths(*device_type='cpu'*, *torch_include_dirs=True*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L1742)
+torch.utils.cpp_extension.include_paths(*device_type='cpu'*, *torch_include_dirs=True*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L1742)
 
 Get the include paths required to build a C++ or CUDA or SYCL extension.
 
@@ -481,7 +481,7 @@ Return type:
 
 [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-torch.utils.cpp_extension.get_compiler_abi_compatibility_and_version(*compiler*)[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L587)
+torch.utils.cpp_extension.get_compiler_abi_compatibility_and_version(*compiler*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L587)
 
 Determine if the given compiler is ABI-compatible with PyTorch alongside its version.
 
@@ -499,11 +499,11 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[bool](https://docs.python.org/3/library/functions.html#bool), *TorchVersion*]
 
-torch.utils.cpp_extension.verify_ninja_availability()[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L2582)
+torch.utils.cpp_extension.verify_ninja_availability()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L2582)
 
 Raise `RuntimeError` if [ninja](https://ninja-build.org/) build system is not available on the system, does nothing otherwise.
 
-torch.utils.cpp_extension.is_ninja_available()[[source]](https://github.com/pytorch/pytorch/blob/e01c6ae6acffaccede59e20d14af54437c5342d8/torch/utils/cpp_extension.py#L2572)
+torch.utils.cpp_extension.is_ninja_available()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/utils/cpp_extension.py#L2572)
 
 Return `True` if the [ninja](https://ninja-build.org/) build system is available on the system, `False` otherwise.
 
