@@ -139,7 +139,7 @@ There are several useful invariants for `torch.ops.higher_order.switch`:
 
 ## API Reference
 
-torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/_higher_order_ops/switch.py#L95)
+torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/_higher_order_ops/switch.py#L95)
 
 Selects and runs one of N branch functions by index.
 

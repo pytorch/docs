@@ -1,6 +1,6 @@
 # quantize_dynamic
 
-*class*torch.ao.quantization.quantize_dynamic(*model*, *qconfig_spec=None*, *dtype=torch.qint8*, *mapping=None*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/quantize.py#L483)
+*class*torch.ao.quantization.quantize_dynamic(*model*, *qconfig_spec=None*, *dtype=torch.qint8*, *mapping=None*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/quantization/quantize.py#L483)
 
 Converts a float model to dynamic (i.e. weights-only) quantized model.
 

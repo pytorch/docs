@@ -1,0 +1,6 @@
+﻿torch.foreach.maximum\_
+=======================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: maximum_

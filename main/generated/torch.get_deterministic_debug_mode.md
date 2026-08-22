@@ -1,6 +1,6 @@
 # torch.get_deterministic_debug_mode
 
-torch.get_deterministic_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1965)
+torch.get_deterministic_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1965)
 
 Returns the current value of the debug mode for deterministic
 operations. Refer to [`torch.set_deterministic_debug_mode()`](torch.set_deterministic_debug_mode.html#torch.set_deterministic_debug_mode)

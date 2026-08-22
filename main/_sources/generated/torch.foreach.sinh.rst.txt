@@ -1,0 +1,6 @@
+﻿torch.foreach.sinh
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sinh

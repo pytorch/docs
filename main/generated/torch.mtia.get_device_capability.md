@@ -1,6 +1,6 @@
 # torch.mtia.get_device_capability
 
-torch.mtia.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/mtia/__init__.py#L242)
+torch.mtia.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/mtia/__init__.py#L242)
 
 Return capability of a given device as a tuple of (major version, minor version).
 

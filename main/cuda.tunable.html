@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7242,7 +7292,7 @@ Use the C++ or Python APIs instead.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.enable" title="Link to this definition">#</a></dt>
 <dd><p>This is the big on/off switch for all TunableOp implementations.</p>
 <dl class="field-list simple">
 </dl>
@@ -7250,7 +7300,7 @@ Use the C++ or Python APIs instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether the TunableOp feature is enabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7261,7 +7311,7 @@ Use the C++ or Python APIs instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tuning_enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_enable" title="Link to this definition">#</a></dt>
 <dd><p>Enable tuning of TunableOp implementations.</p>
 <p>When enabled, if a tuned entry isn’t found, run the tuning step and record
 the entry.</p>
@@ -7271,7 +7321,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tuning_is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tuning_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tuning_is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether TunableOp implementations can be tuned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7282,7 +7332,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_enable">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_enable" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_enable" title="Link to this definition">#</a></dt>
 <dd><p>Enable recording untuned TunableOp operations for offline tuning.</p>
 <p>When enabled, if a tuned entry isn’t found, write it to the untuned file.</p>
 <dl class="field-list simple">
@@ -7291,7 +7341,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_is_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_is_enabled" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_is_enabled" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether TunableOp operations are recorded for offline tuning.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7302,7 +7352,7 @@ the entry.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_max_tuning_duration">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_duration" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_duration" title="Link to this definition">#</a></dt>
 <dd><p>Set max time in milliseconds to spend tuning a given solution.</p>
 <p>If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.</p>
@@ -7312,7 +7362,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_max_tuning_duration">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_duration" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_duration" title="Link to this definition">#</a></dt>
 <dd><p>Get max time to spend tuning a given solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7323,7 +7373,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_max_tuning_iterations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_iterations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_iterations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_iterations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_iterations" title="Link to this definition">#</a></dt>
 <dd><p>Set max number of iterations to spend tuning a given solution.</p>
 <p>If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.</p>
@@ -7333,7 +7383,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_max_tuning_iterations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_iterations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_iterations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_max_tuning_iterations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_max_tuning_iterations" title="Link to this definition">#</a></dt>
 <dd><p>Get max iterations to spend tuning a given solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7344,7 +7394,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_cublaslt_requested_algo_count">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_cublaslt_requested_algo_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_cublaslt_requested_algo_count" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_cublaslt_requested_algo_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_cublaslt_requested_algo_count" title="Link to this definition">#</a></dt>
 <dd><p>Set the number of cuBLASLt heuristic algorithms to request on CUDA.</p>
 <p>Values less than 1 are clamped to 1.</p>
 <dl class="field-list simple">
@@ -7353,7 +7403,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_cublaslt_requested_algo_count">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_cublaslt_requested_algo_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_cublaslt_requested_algo_count" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_cublaslt_requested_algo_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_cublaslt_requested_algo_count" title="Link to this definition">#</a></dt>
 <dd><p>Get the number of cuBLASLt heuristic algorithms requested on CUDA.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7364,7 +7414,7 @@ will be honored. At minimum 1 tuning iteration will always be run.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_filename">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_device_ordinal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_filename" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_device_ordinal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_filename" title="Link to this definition">#</a></dt>
 <dd><p>Set the filename to use for input/output of tuning results.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">insert_device_ordinal</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> then the current device ordinal
 will be added to the given filename automatically. This can be used in a
@@ -7375,7 +7425,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_filename">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L318"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_filename" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L318"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_filename" title="Link to this definition">#</a></dt>
 <dd><p>Get the results filename.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7386,7 +7436,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_results">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L323"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_results" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L323"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_results" title="Link to this definition">#</a></dt>
 <dd><p>Return all TunableOp results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7397,7 +7447,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_validators">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_validators" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_validators" title="Link to this definition">#</a></dt>
 <dd><p>Return the TunableOp validators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7408,7 +7458,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.read_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.read_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.read_file" title="Link to this definition">#</a></dt>
 <dd><p>Read results from a TunableOp CSV file.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">filename</span></code> is not given, <code class="docutils literal notranslate"><span class="pre">get_filename()</span></code> is called.</p>
 <dl class="field-list simple">
@@ -7420,7 +7470,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.tune_gemm_in_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tune_gemm_in_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tune_gemm_in_file" title="Link to this definition">#</a></dt>
 <dd><p>tune GEMM in file.</p>
 <dl class="field-list simple">
 </dl>
@@ -7428,7 +7478,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.mgpu_tune_gemm_in_file">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">mgpu_tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L841"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.mgpu_tune_gemm_in_file" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">mgpu_tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L841"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.mgpu_tune_gemm_in_file" title="Link to this definition">#</a></dt>
 <dd><p>Process one or more files and distribute work over one or more GPUs.</p>
 <dl class="field-list simple">
 </dl>
@@ -7436,7 +7486,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_rotating_buffer_size">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_rotating_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_rotating_buffer_size" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_rotating_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_rotating_buffer_size" title="Link to this definition">#</a></dt>
 <dd><p>Set rotating buffer size to this value in MB, if the buffer size is greater than zero.</p>
 <p>If less than zero, query L2 cache size. If equal to zero, means deactivate rotating buffer.</p>
 <dl class="field-list simple">
@@ -7445,7 +7495,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.get_rotating_buffer_size">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_rotating_buffer_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_rotating_buffer_size" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">get_rotating_buffer_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.get_rotating_buffer_size" title="Link to this definition">#</a></dt>
 <dd><p>Get the rotating buffer size in kilobytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7456,7 +7506,7 @@ will be added to the given filename automatically. This can be used in a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_numerical_check_tolerances">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_numerical_check_tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/cuda/tunable.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_numerical_check_tolerances" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_numerical_check_tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/cuda/tunable.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_numerical_check_tolerances" title="Link to this definition">#</a></dt>
 <dd><p>Set the atol and rtol values in numeric check</p>
 <dl class="field-list simple">
 </dl>

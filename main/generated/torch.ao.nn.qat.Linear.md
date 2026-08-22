@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.ao.nn.qat.Linear(*in_features*, *out_features*, *bias=True*, *qconfig=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/nn/qat/modules/linear.py#L16)
+*class*torch.ao.nn.qat.Linear(*in_features*, *out_features*, *bias=True*, *qconfig=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/nn/qat/modules/linear.py#L16)
 
 A linear module attached with FakeQuantize modules for weight,
 used for quantization aware training.
@@ -16,7 +16,7 @@ Variables:
 
 **weight** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - fake quant module for weight
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/nn/qat/modules/linear.py#L53)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/nn/qat/modules/linear.py#L53)
 
 Create a qat module from a float module or qparams_dict
 Args: mod a float module, either produced by torch.ao.quantization utilities

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension
 
-torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension(*dimension*, *counter*, *dimension_dict*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L311)
+torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_dimension(*dimension*, *counter*, *dimension_dict*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L311)
 
 Takes a dimension variable or a number and transforms it to a tuple
 according to our scheme

@@ -1,6 +1,6 @@
 # torch.nn.functional.relu6
 
-torch.nn.functional.relu6(*input*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/functional.py#L1853)
+torch.nn.functional.relu6(*input*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/functional.py#L1853)
 
 Applies the element-wise function ReLU6(x)=min⁡(max⁡(0,x),6)\text{ReLU6}(x) = \min(\max(0,x), 6)ReLU6(x)=min(max(0,x),6).
 

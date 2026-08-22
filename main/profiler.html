@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7070,7 +7120,7 @@ examine their input shapes and stack traces, study device kernel activity and vi
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.profiler.schedule">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L768"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.schedule" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warmup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L768"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.schedule" title="Link to this definition">#</a></dt>
 <dd><p>Returns a callable that can be used as profiler <code class="docutils literal notranslate"><span class="pre">schedule</span></code> argument. The profiler will skip
 the first <code class="docutils literal notranslate"><span class="pre">skip_first</span></code> steps, then wait for <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps, then do the warmup for the next <code class="docutils literal notranslate"><span class="pre">warmup</span></code> steps,
 then do the active recording for the next <code class="docutils literal notranslate"><span class="pre">active</span></code> steps and then repeat the cycle starting with <code class="docutils literal notranslate"><span class="pre">wait</span></code> steps.
@@ -7091,7 +7141,7 @@ last active and warmup.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.profiler.supported_activities">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">supported_activities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.supported_activities" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">supported_activities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.supported_activities" title="Link to this definition">#</a></dt>
 <dd><p>Returns a set of supported profiler tracing activities.</p>
 <p>Note: profiler uses CUPTI library to trace on-device CUDA kernels.
 In case when CUDA is enabled but CUPTI is not available, passing
@@ -7103,7 +7153,7 @@ but not in the JSON trace.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.profiler.tensorboard_trace_handler">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_python_export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.profiler.</span></span><span class="sig-name descname"><span class="pre">tensorboard_trace_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_python_export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profiler.tensorboard_trace_handler" title="Link to this definition">#</a></dt>
 <dd><p>Outputs tracing files to directory of <code class="docutils literal notranslate"><span class="pre">dir_name</span></code>, then that directory can be
 directly delivered to tensorboard as logdir.
 <code class="docutils literal notranslate"><span class="pre">worker_name</span></code> should be unique for each worker in distributed scenario,
@@ -7117,7 +7167,7 @@ it will be set to ‘[hostname]_[pid]’ by default.</p>
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.profile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L874"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_trace_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_trace_observer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processing_timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L874"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile" title="Link to this definition">#</a></dt>
 <dd><p>Profiler context manager.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7263,7 +7313,7 @@ extra tensor copies.</p>
 Note: One can also pass any object satisfying the _ITraceObserver interface.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.add_metadata">
-<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.add_metadata" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.add_metadata" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a string value
 into the trace file</p>
 <dl class="field-list simple">
@@ -7272,7 +7322,7 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.add_metadata_json">
-<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L639"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.add_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L639"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.add_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Adds a user defined metadata with a string key and a valid json value
 into the trace file</p>
 <dl class="field-list simple">
@@ -7281,14 +7331,14 @@ into the trace file</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.events">
-<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L616"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.events" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L616"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.events" title="Link to this definition">#</a></dt>
 <dd><p>Return the list of unaggregated <a class="reference internal" href="generated/torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent" title="torch.autograd.profiler_util.FunctionEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionEvent</span></code></a>
 objects, for use in the trace callback or after profiling has finished.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.export_chrome_trace">
-<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_python_export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L469"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_chrome_trace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_python_export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L469"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_chrome_trace" title="Link to this definition">#</a></dt>
 <dd><p>Exports the collected trace in Chrome JSON format. If kineto is enabled, only
 last cycle in schedule is exported.</p>
 <dl class="field-list simple">
@@ -7297,7 +7347,7 @@ last cycle in schedule is exported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.export_memory_timeline">
-<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L687"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_memory_timeline" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_memory_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L687"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_memory_timeline" title="Link to this definition">#</a></dt>
 <dd><p>Export memory event information from the profiler collected
 tree for a given device, and export a timeline plot. There are 3
 exportable files using <code class="docutils literal notranslate"><span class="pre">export_memory_timeline</span></code>, each controlled by the
@@ -7327,7 +7377,7 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.export_stacks">
-<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L545"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_stacks" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_stacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'self_cpu_time_total'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L545"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.export_stacks" title="Link to this definition">#</a></dt>
 <dd><p>Save stack traces to a file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7341,13 +7391,13 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.get_trace_id">
-<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L1332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_trace_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L1332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.get_trace_id" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current trace ID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.key_averages">
-<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_python_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.key_averages" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_python_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.key_averages" title="Link to this definition">#</a></dt>
 <dd><p>Averages events, grouping them by operator name and (optionally) input shapes, stack
 and overload name.</p>
 <p>Returns an <a class="reference internal" href="generated/torch.autograd.profiler_util.EventList.html#torch.autograd.profiler_util.EventList" title="torch.autograd.profiler_util.EventList"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventList</span></code></a> of the aggregated events.</p>
@@ -7362,7 +7412,7 @@ when creating profiler context manager.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.preset_metadata_json">
-<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.preset_metadata_json" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">preset_metadata_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.preset_metadata_json" title="Link to this definition">#</a></dt>
 <dd><p>Preset a user defined metadata when the profiler is not started
 and added into the trace file later.
 Metadata is in the format of a string key and a valid json value</p>
@@ -7372,7 +7422,7 @@ Metadata is in the format of a string key and a valid json value</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.set_custom_trace_id_callback">
-<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_custom_trace_id_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.set_custom_trace_id_callback" title="Link to this definition">#</a></dt>
 <dd><p>Set the trace ID generator. Called at the start of each cycle, so updating
 it between cycles yields distinct IDs per cycle.</p>
 <dl class="field-list simple">
@@ -7381,7 +7431,7 @@ it between cycles yields distinct IDs per cycle.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L1236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L1236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.step" title="Link to this definition">#</a></dt>
 <dd><p>Signals the profiler that the next profiling step has started.</p>
 <dl class="field-list simple">
 </dl>
@@ -7389,7 +7439,7 @@ it between cycles yields distinct IDs per cycle.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.take_pending_cupti_export">
-<span class="sig-name descname"><span class="pre">take_pending_cupti_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.take_pending_cupti_export" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">take_pending_cupti_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.take_pending_cupti_export" title="Link to this definition">#</a></dt>
 <dd><p>Detach this cycle’s cupti_monitor ProfilerObserver (with its unwritten window) so
 the deferred export can be finalized OFF the training thread (call
 <code class="docutils literal notranslate"><span class="pre">obs.join(force=False)</span></code> on a worker). None for non-cupti backends.</p>
@@ -7402,7 +7452,7 @@ the deferred export can be finalized OFF the training thread (call
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.toggle_collection_dynamic">
-<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_collection_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.toggle_collection_dynamic" title="Link to this definition">#</a></dt>
 <dd><p>Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops
 (CPU) and CUDA activity supported in Kineto</p>
 <dl class="field-list simple">
@@ -7433,7 +7483,7 @@ the deferred export can be finalized OFF the training thread (call
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.profiler.profile.wait_for_exports">
-<span class="sig-name descname"><span class="pre">wait_for_exports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.wait_for_exports" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait_for_exports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.profile.wait_for_exports" title="Link to this definition">#</a></dt>
 <dd><p>Block until every deferred cupti_monitor export is written, then unregister.
 No-op unless the cupti_monitor backend is active. Call on the training thread when
 you need the file(s) on disk; the finalize force-flushes CUPTI (safe here).</p>
@@ -7445,7 +7495,7 @@ you need the file(s) on disk; the finalize force-flushes CUPTI (safe here).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.profiler.ProfilerAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/profiler.py#L745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.profiler.</span></span><span class="sig-name descname"><span class="pre">ProfilerAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/profiler.py#L745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.ProfilerAction" title="Link to this definition">#</a></dt>
 <dd><p>Profiler actions that can be taken at the specified intervals.</p>
 <p>NONE, WARMUP, RECORD, and RECORD_AND_SAVE are user-facing values that may
 be returned from a user-provided schedule. DEVICE_STOPPED is set
@@ -7478,13 +7528,13 @@ errors; it must not be returned from a user-provided schedule.</p>
 <h2>Intel Instrumentation and Tracing Technology APIs<a class="headerlink" href="#intel-instrumentation-and-tracing-technology-apis" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/itt.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.is_available" title="Link to this definition">#</a></dt>
 <dd><p>Check if ITT feature is available or not</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.mark">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/itt.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.mark" title="Link to this definition">#</a></dt>
 <dd><p>Describe an instantaneous event that occurred at some point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7495,7 +7545,7 @@ errors; it must not be returned from a user-provided schedule.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_push">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/itt.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_push" title="Link to this definition">#</a></dt>
 <dd><p>Pushes a range onto a stack of nested range span.  Returns zero-based
 depth of the range that is started.</p>
 <dl class="field-list simple">
@@ -7507,14 +7557,14 @@ depth of the range that is started.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range_pop">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range_pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/itt.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range_pop" title="Link to this definition">#</a></dt>
 <dd><p>Pops a range off of a stack of nested range spans. Returns the
 zero-based depth of the range that is ended.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.profiler.itt.range">
-<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/profiler/itt.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.profiler.itt.</span></span><span class="sig-name descname"><span class="pre">range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/profiler/itt.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.profiler.itt.range" title="Link to this definition">#</a></dt>
 <dd><p>Context manager / decorator that pushes an ITT range at the beginning
 of its scope, and pops it at the end. If extra arguments are given,
 they are passed as arguments to msg.format().</p>

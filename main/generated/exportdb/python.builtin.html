@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2249,6 +2256,12 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../../foreach.html">
+                  torch.foreach
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../func.html">
                   torch.func
                 </a>
@@ -3514,7 +3527,7 @@ document.write(`
 <h2>dynamic_shape_round<a class="headerlink" href="#dynamic-shape-round" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">python.builtin</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">python.builtin</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: NOT_SUPPORTED_YET</p>
 </div>
 <p>Original source code:</p>
@@ -4009,7 +4022,7 @@ document.write(`
        "headline": "python.builtin",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/exportdb/python.builtin.html",
-       "articleBody": "python.builtin# dynamic_shape_round# Note Tags: torch.dynamic-shape, python.builtin Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: RuntimeError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". tensor_setattr# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class TensorSetattr(torch.nn.Module): \"\"\" setattr() call onto tensors is not supported. \"\"\" def forward(self, x, attr): setattr(x, attr, torch.randn(3, 2)) return x + 4 example_args = (torch.randn(3, 2), \"attr\") tags = {\"python.builtin\"} model = TensorSetattr() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", attr): randn: \"f32[3, 2]\" = torch.ops.aten.randn.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); randn = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4); x = None return (add,) Graph signature: # inputs x: USER_INPUT attr: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} type_reflection_method# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class A: @classmethod def func(cls, x): return 1 + x class TypeReflectionMethod(torch.nn.Module): \"\"\" type() calls on custom objects followed by attribute accesses are not allowed due to its overly dynamic nature. \"\"\" def forward(self, x): a = A() return type(a).func(x) example_args = (torch.randn(3, 4),) tags = {\"python.builtin\"} model = TypeReflectionMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 4]\"): add: \"f32[3, 4]\" = torch.ops.aten.add.Tensor(x, 1); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}",
+       "articleBody": "python.builtin# dynamic_shape_round# Note Tags: python.builtin, torch.dynamic-shape Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: RuntimeError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". tensor_setattr# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class TensorSetattr(torch.nn.Module): \"\"\" setattr() call onto tensors is not supported. \"\"\" def forward(self, x, attr): setattr(x, attr, torch.randn(3, 2)) return x + 4 example_args = (torch.randn(3, 2), \"attr\") tags = {\"python.builtin\"} model = TensorSetattr() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", attr): randn: \"f32[3, 2]\" = torch.ops.aten.randn.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); randn = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4); x = None return (add,) Graph signature: # inputs x: USER_INPUT attr: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} type_reflection_method# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class A: @classmethod def func(cls, x): return 1 + x class TypeReflectionMethod(torch.nn.Module): \"\"\" type() calls on custom objects followed by attribute accesses are not allowed due to its overly dynamic nature. \"\"\" def forward(self, x): a = A() return type(a).func(x) example_args = (torch.randn(3, 4),) tags = {\"python.builtin\"} model = TypeReflectionMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 4]\"): add: \"f32[3, 4]\" = torch.ops.aten.add.Tensor(x, 1); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

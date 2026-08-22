@@ -1,6 +1,6 @@
 # torch.accelerator.get_device_capability
 
-torch.accelerator.get_device_capability(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/accelerator/__init__.py#L162)
+torch.accelerator.get_device_capability(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/accelerator/__init__.py#L162)
 
 Return the capability of the currently selected device.
 

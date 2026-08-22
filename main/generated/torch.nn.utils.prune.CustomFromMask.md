@@ -1,8 +1,8 @@
 # CustomFromMask
 
-*class*torch.nn.utils.prune.CustomFromMask(*mask*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L805)
+*class*torch.nn.utils.prune.CustomFromMask(*mask*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L805)
 
-*classmethod*apply(*module*, *name*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L820)
+*classmethod*apply(*module*, *name*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L820)
 
 Add pruning on the fly and reparameterization of a tensor.
 
@@ -16,7 +16,7 @@ Parameters:
 - **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - parameter name within `module` on which pruning
 will act.
 
-apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L53)
+apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L53)
 
 Simply handles the multiplication between the parameter being pruned and the generated mask.
 
@@ -35,7 +35,7 @@ Return type:
 
 pruned_tensor ([torch.Tensor](../tensors.html#torch.Tensor))
 
-prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L208)
+prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L208)
 
 Compute and returns a pruned version of input tensor `t`.
 
@@ -59,7 +59,7 @@ Returns:
 
 pruned version of tensor `t`.
 
-remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L240)
+remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L240)
 
 Remove the pruning reparameterization from a module.
 

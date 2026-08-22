@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -83,7 +84,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -189,7 +190,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -801,6 +802,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2252,6 +2259,12 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="func.html">
                   torch.func
                 </a>
@@ -3461,6 +3474,8 @@ document.write(`
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks">_assign_worker_ranks() (torch.distributed.elastic.agent.server.SimpleElasticAgent method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.cuda.jiterator._create_jit_fn.html#torch.cuda.jiterator._create_jit_fn">_create_jit_fn() (in module torch.cuda.jiterator)</a>
 </li>
       <li><a href="generated/torch.cuda.jiterator._create_multi_output_jit_fn.html#torch.cuda.jiterator._create_multi_output_jit_fn">_create_multi_output_jit_fn() (in module torch.cuda.jiterator)</a>
@@ -3468,120 +3483,6 @@ document.write(`
       <li><a href="torch_cuda_memory.html#torch.cuda.memory._dump_snapshot">_dump_snapshot() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier">_exit_barrier() (torch.distributed.elastic.agent.server.SimpleElasticAgent method)</a>
-</li>
-      <li><a href="generated/torch._foreach_abs.html#torch._foreach_abs">_foreach_abs() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_abs_.html#torch._foreach_abs_">_foreach_abs_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_acos.html#torch._foreach_acos">_foreach_acos() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_acos_.html#torch._foreach_acos_">_foreach_acos_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_asin.html#torch._foreach_asin">_foreach_asin() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_asin_.html#torch._foreach_asin_">_foreach_asin_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_atan.html#torch._foreach_atan">_foreach_atan() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_atan_.html#torch._foreach_atan_">_foreach_atan_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_ceil.html#torch._foreach_ceil">_foreach_ceil() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_ceil_.html#torch._foreach_ceil_">_foreach_ceil_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_clone.html#torch._foreach_clone">_foreach_clone() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_cos.html#torch._foreach_cos">_foreach_cos() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_cos_.html#torch._foreach_cos_">_foreach_cos_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_cosh.html#torch._foreach_cosh">_foreach_cosh() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_cosh_.html#torch._foreach_cosh_">_foreach_cosh_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_erf.html#torch._foreach_erf">_foreach_erf() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_erf_.html#torch._foreach_erf_">_foreach_erf_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_erfc.html#torch._foreach_erfc">_foreach_erfc() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_erfc_.html#torch._foreach_erfc_">_foreach_erfc_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_exp.html#torch._foreach_exp">_foreach_exp() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_exp_.html#torch._foreach_exp_">_foreach_exp_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_expm1.html#torch._foreach_expm1">_foreach_expm1() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_expm1_.html#torch._foreach_expm1_">_foreach_expm1_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_floor.html#torch._foreach_floor">_foreach_floor() (in module torch)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/torch._foreach_floor_.html#torch._foreach_floor_">_foreach_floor_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_frac.html#torch._foreach_frac">_foreach_frac() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_frac_.html#torch._foreach_frac_">_foreach_frac_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_lgamma.html#torch._foreach_lgamma">_foreach_lgamma() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_lgamma_.html#torch._foreach_lgamma_">_foreach_lgamma_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log.html#torch._foreach_log">_foreach_log() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log10.html#torch._foreach_log10">_foreach_log10() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log10_.html#torch._foreach_log10_">_foreach_log10_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log1p.html#torch._foreach_log1p">_foreach_log1p() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log1p_.html#torch._foreach_log1p_">_foreach_log1p_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log2.html#torch._foreach_log2">_foreach_log2() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log2_.html#torch._foreach_log2_">_foreach_log2_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_log_.html#torch._foreach_log_">_foreach_log_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_neg.html#torch._foreach_neg">_foreach_neg() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_neg_.html#torch._foreach_neg_">_foreach_neg_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_reciprocal.html#torch._foreach_reciprocal">_foreach_reciprocal() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_reciprocal_.html#torch._foreach_reciprocal_">_foreach_reciprocal_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_round.html#torch._foreach_round">_foreach_round() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_round_.html#torch._foreach_round_">_foreach_round_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sigmoid.html#torch._foreach_sigmoid">_foreach_sigmoid() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sigmoid_.html#torch._foreach_sigmoid_">_foreach_sigmoid_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sin.html#torch._foreach_sin">_foreach_sin() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sin_.html#torch._foreach_sin_">_foreach_sin_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sinh.html#torch._foreach_sinh">_foreach_sinh() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sinh_.html#torch._foreach_sinh_">_foreach_sinh_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sqrt.html#torch._foreach_sqrt">_foreach_sqrt() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_sqrt_.html#torch._foreach_sqrt_">_foreach_sqrt_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_tan.html#torch._foreach_tan">_foreach_tan() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_tan_.html#torch._foreach_tan_">_foreach_tan_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_trunc.html#torch._foreach_trunc">_foreach_trunc() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_trunc_.html#torch._foreach_trunc_">_foreach_trunc_() (in module torch)</a>
-</li>
-      <li><a href="generated/torch._foreach_zero_.html#torch._foreach_zero_">_foreach_zero_() (in module torch)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.distributed_c10d._get_reconfigure_handle">_get_reconfigure_handle() (in module torch.distributed.distributed_c10d)</a>
 </li>
@@ -3622,6 +3523,8 @@ document.write(`
       <li><a href="generated/torch.abs.html#torch.abs">abs() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.abs.html#torch.foreach.abs">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.abs">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.abs">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -3632,6 +3535,8 @@ document.write(`
       <li><a href="generated/torch.abs_.html#torch.abs_">abs_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.abs_.html#torch.foreach.abs_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.abs_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.abs_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -3670,6 +3575,8 @@ document.write(`
       <li><a href="generated/torch.acos.html#torch.acos">acos() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.acos.html#torch.foreach.acos">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.acos">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.acos">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -3680,6 +3587,8 @@ document.write(`
       <li><a href="generated/torch.acos_.html#torch.acos_">acos_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.acos_.html#torch.foreach.acos_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.acos_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.acos_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -3840,6 +3749,8 @@ document.write(`
       <li><a href="generated/torch.add.html#torch.add">add() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.add.html#torch.foreach.add">(in module torch.foreach)</a>
+</li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.add">(torch.distributed.elastic.rendezvous.etcd_store.EtcdStore method)</a>
 </li>
         <li><a href="distributed.html#torch.distributed.Store.add">(torch.distributed.Store method)</a>
@@ -3859,9 +3770,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.add.html#torch.Tensor.add">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.add_">add_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.add_.html#torch.foreach.add_">add_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.add_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.add_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.add_.html#torch.Tensor.add_">(torch.Tensor method)</a>
@@ -4018,6 +3931,8 @@ document.write(`
       <li><a href="generated/torch.addcdiv.html#torch.addcdiv">addcdiv() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.addcdiv.html#torch.foreach.addcdiv">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcdiv">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.addcdiv">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -4025,9 +3940,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.addcdiv.html#torch.Tensor.addcdiv">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcdiv_">addcdiv_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.addcdiv_.html#torch.foreach.addcdiv_">addcdiv_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcdiv_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.addcdiv_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.addcdiv_.html#torch.Tensor.addcdiv_">(torch.Tensor method)</a>
@@ -4036,6 +3953,8 @@ document.write(`
       <li><a href="generated/torch.addcmul.html#torch.addcmul">addcmul() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.addcmul.html#torch.foreach.addcmul">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcmul">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.addcmul">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -4043,9 +3962,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.addcmul.html#torch.Tensor.addcmul">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcmul_">addcmul_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.addcmul_.html#torch.foreach.addcmul_">addcmul_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.addcmul_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.addcmul_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.addcmul_.html#torch.Tensor.addcmul_">(torch.Tensor method)</a>
@@ -4291,14 +4212,14 @@ document.write(`
         <li><a href="generated/torch.Tensor.angle.html#torch.Tensor.angle">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.annotate.annotate.html#torch.fx.annotate.annotate">annotate() (in module torch.fx.annotate)</a>
 
       <ul>
         <li><a href="fx.html#torch.fx.traceback.annotate">(in module torch.fx.traceback)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.traceback.annotate_fn.html#torch.fx.traceback.annotate_fn">annotate_fn() (in module torch.fx.traceback)</a>
 </li>
       <li><a href="fx.html#torch.fx.passes.annotate_getitem_nodes.annotate_getitem_nodes">annotate_getitem_nodes() (in module torch.fx.passes.annotate_getitem_nodes)</a>
@@ -4756,6 +4677,8 @@ document.write(`
       <li><a href="generated/torch.asin.html#torch.asin">asin() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.asin.html#torch.foreach.asin">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.asin">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.asin">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -4766,6 +4689,8 @@ document.write(`
       <li><a href="generated/torch.asin_.html#torch.asin_">asin_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.asin_.html#torch.foreach.asin_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.asin_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.asin_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -4830,6 +4755,8 @@ document.write(`
       <li><a href="generated/torch.atan.html#torch.atan">atan() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.atan.html#torch.foreach.atan">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.atan">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.atan">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -4858,6 +4785,8 @@ document.write(`
       <li><a href="generated/torch.atan_.html#torch.atan_">atan_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.atan_.html#torch.foreach.atan_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.atan_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.atan_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -5746,6 +5675,8 @@ document.write(`
       <li><a href="generated/torch.ceil.html#torch.ceil">ceil() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.ceil.html#torch.foreach.ceil">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.ceil">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.ceil">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -5756,6 +5687,8 @@ document.write(`
       <li><a href="generated/torch.ceil_.html#torch.ceil_">ceil_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.ceil_.html#torch.foreach.ceil_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.ceil_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.ceil_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -5971,10 +5904,22 @@ document.write(`
         <li><a href="generated/torch.Tensor.clamp_.html#torch.Tensor.clamp_">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.foreach.clamp_max.html#torch.foreach.clamp_max">clamp_max() (in module torch.foreach)</a>
+</li>
       <li><a href="generated/torch.clamp_max_.html#torch.clamp_max_">clamp_max_() (in module torch)</a>
+
+      <ul>
+        <li><a href="generated/torch.foreach.clamp_max_.html#torch.foreach.clamp_max_">(in module torch.foreach)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.foreach.clamp_min.html#torch.foreach.clamp_min">clamp_min() (in module torch.foreach)</a>
 </li>
       <li><a href="generated/torch.clamp_min_.html#torch.clamp_min_">clamp_min_() (in module torch)</a>
+
+      <ul>
+        <li><a href="generated/torch.foreach.clamp_min_.html#torch.foreach.clamp_min_">(in module torch.foreach)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.distributions.utils.clamp_probs.html#torch.distributions.utils.clamp_probs">clamp_probs() (in module torch.distributions.utils)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.CustomObjArgument.class_fqn">class_fqn (torch.export.graph_signature.CustomObjArgument attribute)</a>
@@ -6056,6 +6001,8 @@ document.write(`
       <li><a href="generated/torch.clone.html#torch.clone">clone() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.clone.html#torch.foreach.clone">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.autograd.grad_mode.enforce_grad_layout_policy.html#torch.autograd.grad_mode.enforce_grad_layout_policy.clone">(torch.autograd.grad_mode.enforce_grad_layout_policy method)</a>
 </li>
         <li><a href="generated/torch.autograd.grad_mode.inference_mode.html#torch.autograd.grad_mode.inference_mode.clone">(torch.autograd.grad_mode.inference_mode method)</a>
@@ -6331,6 +6278,8 @@ document.write(`
 </li>
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">consolidate_state_dict() (torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.const_data_ptr">const_data_ptr() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -6339,8 +6288,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
@@ -6661,9 +6608,11 @@ document.write(`
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.copy">(torch.nn.ParameterDict method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.copy_">copy_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.copy_.html#torch.foreach.copy_">copy_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.copy_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.copy_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.copy_.html#torch.Tensor.copy_">(torch.Tensor method)</a>
@@ -6708,6 +6657,8 @@ document.write(`
       <li><a href="generated/torch.cos.html#torch.cos">cos() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.cos.html#torch.foreach.cos">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.cos">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.cos">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -6718,6 +6669,8 @@ document.write(`
       <li><a href="generated/torch.cos_.html#torch.cos_">cos_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.cos_.html#torch.foreach.cos_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.cos_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.cos_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -6728,6 +6681,8 @@ document.write(`
       <li><a href="generated/torch.cosh.html#torch.cosh">cosh() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.cosh.html#torch.foreach.cosh">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.cosh">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.cosh">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -6738,6 +6693,8 @@ document.write(`
       <li><a href="generated/torch.cosh_.html#torch.cosh_">cosh_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.cosh_.html#torch.foreach.cosh_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.cosh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.cosh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -7531,8 +7488,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.diag_embed.html#torch.Tensor.diag_embed">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.diagflat.html#torch.diagflat">diagflat() (in module torch)</a>
 
       <ul>
@@ -7543,6 +7498,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.diagflat.html#torch.Tensor.diagflat">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.diagonal.html#torch.diagonal">diagonal() (in module torch)</a>
 
       <ul>
@@ -7690,6 +7647,8 @@ document.write(`
       <li><a href="generated/torch.div.html#torch.div">div() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.div.html#torch.foreach.div">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.div">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.div">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -7697,9 +7656,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.div.html#torch.Tensor.div">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.div_">div_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.div_.html#torch.foreach.div_">div_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.div_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.div_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.div_.html#torch.Tensor.div_">(torch.Tensor method)</a>
@@ -8231,6 +8192,8 @@ document.write(`
       <li><a href="generated/torch.erf.html#torch.erf">erf() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.erf.html#torch.foreach.erf">(in module torch.foreach)</a>
+</li>
         <li><a href="special.html#torch.special.erf">(in module torch.special)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.erf">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -8243,6 +8206,8 @@ document.write(`
       <li><a href="generated/torch.erf_.html#torch.erf_">erf_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.erf_.html#torch.foreach.erf_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.erf_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.erf_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -8253,6 +8218,8 @@ document.write(`
       <li><a href="generated/torch.erfc.html#torch.erfc">erfc() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.erfc.html#torch.foreach.erfc">(in module torch.foreach)</a>
+</li>
         <li><a href="special.html#torch.special.erfc">(in module torch.special)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.erfc">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -8265,6 +8232,8 @@ document.write(`
       <li><a href="generated/torch.erfc_.html#torch.erfc_">erfc_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.erfc_.html#torch.foreach.erfc_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.erfc_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.erfc_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -8377,6 +8346,8 @@ document.write(`
       <li><a href="generated/torch.exp.html#torch.exp">exp() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.exp.html#torch.foreach.exp">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.exp">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.exp">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -8405,6 +8376,8 @@ document.write(`
       <li><a href="generated/torch.exp_.html#torch.exp_">exp_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.exp_.html#torch.foreach.exp_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.exp_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.exp_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -8527,6 +8500,8 @@ document.write(`
       <li><a href="generated/torch.expm1.html#torch.expm1">expm1() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.expm1.html#torch.foreach.expm1">(in module torch.foreach)</a>
+</li>
         <li><a href="special.html#torch.special.expm1">(in module torch.special)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.expm1">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -8539,6 +8514,8 @@ document.write(`
       <li><a href="generated/torch.expm1_.html#torch.expm1_">expm1_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.expm1_.html#torch.foreach.expm1_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.expm1_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.expm1_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -9115,6 +9092,8 @@ document.write(`
       <li><a href="generated/torch.floor.html#torch.floor">floor() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.floor.html#torch.foreach.floor">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.floor">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.floor">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -9125,6 +9104,8 @@ document.write(`
       <li><a href="generated/torch.floor_.html#torch.floor_">floor_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.floor_.html#torch.foreach.floor_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.floor_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.floor_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -9699,6 +9680,8 @@ document.write(`
       <li><a href="generated/torch.frac.html#torch.frac">frac() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.frac.html#torch.foreach.frac">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.frac">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.frac">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -9709,6 +9692,8 @@ document.write(`
       <li><a href="generated/torch.frac_.html#torch.frac_">frac_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.frac_.html#torch.foreach.frac_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.frac_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.frac_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13093,6 +13078,8 @@ document.write(`
       <li><a href="generated/torch.lerp.html#torch.lerp">lerp() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.lerp.html#torch.foreach.lerp">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lerp">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.lerp">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13100,9 +13087,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.lerp.html#torch.Tensor.lerp">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lerp_">lerp_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.lerp_.html#torch.foreach.lerp_">lerp_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lerp_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.lerp_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.lerp_.html#torch.Tensor.lerp_">(torch.Tensor method)</a>
@@ -13149,6 +13138,8 @@ document.write(`
       <li><a href="generated/torch.lgamma.html#torch.lgamma">lgamma() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.lgamma.html#torch.foreach.lgamma">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lgamma">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.lgamma">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13156,9 +13147,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.lgamma.html#torch.Tensor.lgamma">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lgamma_">lgamma_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.lgamma_.html#torch.foreach.lgamma_">lgamma_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.lgamma_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.lgamma_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.lgamma_.html#torch.Tensor.lgamma_">(torch.Tensor method)</a>
@@ -13448,14 +13441,14 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.functional.local_response_norm.html#torch.nn.functional.local_response_norm">local_response_norm() (in module torch.nn.functional)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types._StridedShard.local_shard_size_and_offset">local_shard_size_and_offset() (torch.distributed.tensor.placement_types._StridedShard method)</a>
 
       <ul>
         <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.local_shard_size_and_offset">(torch.distributed.tensor.placement_types.Shard static method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="notes/local_tensor_tutorial.html#torch.distributed._local_tensor.local_tensor_mode">local_tensor_mode() (in module torch.distributed._local_tensor)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.local_value">local_value() (torch.distributed.rpc.PyRRef method)</a>
@@ -13485,6 +13478,8 @@ document.write(`
       <li><a href="generated/torch.log.html#torch.log">log() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log.html#torch.foreach.log">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13495,6 +13490,8 @@ document.write(`
       <li><a href="generated/torch.log10.html#torch.log10">log10() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log10.html#torch.foreach.log10">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log10">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log10">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13505,6 +13502,8 @@ document.write(`
       <li><a href="generated/torch.log10_.html#torch.log10_">log10_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log10_.html#torch.foreach.log10_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log10_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log10_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13515,6 +13514,8 @@ document.write(`
       <li><a href="generated/torch.log1p.html#torch.log1p">log1p() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log1p.html#torch.foreach.log1p">(in module torch.foreach)</a>
+</li>
         <li><a href="special.html#torch.special.log1p">(in module torch.special)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log1p">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -13527,6 +13528,8 @@ document.write(`
       <li><a href="generated/torch.log1p_.html#torch.log1p_">log1p_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log1p_.html#torch.foreach.log1p_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log1p_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log1p_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13537,6 +13540,8 @@ document.write(`
       <li><a href="generated/torch.log2.html#torch.log2">log2() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log2.html#torch.foreach.log2">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log2">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log2">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13547,6 +13552,8 @@ document.write(`
       <li><a href="generated/torch.log2_.html#torch.log2_">log2_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log2_.html#torch.foreach.log2_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log2_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log2_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -13557,6 +13564,8 @@ document.write(`
       <li><a href="generated/torch.log_.html#torch.log_">log_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.log_.html#torch.foreach.log_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.log_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.log_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -14263,6 +14272,8 @@ document.write(`
       <li><a href="generated/torch.max.html#torch.max">max() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.max.html#torch.foreach.max">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.max">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.max">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -14321,6 +14332,8 @@ document.write(`
       <li><a href="generated/torch.maximum.html#torch.maximum">maximum() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.maximum.html#torch.foreach.maximum">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.maximum">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.maximum">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -14328,6 +14341,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.maximum.html#torch.Tensor.maximum">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.foreach.maximum_.html#torch.foreach.maximum_">maximum_() (in module torch.foreach)</a>
+</li>
       <li><a href="generated/torch.nn.MaxPool1d.html#torch.nn.MaxPool1d">MaxPool1d (class in torch.nn)</a>
 
       <ul>
@@ -14613,6 +14628,8 @@ document.write(`
       <li><a href="generated/torch.minimum.html#torch.minimum">minimum() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.minimum.html#torch.foreach.minimum">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.minimum">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.minimum">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -14620,6 +14637,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.minimum.html#torch.Tensor.minimum">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.foreach.minimum_.html#torch.foreach.minimum_">minimum_() (in module torch.foreach)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.observer.MinMaxObserver.html#torch.ao.quantization.observer.MinMaxObserver">MinMaxObserver (class in torch.ao.quantization.observer)</a>
 </li>
       <li><a href="generated/torch.miopen_batch_norm.html#torch.miopen_batch_norm">miopen_batch_norm() (in module torch)</a>
@@ -14671,6 +14690,8 @@ document.write(`
       <li><a href="generated/torch.mm.html#torch.mm">mm() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.mm.html#torch.foreach.mm">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.mm.html#torch.sparse.mm">(in module torch.sparse)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.mm">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -15579,6 +15600,8 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">torch.export.unflatten</a>
 </li>
         <li><a href="fft.html#module-torch.fft">torch.fft</a>
+</li>
+        <li><a href="foreach.html#module-torch.foreach">torch.foreach</a>
 </li>
         <li><a href="func.api.html#module-torch.func">torch.func</a>
 </li>
@@ -16532,6 +16555,8 @@ document.write(`
       <li><a href="generated/torch.mul.html#torch.mul">mul() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.mul.html#torch.foreach.mul">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.mul">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.mul">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -16539,9 +16564,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.mul.html#torch.Tensor.mul">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.mul_">mul_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.mul_.html#torch.foreach.mul_">mul_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.mul_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.mul_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.mul_.html#torch.Tensor.mul_">(torch.Tensor method)</a>
@@ -16900,6 +16927,8 @@ document.write(`
       <li><a href="generated/torch.neg.html#torch.neg">neg() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.neg.html#torch.foreach.neg">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.neg">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.neg">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -16910,6 +16939,8 @@ document.write(`
       <li><a href="generated/torch.neg_.html#torch.neg_">neg_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.neg_.html#torch.foreach.neg_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.neg_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.neg_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -16953,10 +16984,10 @@ document.write(`
 </li>
       <li><a href="nested.html#torch.nested.nested_tensor">nested_tensor() (in module torch.nested)</a>
 </li>
-      <li><a href="nested.html#torch.nested.nested_tensor_from_jagged">nested_tensor_from_jagged() (in module torch.nested)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nested.html#torch.nested.nested_tensor_from_jagged">nested_tensor_from_jagged() (in module torch.nested)</a>
+</li>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction">NestedIOFunction (class in torch.autograd.function)</a>
 </li>
       <li><a href="storage.html#torch.UntypedStorage.new">new() (torch.UntypedStorage method)</a>
@@ -17116,6 +17147,8 @@ document.write(`
       <li><a href="generated/torch.norm.html#torch.norm">norm() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.norm.html#torch.foreach.norm">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.functional.norm.html#torch.functional.norm">(in module torch.functional)</a>
 </li>
         <li><a href="generated/torch.linalg.norm.html#torch.linalg.norm">(in module torch.linalg)</a>
@@ -17776,6 +17809,8 @@ document.write(`
       <li><a href="generated/torch.pow.html#torch.pow">pow() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.pow.html#torch.foreach.pow">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.pow">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.pow">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -17783,9 +17818,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.pow.html#torch.Tensor.pow">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.pow_">pow_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.pow_.html#torch.foreach.pow_">pow_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.pow_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.pow_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.pow_.html#torch.Tensor.pow_">(torch.Tensor method)</a>
@@ -18420,6 +18457,8 @@ document.write(`
       <li><a href="generated/torch.reciprocal.html#torch.reciprocal">reciprocal() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.reciprocal.html#torch.foreach.reciprocal">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.reciprocal">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.reciprocal">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -18430,6 +18469,8 @@ document.write(`
       <li><a href="generated/torch.reciprocal_.html#torch.reciprocal_">reciprocal_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.reciprocal_.html#torch.foreach.reciprocal_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.reciprocal_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.reciprocal_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -19748,6 +19789,8 @@ document.write(`
       <li><a href="generated/torch.round.html#torch.round">round() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.round.html#torch.foreach.round">(in module torch.foreach)</a>
+</li>
         <li><a href="special.html#torch.special.round">(in module torch.special)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.round">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -19760,6 +19803,8 @@ document.write(`
       <li><a href="generated/torch.round_.html#torch.round_">round_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.round_.html#torch.foreach.round_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.round_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.round_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -19866,6 +19911,8 @@ document.write(`
       <li><a href="generated/torch.rsqrt.html#torch.rsqrt">rsqrt() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.rsqrt.html#torch.foreach.rsqrt">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.rsqrt">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.rsqrt">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -19876,6 +19923,8 @@ document.write(`
       <li><a href="generated/torch.rsqrt_.html#torch.rsqrt_">rsqrt_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.rsqrt_.html#torch.foreach.rsqrt_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.rsqrt_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.rsqrt_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20802,6 +20851,8 @@ document.write(`
       <li><a href="generated/torch.sigmoid.html#torch.sigmoid">sigmoid() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sigmoid.html#torch.foreach.sigmoid">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.nn.functional.sigmoid.html#torch.nn.functional.sigmoid">(in module torch.nn.functional)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sigmoid">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -20814,6 +20865,8 @@ document.write(`
       <li><a href="generated/torch.sigmoid_.html#torch.sigmoid_">sigmoid_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sigmoid_.html#torch.foreach.sigmoid_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sigmoid_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sigmoid_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20828,6 +20881,8 @@ document.write(`
       <li><a href="generated/torch.sign.html#torch.sign">sign() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sign.html#torch.foreach.sign">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sign">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sign">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20835,9 +20890,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.sign.html#torch.Tensor.sign">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sign_">sign_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.sign_.html#torch.foreach.sign_">sign_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sign_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sign_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.sign_.html#torch.Tensor.sign_">(torch.Tensor method)</a>
@@ -20870,6 +20927,8 @@ document.write(`
       <li><a href="generated/torch.sin.html#torch.sin">sin() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sin.html#torch.foreach.sin">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sin">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sin">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20880,6 +20939,8 @@ document.write(`
       <li><a href="generated/torch.sin_.html#torch.sin_">sin_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sin_.html#torch.foreach.sin_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sin_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sin_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20912,6 +20973,8 @@ document.write(`
       <li><a href="generated/torch.sinh.html#torch.sinh">sinh() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sinh.html#torch.foreach.sinh">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sinh">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sinh">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -20922,6 +20985,8 @@ document.write(`
       <li><a href="generated/torch.sinh_.html#torch.sinh_">sinh_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sinh_.html#torch.foreach.sinh_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sinh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sinh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -21027,6 +21092,8 @@ document.write(`
 </li>
       <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SoftMarginLoss.html#torch.nn.SoftMarginLoss">SoftMarginLoss (class in torch.nn)</a>
@@ -21035,8 +21102,6 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.SoftMarginLoss.html#torch.nn.modules.loss.SoftMarginLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.Softmax.html#torch.nn.Softmax">Softmax (class in torch.nn)</a>
 
       <ul>
@@ -21240,6 +21305,8 @@ document.write(`
       <li><a href="generated/torch.sqrt.html#torch.sqrt">sqrt() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sqrt.html#torch.foreach.sqrt">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sqrt">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sqrt">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -21250,6 +21317,8 @@ document.write(`
       <li><a href="generated/torch.sqrt_.html#torch.sqrt_">sqrt_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sqrt_.html#torch.foreach.sqrt_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sqrt_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sqrt_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -21740,6 +21809,8 @@ document.write(`
       <li><a href="generated/torch.sub.html#torch.sub">sub() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.sub.html#torch.foreach.sub">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sub">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sub">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -21747,9 +21818,11 @@ document.write(`
         <li><a href="generated/torch.Tensor.sub.html#torch.Tensor.sub">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sub_">sub_() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+      <li><a href="generated/torch.foreach.sub_.html#torch.foreach.sub_">sub_() (in module torch.foreach)</a>
 
       <ul>
+        <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.sub_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.sub_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
         <li><a href="generated/torch.Tensor.sub_.html#torch.Tensor.sub_">(torch.Tensor method)</a>
@@ -22178,6 +22251,8 @@ document.write(`
       <li><a href="generated/torch.tan.html#torch.tan">tan() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.tan.html#torch.foreach.tan">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.tan">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.tan">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -22188,6 +22263,8 @@ document.write(`
       <li><a href="generated/torch.tan_.html#torch.tan_">tan_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.tan_.html#torch.foreach.tan_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.tan_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.tan_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -22206,6 +22283,8 @@ document.write(`
       <li><a href="generated/torch.tanh.html#torch.tanh">tanh() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.tanh.html#torch.foreach.tanh">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.nn.functional.tanh.html#torch.nn.functional.tanh">(in module torch.nn.functional)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.tanh">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -22218,6 +22297,8 @@ document.write(`
       <li><a href="generated/torch.tanh_.html#torch.tanh_">tanh_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.tanh_.html#torch.foreach.tanh_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.tanh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.tanh_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -25370,6 +25451,13 @@ document.write(`
       </ul></li>
       <li><a href="type_info.html#torch.torch.finfo">torch.finfo (class in torch)</a>
 </li>
+      <li>
+    torch.foreach
+
+      <ul>
+        <li><a href="foreach.html#module-torch.foreach">module</a>
+</li>
+      </ul></li>
       <li>
     torch.func
 
@@ -28557,6 +28645,8 @@ document.write(`
       <li><a href="generated/torch.trunc.html#torch.trunc">trunc() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.trunc.html#torch.foreach.trunc">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.trunc">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.trunc">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -28567,6 +28657,8 @@ document.write(`
       <li><a href="generated/torch.trunc_.html#torch.trunc_">trunc_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.trunc_.html#torch.foreach.trunc_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.trunc_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.trunc_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -29413,6 +29505,8 @@ document.write(`
       <li><a href="generated/torch.zero_.html#torch.zero_">zero_() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.foreach.zero_.html#torch.foreach.zero_">(in module torch.foreach)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.zero_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.zero_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>

@@ -1,6 +1,6 @@
 # torch.mps.set_rng_state
 
-torch.mps.set_rng_state(*new_state*, *device='mps'*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/mps/__init__.py#L45)
+torch.mps.set_rng_state(*new_state*, *device='mps'*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/mps/__init__.py#L45)
 
 Sets the random number generator state.
 

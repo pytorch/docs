@@ -1,0 +1,6 @@
+﻿torch.foreach.floor\_
+=====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: floor_

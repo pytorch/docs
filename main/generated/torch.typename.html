@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -4143,6 +4100,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.compiler_api.html">torch.compiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreach.html">torch.foreach</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
@@ -4312,7 +4270,7 @@ document.write(`
 <h1>torch.typename<a class="headerlink" href="#torch-typename" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.typename">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">typename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.typename" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">typename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.typename" title="Link to this definition">#</a></dt>
 <dd><p>String representation of the type of an object.</p>
 <p>This function returns a fully qualified string representation of an object’s type.
 :param obj: The object whose type to represent

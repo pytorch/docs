@@ -1,0 +1,6 @@
+﻿torch.foreach.minimum\_
+=======================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: minimum_

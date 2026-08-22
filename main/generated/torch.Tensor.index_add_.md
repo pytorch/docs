@@ -26,7 +26,7 @@ This operation may behave nondeterministically when given tensors on a CUDA devi
 Parameters:
 
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
-- **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `source` to select from,
+- **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `self` to add to,
 should have dtype either torch.int64 or torch.int32
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to add
 

@@ -5,12 +5,14 @@ Variable-length attention implementation using Flash Attention.
 This module provides a high-level Python interface for variable-length attention
 that calls into the optimized Flash Attention kernels.
 
-torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L203)
+torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L287)
 
 Compute variable-length attention using Flash Attention.
 
 This function is similar to scaled_dot_product_attention but optimized for
 variable-length sequences using cumulative sequence position tensors.
+Backend enablement follows [`torch.nn.attention.sdpa_kernel()`](generated/torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel). By default,
+eligible cuDNN is preferred over Flash; `set_priority=True` overrides this order.
 
 Parameters:
 
@@ -24,7 +26,7 @@ Parameters:
 - **max_q** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Maximum query sequence length in the batch.
 - **max_k** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Maximum key/value sequence length in the batch.
 - **return_aux** (*Optional**[**AuxRequest**]*) - If not None and `return_aux.lse` is True, also returns the logsumexp tensor.
-- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Scaling factor for attention scores
+- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Positive scaling factor for attention scores.
 - **window_size** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Window size for sliding window attention as (left, right).
 Use (-1, -1) for full attention (default), (-1, 0) for causal attention,
 or (W, 0) for causal attention with sliding window of size W.
@@ -117,7 +119,7 @@ Example:
 ... )
 ```
 
-torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L449)
+torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L536)
 
 Compute variable-length attention using Flash Attention with a pre-allocated output tensor.
 
@@ -128,7 +130,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor) | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)]
 
-*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L79)
+*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L161)
 
 Request which auxiliary outputs to compute from varlen_attn.
 

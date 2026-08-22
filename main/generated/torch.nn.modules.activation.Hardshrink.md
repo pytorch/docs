@@ -1,6 +1,6 @@
 # Hardshrink
 
-*class*torch.nn.modules.activation.Hardshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/activation.py#L826)
+*class*torch.nn.modules.activation.Hardshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/activation.py#L826)
 
 Applies the Hard Shrinkage (Hardshrink) function element-wise.
 
@@ -33,7 +33,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/activation.py#L868)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/activation.py#L868)
 
 Return the extra representation of the module.
 
@@ -41,7 +41,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/activation.py#L862)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/activation.py#L862)
 
 Run forward pass.
 

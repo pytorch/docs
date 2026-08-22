@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7096,7 +7146,7 @@ in the same job) to make a collective decision.</p>
 are relevant to understanding the role of the <code class="docutils literal notranslate"><span class="pre">agent</span></code> in torchelastic.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">ElasticAgent</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">ElasticAgent</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An agent process responsible for managing one or more worker processes.</p>
 <p>The worker processes are assumed to be regular distributed PyTorch scripts.
 When the worker process is created by the agent, the agent provides the
@@ -7128,7 +7178,7 @@ preferences. For instance, to run a distributed training job on GPU with
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_worker_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_worker_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group" title="Link to this definition">#</a></dt>
 <dd><p>Return the <code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code> for the given <code class="docutils literal notranslate"><span class="pre">role</span></code>.</p>
 <p>Note that the worker group is a mutable object and hence in a
 multi-threaded/process environment it may change state.
@@ -7143,7 +7193,7 @@ a defensive read-only copy.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent.run">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.run" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.run" title="Link to this definition">#</a></dt>
 <dd><p>Run the agent.</p>
 <p>Supports retrying the worker group on failures up to <code class="docutils literal notranslate"><span class="pre">max_restarts</span></code>.</p>
 <dl class="field-list simple">
@@ -7164,7 +7214,7 @@ failure details for each worker mapped by the worker’s global rank.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerSpec">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdzv_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_restarts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_log_handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'null'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">virtual_local_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdzv_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_restarts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_log_handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'null'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">virtual_local_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec" title="Link to this definition">#</a></dt>
 <dd><p>Blueprint information about a particular type of worker.</p>
 <p>For a given role, there must only exist a single worker spec.
 Worker spec is expected to be homogeneous across all nodes (machine),
@@ -7205,7 +7255,7 @@ assigned GPU at device index 0.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name">
-<span class="sig-name descname"><span class="pre">get_entrypoint_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_entrypoint_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name" title="Link to this definition">#</a></dt>
 <dd><p>Get the entry point name.</p>
 <p>If the entrypoint is a function (e.g. <code class="docutils literal notranslate"><span class="pre">Callable</span></code>) returns its <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code>
 else if the entrypoint is a binary (e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code>), returns the binary name.</p>
@@ -7215,7 +7265,7 @@ else if the entrypoint is a binary (e.g. <code class="docutils literal notransla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState" title="Link to this definition">#</a></dt>
 <dd><p>A state of the <code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code>.</p>
 <p>Workers in a worker group change state as a unit. If a single worker
 in a worker group fails the entire set is considered failed:</p>
@@ -7247,7 +7297,7 @@ expected to recover worker groups in <code class="docutils literal notranslate">
 self terminating and allowing the job manager to retry the node.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerState.is_running">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState.is_running" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState.is_running" title="Link to this definition">#</a></dt>
 <dd><p>Return the state of the Worker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7264,7 +7314,7 @@ self terminating and allowing the job manager to retry the node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.Worker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.Worker" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.Worker" title="Link to this definition">#</a></dt>
 <dd><p>A worker instance.</p>
 <p>Contrast this with <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code> that represents the specifications of a
 worker. A <code class="docutils literal notranslate"><span class="pre">Worker</span></code> is created from a <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code>. A <code class="docutils literal notranslate"><span class="pre">Worker</span></code> is to
@@ -7289,7 +7339,7 @@ agent it could be encoded as <code class="docutils literal notranslate"><span cl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerGroup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerGroup" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerGroup" title="Link to this definition">#</a></dt>
 <dd><p>A set of <code class="docutils literal notranslate"><span class="pre">Worker</span></code> instances.</p>
 <p>The class defines a set of <code class="docutils literal notranslate"><span class="pre">Worker</span></code> instances for the given <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code> managed by <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code>. Whether the worker
 group contains cross instance workers or not depends on the implementation of the agent.</p>
@@ -7303,7 +7353,7 @@ group contains cross instance workers or not depends on the implementation of th
 <p>Below are the agent implementations provided by torchelastic.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.local_elastic_agent.</span></span><span class="sig-name descname"><span class="pre">LocalElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefix_template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shutdown_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health_check_server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uninterruptible_state_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/local_elastic_agent.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.local_elastic_agent.</span></span><span class="sig-name descname"><span class="pre">LocalElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefix_template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shutdown_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health_check_server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uninterruptible_state_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/local_elastic_agent.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">torchelastic.agent.server.ElasticAgent</span></code> that handles host-local workers.</p>
 <p>This agent is deployed per host and is configured to spawn <code class="docutils literal notranslate"><span class="pre">n</span></code> workers.
 When using GPUs, <code class="docutils literal notranslate"><span class="pre">n</span></code> maps to the number of GPUs available on the host.</p>
@@ -7394,7 +7444,7 @@ most of the scaffolding and leaves you with a few specific abstract methods
 to implement.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">SimpleElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shutdown_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">SimpleElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shutdown_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code> that manages one particular type of worker role.</p>
 <p>An <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code> that manages workers (<code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code>) for a single <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code>
 such as one particular type of worker role.</p>
@@ -7402,7 +7452,7 @@ such as one particular type of worker role.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks">
-<span class="sig-name descname"><span class="pre">_assign_worker_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L584"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_assign_worker_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L584"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks" title="Link to this definition">#</a></dt>
 <dd><p>Determine proper ranks for worker processes.</p>
 <p>Fast Path: when all workers have the same role and world size. We calculate
 the global rank to be group_rank * group_world_size + local_rank. And the
@@ -7438,7 +7488,7 @@ respect to the role name.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier">
-<span class="sig-name descname"><span class="pre">_exit_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L976"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_exit_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L976"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier" title="Link to this definition">#</a></dt>
 <dd><p>Define a barrier that keeps the agent process alive until all workers finish.</p>
 <p>Wait for <code class="docutils literal notranslate"><span class="pre">exit_barrier_timeout</span></code> seconds for all agents to finish
 executing their local workers (either successfully or not). This
@@ -7448,7 +7498,7 @@ times.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers">
-<span class="sig-name descname"><span class="pre">_initialize_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_initialize_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers" title="Link to this definition">#</a></dt>
 <dd><p>Start a fresh set of workers for the worker_group.</p>
 <p>Essentially, a rendezvous followed by a <code class="docutils literal notranslate"><span class="pre">start_workers</span></code>.
 The caller should first call <code class="docutils literal notranslate"><span class="pre">_stop_workers()</span></code> to stop running workers
@@ -7462,7 +7512,7 @@ of state to <code class="docutils literal notranslate"><span class="pre">_monito
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_monitor_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_monitor_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers" title="Link to this definition">#</a></dt>
 <dd><p>Check on the workers for the <code class="docutils literal notranslate"><span class="pre">worker_group</span></code>.</p>
 <p>This function also returns the new state of the worker group.</p>
 <dl class="field-list simple">
@@ -7474,7 +7524,7 @@ of state to <code class="docutils literal notranslate"><span class="pre">_monito
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous">
-<span class="sig-name descname"><span class="pre">_rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L518"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L518"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous" title="Link to this definition">#</a></dt>
 <dd><p>Run rendezvous for the workers specified by the worker spec.</p>
 <p>Assigns workers a new global rank and world size.
 Updates the rendezvous store for the worker group.</p>
@@ -7484,7 +7534,7 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers">
-<span class="sig-name descname"><span class="pre">_restart_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_restart_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers" title="Link to this definition">#</a></dt>
 <dd><p>Restart (stops, rendezvous, starts) all local workers in the group.</p>
 <dl class="field-list simple">
 </dl>
@@ -7492,7 +7542,7 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGTERM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGTERM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown" title="Link to this definition">#</a></dt>
 <dd><p>Clean up any resources that were allocated during the agent’s work.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7506,7 +7556,7 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_start_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L479"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_start_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L479"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers" title="Link to this definition">#</a></dt>
 <dd><p>Start <code class="docutils literal notranslate"><span class="pre">worker_group.spec.local_world_size</span></code> number of workers.</p>
 <p>This is according to worker spec for the worker group .
 Returns a map of <code class="docutils literal notranslate"><span class="pre">local_rank</span></code> to worker <code class="docutils literal notranslate"><span class="pre">id</span></code>.</p>
@@ -7519,7 +7569,7 @@ Returns a map of <code class="docutils literal notranslate"><span class="pre">lo
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_stop_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_stop_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers" title="Link to this definition">#</a></dt>
 <dd><p>Stop all workers in the given worker group.</p>
 <p>Implementers must deal with workers in all states defined by
 <code class="docutils literal notranslate"><span class="pre">WorkerState</span></code>. That is, it must gracefully handle stopping
@@ -7532,7 +7582,7 @@ non-existent workers, unhealthy (stuck) workers, etc.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.api.RunResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.api.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/api.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.api.RunResult" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.api.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/api.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.api.RunResult" title="Link to this definition">#</a></dt>
 <dd><p>Return results of the worker executions.</p>
 <p>Run results follow an “all-or-nothing” policy where the run is successful if and
 only if ALL local workers managed by this agent complete successfully.</p>
@@ -7581,7 +7631,7 @@ server on the specified port number.
 Additionally, health check server will have callback to check watchdog is alive.</p>
 <dl class="py class" id="module-torch.distributed.elastic.agent.server.health_check_server">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">HealthCheckServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/health_check_server.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">HealthCheckServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/health_check_server.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer" title="Link to this definition">#</a></dt>
 <dd><p>Interface for health check monitoring server, which can be extended
 by starting tcp/http server on the specified port.</p>
 <dl class="field-list simple">
@@ -7595,7 +7645,7 @@ by starting tcp/http server on the specified port.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/health_check_server.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/health_check_server.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start" title="Link to this definition">#</a></dt>
 <dd><p>Unsupported functionality for PyTorch, doesn’t start any health check server</p>
 <dl class="field-list simple">
 </dl>
@@ -7603,7 +7653,7 @@ by starting tcp/http server on the specified port.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/health_check_server.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/health_check_server.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop" title="Link to this definition">#</a></dt>
 <dd><p>Function to stop health check server</p>
 <dl class="field-list simple">
 </dl>
@@ -7613,7 +7663,7 @@ by starting tcp/http server on the specified port.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">create_healthcheck_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/elastic/agent/server/health_check_server.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">create_healthcheck_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/elastic/agent/server/health_check_server.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server" title="Link to this definition">#</a></dt>
 <dd><p>creates health check server object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

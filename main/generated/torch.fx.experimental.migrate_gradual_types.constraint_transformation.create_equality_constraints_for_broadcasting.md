@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting(*e1*, *e2*, *e11*, *e12*, *d1*, *d2*, *d11*, *d12*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1247)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.create_equality_constraints_for_broadcasting(*e1*, *e2*, *e11*, *e12*, *d1*, *d2*, *d11*, *d12*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1247)
 
 Create equality constraints for when no broadcasting occurs
 :param e1: Input 1
@@ -10,7 +10,7 @@ Create equality constraints for when no broadcasting occurs
 :param d1: Variables that store dimensions for e1
 :param d2: Variables that store dimensions for e2
 :param d11: Variables that store dimensions for e11
-:param d12: Variables that store dimensions for e22
+:param d12: Variables that store dimensions for e12
 
 Returns: Four equality constraints
 

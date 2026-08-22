@@ -1,6 +1,6 @@
 # get_qconv_prepack_op
 
-*class*torch.ao.quantization.fx.utils.get_qconv_prepack_op(*conv_op*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/fx/utils.py#L154)
+*class*torch.ao.quantization.fx.utils.get_qconv_prepack_op(*conv_op*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/quantization/fx/utils.py#L154)
 
 Return type:
 

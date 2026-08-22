@@ -1,0 +1,6 @@
+﻿torch.foreach.log\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: log_

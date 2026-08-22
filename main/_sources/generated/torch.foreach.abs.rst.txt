@@ -1,0 +1,6 @@
+﻿torch.foreach.abs
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: abs

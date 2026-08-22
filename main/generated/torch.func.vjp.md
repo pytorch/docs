@@ -1,6 +1,6 @@
 # torch.func.vjp
 
-torch.func.vjp(*func*, **primals*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/_functorch/eager_transforms.py#L238)
+torch.func.vjp(*func*, **primals*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/_functorch/eager_transforms.py#L238)
 
 Standing for the vector-Jacobian product, returns a tuple containing the
 results of `func` applied to `primals` and a function that, when

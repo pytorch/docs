@@ -1,0 +1,6 @@
+﻿torch.foreach.round
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: round

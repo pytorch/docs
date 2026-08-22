@@ -1,0 +1,6 @@
+﻿torch.foreach.sigmoid\_
+=======================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sigmoid_

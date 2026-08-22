@@ -1,6 +1,6 @@
 # torch.nn.utils.clip_grads_with_norm_
 
-torch.nn.utils.clip_grads_with_norm_(*parameters*, *max_norm*, *total_norm*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/clip_grad.py#L119)
+torch.nn.utils.clip_grads_with_norm_(*parameters*, *max_norm*, *total_norm*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/clip_grad.py#L119)
 
 Scale the gradients of an iterable of parameters given a pre-calculated total norm and desired max norm.
 

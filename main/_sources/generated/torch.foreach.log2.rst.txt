@@ -1,0 +1,6 @@
+﻿torch.foreach.log2
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: log2

@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -4143,6 +4100,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.compiler_api.html">torch.compiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreach.html">torch.foreach</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
@@ -4312,7 +4270,7 @@ document.write(`
 <h1>SobolEngine<a class="headerlink" href="#sobolengine" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.quasirandom.SobolEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.quasirandom.</span></span><span class="sig-name descname"><span class="pre">SobolEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scramble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/quasirandom.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.quasirandom.</span></span><span class="sig-name descname"><span class="pre">SobolEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scramble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/quasirandom.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine" title="Link to this definition">#</a></dt>
 <dd><p>The <a class="reference internal" href="#torch.quasirandom.SobolEngine" title="torch.quasirandom.SobolEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.quasirandom.SobolEngine</span></code></a> is an engine for generating
 (scrambled) Sobol sequences. Sobol sequences are an example of low
 discrepancy quasi-random sequences.</p>
@@ -4354,7 +4312,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.quasirandom.SobolEngine.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/quasirandom.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.draw" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/quasirandom.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.draw" title="Link to this definition">#</a></dt>
 <dd><p>Function to draw a sequence of <code class="xref py py-attr docutils literal notranslate"><span class="pre">n</span></code> points from a Sobol sequence.
 Note that the samples are dependent on the previous samples. The size
 of the result is <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>n</mi><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(n, dimension)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">im</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>.</p>
@@ -4377,7 +4335,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.quasirandom.SobolEngine.draw_base2">
-<span class="sig-name descname"><span class="pre">draw_base2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/quasirandom.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.draw_base2" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">draw_base2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/quasirandom.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.draw_base2" title="Link to this definition">#</a></dt>
 <dd><p>Function to draw a sequence of <code class="xref py py-attr docutils literal notranslate"><span class="pre">2**m</span></code> points from a Sobol sequence.
 Note that the samples are dependent on the previous samples. The size
 of the result is <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mo>∗</mo><mi>m</mi><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2**m, dimension)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∗</span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">im</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>.</p>
@@ -4399,7 +4357,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.quasirandom.SobolEngine.fast_forward">
-<span class="sig-name descname"><span class="pre">fast_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/quasirandom.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.fast_forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fast_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/quasirandom.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.fast_forward" title="Link to this definition">#</a></dt>
 <dd><p>Function to fast-forward the state of the <code class="docutils literal notranslate"><span class="pre">SobolEngine</span></code> by
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">n</span></code> steps. This is equivalent to drawing <code class="xref py py-attr docutils literal notranslate"><span class="pre">n</span></code> samples
 without using the samples.</p>
@@ -4412,7 +4370,7 @@ without using the samples.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.quasirandom.SobolEngine.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/quasirandom.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/quasirandom.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.reset" title="Link to this definition">#</a></dt>
 <dd><p>Function to reset the <code class="docutils literal notranslate"><span class="pre">SobolEngine</span></code> to base state.</p>
 </dd></dl>
 

@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7070,7 +7120,7 @@ optimizer can use any of the local optimizer <a class="reference internal" href=
 apply the gradients on each worker.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.DistributedOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">DistributedOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_rref</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/optimizer.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">DistributedOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_rref</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/optimizer.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>DistributedOptimizer takes remote references to parameters scattered
 across workers and applies the given optimizer locally for each parameter.</p>
 <p>This class uses <a class="reference internal" href="rpc.html#torch.distributed.autograd.get_gradients" title="torch.distributed.autograd.get_gradients"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_gradients()</span></code></a> in order
@@ -7129,7 +7179,7 @@ to optimize.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.DistributedOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/optimizer.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/optimizer.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.DistributedOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Performs a single optimization step.</p>
 <p>This will call <a class="reference internal" href="generated/torch.optim.Optimizer.step.html#torch.optim.Optimizer.step" title="torch.optim.Optimizer.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.optim.Optimizer.step()</span></code></a> on each worker
 containing parameters to be optimized, and will block until all workers
@@ -7148,7 +7198,7 @@ optimizer step.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">PostLocalSGDOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averager</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/post_localSGD_optimizer.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">PostLocalSGDOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averager</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/post_localSGD_optimizer.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>Wraps an arbitrary <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> and runs <a class="reference external" href="https://arxiv.org/abs/1808.07217">post-local SGD</a>,
 This optimizer runs local optimizer at every step.
 After the warm-up stage, it averages parameters periodically after the local optimizer is applied.</p>
@@ -7200,7 +7250,7 @@ After the warm-up stage, it averages parameters periodically after the local opt
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/post_localSGD_optimizer.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/post_localSGD_optimizer.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>This is the same as <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> <a class="reference internal" href="#torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict" title="torch.distributed.optim.PostLocalSGDOptimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a>,
 but also restores model averager’s step value to the one
 saved in the provided <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>.</p>
@@ -7210,7 +7260,7 @@ it will raise a warning and initialize the model averager’s step to 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/post_localSGD_optimizer.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/post_localSGD_optimizer.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>This is the same as <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> <a class="reference internal" href="#torch.distributed.optim.PostLocalSGDOptimizer.state_dict" title="torch.distributed.optim.PostLocalSGDOptimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>,
 but adds an extra entry to record model averager’s step to the checkpoint
 to ensure reload does not cause unnecessary warm up again.</p>
@@ -7218,7 +7268,7 @@ to ensure reload does not cause unnecessary warm up again.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.PostLocalSGDOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/post_localSGD_optimizer.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/post_localSGD_optimizer.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.PostLocalSGDOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Performs a single optimization step (parameter update).</p>
 </dd></dl>
 
@@ -7226,7 +7276,7 @@ to ensure reload does not cause unnecessary warm up again.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">ZeroRedundancyOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_with_ddp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.</span></span><span class="sig-name descname"><span class="pre">ZeroRedundancyOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_with_ddp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer" title="Link to this definition">#</a></dt>
 <dd><p>Wrap an arbitrary <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">optim.Optimizer</span></code></a> and shards its states across ranks in the group.</p>
 <p>The sharing is done as described by <a class="reference external" href="https://arxiv.org/abs/1910.02054">ZeRO</a>.</p>
 <p>The local optimizer instance in each rank is only
@@ -7316,7 +7366,7 @@ is to prepend dummy inputs.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group">
-<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.add_param_group" title="Link to this definition">#</a></dt>
 <dd><p>Add a parameter group to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> ‘s <code class="docutils literal notranslate"><span class="pre">param_groups</span></code>.</p>
 <p>This can be useful when fine tuning a pre-trained network, as frozen
 layers can be made trainable and added to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> as
@@ -7339,7 +7389,7 @@ expect all the ranks to participate on the same set of parameters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">
-<span class="sig-name descname"><span class="pre">consolidate_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">consolidate_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Consolidate a list of <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> s (one per rank) on the target rank.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7367,7 +7417,7 @@ expect all the ranks to participate on the same set of parameters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.join_hook">
-<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L1155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.join_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L1155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.join_hook" title="Link to this definition">#</a></dt>
 <dd><p>Return the ZeRO join hook.</p>
 <p>It enables training on uneven inputs by
 shadowing the collective communications in the optimizer step.</p>
@@ -7395,7 +7445,7 @@ unused.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.load_state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Load the state pertaining to the given rank from the input <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>, updating the local optimizer as needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7414,7 +7464,7 @@ from a call to <a class="reference internal" href="#torch.distributed.optim.Zero
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L1223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.state_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L1223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.state_dict" title="Link to this definition">#</a></dt>
 <dd><p>Return the last global optimizer state known to this rank.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -7433,7 +7483,7 @@ from a call to <a class="reference internal" href="#torch.distributed.optim.Zero
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.optim.ZeroRedundancyOptimizer.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/zero_redundancy_optimizer.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/zero_redundancy_optimizer.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.ZeroRedundancyOptimizer.step" title="Link to this definition">#</a></dt>
 <dd><p>Perform a single optimizer step and syncs parameters across all ranks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7457,7 +7507,7 @@ returns the loss; optional for most optimizers.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.optim.utils.register_functional_optim">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.utils.</span></span><span class="sig-name descname"><span class="pre">register_functional_optim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/distributed/optim/utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.utils.register_functional_optim" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.optim.utils.</span></span><span class="sig-name descname"><span class="pre">register_functional_optim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/distributed/optim/utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.optim.utils.register_functional_optim" title="Link to this definition">#</a></dt>
 <dd><p>Interface to insert a new functional optimizer to functional_optim_map.
 <code class="docutils literal notranslate"><span class="pre">fn_optim_key</span></code> and <code class="docutils literal notranslate"><span class="pre">fn_optimizer</span></code> are user defined. The optimizer and key
 need not be of <a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> (e.g. for custom optimizers).</p>

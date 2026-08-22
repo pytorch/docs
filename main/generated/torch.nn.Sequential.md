@@ -1,6 +1,6 @@
 # Sequential
 
-*class*torch.nn.Sequential(**args: [Module](torch.nn.Module.html#torch.nn.Module)*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L59)
+*class*torch.nn.Sequential(**args: [Module](torch.nn.Module.html#torch.nn.Module)*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L59)
 
 *class*torch.nn.Sequential(*arg: [OrderedDict](https://docs.python.org/3/library/collections.html#collections.OrderedDict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [Module](torch.nn.Module.html#torch.nn.Module)]*)
 
@@ -51,7 +51,7 @@ model = nn.Sequential(
 )
 ```
 
-append(*module*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L262)
+append(*module*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L262)
 
 Append a given module to the end.
 
@@ -76,7 +76,7 @@ Sequential(
 )
 ```
 
-extend(*sequential*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L315)
+extend(*sequential*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L315)
 
 Extends the current Sequential container with layers from another Sequential container.
 
@@ -103,11 +103,11 @@ Sequential(
 )
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L254)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L254)
 
 Runs the forward pass.
 
-insert(*index*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L283)
+insert(*index*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L283)
 
 Inserts a module into the Sequential container at the specified index.
 
@@ -133,7 +133,7 @@ Sequential(
 )
 ```
 
-pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/container.py#L181)
+pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/container.py#L181)
 
 Pop `key` from self.
 

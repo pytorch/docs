@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7737,7 +7787,7 @@ statements more clearly show whether they are referring to packaged code or not.
 <h2><a class="toc-backref" href="#id19" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.package.PackagingError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackagingError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependency_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackagingError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackagingError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependency_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackagingError" title="Link to this definition">#</a></dt>
 <dd><p>This exception is raised when there is an issue with exporting a package.
 <code class="docutils literal notranslate"><span class="pre">PackageExporter</span></code> will attempt to gather up all the errors and present
 them to you at once.</p>
@@ -7747,14 +7797,14 @@ them to you at once.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.package.EmptyMatchError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">EmptyMatchError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.EmptyMatchError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">EmptyMatchError</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.EmptyMatchError" title="Link to this definition">#</a></dt>
 <dd><p>This is an exception that is thrown when a mock or extern is marked as
 <code class="docutils literal notranslate"><span class="pre">allow_empty=False</span></code>, and is not matched with any module during packaging.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.package.PackageExporter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackageExporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importer=&lt;torch.package.importer._SysImporter</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackageExporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importer=&lt;torch.package.importer._SysImporter</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter" title="Link to this definition">#</a></dt>
 <dd><p>Exporters allow you to write packages of code, pickled Python data, and
 arbitrary binary and text resources into a self-contained package.</p>
 <p>Imports can load this code in a hermetic way, such that code is loaded
@@ -7778,7 +7828,7 @@ resolves relative references to qualified module names, and performs an action s
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importer=&lt;torch.package.importer._SysImporter</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.__init__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importer=&lt;torch.package.importer._SysImporter</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Create an exporter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7795,7 +7845,7 @@ If a sequence of importers are passed, an <code class="docutils literal notransl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.add_dependency">
-<span class="sig-name descname"><span class="pre">add_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.add_dependency" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.add_dependency" title="Link to this definition">#</a></dt>
 <dd><p>Given a module, add it to the dependency graph according to patterns
 specified by the user.</p>
 <dl class="field-list simple">
@@ -7804,7 +7854,7 @@ specified by the user.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.all_paths">
-<span class="sig-name descname"><span class="pre">all_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.all_paths" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">all_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.all_paths" title="Link to this definition">#</a></dt>
 <dd><dl class="simple">
 <dt>Return a dot representation of the subgraph</dt><dd><p>that has all paths from src to dst.</p>
 </dd>
@@ -7822,7 +7872,7 @@ specified by the user.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1089"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.close" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1089"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.close" title="Link to this definition">#</a></dt>
 <dd><p>Write the package to the filesystem. Any calls after <a class="reference internal" href="#torch.package.PackageExporter.close" title="torch.package.PackageExporter.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code></a> are now invalid.
 It is preferable to use resource guard syntax instead:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">PackageExporter</span><span class="p">(</span><span class="s2">&quot;file.zip&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -7833,7 +7883,7 @@ It is preferable to use resource guard syntax instead:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.denied_modules">
-<span class="sig-name descname"><span class="pre">denied_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.denied_modules" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">denied_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.denied_modules" title="Link to this definition">#</a></dt>
 <dd><p>Return all modules that are currently denied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7848,7 +7898,7 @@ denied in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.deny">
-<span class="sig-name descname"><span class="pre">deny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.deny" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">deny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.deny" title="Link to this definition">#</a></dt>
 <dd><p>Blocklist modules whose names match the given glob patterns from the list of modules the package can import.
 If a dependency on any matching packages is found, a <a class="reference internal" href="#torch.package.PackagingError" title="torch.package.PackagingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagingError</span></code></a> is raised.</p>
 <dl class="field-list simple">
@@ -7864,7 +7914,7 @@ for the names of the modules to be externed. This can also be a glob-style patte
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.dependency_graph_string">
-<span class="sig-name descname"><span class="pre">dependency_graph_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.dependency_graph_string" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dependency_graph_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.dependency_graph_string" title="Link to this definition">#</a></dt>
 <dd><p>Returns digraph string representation of dependencies in package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7878,7 +7928,7 @@ for the names of the modules to be externed. This can also be a glob-style patte
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.extern">
-<span class="sig-name descname"><span class="pre">extern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.extern" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.extern" title="Link to this definition">#</a></dt>
 <dd><p>Include <code class="docutils literal notranslate"><span class="pre">module</span></code> in the list of external modules the package can import.
 This will prevent dependency discovery from saving
 it in the package. The importer will load an external module directly from the standard import system.
@@ -7903,7 +7953,7 @@ no such exception is thrown.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.externed_modules">
-<span class="sig-name descname"><span class="pre">externed_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.externed_modules" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">externed_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.externed_modules" title="Link to this definition">#</a></dt>
 <dd><p>Return all modules that are currently externed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7918,7 +7968,7 @@ externed in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.get_rdeps">
-<span class="sig-name descname"><span class="pre">get_rdeps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.get_rdeps" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_rdeps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.get_rdeps" title="Link to this definition">#</a></dt>
 <dd><p>Return a list of all modules which depend on the module <code class="docutils literal notranslate"><span class="pre">module_name</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7932,7 +7982,7 @@ externed in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.get_unique_id">
-<span class="sig-name descname"><span class="pre">get_unique_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.get_unique_id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_unique_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.get_unique_id" title="Link to this definition">#</a></dt>
 <dd><p>Get an id. This id is guaranteed to only be handed out once for this package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -7943,7 +7993,7 @@ externed in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.intern">
-<span class="sig-name descname"><span class="pre">intern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L814"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.intern" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">intern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L814"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.intern" title="Link to this definition">#</a></dt>
 <dd><p>Specify modules that should be packaged. A module must match some <code class="docutils literal notranslate"><span class="pre">intern</span></code> pattern in order to be
 included in the package and have its dependencies processed recursively.</p>
 <dl class="field-list simple">
@@ -7963,7 +8013,7 @@ before any modules match that pattern, an exception is thrown. If <code class="d
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.interned_modules">
-<span class="sig-name descname"><span class="pre">interned_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.interned_modules" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">interned_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.interned_modules" title="Link to this definition">#</a></dt>
 <dd><p>Return all modules that are currently interned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7978,7 +8028,7 @@ interned in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.mock">
-<span class="sig-name descname"><span class="pre">mock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L840"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.mock" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L840"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.mock" title="Link to this definition">#</a></dt>
 <dd><p>Replace some required modules with a mock implementation.  Mocked modules will return a fake
 object for any attribute accessed from it. Because we copy file-by-file, the dependency resolution will sometimes
 find files that are imported by model files but whose functionality is never used
@@ -8014,7 +8064,7 @@ If <code class="docutils literal notranslate"><span class="pre">allow_empty=True
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.mocked_modules">
-<span class="sig-name descname"><span class="pre">mocked_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.mocked_modules" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mocked_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.mocked_modules" title="Link to this definition">#</a></dt>
 <dd><p>Return all modules that are currently mocked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -8029,7 +8079,7 @@ mocked in this package.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.register_extern_hook">
-<span class="sig-name descname"><span class="pre">register_extern_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_extern_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_extern_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_extern_hook" title="Link to this definition">#</a></dt>
 <dd><p>Registers an extern hook on the exporter.</p>
 <p>The hook will be called each time a module matches against an <a class="reference internal" href="#torch.package.PackageExporter.extern" title="torch.package.PackageExporter.extern"><code class="xref py py-meth docutils literal notranslate"><span class="pre">extern()</span></code></a> pattern.
 It should have the following signature:</p>
@@ -8050,7 +8100,7 @@ It should have the following signature:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.register_intern_hook">
-<span class="sig-name descname"><span class="pre">register_intern_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L795"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_intern_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_intern_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L795"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_intern_hook" title="Link to this definition">#</a></dt>
 <dd><p>Registers an intern hook on the exporter.</p>
 <p>The hook will be called each time a module matches against an <a class="reference internal" href="#torch.package.PackageExporter.intern" title="torch.package.PackageExporter.intern"><code class="xref py py-meth docutils literal notranslate"><span class="pre">intern()</span></code></a> pattern.
 It should have the following signature:</p>
@@ -8071,7 +8121,7 @@ It should have the following signature:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.register_mock_hook">
-<span class="sig-name descname"><span class="pre">register_mock_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_mock_hook" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_mock_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.register_mock_hook" title="Link to this definition">#</a></dt>
 <dd><p>Registers a mock hook on the exporter.</p>
 <p>The hook will be called each time a module matches against a <a class="reference internal" href="#torch.package.PackageExporter.mock" title="torch.package.PackageExporter.mock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mock()</span></code></a> pattern.
 It should have the following signature:</p>
@@ -8092,7 +8142,7 @@ It should have the following signature:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_binary">
-<span class="sig-name descname"><span class="pre">save_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_binary" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_binary" title="Link to this definition">#</a></dt>
 <dd><p>Save raw bytes to the package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8107,7 +8157,7 @@ It should have the following signature:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_module">
-<span class="sig-name descname"><span class="pre">save_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_module" title="Link to this definition">#</a></dt>
 <dd><p>Save the code for <code class="docutils literal notranslate"><span class="pre">module</span></code> into the package. Code for the module is resolved using the <code class="docutils literal notranslate"><span class="pre">importers</span></code> path to find the
 module object, and then using its <code class="docutils literal notranslate"><span class="pre">__file__</span></code> attribute to find the source code.</p>
 <dl class="field-list simple">
@@ -8123,7 +8173,7 @@ for this package.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_pickle">
-<span class="sig-name descname"><span class="pre">save_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L586"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_pickle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L586"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_pickle" title="Link to this definition">#</a></dt>
 <dd><p>Save a python object to the archive using pickle. Equivalent to <a class="reference internal" href="generated/torch.save.html#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> but saving into
 the archive rather than a stand-alone file. Standard pickle does not save the code, only the objects.
 If <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> is true, this method will also scan the pickled objects for which modules are required
@@ -8146,7 +8196,7 @@ for this to work.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_source_file">
-<span class="sig-name descname"><span class="pre">save_source_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_or_directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_source_file" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_source_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_or_directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_source_file" title="Link to this definition">#</a></dt>
 <dd><p>Adds the local file system <code class="docutils literal notranslate"><span class="pre">file_or_directory</span></code> to the source package to provide the code
 for <code class="docutils literal notranslate"><span class="pre">module_name</span></code>.</p>
 <dl class="field-list simple">
@@ -8164,7 +8214,7 @@ as a package.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_source_string">
-<span class="sig-name descname"><span class="pre">save_source_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_source_string" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_source_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_source_string" title="Link to this definition">#</a></dt>
 <dd><p>Adds <code class="docutils literal notranslate"><span class="pre">src</span></code> as the source code for <code class="docutils literal notranslate"><span class="pre">module_name</span></code> in the exported package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8181,7 +8231,7 @@ as a package.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageExporter.save_text">
-<span class="sig-name descname"><span class="pre">save_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_exporter.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_text" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_exporter.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageExporter.save_text" title="Link to this definition">#</a></dt>
 <dd><p>Save text data to the package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8198,7 +8248,7 @@ as a package.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.package.PackageImporter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackageImporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_or_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_allowed=&lt;function</span> <span class="pre">PackageImporter.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">PackageImporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_or_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_allowed=&lt;function</span> <span class="pre">PackageImporter.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter" title="Link to this definition">#</a></dt>
 <dd><p>Importers allow you to load code written to packages by <a class="reference internal" href="#torch.package.PackageExporter" title="torch.package.PackageExporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageExporter</span></code></a>.
 Code is loaded in a hermetic way, using files from the package
 rather than the normal python import system. This allows
@@ -8213,7 +8263,7 @@ a locally-installed package, but then fails when the package is copied to anothe
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_or_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_allowed=&lt;function</span> <span class="pre">PackageImporter.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.__init__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_or_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_allowed=&lt;function</span> <span class="pre">PackageImporter.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Open <code class="docutils literal notranslate"><span class="pre">file_or_buffer</span></code> for importing. This checks that the imported package only requires modules
 allowed by <code class="docutils literal notranslate"><span class="pre">module_allowed</span></code></p>
 <dl class="field-list simple">
@@ -8234,7 +8284,7 @@ does not support. Defaults to allowing anything.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.file_structure">
-<span class="sig-name descname"><span class="pre">file_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'**'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.file_structure" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">file_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'**'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.file_structure" title="Link to this definition">#</a></dt>
 <dd><p>Returns a file structure representation of package’s zipfile.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8256,7 +8306,7 @@ a glob-style pattern, as described in <a class="reference internal" href="#torch
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.id">
-<span class="sig-name descname"><span class="pre">id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.id" title="Link to this definition">#</a></dt>
 <dd><p>Returns internal identifier that torch.package uses to distinguish <a class="reference internal" href="#torch.package.PackageImporter" title="torch.package.PackageImporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageImporter</span></code></a> instances.
 Looks like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">torch_package_0</span><span class="o">&gt;</span>
@@ -8266,7 +8316,7 @@ Looks like:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.import_module">
-<span class="sig-name descname"><span class="pre">import_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.import_module" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">import_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.import_module" title="Link to this definition">#</a></dt>
 <dd><p>Load a module from the package if it hasn’t already been loaded, and then return
 the module. Modules are loaded locally
 to the importer and will appear in <code class="docutils literal notranslate"><span class="pre">self.modules</span></code> rather than <code class="docutils literal notranslate"><span class="pre">sys.modules</span></code>.</p>
@@ -8288,7 +8338,7 @@ to the importer and will appear in <code class="docutils literal notranslate"><s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.load_binary">
-<span class="sig-name descname"><span class="pre">load_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_binary" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_binary" title="Link to this definition">#</a></dt>
 <dd><p>Load raw bytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8308,7 +8358,7 @@ to the importer and will appear in <code class="docutils literal notranslate"><s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.load_pickle">
-<span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_pickle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_pickle" title="Link to this definition">#</a></dt>
 <dd><p>Unpickles the resource from the package, loading any modules that are needed to construct the objects
 using <a class="reference internal" href="#torch.package.PackageImporter.import_module" title="torch.package.PackageImporter.import_module"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_module()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -8330,7 +8380,7 @@ using <a class="reference internal" href="#torch.package.PackageImporter.import_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.load_text">
-<span class="sig-name descname"><span class="pre">load_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_text" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.load_text" title="Link to this definition">#</a></dt>
 <dd><p>Load a string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8352,7 +8402,7 @@ using <a class="reference internal" href="#torch.package.PackageImporter.import_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.PackageImporter.python_version">
-<span class="sig-name descname"><span class="pre">python_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/package_importer.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.python_version" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">python_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/package_importer.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.PackageImporter.python_version" title="Link to this definition">#</a></dt>
 <dd><p>Returns the version of python that was used to create this package.</p>
 <p>Note: this function is experimental and not Forward Compatible. The plan is to move this into a lock
 file later on.</p>
@@ -8367,7 +8417,7 @@ file later on.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.package.Directory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">Directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/file_structure_representation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.Directory" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.package.</span></span><span class="sig-name descname"><span class="pre">Directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/file_structure_representation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.Directory" title="Link to this definition">#</a></dt>
 <dd><p>A file structure representation. Organized as Directory nodes that have lists of
 their Directory children. Directories for a package are created by calling
 <a class="reference internal" href="#torch.package.PackageImporter.file_structure" title="torch.package.PackageImporter.file_structure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PackageImporter.file_structure()</span></code></a>.</p>
@@ -8375,7 +8425,7 @@ their Directory children. Directories for a package are created by calling
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.package.Directory.has_file">
-<span class="sig-name descname"><span class="pre">has_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/file_structure_representation.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.Directory.has_file" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">has_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/file_structure_representation.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.Directory.has_file" title="Link to this definition">#</a></dt>
 <dd><p>Checks if a file is present in a <a class="reference internal" href="#torch.package.Directory" title="torch.package.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -8397,7 +8447,7 @@ their Directory children. Directories for a package are created by calling
 <span id="analysis-utilities"></span><h2><a class="toc-backref" href="#id20" role="doc-backlink">Analysis Utilities</a><a class="headerlink" href="#module-torch.package.analyze.find_first_use_of_broken_modules" title="Link to this heading">#</a></h2>
 <dl class="py function" id="module-torch.package.analyze.trace_dependencies">
 <span id="module-torch.package.analyze.is_from_package"></span><dt class="sig sig-object py" id="torch.package.analyze.find_first_use_of_broken_modules.find_first_use_of_broken_modules">
-<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.find_first_use_of_broken_modules.</span></span><span class="sig-name descname"><span class="pre">find_first_use_of_broken_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/analyze/find_first_use_of_broken_modules.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.find_first_use_of_broken_modules.find_first_use_of_broken_modules" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.find_first_use_of_broken_modules.</span></span><span class="sig-name descname"><span class="pre">find_first_use_of_broken_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/analyze/find_first_use_of_broken_modules.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.find_first_use_of_broken_modules.find_first_use_of_broken_modules" title="Link to this definition">#</a></dt>
 <dd><p>Find all broken modules in a PackagingError, and for each one, return the
 dependency path in which the module was first encountered.</p>
 <p>E.g. broken module m.n.o was added to a dependency graph while processing a.b.c,
@@ -8416,7 +8466,7 @@ then re-encountered while processing d.e.f. This method would return
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.package.analyze.is_from_package.is_from_package">
-<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.is_from_package.</span></span><span class="sig-name descname"><span class="pre">is_from_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/analyze/is_from_package.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.is_from_package.is_from_package" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.is_from_package.</span></span><span class="sig-name descname"><span class="pre">is_from_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/analyze/is_from_package.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.is_from_package.is_from_package" title="Link to this definition">#</a></dt>
 <dd><p>Return whether an object was loaded from a package.</p>
 <p>Note: packaged objects from externed modules will return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <dl class="field-list simple">
@@ -8428,7 +8478,7 @@ then re-encountered while processing d.e.f. This method would return
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.package.analyze.trace_dependencies.trace_dependencies">
-<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.trace_dependencies.</span></span><span class="sig-name descname"><span class="pre">trace_dependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/package/analyze/trace_dependencies.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.trace_dependencies.trace_dependencies" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.package.analyze.trace_dependencies.</span></span><span class="sig-name descname"><span class="pre">trace_dependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/package/analyze/trace_dependencies.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.package.analyze.trace_dependencies.trace_dependencies" title="Link to this definition">#</a></dt>
 <dd><p>Trace the execution of a callable in order to determine which modules it uses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

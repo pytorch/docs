@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -59,7 +60,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.fft.ifftshift.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.func" href="../func.html" />
+    <link rel="next" title="torch.foreach" href="../foreach.html" />
     <link rel="prev" title="torch.fft.fftshift" href="torch.fft.fftshift.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2249,6 +2256,12 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../func.html">
                   torch.func
                 </a>
@@ -3414,6 +3427,7 @@ document.write(`
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.fft.ifftshift</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreach.html">torch.foreach</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
@@ -3583,7 +3597,7 @@ document.write(`
 <h1>torch.fft.ifftshift<a class="headerlink" href="#torch-fft-ifftshift" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fft.ifftshift">
-<span class="sig-prename descclassname"><span class="pre">torch.fft.</span></span><span class="sig-name descname"><span class="pre">ifftshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fft/__init__.py#L1414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fft.ifftshift" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fft.</span></span><span class="sig-name descname"><span class="pre">ifftshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fft/__init__.py#L1414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fft.ifftshift" title="Link to this definition">#</a></dt>
 <dd><p>Inverse of <a class="reference internal" href="torch.fft.fftshift.html#torch.fft.fftshift" title="torch.fft.fftshift"><code class="xref py py-func docutils literal notranslate"><span class="pre">fftshift()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3665,11 +3679,11 @@ Default: All dimensions of <code class="xref py py-attr docutils literal notrans
       </div>
     </a>
     <a class="right-next"
-       href="../func.html"
+       href="../foreach.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.func</p>
+        <p class="prev-next-title">torch.foreach</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3704,11 +3718,11 @@ Default: All dimensions of <code class="xref py py-attr docutils literal notrans
       </div>
     </a>
     <a class="right-next"
-       href="../func.html"
+       href="../foreach.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.func</p>
+        <p class="prev-next-title">torch.foreach</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

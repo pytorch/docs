@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.symbolic_trace
 
-torch.fx.experimental.meta_tracer.symbolic_trace(*root*, *meta_args=None*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/experimental/meta_tracer.py#L359)
+torch.fx.experimental.meta_tracer.symbolic_trace(*root*, *meta_args=None*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/meta_tracer.py#L359)
 
 Return type:
 

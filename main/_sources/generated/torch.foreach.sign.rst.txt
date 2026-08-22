@@ -1,0 +1,6 @@
+﻿torch.foreach.sign
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sign

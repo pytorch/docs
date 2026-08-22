@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="../foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3918,6 +3931,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.compiler_api.html">torch.compiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreach.html">torch.foreach</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
@@ -4109,7 +4123,7 @@ match <code class="xref py py-attr docutils literal notranslate"><span class="pr
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – dimension along which to index</p></li>
-<li><p><strong>index</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – indices of <code class="docutils literal notranslate"><span class="pre">source</span></code> to select from,
+<li><p><strong>index</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – indices of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> to add to,
 should have dtype either <cite>torch.int64</cite> or <cite>torch.int32</cite></p></li>
 <li><p><strong>source</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the tensor containing values to add</p></li>
 </ul>
@@ -4494,7 +4508,7 @@ should have dtype either <cite>torch.int64</cite> or <cite>torch.int32</cite></p
        "headline": "torch.Tensor.index_add_",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.Tensor.index_add_.html",
-       "articleBody": "torch.Tensor.index_add_# Tensor.index_add_(dim, index, source, *, alpha=1) \u2192 Tensor# Accumulate the elements of alpha times source into the self tensor by adding to the indices in the order given in index. For example, if dim == 0, index[i] == j, and alpha=-1, then the ith row of source is subtracted from the jth row of self. The dimth dimension of source must have the same size as the length of index (which must be a vector), and all other dimensions must match self, or an error will be raised. For a 3-D tensor the output is given as: self[index[i], :, :] += alpha * src[i, :, :] # if dim == 0 self[:, index[i], :] += alpha * src[:, i, :] # if dim == 1 self[:, :, index[i]] += alpha * src[:, :, i] # if dim == 2 Note This operation may behave nondeterministically when given tensors on a CUDA device. See Reproducibility for more information. Parameters: dim (int) \u2013 dimension along which to index index (Tensor) \u2013 indices of source to select from, should have dtype either torch.int64 or torch.int32 source (Tensor) \u2013 the tensor containing values to add Keyword Arguments: alpha (Number) \u2013 the scalar multiplier for source Example: \u003e\u003e\u003e x = torch.ones(5, 3) \u003e\u003e\u003e t = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]], dtype=torch.float) \u003e\u003e\u003e index = torch.tensor([0, 4, 2]) \u003e\u003e\u003e x.index_add_(0, index, t) tensor([[ 2., 3., 4.], [ 1., 1., 1.], [ 8., 9., 10.], [ 1., 1., 1.], [ 5., 6., 7.]]) \u003e\u003e\u003e x.index_add_(0, index, t, alpha=-1) tensor([[ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.]])",
+       "articleBody": "torch.Tensor.index_add_# Tensor.index_add_(dim, index, source, *, alpha=1) \u2192 Tensor# Accumulate the elements of alpha times source into the self tensor by adding to the indices in the order given in index. For example, if dim == 0, index[i] == j, and alpha=-1, then the ith row of source is subtracted from the jth row of self. The dimth dimension of source must have the same size as the length of index (which must be a vector), and all other dimensions must match self, or an error will be raised. For a 3-D tensor the output is given as: self[index[i], :, :] += alpha * src[i, :, :] # if dim == 0 self[:, index[i], :] += alpha * src[:, i, :] # if dim == 1 self[:, :, index[i]] += alpha * src[:, :, i] # if dim == 2 Note This operation may behave nondeterministically when given tensors on a CUDA device. See Reproducibility for more information. Parameters: dim (int) \u2013 dimension along which to index index (Tensor) \u2013 indices of self to add to, should have dtype either torch.int64 or torch.int32 source (Tensor) \u2013 the tensor containing values to add Keyword Arguments: alpha (Number) \u2013 the scalar multiplier for source Example: \u003e\u003e\u003e x = torch.ones(5, 3) \u003e\u003e\u003e t = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]], dtype=torch.float) \u003e\u003e\u003e index = torch.tensor([0, 4, 2]) \u003e\u003e\u003e x.index_add_(0, index, t) tensor([[ 2., 3., 4.], [ 1., 1., 1.], [ 8., 9., 10.], [ 1., 1., 1.], [ 5., 6., 7.]]) \u003e\u003e\u003e x.index_add_(0, index, t, alpha=-1) tensor([[ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.], [ 1., 1., 1.]])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

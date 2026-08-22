@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.remove
 
-torch.nn.utils.prune.remove(*module*, *name*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/utils/prune.py#L1197)
+torch.nn.utils.prune.remove(*module*, *name*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/utils/prune.py#L1197)
 
 Remove the pruning reparameterization from a module and the pruning method from the forward hook.
 

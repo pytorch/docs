@@ -1,0 +1,6 @@
+﻿torch.foreach.copy\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: copy_

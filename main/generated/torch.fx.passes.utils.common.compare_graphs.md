@@ -1,6 +1,6 @@
 # torch.fx.passes.utils.common.compare_graphs
 
-torch.fx.passes.utils.common.compare_graphs(*left*, *right*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/passes/utils/common.py#L83)
+torch.fx.passes.utils.common.compare_graphs(*left*, *right*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/passes/utils/common.py#L83)
 
 Return True if two graphs are identical, i.e they
 

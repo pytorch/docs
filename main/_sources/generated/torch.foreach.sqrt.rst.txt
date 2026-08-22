@@ -1,0 +1,6 @@
+﻿torch.foreach.sqrt
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sqrt

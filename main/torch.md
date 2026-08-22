@@ -255,7 +255,7 @@ There are a few more in-place random sampling functions defined on Tensors as we
 | --- | --- |
 | [`load`](generated/torch.load.html#torch.load) | Loads an object saved with [`torch.save()`](generated/torch.save.html#torch.save) from a file. |
 
-torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/serialization.py#L489)
+torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/serialization.py#L489)
 
 Check if a module's version satisfies requirements
 
@@ -278,7 +278,7 @@ Return type:
 
 requirement_is_met
 
-torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/serialization.py#L713)
+torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/serialization.py#L713)
 
 Restores storage using a deserializer function registered for the location.
 
@@ -846,68 +846,9 @@ False
 
 ### Foreach Operations
 
-Warning
-
-This API is in beta and subject to future changes.
-Forward-mode AD is not supported.
-
-| [`_foreach_abs`](generated/torch._foreach_abs.html#torch._foreach_abs) | Applies [`torch.abs()`](generated/torch.abs.html#torch.abs) to each tensor in `self` and returns the results as a tuple. |
-| --- | --- |
-| [`_foreach_abs_`](generated/torch._foreach_abs_.html#torch._foreach_abs_) | Applies [`torch.abs()`](generated/torch.abs.html#torch.abs) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_acos`](generated/torch._foreach_acos.html#torch._foreach_acos) | Applies [`torch.acos()`](generated/torch.acos.html#torch.acos) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_acos_`](generated/torch._foreach_acos_.html#torch._foreach_acos_) | Applies [`torch.acos()`](generated/torch.acos.html#torch.acos) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_asin`](generated/torch._foreach_asin.html#torch._foreach_asin) | Applies [`torch.asin()`](generated/torch.asin.html#torch.asin) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_asin_`](generated/torch._foreach_asin_.html#torch._foreach_asin_) | Applies [`torch.asin()`](generated/torch.asin.html#torch.asin) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_atan`](generated/torch._foreach_atan.html#torch._foreach_atan) | Applies [`torch.atan()`](generated/torch.atan.html#torch.atan) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_atan_`](generated/torch._foreach_atan_.html#torch._foreach_atan_) | Applies [`torch.atan()`](generated/torch.atan.html#torch.atan) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_ceil`](generated/torch._foreach_ceil.html#torch._foreach_ceil) | Applies [`torch.ceil()`](generated/torch.ceil.html#torch.ceil) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_ceil_`](generated/torch._foreach_ceil_.html#torch._foreach_ceil_) | Applies [`torch.ceil()`](generated/torch.ceil.html#torch.ceil) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_clone`](generated/torch._foreach_clone.html#torch._foreach_clone) | |
-| [`_foreach_cos`](generated/torch._foreach_cos.html#torch._foreach_cos) | Applies [`torch.cos()`](generated/torch.cos.html#torch.cos) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_cos_`](generated/torch._foreach_cos_.html#torch._foreach_cos_) | Applies [`torch.cos()`](generated/torch.cos.html#torch.cos) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_cosh`](generated/torch._foreach_cosh.html#torch._foreach_cosh) | Applies [`torch.cosh()`](generated/torch.cosh.html#torch.cosh) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_cosh_`](generated/torch._foreach_cosh_.html#torch._foreach_cosh_) | Applies [`torch.cosh()`](generated/torch.cosh.html#torch.cosh) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_erf`](generated/torch._foreach_erf.html#torch._foreach_erf) | Applies [`torch.erf()`](generated/torch.erf.html#torch.erf) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_erf_`](generated/torch._foreach_erf_.html#torch._foreach_erf_) | Applies [`torch.erf()`](generated/torch.erf.html#torch.erf) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_erfc`](generated/torch._foreach_erfc.html#torch._foreach_erfc) | Applies [`torch.erfc()`](generated/torch.erfc.html#torch.erfc) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_erfc_`](generated/torch._foreach_erfc_.html#torch._foreach_erfc_) | Applies [`torch.erfc()`](generated/torch.erfc.html#torch.erfc) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_exp`](generated/torch._foreach_exp.html#torch._foreach_exp) | Applies [`torch.exp()`](generated/torch.exp.html#torch.exp) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_exp_`](generated/torch._foreach_exp_.html#torch._foreach_exp_) | Applies [`torch.exp()`](generated/torch.exp.html#torch.exp) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_expm1`](generated/torch._foreach_expm1.html#torch._foreach_expm1) | Applies [`torch.expm1()`](generated/torch.expm1.html#torch.expm1) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_expm1_`](generated/torch._foreach_expm1_.html#torch._foreach_expm1_) | Applies [`torch.expm1()`](generated/torch.expm1.html#torch.expm1) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_floor`](generated/torch._foreach_floor.html#torch._foreach_floor) | Applies [`torch.floor()`](generated/torch.floor.html#torch.floor) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_floor_`](generated/torch._foreach_floor_.html#torch._foreach_floor_) | Applies [`torch.floor()`](generated/torch.floor.html#torch.floor) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_log`](generated/torch._foreach_log.html#torch._foreach_log) | Applies [`torch.log()`](generated/torch.log.html#torch.log) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_log_`](generated/torch._foreach_log_.html#torch._foreach_log_) | Applies [`torch.log()`](generated/torch.log.html#torch.log) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_log10`](generated/torch._foreach_log10.html#torch._foreach_log10) | Applies [`torch.log10()`](generated/torch.log10.html#torch.log10) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_log10_`](generated/torch._foreach_log10_.html#torch._foreach_log10_) | Applies [`torch.log10()`](generated/torch.log10.html#torch.log10) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_log1p`](generated/torch._foreach_log1p.html#torch._foreach_log1p) | Applies [`torch.log1p()`](generated/torch.log1p.html#torch.log1p) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_log1p_`](generated/torch._foreach_log1p_.html#torch._foreach_log1p_) | Applies [`torch.log1p()`](generated/torch.log1p.html#torch.log1p) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_log2`](generated/torch._foreach_log2.html#torch._foreach_log2) | Applies [`torch.log2()`](generated/torch.log2.html#torch.log2) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_log2_`](generated/torch._foreach_log2_.html#torch._foreach_log2_) | Applies [`torch.log2()`](generated/torch.log2.html#torch.log2) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_neg`](generated/torch._foreach_neg.html#torch._foreach_neg) | Applies [`torch.neg()`](generated/torch.neg.html#torch.neg) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_neg_`](generated/torch._foreach_neg_.html#torch._foreach_neg_) | Applies [`torch.neg()`](generated/torch.neg.html#torch.neg) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_tan`](generated/torch._foreach_tan.html#torch._foreach_tan) | Applies [`torch.tan()`](generated/torch.tan.html#torch.tan) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_tan_`](generated/torch._foreach_tan_.html#torch._foreach_tan_) | Applies [`torch.tan()`](generated/torch.tan.html#torch.tan) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_sin`](generated/torch._foreach_sin.html#torch._foreach_sin) | Applies [`torch.sin()`](generated/torch.sin.html#torch.sin) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_sin_`](generated/torch._foreach_sin_.html#torch._foreach_sin_) | Applies [`torch.sin()`](generated/torch.sin.html#torch.sin) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_sinh`](generated/torch._foreach_sinh.html#torch._foreach_sinh) | Applies [`torch.sinh()`](generated/torch.sinh.html#torch.sinh) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_sinh_`](generated/torch._foreach_sinh_.html#torch._foreach_sinh_) | Applies [`torch.sinh()`](generated/torch.sinh.html#torch.sinh) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_round`](generated/torch._foreach_round.html#torch._foreach_round) | Applies [`torch.round()`](generated/torch.round.html#torch.round) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_round_`](generated/torch._foreach_round_.html#torch._foreach_round_) | Applies [`torch.round()`](generated/torch.round.html#torch.round) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_sqrt`](generated/torch._foreach_sqrt.html#torch._foreach_sqrt) | Applies [`torch.sqrt()`](generated/torch.sqrt.html#torch.sqrt) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_sqrt_`](generated/torch._foreach_sqrt_.html#torch._foreach_sqrt_) | Applies [`torch.sqrt()`](generated/torch.sqrt.html#torch.sqrt) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_lgamma`](generated/torch._foreach_lgamma.html#torch._foreach_lgamma) | Applies [`torch.lgamma()`](generated/torch.lgamma.html#torch.lgamma) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_lgamma_`](generated/torch._foreach_lgamma_.html#torch._foreach_lgamma_) | Applies [`torch.lgamma()`](generated/torch.lgamma.html#torch.lgamma) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_frac`](generated/torch._foreach_frac.html#torch._foreach_frac) | Applies [`torch.frac()`](generated/torch.frac.html#torch.frac) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_frac_`](generated/torch._foreach_frac_.html#torch._foreach_frac_) | Applies [`torch.frac()`](generated/torch.frac.html#torch.frac) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_reciprocal`](generated/torch._foreach_reciprocal.html#torch._foreach_reciprocal) | Applies [`torch.reciprocal()`](generated/torch.reciprocal.html#torch.reciprocal) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_reciprocal_`](generated/torch._foreach_reciprocal_.html#torch._foreach_reciprocal_) | Applies [`torch.reciprocal()`](generated/torch.reciprocal.html#torch.reciprocal) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_sigmoid`](generated/torch._foreach_sigmoid.html#torch._foreach_sigmoid) | Applies [`torch.sigmoid()`](generated/torch.sigmoid.html#torch.sigmoid) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_sigmoid_`](generated/torch._foreach_sigmoid_.html#torch._foreach_sigmoid_) | Applies [`torch.sigmoid()`](generated/torch.sigmoid.html#torch.sigmoid) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_trunc`](generated/torch._foreach_trunc.html#torch._foreach_trunc) | Applies [`torch.trunc()`](generated/torch.trunc.html#torch.trunc) to each tensor in `self` and returns the results as a tuple. |
-| [`_foreach_trunc_`](generated/torch._foreach_trunc_.html#torch._foreach_trunc_) | Applies [`torch.trunc()`](generated/torch.trunc.html#torch.trunc) in-place to each tensor in `self` and returns `self`. |
-| [`_foreach_zero_`](generated/torch._foreach_zero_.html#torch._foreach_zero_) | Applies `torch.zero()` in-place to each tensor in `self` and returns `self`. |
+You can find our foreach APIs at [`torch.foreach`](foreach.html#module-torch.foreach). While the private
+`torch._foreach_*` APIs remain available to support backwards compatibility
+during migration, we recommend using the public APIs.
 
 ## Utilities
 
@@ -971,13 +912,13 @@ Forward-mode AD is not supported.
 
 ## Symbolic Numbers
 
-*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L807)
+*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L807)
 
 Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L936)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L936)
 
 Represent this int as an exact integer ratio
 
@@ -985,13 +926,13 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[SymInt, [int](https://docs.python.org/3/library/functions.html#int)]
 
-*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L962)
+*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L962)
 
 Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1038)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1038)
 
 Represent this float as an exact integer ratio
 
@@ -999,7 +940,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]
 
-conjugate()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1051)
+conjugate()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1051)
 
 Returns the complex conjugate of the float.
 
@@ -1007,7 +948,7 @@ Return type:
 
 *SymFloat*
 
-hex()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1055)
+hex()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1055)
 
 Returns the hexadecimal representation of the float.
 
@@ -1015,7 +956,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-is_integer()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1034)
+is_integer()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1034)
 
 Return True if the float is an integer.
 
@@ -1023,7 +964,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/__init__.py#L1071)
+*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/__init__.py#L1071)
 
 Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations

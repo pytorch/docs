@@ -1,0 +1,6 @@
+﻿torch.foreach.acos
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: acos

@@ -1,6 +1,6 @@
 # torch.functional.einsum
 
-torch.functional.einsum(*equation*, **operands*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/functional.py#L175)
+torch.functional.einsum(*equation*, **operands*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/functional.py#L175)
 
 Sums the product of the elements of the input `operands` along dimensions specified using a notation
 based on the Einstein summation convention.

@@ -1,0 +1,6 @@
+﻿torch.foreach.clone
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: clone

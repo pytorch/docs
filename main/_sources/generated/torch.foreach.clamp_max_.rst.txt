@@ -1,0 +1,6 @@
+﻿torch.foreach.clamp\_max\_
+==========================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: clamp_max_

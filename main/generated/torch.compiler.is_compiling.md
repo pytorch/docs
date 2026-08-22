@@ -1,6 +1,6 @@
 # torch.compiler.is_compiling
 
-torch.compiler.is_compiling()[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/compiler/__init__.py#L582)
+torch.compiler.is_compiling()[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/compiler/__init__.py#L582)
 
 Indicates whether a graph is executed/traced as part of torch.compile() or torch.export().
 

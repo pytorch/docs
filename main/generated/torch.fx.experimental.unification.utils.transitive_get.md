@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.transitive_get
 
-torch.fx.experimental.unification.utils.transitive_get(*key*, *d*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/fx/experimental/unification/utils.py#L25)
+torch.fx.experimental.unification.utils.transitive_get(*key*, *d*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/unification/utils.py#L25)
 
 Transitive dict.get
 >>> d = {1: 2, 2: 3, 3: 4}

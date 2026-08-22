@@ -1,0 +1,6 @@
+﻿torch.foreach.atan
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: atan

@@ -1,0 +1,6 @@
+﻿torch.foreach.cos\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: cos_

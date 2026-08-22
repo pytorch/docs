@@ -1,0 +1,6 @@
+﻿torch.foreach.sub\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sub_

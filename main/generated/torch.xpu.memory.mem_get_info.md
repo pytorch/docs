@@ -1,6 +1,6 @@
 # torch.xpu.memory.mem_get_info
 
-torch.xpu.memory.mem_get_info(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/xpu/memory.py#L197)
+torch.xpu.memory.mem_get_info(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/xpu/memory.py#L197)
 
 Return the global free and total GPU memory for a given device.
 

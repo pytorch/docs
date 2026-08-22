@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_forward_hook
 
-torch.nn.modules.module.register_module_forward_hook(*hook*, ***, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/modules/module.py#L249)
+torch.nn.modules.module.register_module_forward_hook(*hook*, ***, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/modules/module.py#L249)
 
 Register a global forward hook for all the modules.
 

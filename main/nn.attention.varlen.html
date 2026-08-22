@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/foreach.css?v=34ac219d" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -78,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita7ff569 )">
+<meta name="llm:version" content="main (2.15.0a0+gitf744a6b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -184,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita7ff569 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitf744a6b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -796,6 +797,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -2245,6 +2252,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="fft.html">
                   torch.fft
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="foreach.html">
+                  torch.foreach
                 </a>
               </li>
             
@@ -3981,62 +3994,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cumulative_trapezoid.html">torch.cumulative_trapezoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.triangular_solve.html">torch.triangular_solve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.vdot.html">torch.vdot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs.html">torch._foreach_abs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_abs_.html">torch._foreach_abs_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos.html">torch._foreach_acos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_acos_.html">torch._foreach_acos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin.html">torch._foreach_asin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_asin_.html">torch._foreach_asin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan.html">torch._foreach_atan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_atan_.html">torch._foreach_atan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil.html">torch._foreach_ceil</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_ceil_.html">torch._foreach_ceil_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_clone.html">torch._foreach_clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos.html">torch._foreach_cos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cos_.html">torch._foreach_cos_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh.html">torch._foreach_cosh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_cosh_.html">torch._foreach_cosh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf.html">torch._foreach_erf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erf_.html">torch._foreach_erf_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc.html">torch._foreach_erfc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_erfc_.html">torch._foreach_erfc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp.html">torch._foreach_exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_exp_.html">torch._foreach_exp_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1.html">torch._foreach_expm1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_expm1_.html">torch._foreach_expm1_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor.html">torch._foreach_floor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_floor_.html">torch._foreach_floor_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log.html">torch._foreach_log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log_.html">torch._foreach_log_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10.html">torch._foreach_log10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log10_.html">torch._foreach_log10_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p.html">torch._foreach_log1p</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log1p_.html">torch._foreach_log1p_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2.html">torch._foreach_log2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_log2_.html">torch._foreach_log2_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg.html">torch._foreach_neg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_neg_.html">torch._foreach_neg_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan.html">torch._foreach_tan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_tan_.html">torch._foreach_tan_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin.html">torch._foreach_sin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sin_.html">torch._foreach_sin_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh.html">torch._foreach_sinh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sinh_.html">torch._foreach_sinh_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round.html">torch._foreach_round</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_round_.html">torch._foreach_round_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt.html">torch._foreach_sqrt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sqrt_.html">torch._foreach_sqrt_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma.html">torch._foreach_lgamma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_lgamma_.html">torch._foreach_lgamma_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac.html">torch._foreach_frac</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_frac_.html">torch._foreach_frac_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal.html">torch._foreach_reciprocal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_reciprocal_.html">torch._foreach_reciprocal_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid.html">torch._foreach_sigmoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_sigmoid_.html">torch._foreach_sigmoid_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc.html">torch._foreach_trunc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_trunc_.html">torch._foreach_trunc_</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch._foreach_zero_.html">torch._foreach_zero_</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_decrement_nesting.html">torch.autocast_decrement_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.autocast_increment_nesting.html">torch.autocast_increment_nesting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.clear_autocast_cache.html">torch.clear_autocast_cache</a></li>
@@ -5614,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5764,6 +5721,99 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.rfftfreq.html">torch.fft.rfftfreq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.fftshift.html">torch.fft.fftshift</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fft.ifftshift.html">torch.fft.ifftshift</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="foreach.html">torch.foreach</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs.html">torch.foreach.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.abs_.html">torch.foreach.abs_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos.html">torch.foreach.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.acos_.html">torch.foreach.acos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin.html">torch.foreach.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.asin_.html">torch.foreach.asin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan.html">torch.foreach.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.atan_.html">torch.foreach.atan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil.html">torch.foreach.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.ceil_.html">torch.foreach.ceil_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clone.html">torch.foreach.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos.html">torch.foreach.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cos_.html">torch.foreach.cos_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh.html">torch.foreach.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.cosh_.html">torch.foreach.cosh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf.html">torch.foreach.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erf_.html">torch.foreach.erf_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc.html">torch.foreach.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.erfc_.html">torch.foreach.erfc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp.html">torch.foreach.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.exp_.html">torch.foreach.exp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1.html">torch.foreach.expm1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.expm1_.html">torch.foreach.expm1_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor.html">torch.foreach.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.floor_.html">torch.foreach.floor_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac.html">torch.foreach.frac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.frac_.html">torch.foreach.frac_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma.html">torch.foreach.lgamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lgamma_.html">torch.foreach.lgamma_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log.html">torch.foreach.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log_.html">torch.foreach.log_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10.html">torch.foreach.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log10_.html">torch.foreach.log10_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p.html">torch.foreach.log1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log1p_.html">torch.foreach.log1p_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2.html">torch.foreach.log2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.log2_.html">torch.foreach.log2_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg.html">torch.foreach.neg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.neg_.html">torch.foreach.neg_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal.html">torch.foreach.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.reciprocal_.html">torch.foreach.reciprocal_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round.html">torch.foreach.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.round_.html">torch.foreach.round_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt.html">torch.foreach.rsqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.rsqrt_.html">torch.foreach.rsqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid.html">torch.foreach.sigmoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sigmoid_.html">torch.foreach.sigmoid_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign.html">torch.foreach.sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sign_.html">torch.foreach.sign_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin.html">torch.foreach.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sin_.html">torch.foreach.sin_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh.html">torch.foreach.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sinh_.html">torch.foreach.sinh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt.html">torch.foreach.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sqrt_.html">torch.foreach.sqrt_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan.html">torch.foreach.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tan_.html">torch.foreach.tan_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh.html">torch.foreach.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.tanh_.html">torch.foreach.tanh_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc.html">torch.foreach.trunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.trunc_.html">torch.foreach.trunc_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.zero_.html">torch.foreach.zero_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add.html">torch.foreach.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.add_.html">torch.foreach.add_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub.html">torch.foreach.sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.sub_.html">torch.foreach.sub_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul.html">torch.foreach.mul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mul_.html">torch.foreach.mul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div.html">torch.foreach.div</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.div_.html">torch.foreach.div_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min.html">torch.foreach.clamp_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_min_.html">torch.foreach.clamp_min_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max.html">torch.foreach.clamp_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.clamp_max_.html">torch.foreach.clamp_max_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum.html">torch.foreach.minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.minimum_.html">torch.foreach.minimum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum.html">torch.foreach.maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.maximum_.html">torch.foreach.maximum_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow.html">torch.foreach.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.pow_.html">torch.foreach.pow_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.copy_.html">torch.foreach.copy_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul.html">torch.foreach.addcmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcmul_.html">torch.foreach.addcmul_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv.html">torch.foreach.addcdiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.addcdiv_.html">torch.foreach.addcdiv_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp.html">torch.foreach.lerp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.lerp_.html">torch.foreach.lerp_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.max.html">torch.foreach.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.norm.html">torch.foreach.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.foreach.mm.html">torch.foreach.mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="func.html">torch.func</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -7073,10 +7123,12 @@ document.write(`
 that calls into the optimized Flash Attention kernels.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.varlen.varlen_attn">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">varlen_attn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_k</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">-1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqused_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.varlen_attn" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">varlen_attn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_k</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">-1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqused_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.varlen_attn" title="Link to this definition">#</a></dt>
 <dd><p>Compute variable-length attention using Flash Attention.</p>
 <p>This function is similar to scaled_dot_product_attention but optimized for
-variable-length sequences using cumulative sequence position tensors.</p>
+variable-length sequences using cumulative sequence position tensors.
+Backend enablement follows <a class="reference internal" href="generated/torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel" title="torch.nn.attention.sdpa_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.attention.sdpa_kernel()</span></code></a>. By default,
+eligible cuDNN is preferred over Flash; <code class="docutils literal notranslate"><span class="pre">set_priority=True</span></code> overrides this order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -7090,7 +7142,7 @@ variable-length sequences using cumulative sequence position tensors.</p>
 <li><p><strong>max_q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum query sequence length in the batch.</p></li>
 <li><p><strong>max_k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum key/value sequence length in the batch.</p></li>
 <li><p><strong>return_aux</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.nn.attention.varlen.AuxRequest" title="torch.nn.attention.varlen.AuxRequest"><em>AuxRequest</em></a><em>]</em>) – If not None and <code class="docutils literal notranslate"><span class="pre">return_aux.lse</span></code> is True, also returns the logsumexp tensor.</p></li>
-<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Scaling factor for attention scores</p></li>
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Positive scaling factor for attention scores.</p></li>
 <li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Window size for sliding window attention as (left, right).
 Use (-1, -1) for full attention (default), (-1, 0) for causal attention,
 or (W, 0) for causal attention with sliding window of size W.</p></li>
@@ -7185,7 +7237,7 @@ cost of lower GPU utilization when there are few queries. When
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.varlen.varlen_attn_out">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">varlen_attn_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_k</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">-1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqused_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.varlen_attn_out" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">varlen_attn_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cu_seq_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_k</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">-1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqused_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L536"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.varlen_attn_out" title="Link to this definition">#</a></dt>
 <dd><p>Compute variable-length attention using Flash Attention with a pre-allocated output tensor.</p>
 <p>Same as <a class="reference internal" href="#torch.nn.attention.varlen.varlen_attn" title="torch.nn.attention.varlen.varlen_attn"><code class="xref py py-func docutils literal notranslate"><span class="pre">varlen_attn()</span></code></a> but writes the attention output into the provided <code class="docutils literal notranslate"><span class="pre">out</span></code> tensor
 instead of allocating a new one.</p>
@@ -7198,7 +7250,7 @@ instead of allocating a new one.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.varlen.AuxRequest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">AuxRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/nn/attention/varlen.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.AuxRequest" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.varlen.</span></span><span class="sig-name descname"><span class="pre">AuxRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/nn/attention/varlen.py#L161"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.varlen.AuxRequest" title="Link to this definition">#</a></dt>
 <dd><p>Request which auxiliary outputs to compute from varlen_attn.</p>
 <p>Each field is a boolean indicating whether that auxiliary output should be computed.</p>
 <dl class="field-list simple">
@@ -7579,7 +7631,7 @@ instead of allocating a new one.</p>
        "headline": "torch.nn.attention.varlen",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/nn.attention.varlen.html",
-       "articleBody": "torch.nn.attention.varlen# Created On: Oct 14, 2025 | Last Updated On: Mar 10, 2026 Variable-length attention implementation using Flash Attention. This module provides a high-level Python interface for variable-length attention that calls into the optimized Flash Attention kernels. torch.nn.attention.varlen.varlen_attn(query, key, value, cu_seq_q, cu_seq_k, max_q, max_k, *, return_aux=None, scale=None, window_size=(-1, -1), enable_gqa=False, seqused_k=None, block_table=None, num_splits=None)[source]# Compute variable-length attention using Flash Attention. This function is similar to scaled_dot_product_attention but optimized for variable-length sequences using cumulative sequence position tensors. Parameters: query (Tensor) \u2013 Query tensor; shape (Tq,Hq,D)(T_q, H_q, D)(Tq\u200b,Hq\u200b,D) key (Tensor) \u2013 Key tensor; shape (Tk,Hkv,D)(T_k, H_{kv}, D)(Tk\u200b,Hkv\u200b,D), or (total_pages,page_size,Hkv,D)(\\text{total\\_pages}, \\text{page\\_size}, H_{kv}, D)(total_pages,page_size,Hkv\u200b,D) when block_table is provided. value (Tensor) \u2013 Value tensor; shape (Tk,Hkv,D)(T_k, H_{kv}, D)(Tk\u200b,Hkv\u200b,D), or (total_pages,page_size,Hkv,D)(\\text{total\\_pages}, \\text{page\\_size}, H_{kv}, D)(total_pages,page_size,Hkv\u200b,D) when block_table is provided. cu_seq_q (Tensor) \u2013 Cumulative sequence positions for queries; shape (N+1,)(N+1,)(N+1,) cu_seq_k (Tensor) \u2013 Cumulative sequence positions for keys/values; shape (N+1,)(N+1,)(N+1,) max_q (int) \u2013 Maximum query sequence length in the batch. max_k (int) \u2013 Maximum key/value sequence length in the batch. return_aux (Optional[AuxRequest]) \u2013 If not None and return_aux.lse is True, also returns the logsumexp tensor. scale (float, optional) \u2013 Scaling factor for attention scores window_size (tuple[int, int], optional) \u2013 Window size for sliding window attention as (left, right). Use (-1, -1) for full attention (default), (-1, 0) for causal attention, or (W, 0) for causal attention with sliding window of size W. enable_gqa (bool) \u2013 If set to True, enables Grouped Query Attention (GQA) and allows key/value to have fewer heads than query. Each KV head is shared by a group of Hq/HkvH_q / H_{kv}Hq\u200b/Hkv\u200b query heads, so HqH_qHq\u200b must be divisible by HkvH_{kv}Hkv\u200b. Default is False. seqused_k (Tensor, optional) \u2013 Number of valid KV tokens per batch element; shape (N,)(N,)(N,). When set, only the first seqused_k[i] tokens in the key/value sequence for batch element i participate in attention. Useful for KV-cache decoding where the cache slot is larger than the actual sequence. Inference-only (not supported in backward). block_table (Tensor, optional) \u2013 Block table for paged KV cache; shape (N,max_pages_per_seq)(N, \\text{max\\_pages\\_per\\_seq})(N,max_pages_per_seq), dtype int32. Requires seqused_k. Inference-only (not supported in backward). When block_table is provided, key and value are a \u201cpool\u201d of pages of tokens of KV data and the pages belong to any sequence/order. The block_table is what maps each sequence\u2019s logical chunks back to physical pages in this pool. seqused_k[i] tells the kernel how many tokens in sequence i are actually valid, since the last page is typically only partially filled. num_splits (int, optional) \u2013 Number of splits for split-KV. Set to 1 to disable split-KV which enables batch invariance. Split-KV parallelizes the key/value sequence dimension across multiple thread blocks and combines partial results. The split decision depends on max_k (the longest sequence in the batch), so different batch compositions can change the reduction order and produce different floating-point results for the same sequence. When this is disabled, bitwise identical outputs are guaranteed for a given sequence regardless of what other sequences are in the batch, at the cost of lower GPU utilization when there are few queries. When None (default), the kernel chooses automatically. Returns: Output tensor from attention computation; shape (Tq,Hq,D)(T_q, H_q, D)(Tq\u200b,Hq\u200b,D). If return_aux is not None and return_aux.lse is True:lse (Tensor): Log-sum-exp of attention scores; shape (Hq,Tq)(H_q, T_q)(Hq\u200b,Tq\u200b). Return type: output (Tensor) Shape legend: NNN: Batch size TqT_qTq\u200b: Total number of query tokens in the batch (sum of all query sequence lengths) TkT_kTk\u200b: Total number of key/value tokens in the batch (sum of all key/value sequence lengths) HqH_qHq\u200b: Number of query attention heads HkvH_{kv}Hkv\u200b: Number of key/value attention heads (equal to HqH_qHq\u200b unless GQA is enabled) DDD: Head dimension Example: \u003e\u003e\u003e batch_size, max_seq_len, embed_dim, num_heads = 2, 512, 1024, 16 \u003e\u003e\u003e head_dim = embed_dim // num_heads \u003e\u003e\u003e seq_lengths = [] \u003e\u003e\u003e for _ in range(batch_size): ... length = torch.randint(1, max_seq_len // 64 + 1, (1,)).item() * 64 ... seq_lengths.append(min(length, max_seq_len)) \u003e\u003e\u003e seq_lengths = torch.tensor(seq_lengths, device=\"cuda\") \u003e\u003e\u003e total_tokens = seq_lengths.sum().item() \u003e\u003e\u003e \u003e\u003e\u003e # Create packed query, key, value tensors \u003e\u003e\u003e query = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e key = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e value = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e \u003e\u003e\u003e # Build cumulative sequence tensor \u003e\u003e\u003e cu_seq = torch.zeros(batch_size + 1, device=\"cuda\", dtype=torch.int32) \u003e\u003e\u003e cu_seq[1:] = seq_lengths.cumsum(0) \u003e\u003e\u003e max_len = seq_lengths.max().item() \u003e\u003e\u003e \u003e\u003e\u003e # Call varlen_attn \u003e\u003e\u003e output = varlen_attn( ... query, key, value, cu_seq, cu_seq, max_len, max_len ... ) torch.nn.attention.varlen.varlen_attn_out(out, query, key, value, cu_seq_q, cu_seq_k, max_q, max_k, *, return_aux=None, scale=None, window_size=(-1, -1), enable_gqa=False, seqused_k=None, block_table=None, num_splits=None)[source]# Compute variable-length attention using Flash Attention with a pre-allocated output tensor. Same as varlen_attn() but writes the attention output into the provided out tensor instead of allocating a new one. Return type: Tensor | tuple[Tensor, Tensor] class torch.nn.attention.varlen.AuxRequest(lse=False)[source]# Request which auxiliary outputs to compute from varlen_attn. Each field is a boolean indicating whether that auxiliary output should be computed.",
+       "articleBody": "torch.nn.attention.varlen# Created On: Oct 14, 2025 | Last Updated On: Mar 10, 2026 Variable-length attention implementation using Flash Attention. This module provides a high-level Python interface for variable-length attention that calls into the optimized Flash Attention kernels. torch.nn.attention.varlen.varlen_attn(query, key, value, cu_seq_q, cu_seq_k, max_q, max_k, *, return_aux=None, scale=None, window_size=(-1, -1), enable_gqa=False, seqused_k=None, block_table=None, num_splits=None)[source]# Compute variable-length attention using Flash Attention. This function is similar to scaled_dot_product_attention but optimized for variable-length sequences using cumulative sequence position tensors. Backend enablement follows torch.nn.attention.sdpa_kernel(). By default, eligible cuDNN is preferred over Flash; set_priority=True overrides this order. Parameters: query (Tensor) \u2013 Query tensor; shape (Tq,Hq,D)(T_q, H_q, D)(Tq\u200b,Hq\u200b,D) key (Tensor) \u2013 Key tensor; shape (Tk,Hkv,D)(T_k, H_{kv}, D)(Tk\u200b,Hkv\u200b,D), or (total_pages,page_size,Hkv,D)(\\text{total\\_pages}, \\text{page\\_size}, H_{kv}, D)(total_pages,page_size,Hkv\u200b,D) when block_table is provided. value (Tensor) \u2013 Value tensor; shape (Tk,Hkv,D)(T_k, H_{kv}, D)(Tk\u200b,Hkv\u200b,D), or (total_pages,page_size,Hkv,D)(\\text{total\\_pages}, \\text{page\\_size}, H_{kv}, D)(total_pages,page_size,Hkv\u200b,D) when block_table is provided. cu_seq_q (Tensor) \u2013 Cumulative sequence positions for queries; shape (N+1,)(N+1,)(N+1,) cu_seq_k (Tensor) \u2013 Cumulative sequence positions for keys/values; shape (N+1,)(N+1,)(N+1,) max_q (int) \u2013 Maximum query sequence length in the batch. max_k (int) \u2013 Maximum key/value sequence length in the batch. return_aux (Optional[AuxRequest]) \u2013 If not None and return_aux.lse is True, also returns the logsumexp tensor. scale (float, optional) \u2013 Positive scaling factor for attention scores. window_size (tuple[int, int], optional) \u2013 Window size for sliding window attention as (left, right). Use (-1, -1) for full attention (default), (-1, 0) for causal attention, or (W, 0) for causal attention with sliding window of size W. enable_gqa (bool) \u2013 If set to True, enables Grouped Query Attention (GQA) and allows key/value to have fewer heads than query. Each KV head is shared by a group of Hq/HkvH_q / H_{kv}Hq\u200b/Hkv\u200b query heads, so HqH_qHq\u200b must be divisible by HkvH_{kv}Hkv\u200b. Default is False. seqused_k (Tensor, optional) \u2013 Number of valid KV tokens per batch element; shape (N,)(N,)(N,). When set, only the first seqused_k[i] tokens in the key/value sequence for batch element i participate in attention. Useful for KV-cache decoding where the cache slot is larger than the actual sequence. Inference-only (not supported in backward). block_table (Tensor, optional) \u2013 Block table for paged KV cache; shape (N,max_pages_per_seq)(N, \\text{max\\_pages\\_per\\_seq})(N,max_pages_per_seq), dtype int32. Requires seqused_k. Inference-only (not supported in backward). When block_table is provided, key and value are a \u201cpool\u201d of pages of tokens of KV data and the pages belong to any sequence/order. The block_table is what maps each sequence\u2019s logical chunks back to physical pages in this pool. seqused_k[i] tells the kernel how many tokens in sequence i are actually valid, since the last page is typically only partially filled. num_splits (int, optional) \u2013 Number of splits for split-KV. Set to 1 to disable split-KV which enables batch invariance. Split-KV parallelizes the key/value sequence dimension across multiple thread blocks and combines partial results. The split decision depends on max_k (the longest sequence in the batch), so different batch compositions can change the reduction order and produce different floating-point results for the same sequence. When this is disabled, bitwise identical outputs are guaranteed for a given sequence regardless of what other sequences are in the batch, at the cost of lower GPU utilization when there are few queries. When None (default), the kernel chooses automatically. Returns: Output tensor from attention computation; shape (Tq,Hq,D)(T_q, H_q, D)(Tq\u200b,Hq\u200b,D). If return_aux is not None and return_aux.lse is True:lse (Tensor): Log-sum-exp of attention scores; shape (Hq,Tq)(H_q, T_q)(Hq\u200b,Tq\u200b). Return type: output (Tensor) Shape legend: NNN: Batch size TqT_qTq\u200b: Total number of query tokens in the batch (sum of all query sequence lengths) TkT_kTk\u200b: Total number of key/value tokens in the batch (sum of all key/value sequence lengths) HqH_qHq\u200b: Number of query attention heads HkvH_{kv}Hkv\u200b: Number of key/value attention heads (equal to HqH_qHq\u200b unless GQA is enabled) DDD: Head dimension Example: \u003e\u003e\u003e batch_size, max_seq_len, embed_dim, num_heads = 2, 512, 1024, 16 \u003e\u003e\u003e head_dim = embed_dim // num_heads \u003e\u003e\u003e seq_lengths = [] \u003e\u003e\u003e for _ in range(batch_size): ... length = torch.randint(1, max_seq_len // 64 + 1, (1,)).item() * 64 ... seq_lengths.append(min(length, max_seq_len)) \u003e\u003e\u003e seq_lengths = torch.tensor(seq_lengths, device=\"cuda\") \u003e\u003e\u003e total_tokens = seq_lengths.sum().item() \u003e\u003e\u003e \u003e\u003e\u003e # Create packed query, key, value tensors \u003e\u003e\u003e query = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e key = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e value = torch.randn( ... total_tokens, num_heads, head_dim, dtype=torch.float16, device=\"cuda\" ... ) \u003e\u003e\u003e \u003e\u003e\u003e # Build cumulative sequence tensor \u003e\u003e\u003e cu_seq = torch.zeros(batch_size + 1, device=\"cuda\", dtype=torch.int32) \u003e\u003e\u003e cu_seq[1:] = seq_lengths.cumsum(0) \u003e\u003e\u003e max_len = seq_lengths.max().item() \u003e\u003e\u003e \u003e\u003e\u003e # Call varlen_attn \u003e\u003e\u003e output = varlen_attn( ... query, key, value, cu_seq, cu_seq, max_len, max_len ... ) torch.nn.attention.varlen.varlen_attn_out(out, query, key, value, cu_seq_q, cu_seq_k, max_q, max_k, *, return_aux=None, scale=None, window_size=(-1, -1), enable_gqa=False, seqused_k=None, block_table=None, num_splits=None)[source]# Compute variable-length attention using Flash Attention with a pre-allocated output tensor. Same as varlen_attn() but writes the attention output into the provided out tensor instead of allocating a new one. Return type: Tensor | tuple[Tensor, Tensor] class torch.nn.attention.varlen.AuxRequest(lse=False)[source]# Request which auxiliary outputs to compute from varlen_attn. Each field is a boolean indicating whether that auxiliary output should be computed.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

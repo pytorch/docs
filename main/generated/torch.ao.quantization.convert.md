@@ -1,6 +1,6 @@
 # convert
 
-*class*torch.ao.quantization.convert(*module*, *mapping=None*, *inplace=False*, *remove_qconfig=True*, *is_reference=False*, *convert_custom_config_dict=None*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/quantization/quantize.py#L629)
+*class*torch.ao.quantization.convert(*module*, *mapping=None*, *inplace=False*, *remove_qconfig=True*, *is_reference=False*, *convert_custom_config_dict=None*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/quantization/quantize.py#L629)
 
 Converts submodules in input module to a different module according to mapping
 by calling from_float method on the target module class. And remove qconfig at the

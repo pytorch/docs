@@ -1,6 +1,6 @@
 # LinearReLU
 
-*class*torch.ao.nn.intrinsic.quantized.LinearReLU(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/a7ff5691322735e9c4fc9f23bc19be9040aa9d50/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L15)
+*class*torch.ao.nn.intrinsic.quantized.LinearReLU(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L15)
 
 A LinearReLU module fused from Linear and ReLU modules
 

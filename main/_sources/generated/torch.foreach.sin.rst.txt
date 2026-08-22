@@ -1,0 +1,6 @@
+﻿torch.foreach.sin
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: sin

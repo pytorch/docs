@@ -1,0 +1,6 @@
+﻿torch.foreach.lerp\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: lerp_
