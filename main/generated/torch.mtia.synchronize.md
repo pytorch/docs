@@ -1,5 +1,5 @@
 # torch.mtia.synchronize
 
-torch.mtia.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/mtia/__init__.py#L163)
+torch.mtia.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/mtia/__init__.py#L163)
 
 Waits for all jobs in all streams on a MTIA device to complete.

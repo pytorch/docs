@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_functional
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_functional(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1314)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_functional(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1314)
 
 We generate the constraint: input = output
 

@@ -1,6 +1,6 @@
 # torch.fx.graph_module.reduce_graph_module
 
-torch.fx.graph_module.reduce_graph_module(*body*, *import_block*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/graph_module.py#L192)
+torch.fx.graph_module.reduce_graph_module(*body*, *import_block*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/fx/graph_module.py#L192)
 
 Note
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_gub
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_gub(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L463)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_gub(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L463)
 
 Transform greatest upper bound for tensors. Results in equality and Greatest Upper Bound
 on dimensions

@@ -1,6 +1,6 @@
 # torch.foreach.lerp
 
-torch.foreach.lerp(*inputs: TensorList*, *end: TensorList*, *weight: Scalar*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/f744a6b99cda942b3dd232f56c0ebf413660c13f/torch/foreach/__init__.py#L1394)
+torch.foreach.lerp(*inputs: TensorList*, *end: TensorList*, *weight: Scalar*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/foreach/__init__.py#L1394)
 
 torch.foreach.lerp(*inputs: TensorList*, *end: TensorList*, *weight: ScalarList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 
