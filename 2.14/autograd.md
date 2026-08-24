@@ -374,7 +374,7 @@ torch::autograd::GraphRoot 691.816us 691.816us 100
 | [`profiler_util.MemRecordsAcc`](generated/torch.autograd.profiler_util.MemRecordsAcc.html#torch.autograd.profiler_util.MemRecordsAcc) | Acceleration structure for accessing mem_records in interval. |
 | [`profiler_util.StringTable`](generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable) | |
 
-*class*torch.autograd.profiler.emit_nvtx(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler.py#L1072)
+*class*torch.autograd.profiler.emit_nvtx(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler.py#L1075)
 
 Context manager that makes every autograd operation emit an NVTX range.
 
@@ -449,7 +449,7 @@ the Function objects they create still stash those sequence numbers, and during 
 double-backward, the Function objects' `apply()` ranges are still tagged with `stashed seq`
 numbers, which can be compared to seq numbers from the backward pass.
 
-*class*torch.autograd.profiler.emit_itt(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler.py#L1001)
+*class*torch.autograd.profiler.emit_itt(*enabled=True*, *record_shapes=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler.py#L1004)
 
 Context manager that makes every autograd operation emit an ITT range.
 
