@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.exponential
 
-torch.signal.windows.windows.exponential(*M*, ***, *center=None*, *tau=1.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/signal/windows/windows.py#L89)
+torch.signal.windows.windows.exponential(*M*, ***, *center=None*, *tau=1.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/signal/windows/windows.py#L89)
 
 Computes a window with an exponential waveform.
 Also known as Poisson window.

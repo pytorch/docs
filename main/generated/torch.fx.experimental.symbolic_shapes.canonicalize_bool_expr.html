@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git6c5b0fc )">
+<meta name="llm:version" content="main (2.15.0a0+git9bc1ff8 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git6c5b0fc )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9bc1ff8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3904,15 +3904,15 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-canonicalize-bool-expr" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">canonicalize_bool_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/symbolic_shapes.py#L776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr" title="Link to this definition">#</a></dt>
-<dd><p>Canonicalize a boolean expression by transforming it into a lt / le
-inequality and moving all the non-constant terms to the rhs.
-We canonicalize And / Ors / Not via cnf and then canonicalize their subexpr
-recursively
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">canonicalize_bool_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/experimental/symbolic_shapes.py#L777"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr" title="Link to this definition">#</a></dt>
+<dd><p>Canonicalize supported boolean expressions recursively. Ge/Gt relations are
+rewritten as Le/Lt, and relations with arithmetic operands are normalized by
+subtraction. Relations with boolean operands are canonicalized structurally
+without arithmetic. And / Or / Not expressions are first converted to CNF.
 nb. sympy.Rel.canonical is not good enough <a class="github reference external" href="https://github.com/sympy/sympy/issues/25924">sympy/sympy#25924</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>expr</strong> (<em>sympy.Expr</em>) – Expression to canonicalize</p>
+<dd class="field-odd"><p><strong>expr</strong> (<em>_T</em>) – Expression to canonicalize</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>_T</em></p>
@@ -4276,7 +4276,7 @@ nb. sympy.Rel.canonical is not good enough <a class="github reference external" 
        "headline": "torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html",
-       "articleBody": "torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr# torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr(expr)[source]# Canonicalize a boolean expression by transforming it into a lt / le inequality and moving all the non-constant terms to the rhs. We canonicalize And / Ors / Not via cnf and then canonicalize their subexpr recursively nb. sympy.Rel.canonical is not good enough sympy/sympy#25924 Parameters: expr (sympy.Expr) \u2013 Expression to canonicalize Return type: _T",
+       "articleBody": "torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr# torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr(expr)[source]# Canonicalize supported boolean expressions recursively. Ge/Gt relations are rewritten as Le/Lt, and relations with arithmetic operands are normalized by subtraction. Relations with boolean operands are canonicalized structurally without arithmetic. And / Or / Not expressions are first converted to CNF. nb. sympy.Rel.canonical is not good enough sympy/sympy#25924 Parameters: expr (_T) \u2013 Expression to canonicalize Return type: _T",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

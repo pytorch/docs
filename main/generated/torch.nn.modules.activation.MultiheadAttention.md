@@ -1,6 +1,6 @@
 # MultiheadAttention
 
-*class*torch.nn.modules.activation.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/activation.py#L1090)
+*class*torch.nn.modules.activation.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/activation.py#L1090)
 
 Allows the model to jointly attend to information from different representation subspaces.
 
@@ -68,7 +68,7 @@ Examples:
 >>> attn_output, attn_output_weights = multihead_attn(query, key, value)
 ```
 
-forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/activation.py#L1256)
+forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/activation.py#L1256)
 
 Compute attention outputs using query, key, and value embeddings.
 
@@ -137,7 +137,7 @@ Note
 
 batch_first argument is ignored for unbatched inputs.
 
-merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/activation.py#L1525)
+merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/activation.py#L1525)
 
 Determine mask type and combine masks if necessary.
 

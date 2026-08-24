@@ -4,7 +4,7 @@ The torch.special module, modeled after SciPy's [special](https://docs.scipy.org
 
 ## Functions
 
-torch.special.airy_ai(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L982)
+torch.special.airy_ai(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L982)
 
 Airy function Ai(input)\text{Ai}\left(\text{input}\right)Ai(input).
 
@@ -16,7 +16,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.bessel_j0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L999)
+torch.special.bessel_j0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L999)
 
 Bessel function of the first kind of order 000.
 
@@ -28,7 +28,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.bessel_j1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1016)
+torch.special.bessel_j1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1016)
 
 Bessel function of the first kind of order 111.
 
@@ -40,7 +40,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.bessel_y0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1033)
+torch.special.bessel_y0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1033)
 
 Bessel function of the second kind of order 000.
 
@@ -52,7 +52,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.bessel_y1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1050)
+torch.special.bessel_y1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1050)
 
 Bessel function of the second kind of order 111.
 
@@ -64,7 +64,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.chebyshev_polynomial_t(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1067)
+torch.special.chebyshev_polynomial_t(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1067)
 
 Chebyshev polynomial of the first kind Tn(input)T_{n}(\text{input})Tn​(input).
 
@@ -92,7 +92,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.chebyshev_polynomial_u(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1098)
+torch.special.chebyshev_polynomial_u(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1098)
 
 Chebyshev polynomial of the second kind Un(input)U_{n}(\text{input})Un​(input).
 
@@ -121,7 +121,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.chebyshev_polynomial_v(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1130)
+torch.special.chebyshev_polynomial_v(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1130)
 
 Chebyshev polynomial of the third kind Vn∗(input)V_{n}^{\ast}(\text{input})Vn∗​(input).
 
@@ -134,7 +134,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.chebyshev_polynomial_w(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1148)
+torch.special.chebyshev_polynomial_w(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1148)
 
 Chebyshev polynomial of the fourth kind Wn∗(input)W_{n}^{\ast}(\text{input})Wn∗​(input).
 
@@ -147,7 +147,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.digamma(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L109)
+torch.special.digamma(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L109)
 
 Computes the logarithmic derivative of the gamma function on input.
 
@@ -179,7 +179,7 @@ Example:
 tensor([-0.5772, -1.9635])
 ```
 
-torch.special.entr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L67)
+torch.special.entr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L67)
 
 Computes the entropy on `input` (as defined below), elementwise.
 
@@ -210,7 +210,7 @@ tensor([-0.5000, 0.0000, 0.5000])
 tensor([ -inf, 0.0000, 0.3466])
 ```
 
-torch.special.erf(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L202)
+torch.special.erf(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L202)
 
 Computes the error function of `input`. The error function is defined as follows:
 
@@ -232,7 +232,7 @@ Example:
 tensor([ 0.0000, -0.8427, 1.0000])
 ```
 
-torch.special.erfc(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L226)
+torch.special.erfc(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L226)
 
 Computes the complementary error function of `input`.
 The complementary error function is defined as follows:
@@ -255,7 +255,7 @@ Example:
 tensor([ 1.0000, 1.8427, 0.0000])
 ```
 
-torch.special.erfcx(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L251)
+torch.special.erfcx(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L251)
 
 Computes the scaled complementary error function for each element of `input`.
 The scaled complementary error function is defined as follows:
@@ -278,7 +278,7 @@ Example:
 tensor([ 1.0000, 5.0090, 0.0561])
 ```
 
-torch.special.erfinv(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L279)
+torch.special.erfinv(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L279)
 
 Computes the inverse error function of `input`.
 The inverse error function is defined in the range (−1,1)(-1, 1)(−1,1) as:
@@ -301,7 +301,7 @@ Example:
 tensor([ 0.0000, 0.4769, -inf])
 ```
 
-torch.special.exp2(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L379)
+torch.special.exp2(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L379)
 
 Computes the base two exponential function of `input`.
 
@@ -323,7 +323,7 @@ Example:
 tensor([ 1., 2., 8., 16.])
 ```
 
-torch.special.expit(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L352)
+torch.special.expit(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L352)
 
 Computes the expit (also known as the logistic sigmoid function) of the elements of `input`.
 
@@ -348,7 +348,7 @@ tensor([ 0.9213, 1.0887, -0.8858, -1.7683])
 tensor([ 0.7153, 0.7481, 0.2920, 0.1458])
 ```
 
-torch.special.expm1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L404)
+torch.special.expm1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L404)
 
 Computes the exponential of the elements minus 1
 of `input`.
@@ -376,7 +376,7 @@ Example:
 tensor([ 0., 1.])
 ```
 
-torch.special.gammainc(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L885)
+torch.special.gammainc(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L885)
 
 Computes the regularized lower incomplete gamma function:
 
@@ -424,7 +424,7 @@ tensor([0.3528, 0.5665, 0.7350])
 tensor([1., 1., 1.])
 ```
 
-torch.special.gammaincc(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L934)
+torch.special.gammaincc(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L934)
 
 Computes the regularized upper incomplete gamma function:
 
@@ -471,7 +471,7 @@ tensor([0.6472, 0.4335, 0.2650])
 tensor([1., 1., 1.])
 ```
 
-torch.special.gammaln(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L140)
+torch.special.gammaln(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L140)
 
 Computes the natural logarithm of the absolute value of the gamma function on `input`.
 
@@ -494,7 +494,7 @@ Example:
 tensor([ 0.5724, 0.0000, -0.1208])
 ```
 
-torch.special.hermite_polynomial_h(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1166)
+torch.special.hermite_polynomial_h(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1166)
 
 Physicist's Hermite polynomial Hn(input)H_{n}(\text{input})Hn​(input).
 
@@ -516,7 +516,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.hermite_polynomial_he(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1192)
+torch.special.hermite_polynomial_he(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1192)
 
 Probabilist's Hermite polynomial Hen(input)He_{n}(\text{input})Hen​(input).
 
@@ -538,7 +538,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.i0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L522)
+torch.special.i0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L522)
 
 Computes the zeroth order modified Bessel function of the first kind for each element of `input`.
 
@@ -560,7 +560,7 @@ Example:
 tensor([ 1.0000, 1.2661, 2.2796, 4.8808, 11.3019])
 ```
 
-torch.special.i0e(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L548)
+torch.special.i0e(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L548)
 
 Computes the exponentially scaled zeroth order modified Bessel function of the first kind (as defined below)
 for each element of `input`.
@@ -583,7 +583,7 @@ Example:
 tensor([1.0000, 0.4658, 0.3085, 0.2430, 0.2070])
 ```
 
-torch.special.i1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L573)
+torch.special.i1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L573)
 
 Computes the first order modified Bessel function of the first kind (as defined below)
 for each element of `input`.
@@ -606,7 +606,7 @@ Example:
 tensor([0.0000, 0.5652, 1.5906, 3.9534, 9.7595])
 ```
 
-torch.special.i1e(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L598)
+torch.special.i1e(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L598)
 
 Computes the exponentially scaled first order modified Bessel function of the first kind (as defined below)
 for each element of `input`.
@@ -630,7 +630,7 @@ Example:
 tensor([0.0000, 0.2079, 0.2153, 0.1968, 0.1788])
 ```
 
-torch.special.laguerre_polynomial_l(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1218)
+torch.special.laguerre_polynomial_l(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1218)
 
 Laguerre polynomial Ln(input)L_{n}(\text{input})Ln​(input).
 
@@ -652,7 +652,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.legendre_polynomial_p(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1244)
+torch.special.legendre_polynomial_p(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1244)
 
 Legendre polynomial Pn(input)P_{n}(\text{input})Pn​(input).
 
@@ -674,11 +674,11 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.log1p(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L702)
+torch.special.log1p(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L702)
 
 Alias for [`torch.log1p()`](generated/torch.log1p.html#torch.log1p).
 
-torch.special.log_ndtr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L677)
+torch.special.log_ndtr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L677)
 
 Computes the log of the area under the standard Gaussian probability density function,
 integrated from minus infinity to `input`, elementwise.
@@ -701,7 +701,7 @@ Example:
 tensor([-6.6077 -3.7832 -1.841 -0.6931 -0.1728 -0.023 -0.0014])
 ```
 
-torch.special.log_softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L782)
+torch.special.log_softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L782)
 
 Computes softmax followed by a logarithm.
 
@@ -729,7 +729,7 @@ tensor([[-0.6931, -0.6931],
  [-0.6931, -0.6931]])
 ```
 
-torch.special.logit(*input*, *eps=None*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L305)
+torch.special.logit(*input*, *eps=None*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L305)
 
 Returns a new tensor with the logit of the elements of `input`.
 `input` is clamped to [eps, 1 - eps] when eps is not None.
@@ -765,11 +765,11 @@ tensor([0.2796, 0.9331, 0.6486, 0.1523, 0.6516])
 tensor([-0.9466, 2.6352, 0.6131, -1.7169, 0.6261])
 ```
 
-torch.special.logsumexp(*input*, *dim*, *keepdim=False*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L343)
+torch.special.logsumexp(*input*, *dim*, *keepdim=False*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L343)
 
 Alias for [`torch.logsumexp()`](generated/torch.logsumexp.html#torch.logsumexp).
 
-torch.special.modified_bessel_i0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1270)
+torch.special.modified_bessel_i0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1270)
 
 Modified Bessel function of the first kind of order 000.
 
@@ -781,7 +781,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.modified_bessel_i1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1287)
+torch.special.modified_bessel_i1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1287)
 
 Modified Bessel function of the first kind of order 111.
 
@@ -793,7 +793,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.modified_bessel_k0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1304)
+torch.special.modified_bessel_k0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1304)
 
 Modified Bessel function of the second kind of order 000.
 
@@ -805,7 +805,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.modified_bessel_k1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1321)
+torch.special.modified_bessel_k1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1321)
 
 Modified Bessel function of the second kind of order 111.
 
@@ -817,7 +817,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.multigammaln(*input*, *p*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L848)
+torch.special.multigammaln(*input*, *p*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L848)
 
 Computes the [multivariate log-gamma function](https://en.wikipedia.org/wiki/Multivariate_gamma_function) with dimension
 ppp element-wise, given by
@@ -851,7 +851,7 @@ tensor([[0.3928, 0.4007, 0.7586],
  [1.0311, 0.3901, 0.5049]])
 ```
 
-torch.special.ndtr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L624)
+torch.special.ndtr(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L624)
 
 Computes the area under the standard Gaussian probability density function,
 integrated from minus infinity to `input`, elementwise.
@@ -874,7 +874,7 @@ Example:
 tensor([0.0013, 0.0228, 0.1587, 0.5000, 0.8413, 0.9772, 0.9987])
 ```
 
-torch.special.ndtri(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L649)
+torch.special.ndtri(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L649)
 
 Computes the argument, x, for which the area under the Gaussian probability density function
 (integrated from minus infinity to x) is equal to `input`, elementwise.
@@ -902,7 +902,7 @@ Example:
 tensor([ -inf, -0.6745, 0.0000, 0.6745, inf])
 ```
 
-torch.special.polygamma(*n*, *input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L166)
+torch.special.polygamma(*n*, *input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L166)
 
 Computes the nthn^{th}nth derivative of the digamma function on `input`.
 n≥0n \geq 0n≥0 is called the order of the polygamma function.
@@ -938,15 +938,15 @@ tensor([ 6.4939, 97.4091])
 tensor([ -24.8863, -771.4742])
 ```
 
-torch.special.psi(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L100)
+torch.special.psi(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L100)
 
 Alias for `torch.special.digamma()`.
 
-torch.special.round(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L743)
+torch.special.round(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L743)
 
 Alias for [`torch.round()`](generated/torch.round.html#torch.round).
 
-torch.special.scaled_modified_bessel_k0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1338)
+torch.special.scaled_modified_bessel_k0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1338)
 
 Scaled modified Bessel function of the second kind of order 000.
 
@@ -958,7 +958,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.scaled_modified_bessel_k1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1355)
+torch.special.scaled_modified_bessel_k1(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1355)
 
 Scaled modified Bessel function of the second kind of order 111.
 
@@ -970,7 +970,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.shifted_chebyshev_polynomial_t(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1372)
+torch.special.shifted_chebyshev_polynomial_t(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1372)
 
 Chebyshev polynomial of the first kind Tn∗(input)T_{n}^{\ast}(\text{input})Tn∗​(input).
 
@@ -983,7 +983,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.shifted_chebyshev_polynomial_u(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1390)
+torch.special.shifted_chebyshev_polynomial_u(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1390)
 
 Chebyshev polynomial of the second kind Un∗(input)U_{n}^{\ast}(\text{input})Un∗​(input).
 
@@ -996,7 +996,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.shifted_chebyshev_polynomial_v(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1408)
+torch.special.shifted_chebyshev_polynomial_v(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1408)
 
 Chebyshev polynomial of the third kind Vn∗(input)V_{n}^{\ast}(\text{input})Vn∗​(input).
 
@@ -1009,7 +1009,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.shifted_chebyshev_polynomial_w(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1426)
+torch.special.shifted_chebyshev_polynomial_w(*input*, *n*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1426)
 
 Chebyshev polynomial of the fourth kind Wn∗(input)W_{n}^{\ast}(\text{input})Wn∗​(input).
 
@@ -1022,7 +1022,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.sinc(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L711)
+torch.special.sinc(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L711)
 
 Computes the normalized sinc of `input.`
 
@@ -1051,7 +1051,7 @@ tensor([ 0.2252, -0.2948, 1.0267, -1.1566])
 tensor([ 0.9186, 0.8631, -0.0259, -0.1300])
 ```
 
-torch.special.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L752)
+torch.special.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L752)
 
 Computes the softmax function.
 
@@ -1079,7 +1079,7 @@ tensor([[0.5000, 0.5000],
  [0.5000, 0.5000]])
 ```
 
-torch.special.spherical_bessel_j0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L1444)
+torch.special.spherical_bessel_j0(*input*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L1444)
 
 Spherical Bessel function of the first kind of order 000.
 
@@ -1091,7 +1091,7 @@ Keyword Arguments:
 
 **out** ([*Tensor*](tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
-torch.special.xlog1py(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L432)
+torch.special.xlog1py(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L432)
 
 Computes `input * log1p(other)` with the following cases.
 
@@ -1135,7 +1135,7 @@ tensor([1.6094, 3.2189, 4.8283])
 tensor([2.7726, 2.1972, 1.3863])
 ```
 
-torch.special.xlogy(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L477)
+torch.special.xlogy(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L477)
 
 Computes `input * log(other)` with the following cases.
 
@@ -1179,7 +1179,7 @@ tensor([1.3863, 2.7726, 4.1589])
 tensor([2.1972, 1.3863, 0.0000])
 ```
 
-torch.special.zeta(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/special/__init__.py#L814)
+torch.special.zeta(*input*, *other*, ***, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/special/__init__.py#L814)
 
 Computes the Hurwitz zeta function, elementwise.
 

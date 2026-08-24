@@ -4,7 +4,7 @@ Warning
 
 These APIs are experimental and subject to change without notice.
 
-*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/sym_node.py#L679)
+*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/experimental/sym_node.py#L679)
 
 User API for marking dynamic integers in torch.compile.
 Intended to be compatible with both compile and eager mode.
@@ -77,7 +77,7 @@ Self
 | [`sym_or`](generated/torch.fx.experimental.symbolic_shapes.sym_or.html#torch.fx.experimental.symbolic_shapes.sym_or) | or, but for symbolic expressions, without bool casting. |
 | [`constrain_range`](generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range) | Applies a constraint that the passed in SymInt must lie between min-max inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning that it can be used on unbacked SymInts). |
 | [`constrain_unify`](generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify) | Given two SymInts, constrain them so that they must be equal. |
-| [`canonicalize_bool_expr`](generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr) | Canonicalize a boolean expression by transforming it into a lt / le inequality and moving all the non-constant terms to the rhs. |
+| [`canonicalize_bool_expr`](generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr) | Canonicalize supported boolean expressions recursively. |
 | [`statically_known_true`](generated/torch.fx.experimental.symbolic_shapes.statically_known_true.html#torch.fx.experimental.symbolic_shapes.statically_known_true) | Returns True if x can be simplified to a constant and is true. |
 | [`statically_known_false`](generated/torch.fx.experimental.symbolic_shapes.statically_known_false.html#torch.fx.experimental.symbolic_shapes.statically_known_false) | Returns True if x can be simplified to a constant and is False. |
 | [`has_static_value`](generated/torch.fx.experimental.symbolic_shapes.has_static_value.html#torch.fx.experimental.symbolic_shapes.has_static_value) | User-code friendly utility to check if a value is static or dynamic. |

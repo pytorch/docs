@@ -1,6 +1,6 @@
 # torch.linalg.vector_norm
 
-torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/linalg/__init__.py#L1491)
+torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/linalg/__init__.py#L1491)
 
 Computes a vector norm.
 

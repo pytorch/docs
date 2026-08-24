@@ -1,6 +1,6 @@
 # StrictMinMaxConstraint
 
-*class*torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint(*warn_only*, *vr*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/symbolic_shapes.py#L2044)
+*class*torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint(*warn_only*, *vr*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/experimental/symbolic_shapes.py#L2049)
 
 For clients: the size at this dimension must be within 'vr' (which
 specifies a lower and upper bound, inclusive-inclusive) AND it
@@ -19,7 +19,7 @@ though at trace time we assumed size is not 0 or 1. The idea is that
 if we produce a graph that works for a range of values, it will be OK
 for N=0/1 too.
 
-render(*source*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/symbolic_shapes.py#L2067)
+render(*source*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/experimental/symbolic_shapes.py#L2072)
 
 Format the constrain equation
 

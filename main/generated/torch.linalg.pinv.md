@@ -1,6 +1,6 @@
 # torch.linalg.pinv
 
-torch.linalg.pinv(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/linalg/__init__.py#L2056)
+torch.linalg.pinv(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/linalg/__init__.py#L2056)
 
 Computes the pseudoinverse (Moore-Penrose inverse) of a matrix.
 

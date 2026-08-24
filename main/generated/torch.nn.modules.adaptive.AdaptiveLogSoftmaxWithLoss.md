@@ -1,6 +1,6 @@
 # AdaptiveLogSoftmaxWithLoss
 
-*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/adaptive.py#L21)
+*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/adaptive.py#L21)
 
 Efficient softmax approximation.
 
@@ -14,7 +14,7 @@ imbalanced, for example in natural language modelling, where the word
 frequency distribution approximately follows the [Zipf's law](https://en.wikipedia.org/wiki/Zipf%27s_law).
 
 Adaptive softmax partitions the labels into several clusters, according to
-their frequency. These clusters may contain different number of targets
+their frequency. These clusters may contain a different number of targets
 each.
 Additionally, clusters containing less frequent labels assign lower
 dimensional embeddings to those labels, which speeds up the computation.
@@ -92,7 +92,7 @@ Shape:
 - output1: (N)(N)(N) or ()()()
 - output2: `Scalar`
 
-forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/adaptive.py#L186)
+forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/adaptive.py#L186)
 
 Runs the forward pass.
 
@@ -100,7 +100,7 @@ Return type:
 
 *_ASMoutput*
 
-log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/adaptive.py#L286)
+log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/adaptive.py#L286)
 
 Compute log probabilities for all n_classes\texttt{n\_classes}n_classes.
 
@@ -123,7 +123,7 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N,n_classes)(N, \texttt{n\_classes})(N,n_classes)
 
-predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/adaptive.py#L305)
+predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/adaptive.py#L305)
 
 Return the class with the highest probability for each example in the input minibatch.
 
@@ -146,6 +146,6 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N)(N)(N)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/modules/adaptive.py#L177)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/modules/adaptive.py#L177)
 
 Resets parameters based on their initialization used in `__init__`.

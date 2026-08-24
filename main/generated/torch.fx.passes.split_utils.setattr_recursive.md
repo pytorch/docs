@@ -1,6 +1,6 @@
 # torch.fx.passes.split_utils.setattr_recursive
 
-torch.fx.passes.split_utils.setattr_recursive(*obj*, *attr*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/passes/split_utils.py#L41)
+torch.fx.passes.split_utils.setattr_recursive(*obj*, *attr*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/passes/split_utils.py#L41)
 
 Warning
 

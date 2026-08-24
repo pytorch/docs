@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.state_dict
 
-Optimizer.state_dict()[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/optim/optimizer.py#L699)
+Optimizer.state_dict()[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/optim/optimizer.py#L699)
 
 Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
 

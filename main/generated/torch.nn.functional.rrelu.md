@@ -1,6 +1,6 @@
 # torch.nn.functional.rrelu
 
-torch.nn.functional.rrelu(*input*, *lower=1. / 8*, *upper=1. / 3*, *training=False*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/functional.py#L2010)
+torch.nn.functional.rrelu(*input*, *lower=1. / 8*, *upper=1. / 3*, *training=False*, *inplace=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/functional.py#L2010)
 
 Randomized leaky ReLU.
 

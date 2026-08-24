@@ -1,6 +1,6 @@
 # torch.nn.functional.bilinear
 
-torch.nn.functional.bilinear(*input1*, *input2*, *weight*, *bias=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/functional.py#L2406)
+torch.nn.functional.bilinear(*input1*, *input2*, *weight*, *bias=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/functional.py#L2406)
 
 Applies a bilinear transformation to the incoming data:
 y=x1TAx2+by = x_1^T A x_2 + by=x1T​Ax2​+b

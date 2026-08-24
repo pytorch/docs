@@ -1,6 +1,6 @@
 # UninitializedParameter
 
-*class*torch.nn.parameter.UninitializedParameter(*requires_grad=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/parameter.py#L204)
+*class*torch.nn.parameter.UninitializedParameter(*requires_grad=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/parameter.py#L204)
 
 A parameter that is not initialized.
 
@@ -16,6 +16,6 @@ converting it to a regular `torch.nn.Parameter`.
 The default device or dtype to use when the parameter is materialized can be set
 during construction using e.g. `device='cuda'`.
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/nn/parameter.py#L30)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/nn/parameter.py#L30)
 
 alias of [`Parameter`](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)
