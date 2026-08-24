@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.snapshot_fake
 
-torch.fx.experimental.proxy_tensor.snapshot_fake(*val*, *include_real=False*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/fx/experimental/proxy_tensor.py#L705)
+torch.fx.experimental.proxy_tensor.snapshot_fake(*val*, *include_real=False*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/proxy_tensor.py#L705)
 
 Return type:
 

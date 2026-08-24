@@ -1,13 +1,13 @@
 # torch.autograd.graph.increment_version
 
-torch.autograd.graph.increment_version(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/autograd/graph.py#L252)
+torch.autograd.graph.increment_version(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/autograd/graph.py#L252)
 
 Update autograd metadata tracking whether the given Tensor was modified in place.
 
 This is to enable more accurate error checking within the autograd engine.
 It is already done automatically by PyTorch functions and within custom Function
 when mark_dirty() is called appropriately so you only need to call this explicitly
-if you are doing inplace operation on the Tensor data in a way that Pytorch doesn't
+if you are doing inplace operation on the Tensor data in a way that PyTorch doesn't
 know about. For example a custom kernel that reads the Tensor data_ptr and modifies
 the memory inplace based on this pointer. Can accept either a tensor, or a list of tensors.
 

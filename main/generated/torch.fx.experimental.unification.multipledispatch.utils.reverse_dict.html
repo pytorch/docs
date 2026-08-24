@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git7438967 )">
+<meta name="llm:version" content="main (2.15.0a0+git6c5b0fc )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git7438967 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git6c5b0fc )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3904,7 +3904,7 @@ document.write(`
 <h1>torch.fx.experimental.unification.multipledispatch.utils.reverse_dict<a class="headerlink" href="#torch-fx-experimental-unification-multipledispatch-utils-reverse-dict" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.unification.multipledispatch.utils.reverse_dict">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.multipledispatch.utils.</span></span><span class="sig-name descname"><span class="pre">reverse_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7438967adaaabe37e14e1d7d26e1ab5ed2ed9054/torch/fx/experimental/unification/multipledispatch/utils.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.multipledispatch.utils.reverse_dict" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.unification.multipledispatch.utils.</span></span><span class="sig-name descname"><span class="pre">reverse_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c5b0fcd877d7b7a4a969138e85428dd95fa7636/torch/fx/experimental/unification/multipledispatch/utils.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.unification.multipledispatch.utils.reverse_dict" title="Link to this definition">#</a></dt>
 <dd><p>Reverses direction of dependence dict.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">()}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>  
@@ -3913,8 +3913,8 @@ document.write(`
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>dict order are not deterministic. As we iterate on the
-input dict, it make the output of this function depend on the
+<p>dict order is not deterministic. As we iterate on the
+input dict, it makes the output of this function depend on the
 dict order. So this function output order should be considered
 as undeterministic.</p>
 </div>
@@ -4281,7 +4281,7 @@ as undeterministic.</p>
        "headline": "torch.fx.experimental.unification.multipledispatch.utils.reverse_dict",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.fx.experimental.unification.multipledispatch.utils.reverse_dict.html",
-       "articleBody": "torch.fx.experimental.unification.multipledispatch.utils.reverse_dict# torch.fx.experimental.unification.multipledispatch.utils.reverse_dict(d)[source]# Reverses direction of dependence dict. \u003e\u003e\u003e d = {\"a\": (1, 2), \"b\": (2, 3), \"c\": ()} \u003e\u003e\u003e reverse_dict(d) {1: (\u0027a\u0027,), 2: (\u0027a\u0027, \u0027b\u0027), 3: (\u0027b\u0027,)} Note dict order are not deterministic. As we iterate on the input dict, it make the output of this function depend on the dict order. So this function output order should be considered as undeterministic. Return type: OrderedDict[_T, tuple[_T, \u2026]]",
+       "articleBody": "torch.fx.experimental.unification.multipledispatch.utils.reverse_dict# torch.fx.experimental.unification.multipledispatch.utils.reverse_dict(d)[source]# Reverses direction of dependence dict. \u003e\u003e\u003e d = {\"a\": (1, 2), \"b\": (2, 3), \"c\": ()} \u003e\u003e\u003e reverse_dict(d) {1: (\u0027a\u0027,), 2: (\u0027a\u0027, \u0027b\u0027), 3: (\u0027b\u0027,)} Note dict order is not deterministic. As we iterate on the input dict, it makes the output of this function depend on the dict order. So this function output order should be considered as undeterministic. Return type: OrderedDict[_T, tuple[_T, \u2026]]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
