@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git9bc1ff8 )">
+<meta name="llm:version" content="main (2.15.0a0+git6421eec )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9bc1ff8 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git6421eec )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3577,7 +3577,7 @@ document.write(`
 <h1>StreamReaderIterDataPipe<a class="headerlink" href="#streamreaderiterdatapipe" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.datapipes.iter.streamreader.</span></span><span class="sig-name descname"><span class="pre">StreamReaderIterDataPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datapipe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/utils/data/datapipes/iter/streamreader.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.datapipes.iter.streamreader.</span></span><span class="sig-name descname"><span class="pre">StreamReaderIterDataPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datapipe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/utils/data/datapipes/iter/streamreader.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe" title="Link to this definition">#</a></dt>
 <dd><p>Given IO streams and their label names, yield bytes with label name as tuple.</p>
 <p>(functional name: <code class="docutils literal notranslate"><span class="pre">read_from_stream</span></code>).</p>
 <dl class="field-list simple">
@@ -3599,7 +3599,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/utils/data/datapipes/datapipe.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/utils/data/datapipes/datapipe.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe.reset" title="Link to this definition">#</a></dt>
 <dd><p>Reset the <cite>IterDataPipe</cite> to the initial state.</p>
 <p>By default, no-op. For subclasses of <cite>IterDataPipe</cite>, depending on their functionalities,
 they may want to override this method with implementations that

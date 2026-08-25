@@ -1,6 +1,6 @@
 # upsample
 
-*class*torch.ao.nn.quantized.functional.upsample(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/ao/nn/quantized/functional.py#L679)
+*class*torch.ao.nn.quantized.functional.upsample(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/ao/nn/quantized/functional.py#L679)
 
 Upsamples the input to either the given `size` or the given
 `scale_factor`

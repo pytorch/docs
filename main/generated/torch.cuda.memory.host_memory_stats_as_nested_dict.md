@@ -1,6 +1,6 @@
 # torch.cuda.memory.host_memory_stats_as_nested_dict
 
-torch.cuda.memory.host_memory_stats_as_nested_dict()[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/memory.py#L446)
+torch.cuda.memory.host_memory_stats_as_nested_dict()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/memory.py#L446)
 
 Return the result of `host_memory_stats()` as a nested dictionary.
 

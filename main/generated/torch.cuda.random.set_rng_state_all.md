@@ -1,6 +1,6 @@
 # torch.cuda.random.set_rng_state_all
 
-torch.cuda.random.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/random.py#L79)
+torch.cuda.random.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/random.py#L79)
 
 Set the random number generator state of all devices.
 

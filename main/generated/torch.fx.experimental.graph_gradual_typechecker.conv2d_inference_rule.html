@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git9bc1ff8 )">
+<meta name="llm:version" content="main (2.15.0a0+git6421eec )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9bc1ff8 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git6421eec )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3904,7 +3904,7 @@ document.write(`
 <h1>torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule<a class="headerlink" href="#torch-fx-experimental-graph-gradual-typechecker-conv2d-inference-rule" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.graph_gradual_typechecker.</span></span><span class="sig-name descname"><span class="pre">conv2d_inference_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/fx/experimental/graph_gradual_typechecker.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.graph_gradual_typechecker.</span></span><span class="sig-name descname"><span class="pre">conv2d_inference_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/fx/experimental/graph_gradual_typechecker.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule" title="Link to this definition">#</a></dt>
 <dd><p>Given a Conv2D instance and a node check the following conditions:
 - the input type can be expanded to a size 4 tensor: t =  (x_1, x_2, H, W)
 - the current node type can be expanded to a size 4 tensor: t’ =  (x_1’, x_2’, x_3’, x_4’)

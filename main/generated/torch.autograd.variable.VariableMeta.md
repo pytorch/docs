@@ -1,6 +1,6 @@
 # VariableMeta
 
-*class*torch.autograd.variable.VariableMeta[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/autograd/variable.py#L9)
+*class*torch.autograd.variable.VariableMeta[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/autograd/variable.py#L9)
 
 mro()
 

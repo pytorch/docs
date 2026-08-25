@@ -1,6 +1,6 @@
 # GdsFile
 
-*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/gds.py#L96)
+*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/gds.py#L96)
 
 Wrapper around cuFile.
 
@@ -33,13 +33,13 @@ True
 True
 ```
 
-deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/gds.py#L151)
+deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/gds.py#L151)
 
 Deregisters file descriptor from cuFile Driver.
 
 This is a wrapper around `cuFileHandleDeregister`.
 
-load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/gds.py#L161)
+load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/gds.py#L161)
 
 Loads data from the file into the storage.
 
@@ -51,13 +51,13 @@ Parameters:
 - **storage** (*Storage*) - Storage to load data into.
 - **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Offset into the file to start loading from. (Default: 0)
 
-register_handle()[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/gds.py#L142)
+register_handle()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/gds.py#L142)
 
 Registers file descriptor to cuFile Driver.
 
 This is a wrapper around `cuFileHandleRegister`.
 
-save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/cuda/gds.py#L175)
+save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/cuda/gds.py#L175)
 
 Saves data from the storage into the file.
 

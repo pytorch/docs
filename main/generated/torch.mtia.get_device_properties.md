@@ -1,6 +1,6 @@
 # torch.mtia.get_device_properties
 
-torch.mtia.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/mtia/__init__.py#L285)
+torch.mtia.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/mtia/__init__.py#L285)
 
 Return a dictionary of MTIA device properties
 

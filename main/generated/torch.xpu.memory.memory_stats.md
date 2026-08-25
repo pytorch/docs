@@ -1,6 +1,6 @@
 # torch.xpu.memory.memory_stats
 
-torch.xpu.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9bc1ff884cb38c4f6485d73c20a922b782335b34/torch/xpu/memory.py#L89)
+torch.xpu.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/xpu/memory.py#L89)
 
 Return a dictionary of XPU memory allocator statistics for a given device.
 
