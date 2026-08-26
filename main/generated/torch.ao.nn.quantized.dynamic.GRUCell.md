@@ -1,6 +1,6 @@
 # GRUCell
 
-*class*torch.ao.nn.quantized.dynamic.GRUCell(*input_size*, *hidden_size*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1330)
+*class*torch.ao.nn.quantized.dynamic.GRUCell(*input_size*, *hidden_size*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1330)
 
 A gated recurrent unit (GRU) cell
 

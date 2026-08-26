@@ -1,6 +1,6 @@
 # torch.fft.irfft2
 
-torch.fft.irfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/fft/__init__.py#L555)
+torch.fft.irfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/fft/__init__.py#L555)
 
 Computes the inverse of [`rfft2()`](torch.fft.rfft2.html#torch.fft.rfft2).
 Equivalent to [`irfftn()`](torch.fft.irfftn.html#torch.fft.irfftn) but IFFTs only the last two dimensions by default.

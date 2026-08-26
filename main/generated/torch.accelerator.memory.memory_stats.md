@@ -1,6 +1,6 @@
 # torch.accelerator.memory.memory_stats
 
-torch.accelerator.memory.memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/accelerator/memory.py#L54)
+torch.accelerator.memory.memory_stats(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/accelerator/memory.py#L54)
 
 Return a dictionary of accelerator device memory allocator statistics for a given device index.
 

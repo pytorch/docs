@@ -1,6 +1,6 @@
 # PerTensor
 
-*class*torch.ao.quantization.observer.PerTensor[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/ao/quantization/observer.py#L1713)
+*class*torch.ao.quantization.observer.PerTensor[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/ao/quantization/observer.py#L1713)
 
 Represents per-tensor granularity in quantization.
 

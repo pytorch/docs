@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_step_post_hook
 
-Optimizer.register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/optim/optimizer.py#L612)
+Optimizer.register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/optim/optimizer.py#L612)
 
 Register an optimizer step post hook which will be called after optimizer step.
 

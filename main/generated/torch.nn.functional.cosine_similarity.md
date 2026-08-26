@@ -1,6 +1,6 @@
 # torch.nn.functional.cosine_similarity
 
-torch.nn.functional.cosine_similarity(*x1*, *x2*, *dim=1*, *eps=1e-8*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/functional.py#L5907)
+torch.nn.functional.cosine_similarity(*x1*, *x2*, *dim=1*, *eps=1e-8*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/functional.py#L5907)
 
 Returns cosine similarity between `x1` and `x2`, computed along dim. `x1` and `x2` must be broadcastable
 to a common shape. `dim` refers to the dimension in this common shape. Dimension `dim` of the output is

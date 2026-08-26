@@ -1,8 +1,8 @@
 # avg_pool3d
 
-*class*torch.ao.nn.quantized.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/ao/nn/quantized/functional.py#L89)
+*class*torch.ao.nn.quantized.functional.avg_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/ao/nn/quantized/functional.py#L89)
 
-Applies 3D average-pooling operation in kD timeskH×kWkD \ times kH \times kWkD timeskH×kW regions by step size
+Applies 3D average-pooling operation in kD×kH×kWkD \times kH \times kWkD×kH×kW regions by step size
 sD×sH×sWsD \times sH \times sWsD×sH×sW steps. The number of output features is equal to the number of
 input planes.
 

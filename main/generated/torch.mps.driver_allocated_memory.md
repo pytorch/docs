@@ -1,6 +1,6 @@
 # torch.mps.driver_allocated_memory
 
-torch.mps.driver_allocated_memory()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/mps/__init__.py#L120)
+torch.mps.driver_allocated_memory()[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/mps/__init__.py#L120)
 
 Returns total GPU memory allocated by Metal driver for the process in bytes.
 

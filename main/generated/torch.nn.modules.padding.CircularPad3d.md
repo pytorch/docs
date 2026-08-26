@@ -1,6 +1,6 @@
 # CircularPad3d
 
-*class*torch.nn.modules.padding.CircularPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/padding.py#L160)
+*class*torch.nn.modules.padding.CircularPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/padding.py#L160)
 
 Pads the input tensor using circular padding of the input boundary.
 

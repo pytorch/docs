@@ -1,6 +1,6 @@
 # torch.nn.functional.multi_margin_loss
 
-torch.nn.functional.multi_margin_loss(*input*, *target*, *p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/functional.py#L4633)
+torch.nn.functional.multi_margin_loss(*input*, *target*, *p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/functional.py#L4633)
 
 Compute the multi margin loss, with optional weighting.
 

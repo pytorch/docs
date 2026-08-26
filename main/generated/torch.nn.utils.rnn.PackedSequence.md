@@ -1,6 +1,6 @@
 # PackedSequence
 
-*class*torch.nn.utils.rnn.PackedSequence(*data*, *batch_sizes=None*, *sorted_indices=None*, *unsorted_indices=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/utils/rnn.py#L39)
+*class*torch.nn.utils.rnn.PackedSequence(*data*, *batch_sizes=None*, *sorted_indices=None*, *unsorted_indices=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/rnn.py#L39)
 
 Holds the data and list of `batch_sizes` of a packed sequence.
 
@@ -65,7 +65,7 @@ Raises ValueError if the value is not present.
 
 Return true if self.data stored on a gpu.
 
-is_pinned()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/utils/rnn.py#L188)
+is_pinned()[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/rnn.py#L188)
 
 Return true if self.data stored on in pinned memory.
 
@@ -77,7 +77,7 @@ sorted_indices*: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.py
 
 Alias for field number 2
 
-to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/utils/rnn.py#L103)
+to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/rnn.py#L103)
 
 Perform dtype and/or device conversion on self.data.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.dropout1d
 
-torch.nn.functional.dropout1d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/functional.py#L1524)
+torch.nn.functional.dropout1d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/functional.py#L1524)
 
 Randomly zero out entire channels (a channel is a 1D feature map).
 

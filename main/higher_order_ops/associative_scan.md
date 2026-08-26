@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/_higher_order_ops/associative_scan.py#L149)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/_higher_order_ops/associative_scan.py#L149)
 
 Performs an inclusive scan with an associative combine function.
 
@@ -138,8 +138,12 @@ Parameters:
 
 - **combine_fn** (*Callable*) - A binary callable with type `(Tensor, Tensor) -> Tensor`,
 or if input is a pytree `(pytree, pytree) -> pytree`.
-This function must be pure, i.e., no lifted arguments are supported at the moment,
-satisfy the associative property and have no side-effects.
+This function must be pure, satisfy the associative property and have no
+side-effects. It may close over lifted arguments (e.g. freevars). On the
+autograd path in eager mode, tensor freevars are permitted as long as they do
+not require gradients (gradients for lifted arguments are not supported). Under
+`torch.compile` with `backend="inductor"` tensor freevars are still rejected
+outright; only `int`/`SymInt` lifted arguments are supported there.
 - **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - The input tensor, or nested pytree of tensors.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over
 - **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.

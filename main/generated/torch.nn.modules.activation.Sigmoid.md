@@ -1,6 +1,6 @@
 # Sigmoid
 
-*class*torch.nn.modules.activation.Sigmoid(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/activation.py#L337)
+*class*torch.nn.modules.activation.Sigmoid(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/activation.py#L337)
 
 Applies the Sigmoid function element-wise.
 
@@ -22,7 +22,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/activation.py#L357)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/activation.py#L357)
 
 Runs the forward pass.
 

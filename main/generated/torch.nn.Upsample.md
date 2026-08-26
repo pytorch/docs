@@ -1,6 +1,6 @@
 # Upsample
 
-*class*torch.nn.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/upsampling.py#L13)
+*class*torch.nn.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/upsampling.py#L13)
 
 Upsamples a given multi-channel 1D (temporal), 2D (spatial) or 3D (volumetric) data.
 
@@ -106,7 +106,7 @@ tensor([[[[1., 2., 0.],
  [0., 0., 0.]]]])
 
 >>> m = nn.Upsample(scale_factor=2, mode='bilinear') # align_corners=False
->>> # Notice that values in top left corner are the same with the small input (except at boundary)
+>>> # Notice that values in top left corner are the same as the small input (except at boundary)
 >>> m(input_3x3)
 tensor([[[[1.0000, 1.2500, 1.7500, 1.5000, 0.5000, 0.0000],
  [1.5000, 1.7500, 2.2500, 1.8750, 0.6250, 0.0000],
@@ -126,7 +126,7 @@ tensor([[[[1.0000, 1.4000, 1.8000, 1.6000, 0.8000, 0.0000],
  [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000]]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/upsampling.py#L189)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/upsampling.py#L189)
 
 Return the extra representation of the module.
 
@@ -134,7 +134,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/upsampling.py#L170)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/upsampling.py#L170)
 
 Runs the forward pass.
 

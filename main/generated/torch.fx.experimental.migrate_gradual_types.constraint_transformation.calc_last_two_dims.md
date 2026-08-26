@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims(*constraint*, *d*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L895)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.calc_last_two_dims(*constraint*, *d*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L895)
 
 Generates constraints for the last two dimensions of a convolution or a maxpool output
 :param constraint: CalcConv or CalcMaxPool

@@ -1,6 +1,6 @@
 # torch.testing
 
-torch.testing.assert_close(*actual*, *expected*, ***, *allow_subclasses=True*, *rtol=None*, *atol=None*, *equal_nan=False*, *check_device=True*, *check_dtype=True*, *check_layout=True*, *check_stride=False*, *msg=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/testing/_comparison.py#L1415)
+torch.testing.assert_close(*actual*, *expected*, ***, *allow_subclasses=True*, *rtol=None*, *atol=None*, *equal_nan=False*, *check_device=True*, *check_dtype=True*, *check_layout=True*, *check_stride=False*, *msg=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/testing/_comparison.py#L1414)
 
 Asserts that `actual` and `expected` are close.
 
@@ -240,7 +240,7 @@ Greatest relative difference: 1.0 at index (1,) (up to 1.3e-06 allowed)
 Footer
 ```
 
-torch.testing.make_tensor(**shape*, *dtype*, *device*, *low=None*, *high=None*, *requires_grad=False*, *noncontiguous=False*, *exclude_zero=False*, *memory_format=None*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/testing/_creation.py#L45)
+torch.testing.make_tensor(**shape*, *dtype*, *device*, *low=None*, *high=None*, *requires_grad=False*, *noncontiguous=False*, *exclude_zero=False*, *memory_format=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/testing/_creation.py#L45)
 
 Creates a tensor with the given `shape`, `device`, and `dtype`, and filled with
 values uniformly drawn from `[low, high)`.
@@ -310,11 +310,3 @@ tensor([ 0.1205, 0.2282, -0.6380])
 tensor([[False, False],
  [False, True]], device='cuda:0')
 ```
-
-torch.testing.assert_allclose(*actual*, *expected*, *rtol=None*, *atol=None*, *equal_nan=True*, *msg=''*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/testing/_comparison.py#L1692)
-
-Warning
-
-`torch.testing.assert_allclose()` is deprecated since `1.12` and will be removed in a future release.
-Please use `torch.testing.assert_close()` instead. You can find detailed upgrade instructions
-[here](https://github.com/pytorch/pytorch/issues/61844).

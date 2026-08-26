@@ -1,6 +1,6 @@
 # torch.fx.tensor_type.is_consistent
 
-torch.fx.tensor_type.is_consistent(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/fx/tensor_type.py#L74)
+torch.fx.tensor_type.is_consistent(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/fx/tensor_type.py#L74)
 
 A binary relation denoted by ~ that determines if t1 is consistent with t2.
 The relation is reflexive, symmetric but not transitive.

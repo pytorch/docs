@@ -1,6 +1,6 @@
 # torch.sym_int
 
-torch.sym_int(*a: PySymType*) → IntLikeType[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/__init__.py#L1210)
+torch.sym_int(*a: PySymType*) → IntLikeType[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/__init__.py#L1210)
 
 torch.sym_int(*a: [object](https://docs.python.org/3/library/functions.html#object)*) → [int](https://docs.python.org/3/library/functions.html#int)
 

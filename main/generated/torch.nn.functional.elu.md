@@ -1,6 +1,6 @@
 # torch.nn.functional.elu
 
-torch.nn.functional.elu(*input*, *alpha=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/functional.py#L1869)
+torch.nn.functional.elu(*input*, *alpha=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/functional.py#L1869)
 
 Apply the Exponential Linear Unit (ELU) function element-wise.
 

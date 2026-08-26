@@ -1,6 +1,6 @@
 # torch.mps.profiler.start
 
-torch.mps.profiler.start(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/mps/profiler.py#L21)
+torch.mps.profiler.start(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/mps/profiler.py#L21)
 
 Start OS Signpost tracing from MPS backend.
 

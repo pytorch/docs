@@ -1,6 +1,6 @@
 # torch.autograd.profiler.profile.export_chrome_trace
 
-profile.export_chrome_trace(*path*, *metadata=None*, *use_python_export=False*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/autograd/profiler.py#L548)
+profile.export_chrome_trace(*path*, *metadata=None*, *use_python_export=False*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/autograd/profiler.py#L548)
 
 Export an EventList as a Chrome tracing tools file.
 

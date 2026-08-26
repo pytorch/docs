@@ -1,6 +1,6 @@
 # BCELoss
 
-*class*torch.nn.modules.loss.BCELoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/loss.py#L633)
+*class*torch.nn.modules.loss.BCELoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/loss.py#L633)
 
 Creates a criterion that measures the Binary Cross Entropy between the target and
 the input probabilities:
@@ -80,7 +80,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/nn/modules/loss.py#L710)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/modules/loss.py#L710)
 
 Runs the forward pass.
 

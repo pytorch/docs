@@ -1,6 +1,6 @@
 # convert_fx
 
-*class*torch.ao.quantization.quantize_fx.convert_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*, *keep_original_weights=False*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/ao/quantization/quantize_fx.py#L566)
+*class*torch.ao.quantization.quantize_fx.convert_fx(*graph_module*, *convert_custom_config=None*, *_remove_qconfig=True*, *qconfig_mapping=None*, *backend_config=None*, *keep_original_weights=False*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/ao/quantization/quantize_fx.py#L566)
 
 Convert a calibrated or trained model to a quantized model
 

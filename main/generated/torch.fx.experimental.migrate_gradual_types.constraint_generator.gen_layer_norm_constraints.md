@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_layer_norm_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_layer_norm_constraints(*n*, *normalized_shape*, *symbols*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/6421eecbd685d270304ca7e0136286a344319752/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1350)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.gen_layer_norm_constraints(*n*, *normalized_shape*, *symbols*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1350)
 
 Return type:
 
