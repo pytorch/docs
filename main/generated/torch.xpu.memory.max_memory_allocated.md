@@ -1,6 +1,6 @@
 # torch.xpu.memory.max_memory_allocated
 
-torch.xpu.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/xpu/memory.py#L152)
+torch.xpu.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/xpu/memory.py#L152)
 
 Return the maximum GPU memory occupied by tensors in bytes for a given device.
 

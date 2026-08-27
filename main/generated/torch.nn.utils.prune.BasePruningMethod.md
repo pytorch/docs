@@ -1,13 +1,13 @@
 # BasePruningMethod
 
-*class*torch.nn.utils.prune.BasePruningMethod[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L11)
+*class*torch.nn.utils.prune.BasePruningMethod[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L11)
 
 Abstract base class for creation of new pruning techniques.
 
 Provides a skeleton for customization requiring the overriding of methods
 such as `compute_mask()` and `apply()`.
 
-*classmethod*apply(*module*, *name*, **args*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L76)
+*classmethod*apply(*module*, *name*, **args*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L76)
 
 Add pruning on the fly and reparameterization of a tensor.
 
@@ -30,7 +30,7 @@ If unspecified or None, the parameter will be used in its place.
 - **kwargs** - keyword arguments passed on to a subclass of a
 `BasePruningMethod`
 
-apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L53)
+apply_mask(*module*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L53)
 
 Simply handles the multiplication between the parameter being pruned and the generated mask.
 
@@ -49,7 +49,7 @@ Return type:
 
 pruned_tensor ([torch.Tensor](../tensors.html#torch.Tensor))
 
-*abstract*compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L33)
+*abstract*compute_mask(*t*, *default_mask*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L33)
 
 Compute and returns a mask for the input tensor `t`.
 
@@ -75,7 +75,7 @@ Return type:
 
 mask ([torch.Tensor](../tensors.html#torch.Tensor))
 
-prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L208)
+prune(*t*, *default_mask=None*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L208)
 
 Compute and returns a pruned version of input tensor `t`.
 
@@ -99,7 +99,7 @@ Returns:
 
 pruned version of tensor `t`.
 
-remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/nn/utils/prune.py#L240)
+remove(*module*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/prune.py#L240)
 
 Remove the pruning reparameterization from a module.
 

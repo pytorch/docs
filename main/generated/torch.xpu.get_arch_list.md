@@ -1,6 +1,6 @@
 # torch.xpu.get_arch_list
 
-torch.xpu.get_arch_list()[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/xpu/__init__.py#L718)
+torch.xpu.get_arch_list()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/xpu/__init__.py#L718)
 
 Return list XPU architectures this library was compiled for.
 

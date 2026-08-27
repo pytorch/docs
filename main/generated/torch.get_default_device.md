@@ -1,6 +1,6 @@
 # torch.get_default_device
 
-torch.get_default_device()[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/__init__.py#L1575)
+torch.get_default_device()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/__init__.py#L1574)
 
 Gets the default `torch.Tensor` to be allocated on `device`
 

@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.match_extensions
 
-torch.utils.hipify.hipify_python.match_extensions(*filename*, *extensions*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/utils/hipify/hipify_python.py#L150)
+torch.utils.hipify.hipify_python.match_extensions(*filename*, *extensions*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/utils/hipify/hipify_python.py#L150)
 
 Helper method to see if filename ends with certain extension
 

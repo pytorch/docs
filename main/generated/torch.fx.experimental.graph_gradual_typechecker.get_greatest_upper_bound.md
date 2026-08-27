@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.get_greatest_upper_bound
 
-torch.fx.experimental.graph_gradual_typechecker.get_greatest_upper_bound(*type1*, *type2*)[[source]](https://github.com/pytorch/pytorch/blob/60598ed3c8773875c0923101d54f206303b2f59f/torch/fx/experimental/graph_gradual_typechecker.py#L409)
+torch.fx.experimental.graph_gradual_typechecker.get_greatest_upper_bound(*type1*, *type2*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/fx/experimental/graph_gradual_typechecker.py#L409)
 
 Get the most precise type that's consistent with the given types
 
