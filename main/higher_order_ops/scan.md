@@ -79,7 +79,7 @@ Notice that the combine function becomes a sub-graph attribute of the top-level 
 
 ## API Reference
 
-torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/_higher_order_ops/scan.py#L109)
+torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/_higher_order_ops/scan.py#L109)
 
 Performs an inclusive scan with a combine function.
 

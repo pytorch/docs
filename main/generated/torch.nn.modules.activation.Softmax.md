@@ -1,6 +1,6 @@
 # Softmax
 
-*class*torch.nn.modules.activation.Softmax(*dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L1766)
+*class*torch.nn.modules.activation.Softmax(*dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L1766)
 
 Applies the Softmax function to an n-dimensional input Tensor.
 
@@ -50,7 +50,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L1826)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L1826)
 
 Return the extra representation of the module.
 
@@ -58,7 +58,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L1820)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L1820)
 
 Runs the forward pass.
 

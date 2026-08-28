@@ -1,6 +1,6 @@
 # UpsamplingNearest2d
 
-*class*torch.nn.modules.upsampling.UpsamplingNearest2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/upsampling.py#L201)
+*class*torch.nn.modules.upsampling.UpsamplingNearest2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/upsampling.py#L201)
 
 Applies a 2D nearest neighbor upsampling to an input signal composed of several input channels.
 

@@ -1,6 +1,6 @@
 # torch.fx.passes.tools_common.is_node_output_tensor
 
-torch.fx.passes.tools_common.is_node_output_tensor(*node*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/fx/passes/tools_common.py#L88)
+torch.fx.passes.tools_common.is_node_output_tensor(*node*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fx/passes/tools_common.py#L88)
 
 Checks if the node output produces a Tensor or not.
 

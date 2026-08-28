@@ -1,6 +1,6 @@
 # Hardtanh
 
-*class*torch.nn.modules.activation.Hardtanh(*min_val=-1.0*, *max_val=1.0*, *inplace=False*, *min_value=None*, *max_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L219)
+*class*torch.nn.modules.activation.Hardtanh(*min_val=-1.0*, *max_val=1.0*, *inplace=False*, *min_value=None*, *max_value=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L219)
 
 Applies the HardTanh function element-wise.
 
@@ -37,7 +37,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L296)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L296)
 
 Return the extra representation of the module.
 
@@ -45,7 +45,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/activation.py#L290)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/activation.py#L290)
 
 Runs the forward pass.
 

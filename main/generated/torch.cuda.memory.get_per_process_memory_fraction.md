@@ -1,6 +1,6 @@
 # torch.cuda.memory.get_per_process_memory_fraction
 
-torch.cuda.memory.get_per_process_memory_fraction(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/memory.py#L201)
+torch.cuda.memory.get_per_process_memory_fraction(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/memory.py#L201)
 
 Get memory fraction for a process.
 

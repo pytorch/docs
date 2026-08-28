@@ -19,8 +19,8 @@ and supported quantized modules and functions.
  torch.ao is missing documentation. Since part of it is mentioned here, adding them here for now. 
  They are here for tracking purposes until they are more permanently fixed. 
 
-torch.ao.ns.fx.utils.compute_sqnr(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_sqnr(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/ao/ns/fx/utils.py#L441)
 
-torch.ao.ns.fx.utils.compute_normalized_l2_error(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_normalized_l2_error(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/ao/ns/fx/utils.py#L441)
 
-torch.ao.ns.fx.utils.compute_cosine_similarity(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/ao/ns/fx/utils.py#L441)
+torch.ao.ns.fx.utils.compute_cosine_similarity(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/ao/ns/fx/utils.py#L441)

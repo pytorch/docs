@@ -1,6 +1,6 @@
 # inference_mode
 
-*class*torch.autograd.grad_mode.inference_mode(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/grad_mode.py#L213)
+*class*torch.autograd.grad_mode.inference_mode(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/grad_mode.py#L213)
 
 Context manager that enables or disables inference mode.
 
@@ -71,7 +71,7 @@ False
 False
 ```
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/grad_mode.py#L297)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/grad_mode.py#L297)
 
 Create a copy of this class
 

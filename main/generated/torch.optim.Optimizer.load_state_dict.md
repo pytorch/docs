@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.load_state_dict
 
-Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/optim/optimizer.py#L899)
+Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/optimizer.py#L899)
 
 Load the optimizer state.
 

@@ -1,6 +1,6 @@
 # torch.fft.fftshift
 
-torch.fft.fftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/fft/__init__.py#L1329)
+torch.fft.fftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fft/__init__.py#L1329)
 
 Reorders n-dimensional FFT data, as provided by [`fftn()`](torch.fft.fftn.html#torch.fft.fftn), to have
 negative frequency terms first.

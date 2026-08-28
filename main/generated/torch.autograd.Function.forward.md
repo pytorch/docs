@@ -1,6 +1,6 @@
 # torch.autograd.Function.forward
 
-*static*Function.forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/function.py#L409)
+*static*Function.forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/function.py#L409)
 
 Define the forward of the custom autograd Function.
 

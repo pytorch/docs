@@ -1,6 +1,6 @@
 # torch.xpu.get_stream_from_external
 
-torch.xpu.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/xpu/__init__.py#L668)
+torch.xpu.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/xpu/__init__.py#L668)
 
 Return a [`Stream`](torch.xpu.Stream_class.html#torch.xpu.Stream) from an external SYCL queue.
 

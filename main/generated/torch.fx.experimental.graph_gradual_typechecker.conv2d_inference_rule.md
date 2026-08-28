@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/fx/experimental/graph_gradual_typechecker.py#L427)
+torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fx/experimental/graph_gradual_typechecker.py#L427)
 
 Given a Conv2D instance and a node check the following conditions:
 - the input type can be expanded to a size 4 tensor: t = (x_1, x_2, H, W)

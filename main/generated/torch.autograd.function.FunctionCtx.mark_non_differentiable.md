@@ -1,6 +1,6 @@
 # torch.autograd.function.FunctionCtx.mark_non_differentiable
 
-FunctionCtx.mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/function.py#L204)
+FunctionCtx.mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/function.py#L204)
 
 Mark outputs as non-differentiable.
 

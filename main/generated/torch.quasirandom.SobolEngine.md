@@ -1,6 +1,6 @@
 # SobolEngine
 
-*class*torch.quasirandom.SobolEngine(*dimension*, *scramble=False*, *seed=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/quasirandom.py#L6)
+*class*torch.quasirandom.SobolEngine(*dimension*, *scramble=False*, *seed=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/quasirandom.py#L6)
 
 The `torch.quasirandom.SobolEngine` is an engine for generating
 (scrambled) Sobol sequences. Sobol sequences are an example of low
@@ -42,7 +42,7 @@ tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
  [0.7500, 0.2500, 0.2500, 0.2500, 0.7500]])
 ```
 
-draw(*n=1*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/quasirandom.py#L77)
+draw(*n=1*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/quasirandom.py#L77)
 
 Function to draw a sequence of `n` points from a Sobol sequence.
 Note that the samples are dependent on the previous samples. The size
@@ -61,7 +61,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-draw_base2(*m*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/quasirandom.py#L130)
+draw_base2(*m*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/quasirandom.py#L130)
 
 Function to draw a sequence of `2**m` points from a Sobol sequence.
 Note that the samples are dependent on the previous samples. The size
@@ -79,7 +79,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-fast_forward(*n*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/quasirandom.py#L168)
+fast_forward(*n*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/quasirandom.py#L168)
 
 Function to fast-forward the state of the `SobolEngine` by
 `n` steps. This is equivalent to drawing `n` samples
@@ -89,6 +89,6 @@ Parameters:
 
 **n** (*Int*) - The number of steps to fast-forward by.
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/quasirandom.py#L160)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/quasirandom.py#L160)
 
 Function to reset the `SobolEngine` to base state.

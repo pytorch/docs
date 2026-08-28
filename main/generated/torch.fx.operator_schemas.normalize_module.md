@@ -1,6 +1,6 @@
 # torch.fx.operator_schemas.normalize_module
 
-torch.fx.operator_schemas.normalize_module(*root*, *target*, *args*, *kwargs=None*, *normalize_to_only_use_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/fx/operator_schemas.py#L527)
+torch.fx.operator_schemas.normalize_module(*root*, *target*, *args*, *kwargs=None*, *normalize_to_only_use_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fx/operator_schemas.py#L527)
 
 Returns normalized arguments to PyTorch modules. This means that
 args/kwargs will be matched up to the functional's

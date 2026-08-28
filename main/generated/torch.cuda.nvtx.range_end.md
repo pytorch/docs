@@ -1,6 +1,6 @@
 # torch.cuda.nvtx.range_end
 
-torch.cuda.nvtx.range_end(*range_id*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/nvtx.py#L60)
+torch.cuda.nvtx.range_end(*range_id*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/nvtx.py#L60)
 
 Mark the end of a range for a given range_id.
 

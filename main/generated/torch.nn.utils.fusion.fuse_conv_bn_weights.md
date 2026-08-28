@@ -1,6 +1,6 @@
 # torch.nn.utils.fusion.fuse_conv_bn_weights
 
-torch.nn.utils.fusion.fuse_conv_bn_weights(*conv_w*, *conv_b*, *bn_rm*, *bn_rv*, *bn_eps*, *bn_w*, *bn_b*, *transpose=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/fusion.py#L58)
+torch.nn.utils.fusion.fuse_conv_bn_weights(*conv_w*, *conv_b*, *bn_rm*, *bn_rv*, *bn_eps*, *bn_w*, *bn_b*, *transpose=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/utils/fusion.py#L58)
 
 Fuse convolutional module parameters and BatchNorm module parameters into new convolutional module parameters.
 

@@ -1,6 +1,6 @@
 # torch.mps.set_per_process_memory_fraction
 
-torch.mps.set_per_process_memory_fraction(*fraction*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/mps/__init__.py#L85)
+torch.mps.set_per_process_memory_fraction(*fraction*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/mps/__init__.py#L85)
 
 Set memory fraction for limiting process's memory allocation on MPS device.
 The allowed value equals the fraction multiplied by recommended maximum device memory

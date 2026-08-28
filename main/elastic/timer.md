@@ -37,11 +37,11 @@ complete, then the worker process is killed and the agent retries the worker gro
 
 ## Client Methods
 
-torch.distributed.elastic.timer.configure(*timer_client*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L240)
+torch.distributed.elastic.timer.configure(*timer_client*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L240)
 
 Configures a timer client. Must be called before using `expires`.
 
-torch.distributed.elastic.timer.expires(*after*, *scope=None*, *client=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L249)
+torch.distributed.elastic.timer.expires(*after*, *scope=None*, *client=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L249)
 
 Acquires a countdown timer that expires in `after` seconds from now,
 unless the code-block that it wraps is finished within the timeframe.
@@ -74,7 +74,7 @@ and client.
 Below is a pair of timer server and client that is implemented based on
 a `multiprocess.Queue`.
 
-*class*torch.distributed.elastic.timer.LocalTimerServer(*mp_queue*, *max_interval=60*, *daemon=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/local_timer.py#L78)
+*class*torch.distributed.elastic.timer.LocalTimerServer(*mp_queue*, *max_interval=60*, *daemon=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/local_timer.py#L78)
 
 Server that works with `LocalTimerClient`. Clients are expected to be
 subprocesses to the parent process that is running this server. Each host
@@ -82,7 +82,7 @@ in the job is expected to start its own timer server locally and each
 server instance manages timers for local workers (running on processes
 on the same host).
 
-*class*torch.distributed.elastic.timer.LocalTimerClient(*mp_queue*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/local_timer.py#L23)
+*class*torch.distributed.elastic.timer.LocalTimerClient(*mp_queue*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/local_timer.py#L23)
 
 Client side of `LocalTimerServer`. This client is meant to be used
 on the same host that the `LocalTimerServer` is running on and uses
@@ -93,7 +93,7 @@ GPU devices.
 Below is another pair of timer server and client that is implemented
 based on a named pipe.
 
-*class*torch.distributed.elastic.timer.FileTimerServer(*file_path*, *run_id*, *max_interval=10*, *daemon=True*, *log_event=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/file_based_local_timer.py#L179)
+*class*torch.distributed.elastic.timer.FileTimerServer(*file_path*, *run_id*, *max_interval=10*, *daemon=True*, *log_event=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/file_based_local_timer.py#L179)
 
 Server that works with `FileTimerClient`. Clients are expected to be
 running on the same host as the process that is running this server.
@@ -110,7 +110,7 @@ A daemon thread will not block a process to stop.
 - **log_event** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**FileTimerRequest**|**None**]**,**None**]**|**None*) - Callable[[Dict[str, str]], None], an optional callback for
 logging the events in JSON format.
 
-*class*torch.distributed.elastic.timer.FileTimerClient(*file_path*, *signal=Signals.SIGKILL*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/file_based_local_timer.py#L107)
+*class*torch.distributed.elastic.timer.FileTimerClient(*file_path*, *signal=Signals.SIGKILL*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/file_based_local_timer.py#L107)
 
 Client side of `FileTimerServer`. This client is meant to be used
 on the same host that the `FileTimerServer` is running on and uses
@@ -135,7 +135,7 @@ To write your own timer server and client extend the
 `TimerRequest` object is used to pass messages between
 the server and client.
 
-*class*torch.distributed.elastic.timer.TimerRequest(*worker_id*, *scope_id*, *expiration_time*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L28)
+*class*torch.distributed.elastic.timer.TimerRequest(*worker_id*, *scope_id*, *expiration_time*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L28)
 
 Data object representing a countdown timer acquisition and release
 that is used between the `TimerClient` and `TimerServer`.
@@ -148,17 +148,17 @@ the type of `worker_id` is implementation specific.
 It is whatever the TimerServer and TimerClient implementations
 have on to uniquely identify a worker.
 
-*class*torch.distributed.elastic.timer.TimerServer(*request_queue*, *max_interval*, *daemon=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L113)
+*class*torch.distributed.elastic.timer.TimerServer(*request_queue*, *max_interval*, *daemon=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L113)
 
 Entity that monitors active timers and expires them
 in a timely fashion. This server is responsible for
 reaping workers that have expired timers.
 
-*abstract*clear_timers(*worker_ids*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L145)
+*abstract*clear_timers(*worker_ids*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L145)
 
 Clears all timers for the given `worker_ids`.
 
-*abstract*get_expired_timers(*deadline*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L151)
+*abstract*get_expired_timers(*deadline*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L151)
 
 Returns all expired timers for each worker_id. An expired timer
 is a timer for which the expiration_time is less than or equal to
@@ -168,25 +168,25 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [list](https://docs.python.org/3/library/stdtypes.html#list)[*TimerRequest*]]
 
-*abstract*register_timers(*timer_requests*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L136)
+*abstract*register_timers(*timer_requests*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L136)
 
 Processes the incoming timer requests and registers them with the server.
 The timer request can either be an acquire-timer or release-timer request.
 Timer requests with a negative expiration_time should be interpreted
 as a release-timer request.
 
-*class*torch.distributed.elastic.timer.TimerClient[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L57)
+*class*torch.distributed.elastic.timer.TimerClient[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L57)
 
 Client library to acquire and release countdown timers by communicating
 with the TimerServer.
 
-*abstract*acquire(*scope_id*, *expiration_time*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L63)
+*abstract*acquire(*scope_id*, *expiration_time*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L63)
 
 Acquires a timer for the worker that holds this client object
 given the scope_id and expiration_time. Typically registers
 the timer with the TimerServer.
 
-*abstract*release(*scope_id*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/api.py#L71)
+*abstract*release(*scope_id*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/api.py#L71)
 
 Releases the timer for the `scope_id` on the worker this
 client represents. After this method is
@@ -194,4 +194,4 @@ called, the countdown timer on the scope is no longer in effect.
 
 ## Debug info logging
 
-torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers(*run_id*, *expired_timers*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/distributed/elastic/timer/debug_info_logging.py#L19)
+torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers(*run_id*, *expired_timers*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/distributed/elastic/timer/debug_info_logging.py#L19)

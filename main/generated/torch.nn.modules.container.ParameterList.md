@@ -1,6 +1,6 @@
 # ParameterList
 
-*class*torch.nn.modules.container.ParameterList(*values=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/container.py#L652)
+*class*torch.nn.modules.container.ParameterList(*values=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/container.py#L652)
 
 Holds parameters in a list.
 
@@ -33,7 +33,7 @@ class MyModule(nn.Module):
  return x
 ```
 
-append(*value*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/container.py#L740)
+append(*value*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/container.py#L740)
 
 Append a given value at the end of the list.
 
@@ -45,7 +45,7 @@ Return type:
 
 *Self*
 
-extend(*values*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/container.py#L751)
+extend(*values*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/container.py#L751)
 
 Append values from a Python iterable to the end of the list.
 
@@ -57,7 +57,7 @@ Return type:
 
 Self
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/container.py#L769)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/container.py#L769)
 
 Return the extra representation of the module.
 

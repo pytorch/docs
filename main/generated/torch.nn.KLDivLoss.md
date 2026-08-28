@@ -1,6 +1,6 @@
 # KLDivLoss
 
-*class*torch.nn.KLDivLoss(*size_average=None*, *reduce=None*, *reduction='mean'*, *log_target=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/loss.py#L464)
+*class*torch.nn.KLDivLoss(*size_average=None*, *reduce=None*, *reduction='mean'*, *log_target=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/loss.py#L464)
 
 The Kullback-Leibler divergence loss.
 
@@ -87,7 +87,7 @@ Examples
 >>> output = kl_loss(input, log_target)
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/modules/loss.py#L558)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/modules/loss.py#L558)
 
 Runs the forward pass.
 

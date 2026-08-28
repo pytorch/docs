@@ -1,6 +1,6 @@
 # torch.xpu.memory.reset_accumulated_memory_stats
 
-torch.xpu.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/xpu/memory.py#L54)
+torch.xpu.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/xpu/memory.py#L54)
 
 Reset the "accumulated" (historical) stats tracked by the XPU memory allocator.
 

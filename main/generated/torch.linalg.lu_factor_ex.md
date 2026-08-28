@@ -1,6 +1,6 @@
 # torch.linalg.lu_factor_ex
 
-torch.linalg.lu_factor_ex(*A*, ***, *pivot=True*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/linalg/__init__.py#L2531)
+torch.linalg.lu_factor_ex(*A*, ***, *pivot=True*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/linalg/__init__.py#L2531)
 
 This is a version of [`lu_factor()`](torch.linalg.lu_factor.html#torch.linalg.lu_factor) that does not perform error checks unless `check_errors`= True.
 It also returns the `info` tensor returned by [LAPACK's getrf](https://www.netlib.org/lapack/explore-html/).

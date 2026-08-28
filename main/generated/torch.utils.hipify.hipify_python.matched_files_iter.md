@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.matched_files_iter
 
-torch.utils.hipify.hipify_python.matched_files_iter(*root_path*, *includes=()*, *ignores=()*, *extensions=()*, *out_of_place_only=False*, *is_pytorch_extension=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/utils/hipify/hipify_python.py#L159)
+torch.utils.hipify.hipify_python.matched_files_iter(*root_path*, *includes=()*, *ignores=()*, *extensions=()*, *out_of_place_only=False*, *is_pytorch_extension=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/utils/hipify/hipify_python.py#L159)
 
 Return type:
 

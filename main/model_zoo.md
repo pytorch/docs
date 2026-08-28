@@ -2,7 +2,7 @@
 
 Moved to `torch.hub`.
 
-torch.utils.model_zoo.load_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/hub.py#L829)
+torch.utils.model_zoo.load_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/hub.py#L829)
 
 Loads the Torch serialized object at the given URL.
 

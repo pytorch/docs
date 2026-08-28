@@ -1,6 +1,6 @@
 # torch.nn.utils.fuse_conv_bn_eval
 
-torch.nn.utils.fuse_conv_bn_eval(*conv*, *bn*, *transpose=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/utils/fusion.py#L20)
+torch.nn.utils.fuse_conv_bn_eval(*conv*, *bn*, *transpose=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/utils/fusion.py#L20)
 
 Fuse a convolutional module and a BatchNorm module into a single, new convolutional module.
 

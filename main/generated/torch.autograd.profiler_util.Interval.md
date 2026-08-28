@@ -1,7 +1,7 @@
 # Interval
 
-*class*torch.autograd.profiler_util.Interval(*start*, *end*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/profiler_util.py#L551)
+*class*torch.autograd.profiler_util.Interval(*start*, *end*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/profiler_util.py#L551)
 
-elapsed_us()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/autograd/profiler_util.py#L556)
+elapsed_us()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/profiler_util.py#L556)
 
 Returns the length of the interval

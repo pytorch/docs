@@ -1,6 +1,6 @@
 # torch.nn.functional.log_softmax
 
-torch.nn.functional.log_softmax(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/nn/functional.py#L2293)
+torch.nn.functional.log_softmax(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/nn/functional.py#L2293)
 
 Apply a softmax followed by a logarithm.
 

@@ -1,6 +1,6 @@
 # LSTM
 
-*class*torch.ao.nn.quantized.dynamic.LSTM(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/ao/nn/quantized/dynamic/modules/rnn.py#L512)
+*class*torch.ao.nn.quantized.dynamic.LSTM(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/ao/nn/quantized/dynamic/modules/rnn.py#L512)
 
 A dynamic quantized LSTM module with floating point tensor as inputs and outputs.
 We adopt the same interface as torch.nn.LSTM, please see

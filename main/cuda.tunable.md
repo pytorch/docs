@@ -185,11 +185,11 @@ Use the C++ or Python APIs instead.
 
 ## API Reference
 
-torch.cuda.tunable.enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L238)
+torch.cuda.tunable.enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L238)
 
 This is the big on/off switch for all TunableOp implementations.
 
-torch.cuda.tunable.is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L243)
+torch.cuda.tunable.is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L243)
 
 Returns whether the TunableOp feature is enabled.
 
@@ -197,14 +197,14 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.cuda.tunable.tuning_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L248)
+torch.cuda.tunable.tuning_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L248)
 
 Enable tuning of TunableOp implementations.
 
 When enabled, if a tuned entry isn't found, run the tuning step and record
 the entry.
 
-torch.cuda.tunable.tuning_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L257)
+torch.cuda.tunable.tuning_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L257)
 
 Returns whether TunableOp implementations can be tuned.
 
@@ -212,13 +212,13 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.cuda.tunable.record_untuned_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L262)
+torch.cuda.tunable.record_untuned_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L262)
 
 Enable recording untuned TunableOp operations for offline tuning.
 
 When enabled, if a tuned entry isn't found, write it to the untuned file.
 
-torch.cuda.tunable.record_untuned_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L270)
+torch.cuda.tunable.record_untuned_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L270)
 
 Returns whether TunableOp operations are recorded for offline tuning.
 
@@ -226,14 +226,14 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.cuda.tunable.set_max_tuning_duration(*duration*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L292)
+torch.cuda.tunable.set_max_tuning_duration(*duration*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L292)
 
 Set max time in milliseconds to spend tuning a given solution.
 
 If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.
 
-torch.cuda.tunable.get_max_tuning_duration()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L301)
+torch.cuda.tunable.get_max_tuning_duration()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L301)
 
 Get max time to spend tuning a given solution.
 
@@ -241,14 +241,14 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.cuda.tunable.set_max_tuning_iterations(*iterations*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L306)
+torch.cuda.tunable.set_max_tuning_iterations(*iterations*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L306)
 
 Set max number of iterations to spend tuning a given solution.
 
 If both max tuning duration and iterations are set, the smaller of the two
 will be honored. At minimum 1 tuning iteration will always be run.
 
-torch.cuda.tunable.get_max_tuning_iterations()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L315)
+torch.cuda.tunable.get_max_tuning_iterations()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L315)
 
 Get max iterations to spend tuning a given solution.
 
@@ -256,13 +256,13 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.cuda.tunable.set_cublaslt_requested_algo_count(*count*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L320)
+torch.cuda.tunable.set_cublaslt_requested_algo_count(*count*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L320)
 
 Set the number of cuBLASLt heuristic algorithms to request on CUDA.
 
 Values less than 1 are clamped to 1.
 
-torch.cuda.tunable.get_cublaslt_requested_algo_count()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L328)
+torch.cuda.tunable.get_cublaslt_requested_algo_count()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L328)
 
 Get the number of cuBLASLt heuristic algorithms requested on CUDA.
 
@@ -270,7 +270,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.cuda.tunable.set_filename(*filename*, *insert_device_ordinal=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L405)
+torch.cuda.tunable.set_filename(*filename*, *insert_device_ordinal=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L405)
 
 Set the filename to use for input/output of tuning results.
 
@@ -278,7 +278,7 @@ If `insert_device_ordinal` is `True` then the current device ordinal
 will be added to the given filename automatically. This can be used in a
 1-process-per-gpu scenario to ensure all processes write to a separate file.
 
-torch.cuda.tunable.get_filename()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L415)
+torch.cuda.tunable.get_filename()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L415)
 
 Get the results filename.
 
@@ -286,7 +286,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch.cuda.tunable.get_results()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L420)
+torch.cuda.tunable.get_results()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L420)
 
 Return all TunableOp results.
 
@@ -294,7 +294,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str), [float](https://docs.python.org/3/library/functions.html#float)]
 
-torch.cuda.tunable.get_validators()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L425)
+torch.cuda.tunable.get_validators()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L425)
 
 Return the TunableOp validators.
 
@@ -302,7 +302,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]
 
-torch.cuda.tunable.read_file(*filename=None*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L430)
+torch.cuda.tunable.read_file(*filename=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L430)
 
 Read results from a TunableOp CSV file.
 
@@ -312,21 +312,21 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-torch.cuda.tunable.tune_gemm_in_file(*filename*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L466)
+torch.cuda.tunable.tune_gemm_in_file(*filename*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L466)
 
 tune GEMM in file.
 
-torch.cuda.tunable.mgpu_tune_gemm_in_file(*filename_pattern*, *num_gpus*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L944)
+torch.cuda.tunable.mgpu_tune_gemm_in_file(*filename_pattern*, *num_gpus*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L944)
 
 Process one or more files and distribute work over one or more GPUs.
 
-torch.cuda.tunable.set_rotating_buffer_size(*buffer_size*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L440)
+torch.cuda.tunable.set_rotating_buffer_size(*buffer_size*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L440)
 
 Set rotating buffer size to this value in MB, if the buffer size is greater than zero.
 
 If less than zero, query L2 cache size. If equal to zero, means deactivate rotating buffer.
 
-torch.cuda.tunable.get_rotating_buffer_size()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L448)
+torch.cuda.tunable.get_rotating_buffer_size()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L448)
 
 Get the rotating buffer size in kilobytes.
 
@@ -334,11 +334,11 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-torch.cuda.tunable.set_numerical_check_tolerances(*enable*, *atol=1e-05*, *rtol=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L453)
+torch.cuda.tunable.set_numerical_check_tolerances(*enable*, *atol=1e-05*, *rtol=1e-05*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L453)
 
 Set the atol and rtol values in numeric check
 
-torch.cuda.tunable.dynamic_dims_mask(*M=False*, *N=False*, *K=False*, *BATCH=False*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L385)
+torch.cuda.tunable.dynamic_dims_mask(*M=False*, *N=False*, *K=False*, *BATCH=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L385)
 
 Context manager that wraps a scope with a per-call dynamic-dims mask.
 
@@ -350,7 +350,7 @@ Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[None]
 
-torch.cuda.tunable.wildcard_fallback_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L275)
+torch.cuda.tunable.wildcard_fallback_enable(*val=True*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L275)
 
 Enable wildcard fallback for TunableOp runtime dispatch.
 
@@ -360,7 +360,7 @@ only exact concrete lookups are performed, matching pre-wildcard behavior.
 
 Also settable via `PYTORCH_TUNABLEOP_WILDCARD_FALLBACK=1`.
 
-torch.cuda.tunable.wildcard_fallback_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/cuda/tunable.py#L287)
+torch.cuda.tunable.wildcard_fallback_is_enabled()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/tunable.py#L287)
 
 Returns whether wildcard fallback is enabled for TunableOp dispatch.
 

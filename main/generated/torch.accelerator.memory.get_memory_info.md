@@ -1,6 +1,6 @@
 # torch.accelerator.memory.get_memory_info
 
-torch.accelerator.memory.get_memory_info(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/d4258aa05fc98e7852a6c78350d44e3fa7bdb2ab/torch/accelerator/memory.py#L237)
+torch.accelerator.memory.get_memory_info(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/accelerator/memory.py#L237)
 
 Return the current device memory information for a given device index.
 
