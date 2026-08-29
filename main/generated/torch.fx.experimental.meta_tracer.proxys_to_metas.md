@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.proxys_to_metas
 
-torch.fx.experimental.meta_tracer.proxys_to_metas(*v*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fx/experimental/meta_tracer.py#L183)
+torch.fx.experimental.meta_tracer.proxys_to_metas(*v*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/fx/experimental/meta_tracer.py#L183)
 
 Return type:
 

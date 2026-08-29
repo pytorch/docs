@@ -1,0 +1,6 @@
+﻿torch.optim.functional.asgd
+===========================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: asgd

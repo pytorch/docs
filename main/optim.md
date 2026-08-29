@@ -130,7 +130,7 @@ for input, target in dataset:
 
 ## Base class
 
-*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/optimizer.py#L358)
+*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/optimizer.py#L368)
 
 Base class for all optimizers.
 
@@ -159,120 +159,6 @@ options (used when a parameter group doesn't specify them).
 | [`Optimizer.register_step_pre_hook`](generated/torch.optim.Optimizer.register_step_pre_hook.html#torch.optim.Optimizer.register_step_pre_hook) | Register an optimizer step pre hook which will be called before optimizer step. |
 | [`Optimizer.register_step_post_hook`](generated/torch.optim.Optimizer.register_step_post_hook.html#torch.optim.Optimizer.register_step_post_hook) | Register an optimizer step post hook which will be called after optimizer step. |
 | [`Optimizer.zero_grad`](generated/torch.optim.Optimizer.zero_grad.html#torch.optim.Optimizer.zero_grad) | Reset the gradients of all optimized [`torch.Tensor`](tensors.html#torch.Tensor) s. |
-
-## Module-level hooks
-
-torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/optimizer.py#L328)
-
-Register a post hook common to all optimizers.
-
-The hook should have the following signature:
-
-```
-hook(optimizer, args, kwargs) -> None
-```
-
-Parameters:
-
-**hook** (*Callable*) - A user defined hook which is registered on all optimizers.
-
-Returns:
-
-a handle that can be used to remove the added hook by calling
-`handle.remove()`
-
-Return type:
-
-`torch.utils.hooks.RemovableHandle`
-
-torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/optimizer.py#L308)
-
-Register a pre hook common to all optimizers.
-
-The hook should have the following signature:
-
-```
-hook(optimizer, args, kwargs) -> None or modified args and kwargs
-```
-
-Parameters:
-
-**hook** (*Callable*) - A user defined hook which is registered on all optimizers.
-
-Returns:
-
-a handle that can be used to remove the added hook by calling
-`handle.remove()`
-
-Return type:
-
-`torch.utils.hooks.RemovableHandle`
-
-## Utilities
-
-torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/_stateless.py#L192)
-
-Temporarily replace an optimizer's parameters and state with the
-supplied params and optim states, then restore them on exit.
-
-For the duration of the context, all optimizer APIs (including
-user hooks) see the swap-in values; the live optimizer is restored on
-exit.
-
-The difference between this API and `optimizer.load_state_dict` is
-that `optimizer.load_state_dict` only updates the optimizer's state
-and leaves the parameters in `param_groups` untouched. This API also
-swaps in the parameters, so that `optimizer.step()` acts on the
-swap-in parameter tensors you supply.
-
-Parameters:
-
-- **optimizer** (*Optimizer*) - the live optimizer; its state must already be
-initialized.
-- **swapin_parameters** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - tensors to use as parameters during the context,
-provided in the same order as the existing input parameters to
-the optimizer (most commonly in `model.named_parameters()`
-order).
-- **swapin_optim_state** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - an `optimizer.state_dict()`-shaped dict
-(`{"state": ..., "param_groups": ...}`) holding the state to
-install. `"state"` is keyed by packed integer parameter ids
-and `"param_groups"` mirrors `optimizer.param_groups`,
-with each `"params"` entry as a list of those packed ids
-and the remaining keys carrying per-group hyperparameters
-(`lr`, `betas`, `foreach`, `capturable`, ...).
-Only in-place tensor edits propagate back to the user supplied
-`swapin_optim_state`; all other side-effects (e.g.,
-assigning a new tensor to the optim state)
-are ignored.
-
-Example
-
-One use of this API is to run `optimizer.step()` against
-`FakeTensor` versions of the parameters and state for nonstrict
-tracing -- capturing an FX graph of the step without touching the
-live optimizer:
-
-```
-from torch.fx.experimental.proxy_tensor import make_fx
-from torch._subclasses import FakeTensorMode
-from torch.utils import _pytree as pytree
-
-fake_mode = FakeTensorMode(allow_non_fake_inputs=True)
-with fake_mode:
- fake_params = {
- n: fake_mode.from_tensor(p) for n, p in model.named_parameters()
- }
- fake_osd = pytree.tree_map_only(
- torch.Tensor, fake_mode.from_tensor, optimizer.state_dict()
- )
-
-def step_fn(params, osd):
- with swap_in_optimizer_params_and_state(optimizer, params, osd):
- optimizer.step()
- return params, osd
-
-gm = make_fx(step_fn)(fake_params, fake_osd)
-```
 
 ## Algorithms
 
@@ -354,6 +240,288 @@ Below table is showing the stability status for fused implementations:
 | [`RMSprop`](generated/torch.optim.RMSprop.html#torch.optim.RMSprop) | unsupported | unsupported | unsupported |
 | [`Rprop`](generated/torch.optim.Rprop.html#torch.optim.Rprop) | unsupported | unsupported | unsupported |
 | [`SGD`](generated/torch.optim.SGD.html#torch.optim.SGD) | beta | beta | beta |
+
+## Functional optimizer API
+
+Optimizer classes are the recommended interface for most use cases: they own
+optimizer state, read gradients from parameter `.grad` attributes, organize
+parameter groups, and provide state-dict integration. The module-level
+functional optimizer APIs are lower-level building blocks for cases where one
+may want to control those details explicitly. For example, a distributed
+training system may apply an update as soon as a gradient becomes available, or
+a caller may choose a different storage dtype for optimizer state to save memory.
+
+Functional optimizer calls update parameters and state tensors according to the
+respective algorithm in place; they are not pure functions and do not initialize
+optimizer state. Call them under [`torch.no_grad`](generated/torch.no_grad.html#torch.no_grad) unless intentionally
+constructing a differentiable update with an API that supports
+`differentiable=True`. Each tensor list is positional, so entries at the same
+index must correspond to the same parameter.
+
+The caller has full control and responsibility for creating and retaining state,
+filtering parameters without gradients from every list consistently, and saving
+and restoring that state. Most APIs receive step counters as singleton tensors
+and update them in place, except [`torch.optim.functional.sparse_adam()`](generated/torch.optim.functional.sparse_adam.html#torch.optim.functional.sparse_adam)
+which has step represented by a Python number.
+
+The public functional optimizer APIs are exposed uniformly from
+[`torch.optim.functional`](optim.functional.html#module-torch.optim.functional):
+
+| Optimizer | Functional API |
+| --- | --- |
+| [`Adadelta`](generated/torch.optim.Adadelta.html#torch.optim.Adadelta) | [`torch.optim.functional.adadelta()`](generated/torch.optim.functional.adadelta.html#torch.optim.functional.adadelta) |
+| [`Adafactor`](generated/torch.optim.Adafactor.html#torch.optim.Adafactor) | [`torch.optim.functional.adafactor()`](generated/torch.optim.functional.adafactor.html#torch.optim.functional.adafactor) |
+| [`Adagrad`](generated/torch.optim.Adagrad.html#torch.optim.Adagrad) | [`torch.optim.functional.adagrad()`](generated/torch.optim.functional.adagrad.html#torch.optim.functional.adagrad) |
+| [`Adam`](generated/torch.optim.Adam.html#torch.optim.Adam) | [`torch.optim.functional.adam()`](generated/torch.optim.functional.adam.html#torch.optim.functional.adam) |
+| [`Adamax`](generated/torch.optim.Adamax.html#torch.optim.Adamax) | [`torch.optim.functional.adamax()`](generated/torch.optim.functional.adamax.html#torch.optim.functional.adamax) |
+| [`AdamW`](generated/torch.optim.AdamW.html#torch.optim.AdamW) | [`torch.optim.functional.adamw()`](generated/torch.optim.functional.adamw.html#torch.optim.functional.adamw) |
+| [`ASGD`](generated/torch.optim.ASGD.html#torch.optim.ASGD) | [`torch.optim.functional.asgd()`](generated/torch.optim.functional.asgd.html#torch.optim.functional.asgd) |
+| [`Muon`](generated/torch.optim.Muon.html#torch.optim.Muon) | [`torch.optim.functional.muon()`](generated/torch.optim.functional.muon.html#torch.optim.functional.muon) |
+| [`NAdam`](generated/torch.optim.NAdam.html#torch.optim.NAdam) | [`torch.optim.functional.nadam()`](generated/torch.optim.functional.nadam.html#torch.optim.functional.nadam) |
+| [`RAdam`](generated/torch.optim.RAdam.html#torch.optim.RAdam) | [`torch.optim.functional.radam()`](generated/torch.optim.functional.radam.html#torch.optim.functional.radam) |
+| [`RMSprop`](generated/torch.optim.RMSprop.html#torch.optim.RMSprop) | [`torch.optim.functional.rmsprop()`](generated/torch.optim.functional.rmsprop.html#torch.optim.functional.rmsprop) |
+| [`Rprop`](generated/torch.optim.Rprop.html#torch.optim.Rprop) | [`torch.optim.functional.rprop()`](generated/torch.optim.functional.rprop.html#torch.optim.functional.rprop) |
+| [`SGD`](generated/torch.optim.SGD.html#torch.optim.SGD) | [`torch.optim.functional.sgd()`](generated/torch.optim.functional.sgd.html#torch.optim.functional.sgd) |
+| [`SparseAdam`](generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam) | [`torch.optim.functional.sparse_adam()`](generated/torch.optim.functional.sparse_adam.html#torch.optim.functional.sparse_adam) |
+
+[`LBFGS`](generated/torch.optim.LBFGS.html#torch.optim.LBFGS) does not currently expose a functional API. Its update is
+coupled to repeated closure evaluations and optional line-search orchestration,
+rather than implemented as a standalone functional kernel.
+
+### AdamW with BF16 optimizer state
+
+One use of the functional API is storing optimizer state in a lower precision
+dtype to save memory, for example storing AdamW's first- and second-moment
+buffers in BF16 while keeping parameters and gradients in FP32. As seen in
+DeepSeek-V3, this optimization halves the memory occupied by the two moment
+buffers. In particular, PyTorch's fused CUDA implementations for Adam and AdamW
+supports loading the BF16 moments, performing the update in FP32, and storing
+the updated moments back in BF16. This can be combined with BF16 autocast for
+forward and backward while the stored model parameters remain FP32.
+
+The following example keeps the optimizer state outside an
+`Optimizer` and applies the functional update after
+backward:
+
+```
+import torch
+from torch.optim.functional import adamw
+
+model = torch.nn.Linear(16, 4, device="cuda", dtype=torch.float32)
+params = list(model.parameters())
+state = [
+ {
+ "step": torch.zeros((), device=p.device, dtype=torch.float32),
+ "exp_avg": torch.zeros_like(p, dtype=torch.bfloat16),
+ "exp_avg_sq": torch.zeros_like(p, dtype=torch.bfloat16),
+ }
+ for p in params
+]
+
+@torch.no_grad()
+def functional_adamw_step():
+ active = [
+ (p, p_state)
+ for p, p_state in zip(params, state, strict=True)
+ if p.grad is not None
+ ]
+ if not active:
+ return
+
+ adamw(
+ params=[p for p, _ in active],
+ grads=[p.grad for p, _ in active],
+ exp_avgs=[p_state["exp_avg"] for _, p_state in active],
+ exp_avg_sqs=[p_state["exp_avg_sq"] for _, p_state in active],
+ max_exp_avg_sqs=[],
+ state_steps=[p_state["step"] for _, p_state in active],
+ fused=True,
+ amsgrad=False,
+ beta1=0.9,
+ beta2=0.999,
+ lr=1e-3,
+ weight_decay=1e-2,
+ eps=1e-8,
+ maximize=False,
+ )
+
+inputs = torch.randn(8, 16, device="cuda")
+with torch.autocast("cuda", dtype=torch.bfloat16):
+ loss = model(inputs).square().mean()
+loss.backward()
+functional_adamw_step()
+model.zero_grad(set_to_none=True)
+```
+
+Note that PyTorch only currently supports this specific mixed-dtype fused CUDA path:
+parameters and gradients must be FP32, the moment buffers must be BF16, and the step
+counters must be FP32 tensors on the same device. If `amsgrad=True`, the caller
+must also create and pass aligned BF16 `max_exp_avg_sqs` buffers. Lower-precision
+moments may affect convergence, so validate the choice for the target workload.
+
+## Optimizer step hooks
+
+Optimizer [`register_step_pre_hook()`](generated/torch.optim.Optimizer.register_step_pre_hook.html#torch.optim.Optimizer.register_step_pre_hook) and
+[`register_step_post_hook()`](generated/torch.optim.Optimizer.register_step_post_hook.html#torch.optim.Optimizer.register_step_post_hook) hooks are useful for
+observing or coordinating work around an optimizer update without taking
+ownership of its state. Typical uses include profiling, memory tracking, and
+recording events before or after the update. A pre-hook may also replace the
+positional and keyword arguments passed to `step()`. Use a functional
+optimizer API instead when customization requires directly controlling
+optimizer-state tensors or supplying gradients separately from parameter
+`.grad` attributes.
+
+Profiler traces contain many low-level operator events, so a custom
+`record_function()` range gives the complete optimizer
+update a stable, application-level label that is easy to find and compare in
+the trace. Hooks add this instrumentation without modifying the training loop
+or optimizer implementation. The active ranges are tracked outside the
+optimizer, and the returned handles can remove the hooks when they are no
+longer needed.
+
+```
+import torch
+
+parameter = torch.nn.Parameter(torch.tensor(2.0))
+optimizer = torch.optim.SGD([parameter], lr=0.01)
+active_ranges = {}
+
+def begin_optimizer_step(optimizer, args, kwargs):
+ profile_range = torch.profiler.record_function("optimizer.step")
+ profile_range.__enter__()
+ active_ranges[optimizer] = profile_range
+
+def end_optimizer_step(optimizer, args, kwargs):
+ active_ranges.pop(optimizer).__exit__(None, None, None)
+
+pre_handle = optimizer.register_step_pre_hook(begin_optimizer_step)
+post_handle = optimizer.register_step_post_hook(end_optimizer_step)
+
+with torch.profiler.profile() as profile:
+ parameter.grad = torch.tensor(0.1)
+ optimizer.step()
+
+pre_handle.remove()
+post_handle.remove()
+
+print(profile.key_averages().table())
+```
+
+Use `torch.optim.optimizer.register_optimizer_step_pre_hook()` and
+`torch.optim.optimizer.register_optimizer_step_post_hook()` to register
+hooks that apply to every optimizer instead of one optimizer instance.
+
+torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/optimizer.py#L338)
+
+Register a post hook common to all optimizers.
+
+The hook should have the following signature:
+
+```
+hook(optimizer, args, kwargs) -> None
+```
+
+Parameters:
+
+**hook** (*Callable*) - A user defined hook which is registered on all optimizers.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/optimizer.py#L318)
+
+Register a pre hook common to all optimizers.
+
+The hook should have the following signature:
+
+```
+hook(optimizer, args, kwargs) -> None or modified args and kwargs
+```
+
+Parameters:
+
+**hook** (*Callable*) - A user defined hook which is registered on all optimizers.
+
+Returns:
+
+a handle that can be used to remove the added hook by calling
+`handle.remove()`
+
+Return type:
+
+`torch.utils.hooks.RemovableHandle`
+
+## Utilities
+
+torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/_stateless.py#L192)
+
+Temporarily replace an optimizer's parameters and state with the
+supplied params and optim states, then restore them on exit.
+
+For the duration of the context, all optimizer APIs (including
+user hooks) see the swap-in values; the live optimizer is restored on
+exit.
+
+The difference between this API and `optimizer.load_state_dict` is
+that `optimizer.load_state_dict` only updates the optimizer's state
+and leaves the parameters in `param_groups` untouched. This API also
+swaps in the parameters, so that `optimizer.step()` acts on the
+swap-in parameter tensors you supply.
+
+Parameters:
+
+- **optimizer** (*Optimizer*) - the live optimizer; its state must already be
+initialized.
+- **swapin_parameters** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - tensors to use as parameters during the context,
+provided in the same order as the existing input parameters to
+the optimizer (most commonly in `model.named_parameters()`
+order).
+- **swapin_optim_state** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - an `optimizer.state_dict()`-shaped dict
+(`{"state": ..., "param_groups": ...}`) holding the state to
+install. `"state"` is keyed by packed integer parameter ids
+and `"param_groups"` mirrors `optimizer.param_groups`,
+with each `"params"` entry as a list of those packed ids
+and the remaining keys carrying per-group hyperparameters
+(`lr`, `betas`, `foreach`, `capturable`, ...).
+Only in-place tensor edits propagate back to the user supplied
+`swapin_optim_state`; all other side-effects (e.g.,
+assigning a new tensor to the optim state)
+are ignored.
+
+Example
+
+One use of this API is to run `optimizer.step()` against
+`FakeTensor` versions of the parameters and state for nonstrict
+tracing -- capturing an FX graph of the step without touching the
+live optimizer:
+
+```
+from torch.fx.experimental.proxy_tensor import make_fx
+from torch._subclasses import FakeTensorMode
+from torch.utils import _pytree as pytree
+
+fake_mode = FakeTensorMode(allow_non_fake_inputs=True)
+with fake_mode:
+ fake_params = {
+ n: fake_mode.from_tensor(p) for n, p in model.named_parameters()
+ }
+ fake_osd = pytree.tree_map_only(
+ torch.Tensor, fake_mode.from_tensor, optimizer.state_dict()
+ )
+
+def step_fn(params, osd):
+ with swap_in_optimizer_params_and_state(optimizer, params, osd):
+ optimizer.step()
+ return params, osd
+
+gm = make_fx(step_fn)(fake_params, fake_osd)
+```
 
 ## How to adjust learning rate
 
@@ -785,7 +953,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 | [`swa_utils.get_swa_avg_fn`](generated/torch.optim.swa_utils.get_swa_avg_fn.html#torch.optim.swa_utils.get_swa_avg_fn) | Get the function applying stochastic weight average (SWA) across a single param. |
 | [`swa_utils.get_swa_multi_avg_fn`](generated/torch.optim.swa_utils.get_swa_multi_avg_fn.html#torch.optim.swa_utils.get_swa_multi_avg_fn) | Get the function applying stochastic weight average (SWA) across multiple params. |
 
-torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/swa_utils.py#L42)
+torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/swa_utils.py#L42)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -814,7 +982,7 @@ Return type:
 
 Callable
 
-torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/swa_utils.py#L371)
+torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/swa_utils.py#L371)
 
 Update BatchNorm running_mean, running_var buffers in the model.
 

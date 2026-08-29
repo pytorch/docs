@@ -1,7 +1,13 @@
 # torch.optim.sgd.sgd
 
-torch.optim.sgd.sgd(*params*, *d_p_list*, *momentum_buffer_list*, *has_sparse_grad=False*, *foreach=None*, *fused=None*, *grad_scale=None*, *found_inf=None*, ***, *weight_decay*, *momentum*, *lr*, *dampening*, *nesterov*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/sgd.py#L252)
+torch.optim.sgd.sgd(*params*, *d_p_list*, *momentum_buffer_list*, *has_sparse_grad=False*, *foreach=None*, *fused=None*, *grad_scale=None*, *found_inf=None*, ***, *weight_decay*, *momentum*, *lr*, *dampening*, *nesterov*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/sgd.py#L253)
 
 Functional API that performs SGD algorithm computation.
 
-See [`SGD`](torch.optim.SGD.html#torch.optim.SGD) for details.
+This function updates the provided parameters and optimizer state in place.
+The caller must initialize and retain optimizer state. Unless intentionally
+constructing a differentiable update with a supported `differentiable=True`
+argument, call this function under [`torch.no_grad`](torch.no_grad.html#torch.no_grad).
+See [Functional optimizer API](../optim.html#functional-optimizer-api) for the common functional optimizer
+contract and examples, and [`SGD`](torch.optim.SGD.html#torch.optim.SGD) for algorithm
+details.

@@ -1022,7 +1022,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.control-flow](python.control-flow.html), [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.control-flow](python.control-flow.html)
 
 Support Level: SUPPORTED
 
@@ -1319,7 +1319,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), [python.assert](python.assert.html), [python.data-structure](python.data-structure.html)
+Tags: [python.assert](python.assert.html), [python.data-structure](python.data-structure.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
@@ -1370,7 +1370,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.control-flow](python.control-flow.html), [python.data-structure](python.data-structure.html)
+Tags: [python.data-structure](python.data-structure.html), [python.control-flow](python.control-flow.html)
 
 Support Level: SUPPORTED
 

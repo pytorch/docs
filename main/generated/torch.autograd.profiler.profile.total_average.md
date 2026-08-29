@@ -1,6 +1,6 @@
 # torch.autograd.profiler.profile.total_average
 
-profile.total_average()[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/autograd/profiler.py#L602)
+profile.total_average()[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/autograd/profiler.py#L602)
 
 Compute aggregate statistics across all events.
 

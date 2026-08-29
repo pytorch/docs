@@ -1,0 +1,18 @@
+# torch.optim.functional.adamw
+
+torch.optim.functional.adamw(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *max_exp_avg_sqs*, *state_steps*, *foreach=None*, *capturable=False*, *differentiable=False*, *fused=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, ***, *amsgrad*, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/adamw.py#L130)
+
+Functional API that performs AdamW algorithm computation.
+
+This function updates the provided parameters and optimizer state in place.
+The caller must initialize and retain optimizer state. Unless intentionally
+constructing a differentiable update with a supported `differentiable=True`
+argument, call this function under [`torch.no_grad`](torch.no_grad.html#torch.no_grad).
+See [Functional optimizer API](../optim.html#functional-optimizer-api) for the common functional optimizer
+contract and examples, and [`AdamW`](torch.optim.AdamW.html#torch.optim.AdamW) for algorithm
+details.
+
+Note
+
+With `fused=True`, CUDA supports FP32 parameters and gradients with
+BF16 moment buffers. See [AdamW with BF16 optimizer state](../optim.html#functional-adamw-bf16-state) for an example.

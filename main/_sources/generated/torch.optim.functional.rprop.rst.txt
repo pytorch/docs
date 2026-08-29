@@ -1,0 +1,6 @@
+﻿torch.optim.functional.rprop
+============================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: rprop

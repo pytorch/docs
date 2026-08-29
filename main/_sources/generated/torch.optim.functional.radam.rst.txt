@@ -1,0 +1,6 @@
+﻿torch.optim.functional.radam
+============================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: radam

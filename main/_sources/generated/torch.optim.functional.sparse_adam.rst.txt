@@ -1,0 +1,6 @@
+﻿torch.optim.functional.sparse\_adam
+===================================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: sparse_adam

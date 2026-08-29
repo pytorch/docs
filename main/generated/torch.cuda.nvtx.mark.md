@@ -1,6 +1,6 @@
 # torch.cuda.nvtx.mark
 
-torch.cuda.nvtx.mark(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/cuda/nvtx.py#L105)
+torch.cuda.nvtx.mark(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/cuda/nvtx.py#L105)
 
 Describe an instantaneous event that occurred at some point.
 

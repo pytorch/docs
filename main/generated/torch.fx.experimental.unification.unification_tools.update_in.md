@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.update_in
 
-torch.fx.experimental.unification.unification_tools.update_in(*d*, *keys*, *func*, *default=None*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/fx/experimental/unification/unification_tools.py#L293)
+torch.fx.experimental.unification.unification_tools.update_in(*d*, *keys*, *func*, *default=None*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/fx/experimental/unification/unification_tools.py#L293)
 
 Update value in a (potentially) nested dictionary
 

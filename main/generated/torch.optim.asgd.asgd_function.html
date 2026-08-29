@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git7e9fd4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitfe3f518 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git7e9fd4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitfe3f518 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3469,6 +3469,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.get_swa_avg_fn.html">torch.optim.swa_utils.get_swa_avg_fn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.get_swa_multi_avg_fn.html">torch.optim.swa_utils.get_swa_multi_avg_fn</a></li>
 <li class="toctree-l2 current active"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optim.functional.html">torch.optim.functional</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../complex_numbers.html">Complex Numbers</a></li>
@@ -3634,9 +3635,15 @@ document.write(`
 <h1>torch.optim.asgd.asgd<a class="headerlink" href="#torch-optim-asgd-asgd" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.asgd.asgd">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.asgd.</span></span><span class="sig-name descname"><span class="pre">asgd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7e9fd4e82a01d43fc8afdf03258cf85ee22db2ea/torch/optim/asgd.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.asgd.asgd" title="Link to this definition">#</a></dt>
-<dd><p>Functional API that performs asgd algorithm computation.</p>
-<p>See <a class="reference internal" href="torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a> for details.</p>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.asgd.</span></span><span class="sig-name descname"><span class="pre">asgd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/optim/asgd.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.asgd.asgd" title="Link to this definition">#</a></dt>
+<dd><p>Functional API that performs ASGD algorithm computation.</p>
+<p>This function updates the provided parameters and optimizer state in place.
+The caller must initialize and retain optimizer state. Unless intentionally
+constructing a differentiable update with a supported <code class="docutils literal notranslate"><span class="pre">differentiable=True</span></code>
+argument, call this function under <a class="reference internal" href="torch.no_grad.html#torch.no_grad" title="torch.no_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.no_grad</span></code></a>.
+See <a class="reference internal" href="../optim.html#functional-optimizer-api"><span class="std std-ref">Functional optimizer API</span></a> for the common functional optimizer
+contract and examples, and <a class="reference internal" href="torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a> for algorithm
+details.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -3997,7 +4004,7 @@ document.write(`
        "headline": "torch.optim.asgd.asgd",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.optim.asgd.asgd_function.html",
-       "articleBody": "torch.optim.asgd.asgd# torch.optim.asgd.asgd(params, grads, axs, mus, etas, state_steps, foreach=None, maximize=False, differentiable=False, capturable=False, has_complex=False, *, lambd, lr, t0, alpha, weight_decay)[source]# Functional API that performs asgd algorithm computation. See ASGD for details.",
+       "articleBody": "torch.optim.asgd.asgd# torch.optim.asgd.asgd(params, grads, axs, mus, etas, state_steps, foreach=None, maximize=False, differentiable=False, capturable=False, has_complex=False, *, lambd, lr, t0, alpha, weight_decay)[source]# Functional API that performs ASGD algorithm computation. This function updates the provided parameters and optimizer state in place. The caller must initialize and retain optimizer state. Unless intentionally constructing a differentiable update with a supported differentiable=True argument, call this function under torch.no_grad. See Functional optimizer API for the common functional optimizer contract and examples, and ASGD for algorithm details.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
