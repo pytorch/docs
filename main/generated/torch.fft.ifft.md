@@ -1,6 +1,6 @@
 # torch.fft.ifft
 
-torch.fft.ifft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/fft/__init__.py#L88)
+torch.fft.ifft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/fft/__init__.py#L88)
 
 Computes the one dimensional inverse discrete Fourier transform of `input`.
 

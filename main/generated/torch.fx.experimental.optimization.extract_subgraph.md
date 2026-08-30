@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.extract_subgraph
 
-torch.fx.experimental.optimization.extract_subgraph(*orig_module*, *nodes*, *inputs*, *outputs*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/fx/experimental/optimization.py#L138)
+torch.fx.experimental.optimization.extract_subgraph(*orig_module*, *nodes*, *inputs*, *outputs*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/fx/experimental/optimization.py#L138)
 
 Given lists of nodes from an existing graph that represent a subgraph, returns a submodule that executes that subgraph.
 

@@ -1,6 +1,6 @@
 # ConvertCustomConfig
 
-*class*torch.ao.quantization.fx.custom_config.ConvertCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/ao/quantization/fx/custom_config.py#L374)
+*class*torch.ao.quantization.fx.custom_config.ConvertCustomConfig[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/ao/quantization/fx/custom_config.py#L374)
 
 Custom configuration for [`convert_fx()`](torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx).
 
@@ -10,7 +10,7 @@ Example usage:
 convert_custom_config = ConvertCustomConfig() .set_observed_to_quantized_mapping(ObservedCustomModule, QuantizedCustomModule) .set_preserved_attributes(["attr1", "attr2"])
 ```
 
-*classmethod*from_dict(*convert_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/ao/quantization/fx/custom_config.py#L419)
+*classmethod*from_dict(*convert_custom_config_dict*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/ao/quantization/fx/custom_config.py#L419)
 
 Create a `ConvertCustomConfig` from a dictionary with the following items:
 
@@ -29,7 +29,7 @@ Return type:
 
 *ConvertCustomConfig*
 
-set_observed_to_quantized_mapping(*observed_class*, *quantized_class*, *quant_type=QuantType.STATIC*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/ao/quantization/fx/custom_config.py#L393)
+set_observed_to_quantized_mapping(*observed_class*, *quantized_class*, *quant_type=QuantType.STATIC*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/ao/quantization/fx/custom_config.py#L393)
 
 Set the mapping from a custom observed module class to a custom quantized module class.
 
@@ -40,7 +40,7 @@ Return type:
 
 *ConvertCustomConfig*
 
-set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/ao/quantization/fx/custom_config.py#L410)
+set_preserved_attributes(*attributes*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/ao/quantization/fx/custom_config.py#L410)
 
 Set the names of the attributes that will persist in the graph module even if they are not used in
 the model's `forward` method.
@@ -49,7 +49,7 @@ Return type:
 
 *ConvertCustomConfig*
 
-to_dict()[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/ao/quantization/fx/custom_config.py#L451)
+to_dict()[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/ao/quantization/fx/custom_config.py#L451)
 
 Convert this `ConvertCustomConfig` to a dictionary with the items described in
 `from_dict()`.

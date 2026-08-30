@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitfe3f518 )">
+<meta name="llm:version" content="main (2.15.0a0+git9f46548 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitfe3f518 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9f46548 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3634,7 +3634,7 @@ document.write(`
 <h1>torch.autograd.Function.backward<a class="headerlink" href="#torch-autograd-function-backward" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.Function.backward">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/autograd/function.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.backward" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/autograd/function.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.backward" title="Link to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with backward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 (Defining this function is equivalent to defining the <code class="docutils literal notranslate"><span class="pre">vjp</span></code> function.)</p>
@@ -3646,6 +3646,10 @@ and it should return as many tensors, as there were inputs to
 and each returned value should be the gradient w.r.t. the
 corresponding input. If an input is not a Tensor or is a Tensor not
 requiring grads, you can just pass None as a gradient for that input.</p>
+<p>The strides of the gradients passed to <a class="reference internal" href="torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> are undefined:
+they are not guaranteed to be contiguous or to match the strides of the
+corresponding forward outputs, so implementations must not assume a
+particular memory layout.</p>
 <p>The context can be used to retrieve tensors saved during the forward
 pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
 of booleans representing whether each input needs gradient. E.g.,
@@ -4015,7 +4019,7 @@ output.</p>
        "headline": "torch.autograd.Function.backward",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.autograd.Function.backward.html",
-       "articleBody": "torch.autograd.Function.backward# static Function.backward(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type: Any",
+       "articleBody": "torch.autograd.Function.backward# static Function.backward(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The strides of the gradients passed to backward() are undefined: they are not guaranteed to be contiguous or to match the strides of the corresponding forward outputs, so implementations must not assume a particular memory layout. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type: Any",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

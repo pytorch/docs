@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitfe3f518 )">
+<meta name="llm:version" content="main (2.15.0a0+git9f46548 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitfe3f518 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9f46548 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -7128,7 +7128,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2018 | Last Updated On: Jul 01, 2026</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.dlpack.from_dlpack">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/utils/dlpack.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/utils/dlpack.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Link to this definition">#</a></dt>
 <dd><p>Converts a tensor from an external library into a <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>.</p>
 <p>The returned PyTorch tensor will share the memory with the input tensor
 (which may have come from another library). Note that in-place operations
@@ -7215,7 +7215,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.dlpack.ReadOnlyTensorWrapper">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyTensorWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/utils/dlpack.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.ReadOnlyTensorWrapper" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyTensorWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/utils/dlpack.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.ReadOnlyTensorWrapper" title="Link to this definition">#</a></dt>
 <dd><p>A zero-copy, read-only view of a tensor for DLPack interop only.</p>
 <p>Wrapping a tensor with <code class="docutils literal notranslate"><span class="pre">ReadOnlyTensorWrapper</span></code> declares the intent that
 consumers must not mutate its data. It changes only the DLPack export

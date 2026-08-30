@@ -1,6 +1,6 @@
 # torch.autograd.Function.backward
 
-*static*Function.backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/autograd/function.py#L473)
+*static*Function.backward(*ctx*, **grad_outputs*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/autograd/function.py#L473)
 
 Define a formula for differentiating the operation with backward mode automatic differentiation.
 
@@ -15,6 +15,11 @@ and it should return as many tensors, as there were inputs to
 and each returned value should be the gradient w.r.t. the
 corresponding input. If an input is not a Tensor or is a Tensor not
 requiring grads, you can just pass None as a gradient for that input.
+
+The strides of the gradients passed to [`backward()`](torch.autograd.backward.html#torch.autograd.backward) are undefined:
+they are not guaranteed to be contiguous or to match the strides of the
+corresponding forward outputs, so implementations must not assume a
+particular memory layout.
 
 The context can be used to retrieve tensors saved during the forward
 pass. It also has an attribute `ctx.needs_input_grad` as a tuple

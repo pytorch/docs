@@ -1,5 +1,5 @@
 # torch.utils.hipify.hipify_python.add_dim3
 
-torch.utils.hipify.hipify_python.add_dim3(*kernel_string*, *cuda_kernel*)[[source]](https://github.com/pytorch/pytorch/blob/fe3f518c806b6f1fb8acc283135e5414b8606887/torch/utils/hipify/hipify_python.py#L235)
+torch.utils.hipify.hipify_python.add_dim3(*kernel_string*, *cuda_kernel*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/utils/hipify/hipify_python.py#L235)
 
 adds dim3() to the second and third arguments in the kernel launch
