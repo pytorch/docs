@@ -1,5 +1,5 @@
 # torch.utils.collect_env.run_and_return_first_line
 
-torch.utils.collect_env.run_and_return_first_line(*run_lambda*, *command*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/utils/collect_env.py#L156)
+torch.utils.collect_env.run_and_return_first_line(*run_lambda*, *command*)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/utils/collect_env.py#L156)
 
 Run command using run_lambda and returns first line if output is not empty.

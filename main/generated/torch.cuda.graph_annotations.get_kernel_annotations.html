@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git9f46548 )">
+<meta name="llm:version" content="main (2.15.0a0+gitc9fded8 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9f46548 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc9fded8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3698,18 +3698,19 @@ document.write(`
 <h1>torch.cuda.graph_annotations.get_kernel_annotations<a class="headerlink" href="#torch-cuda-graph-annotations-get-kernel-annotations" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.graph_annotations.get_kernel_annotations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">get_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/cuda/_graph_annotations.py#L963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.get_kernel_annotations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">get_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/cuda/_graph_annotations.py#L1054"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.get_kernel_annotations" title="Link to this definition">#</a></dt>
 <dd><p>Return the live registry of recorded kernel annotations.</p>
 <p>Keys are opaque integers matching the <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">node</span> <span class="pre">id</span></code> field that
-CUPTI-based profilers attach to kernel events; values are the lists of
-annotation dicts recorded for that node. The registry accumulates
-across captures and is global to the process.</p>
+CUPTI-based profilers attach to kernel events; values are one-element
+lists holding the annotation dict recorded for that node – annotations
+from overlapping scopes are merged into that single dict. The registry
+accumulates across captures and is global to the process.</p>
 <p>The returned mapping is a <strong>live view</strong>: it is updated in place when a
 graph is instantiated (annotation keys are rekeyed to the executable
 graph’s ids), so a reference obtained early stays current. Keys are
 valid for joining against a profiler trace once the corresponding
-graphs have been instantiated. Treat the mapping as read-only; snapshot
-it with <code class="docutils literal notranslate"><span class="pre">dict(...)</span></code> if isolation is needed.</p>
+graphs have been instantiated. The mapping is read-only; snapshot it
+with <code class="docutils literal notranslate"><span class="pre">dict(...)</span></code> if isolation is needed.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in prototype and may change in future releases.</p>
@@ -3722,7 +3723,7 @@ it with <code class="docutils literal notranslate"><span class="pre">dict(...)</
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Mapping[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[Any]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.14)"><em>Mapping</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4083,7 +4084,7 @@ it with <code class="docutils literal notranslate"><span class="pre">dict(...)</
        "headline": "torch.cuda.graph_annotations.get_kernel_annotations",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graph_annotations.get_kernel_annotations.html",
-       "articleBody": "torch.cuda.graph_annotations.get_kernel_annotations# torch.cuda.graph_annotations.get_kernel_annotations() \u2192 Mapping[int, list][source]# Return the live registry of recorded kernel annotations. Keys are opaque integers matching the graph node id field that CUPTI-based profilers attach to kernel events; values are the lists of annotation dicts recorded for that node. The registry accumulates across captures and is global to the process. The returned mapping is a live view: it is updated in place when a graph is instantiated (annotation keys are rekeyed to the executable graph\u2019s ids), so a reference obtained early stays current. Keys are valid for joining against a profiler trace once the corresponding graphs have been instantiated. Treat the mapping as read-only; snapshot it with dict(...) if isolation is needed. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e annotations = torch.cuda.graph_annotations.get_kernel_annotations() \u003e\u003e\u003e with open(\"annotations.pkl\", \"wb\") as f: ... pickle.dump(dict(annotations), f) Return type: Mapping[int, list[Any]]",
+       "articleBody": "torch.cuda.graph_annotations.get_kernel_annotations# torch.cuda.graph_annotations.get_kernel_annotations() \u2192 Mapping[int, list][source]# Return the live registry of recorded kernel annotations. Keys are opaque integers matching the graph node id field that CUPTI-based profilers attach to kernel events; values are one-element lists holding the annotation dict recorded for that node \u2013 annotations from overlapping scopes are merged into that single dict. The registry accumulates across captures and is global to the process. The returned mapping is a live view: it is updated in place when a graph is instantiated (annotation keys are rekeyed to the executable graph\u2019s ids), so a reference obtained early stays current. Keys are valid for joining against a profiler trace once the corresponding graphs have been instantiated. The mapping is read-only; snapshot it with dict(...) if isolation is needed. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e annotations = torch.cuda.graph_annotations.get_kernel_annotations() \u003e\u003e\u003e with open(\"annotations.pkl\", \"wb\") as f: ... pickle.dump(dict(annotations), f) Return type: Mapping[int, list[Any]]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

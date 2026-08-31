@@ -1,6 +1,6 @@
 # torch.linalg.cross
 
-torch.linalg.cross(*input*, *other*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/linalg/__init__.py#L22)
+torch.linalg.cross(*input*, *other*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/linalg/__init__.py#L22)
 
 Computes the cross product of two 3-dimensional vectors.
 

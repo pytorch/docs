@@ -11,7 +11,7 @@ Operators that can be used to create any ONNX ops in the FX graph symbolically.
 These operators do not do actual computation. It's recommended that you used them
 inside an `if torch.onnx.is_in_onnx_export` block.
 
-torch.onnx.ops.symbolic(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtype*, *shape*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/onnx/ops/__init__.py#L73)
+torch.onnx.ops.symbolic(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtype*, *shape*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/onnx/ops/__init__.py#L73)
 
 Create a symbolic FX operator to represent an arbitrary ONNX operator.
 
@@ -71,7 +71,7 @@ Return type:
 
 [torch.Tensor](tensors.html#torch.Tensor)
 
-torch.onnx.ops.symbolic_multi_out(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtypes*, *shapes*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/onnx/ops/__init__.py#L174)
+torch.onnx.ops.symbolic_multi_out(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtypes*, *shapes*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/onnx/ops/__init__.py#L174)
 
 Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs.
 
@@ -205,7 +205,7 @@ class GraphModule(torch.nn.Module):
  return (rotary_embedding,)
 ```
 
-torch.onnx.ops.rotary_embedding(*X*, *cos_cache*, *sin_cache*, *position_ids=None*, ***, *interleaved=False*, *num_heads=0*, *rotary_embedding_dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/onnx/ops/__init__.py#L282)
+torch.onnx.ops.rotary_embedding(*X*, *cos_cache*, *sin_cache*, *position_ids=None*, ***, *interleaved=False*, *num_heads=0*, *rotary_embedding_dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/onnx/ops/__init__.py#L282)
 
 RotaryEmbedding op in ONNX.
 
@@ -258,7 +258,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-torch.onnx.ops.attention(*Q*, *K*, *V*, *attn_mask=None*, *past_key=None*, *past_value=None*, ***, *is_causal=False*, *kv_num_heads=0*, *q_num_heads=0*, *qk_matmul_output_mode=0*, *scale=None*, *softcap=0.0*, *softmax_precision=None*)[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/onnx/ops/__init__.py#L348)
+torch.onnx.ops.attention(*Q*, *K*, *V*, *attn_mask=None*, *past_key=None*, *past_value=None*, ***, *is_causal=False*, *kv_num_heads=0*, *q_num_heads=0*, *qk_matmul_output_mode=0*, *scale=None*, *softcap=0.0*, *softmax_precision=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/onnx/ops/__init__.py#L348)
 
 Attention op in ONNX.
 
@@ -382,7 +382,7 @@ ep = torch.export.export(
 ep_decomposed = ep.run_decompositions(torch.onnx.ops.aten_decompositions())
 ```
 
-torch.onnx.ops.aten_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/9f46548f5371f0271c651e4ec060c44956128533/torch/onnx/ops/__init__.py#L57)
+torch.onnx.ops.aten_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/c9fded8194d3b089ed610b586eb746a6e74c6616/torch/onnx/ops/__init__.py#L57)
 
 Return the ONNX to ATen decomp table.
 
