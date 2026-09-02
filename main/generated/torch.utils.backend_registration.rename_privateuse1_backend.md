@@ -1,6 +1,6 @@
 # torch.utils.backend_registration.rename_privateuse1_backend
 
-torch.utils.backend_registration.rename_privateuse1_backend(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/utils/backend_registration.py#L76)
+torch.utils.backend_registration.rename_privateuse1_backend(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/utils/backend_registration.py#L76)
 
 Rename the privateuse1 backend device to make it more convenient to use as a device name within PyTorch APIs.
 
@@ -34,6 +34,13 @@ Returns the number of "foo"s available.
 Returns a list of ByteTensor representing the random number states of all devices.
 5. `set_rng_state(new_state: Tensor, device: Union[int, str, torch.device] = 'foo') -> None`
 Sets the random number generator state of the specified "foo" device.
+
+Note(inductor): To defer the Inductor integration of the device out of import
+time, BackendModule may define an optional `_inductor_backend_init` no-arg
+callable. Inductor invokes it on each torch.compile / `compile_fx()` /
+AOTInductor compilation until the device is registered; it must call
+`torch._inductor.codegen.common.register_backend_for_device` itself. See
+`docs/source/accelerator/autoload.md` for details.
 
 And there are some common funcs:
 

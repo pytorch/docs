@@ -1,6 +1,6 @@
 # get_default_dynamic_sparse_quant_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_dynamic_sparse_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/ao/quantization/quantization_mappings.py#L305)
+*class*torch.ao.quantization.quantization_mappings.get_default_dynamic_sparse_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/ao/quantization/quantization_mappings.py#L305)
 
 Get module mapping for post training dynamic sparse quantization
 

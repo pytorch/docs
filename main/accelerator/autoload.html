@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gite0942cc )">
+<meta name="llm:version" content="main (2.15.0a0+git4111fca )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gite0942cc )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git4111fca )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3481,8 +3481,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3686,7 +3686,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="autoload-mechanism">
 <h1>Autoload Mechanism<a class="headerlink" href="#autoload-mechanism" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 12, 2025 | Last Updated On: Sep 13, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 12, 2025 | Last Updated On: Sep 01, 2026</p>
 <p>The <strong>Autoload</strong> mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch.</p>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
@@ -3744,6 +3744,57 @@ PYTHON</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
+</section>
+<section id="lazy-inductor-backend-initialization">
+<h3>Lazy Inductor Backend Initialization<a class="headerlink" href="#lazy-inductor-backend-initialization" title="Link to this heading">#</a></h3>
+<p>Integrating with torch.compile typically means registering device-specific codegen
+classes, decompositions, and passes with Inductor. Doing all of that inside <code class="docutils literal notranslate"><span class="pre">_autoload</span></code>
+would make every user pay the cost at <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch</span></code>, even those who never compile.
+To defer it, define an <code class="docutils literal notranslate"><span class="pre">_inductor_backend_init</span></code> method on the device module class
+passed to <code class="docutils literal notranslate"><span class="pre">torch._register_device_module</span></code>: a no-arg callable that Inductor invokes at
+the first Inductor compilation, on every entry point (<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, direct
+<code class="docutils literal notranslate"><span class="pre">compile_fx()</span></code>, and AOTInductor), and again on later compilations until it has
+registered the device. Until registration succeeds, backend-feature queries may
+invoke the hook multiple times within one compilation, so the hook must be safe
+and cheap to retry. Inductor looks it up with
+a plain attribute lookup, so it works the same whether the device module is a class
+(methods, as below) or a module object (attribute assignment).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch._inductor.codegen.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_backend_for_device</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDeviceModule</span><span class="p">:</span>
+    <span class="c1"># ... other device module APIs (is_available, device_count, ...)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inductor_backend_init</span><span class="p">():</span>
+        <span class="c1"># Runs on the first inductor compile, not at import time.</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">my_backend._inductor</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyCppWrapperCodegen</span><span class="p">,</span> <span class="n">MyScheduling</span><span class="p">,</span> <span class="n">MyWrapperCodegen</span>
+
+        <span class="n">register_backend_for_device</span><span class="p">(</span>
+            <span class="s2">&quot;my_device&quot;</span><span class="p">,</span> <span class="n">MyScheduling</span><span class="p">,</span> <span class="n">MyWrapperCodegen</span><span class="p">,</span> <span class="n">MyCppWrapperCodegen</span>
+        <span class="p">)</span>
+        <span class="c1"># May also register decompositions, device op overrides, and custom passes.</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">rename_privateuse1_backend</span><span class="p">(</span><span class="s2">&quot;my_device&quot;</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">_register_device_module</span><span class="p">(</span><span class="s2">&quot;my_device&quot;</span><span class="p">,</span> <span class="n">MyDeviceModule</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The hook must call <code class="docutils literal notranslate"><span class="pre">register_backend_for_device</span></code> itself; that registration is
+what stops Inductor from invoking the hook again on later compilations. Concurrent
+callers wait for an in-flight hook invocation to finish. Because the hook runs
+under Dynamo’s compile lock, it must not wait on another thread that may import the
+same integration or invoke <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, and it should not fork. If the hook
+raises, the exception propagates
+out of the compile, and the hook is invoked again on the next compile unless it
+registered the device before raising. Note that the hook is not gated on the
+compiled device: while the device is unregistered it fires on every Inductor
+compile, whichever device that graph targets. On the <code class="docutils literal notranslate"><span class="pre">compile_fx</span></code> paths, the hook
+runs before that compilation selects its decomposition table.</p>
+<p>Device modules that instead expose <code class="docutils literal notranslate"><span class="pre">Scheduling</span></code>, <code class="docutils literal notranslate"><span class="pre">PythonWrapperCodegen</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">CppWrapperCodegen</span></code> attributes directly are still supported, but that form imports
+the codegen classes eagerly at <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch</span></code>. A device that is already registered
+(for example eagerly from <code class="docutils literal notranslate"><span class="pre">_autoload</span></code>) skips the hook entirely.</p>
 </section>
 </section>
 <section id="result">
@@ -3906,6 +3957,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entry-point-setup">Entry Point Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-setup">Backend Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-inductor-backend-initialization">Lazy Inductor Backend Initialization</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result">Result</a></li>
@@ -4161,7 +4213,7 @@ PYTHON</label><div class="sd-tab-content docutils">
        "headline": "Autoload Mechanism",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/accelerator/autoload.html",
-       "articleBody": "Autoload Mechanism# Created On: Sep 12, 2025 | Last Updated On: Sep 13, 2025 The Autoload mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch. Background# The Autoload Device Extension proposal in PyTorch is centered on improving support for various hardware backend devices, especially those implemented as out-of-the-tree extensions (not part of PyTorch\u2019s main codebase). Currently, users must manually import or load these device-specific extensions to use them, which complicates the experience and increases cognitive overhead. In contrast, in-tree devices (devices officially supported within PyTorch) are seamlessly integrated\u2014users don\u2019t need extra imports or steps. The goal of autoloading is to make out-of-the-tree devices just as easy to use, so users can follow the standard PyTorch device programming model without explicit loading or code changes. This would allow existing PyTorch applications to run on new devices without any modification, making hardware support more user-friendly and reducing barriers to adoption. For more information about the background of Autoload, please refer to its RFC. Design# The core idea of Autoload is to Use Python\u2019s plugin discovery (entry points) so PyTorch automatically loads out-of-tree device extensions when torch is imported\u2014no explicit user import needed. For more instructions of the design of Autoload, please refer to How it works. Implementation# This tutorial will take OpenReg as a new out-of-the-tree device and guide you through the steps to enable and use the Autoload mechanism. Entry Point Setup# To enable Autoload, register the _autoload function as an entry point in setup.py file. Python 1 setup( 2 packages=find_packages(), 3 package_data=package_data, 4 ext_modules=ext_modules, 5 cmdclass={ 6 \"clean\": BuildClean, # type: ignore[misc] 7 }, 8 include_package_data=False, 9 entry_points={ 10 \"torch.backends\": [ 11 \"torch_openreg = torch_openreg:_autoload\", 12 ], 13 }, 14 ) Backend Setup# Define the initialization hook _autoload for backend initialization in torch_openreg. This hook will be automatically invoked by PyTorch during startup. PYTHON 1def _autoload(): 2 # It is a placeholder function here to be registered as an entry point. 3 pass 4 5 Result# After setting up the entry point and backend, build and install your backend. Now, we can use the new accelerator without explicitly importing it. Without Autoload \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch_openreg \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027) With Autoload \u003e\u003e\u003e import torch # Automatically import torch_openreg \u003e\u003e\u003e \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027)",
+       "articleBody": "Autoload Mechanism# Created On: Sep 12, 2025 | Last Updated On: Sep 01, 2026 The Autoload mechanism in PyTorch simplifies the integration of a custom backend by enabling automatic discovery and initialization at runtime. This eliminates the need for explicit imports or manual initialization, allowing developers to seamlessly integrate a new accelerator or backend into PyTorch. Background# The Autoload Device Extension proposal in PyTorch is centered on improving support for various hardware backend devices, especially those implemented as out-of-the-tree extensions (not part of PyTorch\u2019s main codebase). Currently, users must manually import or load these device-specific extensions to use them, which complicates the experience and increases cognitive overhead. In contrast, in-tree devices (devices officially supported within PyTorch) are seamlessly integrated\u2014users don\u2019t need extra imports or steps. The goal of autoloading is to make out-of-the-tree devices just as easy to use, so users can follow the standard PyTorch device programming model without explicit loading or code changes. This would allow existing PyTorch applications to run on new devices without any modification, making hardware support more user-friendly and reducing barriers to adoption. For more information about the background of Autoload, please refer to its RFC. Design# The core idea of Autoload is to Use Python\u2019s plugin discovery (entry points) so PyTorch automatically loads out-of-tree device extensions when torch is imported\u2014no explicit user import needed. For more instructions of the design of Autoload, please refer to How it works. Implementation# This tutorial will take OpenReg as a new out-of-the-tree device and guide you through the steps to enable and use the Autoload mechanism. Entry Point Setup# To enable Autoload, register the _autoload function as an entry point in setup.py file. Python 1 setup( 2 packages=find_packages(), 3 package_data=package_data, 4 ext_modules=ext_modules, 5 cmdclass={ 6 \"clean\": BuildClean, # type: ignore[misc] 7 }, 8 include_package_data=False, 9 entry_points={ 10 \"torch.backends\": [ 11 \"torch_openreg = torch_openreg:_autoload\", 12 ], 13 }, 14 ) Backend Setup# Define the initialization hook _autoload for backend initialization in torch_openreg. This hook will be automatically invoked by PyTorch during startup. PYTHON 1def _autoload(): 2 # It is a placeholder function here to be registered as an entry point. 3 pass 4 5 Lazy Inductor Backend Initialization# Integrating with torch.compile typically means registering device-specific codegen classes, decompositions, and passes with Inductor. Doing all of that inside _autoload would make every user pay the cost at import torch, even those who never compile. To defer it, define an _inductor_backend_init method on the device module class passed to torch._register_device_module: a no-arg callable that Inductor invokes at the first Inductor compilation, on every entry point (torch.compile, direct compile_fx(), and AOTInductor), and again on later compilations until it has registered the device. Until registration succeeds, backend-feature queries may invoke the hook multiple times within one compilation, so the hook must be safe and cheap to retry. Inductor looks it up with a plain attribute lookup, so it works the same whether the device module is a class (methods, as below) or a module object (attribute assignment). from torch._inductor.codegen.common import register_backend_for_device class MyDeviceModule: # ... other device module APIs (is_available, device_count, ...) @staticmethod def _inductor_backend_init(): # Runs on the first inductor compile, not at import time. from my_backend._inductor import MyCppWrapperCodegen, MyScheduling, MyWrapperCodegen register_backend_for_device( \"my_device\", MyScheduling, MyWrapperCodegen, MyCppWrapperCodegen ) # May also register decompositions, device op overrides, and custom passes. torch.utils.rename_privateuse1_backend(\"my_device\") torch._register_device_module(\"my_device\", MyDeviceModule) The hook must call register_backend_for_device itself; that registration is what stops Inductor from invoking the hook again on later compilations. Concurrent callers wait for an in-flight hook invocation to finish. Because the hook runs under Dynamo\u2019s compile lock, it must not wait on another thread that may import the same integration or invoke torch.compile, and it should not fork. If the hook raises, the exception propagates out of the compile, and the hook is invoked again on the next compile unless it registered the device before raising. Note that the hook is not gated on the compiled device: while the device is unregistered it fires on every Inductor compile, whichever device that graph targets. On the compile_fx paths, the hook runs before that compilation selects its decomposition table. Device modules that instead expose Scheduling, PythonWrapperCodegen, and CppWrapperCodegen attributes directly are still supported, but that form imports the codegen classes eagerly at import torch. A device that is already registered (for example eagerly from _autoload) skips the hook entirely. Result# After setting up the entry point and backend, build and install your backend. Now, we can use the new accelerator without explicitly importing it. Without Autoload \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch_openreg \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027) With Autoload \u003e\u003e\u003e import torch # Automatically import torch_openreg \u003e\u003e\u003e \u003e\u003e\u003e torch.tensor(1, device=\"openreg\") tensor(1, device=\u0027openreg:0\u0027)",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4173,7 +4225,7 @@ PYTHON</label><div class="sd-tab-content docutils">
          "@id": "/accelerator/autoload.html"
        },
        "datePublished": "Sep 12, 2025T00:00:00Z",
-       "dateModified": "Sep 13, 2025T00:00:00Z"
+       "dateModified": "Sep 01, 2026T00:00:00Z"
      }
  </script>
   <script>

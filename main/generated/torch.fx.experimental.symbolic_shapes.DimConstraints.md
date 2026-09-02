@@ -1,11 +1,11 @@
 # DimConstraints
 
-*class*torch.fx.experimental.symbolic_shapes.DimConstraints(*symbol_to_source*, *var_to_val*, *marked_dynamic*, *source_name_to_debug_name*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3067)
+*class*torch.fx.experimental.symbolic_shapes.DimConstraints(*symbol_to_source*, *var_to_val*, *marked_dynamic*, *source_name_to_debug_name*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3067)
 
 Custom solver for a system of constraints on symbolic dimensions.
 Solutions are "static" values or simplified "dynamic" constraints.
 
-add(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3233)
+add(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3233)
 
 Add an expression to the set of constraints.
 
@@ -15,11 +15,11 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-add_equality(*source*, *expr*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3283)
+add_equality(*source*, *expr*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3283)
 
 Add an equality constraint
 
-forced_specializations()[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3461)
+forced_specializations()[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3461)
 
 Returns a dictionary of the names of symbols to their specialized value
 
@@ -27,7 +27,7 @@ Return type:
 
 [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), *Expr*]
 
-prettify_results(*original_signature*, *dynamic_shapes*, *constraint_violation_error*, *forced_specializations*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3671)
+prettify_results(*original_signature*, *dynamic_shapes*, *constraint_violation_error*, *forced_specializations*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3671)
 
 Format a message for constraint violation errors
 
@@ -35,7 +35,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-rewrite_with_congruences(*s*, *expr*)[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3134)
+rewrite_with_congruences(*s*, *expr*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3134)
 
 Eliminate expressions of the form b // d and b % d while adding congruences of the form b % d == k.
 This leaves rational operators (in particular of the form b / d) that our inequality solver can handle.
@@ -45,6 +45,6 @@ Return type:
 
 *_SympyT*
 
-solve()[[source]](https://github.com/pytorch/pytorch/blob/e0942cc74d3258d28e88ec21b1e6fbaa3538e2b6/torch/fx/experimental/symbolic_shapes.py#L3346)
+solve()[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/fx/experimental/symbolic_shapes.py#L3346)
 
 Solve the system of constraint equations to find simplified constraints
