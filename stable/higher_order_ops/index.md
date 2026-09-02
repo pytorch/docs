@@ -37,6 +37,7 @@ Control flow operators solve these problems by representing control flow as expl
 ## Available Operators
 
 - [Control Flow - Cond](cond.html)
+- [Control Flow - Switch](switch.html)
 - [Control Flow - While Loop](while_loop.html)
 - [Control Flow - Scan](scan.html)
 - [Control Flow - Associative Scan](associative_scan.html)
@@ -47,6 +48,7 @@ Control flow operators solve these problems by representing control flow as expl
 | Operator | Use Case | Example |
 | --- | --- | --- |
 | [cond](cond.html) | If `pred` is True, returns `true_fn(*operands)`, otherwise returns `false_fn(*operands)`. | `cond(pred, true_fn, false_fn, operands)` |
+| [switch](switch.html) | N-way branching: returns `branches[index](*operands)` with `index` clamped into `[0, len(branches)-1]`. | `switch(index, branches, operands)` |
 | [while_loop](while_loop.html) | While `cond_fn(*operands)` is True, executes `body_fn(*operands)`, which returns the operands for the next iteration. | `while_loop(cond_fn, body_fn, operands)` |
 | [scan](scan.html) | Applies cumulative operations to `xs` with carried state | `scan(combine_fn, init, xs)` |
 | [associative_scan](associative_scan.html) | Similar to `scan`, but requiring an associative `combine_fn` to allow for more optimizations. | `associative_scan(add, xs, dim=0)` |

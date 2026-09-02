@@ -1,6 +1,6 @@
 # torch.compiler.get_default_backend
 
-torch.compiler.get_default_backend()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/compiler/__init__.py#L287)
+torch.compiler.get_default_backend()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L379)
 
 Return the current default backend for `torch.compile`.
 

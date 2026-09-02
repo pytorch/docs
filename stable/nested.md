@@ -482,7 +482,7 @@ intermediate.
 
 ## Detailed Docs for Construction and Conversion Functions
 
-torch.nested.nested_tensor(*tensor_list*, ***, *dtype=None*, *layout=None*, *device=None*, *requires_grad=False*, *pin_memory=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L214)
+torch.nested.nested_tensor(*tensor_list*, ***, *dtype=None*, *layout=None*, *device=None*, *requires_grad=False*, *pin_memory=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L215)
 
 Constructs a nested tensor with no autograd history (also known as a "leaf tensor", see
 [Autograd mechanics](notes/autograd.html#autograd-mechanics)) from `tensor_list` a list of tensors.
@@ -514,12 +514,12 @@ Example:
 ```
 >>> a = torch.arange(3, dtype=torch.float, requires_grad=True)
 >>> b = torch.arange(5, dtype=torch.float, requires_grad=True)
->>> nt = torch.nested.nested_tensor([a, b], requires_grad=True)
+>>> nt = torch.nested.nested_tensor([a, b], layout=torch.jagged, requires_grad=True)
 >>> nt.is_leaf
 True
 ```
 
-torch.nested.nested_tensor_from_jagged(*values*, *offsets=None*, *lengths=None*, *jagged_dim=None*, *min_seqlen=None*, *max_seqlen=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L363)
+torch.nested.nested_tensor_from_jagged(*values*, *offsets=None*, *lengths=None*, *jagged_dim=None*, *min_seqlen=None*, *max_seqlen=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L364)
 
 Constructs a jagged layout nested tensor from the given jagged components. The jagged layout
 consists of a required values buffer with the jagged dimension packed into a single dimension.
@@ -570,8 +570,8 @@ Example:
 >>> offsets = torch.tensor([0, 3, 5, 6, 10, 12])
 >>> nt = nested_tensor_from_jagged(values, offsets)
 >>> # 3D shape with the middle dimension jagged
->>> nt.shape
-torch.Size([5, j2, 5])
+>>> nt.shape # xdoctest: +ELLIPSIS
+torch.Size([5, j..., 5])
 >>> # Length of each item in the batch:
 >>> offsets.diff()
 tensor([3, 2, 1, 4, 2])
@@ -593,7 +593,7 @@ True
 True
 ```
 
-torch.nested.as_nested_tensor(*ts*, *dtype=None*, *device=None*, *layout=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L27)
+torch.nested.as_nested_tensor(*ts*, *dtype=None*, *device=None*, *layout=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L27)
 
 Constructs a nested tensor preserving autograd history from a tensor or a list / tuple of
 tensors.
@@ -632,20 +632,21 @@ Example:
 ```
 >>> a = torch.arange(3, dtype=torch.float, requires_grad=True)
 >>> b = torch.arange(5, dtype=torch.float, requires_grad=True)
->>> nt = torch.nested.as_nested_tensor([a, b])
+>>> nt = torch.nested.as_nested_tensor([a, b], layout=torch.jagged)
 >>> nt.is_leaf
 False
->>> fake_grad = torch.nested.nested_tensor([torch.ones_like(a), torch.zeros_like(b)])
+>>> buffer = torch.cat([torch.ones_like(a), torch.zeros_like(b)])
+>>> fake_grad = torch.nested.nested_tensor_from_jagged(buffer, nt.offsets())
 >>> nt.backward(fake_grad)
 >>> a.grad
 tensor([1., 1., 1.])
 >>> b.grad
 tensor([0., 0., 0., 0., 0.])
 >>> c = torch.randn(3, 5, requires_grad=True)
->>> nt2 = torch.nested.as_nested_tensor(c)
+>>> nt2 = torch.nested.as_nested_tensor(c, layout=torch.jagged)
 ```
 
-torch.nested.to_padded_tensor(*input*, *padding*, *output_size=None*, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L158)
+torch.nested.to_padded_tensor(*input*, *padding*, *output_size=None*, *out=None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L159)
 
 Returns a new (non-nested) Tensor by padding the `input` nested tensor.
 The leading entries will be filled with the nested data,
@@ -698,7 +699,7 @@ tensor([[[ 1.6862, -1.1282, 1.1031, 0.0464, -1.3276, 1.0000],
 RuntimeError: Value in output_size is less than NestedTensor padded size. Truncation is not supported.
 ```
 
-torch.nested.masked_select(*tensor*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L474)
+torch.nested.masked_select(*tensor*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L475)
 
 Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor
 will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is
@@ -714,8 +715,8 @@ Example:
 >>> tensor = torch.randn(3, 3)
 >>> mask = torch.tensor([[False, False, True], [True, False, True], [False, False, True]])
 >>> nt = torch.nested.masked_select(tensor, mask)
->>> nt.shape
-torch.Size([3, j4])
+>>> nt.shape # xdoctest: +ELLIPSIS
+torch.Size([3, j...])
 >>> # Length of each item in the batch:
 >>> nt.offsets().diff()
 tensor([1, 2, 1])
@@ -723,8 +724,8 @@ tensor([1, 2, 1])
 >>> tensor = torch.randn(6, 5)
 >>> mask = torch.tensor([False])
 >>> nt = torch.nested.masked_select(tensor, mask)
->>> nt.shape
-torch.Size([6, j5])
+>>> nt.shape # xdoctest: +ELLIPSIS
+torch.Size([6, j...])
 >>> # Length of each item in the batch:
 >>> nt.offsets().diff()
 tensor([0, 0, 0, 0, 0, 0])
@@ -734,7 +735,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-torch.nested.narrow(*tensor*, *dim*, *start*, *length*, *layout=torch.strided*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nested/__init__.py#L285)
+torch.nested.narrow(*tensor*, *dim*, *start*, *length*, *layout=torch.strided*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nested/__init__.py#L286)
 
 Constructs a nested tensor (which might be a view) from `tensor`, a strided tensor. This follows
 similar semantics to torch.Tensor.narrow, where in the `dim`-th dimension the new nested tensor

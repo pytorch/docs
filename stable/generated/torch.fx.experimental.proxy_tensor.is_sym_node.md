@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.is_sym_node
 
-torch.fx.experimental.proxy_tensor.is_sym_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/proxy_tensor.py#L188)
+torch.fx.experimental.proxy_tensor.is_sym_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/proxy_tensor.py#L201)
 
 Return type:
 

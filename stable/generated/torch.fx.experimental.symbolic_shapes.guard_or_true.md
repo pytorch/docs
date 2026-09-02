@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_or_true
 
-torch.fx.experimental.symbolic_shapes.guard_or_true(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L1574)
+torch.fx.experimental.symbolic_shapes.guard_or_true(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/symbolic_shapes.py#L1587)
 
 Try to guard a, if data dependent error encountered just return true.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.softmax
 
-torch.nn.functional.softmax(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/functional.py#L2170)
+torch.nn.functional.softmax(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L2176)
 
 Apply a softmax function.
 

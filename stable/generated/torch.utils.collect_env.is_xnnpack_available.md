@@ -1,3 +1,3 @@
 # torch.utils.collect_env.is_xnnpack_available
 
-torch.utils.collect_env.is_xnnpack_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/collect_env.py#L681)
+torch.utils.collect_env.is_xnnpack_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/collect_env.py#L681)

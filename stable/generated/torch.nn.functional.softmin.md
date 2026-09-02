@@ -1,6 +1,6 @@
 # torch.nn.functional.softmin
 
-torch.nn.functional.softmin(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/functional.py#L2137)
+torch.nn.functional.softmin(*input*, *dim=None*, *_stacklevel=3*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L2143)
 
 Apply a softmin function.
 

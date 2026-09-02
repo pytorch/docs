@@ -1,6 +1,6 @@
 # ReflectionPad3d
 
-*class*torch.nn.ReflectionPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/padding.py#L480)
+*class*torch.nn.ReflectionPad3d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/padding.py#L480)
 
 Pads the input tensor using the reflection of the input boundary.
 
@@ -8,7 +8,7 @@ For N-dimensional padding, use [`torch.nn.functional.pad()`](torch.nn.functional
 
 Parameters:
 
-**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If is int, uses the same
+**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
 padding in all boundaries. If a 6-tuple, uses
 (padding_left\text{padding\_left}padding_left, padding_right\text{padding\_right}padding_right,
 padding_top\text{padding\_top}padding_top, padding_bottom\text{padding\_bottom}padding_bottom,

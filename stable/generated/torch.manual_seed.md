@@ -1,6 +1,6 @@
 # torch.manual_seed
 
-torch.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/random.py#L49)
+torch.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/random.py#L49)
 
 Sets the seed for generating random numbers on all devices. Returns a
 torch.Generator object.

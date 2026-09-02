@@ -1,6 +1,6 @@
 # torch.set_default_device
 
-torch.set_default_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1242)
+torch.set_default_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1608)
 
 Sets the default `torch.Tensor` to be allocated on `device`. This
 does not affect factory function calls which are called with an explicit
@@ -29,7 +29,9 @@ This doesn't affect functions that create tensors that share the same memory as 
 
 Parameters:
 
-**device** ([*device*](../tensor_attributes.html#torch.device)*or**string*) - the device to set as default
+**device** ([`torch.device`](../tensor_attributes.html#torch.device), str, int, or None) - the device to set as
+default, or `None` to clear the override. An integer is
+interpreted as an index for the current accelerator.
 
 Example:
 

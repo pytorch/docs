@@ -1,6 +1,6 @@
 # LinearCrossEntropyOptions
 
-*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/linear_cross_entropy_options.py#L28)
+*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/linear_cross_entropy_options.py#L29)
 
 Configuration for the chunked implementation of
 `linear_cross_entropy()`.
@@ -11,11 +11,9 @@ materialized - useful when `num_classes` is much larger than
 `in_features` (e.g. LLM vocabulary heads). Pass `options=None` to
 use the reference path; pass an instance of this class to opt in.
 
-Zero-argument `LinearCrossEntropyOptions()` leaves
-`acc_policy` and `chunking_method` set to `"auto"`,
-resolved at call time from `_AUTO_DEFAULTS` (per-(device, dtype)
-picks measured on A100 / x86 CPU); unlisted pairs fall back to
-`("compact", "aspect_ratio:2")`.
+Zero-argument `LinearCrossEntropyOptions()` leaves `acc_policy`
+and `chunking_method` at `"auto"`, resolved per (device, dtype) at
+call time - see the field docs below.
 
 Supports a subset of `linear_cross_entropy()`; unsupported
 configurations fall through to the reference path with a warning.
@@ -33,38 +31,34 @@ SM 8.0+ for bf16, and CPU); otherwise to the input dtype.
 Mixed-precision currently requires fp16/bf16 input with
 `acc_dtype=torch.float32`.
 
-acc_policy*: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)['accurate', 'balanced', 'compact', 'auto']*
+acc_policy*: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal)['accurate', 'compact', 'auto']*
 
 Precision/memory trade-off for the chunked path. Controls which
 intermediates are kept in `acc_dtype` vs. the input dtype, and
 whether the per-chunk weight-gradient scratch buffer is materialized.
 
-- `"auto"` (default) - per-(device, dtype) pick from
-`_AUTO_DEFAULTS`; unlisted pairs fall back to `"compact"`.
-The fallback assumes a CUDA-like backend with hardware-native
-low-precision matmul; pass `"accurate"` explicitly on backends
-that emulate fp16/bf16 GEMMs via fp32 upcast.
+- `"auto"` (default) - `"accurate"` for CPU low-precision input
+(fp16/bf16), `"compact"` otherwise (`_auto_acc_policy()`). Pass
+`"accurate"` explicitly on any other backend that emulates fp16/bf16
+GEMMs via fp32 upcast.
 - `"accurate"` - broadest use of `acc_dtype`; noticeably
 better input-grad accuracy when chunk size is large relative to
 `num_classes`. Highest peak memory and slowest of the chunked
 policies on CUDA. Only chunked policy whose weight-grad matmul
 runs in fp32 on CPU (other policies hit CPU's emulated
 low-precision path, ~20-50x slower).
-- `"balanced"` - `acc_dtype` only where needed for gradient
-correctness; keeps a `(num_classes, in_features)`
-`acc_dtype` scratch for cross-chunk weight-grad accumulation.
-Same precision as `"accurate"` in bf16, slightly looser in fp16,
-faster than `"accurate"` in both.
-- `"compact"` - like `"balanced"` but drops the weight-grad
-scratch and accumulates per-chunk directly via `addmm_` (cuBLAS
-uses an fp32 internal accumulator, so bulk precision matches
-`"balanced"`). Saves `num_classes * in_features *
-sizeof(acc_dtype)` - typically several hundred MB for an LLM
-head. On non-CUDA mixed-precision falls back to `"balanced"`.
+- `"compact"` - `acc_dtype` only where needed for gradient
+correctness; accumulates the weight gradient per chunk directly via
+`addmm_` instead of a `(num_classes, in_features)`
+`acc_dtype` scratch (on CUDA cuBLAS uses an fp32 internal
+accumulator, so bulk precision is unchanged). Saves
+`num_classes * in_features * sizeof(acc_dtype)` - typically
+several hundred MB for an LLM head. On non-CUDA mixed-precision it
+retains that scratch for the cross-chunk accumulation.
 
-Policy effects (`"balanced"` vs `"accurate"`) are visible only
-when `acc_dtype` differs from the input dtype; `"compact"`
-saves memory in both regimes.
+The precision difference between `"compact"` and `"accurate"` is
+visible only when `acc_dtype` differs from the input dtype;
+`"compact"` saves memory in both regimes.
 
 allow_retain_graph*: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
@@ -100,9 +94,10 @@ chunking_method*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [
 
 Heuristic for picking `batch_chunk_size`.
 
-- `"auto"` (default) - resolves to a per-(device, dtype) pick from
-`_AUTO_DEFAULTS` at call time; falls back to
-`"aspect_ratio:2"` for unlisted pairs.
+- `"auto"` (default) - resolves to `"aspect_ratio"` (factor 1),
+with the compact path additionally capped at a per-target `B_ref`
+in `_adjust()` so the chunked peak never exceeds the unchunked
+reference in the budget regime (`in_features >= num_classes`).
 - `"aspect_ratio"` - sizes each chunk so its
 `(batch_chunk_size, num_classes)` logits buffer matches the
 `(num_batches, in_features)` input in memory:

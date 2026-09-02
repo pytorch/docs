@@ -1,6 +1,6 @@
 # GreenContext
 
-*class*torch.cuda.green_contexts.GreenContext[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L18)
+*class*torch.cuda.green_contexts.GreenContext(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L81)
 
 Wrapper around a CUDA green context.
 
@@ -8,42 +8,43 @@ Warning
 
 This API is in beta and may change in future releases.
 
-Stream()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L90)
+CUDA work should be placed on streams created from the green context:
 
-Return the CUDA Stream used by the green context.
+```
+ctx = GreenContext(...)
+stream = ctx.Stream()
+with torch.cuda.stream(stream):
+ # torch operations here are using resources from `ctx`
+ pass
+```
+
+Green-context streams are custom CUDA streams. Synchronization with other
+streams is the user's responsibility and should be handled with CUDA events,
+as with any other custom stream.
+
+Stream()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L364)
+
+Return a CUDA stream associated with this green context.
+
+Use the returned stream with [`torch.cuda.stream()`](torch.cuda.stream_function.html#torch.cuda.stream) to run work on
+the green context. Synchronization with other streams is not automatic;
+use CUDA events as with any other custom stream.
 
 Return type:
 
 [*Stream*](torch.cuda.streams.Stream.html#torch.cuda.streams.Stream)
 
-*static*create(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L25)
+*static*create(***, *num_sms=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L258)
 
 Create a CUDA green context.
 
-At least one of `num_sms` or `workqueue_scope` must be specified.
-Both can be combined to partition SMs and configure workqueues in the
-same green context.
-
-Parameters:
-
-- **num_sms** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The number of SMs to use in the green
-context. When `None`, SMs are not partitioned.
-- **workqueue_scope** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Workqueue sharing scope. One of
-`"device_ctx"` (shared across all contexts, default driver
-behaviour) or `"balanced"` (non-overlapping workqueues with
-other balanced green contexts). When `None`, no workqueue
-configuration is applied.
-- **workqueue_concurrency_limit** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Maximum number of
-concurrent stream-ordered workloads for the workqueue. Requires
-`workqueue_scope` to be set.
-- **device_id** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The device index of green context.
-When `None`, the current device is used.
+Kept for compatibility, see GreenContext constructor.
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+*GreenContext*
 
-*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L62)
+*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L277)
 
 Return the maximum workqueue concurrency limit for the device.
 
@@ -60,11 +61,17 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-pop_context()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L84)
+pop_context()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L337)
 
 Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.
 
-set_context()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/green_contexts.py#L80)
+Deprecated. Create streams with `Stream()` and use
+[`torch.cuda.stream()`](torch.cuda.stream_function.html#torch.cuda.stream) instead.
+
+set_context()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/green_contexts.py#L308)
 
 Make the green context the current context.
+
+Deprecated. Create streams with `Stream()` and use
+[`torch.cuda.stream()`](torch.cuda.stream_function.html#torch.cuda.stream) instead.

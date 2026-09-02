@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1388)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1756)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -32,6 +32,7 @@ deterministically when `mode=True`:
 > - [`torch.nn.ReplicationPad2d`](torch.nn.ReplicationPad2d.html#torch.nn.ReplicationPad2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.ReplicationPad3d`](torch.nn.ReplicationPad3d.html#torch.nn.ReplicationPad3d) when attempting to differentiate a CUDA tensor
 > - [`torch.bmm()`](torch.bmm.html#torch.bmm) when called on sparse-dense CUDA tensors
+> - [`torch.cumsum()`](torch.cumsum.html#torch.cumsum) when called on a CUDA tensor when dtype is floating point or complex
 > - `torch.Tensor.__getitem__()` when attempting to differentiate a CPU tensor
 > and the index is a list of tensors
 > - [`torch.Tensor.index_put()`](torch.Tensor.index_put.html#torch.Tensor.index_put) with `accumulate=False`
@@ -48,6 +49,7 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.scatter()`](torch.Tensor.scatter.html#torch.Tensor.scatter) when src type is Tensor and called on CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='sum'` or `reduce='mean'` and called on CUDA tensor
 > - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
+> - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
 [`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when `mode=True`:
@@ -85,7 +87,6 @@ The following normally-nondeterministic operations will throw a
 > tensor is given
 > - [`torch.median()`](torch.median.html#torch.median) with indices output when called on a CUDA tensor
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate a CUDA tensor
-> - [`torch.cumsum()`](torch.cumsum.html#torch.cumsum) when called on a CUDA tensor when dtype is floating point or complex
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='prod'` and called on CUDA tensor
 > - [`torch.Tensor.resize_()`](torch.Tensor.resize_.html#torch.Tensor.resize_) when called with a quantized tensor
 

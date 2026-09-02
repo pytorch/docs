@@ -1,6 +1,6 @@
 # PerGroup
 
-*class*torch.ao.quantization.observer.PerGroup(*group_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/observer.py#L1743)
+*class*torch.ao.quantization.observer.PerGroup(*group_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/quantization/observer.py#L1743)
 
 Represents per-channel group granularity in quantization.
 

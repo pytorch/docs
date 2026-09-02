@@ -1,6 +1,6 @@
 # celu
 
-*class*torch.ao.nn.quantized.functional.celu(*input*, *scale*, *zero_point*, *alpha=1.*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/nn/quantized/functional.py#L539)
+*class*torch.ao.nn.quantized.functional.celu(*input*, *scale*, *zero_point*, *alpha=1.*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/functional.py#L542)
 
 Applies the quantized CELU function element-wise.
 

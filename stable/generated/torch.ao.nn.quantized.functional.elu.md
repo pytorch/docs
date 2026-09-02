@@ -1,6 +1,6 @@
 # elu
 
-*class*torch.ao.nn.quantized.functional.elu(*input*, *scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/nn/quantized/functional.py#L637)
+*class*torch.ao.nn.quantized.functional.elu(*input*, *scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/functional.py#L640)
 
 This is the quantized version of [`elu()`](torch.nn.functional.elu.html#torch.nn.functional.elu).
 

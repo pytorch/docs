@@ -71,6 +71,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`change_current_allocator`](generated/torch.xpu.memory.change_current_allocator.html#torch.xpu.memory.change_current_allocator) | Change the currently used memory allocator to be the one provided. |
 | [`empty_cache`](generated/torch.xpu.memory.empty_cache.html#torch.xpu.memory.empty_cache) | Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. |
 | [`get_per_process_memory_fraction`](generated/torch.xpu.memory.get_per_process_memory_fraction.html#torch.xpu.memory.get_per_process_memory_fraction) | Retrieve the memory fraction currently set for a process on a given XPU device. |
+| [`list_gpu_processes`](generated/torch.xpu.memory.list_gpu_processes.html#torch.xpu.memory.list_gpu_processes) | Return a printout of running processes and their GPU memory usage on a given device. |
 | [`max_memory_allocated`](generated/torch.xpu.memory.max_memory_allocated.html#torch.xpu.memory.max_memory_allocated) | Return the maximum GPU memory occupied by tensors in bytes for a given device. |
 | [`max_memory_reserved`](generated/torch.xpu.memory.max_memory_reserved.html#torch.xpu.memory.max_memory_reserved) | Return the maximum GPU memory managed by the caching allocator in bytes for a given device. |
 | [`mem_get_info`](generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info) | Return the global free and total GPU memory for a given device. |
@@ -84,7 +85,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`set_per_process_memory_fraction`](generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction) | Set the memory fraction for a single process on XPU device. |
 | [`MemPool`](generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
 
-*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/memory.py#L597)
+*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/xpu/memory.py#L600)
 
 A context manager that routes allocations to a given pool.
 

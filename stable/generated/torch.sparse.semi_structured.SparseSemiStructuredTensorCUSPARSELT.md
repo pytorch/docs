@@ -1,6 +1,6 @@
 # SparseSemiStructuredTensorCUSPARSELT
 
-*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/sparse/semi_structured.py#L548)
+*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/semi_structured.py#L548)
 
 The cuSPARSELt backend expects the specified elements and the metadata to be stored in a single tensor:
 packed = [ specified elements of original tensor | metadata ]
@@ -31,7 +31,7 @@ If `n` is the number of dimensions in `x`,
 
 Warning
 
-The use of `Tensor.T()` on tensors of dimension other than 2 to reverse their shape
+The use of `Tensor.T` on tensors of dimension other than 2 to reverse their shape
 is deprecated and it will throw an error in a future release. Consider [`mT`](../tensors.html#torch.Tensor.mT)
 to transpose batches of matrices or x.permute(*torch.arange(x.ndim - 1, -1, -1)) to reverse
 the dimensions of a tensor.
@@ -311,7 +311,7 @@ atanh_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `atanh()`
 
-backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L566)
+backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L566)
 
 Computes the gradient of current tensor wrt graph leaves.
 
@@ -531,10 +531,6 @@ Parameters:
 **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 returned Tensor. Default: `torch.preserve_format`.
 
-cholesky(*upper=False*) → [Tensor](../tensors.html#torch.Tensor)
-
-See [`torch.cholesky()`](torch.cholesky.html#torch.cholesky)
-
 cholesky_inverse(*upper=False*) → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.cholesky_inverse()`](torch.cholesky_inverse.html#torch.cholesky_inverse)
@@ -646,6 +642,13 @@ Parameters:
 - **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
 the copy may occur asynchronously with respect to the host. For other
 cases, this argument has no effect. Default: `False`
+
+Note
+
+When `non_blocking` is `True` and the copy is issued on a
+non-default CUDA stream, the caller is responsible for proper
+cross-stream synchronization. See [CUDA streams](../notes/cuda.html#cuda-stream-semantics) for
+the required pattern.
 
 copysign(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -857,7 +860,7 @@ dim() → [int](https://docs.python.org/3/library/functions.html#int)
 
 Returns the number of dimensions of `self` tensor.
 
-dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1371)
+dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1381)
 
 Returns the uniquely determined tuple of int describing the dim order or
 physical layout of `self`.
@@ -1423,7 +1426,7 @@ tensor([(0.3100+0.3553j), (-0.5445-0.7896j), (-1.6492-0.0633j), (-0.0638-0.8119j
 tensor([ 0.3553, -0.7896, -0.0633, -0.8119])
 ```
 
-index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L627)
+index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L627)
 
 Index a regular tensor by binding specified positions to dims.
 
@@ -1624,7 +1627,7 @@ This function is in beta and may change in the near future.
 Parameters:
 
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
-- **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `source` to select from,
+- **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `self` to accumulate into,
 should have dtype either torch.int64 or torch.int32
 - **source** (*FloatTensor*) - the tensor containing values to accumulate
 - **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the reduction operation to apply
@@ -1829,7 +1832,7 @@ is_set_to(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#
 Returns True if both tensors are pointing to the exact same memory (same
 storage, offset, size and stride).
 
-is_shared()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L827)
+is_shared()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L827)
 
 Checks if tensor is in shared memory.
 
@@ -1883,7 +1886,7 @@ isreal() → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.isreal()`](torch.isreal.html#torch.isreal)
 
-istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L987)
+istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L997)
 
 See [`torch.istft()`](torch.istft.html#torch.istft)
 
@@ -2091,7 +2094,7 @@ lt_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `lt()`.
 
-lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L922)
+lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L932)
 
 See [`torch.lu()`](torch.lu.html#torch.lu)
 
@@ -2246,7 +2249,7 @@ mode(*dim=None*, *keepdim=False*)
 
 See [`torch.mode()`](torch.mode.html#torch.mode)
 
-module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L849)
+module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L849)
 
 Defines how to transform `other` when loading it into `self` in `load_state_dict()`.
 
@@ -2632,7 +2635,7 @@ nonzero_static(***, *size*, *fill_value=-1*) → LongTensor
 
 See [`torch.nonzero_static()`](torch.nonzero_static.html#torch.nonzero_static)
 
-norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L888)
+norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L888)
 
 See [`torch.linalg.norm()`](torch.linalg.norm.html#torch.linalg.norm)
 
@@ -2738,7 +2741,7 @@ prod(*dim=None*, *keepdim=False*, *dtype=None*) → [Tensor](../tensors.html#tor
 
 See [`torch.prod()`](torch.prod.html#torch.prod)
 
-*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/sparse/semi_structured.py#L588)
+*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/semi_structured.py#L588)
 
 This function does the same thing as described in SparseSemiStructuredCUTLASS, but uses the cuSPARSELt metadata
 layout and sparse matmul.
@@ -2842,10 +2845,6 @@ q_zero_point() → [int](https://docs.python.org/3/library/functions.html#int)
 
 Given a Tensor quantized by linear(affine) quantization,
 returns the zero_point of the underlying quantizer().
-
-qr(*some=True*)
-
-See [`torch.qr()`](torch.qr.html#torch.qr)
 
 qscheme() → torch.qscheme
 
@@ -2979,7 +2978,7 @@ necessary (as you are keeping `x` live for longer.) For a concrete
 example of how this guidance can be applied in practice, see this post:
 [FSDP and CUDACachingAllocator](https://dev-discuss.pytorch.org/t/fsdp-cudacachingallocator-an-outsider-newb-perspective/1486).
 
-register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L655)
+register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L655)
 
 Registers a backward hook.
 
@@ -3017,7 +3016,7 @@ Example:
 >>> h.remove() # removes the hook
 ```
 
-register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L705)
+register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L705)
 
 Registers a backward hook that runs after grad accumulation.
 
@@ -3595,7 +3594,7 @@ torch.Size([3, 4, 5])
 torch.Size([3, 4, 5])
 ```
 
-share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L836)
+share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L836)
 
 Moves the underlying storage to shared memory.
 
@@ -3799,7 +3798,7 @@ Parameters:
 - **sparse_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sparse dimensions
 - **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of dense dimensions
 
-split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1044)
+split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1054)
 
 See [`torch.split()`](torch.split.html#torch.split)
 
@@ -3835,7 +3834,7 @@ std(*dim=None*, ***, *correction=1*, *keepdim=False*) → [Tensor](../tensors.ht
 
 See [`torch.std()`](torch.std.html#torch.std)
 
-stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L938)
+stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L948)
 
 See [`torch.stft()`](torch.stft.html#torch.stft)
 
@@ -3844,7 +3843,7 @@ Warning
 This function changed signature at version 0.4.1. Calling with
 the previous signature may cause error or return incorrect result.
 
-storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L290)
+storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L290)
 
 Returns the underlying `TypedStorage`.
 
@@ -3869,7 +3868,7 @@ Example:
 3
 ```
 
-storage_type() → [type](https://docs.python.org/3/library/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1330)
+storage_type() → [type](https://docs.python.org/3/library/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1340)
 
 Returns the type of the underlying storage.
 
@@ -4056,6 +4055,13 @@ to(*other*, *non_blocking=False*, *copy=False*) → [Tensor](../tensors.html#tor
 > [tutorial on good usage of non_blocking and pin_memory](https://pytorch.org/tutorials/intermediate/pinmem_nonblock.html).
 > When `copy` is set, a new Tensor is created even when the Tensor
 > already matches the desired conversion.
+
+Note
+
+When `non_blocking` is `True` and the conversion is issued on
+a non-default CUDA stream, the caller is responsible for proper
+cross-stream synchronization. See [CUDA streams](../notes/cuda.html#cuda-stream-semantics) for
+the required pattern.
 
 Example:
 
@@ -4270,7 +4276,7 @@ tensor(crow_indices=tensor([0, 2, 3]),
  layout=torch.sparse_bsr)
 ```
 
-to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1358)
+to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1368)
 
 Convert a tensor to [coordinate format](../sparse.html#sparse-coo-docs).
 
@@ -4459,7 +4465,7 @@ unbind(*dim=0*) → seq
 
 See [`torch.unbind()`](torch.unbind.html#torch.unbind)
 
-unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1343)
+unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1353)
 
 See [`torch.unflatten()`](torch.unflatten.html#torch.unflatten).
 
@@ -4510,13 +4516,13 @@ f(x)=1to−fromf(x) = \dfrac{1}{\text{to} - \text{from}}
 
 f(x)=to−from1​
 
-unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1065)
+unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1075)
 
 Returns the unique elements of the input tensor.
 
 See [`torch.unique()`](torch.unique.html#torch.unique)
 
-unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_tensor.py#L1088)
+unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1098)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 

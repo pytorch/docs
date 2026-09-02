@@ -1,6 +1,6 @@
 # torch.func.jvp
 
-torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_functorch/eager_transforms.py#L1093)
+torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_functorch/eager_transforms.py#L1093)
 
 Standing for the Jacobian-vector product, returns a tuple containing
 the output of func(*primals) and the "Jacobian of `func` evaluated at
@@ -43,6 +43,9 @@ jvp is useful when you wish to compute gradients of a function R^1 -> R^N
 >>> from torch.func import jvp
 >>> x = torch.randn([])
 >>> f = lambda x: x * torch.tensor([1.0, 2.0, 3])
+>>> warnings.filterwarnings(
+... "ignore", message=".*torch.jit.script"
+... ) # docs: hide
 >>> value, grad = jvp(f, (x,), (torch.tensor(1.0),))
 >>> assert torch.allclose(value, f(x))
 >>> assert torch.allclose(grad, torch.tensor([1.0, 2, 3]))

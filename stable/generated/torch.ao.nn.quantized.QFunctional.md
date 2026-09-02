@@ -1,6 +1,6 @@
 # QFunctional
 
-*class*torch.ao.nn.quantized.QFunctional[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/nn/quantized/modules/functional_modules.py#L164)
+*class*torch.ao.nn.quantized.QFunctional[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/modules/functional_modules.py#L164)
 
 Wrapper class for quantized operations.
 

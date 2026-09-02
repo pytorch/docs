@@ -1,6 +1,6 @@
 # torch.is_tensor
 
-torch.is_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L1161)
+torch.is_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1526)
 
 Returns True if obj is a PyTorch tensor.
 

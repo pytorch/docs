@@ -1,6 +1,6 @@
 # torch.compiler.reset
 
-torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/compiler/__init__.py#L60)
+torch.compiler.reset()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L81)
 
 Reset the in-process compiler state.
 

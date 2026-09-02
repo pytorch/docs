@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_allocated
 
-torch.cuda.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L533)
+torch.cuda.memory.memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/memory.py#L525)
 
 Return the current GPU memory occupied by tensors in bytes for a given device.
 

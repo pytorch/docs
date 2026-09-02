@@ -4,7 +4,7 @@
 
 Note
 
-Tags: torch.cond, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.cond
 
 Support Level: SUPPORTED
 
@@ -35,7 +35,7 @@ class CondBranchClassMethod(torch.nn.Module):
 
  This example demonstrates using class method in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def __init__(self) -> None:
@@ -81,7 +81,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.cond, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.cond
 
 Support Level: SUPPORTED
 
@@ -105,7 +105,7 @@ class CondBranchNestedFunction(torch.nn.Module):
 
  This example demonstrates using nested function in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -156,7 +156,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.cond, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.cond
 
 Support Level: SUPPORTED
 
@@ -196,7 +196,7 @@ class CondBranchNonlocalVariables(torch.nn.Module):
  return cond(x.shape[0] > 5, true_fn, false_fn, [x])
  ```
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -327,7 +327,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.cond, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.cond
 
 Support Level: SUPPORTED
 
@@ -349,7 +349,7 @@ class CondOperands(torch.nn.Module):
  - a list of tensors
  - match arguments of `true_fn` and `false_fn`
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x, y):
@@ -414,7 +414,7 @@ Range constraints: {s6: VR[0, int_oo]}
 
 Note
 
-Tags: torch.cond, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.cond
 
 Support Level: SUPPORTED
 
@@ -432,7 +432,7 @@ class CondPredicate(torch.nn.Module):
  - torch.Tensor with a single element
  - boolean expression
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):

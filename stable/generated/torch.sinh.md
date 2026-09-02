@@ -25,9 +25,3 @@ tensor([ 0.5380, -0.8632, -0.1265, 0.9399])
 >>> torch.sinh(a)
 tensor([ 0.5644, -0.9744, -0.1268, 1.0845])
 ```
-
-Note
-
-When `input` is on the CPU, the implementation of torch.sinh may use
-the Sleef library, which rounds very large results to infinity or negative
-infinity. See [here](https://sleef.org/purec.xhtml) for details.

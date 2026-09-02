@@ -88,6 +88,103 @@ It is lazily initialized, so you can always import it, and use
 | [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) | Wrapper around a CUDA graph. |
 | [`graph`](generated/torch.cuda.graph.html#torch.cuda.graph) | Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay. |
 | [`make_graphed_callables`](generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) | Accept callables (functions or [`nn.Module`](generated/torch.nn.Module.html#torch.nn.Module)s) and returns graphed versions. |
+| [`export_dot`](generated/torch.cuda.export_dot.html#torch.cuda.export_dot) | Return a capture-end hook that dumps the captured graph to `path` in Graphviz DOT format. |
+| [`export_graph_data`](generated/torch.cuda.export_graph_data.html#torch.cuda.export_graph_data) | Return a post-instantiate hook that pickles [`CUDAGraph.get_graph_data()`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.get_graph_data) to `path`. |
+
+### CUDA graph lifecycle hooks
+
+Register callbacks that fire at each point in any CUDA graph's lifecycle - capture
+start, capture end, instantiate, each replay, and destroy - for example, a profiler
+observing graph lifecycle without the graph code carrying any consumer knowledge, and
+including graphs the consumer did not build. Registering a hook is the opt-in and the whole
+API - the graph fires them; with none registered they are no-ops. Each has a per-graph
+counterpart on [`torch.cuda.CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph). Live in `torch.cuda.graphs`.
+
+| [`register_graph_capture_start_hook`](generated/torch.cuda.graphs.register_graph_capture_start_hook.html#torch.cuda.graphs.register_graph_capture_start_hook) | Register a hook run with each CUDA graph as its capture begins. |
+| --- | --- |
+| [`register_graph_capture_end_hook`](generated/torch.cuda.graphs.register_graph_capture_end_hook.html#torch.cuda.graphs.register_graph_capture_end_hook) | Register a hook run with each CUDA graph when its capture ends, while the captured `cudaGraph_t` is still live (see [`CUDAGraph.register_capture_end_hook()`](generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.register_capture_end_hook)). |
+| [`register_graph_instantiate_hook`](generated/torch.cuda.graphs.register_graph_instantiate_hook.html#torch.cuda.graphs.register_graph_instantiate_hook) | Register a hook run with each CUDA graph right after it is instantiated. |
+| [`register_graph_replay_start_hook`](generated/torch.cuda.graphs.register_graph_replay_start_hook.html#torch.cuda.graphs.register_graph_replay_start_hook) | Register a hook run with each CUDA graph at the start of every replay, just before it is launched. |
+| [`register_graph_replay_end_hook`](generated/torch.cuda.graphs.register_graph_replay_end_hook.html#torch.cuda.graphs.register_graph_replay_end_hook) | Register a hook run with each CUDA graph at the end of every replay, once the replay is *enqueued* (the launch is asynchronous, so the GPU work has not completed). |
+| [`register_graph_destroy_hook`](generated/torch.cuda.graphs.register_graph_destroy_hook.html#torch.cuda.graphs.register_graph_destroy_hook) | Register `fn(exec_ids)` to run when a CUDA graph is destroyed. |
+
+## Graph Kernel Annotations (prototype)
+
+`torch.cuda.graph_annotations` annotates the kernels captured in a CUDA
+graph with user metadata, keyed so the annotations can be joined against
+the `graph node id` field on kernel events in profiler traces. Enable
+recording per capture with the `enable_annotations` argument of
+[`torch.cuda.graph`](generated/torch.cuda.graph.html#torch.cuda.graph), then wrap regions of the captured workload in
+[`mark_kernels()`](generated/torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) scopes.
+
+These APIs require the `cuda-bindings` package and a CUDA driver that
+supports `cudaGraphNodeGetToolsId` (CUDA 13.1 or newer, or an equivalent
+cuda-compat package); recording silently degrades to a no-op otherwise, and
+is not supported on ROCm. Use
+[`is_available()`](generated/torch.cuda.graph_annotations.is_available.html#torch.cuda.graph_annotations.is_available) to check support.
+
+The end-to-end workflow: annotate during capture, profile the replay,
+then merge the annotations into the exported trace and view it in
+[Perfetto](https://ui.perfetto.dev). During capture:
+
+```
+import torch
+from torch.cuda.graph_annotations import mark_kernels, get_kernel_annotations
+
+x = torch.randn(1024, 1024, device="cuda")
+
+# Warmup: run the workload once outside capture so lazy initialization
+# (e.g. cuBLAS handles) does not end up in -- or invalidate -- the capture.
+y = x @ x.t()
+z = torch.relu(y) @ x
+torch.cuda.synchronize()
+
+g = torch.cuda.CUDAGraph()
+with torch.cuda.graph(g, enable_annotations=True):
+ with mark_kernels("attention"):
+ y = x @ x.t()
+ with mark_kernels({"name": "mlp", "layer": 3}):
+ z = torch.relu(y) @ x
+
+with torch.profiler.profile() as prof:
+ g.replay()
+ torch.cuda.synchronize()
+prof.export_chrome_trace("trace.json")
+```
+
+Each kernel event in the exported trace carries a `graph node id` in its
+`args`; the recorded annotations are keyed by the same ids, so merging
+them into the trace is a dictionary lookup:
+
+```
+import json
+
+annotations = get_kernel_annotations()
+with open("trace.json") as f:
+ trace = json.load(f)
+for event in trace["traceEvents"]:
+ node_id = event.get("args", {}).get("graph node id")
+ for ann in annotations.get(node_id, []):
+ event["args"].update(ann)
+with open("trace_annotated.json", "w") as f:
+ json.dump(trace, f)
+```
+
+Opening `trace_annotated.json` in [Perfetto](https://ui.perfetto.dev)
+(or `chrome://tracing`) and clicking a kernel from the graph replay now
+shows the annotation fields - `name: attention` or `name: mlp`,
+`layer: 3` - alongside the kernel's grid and block sizes, identifying
+which region of the captured workload each kernel came from.
+
+Because annotations live in a process-global registry keyed by ids that
+match the profiler's, the pickle of `dict(get_kernel_annotations())`
+can equally be saved next to a trace and joined offline.
+
+| [`is_available`](generated/torch.cuda.graph_annotations.is_available.html#torch.cuda.graph_annotations.is_available) | Return whether CUDA graph annotation recording is supported. |
+| --- | --- |
+| [`mark_kernels`](generated/torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) | Context manager that annotates GPU work captured within its scope. |
+| [`get_kernel_annotations`](generated/torch.cuda.graph_annotations.get_kernel_annotations.html#torch.cuda.graph_annotations.get_kernel_annotations) | Return the live registry of recorded kernel annotations. |
+| [`clear_kernel_annotations`](generated/torch.cuda.graph_annotations.clear_kernel_annotations.html#torch.cuda.graph_annotations.clear_kernel_annotations) | Clear all recorded kernel annotations. |
 
 This package adds support for device memory management implemented in CUDA.
 
@@ -128,7 +225,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L1334)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/memory.py#L1423)
 
 A context manager that routes allocations to a given pool.
 
@@ -147,7 +244,12 @@ the given pool. If a new thread is spawned inside the context manager
 (e.g. by calling backward) the allocations in that thread will not
 route to the given pool.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/nccl.py#L35)
+Note
+
+When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
+retains the pool until the graph is reset or destroyed.
+
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -208,8 +310,9 @@ ensure that their system is appropriately configured to use GPUDirect Storage pe
 
 See the docs for [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile) for an example of how to use these.
 
-| [`gds_register_buffer`](generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer) | Registers a storage on a CUDA device as a cufile buffer. |
+| [`is_available`](generated/torch.cuda.gds.is_available.html#torch.cuda.gds.is_available) | Return `True` if GDS (GPUDirect Storage) support is built in. |
 | --- | --- |
+| [`gds_register_buffer`](generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer) | Registers a storage on a CUDA device as a cufile buffer. |
 | [`gds_deregister_buffer`](generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer) | Deregisters a previously registered storage on a CUDA device as a cufile buffer. |
 | [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile) | Wrapper around cuFile. |
 
@@ -218,13 +321,34 @@ See the docs for [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gd
 `torch.cuda.green_contexts` provides thin wrappers around the CUDA Green Context APIs
 to enable more general carveout of SM resources for CUDA kernels.
 
-These APIs can be used in PyTorch with CUDA versions greater than or equal to 12.8.
+These APIs require the `cuda.bindings` package and can be used in PyTorch with
+CUDA versions greater than or equal to 12.8. Workqueue configuration requires
+CUDA 13.1 or newer.
 
-See the docs for [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) for an example of how to use these.
+Install instructions for `cuda.bindings` can be found here:
+https://nvidia.github.io/cuda-python/
+
+Create streams from the green context and use them like other custom CUDA
+streams:
+
+```
+ctx = GreenContext(...)
+stream = ctx.Stream()
+with torch.cuda.stream(stream):
+ # torch operations here are using resources from `ctx`
+ pass
+```
+
+Synchronization between green-context streams and other streams is the user's
+responsibility. Use CUDA events to order work, just as you would for any other
+custom stream.
+
+The `GreenContext.set_context()` and `GreenContext.pop_context()` methods are
+deprecated compatibility APIs.
 
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

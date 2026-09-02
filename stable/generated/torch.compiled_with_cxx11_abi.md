@@ -1,6 +1,6 @@
 # torch.compiled_with_cxx11_abi
 
-torch.compiled_with_cxx11_abi()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L2353)
+torch.compiled_with_cxx11_abi()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L2749)
 
 Returns whether PyTorch was built with _GLIBCXX_USE_CXX11_ABI=1
 

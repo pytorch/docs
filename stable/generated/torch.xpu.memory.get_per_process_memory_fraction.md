@@ -1,6 +1,6 @@
 # torch.xpu.memory.get_per_process_memory_fraction
 
-torch.xpu.memory.get_per_process_memory_fraction(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/memory.py#L212)
+torch.xpu.memory.get_per_process_memory_fraction(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/xpu/memory.py#L215)
 
 Retrieve the memory fraction currently set for a process on a given XPU device.
 This fraction represents the portion of the total device memory that

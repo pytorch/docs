@@ -1,6 +1,6 @@
 # torch.autograd.function.FunctionCtx.set_materialize_grads
 
-FunctionCtx.set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/function.py#L235)
+FunctionCtx.set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/function.py#L276)
 
 Set whether to materialize grad tensors. Default is `True`.
 

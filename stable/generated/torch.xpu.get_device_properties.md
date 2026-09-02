@@ -1,6 +1,6 @@
 # torch.xpu.get_device_properties
 
-torch.xpu.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/__init__.py#L483)
+torch.xpu.get_device_properties(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/xpu/__init__.py#L484)
 
 Get the properties of a device. Returns _XpuDeviceProperties containing the following device properties:
 

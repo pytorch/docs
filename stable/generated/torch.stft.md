@@ -1,6 +1,6 @@
 # torch.stft
 
-torch.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/functional.py#L507)
+torch.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/functional.py#L507)
 
 Short-time Fourier transform (STFT).
 
@@ -23,7 +23,7 @@ which may result in undesirable artifacts. Consider using tapered windows,
 such as [`torch.hann_window()`](torch.hann_window.html#torch.hann_window).
 
 The STFT computes the Fourier transform of short overlapping windows of the
-input. This giving frequency components of the signal as they change over
+input. This gives frequency components of the signal as they change over
 time. The interface of this function is modeled after (but *not* a drop-in
 replacement for) [librosa](https://librosa.org/doc/latest/generated/librosa.stft.html) stft function.
 

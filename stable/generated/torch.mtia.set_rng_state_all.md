@@ -1,6 +1,6 @@
 # torch.mtia.set_rng_state_all
 
-torch.mtia.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/mtia/__init__.py#L447)
+torch.mtia.set_rng_state_all(*new_states*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/mtia/__init__.py#L447)
 
 Sets the random number generator state of all devices.
 

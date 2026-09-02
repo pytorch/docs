@@ -1,6 +1,6 @@
 # torch.autograd.graph.Node.register_prehook
 
-*abstract*Node.register_prehook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/graph.py#L141)
+*abstract*Node.register_prehook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/graph.py#L148)
 
 Register a backward pre-hook.
 

@@ -1,5 +1,30 @@
 # torch.accelerator
 
+## Lazy Initialization and Fork Safety
+
+Accelerator runtimes (CUDA, XPU, MPS, etc.) are initialized lazily -- only
+when the first operation that touches the device runs. This ensures that
+`import torch` and capability queries do not poison subsequent `fork()`
+calls. See [Poison fork in multiprocessing](notes/multiprocessing.html#multiprocessing-poison-fork-note) for background.
+
+Certain APIs need to be callable before forking (e.g., `device_count()`,
+`is_available()`), and some backends provide opt-in mechanisms to make
+these fork-safe (e.g., CUDA via NVML, XPU via Level Zero Sysman). To keep
+behavior and runtime state consistent between `torch.accelerator` and
+per-backend modules, the following APIs are delegated to each backend:
+
+- **`is_available()` / `device_count()`** should ideally answer without
+bringing up the runtime, since `DataLoader` and similar tools rely on
+calling them before forking. Whether this is achievable depends on the
+backend, so `torch.accelerator` forwards to the corresponding backend
+implementation.
+- **`_lazy_call()`** is used for deferred RNG management. Calling
+`manual_seed()` before forking should not force runtime initialization.
+`torch.accelerator` wraps the seeding callback via `_lazy_call()`, which
+forwards to the backend's own callback queue (CUDA, XPU, MTIA, ...).
+Each backend owns its init flag and callback queue. If a backend does not
+provide `_lazy_call` (e.g., MPS), the callback executes immediately.
+
 This package introduces support for the current [accelerator](torch.html#accelerators) in python.
 
 | [`device_count`](generated/torch.accelerator.device_count.html#torch.accelerator.device_count) | Return the number of current [accelerator](torch.html#accelerators) available. |
@@ -34,3 +59,10 @@ This package introduces support for the current [accelerator](torch.html#acceler
 | [`memory_stats`](generated/torch.accelerator.memory.memory_stats.html#torch.accelerator.memory.memory_stats) | Return a dictionary of accelerator device memory allocator statistics for a given device index. |
 | [`reset_accumulated_memory_stats`](generated/torch.accelerator.memory.reset_accumulated_memory_stats.html#torch.accelerator.memory.reset_accumulated_memory_stats) | Reset the "accumulated" (historical) stats tracked by the current [accelerator](torch.html#accelerators) memory allocator for a given device index. |
 | [`reset_peak_memory_stats`](generated/torch.accelerator.memory.reset_peak_memory_stats.html#torch.accelerator.memory.reset_peak_memory_stats) | Reset the "peak" stats tracked by the current [accelerator](torch.html#accelerators) memory allocator for a given device index. |
+
+## Random Number Generator
+
+| [`get_rng_state`](generated/torch.accelerator.random.get_rng_state.html#torch.accelerator.random.get_rng_state) | Return the RNG state of the default [`torch.Generator`](generated/torch.Generator.html#torch.Generator) for the current [accelerator](torch.html#accelerators) as a torch.Tensor of dtype torch.uint8 for the specified accelerator device. |
+| --- | --- |
+| [`get_rng_state_all`](generated/torch.accelerator.random.get_rng_state_all.html#torch.accelerator.random.get_rng_state_all) | Return a list of torch.Tensor of dtype torch.uint8 representing the RNG states of all devices for the current [accelerator](torch.html#accelerators). |
+| [`initial_seed`](generated/torch.accelerator.random.initial_seed.html#torch.accelerator.random.initial_seed) | Return the initial seed of the default [`torch.Generator`](generated/torch.Generator.html#torch.Generator) for the current [accelerator](torch.html#accelerators) on the specified device. |

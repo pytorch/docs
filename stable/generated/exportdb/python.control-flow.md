@@ -4,7 +4,7 @@
 
 Note
 
-Tags: python.control-flow, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), python.control-flow
 
 Support Level: SUPPORTED
 
@@ -18,7 +18,7 @@ class DynamicShapeIfGuard(torch.nn.Module):
  """
  `if` statement with backed dynamic shape predicate will be specialized into
  one particular branch and generate a guard. However, export will fail if the
- the dimension is marked as dynamic shape from higher level API.
+ dimension is marked as dynamic shape from higher level API.
  """
 
  def forward(self, x):

@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.general_cosine
 
-torch.signal.windows.windows.general_cosine(*M*, ***, *a*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/signal/windows/windows.py#L673)
+torch.signal.windows.windows.general_cosine(*M*, ***, *a*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/signal/windows/windows.py#L673)
 
 Computes the general cosine window.
 

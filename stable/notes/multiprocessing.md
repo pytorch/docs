@@ -16,7 +16,7 @@ creates a standard process-specific `.grad` [`Tensor`](../tensors.html#torch.Ten
 is not automatically shared across all processes, unlike how the
 [`Tensor`](../tensors.html#torch.Tensor)'s data has been shared.
 
-This allows to implement various training methods, like Hogwild, A3C, or any
+This allows implementation of various training methods, like Hogwild, A3C, or any
 others that require asynchronous operation.
 
 ## Poison fork in multiprocessing
@@ -27,7 +27,7 @@ runtime errors in child processes.
 
 To prevent such errors:
 
-- Avoid initializing the accelerator in the main process before forking child processes.
+- Avoid initializing the accelerator before forking child processes. See [Lazy Initialization and Fork Safety](../accelerator.html#lazy-initialization-and-fork-safety-note) for details on lazy initialization and fork safety.
 - Use an alternative process start methods, such as `spawn` or `forkserver`, which ensures a clean initialization of each process.
 
 ## CUDA in multiprocessing
@@ -105,8 +105,8 @@ with an `if __name__ == '__main__'`. If a different start method than
 #### Hogwild
 
 A concrete Hogwild implementation can be found in the [examples repository](https://github.com/pytorch/examples/tree/master/mnist_hogwild),
-but to showcase the overall structure of the code, there's also a minimal
-example below as well:
+but to showcase the overall structure of the code, a minimal
+example is also below:
 
 ```
 import torch.multiprocessing as mp
@@ -149,7 +149,7 @@ where the total number of vCPUs allocated to a system exceeds the total
 number of vCPUs available on the hardware.
 
 This leads to severe contention for CPU resources. In such cases, there
-is frequent switching between processes, which increases processes
+is frequent switching between processes, which increases process
 switching overhead and decreases overall system efficiency.
 
 See CPU oversubscription with the code examples in the Hogwild
@@ -215,7 +215,7 @@ def train(rank, args, model, device, dataset, dataloader_kwargs):
 ```
 
 Set `num_thread` for each process using
-`torch.set_num_threads(floor(N/M))`. where you replace N with the
+`torch.set_num_threads(floor(N/M))`, where you replace N with the
 number of vCPUs available and M with the chosen number of processes. The
 appropriate `num_thread` value will vary depending on the specific
 task at hand. However, as a general guideline, the maximum value for the

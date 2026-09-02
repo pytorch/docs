@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_higher_order_ops/associative_scan.py#L150)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_higher_order_ops/associative_scan.py#L149)
 
 Performs an inclusive scan with an associative combine function.
 
@@ -129,8 +129,10 @@ does not support autograd and you may run into miscompiles.
 Read more about feature classification at:
 [https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype](https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype)
 
-This operator requires runtime code generation and so requires support for
-`torch.compile`. Further, only CUDA device codegen is supported at the moment.
+With `combine_mode="pointwise"`, efficient execution requires runtime code
+generation via `torch.compile`, and codegen is only supported on backends
+with scan support (currently CUDA and XPU). On other devices the operator
+still runs eagerly via the generic fallback.
 
 Parameters:
 
@@ -139,14 +141,20 @@ or if input is a pytree `(pytree, pytree) -> pytree`.
 This function must be pure, i.e., no lifted arguments are supported at the moment,
 satisfy the associative property and have no side-effects.
 - **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - The input tensor, or nested pytree of tensors.
-All inputs are expected to have the same shape.
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over
 - **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
 - **combine_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A string indicating whether the `combine_fn` is `pointwise` or `generic`, default `pointwise`.
-If `combine_mode=pointwise`, `combine_fn` must be pure, may only contain pointwise operations
-and `xs` must be CUDA tensors.
+If `combine_mode=pointwise`, `combine_fn` must be pure and may only contain pointwise
+operations; under `torch.compile` `xs` must be on a backend with scan codegen support
+(CUDA or XPU), otherwise the generic fallback is used.
 In all other cases `combine_mode=generic` should be used.
 Note: `combine_mode=pointwise` is more efficient than `combine_mode=generic`.
+
+Returns:
+
+A pytree of the same structure and shape as `xs`. If the scan dimension has size 0,
+the output mirrors the (empty) input unchanged. The gradient with respect to `xs`
+is also empty (size 0 along `dim`), since there are no elements to differentiate through.
 
 Return type:
 

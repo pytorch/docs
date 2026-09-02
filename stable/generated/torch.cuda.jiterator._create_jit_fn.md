@@ -1,6 +1,6 @@
 # torch.cuda.jiterator._create_jit_fn
 
-torch.cuda.jiterator._create_jit_fn(*code_string*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/jiterator.py#L101)
+torch.cuda.jiterator._create_jit_fn(*code_string*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/jiterator.py#L101)
 
 Create a jiterator-generated cuda kernel for an elementwise op.
 
@@ -9,7 +9,7 @@ string has to follow the c++ template pattern, as shown in the example below. Th
 into elementwise kernel template, and compiled on the fly. Compiled kernel will be cached in memory, as well as
 local temp dir.
 
-Jiterator-generated kernels accepts noncontiguous tensors, and supports broadcasting and type promotion.
+Jiterator-generated kernels accept noncontiguous tensors, and support broadcasting and type promotion.
 
 Parameters:
 

@@ -1,6 +1,6 @@
 # upsample_bilinear
 
-*class*torch.ao.nn.quantized.functional.upsample_bilinear(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/nn/quantized/functional.py#L733)
+*class*torch.ao.nn.quantized.functional.upsample_bilinear(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/functional.py#L736)
 
 Upsamples the input, using bilinear upsampling.
 

@@ -135,6 +135,24 @@ Note
 
 If no port number is specified `HOST_NODE_ADDR` defaults to 29400.
 
+## Shell completion
+
+`torchrun` can emit a completion script for `bash`, `zsh` or `tcsh`. The
+script is generated from the argument parser, so it stays in sync with the
+options above. This requires the optional [shtab](https://tqdm.github.io/shtab)
+package (`pip install shtab`); torchrun only imports it when the flag is used.
+
+```
+# zsh
+torchrun --print-completion zsh > ~/.zsh/completions/_torchrun
+
+# bash
+torchrun --print-completion bash > ~/.local/share/bash-completion/completions/torchrun
+```
+
+Refer to your shell's documentation for the directory it loads completions from;
+the paths above are the common defaults.
+
 ## Note on rendezvous backend
 
 For multi-node training you need to specify:
@@ -203,6 +221,35 @@ the Torch Distributed backend.
 12. `TORCHELASTIC_RUN_ID` - Equal to the rendezvous `run_id` (e.g. unique job id).
 13. `PYTHON_EXEC` - System executable override. If provided, the python user script will
 use the value of `PYTHON_EXEC` as executable. The sys.executable is used by default.
+
+## Logging
+
+By default each worker's `stdout`/`stderr` go to the console unchanged, which
+interleaves the output of every rank with no way to tell them apart.
+
+`--redirects` writes the streams to log files under `--log-dir` instead of the
+console; `--tee` writes them to log files *and* echoes them to the console. Both
+take the same format: a single value applies to all workers (`3` for both
+streams, `1` for stdout, `2` for stderr), or a per-local-rank mapping such as
+`0:1,1:2`. For example `--tee 3` tees both streams for every worker.
+
+Tee'd console lines are prefixed with `[${role_name}${local_rank}]:` (e.g.
+`[default3]: foobar`). Use `--log-line-prefix-template` to change that; the
+macros `${role_name}`, `${local_rank}`, `${rank}` and `${hostname}` are
+substituted per worker. `${hostname}` is the name of the node the worker runs
+on, which is what identifies the offending host in a multi-node job:
+
+```
+torchrun --nnodes 2 --nproc-per-node 8 --tee 3 --log-line-prefix-template "${hostname}:${rank}: " train.py
+
+r12i0n8:3: python: src/psm2_nccl_net.c:756: Assertion `r->used' failed.
+r12i0n8:3: Fatal Python error: Segmentation fault
+```
+
+The template may also be set with the `TORCHELASTIC_LOG_LINE_PREFIX_TEMPLATE`
+environment variable; the command line option takes precedence.
+`--local-ranks-filter` restricts which ranks reach the console, without
+affecting the log files written by `--redirects`/`--tee`.
 
 ## Deployment
 

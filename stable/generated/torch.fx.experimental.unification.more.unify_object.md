@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.more.unify_object
 
-torch.fx.experimental.unification.more.unify_object(*u*, *v*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/unification/more.py#L112)
+torch.fx.experimental.unification.more.unify_object(*u*, *v*, *s*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/more.py#L112)
 
 Unify two Python objects
 Unifies their type and `__dict__` attributes

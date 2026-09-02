@@ -1,6 +1,6 @@
 # torch.compiler.set_stance
 
-torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/compiler/__init__.py#L298)
+torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L390)
 
 Set the current stance of the compiler.
 Can be used as a function, context manager, or decorator.
@@ -32,7 +32,7 @@ foo(...)
 
 Parameters:
 
-- **stance** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **stance** (*StanceStr*) -
 
 The stance to set the compiler to. Valid values are:
 
@@ -65,5 +65,5 @@ of inputs. This assumption means that, after the warmup phase, no
 further recompilations will be necessary. If this assumption fails,
 there is a risk of silently producing incorrect results (hence the
 term "unsafe" in the API name).
-- **force_backend** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - If stance is "default", this argument can be used to force torch.compile
+- **force_backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - If stance is "default", this argument can be used to force torch.compile
 to use a specific backend. Otherwise, an error is raised.

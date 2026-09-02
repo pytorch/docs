@@ -79,7 +79,7 @@ Notice that the combine function becomes a sub-graph attribute of the top-level 
 
 ## API Reference
 
-torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/_higher_order_ops/scan.py#L78)
+torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_higher_order_ops/scan.py#L109)
 
 Performs an inclusive scan with a combine function.
 
@@ -102,16 +102,21 @@ and may not have any side effects.
 - **init** ([*torch.Tensor*](../tensors.html#torch.Tensor)*or**pytree with tensor leaves*) - The initial scan carry, a tensor, or nested pytree of tensors.
 The `init` is expected to have the same pytree structure as the first output element (i.e. carry)
 of `combine_fn`.
-- **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)*or**pytree with tensor leaves*) - The input tensor, or nested pytree of tensors.
+- **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)*or**pytree with tensor leaves**or**None*) - The input tensor, or nested pytree of tensors.
+May be `None` when `length` is provided, in which case `combine_fn` receives `None` as `x`
+each step (counter-loop mode).
 
-Return type:
+Keyword Arguments:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
-
-Kwargs:
-
-dim (int): the dimension to scan over, default 0.
-reverse (bool): A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
+- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over, default 0.
+- **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
+- **length** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*None*](https://docs.python.org/3/library/constants.html#None)) - Optional number of scan iterations, default `None`.
+When `xs` has tensor leaves, `length` is optional; if given it must equal
+`xs.shape[dim]` and serves only as a consistency check (no constraint when
+`length` is `None`). When `xs` has no leaves (`None` or empty pytree),
+`length` drives the number of iterations and `combine_fn` receives
+`x=None` each step. `length=0` with no xs tensors is supported in
+eager mode only; it is not supported under `torch.compile`.
 
 Returns:
 
@@ -122,6 +127,9 @@ the final carry of the scan operation with same pytree structure as init.
 out (torch.Tensor or pytree with tensor leaves),
 
 each tensor leaf is a stacked output along first dim, where each slice is the output of a scan iteration.
+If the scan dimension has size 0, `final_carry` equals `init` unchanged and each output leaf has
+size 0 along `dim`. The gradient of `final_carry` with respect to `init` is the identity
+(not zero), since the body is never called and the carry passes through untouched.
 
 Return type:
 

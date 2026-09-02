@@ -1,6 +1,6 @@
 # torch.linalg.svdvals
 
-torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L1893)
+torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L1888)
 
 Computes the singular values of a matrix.
 

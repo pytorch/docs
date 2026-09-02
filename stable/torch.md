@@ -255,7 +255,7 @@ There are a few more in-place random sampling functions defined on Tensors as we
 | --- | --- |
 | [`load`](generated/torch.load.html#torch.load) | Loads an object saved with [`torch.save()`](generated/torch.save.html#torch.save) from a file. |
 
-torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/serialization.py#L489)
+torch.serialization.check_module_version_greater_or_equal(*module*, *req_version_tuple*, *error_if_malformed=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/serialization.py#L489)
 
 Check if a module's version satisfies requirements
 
@@ -278,7 +278,7 @@ Return type:
 
 requirement_is_met
 
-torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/serialization.py#L713)
+torch.serialization.default_restore_location(*storage*, *location*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/serialization.py#L713)
 
 Restores storage using a deserializer function registered for the location.
 
@@ -372,36 +372,36 @@ False
 
 | [`abs`](generated/torch.abs.html#torch.abs) | Computes the absolute value of each element in `input`. |
 | --- | --- |
-| [`abs_`](generated/torch.abs_.html#torch.abs_) | |
+| [`abs_`](generated/torch.abs_.html#torch.abs_) | In-place version of [`torch.abs()`](generated/torch.abs.html#torch.abs) |
 | [`absolute`](generated/torch.absolute.html#torch.absolute) | Alias for [`torch.abs()`](generated/torch.abs.html#torch.abs) |
 | [`acos`](generated/torch.acos.html#torch.acos) | Returns a new tensor with the arccosine (in radians) of each element in `input`. |
-| [`acos_`](generated/torch.acos_.html#torch.acos_) | |
+| [`acos_`](generated/torch.acos_.html#torch.acos_) | In-place version of [`torch.acos()`](generated/torch.acos.html#torch.acos) |
 | [`arccos`](generated/torch.arccos.html#torch.arccos) | Alias for [`torch.acos()`](generated/torch.acos.html#torch.acos). |
-| [`arccos_`](generated/torch.arccos_.html#torch.arccos_) | |
+| [`arccos_`](generated/torch.arccos_.html#torch.arccos_) | In-place version of [`torch.arccos()`](generated/torch.arccos.html#torch.arccos) |
 | [`acosh`](generated/torch.acosh.html#torch.acosh) | Returns a new tensor with the inverse hyperbolic cosine of the elements of `input`. |
-| [`acosh_`](generated/torch.acosh_.html#torch.acosh_) | |
+| [`acosh_`](generated/torch.acosh_.html#torch.acosh_) | In-place version of [`torch.acosh()`](generated/torch.acosh.html#torch.acosh) |
 | [`arccosh`](generated/torch.arccosh.html#torch.arccosh) | Alias for [`torch.acosh()`](generated/torch.acosh.html#torch.acosh). |
-| [`arccosh_`](generated/torch.arccosh_.html#torch.arccosh_) | |
+| [`arccosh_`](generated/torch.arccosh_.html#torch.arccosh_) | In-place version of [`torch.arccosh()`](generated/torch.arccosh.html#torch.arccosh) |
 | [`add`](generated/torch.add.html#torch.add) | Adds `other`, scaled by `alpha`, to `input`. |
 | [`addcdiv`](generated/torch.addcdiv.html#torch.addcdiv) | Performs the element-wise division of `tensor1` by `tensor2`, multiplies the result by the scalar `value` and adds it to `input`. |
 | [`addcmul`](generated/torch.addcmul.html#torch.addcmul) | Performs the element-wise multiplication of `tensor1` by `tensor2`, multiplies the result by the scalar `value` and adds it to `input`. |
 | [`angle`](generated/torch.angle.html#torch.angle) | Computes the element-wise angle (in radians) of the given `input` tensor. |
 | [`asin`](generated/torch.asin.html#torch.asin) | Returns a new tensor with the arcsine of the elements (in radians) in the `input` tensor. |
-| [`asin_`](generated/torch.asin_.html#torch.asin_) | |
+| [`asin_`](generated/torch.asin_.html#torch.asin_) | In-place version of [`torch.asin()`](generated/torch.asin.html#torch.asin) |
 | [`arcsin`](generated/torch.arcsin.html#torch.arcsin) | Alias for [`torch.asin()`](generated/torch.asin.html#torch.asin). |
-| [`arcsin_`](generated/torch.arcsin_.html#torch.arcsin_) | |
+| [`arcsin_`](generated/torch.arcsin_.html#torch.arcsin_) | In-place version of [`torch.arcsin()`](generated/torch.arcsin.html#torch.arcsin) |
 | [`asinh`](generated/torch.asinh.html#torch.asinh) | Returns a new tensor with the inverse hyperbolic sine of the elements of `input`. |
-| [`asinh_`](generated/torch.asinh_.html#torch.asinh_) | |
+| [`asinh_`](generated/torch.asinh_.html#torch.asinh_) | In-place version of [`torch.asinh()`](generated/torch.asinh.html#torch.asinh) |
 | [`arcsinh`](generated/torch.arcsinh.html#torch.arcsinh) | Alias for [`torch.asinh()`](generated/torch.asinh.html#torch.asinh). |
-| [`arcsinh_`](generated/torch.arcsinh_.html#torch.arcsinh_) | |
+| [`arcsinh_`](generated/torch.arcsinh_.html#torch.arcsinh_) | In-place version of [`torch.arcsinh()`](generated/torch.arcsinh.html#torch.arcsinh) |
 | [`atan`](generated/torch.atan.html#torch.atan) | Returns a new tensor with the arctangent of the elements (in radians) in the `input` tensor. |
-| [`atan_`](generated/torch.atan_.html#torch.atan_) | |
+| [`atan_`](generated/torch.atan_.html#torch.atan_) | In-place version of [`torch.atan()`](generated/torch.atan.html#torch.atan) |
 | [`arctan`](generated/torch.arctan.html#torch.arctan) | Alias for [`torch.atan()`](generated/torch.atan.html#torch.atan). |
-| [`arctan_`](generated/torch.arctan_.html#torch.arctan_) | |
+| [`arctan_`](generated/torch.arctan_.html#torch.arctan_) | In-place version of [`torch.arctan()`](generated/torch.arctan.html#torch.arctan) |
 | [`atanh`](generated/torch.atanh.html#torch.atanh) | Returns a new tensor with the inverse hyperbolic tangent of the elements of `input`. |
-| [`atanh_`](generated/torch.atanh_.html#torch.atanh_) | |
+| [`atanh_`](generated/torch.atanh_.html#torch.atanh_) | In-place version of [`torch.atanh()`](generated/torch.atanh.html#torch.atanh) |
 | [`arctanh`](generated/torch.arctanh.html#torch.arctanh) | Alias for [`torch.atanh()`](generated/torch.atanh.html#torch.atanh). |
-| [`arctanh_`](generated/torch.arctanh_.html#torch.arctanh_) | |
+| [`arctanh_`](generated/torch.arctanh_.html#torch.arctanh_) | In-place version of [`torch.arctanh()`](generated/torch.arctanh.html#torch.arctanh) |
 | [`atan2`](generated/torch.atan2.html#torch.atan2) | Element-wise arctangent of inputi/otheri\text{input}_{i} / \text{other}_{i}inputi​/otheri​ with consideration of the quadrant. |
 | [`arctan2`](generated/torch.arctan2.html#torch.arctan2) | Alias for [`torch.atan2()`](generated/torch.atan2.html#torch.atan2). |
 | [`bitwise_not`](generated/torch.bitwise_not.html#torch.bitwise_not) | Computes the bitwise NOT of the given input tensor. |
@@ -411,63 +411,63 @@ False
 | [`bitwise_left_shift`](generated/torch.bitwise_left_shift.html#torch.bitwise_left_shift) | Computes the left arithmetic shift of `input` by `other` bits. |
 | [`bitwise_right_shift`](generated/torch.bitwise_right_shift.html#torch.bitwise_right_shift) | Computes the right arithmetic shift of `input` by `other` bits. |
 | [`ceil`](generated/torch.ceil.html#torch.ceil) | Returns a new tensor with the ceil of the elements of `input`, the smallest integer greater than or equal to each element. |
-| [`ceil_`](generated/torch.ceil_.html#torch.ceil_) | |
+| [`ceil_`](generated/torch.ceil_.html#torch.ceil_) | In-place version of [`torch.ceil()`](generated/torch.ceil.html#torch.ceil) |
 | [`clamp`](generated/torch.clamp.html#torch.clamp) | Clamps all elements in `input` into the range [ [`min`](generated/torch.min.html#torch.min), [`max`](generated/torch.max.html#torch.max) ]. |
-| [`clamp_`](generated/torch.clamp_.html#torch.clamp_) | |
+| [`clamp_`](generated/torch.clamp_.html#torch.clamp_) | In-place version of [`torch.clamp()`](generated/torch.clamp.html#torch.clamp) |
 | [`clamp_max_`](generated/torch.clamp_max_.html#torch.clamp_max_) | |
 | [`clamp_min_`](generated/torch.clamp_min_.html#torch.clamp_min_) | |
 | [`clip`](generated/torch.clip.html#torch.clip) | Alias for [`torch.clamp()`](generated/torch.clamp.html#torch.clamp). |
-| [`clip_`](generated/torch.clip_.html#torch.clip_) | |
+| [`clip_`](generated/torch.clip_.html#torch.clip_) | In-place version of [`torch.clip()`](generated/torch.clip.html#torch.clip) |
 | [`conj_physical`](generated/torch.conj_physical.html#torch.conj_physical) | Computes the element-wise conjugate of the given `input` tensor. |
-| [`conj_physical_`](generated/torch.conj_physical_.html#torch.conj_physical_) | |
+| [`conj_physical_`](generated/torch.conj_physical_.html#torch.conj_physical_) | In-place version of [`torch.conj_physical()`](generated/torch.conj_physical.html#torch.conj_physical) |
 | [`copysign`](generated/torch.copysign.html#torch.copysign) | Create a new floating-point tensor with the magnitude of `input` and the sign of `other`, elementwise. |
 | [`cos`](generated/torch.cos.html#torch.cos) | Returns a new tensor with the cosine of the elements of `input` given in radians. |
-| [`cos_`](generated/torch.cos_.html#torch.cos_) | |
+| [`cos_`](generated/torch.cos_.html#torch.cos_) | In-place version of [`torch.cos()`](generated/torch.cos.html#torch.cos) |
 | [`cosh`](generated/torch.cosh.html#torch.cosh) | Returns a new tensor with the hyperbolic cosine of the elements of `input`. |
-| [`cosh_`](generated/torch.cosh_.html#torch.cosh_) | |
+| [`cosh_`](generated/torch.cosh_.html#torch.cosh_) | In-place version of [`torch.cosh()`](generated/torch.cosh.html#torch.cosh) |
 | [`deg2rad`](generated/torch.deg2rad.html#torch.deg2rad) | Returns a new tensor with each of the elements of `input` converted from angles in degrees to radians. |
-| [`deg2rad_`](generated/torch.deg2rad_.html#torch.deg2rad_) | |
+| [`deg2rad_`](generated/torch.deg2rad_.html#torch.deg2rad_) | In-place version of [`torch.deg2rad()`](generated/torch.deg2rad.html#torch.deg2rad) |
 | [`div`](generated/torch.div.html#torch.div) | Divides each element of the input `input` by the corresponding element of `other`. |
 | [`divide`](generated/torch.divide.html#torch.divide) | Alias for [`torch.div()`](generated/torch.div.html#torch.div). |
 | [`digamma`](generated/torch.digamma.html#torch.digamma) | Alias for [`torch.special.digamma()`](special.html#torch.special.digamma). |
 | [`erf`](generated/torch.erf.html#torch.erf) | Alias for [`torch.special.erf()`](special.html#torch.special.erf). |
-| [`erf_`](generated/torch.erf_.html#torch.erf_) | |
+| [`erf_`](generated/torch.erf_.html#torch.erf_) | In-place version of [`torch.erf()`](generated/torch.erf.html#torch.erf) |
 | [`erfc`](generated/torch.erfc.html#torch.erfc) | Alias for [`torch.special.erfc()`](special.html#torch.special.erfc). |
-| [`erfc_`](generated/torch.erfc_.html#torch.erfc_) | |
+| [`erfc_`](generated/torch.erfc_.html#torch.erfc_) | In-place version of [`torch.erfc()`](generated/torch.erfc.html#torch.erfc) |
 | [`erfinv`](generated/torch.erfinv.html#torch.erfinv) | Alias for [`torch.special.erfinv()`](special.html#torch.special.erfinv). |
 | [`exp`](generated/torch.exp.html#torch.exp) | Returns a new tensor with the exponential of the elements of the input tensor `input`. |
-| [`exp_`](generated/torch.exp_.html#torch.exp_) | |
+| [`exp_`](generated/torch.exp_.html#torch.exp_) | In-place version of [`torch.exp()`](generated/torch.exp.html#torch.exp) |
 | [`exp2`](generated/torch.exp2.html#torch.exp2) | Alias for [`torch.special.exp2()`](special.html#torch.special.exp2). |
-| [`exp2_`](generated/torch.exp2_.html#torch.exp2_) | |
+| [`exp2_`](generated/torch.exp2_.html#torch.exp2_) | In-place version of [`torch.exp2()`](generated/torch.exp2.html#torch.exp2) |
 | [`expm1`](generated/torch.expm1.html#torch.expm1) | Alias for [`torch.special.expm1()`](special.html#torch.special.expm1). |
-| [`expm1_`](generated/torch.expm1_.html#torch.expm1_) | |
+| [`expm1_`](generated/torch.expm1_.html#torch.expm1_) | In-place version of [`torch.expm1()`](generated/torch.expm1.html#torch.expm1) |
 | [`fake_quantize_per_channel_affine`](generated/torch.fake_quantize_per_channel_affine.html#torch.fake_quantize_per_channel_affine) | Returns a new tensor with the data in `input` fake quantized per channel using `scale`, `zero_point`, `quant_min` and `quant_max`, across the channel specified by `axis`. |
 | [`fake_quantize_per_tensor_affine`](generated/torch.fake_quantize_per_tensor_affine.html#torch.fake_quantize_per_tensor_affine) | Returns a new tensor with the data in `input` fake quantized using `scale`, `zero_point`, `quant_min` and `quant_max`. |
-| [`fill_`](generated/torch.fill_.html#torch.fill_) | |
+| [`fill_`](generated/torch.fill_.html#torch.fill_) | In-place version of [`torch.fill()`](generated/torch.fill.html#torch.fill) |
 | [`fix`](generated/torch.fix.html#torch.fix) | Alias for [`torch.trunc()`](generated/torch.trunc.html#torch.trunc) |
-| [`fix_`](generated/torch.fix_.html#torch.fix_) | |
+| [`fix_`](generated/torch.fix_.html#torch.fix_) | In-place version of [`torch.fix()`](generated/torch.fix.html#torch.fix) |
 | [`float_power`](generated/torch.float_power.html#torch.float_power) | Raises `input` to the power of `exponent`, elementwise, in double precision. |
 | [`floor`](generated/torch.floor.html#torch.floor) | Returns a new tensor with the floor of the elements of `input`, the largest integer less than or equal to each element. |
-| [`floor_`](generated/torch.floor_.html#torch.floor_) | |
+| [`floor_`](generated/torch.floor_.html#torch.floor_) | In-place version of [`torch.floor()`](generated/torch.floor.html#torch.floor) |
 | [`floor_divide`](generated/torch.floor_divide.html#torch.floor_divide) | |
 | [`fmod`](generated/torch.fmod.html#torch.fmod) | Applies C++'s [std::fmod](https://en.cppreference.com/w/cpp/numeric/math/fmod) entrywise. |
 | [`frac`](generated/torch.frac.html#torch.frac) | Computes the fractional portion of each element in `input`. |
-| [`frac_`](generated/torch.frac_.html#torch.frac_) | |
+| [`frac_`](generated/torch.frac_.html#torch.frac_) | In-place version of [`torch.frac()`](generated/torch.frac.html#torch.frac) |
 | [`frexp`](generated/torch.frexp.html#torch.frexp) | Decomposes `input` into mantissa and exponent tensors such that input=mantissa×2exponent\text{input} = \text{mantissa} \times 2^{\text{exponent}}input=mantissa×2exponent. |
 | [`gradient`](generated/torch.gradient.html#torch.gradient) | Estimates the gradient of a function g:Rn→Rg : \mathbb{R}^n \rightarrow \mathbb{R}g:Rn→R in one or more dimensions using the [second-order accurate central differences method](https://www.ams.org/journals/mcom/1988-51-184/S0025-5718-1988-0935077-0/S0025-5718-1988-0935077-0.pdf) and either first or second order estimates at the boundaries. |
 | [`imag`](generated/torch.imag.html#torch.imag) | Returns a new tensor containing imaginary values of the `self` tensor. |
 | [`ldexp`](generated/torch.ldexp.html#torch.ldexp) | Multiplies `input` by 2 ** `other`. |
-| [`ldexp_`](generated/torch.ldexp_.html#torch.ldexp_) | |
+| [`ldexp_`](generated/torch.ldexp_.html#torch.ldexp_) | In-place version of [`torch.ldexp()`](generated/torch.ldexp.html#torch.ldexp) |
 | [`lerp`](generated/torch.lerp.html#torch.lerp) | Does a linear interpolation of two tensors `start` (given by `input`) and `end` based on a scalar or tensor `weight` and returns the resulting `out` tensor. |
 | [`lgamma`](generated/torch.lgamma.html#torch.lgamma) | Computes the natural logarithm of the absolute value of the gamma function on `input`. |
 | [`log`](generated/torch.log.html#torch.log) | Returns a new tensor with the natural logarithm of the elements of `input`. |
-| [`log_`](generated/torch.log_.html#torch.log_) | |
+| [`log_`](generated/torch.log_.html#torch.log_) | In-place version of [`torch.log()`](generated/torch.log.html#torch.log) |
 | [`log10`](generated/torch.log10.html#torch.log10) | Returns a new tensor with the logarithm to the base 10 of the elements of `input`. |
-| [`log10_`](generated/torch.log10_.html#torch.log10_) | |
+| [`log10_`](generated/torch.log10_.html#torch.log10_) | In-place version of [`torch.log10()`](generated/torch.log10.html#torch.log10) |
 | [`log1p`](generated/torch.log1p.html#torch.log1p) | Returns a new tensor with the natural logarithm of (1 + `input`). |
-| [`log1p_`](generated/torch.log1p_.html#torch.log1p_) | |
+| [`log1p_`](generated/torch.log1p_.html#torch.log1p_) | In-place version of [`torch.log1p()`](generated/torch.log1p.html#torch.log1p) |
 | [`log2`](generated/torch.log2.html#torch.log2) | Returns a new tensor with the logarithm to the base 2 of the elements of `input`. |
-| [`log2_`](generated/torch.log2_.html#torch.log2_) | |
+| [`log2_`](generated/torch.log2_.html#torch.log2_) | In-place version of [`torch.log2()`](generated/torch.log2.html#torch.log2) |
 | [`logaddexp`](generated/torch.logaddexp.html#torch.logaddexp) | Logarithm of the sum of exponentiations of the inputs. |
 | [`logaddexp2`](generated/torch.logaddexp2.html#torch.logaddexp2) | Logarithm of the sum of exponentiations of the inputs in base-2. |
 | [`logical_and`](generated/torch.logical_and.html#torch.logical_and) | Computes the element-wise logical AND of the given input tensors. |
@@ -475,21 +475,21 @@ False
 | [`logical_or`](generated/torch.logical_or.html#torch.logical_or) | Computes the element-wise logical OR of the given input tensors. |
 | [`logical_xor`](generated/torch.logical_xor.html#torch.logical_xor) | Computes the element-wise logical XOR of the given input tensors. |
 | [`logit`](generated/torch.logit.html#torch.logit) | Alias for [`torch.special.logit()`](special.html#torch.special.logit). |
-| [`logit_`](generated/torch.logit_.html#torch.logit_) | |
+| [`logit_`](generated/torch.logit_.html#torch.logit_) | In-place version of [`torch.logit()`](generated/torch.logit.html#torch.logit) |
 | [`hypot`](generated/torch.hypot.html#torch.hypot) | Given the legs of a right triangle, return its hypotenuse. |
 | [`i0`](generated/torch.i0.html#torch.i0) | Alias for [`torch.special.i0()`](special.html#torch.special.i0). |
-| [`i0_`](generated/torch.i0_.html#torch.i0_) | |
+| [`i0_`](generated/torch.i0_.html#torch.i0_) | In-place version of [`torch.i0()`](generated/torch.i0.html#torch.i0) |
 | [`igamma`](generated/torch.igamma.html#torch.igamma) | Alias for [`torch.special.gammainc()`](special.html#torch.special.gammainc). |
 | [`igammac`](generated/torch.igammac.html#torch.igammac) | Alias for [`torch.special.gammaincc()`](special.html#torch.special.gammaincc). |
 | [`mul`](generated/torch.mul.html#torch.mul) | Multiplies `input` by `other`. |
 | [`multiply`](generated/torch.multiply.html#torch.multiply) | Alias for [`torch.mul()`](generated/torch.mul.html#torch.mul). |
 | [`mvlgamma`](generated/torch.mvlgamma.html#torch.mvlgamma) | Alias for [`torch.special.multigammaln()`](special.html#torch.special.multigammaln). |
 | [`nan_to_num`](generated/torch.nan_to_num.html#torch.nan_to_num) | Replaces `NaN`, positive infinity, and negative infinity values in `input` with the values specified by `nan`, `posinf`, and `neginf`, respectively. |
-| [`nan_to_num_`](generated/torch.nan_to_num_.html#torch.nan_to_num_) | |
+| [`nan_to_num_`](generated/torch.nan_to_num_.html#torch.nan_to_num_) | In-place version of [`torch.nan_to_num()`](generated/torch.nan_to_num.html#torch.nan_to_num) |
 | [`neg`](generated/torch.neg.html#torch.neg) | Returns a new tensor with the negative of the elements of `input`. |
-| [`neg_`](generated/torch.neg_.html#torch.neg_) | |
+| [`neg_`](generated/torch.neg_.html#torch.neg_) | In-place version of [`torch.neg()`](generated/torch.neg.html#torch.neg) |
 | [`negative`](generated/torch.negative.html#torch.negative) | Alias for [`torch.neg()`](generated/torch.neg.html#torch.neg) |
-| [`negative_`](generated/torch.negative_.html#torch.negative_) | |
+| [`negative_`](generated/torch.negative_.html#torch.negative_) | In-place version of [`torch.negative()`](generated/torch.negative.html#torch.negative) |
 | [`nextafter`](generated/torch.nextafter.html#torch.nextafter) | Return the next floating-point value after `input` towards `other`, elementwise. |
 | [`polygamma`](generated/torch.polygamma.html#torch.polygamma) | Alias for [`torch.special.polygamma()`](special.html#torch.special.polygamma). |
 | [`positive`](generated/torch.positive.html#torch.positive) | Returns `input`. |
@@ -498,42 +498,42 @@ False
 | [`quantized_max_pool1d`](generated/torch.quantized_max_pool1d.html#torch.quantized_max_pool1d) | Applies a 1D max pooling over an input quantized tensor composed of several input planes. |
 | [`quantized_max_pool2d`](generated/torch.quantized_max_pool2d.html#torch.quantized_max_pool2d) | Applies a 2D max pooling over an input quantized tensor composed of several input planes. |
 | [`rad2deg`](generated/torch.rad2deg.html#torch.rad2deg) | Returns a new tensor with each of the elements of `input` converted from angles in radians to degrees. |
-| [`rad2deg_`](generated/torch.rad2deg_.html#torch.rad2deg_) | |
+| [`rad2deg_`](generated/torch.rad2deg_.html#torch.rad2deg_) | In-place version of [`torch.rad2deg()`](generated/torch.rad2deg.html#torch.rad2deg) |
 | [`real`](generated/torch.real.html#torch.real) | Returns a new tensor containing real values of the `self` tensor. |
 | [`reciprocal`](generated/torch.reciprocal.html#torch.reciprocal) | Returns a new tensor with the reciprocal of the elements of `input` |
-| [`reciprocal_`](generated/torch.reciprocal_.html#torch.reciprocal_) | |
+| [`reciprocal_`](generated/torch.reciprocal_.html#torch.reciprocal_) | In-place version of [`torch.reciprocal()`](generated/torch.reciprocal.html#torch.reciprocal) |
 | [`remainder`](generated/torch.remainder.html#torch.remainder) | Computes [Python's modulus operation](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations) entrywise. |
 | [`round`](generated/torch.round.html#torch.round) | Rounds elements of `input` to the nearest integer. |
-| [`round_`](generated/torch.round_.html#torch.round_) | |
+| [`round_`](generated/torch.round_.html#torch.round_) | In-place version of [`torch.round()`](generated/torch.round.html#torch.round) |
 | [`rsqrt`](generated/torch.rsqrt.html#torch.rsqrt) | Returns a new tensor with the reciprocal of the square-root of each of the elements of `input`. |
-| [`rsqrt_`](generated/torch.rsqrt_.html#torch.rsqrt_) | |
+| [`rsqrt_`](generated/torch.rsqrt_.html#torch.rsqrt_) | In-place version of [`torch.rsqrt()`](generated/torch.rsqrt.html#torch.rsqrt) |
 | [`sigmoid`](generated/torch.sigmoid.html#torch.sigmoid) | Alias for [`torch.special.expit()`](special.html#torch.special.expit). |
-| [`sigmoid_`](generated/torch.sigmoid_.html#torch.sigmoid_) | |
+| [`sigmoid_`](generated/torch.sigmoid_.html#torch.sigmoid_) | In-place version of [`torch.sigmoid()`](generated/torch.sigmoid.html#torch.sigmoid) |
 | [`sign`](generated/torch.sign.html#torch.sign) | Returns a new tensor with the signs of the elements of `input`. |
 | [`sgn`](generated/torch.sgn.html#torch.sgn) | This function is an extension of torch.sign() to complex tensors. |
 | [`signbit`](generated/torch.signbit.html#torch.signbit) | Tests if each element of `input` has its sign bit set or not. |
 | [`sin`](generated/torch.sin.html#torch.sin) | Returns a new tensor with the sine of the elements in the `input` tensor, where each value in this input tensor is in radians. |
-| [`sin_`](generated/torch.sin_.html#torch.sin_) | |
+| [`sin_`](generated/torch.sin_.html#torch.sin_) | In-place version of [`torch.sin()`](generated/torch.sin.html#torch.sin) |
 | [`sinc`](generated/torch.sinc.html#torch.sinc) | Alias for [`torch.special.sinc()`](special.html#torch.special.sinc). |
-| [`sinc_`](generated/torch.sinc_.html#torch.sinc_) | |
+| [`sinc_`](generated/torch.sinc_.html#torch.sinc_) | In-place version of [`torch.sinc()`](generated/torch.sinc.html#torch.sinc) |
 | [`sinh`](generated/torch.sinh.html#torch.sinh) | Returns a new tensor with the hyperbolic sine of the elements of `input`. |
-| [`sinh_`](generated/torch.sinh_.html#torch.sinh_) | |
+| [`sinh_`](generated/torch.sinh_.html#torch.sinh_) | In-place version of [`torch.sinh()`](generated/torch.sinh.html#torch.sinh) |
 | [`softmax`](generated/torch.softmax.html#torch.softmax) | Alias for [`torch.nn.functional.softmax()`](generated/torch.nn.functional.softmax.html#torch.nn.functional.softmax). |
 | [`sqrt`](generated/torch.sqrt.html#torch.sqrt) | Returns a new tensor with the square-root of the elements of `input`. |
-| [`sqrt_`](generated/torch.sqrt_.html#torch.sqrt_) | |
+| [`sqrt_`](generated/torch.sqrt_.html#torch.sqrt_) | In-place version of [`torch.sqrt()`](generated/torch.sqrt.html#torch.sqrt) |
 | [`square`](generated/torch.square.html#torch.square) | Returns a new tensor with the square of the elements of `input`. |
-| [`square_`](generated/torch.square_.html#torch.square_) | |
+| [`square_`](generated/torch.square_.html#torch.square_) | In-place version of [`torch.square()`](generated/torch.square.html#torch.square) |
 | [`sub`](generated/torch.sub.html#torch.sub) | Subtracts `other`, scaled by `alpha`, from `input`. |
 | [`subtract`](generated/torch.subtract.html#torch.subtract) | Alias for [`torch.sub()`](generated/torch.sub.html#torch.sub). |
 | [`tan`](generated/torch.tan.html#torch.tan) | Returns a new tensor with the tangent of the elements in the `input` tensor, where each value in this input tensor is in radians. |
-| [`tan_`](generated/torch.tan_.html#torch.tan_) | |
+| [`tan_`](generated/torch.tan_.html#torch.tan_) | In-place version of [`torch.tan()`](generated/torch.tan.html#torch.tan) |
 | [`tanh`](generated/torch.tanh.html#torch.tanh) | Returns a new tensor with the hyperbolic tangent of the elements of `input`. |
-| [`tanh_`](generated/torch.tanh_.html#torch.tanh_) | |
+| [`tanh_`](generated/torch.tanh_.html#torch.tanh_) | In-place version of [`torch.tanh()`](generated/torch.tanh.html#torch.tanh) |
 | [`true_divide`](generated/torch.true_divide.html#torch.true_divide) | Alias for [`torch.div()`](generated/torch.div.html#torch.div) with `rounding_mode=None`. |
 | [`trunc`](generated/torch.trunc.html#torch.trunc) | Returns a new tensor with the truncated integer values of the elements of `input`. |
-| [`trunc_`](generated/torch.trunc_.html#torch.trunc_) | |
+| [`trunc_`](generated/torch.trunc_.html#torch.trunc_) | In-place version of [`torch.trunc()`](generated/torch.trunc.html#torch.trunc) |
 | [`xlogy`](generated/torch.xlogy.html#torch.xlogy) | Alias for [`torch.special.xlogy()`](special.html#torch.special.xlogy). |
-| [`xlogy_`](generated/torch.xlogy_.html#torch.xlogy_) | |
+| [`xlogy_`](generated/torch.xlogy_.html#torch.xlogy_) | In-place version of [`torch.xlogy()`](generated/torch.xlogy.html#torch.xlogy) |
 | [`zero_`](generated/torch.zero_.html#torch.zero_) | |
 
 ### Reduction Ops
@@ -624,8 +624,8 @@ False
 | [`adaptive_max_pool1d`](generated/torch.adaptive_max_pool1d.html#torch.adaptive_max_pool1d) | |
 | [`affine_grid_generator`](generated/torch.affine_grid_generator.html#torch.affine_grid_generator) | |
 | [`alpha_dropout`](generated/torch.alpha_dropout.html#torch.alpha_dropout) | |
-| [`alpha_dropout_`](generated/torch.alpha_dropout_.html#torch.alpha_dropout_) | |
-| [`as_strided_`](generated/torch.as_strided_.html#torch.as_strided_) | |
+| [`alpha_dropout_`](generated/torch.alpha_dropout_.html#torch.alpha_dropout_) | In-place version of [`torch.alpha_dropout()`](generated/torch.alpha_dropout.html#torch.alpha_dropout) |
+| [`as_strided_`](generated/torch.as_strided_.html#torch.as_strided_) | In-place version of [`torch.as_strided()`](generated/torch.as_strided.html#torch.as_strided) |
 | [`atleast_1d`](generated/torch.atleast_1d.html#torch.atleast_1d) | Returns a 1-dimensional view of each input tensor with zero dimensions. |
 | [`atleast_2d`](generated/torch.atleast_2d.html#torch.atleast_2d) | Returns a 2-dimensional view of each input tensor with zero dimensions. |
 | [`atleast_3d`](generated/torch.atleast_3d.html#torch.atleast_3d) | Returns a 3-dimensional view of each input tensor with zero dimensions. |
@@ -646,7 +646,7 @@ False
 | [`broadcast_shapes`](generated/torch.broadcast_shapes.html#torch.broadcast_shapes) | Similar to [`broadcast_tensors()`](generated/torch.broadcast_tensors.html#torch.broadcast_tensors) but for shapes. |
 | [`bucketize`](generated/torch.bucketize.html#torch.bucketize) | Returns the indices of the buckets to which each value in the `input` belongs, where the boundaries of the buckets are set by `boundaries`. |
 | [`cartesian_prod`](generated/torch.cartesian_prod.html#torch.cartesian_prod) | Do cartesian product of the given sequence of tensors. |
-| [`cdist`](generated/torch.cdist.html#torch.cdist) | Computes batched the p-norm distance between each pair of the two collections of row vectors. |
+| [`cdist`](generated/torch.cdist.html#torch.cdist) | Computes the batched p-norm distance between each pair of the two collections of row vectors. |
 | [`celu_`](generated/torch.celu_.html#torch.celu_) | In-place version of `celu()`. |
 | [`channel_shuffle`](generated/torch.channel_shuffle.html#torch.channel_shuffle) | Divide the channels in a tensor of shape (∗,C,H,W)(*, C , H, W)(∗,C,H,W) into g groups and rearrange them as (∗,Cg,g,H,W)(*, C \frac g, g, H, W)(∗,C,g​g,H,W), while keeping the original tensor shape. |
 | [`choose_qparams_optimized`](generated/torch.choose_qparams_optimized.html#torch.choose_qparams_optimized) | |
@@ -677,7 +677,7 @@ False
 | [`cummin`](generated/torch.cummin.html#torch.cummin) | Returns a namedtuple `(values, indices)` where `values` is the cumulative minimum of elements of `input` in the dimension `dim`. |
 | [`cumprod`](generated/torch.cumprod.html#torch.cumprod) | Returns the cumulative product of elements of `input` in the dimension `dim`. |
 | [`cumsum`](generated/torch.cumsum.html#torch.cumsum) | Returns the cumulative sum of elements of `input` in the dimension `dim`. |
-| [`detach_`](generated/torch.detach_.html#torch.detach_) | |
+| [`detach_`](generated/torch.detach_.html#torch.detach_) | In-place version of [`torch.detach()`](generated/torch.detach.html#torch.detach) |
 | [`diag`](generated/torch.diag.html#torch.diag) | - If `input` is a vector (1-D tensor), then returns a 2-D square tensor |
 | [`diag_embed`](generated/torch.diag_embed.html#torch.diag_embed) | Creates a tensor whose diagonals of certain 2D planes (specified by `dim1` and `dim2`) are filled by `input`. |
 | [`diagflat`](generated/torch.diagflat.html#torch.diagflat) | - If `input` is a vector (1-D tensor), then returns a 2-D square tensor |
@@ -695,16 +695,16 @@ False
 | [`fbgemm_pack_gemm_matrix_fp16`](generated/torch.fbgemm_pack_gemm_matrix_fp16.html#torch.fbgemm_pack_gemm_matrix_fp16) | |
 | [`fbgemm_pack_quantized_matrix`](generated/torch.fbgemm_pack_quantized_matrix.html#torch.fbgemm_pack_quantized_matrix) | |
 | [`feature_alpha_dropout`](generated/torch.feature_alpha_dropout.html#torch.feature_alpha_dropout) | |
-| [`feature_alpha_dropout_`](generated/torch.feature_alpha_dropout_.html#torch.feature_alpha_dropout_) | |
+| [`feature_alpha_dropout_`](generated/torch.feature_alpha_dropout_.html#torch.feature_alpha_dropout_) | In-place version of [`torch.feature_alpha_dropout()`](generated/torch.feature_alpha_dropout.html#torch.feature_alpha_dropout) |
 | [`feature_dropout`](generated/torch.feature_dropout.html#torch.feature_dropout) | |
-| [`feature_dropout_`](generated/torch.feature_dropout_.html#torch.feature_dropout_) | |
+| [`feature_dropout_`](generated/torch.feature_dropout_.html#torch.feature_dropout_) | In-place version of [`torch.feature_dropout()`](generated/torch.feature_dropout.html#torch.feature_dropout) |
 | [`flatten`](generated/torch.flatten.html#torch.flatten) | Flattens `input` by reshaping it into a one-dimensional tensor. |
 | [`flip`](generated/torch.flip.html#torch.flip) | Reverse the order of an n-D tensor along given axis in dims. |
 | [`fliplr`](generated/torch.fliplr.html#torch.fliplr) | Flip tensor in the left/right direction, returning a new tensor. |
 | [`flipud`](generated/torch.flipud.html#torch.flipud) | Flip tensor in the up/down direction, returning a new tensor. |
 | [`fused_moving_avg_obs_fake_quant`](generated/torch.fused_moving_avg_obs_fake_quant.html#torch.fused_moving_avg_obs_fake_quant) | |
 | [`gcd`](generated/torch.gcd.html#torch.gcd) | Computes the element-wise greatest common divisor (GCD) of `input` and `other`. |
-| [`gcd_`](generated/torch.gcd_.html#torch.gcd_) | |
+| [`gcd_`](generated/torch.gcd_.html#torch.gcd_) | In-place version of [`torch.gcd()`](generated/torch.gcd.html#torch.gcd) |
 | [`grid_sampler_2d`](generated/torch.grid_sampler_2d.html#torch.grid_sampler_2d) | |
 | [`grid_sampler_3d`](generated/torch.grid_sampler_3d.html#torch.grid_sampler_3d) | |
 | [`group_norm`](generated/torch.group_norm.html#torch.group_norm) | |
@@ -720,7 +720,7 @@ False
 | [`kl_div`](generated/torch.kl_div.html#torch.kl_div) | |
 | [`kron`](generated/torch.kron.html#torch.kron) | Computes the Kronecker product, denoted by ⊗\otimes⊗, of `input` and `other`. |
 | [`lcm`](generated/torch.lcm.html#torch.lcm) | Computes the element-wise least common multiple (LCM) of `input` and `other`. |
-| [`lcm_`](generated/torch.lcm_.html#torch.lcm_) | |
+| [`lcm_`](generated/torch.lcm_.html#torch.lcm_) | In-place version of [`torch.lcm()`](generated/torch.lcm.html#torch.lcm) |
 | [`logcumsumexp`](generated/torch.logcumsumexp.html#torch.logcumsumexp) | Returns the logarithm of the cumulative summation of the exponentiation of elements of `input` in the dimension `dim`. |
 | [`lstm`](generated/torch.lstm.html#torch.lstm) | |
 | [`lstm_cell`](generated/torch.lstm_cell.html#torch.lstm_cell) | |
@@ -803,12 +803,11 @@ False
 | --- | --- |
 | [`addmm`](generated/torch.addmm.html#torch.addmm) | Performs a matrix multiplication of the matrices `mat1` and `mat2`. |
 | [`addmv`](generated/torch.addmv.html#torch.addmv) | Performs a matrix-vector product of the matrix `mat` and the vector `vec`. |
-| [`addmv_`](generated/torch.addmv_.html#torch.addmv_) | |
+| [`addmv_`](generated/torch.addmv_.html#torch.addmv_) | In-place version of [`torch.addmv()`](generated/torch.addmv.html#torch.addmv) |
 | [`addr`](generated/torch.addr.html#torch.addr) | Performs the outer-product of vectors `vec1` and `vec2` and adds it to the matrix `input`. |
 | [`baddbmm`](generated/torch.baddbmm.html#torch.baddbmm) | Performs a batch matrix-matrix product of matrices in `batch1` and `batch2`. |
 | [`bmm`](generated/torch.bmm.html#torch.bmm) | Performs a batch matrix-matrix product of matrices stored in `input` and `mat2`. |
 | [`chain_matmul`](generated/torch.chain_matmul.html#torch.chain_matmul) | Returns the matrix product of the NNN 2-D tensors. |
-| [`cholesky`](generated/torch.cholesky.html#torch.cholesky) | Computes the Cholesky decomposition of a symmetric positive-definite matrix AAA or for batches of symmetric positive-definite matrices. |
 | [`cholesky_inverse`](generated/torch.cholesky_inverse.html#torch.cholesky_inverse) | Computes the inverse of a complex Hermitian or real symmetric positive-definite matrix given its Cholesky decomposition. |
 | [`cholesky_solve`](generated/torch.cholesky_solve.html#torch.cholesky_solve) | Computes the solution of a system of linear equations with complex Hermitian or real symmetric positive-definite lhs given its Cholesky decomposition. |
 | [`dot`](generated/torch.dot.html#torch.dot) | Computes the dot product of two 1D tensors. |
@@ -835,7 +834,6 @@ False
 | [`pinverse`](generated/torch.pinverse.html#torch.pinverse) | Alias for [`torch.linalg.pinv()`](generated/torch.linalg.pinv.html#torch.linalg.pinv) |
 | [`saddmm`](generated/torch.saddmm.html#torch.saddmm) | |
 | [`spmm`](generated/torch.spmm.html#torch.spmm) | |
-| [`qr`](generated/torch.qr.html#torch.qr) | Computes the QR decomposition of a matrix or a batch of matrices `input`, and returns a namedtuple (Q, R) of tensors such that input=QR\text{input} = Q Rinput=QR with QQQ being an orthogonal matrix or batch of orthogonal matrices and RRR being an upper triangular matrix or batch of upper triangular matrices. |
 | [`svd`](generated/torch.svd.html#torch.svd) | Computes the singular value decomposition of either a matrix or batch of matrices `input`. |
 | [`svd_lowrank`](generated/torch.svd_lowrank.html#torch.svd_lowrank) | Return the singular value decomposition `(U, S, V)` of a matrix, batches of matrices, or a sparse matrix AAA such that A≈Udiag⁡(S)VHA \approx U \operatorname{diag}(S) V^{\text{H}}A≈Udiag(S)VH. |
 | [`pca_lowrank`](generated/torch.pca_lowrank.html#torch.pca_lowrank) | Performs linear Principal Component Analysis (PCA) on a low-rank matrix, batches of such matrices, or sparse matrix. |
@@ -973,13 +971,13 @@ Forward-mode AD is not supported.
 
 ## Symbolic Numbers
 
-*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L448)
+*class*torch.SymInt(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L807)
 
 Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L630)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L936)
 
 Represent this int as an exact integer ratio
 
@@ -987,13 +985,13 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[SymInt, [int](https://docs.python.org/3/library/functions.html#int)]
 
-*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L645)
+*class*torch.SymFloat(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L962)
 
 Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.
 
-as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L745)
+as_integer_ratio()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1038)
 
 Represent this float as an exact integer ratio
 
@@ -1001,7 +999,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]
 
-conjugate()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L758)
+conjugate()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1051)
 
 Returns the complex conjugate of the float.
 
@@ -1009,7 +1007,7 @@ Return type:
 
 *SymFloat*
 
-hex()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L762)
+hex()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1055)
 
 Returns the hexadecimal representation of the float.
 
@@ -1017,11 +1015,15 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-is_integer()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L741)
+is_integer()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1034)
 
 Return True if the float is an integer.
 
-*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L767)
+Return type:
+
+[bool](https://docs.python.org/3/library/functions.html#bool)
+
+*class*torch.SymBool(*node*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1071)
 
 Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations

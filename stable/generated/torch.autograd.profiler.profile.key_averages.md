@@ -1,6 +1,6 @@
 # torch.autograd.profiler.profile.key_averages
 
-profile.key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler.py#L568)
+profile.key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler.py#L576)
 
 Averages all function events over their keys.
 
@@ -14,6 +14,12 @@ choosing the best candidates for quantization (aka fitting a roof line)
 - **group_by_stack_n** - group by top n stack trace entries
 - **group_by_overload_name** - Differentiate operators by their overload name e.g. aten::add.Tensor
 - **separately** (*and aten::add.out will be aggregated*) -
+- **include_python_functions** - include Python function events (e.g. individual
+Python callsite entries captured with `with_stack=True`) in the
+averages. By default these are excluded because they tend to appear as
+misleading hotspots (e.g. `threading.py: wait`) that obscure the
+real operator-level breakdown. Set to `True` to restore the raw
+per-callsite view.
 
 Returns:
 

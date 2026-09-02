@@ -53,6 +53,12 @@ into the FX graph. When disabled, these operations cause graph breaks. This is a
 TorchDynamo-specific tracing behavior that affects how the tracer handles
 scalar-returning operations.
 
+torch.compiler.config.compile_on_one_rank*: [bool](https://docs.python.org/3/library/functions.html#bool)**= False*
+
+When enabled, device- and rank-specific values (devices, process groups) are computed at
+runtime via custom ops rather than baked in at compile time, so a graph can be compiled on
+one rank and run on all ranks. Read across the stack: make_fx, inductor, and distributed.
+
 torch.compiler.config.dynamic_shapes*: [bool](https://docs.python.org/3/library/functions.html#bool)**= True*
 
 Controls whether the compilation pipeline supports dynamic tensor shapes.
@@ -95,7 +101,7 @@ they remember it is dynamic. This profile information, however, is sensitive
 to what workload you are running, so we require you to tell us that two jobs
 are *related* (i.e., are the same workload) before we are willing to reuse
 this information. Notably, PGO does nothing (even if explicitly enabled)
-unless a valid `job_id` is available. In some situations, PyTorch can
+unless a valid `job_id` is available. In some situations, PyTorch can be
 configured to automatically compute a `job_id` based on the environment it
 is running in.
 

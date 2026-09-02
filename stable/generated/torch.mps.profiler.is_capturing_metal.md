@@ -1,6 +1,6 @@
 # torch.mps.profiler.is_capturing_metal
 
-torch.mps.profiler.is_capturing_metal()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/mps/profiler.py#L86)
+torch.mps.profiler.is_capturing_metal()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/mps/profiler.py#L86)
 
 Checks if metal capture is in progress
 

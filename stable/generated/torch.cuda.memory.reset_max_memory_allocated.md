@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_max_memory_allocated
 
-torch.cuda.memory.reset_max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/cuda/memory.py#L479)
+torch.cuda.memory.reset_max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/memory.py#L471)
 
 Reset the starting point in tracking maximum GPU memory occupied by tensors for a given device.
 
