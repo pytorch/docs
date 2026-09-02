@@ -171,7 +171,7 @@ If `n` is the number of dimensions in `x`,
 
 Warning
 
-The use of `Tensor.T()` on tensors of dimension other than 2 to reverse their shape
+The use of `Tensor.T` on tensors of dimension other than 2 to reverse their shape
 is deprecated and it will throw an error in a future release. Consider `mT`
 to transpose batches of matrices or x.permute(*torch.arange(x.ndim - 1, -1, -1)) to reverse
 the dimensions of a tensor.
@@ -289,7 +289,6 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.ceil`](generated/torch.Tensor.ceil.html#torch.Tensor.ceil) | See [`torch.ceil()`](generated/torch.ceil.html#torch.ceil) |
 | [`Tensor.ceil_`](generated/torch.Tensor.ceil_.html#torch.Tensor.ceil_) | In-place version of [`ceil()`](generated/torch.Tensor.ceil.html#torch.Tensor.ceil) |
 | [`Tensor.char`](generated/torch.Tensor.char.html#torch.Tensor.char) | `self.char()` is equivalent to `self.to(torch.int8)`. |
-| [`Tensor.cholesky`](generated/torch.Tensor.cholesky.html#torch.Tensor.cholesky) | See [`torch.cholesky()`](generated/torch.cholesky.html#torch.cholesky) |
 | [`Tensor.cholesky_inverse`](generated/torch.Tensor.cholesky_inverse.html#torch.Tensor.cholesky_inverse) | See [`torch.cholesky_inverse()`](generated/torch.cholesky_inverse.html#torch.cholesky_inverse) |
 | [`Tensor.cholesky_solve`](generated/torch.Tensor.cholesky_solve.html#torch.Tensor.cholesky_solve) | See [`torch.cholesky_solve()`](generated/torch.cholesky_solve.html#torch.cholesky_solve) |
 | [`Tensor.chunk`](generated/torch.Tensor.chunk.html#torch.Tensor.chunk) | See [`torch.chunk()`](generated/torch.chunk.html#torch.chunk) |
@@ -573,7 +572,6 @@ Accessing this property is equivalent to calling [`adjoint()`](generated/torch.a
 | [`Tensor.pow_`](generated/torch.Tensor.pow_.html#torch.Tensor.pow_) | In-place version of [`pow()`](generated/torch.Tensor.pow.html#torch.Tensor.pow) |
 | [`Tensor.prod`](generated/torch.Tensor.prod.html#torch.Tensor.prod) | See [`torch.prod()`](generated/torch.prod.html#torch.prod) |
 | [`Tensor.put_`](generated/torch.Tensor.put_.html#torch.Tensor.put_) | Copies the elements from `source` into the positions specified by `index`. |
-| [`Tensor.qr`](generated/torch.Tensor.qr.html#torch.Tensor.qr) | See [`torch.qr()`](generated/torch.qr.html#torch.qr) |
 | [`Tensor.qscheme`](generated/torch.Tensor.qscheme.html#torch.Tensor.qscheme) | Returns the quantization scheme of a given QTensor. |
 | [`Tensor.quantile`](generated/torch.Tensor.quantile.html#torch.Tensor.quantile) | See [`torch.quantile()`](generated/torch.quantile.html#torch.quantile) |
 | [`Tensor.nanquantile`](generated/torch.Tensor.nanquantile.html#torch.Tensor.nanquantile) | See [`torch.nanquantile()`](generated/torch.nanquantile.html#torch.nanquantile) |

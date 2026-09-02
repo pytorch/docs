@@ -4,7 +4,7 @@
 
 Note
 
-Tags: [torch.cond](torch.cond.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -35,7 +35,7 @@ class CondBranchClassMethod(torch.nn.Module):
 
  This example demonstrates using class method in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def __init__(self) -> None:
@@ -81,7 +81,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -105,7 +105,7 @@ class CondBranchNestedFunction(torch.nn.Module):
 
  This example demonstrates using nested function in cond().
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -156,7 +156,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -196,7 +196,7 @@ class CondBranchNonlocalVariables(torch.nn.Module):
  return cond(x.shape[0] > 5, true_fn, false_fn, [x])
  ```
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -256,7 +256,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -278,7 +278,7 @@ class CondOperands(torch.nn.Module):
  - a list of tensors
  - match arguments of `true_fn` and `false_fn`
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x, y):
@@ -343,7 +343,7 @@ Range constraints: {s6: VR[0, int_oo]}
 
 Note
 
-Tags: [torch.cond](torch.cond.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 
@@ -361,7 +361,7 @@ class CondPredicate(torch.nn.Module):
  - torch.Tensor with a single element
  - boolean expression
 
- NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
+ NOTE: If the `pred` is tested on a dim with batch size < 2, it will be specialized.
  """
 
  def forward(self, x):
@@ -451,7 +451,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.control-flow](python.control-flow.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [python.control-flow](python.control-flow.html)
 
 Support Level: SUPPORTED
 
@@ -465,7 +465,7 @@ class DynamicShapeIfGuard(torch.nn.Module):
  """
  `if` statement with backed dynamic shape predicate will be specialized into
  one particular branch and generate a guard. However, export will fail if the
- the dimension is marked as dynamic shape from higher level API.
+ dimension is marked as dynamic shape from higher level API.
  """
 
  def forward(self, x):
@@ -504,7 +504,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.map](torch.map.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [torch.map](torch.map.html)
 
 Support Level: SUPPORTED
 
@@ -710,7 +710,7 @@ Range constraints: {}
 
 Note
 
-Tags: [python.assert](python.assert.html), [python.data-structure](python.data-structure.html), torch.dynamic-shape
+Tags: torch.dynamic-shape, [python.assert](python.assert.html), [python.data-structure](python.data-structure.html)
 
 Support Level: SUPPORTED
 

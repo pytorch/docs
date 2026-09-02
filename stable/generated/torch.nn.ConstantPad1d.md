@@ -1,6 +1,6 @@
 # ConstantPad1d
 
-*class*torch.nn.ConstantPad1d(*padding*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/padding.py#L227)
+*class*torch.nn.ConstantPad1d(*padding*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/padding.py#L227)
 
 Pads the input tensor boundaries with a constant value.
 
@@ -8,7 +8,7 @@ For N-dimensional padding, use [`torch.nn.functional.pad()`](torch.nn.functional
 
 Parameters:
 
-**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If is int, uses the same
+**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
 padding in both boundaries. If a 2-tuple, uses
 (padding_left\text{padding\_left}padding_left, padding_right\text{padding\_right}padding_right)
 

@@ -1,6 +1,6 @@
 # EventList
 
-*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler_util.py#L29)
+*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler_util.py#L29)
 
 A list of profiling events with helper methods for analysis and visualization.
 
@@ -92,7 +92,7 @@ count(*value*, */*)
 
 Return number of occurrences of value.
 
-export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler_util.py#L288)
+export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler_util.py#L288)
 
 Export an EventList as a Chrome tracing tools file.
 
@@ -116,7 +116,7 @@ insert(*index*, *object*, */*)
 
 Insert object before index.
 
-key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler_util.py#L376)
+key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler_util.py#L377)
 
 Averages all function events over their keys.
 
@@ -130,6 +130,12 @@ choosing the best candidates for quantization (aka fitting a roof line)
 - **group_by_stack_n** - group by top n stack trace entries
 - **group_by_overload_name** - Differentiate operators by their overload name e.g. aten::add.Tensor
 - **separately** (*and aten::add.out will be aggregated*) -
+- **include_python_functions** - include Python function events (e.g. individual
+Python callsite entries captured with `with_stack=True`) in the
+averages. By default these are excluded because they tend to appear as
+misleading hotspots (e.g. `threading.py: wait`) that obscure the
+real operator-level breakdown. Set to `True` to restore the raw
+per-callsite view.
 
 Returns:
 
@@ -163,7 +169,7 @@ ascending or descending, according to their function values.
 
 The reverse flag can be set to sort in descending order.
 
-table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler_util.py#L242)
+table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler_util.py#L242)
 
 Print an EventList as a nicely formatted table.
 
@@ -188,7 +194,7 @@ Returns:
 
 A string containing the table.
 
-total_average()[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/autograd/profiler_util.py#L444)
+total_average()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/profiler_util.py#L455)
 
 Compute aggregate statistics across all events.
 

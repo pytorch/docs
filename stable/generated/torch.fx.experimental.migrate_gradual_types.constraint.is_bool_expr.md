@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr
 
-torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/migrate_gradual_types/constraint.py#L725)
+torch.fx.experimental.migrate_gradual_types.constraint.is_bool_expr(*constraint*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/migrate_gradual_types/constraint.py#L725)
 
 Return type:
 

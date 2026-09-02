@@ -14,7 +14,7 @@ The APIs and performance characteristics of these features may change.
 - [Install PyTorch](https://pytorch.org/get-started/locally/)
 - [User Guide](user_guide/index.html)
 
-- [Pytorch Overview](https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
+- [PyTorch Overview](https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
 - [Get Started](https://pytorch.org/get-started/locally/)
 - [Learn the Basics](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 - [PyTorch Main Components](user_guide/pytorch_main_components.html)

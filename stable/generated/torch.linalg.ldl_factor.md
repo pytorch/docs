@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor
 
-torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L914)
+torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L914)
 
 Computes a compact representation of the LDL factorization of a Hermitian or symmetric (possibly indefinite) matrix.
 
@@ -11,7 +11,7 @@ The factorization is of the form A=LDLTA = L D L^TA=LDLT.
 If `hermitian` is True then transpose operation is the conjugate transpose.
 
 LLL (or UUU) and DDD are stored in compact form in `LD`.
-They follow the format specified by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html-3.6.1/d3/db6/group__double_s_ycomputational_gad91bde1212277b3e909eb6af7f64858a.html) function.
+They follow the format specified by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html/) function.
 These tensors may be used in [`torch.linalg.ldl_solve()`](torch.linalg.ldl_solve.html#torch.linalg.ldl_solve) to solve linear systems.
 
 Supports input of float, double, cfloat and cdouble dtypes.

@@ -1,6 +1,6 @@
 # torch.sparse.sum
 
-torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/sparse/__init__.py#L217)
+torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/__init__.py#L217)
 
 Return the sum of each row of the given sparse tensor.
 
@@ -36,7 +36,8 @@ Example:
  torch.randint(0, dims[1], size=(nnz,))], 0).reshape(2, nnz)
 >>> V = torch.randn(nnz, dims[2], dims[3])
 >>> size = torch.Size(dims)
->>> S = torch.sparse_coo_tensor(I, V, size)
+>>> with torch.sparse.check_sparse_tensor_invariants():
+... S = torch.sparse_coo_tensor(I, V, size)
 >>> S
 tensor(indices=tensor([[2, 0, 3],
  [2, 4, 1]]),

@@ -63,8 +63,24 @@ By understanding the `torch.compile` programming model, one can systematically u
 
 - [Is Dynamic Shapes Enabled?](programming_model.recompilation.html#is-dynamic-shapes-enabled)
 - [Wrapping Constants with Tensors](programming_model.recompilation.html#wrapping-constants-with-tensors)
+- [Unspecializing Integer Attributes on `nn.Module`s](programming_model.recompilation.html#unspecializing-integer-attributes-on-nn-modules)
 - [Changing the Cache Size Limit](programming_model.recompilation.html#changing-the-cache-size-limit)
 - [Graph Breaking to Reduce Recompilation Costs](programming_model.recompilation.html#graph-breaking-to-reduce-recompilation-costs)
+- [Reducing Compile Time](programming_model.reducing_compile_time.html)
+
+- [Avoid unnecessary recompilations](programming_model.reducing_compile_time.html#avoid-unnecessary-recompilations)
+- [Use dynamic shapes to avoid shape-driven recompiles](programming_model.reducing_compile_time.html#use-dynamic-shapes-to-avoid-shape-driven-recompiles)
+- [Regional compilation](programming_model.reducing_compile_time.html#regional-compilation)
+- [Hierarchical compilation with `nested_compile_region`](programming_model.reducing_compile_time.html#hierarchical-compilation-with-nested-compile-region)
+- [Measuring compile time](programming_model.reducing_compile_time.html#measuring-compile-time)
+- [Reducing Guard Overhead](programming_model.reducing_guard_overhead.html)
+
+- [1. Reduce pre-graph bytecode time with `install_free_tensors`](programming_model.reducing_guard_overhead.html#reduce-pre-graph-bytecode-time-with-install-free-tensors)
+- [2. Skip guards on `nn.Module`s with `guard_filter_fn`](programming_model.reducing_guard_overhead.html#skip-guards-on-nn-modules-with-guard-filter-fn)
+- [3. Try `use_recursive_dict_tags_for_guards` first](programming_model.reducing_guard_overhead.html#try-use-recursive-dict-tags-for-guards-first)
+- [4. Skip guard evaluation after warmup with `skip_guard_eval_unsafe`](programming_model.reducing_guard_overhead.html#skip-guard-evaluation-after-warmup-with-skip-guard-eval-unsafe)
+- [Putting it together](programming_model.reducing_guard_overhead.html#putting-it-together)
+- [Further reading](programming_model.reducing_guard_overhead.html#further-reading)
 - [tlparse / TORCH_TRACE](programming_model.observability.html)
 
 - [TORCH_LOGS](programming_model.observability.html#torch-logs)

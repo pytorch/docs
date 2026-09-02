@@ -1,6 +1,8 @@
 # torch.sym_int
 
-torch.sym_int(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L876)
+torch.sym_int(*a: PySymType*) → IntLikeType[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1210)
+
+torch.sym_int(*a: [object](https://docs.python.org/3/library/functions.html#object)*) → [int](https://docs.python.org/3/library/functions.html#int)
 
 SymInt-aware utility for int casting.
 

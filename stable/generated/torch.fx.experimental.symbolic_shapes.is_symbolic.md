@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.is_symbolic
 
-torch.fx.experimental.symbolic_shapes.is_symbolic(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/symbolic_shapes.py#L2389)
+torch.fx.experimental.symbolic_shapes.is_symbolic(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/symbolic_shapes.py#L2410)
 
 Return type:
 

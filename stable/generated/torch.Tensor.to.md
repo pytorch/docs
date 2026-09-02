@@ -70,6 +70,13 @@ torch.to(*other*, *non_blocking=False*, *copy=False*) → [Tensor](../tensors.ht
 > When `copy` is set, a new Tensor is created even when the Tensor
 > already matches the desired conversion.
 
+Note
+
+When `non_blocking` is `True` and the conversion is issued on
+a non-default CUDA stream, the caller is responsible for proper
+cross-stream synchronization. See [CUDA streams](../notes/cuda.html#cuda-stream-semantics) for
+the required pattern.
+
 Example:
 
 ```

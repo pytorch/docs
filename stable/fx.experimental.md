@@ -4,7 +4,7 @@ Warning
 
 These APIs are experimental and subject to change without notice.
 
-*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/sym_node.py#L664)
+*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/sym_node.py#L673)
 
 User API for marking dynamic integers in torch.compile.
 Intended to be compatible with both compile and eager mode.
@@ -313,7 +313,7 @@ Self
 | [`calculate_out_dimension`](generated/torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension.html#torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension) | For calculating h_in and w_out according to the conv2D documentation |
 | [`conv2d_inference_rule`](generated/torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule.html#torch.fx.experimental.graph_gradual_typechecker.conv2d_inference_rule) | Given a Conv2D instance and a node check the following conditions: - the input type can be expanded to a size 4 tensor: t = (x_1, x_2, H, W) - the current node type can be expanded to a size 4 tensor: t' = (x_1', x_2', x_3', x_4') - x_2 is consistent with the module's in_channels - let o = (x_1, out_channels, H_out, W_out) then the output is the greatest upper bound of o and the existing node type t'. |
 | [`conv_refinement_rule`](generated/torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule.html#torch.fx.experimental.graph_gradual_typechecker.conv_refinement_rule) | The equality constraints are between the first dimension of the input and output |
-| [`conv_rule`](generated/torch.fx.experimental.graph_gradual_typechecker.conv_rule.html#torch.fx.experimental.graph_gradual_typechecker.conv_rule) | Represents the output in terms of an algrbraic expression w.r.t the input when possible |
+| [`conv_rule`](generated/torch.fx.experimental.graph_gradual_typechecker.conv_rule.html#torch.fx.experimental.graph_gradual_typechecker.conv_rule) | Represents the output in terms of an algebraic expression w.r.t the input when possible |
 | [`element_wise_eq`](generated/torch.fx.experimental.graph_gradual_typechecker.element_wise_eq.html#torch.fx.experimental.graph_gradual_typechecker.element_wise_eq) | For element-wise operations and handles broadcasting. |
 | [`expand_to_tensor_dim`](generated/torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim.html#torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim) | Expand a type to the desired tensor dimension if possible Raise an error otherwise. |
 | [`first_two_eq`](generated/torch.fx.experimental.graph_gradual_typechecker.first_two_eq.html#torch.fx.experimental.graph_gradual_typechecker.first_two_eq) | For operations where the first two dimensions of the input and output shape are equal |

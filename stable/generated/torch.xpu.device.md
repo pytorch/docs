@@ -1,6 +1,6 @@
 # device
 
-*class*torch.xpu.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/xpu/__init__.py#L395)
+*class*torch.xpu.device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/xpu/__init__.py#L396)
 
 Context-manager that changes the selected device.
 

@@ -1,6 +1,6 @@
 # FakeQuantize
 
-*class*torch.ao.quantization.fake_quantize.FakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=None*, *quant_max=None*, *is_dynamic=False*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/fake_quantize.py#L128)
+*class*torch.ao.quantization.fake_quantize.FakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=None*, *quant_max=None*, *is_dynamic=False*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/quantization/fake_quantize.py#L128)
 
 Simulate the quantize and dequantize operations in training time.
 
@@ -12,7 +12,7 @@ x_out = (
 ) * scale
 ```
 
-- `is_dynamic` indicates whether the fake quantie is a placeholder for dynamic quantization
+- `is_dynamic` indicates whether the fake quantize is a placeholder for dynamic quantization
 operators (choose_qparams -> q -> dq) or static quantization operators (q -> dq)
 - `scale` defines the scale factor used for quantization.
 - `zero_point` specifies the quantized value to which 0 in floating point maps to

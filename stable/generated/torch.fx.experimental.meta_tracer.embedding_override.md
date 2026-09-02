@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.embedding_override
 
-torch.fx.experimental.meta_tracer.embedding_override(*self*, *input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/meta_tracer.py#L34)
+torch.fx.experimental.meta_tracer.embedding_override(*self*, *input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/meta_tracer.py#L34)
 
 Return type:
 

@@ -1,6 +1,8 @@
 # torch.sym_float
 
-torch.sym_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/__init__.py#L861)
+torch.sym_float(*a: PySymType*) → [SymFloat](../torch.html#torch.SymFloat)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1186)
+
+torch.sym_float(*a: [object](https://docs.python.org/3/library/functions.html#object)*) → FloatLikeType
 
 SymInt-aware utility for float casting.
 

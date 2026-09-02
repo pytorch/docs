@@ -1,3 +1,3 @@
 # torch.utils.flop_counter.shape_wrapper
 
-torch.utils.flop_counter.shape_wrapper(*f*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/flop_counter.py#L42)
+torch.utils.flop_counter.shape_wrapper(*f*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/flop_counter.py#L126)

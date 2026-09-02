@@ -1,6 +1,6 @@
 # torch.utils.dlpack
 
-torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/dlpack.py#L58)
+torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/dlpack.py#L124)
 
 Converts a tensor from an external library into a `torch.Tensor`.
 
@@ -85,3 +85,39 @@ Parameters:
 **tensor** - a tensor to be exported
 
 The DLPack capsule shares the tensor's memory.
+
+*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/utils/dlpack.py#L34)
+
+A zero-copy, read-only view of a tensor for DLPack interop only.
+
+Wrapping a tensor with `ReadOnlyTensorWrapper` declares the intent that
+consumers must not mutate its data. It changes only the DLPack export
+behavior; the wrapper shares storage with the source tensor and does not
+copy.
+
+Both DLPack export paths are routed to read-only variants:
+
+- the fast `__dlpack_c_exchange_api__` C exchange protocol (used by
+tvm-ffi / CuteDSL) points at the const exchange API, which exports
+through `const_data_ptr()` and sets
+`DLPACK_FLAG_BITMASK_READ_ONLY`;
+- the `__dlpack__()` capsule protocol forces `read_only=True`.
+
+Because the export uses `const_data_ptr()`, exporting a copy-on-write
+tensor does not materialize it.
+
+The wrapper is export-only: every torch operation other than the DLPack
+protocol methods raises `RuntimeError`. Unwrap it (e.g. via the original
+tensor) to operate on the data.
+
+Example:
+
+```
+x = torch.randn(8)
+ro = ReadOnlyTensorWrapper(x)
+cute.runtime.from_dlpack(ro, enable_tvm_ffi=True) # read-only export
+```
+
+Return type:
+
+ReadOnlyTensorWrapper

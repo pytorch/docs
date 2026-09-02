@@ -1,6 +1,6 @@
 # torch.linalg.vector_norm
 
-torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/linalg/__init__.py#L1492)
+torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L1491)
 
 Computes a vector norm.
 
@@ -42,7 +42,7 @@ Parameters:
 - **x** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor, flattened by default, but this behavior can be
 controlled using `dim`. (Note: the keyword argument
 input can also be used as an alias for x.)
-- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: 2
+- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**optional*) - order of norm. Default: 2
 - **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute
 the norm. See above for the behavior when `dim`= None.
 Default: None
@@ -52,11 +52,8 @@ in the result as dimensions with size one. Default: False
 Keyword Arguments:
 
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
-- **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - type used to perform the accumulation and the return.
-If specified, `x` is cast to `dtype` before performing the operation,
-and the returned tensor's type will be `dtype` if real and of its real counterpart if complex.
-`dtype` may be complex if `x` is complex, otherwise it must be real.
-`x` should be convertible without narrowing to `dtype`. Default: None
+- **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - If specified `x` is cast to
+`dtype` prior to doing the accumulation. Default: None
 
 Returns:
 

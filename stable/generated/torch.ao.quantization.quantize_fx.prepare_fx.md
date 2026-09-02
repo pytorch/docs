@@ -1,6 +1,6 @@
 # prepare_fx
 
-*class*torch.ao.quantization.quantize_fx.prepare_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *_equalization_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/ao/quantization/quantize_fx.py#L253)
+*class*torch.ao.quantization.quantize_fx.prepare_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *_equalization_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/quantization/quantize_fx.py#L253)
 
 Prepare a model for post training quantization
 
@@ -128,7 +128,7 @@ example_inputs = (torch.randn(1, 3, 224, 224),)
 # ...
 
 # backend_config = BackendConfig().set_backend_pattern_config(linear_pattern_config)
-# `prepare_fx` will check that the setting requested by suer in qconfig_mapping
+# `prepare_fx` will check that the setting requested by user in qconfig_mapping
 # is supported by the backend_config and insert observers and fake quant modules
 # in the model
 prepared_model = prepare_fx(float_model, qconfig_mapping, example_inputs)

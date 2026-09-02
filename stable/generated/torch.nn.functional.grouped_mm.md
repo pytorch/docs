@@ -1,6 +1,6 @@
 # torch.nn.functional.grouped_mm
 
-torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/functional.py#L7096)
+torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L7123)
 
 Computes a grouped matrix multiply that shares weight shapes across experts but
 allows jagged token counts per expert, which is common in Mixture-of-Experts
@@ -18,7 +18,9 @@ directly and `offs` must be `None`.
 updates), the trailing dimension of `mat_a` and the leading dimension of
 `mat_b` are partitioned according to the same `offs` tensor. For the
 common forward pass (`out = input @ weight.T`) `mat_b` is 3D with
-shape `(num_groups, N, K)`.
+shape `(num_groups, K, N)`. If expert weights are stored in the standard
+`nn.Linear` layout `(num_groups, N, K)`, pass
+`weight.transpose(-2, -1)` as `mat_b`.
 - **offs** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - Optional 1D tensor of monotonically increasing `int32` offsets that
 delimit the jagged dimension of any 2D operand. `offs[i]` marks the end
 of group `i` and `offs[-1]` must be strictly less than the total

@@ -55,7 +55,7 @@ with torch.cuda.device(1):
 
 ## TensorFloat-32 (TF32) on Ampere (and later) devices
 
-After Pytorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and
+After PyTorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and
 suggest to use the new APIs for better control.
 We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator.
 
@@ -1396,7 +1396,6 @@ Violating any of these will likely cause a runtime error:
 [`make_graphed_callables()`](../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables) set a side stream for you.)
 - Ops that synchronize the CPU with the GPU (e.g., `.item()` calls) are prohibited.
 - CUDA RNG operations are permitted, and when using multiple [`torch.Generator`](../generated/torch.Generator.html#torch.Generator) instances within a graph,
-they must be registered using `CUDAGraph.register_generator_state` before graph capture.
 Avoid using `Generator.get_state` and `Generator.set_state` during capture;
 instead, utilize [`Generator.graphsafe_set_state`](../generated/torch.Generator.html#torch.Generator.graphsafe_set_state) and [`Generator.graphsafe_get_state`](../generated/torch.Generator.html#torch.Generator.graphsafe_get_state)
 for managing generator states safely within the graph context. This ensures proper RNG operation and generator management within CUDA graphs.
@@ -1701,6 +1700,27 @@ static_in_1.copy_(real_data_1)
 static_in_2.copy_(real_data_2)
 g1.replay()
 g2.replay()
+```
+
+The `pool` argument also accepts `MemPool`. If
+[`use_mem_pool()`](../cuda.html#torch.cuda.use_mem_pool) is used during capture, the graph retains that
+pool until the graph is reset or destroyed. [`torch.cuda.CUDAGraph.pool()`](../generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.pool)
+returns the primary capture pool, while `CUDAGraph.pools()` returns all pools
+retained by the graph.
+
+```
+g_default_pool = torch.cuda.MemPool()
+g_side_pool = torch.cuda.MemPool()
+g = torch.cuda.CUDAGraph()
+
+with torch.cuda.graph(g, pool=g_default_pool):
+ y = foo(x)
+ with torch.cuda.use_mem_pool(g_side_pool):
+ tmp = baz(y)
+ z = bar(tmp)
+
+primary_pool = g.pool()
+retained_pools = g.pools()
 ```
 
 It's also safe to share a memory pool across separate graphs that do not depend

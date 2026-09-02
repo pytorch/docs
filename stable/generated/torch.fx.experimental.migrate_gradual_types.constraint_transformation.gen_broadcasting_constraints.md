@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1391)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1391)
 
 Simulates broadcasting on e1 and e2 and returns the results
 respectively in e11 and e12. Because of gradual types,
@@ -10,8 +10,8 @@ as they represent the shapes of the tensors to be added after
 broadcasting.
 :param e1: TVar representing the type of input 1
 :param e2: TVar representing the type of input 2
-:param e11: TVar representing the representing broadcasted input 1
-:param e12: TVar representing the representing broadcasted input 2
+:param e11: TVar representing the broadcasted input 1
+:param e12: TVar representing the broadcasted input 2
 :param i: The rank of the resulting type of addition
 :param counter: for variable tracking
 
