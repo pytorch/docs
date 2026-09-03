@@ -1,6 +1,6 @@
 # torch.nn.utils.spectral_norm
 
-torch.nn.utils.spectral_norm(*module*, *name='weight'*, *n_power_iterations=1*, *eps=1e-12*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/nn/utils/spectral_norm.py#L262)
+torch.nn.utils.spectral_norm(*module*, *name='weight'*, *n_power_iterations=1*, *eps=1e-12*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/nn/utils/spectral_norm.py#L262)
 
 Apply spectral normalization to a parameter in the given module.
 

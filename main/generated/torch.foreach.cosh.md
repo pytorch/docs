@@ -1,6 +1,6 @@
 # torch.foreach.cosh
 
-torch.foreach.cosh(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/foreach/__init__.py#L402)
+torch.foreach.cosh(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/foreach/__init__.py#L402)
 
 Applies [`torch.cosh()`](torch.cosh.html#torch.cosh) to each tensor in `inputs`.
 

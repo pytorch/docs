@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git4111fca )">
+<meta name="llm:version" content="main (2.15.0a0+gitd7a82dc )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git4111fca )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitd7a82dc )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3698,16 +3698,21 @@ document.write(`
 <h1>torch.cuda.graph_annotations.clear_kernel_annotations<a class="headerlink" href="#torch-cuda-graph-annotations-clear-kernel-annotations" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.graph_annotations.clear_kernel_annotations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">clear_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/_graph_annotations.py#L1085"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.clear_kernel_annotations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">clear_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/_graph_annotations.py#L1119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.clear_kernel_annotations" title="Link to this definition">#</a></dt>
 <dd><p>Clear all recorded kernel annotations.</p>
-<p>The annotation registry is process-global and accumulates across
-captures; long-running workloads that capture many graphs should clear
-it once recorded annotations have been consumed (e.g. after saving
-them alongside a profiler trace).</p>
-<p>Clearing forgets everything recorded so far and revokes recording from
-every scope opened before the clear: backward hooks that
-<a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels" title="torch.cuda.graph_annotations.mark_kernels"><code class="xref py py-func docutils literal notranslate"><span class="pre">mark_kernels()</span></code></a> attached to existing autograd nodes stay on the
-graph but become inert. Scopes opened after the clear record normally.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 2.15: </span>The registry is self-bounding, so nothing needs to call this. Annotations are
+rekeyed to the exec graph id on instantiation and dropped when that graph is
+destroyed; in a long-running workload – where graphs are captured once and
+replayed for the whole run – a global wipe instead discards annotations for
+graphs that are still live and still being joined against.</p>
+</div>
+<p>Forgets everything recorded so far. It does not stop anything from recording:
+the backward hooks <a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels" title="torch.cuda.graph_annotations.mark_kernels"><code class="xref py py-func docutils literal notranslate"><span class="pre">mark_kernels()</span></code></a> attached to live autograd nodes cannot be
+detached and go on writing into the emptied registry, and a forward scope open
+across the clear registers on exit as usual. In particular this breaks backward
+projection across a forward/backward capture pair – the forward graph’s entries
+are gone and its scope no longer names the backward graph’s kernels.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in prototype and may change in future releases.</p>
@@ -4072,7 +4077,7 @@ graph but become inert. Scopes opened after the clear record normally.</p>
        "headline": "torch.cuda.graph_annotations.clear_kernel_annotations",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graph_annotations.clear_kernel_annotations.html",
-       "articleBody": "torch.cuda.graph_annotations.clear_kernel_annotations# torch.cuda.graph_annotations.clear_kernel_annotations() \u2192 None[source]# Clear all recorded kernel annotations. The annotation registry is process-global and accumulates across captures; long-running workloads that capture many graphs should clear it once recorded annotations have been consumed (e.g. after saving them alongside a profiler trace). Clearing forgets everything recorded so far and revokes recording from every scope opened before the clear: backward hooks that mark_kernels() attached to existing autograd nodes stay on the graph but become inert. Scopes opened after the clear record normally. Warning This API is in prototype and may change in future releases.",
+       "articleBody": "torch.cuda.graph_annotations.clear_kernel_annotations# torch.cuda.graph_annotations.clear_kernel_annotations() \u2192 None[source]# Clear all recorded kernel annotations. Deprecated since version 2.15: The registry is self-bounding, so nothing needs to call this. Annotations are rekeyed to the exec graph id on instantiation and dropped when that graph is destroyed; in a long-running workload \u2013 where graphs are captured once and replayed for the whole run \u2013 a global wipe instead discards annotations for graphs that are still live and still being joined against. Forgets everything recorded so far. It does not stop anything from recording: the backward hooks mark_kernels() attached to live autograd nodes cannot be detached and go on writing into the emptied registry, and a forward scope open across the clear registers on exit as usual. In particular this breaks backward projection across a forward/backward capture pair \u2013 the forward graph\u2019s entries are gone and its scope no longer names the backward graph\u2019s kernels. Warning This API is in prototype and may change in future releases.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

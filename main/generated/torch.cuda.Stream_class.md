@@ -1,6 +1,6 @@
 # Stream
 
-*class*torch.cuda.Stream(*device=None*, *priority=0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L17)
+*class*torch.cuda.Stream(*device=None*, *priority=0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L17)
 
 Wrapper around a CUDA stream.
 
@@ -20,7 +20,7 @@ If the value falls outside of the allowed priority range, it will automatically 
 mapped to the nearest valid priority (lowest for large positive numbers or
 highest for large negative numbers).
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L94)
+query()[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L94)
 
 Check if all the work submitted has been completed.
 
@@ -32,7 +32,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-record_event(*event=None*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L79)
+record_event(*event=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L79)
 
 Record an event.
 
@@ -45,7 +45,7 @@ Returns:
 
 Recorded event.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L102)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L102)
 
 Wait for all the kernels in this stream to complete.
 
@@ -54,7 +54,7 @@ Note
 This is a wrapper around `cudaStreamSynchronize()`: see
 [CUDA Stream documentation](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__STREAM.html) for more info.
 
-wait_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L48)
+wait_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L48)
 
 Make all future work submitted to the stream wait for an event.
 
@@ -70,7 +70,7 @@ This is a wrapper around `cudaStreamWaitEvent()`: see
 This function returns without waiting for `event`: only future
 operations are affected.
 
-wait_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/streams.py#L65)
+wait_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/streams.py#L65)
 
 Synchronize with another stream.
 

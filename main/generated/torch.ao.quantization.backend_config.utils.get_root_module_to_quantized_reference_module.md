@@ -1,6 +1,6 @@
 # get_root_module_to_quantized_reference_module
 
-*class*torch.ao.quantization.backend_config.utils.get_root_module_to_quantized_reference_module(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/ao/quantization/backend_config/utils.py#L66)
+*class*torch.ao.quantization.backend_config.utils.get_root_module_to_quantized_reference_module(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/ao/quantization/backend_config/utils.py#L66)
 
 Return type:
 

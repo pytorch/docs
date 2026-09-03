@@ -1,6 +1,6 @@
 # torch.linalg.slogdet
 
-torch.linalg.slogdet(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/linalg/__init__.py#L424)
+torch.linalg.slogdet(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/linalg/__init__.py#L424)
 
 Computes the sign and natural logarithm of the absolute value of the determinant of a square matrix.
 

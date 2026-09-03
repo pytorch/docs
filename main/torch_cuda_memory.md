@@ -101,7 +101,7 @@ print(torch.cuda.device_memory_used(device_idx))
 
 ## Snapshot API Reference
 
-torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*, *record_pinned_host_memory=False*, *record_cuda=True*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/memory.py#L897)
+torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*, *record_pinned_host_memory=False*, *record_cuda=True*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/memory.py#L898)
 
 Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
@@ -243,7 +243,7 @@ type record_cuda:
 
 bool, optional
 
-torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/memory.py#L1044)
+torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/memory.py#L1045)
 
 Save a snapshot of CUDA memory state at the time it was called.
 
@@ -324,6 +324,12 @@ class TraceEntry(TypedDict):
  frames: List[Frame]
  size: int
  stream: int
+ user_metadata: str # the calling thread's metadata at the time of
+ # the event, as set via _set_memory_metadata (dicts appear as
+ # their JSON serialization)
+ internal_metadata: str # only present when allocator internals
+ # tagged the event (e.g. "mallocWithAddress" on the synthetic
+ # prefix-block malloc/free pair)
  device_free: int # only present for OOM, the amount of
  # memory cuda still reports to be free
  pool_id: Tuple[int, int] # id of the memory pool for this entry
@@ -341,7 +347,7 @@ Returns:
 
 The Snapshot dictionary object
 
-torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/cuda/memory.py#L1149)
+torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/memory.py#L1156)
 
 Save a pickled version of the torch.memory._snapshot() dictionary to a file.
 

@@ -100,7 +100,7 @@ f = torch.compiler.precompile.load(python_code, cache)
 out = f(model, x) # pass the model again at runtime
 ```
 
-precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/_precompile.py#L1742)
+precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_precompile.py#L1742)
 
 Reconstruct a runnable from the `(python_code, cache)` pair returned by
 `precompile`. The calling convention is read from `python_code` (the single

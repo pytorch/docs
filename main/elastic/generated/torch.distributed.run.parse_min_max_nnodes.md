@@ -1,3 +1,3 @@
 # torch.distributed.run.parse_min_max_nnodes
 
-torch.distributed.run.parse_min_max_nnodes(*nnodes*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/distributed/run.py#L839)
+torch.distributed.run.parse_min_max_nnodes(*nnodes*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/distributed/run.py#L839)

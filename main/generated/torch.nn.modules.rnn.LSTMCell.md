@@ -1,6 +1,6 @@
 # LSTMCell
 
-*class*torch.nn.modules.rnn.LSTMCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/nn/modules/rnn.py#L1661)
+*class*torch.nn.modules.rnn.LSTMCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/nn/modules/rnn.py#L1661)
 
 A long short-term memory (LSTM) cell.
 

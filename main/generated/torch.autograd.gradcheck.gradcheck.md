@@ -1,6 +1,6 @@
 # torch.autograd.gradcheck.gradcheck
 
-torch.autograd.gradcheck.gradcheck(*func*, *inputs*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_batched_forward_grad=False*, *check_forward_ad=False*, *check_backward_ad=True*, *fast_mode=False*, *masked=None*)[[source]](https://github.com/pytorch/pytorch/blob/4111fcac199ec5a63d637dcb967d171aa099c9d1/torch/autograd/gradcheck.py#L2014)
+torch.autograd.gradcheck.gradcheck(*func*, *inputs*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_batched_forward_grad=False*, *check_forward_ad=False*, *check_backward_ad=True*, *fast_mode=False*, *masked=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/autograd/gradcheck.py#L2014)
 
 Check gradients computed via small finite differences against analytical
 gradients wrt tensors in `inputs` that are of floating point or complex type
