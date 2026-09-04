@@ -16,7 +16,7 @@ Python torch.library and/or C++ TORCH_LIBRARY APIs. Also, if your operator suppo
 training, use [`torch.autograd.gradcheck()`](autograd.html#module-torch.autograd.gradcheck) to test that the gradients are
 mathematically correct.
 
-torch.library.opcheck(*op*, *args*, *kwargs=None*, ***, *test_utils=('test_schema', 'test_autograd_registration', 'test_faketensor', 'test_aot_dispatch_dynamic')*, *raise_exception=True*, *atol=None*, *rtol=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1798)
+torch.library.opcheck(*op*, *args*, *kwargs=None*, ***, *test_utils=('test_schema', 'test_autograd_registration', 'test_faketensor', 'test_aot_dispatch_dynamic')*, *raise_exception=True*, *atol=None*, *rtol=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1798)
 
 Given an operator and some sample arguments, tests if the operator is
 registered correctly.
@@ -263,7 +263,7 @@ with which inputs. `custom_op` therefore supports the conventional in-place and
 `out=` aliasing patterns directly, but does not model arbitrary view or alias
 relationships.
 
-torch.library.custom_op(*name*, *fn=None*, */*, ***, *mutates_args*, *device_types=None*, *schema=None*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/custom_ops.py#L66)
+torch.library.custom_op(*name*, *fn=None*, */*, ***, *mutates_args*, *device_types=None*, *schema=None*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/custom_ops.py#L66)
 
 Wraps a function into custom operator.
 
@@ -430,7 +430,7 @@ Examples::
 >>> out = weighted_sum([x, y], [0.3, 0.7])
 ```
 
-torch.library.triton_op(*name*, *fn=None*, */*, ***, *mutates_args*, *schema=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/triton.py#L296)
+torch.library.triton_op(*name*, *fn=None*, */*, ***, *mutates_args*, *schema=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/triton.py#L296)
 
 Create a custom operator whose implementation is backed by 1+ triton kernels.
 
@@ -525,7 +525,7 @@ Example:
 >>> assert torch.allclose(z, x + y)
 ```
 
-torch.library.wrap_triton(*triton_kernel*, */*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/triton.py#L534)
+torch.library.wrap_triton(*triton_kernel*, */*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/triton.py#L534)
 
 Allows capture of a triton kernel into a graph via make_fx or
 non-strict `torch.export`.
@@ -599,7 +599,7 @@ Use the `register.*` methods, such as `torch.library.register_kernel()` and
 for any operators (they may have been created using `torch.library.custom_op()` or
 via PyTorch's C++ operator registration APIs).
 
-torch.library.register_kernel(*op*, *device_types*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1017)
+torch.library.register_kernel(*op*, *device_types*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1017)
 
 Register an implementation for a device type for this operator.
 
@@ -644,7 +644,7 @@ Examples::
 >>> assert torch.allclose(numpy_sin(x_cuda), x_cuda.sin())
 ```
 
-torch.library.register_autocast(*op*, *device_type*, *cast_inputs*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1076)
+torch.library.register_autocast(*op*, *device_type*, *cast_inputs*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1076)
 
 Register an autocast dispatch rule for this custom op.
 
@@ -683,7 +683,7 @@ Examples::
 >>> assert y.dtype == torch.float16
 ```
 
-torch.library.register_autograd(*op*, *backward*, */*, ***, *setup_context=None*, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1322)
+torch.library.register_autograd(*op*, *backward*, */*, ***, *setup_context=None*, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1322)
 
 Register a backward formula for this custom op.
 
@@ -782,7 +782,7 @@ Examples
 >>> assert torch.allclose(grad_x, torch.full_like(x, 3.14))
 ```
 
-torch.library.register_fake(*op*, *func=None*, */*, ***, *lib=None*, *_stacklevel=1*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1159)
+torch.library.register_fake(*op*, *func=None*, */*, ***, *lib=None*, *_stacklevel=1*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1159)
 
 Register a FakeTensor implementation ("fake impl") for this operator.
 
@@ -878,7 +878,7 @@ Examples
 >>> assert torch.allclose(trace(x), torch.ops.mylib.custom_nonzero(x))
 ```
 
-torch.library.register_vmap(*op*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1525)
+torch.library.register_vmap(*op*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1525)
 
 Register a vmap implementation to support [`torch.vmap()`](generated/torch.vmap.html#torch.vmap) for this custom op.
 
@@ -961,12 +961,12 @@ That is, `grad(vmap(op))` should be replaceable with a `grad(map(op))`.
 If your custom operator has any custom behavior in the backward pass, please
 keep this in mind.
 
-torch.library.impl_abstract(*qualname*, *func=None*, ***, *lib=None*, *_stacklevel=1*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L973)
+torch.library.impl_abstract(*qualname*, *func=None*, ***, *lib=None*, *_stacklevel=1*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L973)
 
 This API was renamed to `torch.library.register_fake()` in PyTorch 2.4.
 Please use that instead.
 
-torch.library.get_ctx()[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1707)
+torch.library.get_ctx()[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1707)
 
 get_ctx() returns the current AbstractImplCtx object.
 
@@ -977,7 +977,7 @@ Return type:
 
 *FakeImplCtx*
 
-torch.library.register_torch_dispatch(*op*, *torch_dispatch_class*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1457)
+torch.library.register_torch_dispatch(*op*, *torch_dispatch_class*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1457)
 
 Registers a torch_dispatch rule for the given operator and `torch_dispatch_class`.
 
@@ -1024,7 +1024,7 @@ Examples
 >>> assert torch.allclose(y, x + 1)
 ```
 
-torch.library.infer_schema(*prototype_function*, */*, ***, *mutates_args*, *op_name=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/infer_schema.py#L23)
+torch.library.infer_schema(*prototype_function*, */*, ***, *mutates_args*, *op_name=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/infer_schema.py#L23)
 
 Parses the schema of a given function with type hints. The schema is inferred from the
 function's type hints, and can be used to define a new operator.
@@ -1072,7 +1072,7 @@ foo(Tensor x) -> Tensor
 (Tensor x) -> Tensor
 ```
 
-*class*torch._library.custom_ops.CustomOpDef(*namespace*, *name*, *schema*, *fn*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/custom_ops.py#L272)
+*class*torch._library.custom_ops.CustomOpDef(*namespace*, *name*, *schema*, *fn*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/custom_ops.py#L272)
 
 CustomOpDef is a wrapper around a function that turns it into a custom op.
 
@@ -1082,7 +1082,7 @@ custom op.
 You should not instantiate CustomOpDef directly; instead, use the
 `torch.library.custom_op()` API.
 
-set_kernel_enabled(*device_type*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/_library/custom_ops.py#L322)
+set_kernel_enabled(*device_type*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_library/custom_ops.py#L322)
 
 Disable or re-enable an already registered kernel for this custom operator.
 
@@ -1120,7 +1120,7 @@ Example
 >>> print(f(inp)) # tensor([0.]) with CPU kernel disabled
 ```
 
-torch.library.get_kernel(*op*, *dispatch_key*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L1716)
+torch.library.get_kernel(*op*, *dispatch_key*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L1716)
 
 Returns the computed kernel for a given operator and dispatch key.
 
@@ -1200,7 +1200,7 @@ The low-level operator registration APIs and the PyTorch Dispatcher are a compli
 
 A tutorial that walks you through some examples on how to use this API is available on [Google Colab](https://colab.research.google.com/drive/1RRhSfk7So3Cn02itzLWE9K4Fam-8U011?usp=sharing).
 
-*class*torch.library.Library(*ns*, *kind*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L212)
+*class*torch.library.Library(*ns*, *kind*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L212)
 
 A class to create libraries that can be used to register new operators or
 override operators in existing libraries from Python.
@@ -1219,7 +1219,7 @@ Parameters:
 - **kind** - "DEF", "IMPL", "FRAGMENT"
 - **dispatch_key** - PyTorch dispatch key (default: "")
 
-define(*schema*, *alias_analysis=''*, ***, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L272)
+define(*schema*, *alias_analysis=''*, ***, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L272)
 
 Defines a new operator and its semantics in the ns namespace.
 
@@ -1244,7 +1244,7 @@ Example:
 >>> my_lib.define("sum(Tensor self) -> Tensor")
 ```
 
-fallback(*fn*, *dispatch_key=''*, ***, *with_keyset=False*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L551)
+fallback(*fn*, *dispatch_key=''*, ***, *with_keyset=False*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L551)
 
 Registers the function implementation as the fallback for the given key.
 
@@ -1269,7 +1269,7 @@ Example:
 >>> my_lib.fallback(fallback_kernel, "Autocast")
 ```
 
-impl(*op_name*, *fn*, *dispatch_key=''*, ***, *with_keyset=False*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L441)
+impl(*op_name*, *fn*, *dispatch_key=''*, ***, *with_keyset=False*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L441)
 
 Registers the function implementation for an operator defined in the library.
 
@@ -1296,7 +1296,7 @@ Example::
 >>> my_lib.impl("div.Tensor", div_cpu, "CPU")
 ```
 
-register_symm_mem_args(*op_name*, *arg_names*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L518)
+register_symm_mem_args(*op_name*, *arg_names*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L518)
 
 Registers which arguments require symmetric memory allocation for an operator.
 
@@ -1323,11 +1323,11 @@ Example::
 >>> my_lib.register_symm_mem_args("one_shot_all_reduce", ["input"])
 ```
 
-torch.library.fallthrough_kernel()[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L60)
+torch.library.fallthrough_kernel()[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L60)
 
 A dummy function to pass to `Library.impl` in order to register a fallthrough.
 
-torch.library.define(*qualname*, *schema*, ***, *lib=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L694)
+torch.library.define(*qualname*, *schema*, ***, *lib=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L694)
 
 torch.library.define(*lib*, *schema*, *alias_analysis=''*)
 
@@ -1381,7 +1381,7 @@ Example::
 >>> assert torch.allclose(y, x.sin())
 ```
 
-torch.library.impl(*lib*, *name*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/library.py#L804)
+torch.library.impl(*lib*, *name*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/library.py#L804)
 
 torch.library.impl(*qualname: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *types: [str](https://docs.python.org/3/library/stdtypes.html#str) | Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)]*, *func: [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *lib: Library | [None](https://docs.python.org/3/library/constants.html#None) = None*) → Callable[[Callable[..., [object](https://docs.python.org/3/library/functions.html#object)]], [None](https://docs.python.org/3/library/constants.html#None)]
 

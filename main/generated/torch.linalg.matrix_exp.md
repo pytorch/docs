@@ -1,6 +1,6 @@
 # torch.linalg.matrix_exp
 
-torch.linalg.matrix_exp(*A*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/linalg/__init__.py#L2163)
+torch.linalg.matrix_exp(*A*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/linalg/__init__.py#L2163)
 
 Computes the matrix exponential of a square matrix.
 

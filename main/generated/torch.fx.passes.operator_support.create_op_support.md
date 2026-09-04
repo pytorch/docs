@@ -1,6 +1,6 @@
 # torch.fx.passes.operator_support.create_op_support
 
-torch.fx.passes.operator_support.create_op_support(*is_node_supported*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/fx/passes/operator_support.py#L141)
+torch.fx.passes.operator_support.create_op_support(*is_node_supported*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/fx/passes/operator_support.py#L141)
 
 Wraps a IsNodeSupported function into an OperatorSupportBase instance
 

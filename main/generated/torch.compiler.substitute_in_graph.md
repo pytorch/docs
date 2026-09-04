@@ -1,6 +1,6 @@
 # torch.compiler.substitute_in_graph
 
-torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/compiler/__init__.py#L248)
+torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/compiler/__init__.py#L249)
 
 Register a polyfill handler for a function, usually a C function from the C extension, to be
 used in place of the original function when inlining the original function in the graph.
@@ -38,19 +38,19 @@ Example:
 
 ```
 >>> import binascii
->>> binascii.b2a_base64(b"abc")
-b'YWJj\n'
+>>> binascii.crc32(b"abc")
+891568578
 >>> torch.compile(
-... binascii.b2a_base64, fullgraph=True
+... binascii.crc32, fullgraph=True
 ... )(b"abc") # xdoctest: +SKIP("Long tracebacks")
 ...
 Traceback (most recent call last):
 ...
 torch._dynamo.exc.Unsupported: ...
->>> @torch.compiler.substitute_in_graph(binascii.b2a_base64)
-... def b2a_base64(data, /, *, newline=True):
-... return b"YWJj\n"
+>>> @torch.compiler.substitute_in_graph(binascii.crc32)
+... def crc32(data, crc=0, /):
+... return 891568578
 ...
->>> torch.compile(binascii.b2a_base64, fullgraph=True)(b"abc")
-b'YWJj\n'
+>>> torch.compile(binascii.crc32, fullgraph=True)(b"abc")
+891568578
 ```

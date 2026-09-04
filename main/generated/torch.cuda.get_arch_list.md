@@ -1,6 +1,6 @@
 # torch.cuda.get_arch_list
 
-torch.cuda.get_arch_list()[[source]](https://github.com/pytorch/pytorch/blob/d7a82dcfcb838549a84f49516bc5c32ecf1eef90/torch/cuda/__init__.py#L1302)
+torch.cuda.get_arch_list()[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/cuda/__init__.py#L1302)
 
 Return list CUDA architectures this library was compiled for.
 

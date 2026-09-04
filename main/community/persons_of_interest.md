@@ -242,11 +242,11 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 
 ### Build + CI
 
-- Nikita Shulga ([malfet](https://github.com/malfet))
-- Eli Uriegas ([seemethere](https://github.com/seemethere))
 - Alban Desmaison ([alband](https://github.com/alband))
 - Andrey Talman ([atalman](https://github.com/atalman))
-- Zain Rizvi ([ZainRizvi](https://github.com/ZainRizvi))
+- Nikita Shulga ([malfet](https://github.com/malfet))
+- (emeritus) Eli Uriegas ([seemethere](https://github.com/seemethere))
+- (emeritus) Zain Rizvi ([ZainRizvi](https://github.com/ZainRizvi))
 - (emeritus) Mikey Dagitses ([dagitses](https://github.com/dagitses))
 - (emeritus) Omkar Salpekar ([osalpekar](https://github.com/osalpekar))
 - (emeritus) Nirav Mehta ([mehtanirav](https://github.com/mehtanirav))
