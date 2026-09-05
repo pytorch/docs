@@ -1,6 +1,6 @@
 # MultiMarginLoss
 
-*class*torch.nn.MultiMarginLoss(*p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/nn/modules/loss.py#L1810)
+*class*torch.nn.MultiMarginLoss(*p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/nn/modules/loss.py#L1810)
 
 Creates a criterion that optimizes a multi-class classification hinge
 loss (margin-based loss) between input xxx (a 2D mini-batch Tensor) and
@@ -66,7 +66,7 @@ Examples
 tensor(0.32...)
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/nn/modules/loss.py#L1894)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/nn/modules/loss.py#L1894)
 
 Runs the forward pass.
 

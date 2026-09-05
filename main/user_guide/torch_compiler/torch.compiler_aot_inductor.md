@@ -202,7 +202,7 @@ To enable runtime checks on inputs, set the environment variable `AOTI_RUNTIME_C
 
 ## API Reference
 
-torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_inductor/__init__.py#L64)
+torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/_inductor/__init__.py#L64)
 
 Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
@@ -253,9 +253,9 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/_inductor/__init__.py#L257)
+torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/_inductor/__init__.py#L257)
 
-Loads the model from the PT2 package.
+Loads a model from a PT2 package or an extracted PT2 package directory.
 
 If multiple models were packaged into the PT2, this will load the default
 model. To load a specific model, you can directly call the load API
@@ -269,7 +269,7 @@ compiled_model2 = load_package("my_package.pt2", "model2")
 
 Parameters:
 
-- **path** (*FileLike*) - Path to the .pt2 package
+- **path** (*FileLike*) - Path to the .pt2 package or extracted package directory.
 - **run_single_threaded** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether the model should be run without
 thread synchronization logic. This is useful to avoid conflicts with
 CUDAGraphs.

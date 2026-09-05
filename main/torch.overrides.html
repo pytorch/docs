@@ -79,7 +79,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git01eee25 )">
+<meta name="llm:version" content="main (2.15.0a0+git13818df )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +185,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git01eee25 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git13818df )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5571,8 +5571,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -7133,7 +7133,7 @@ protocol. See <a class="reference internal" href="notes/extending.html#extending
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.get_ignored_functions">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_ignored_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_ignored_functions" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_ignored_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_ignored_functions" title="Link to this definition">#</a></dt>
 <dd><p>Return public functions that cannot be overridden by <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7156,7 +7156,7 @@ arguments of these functions are tensors or tensor-likes.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.get_overridable_functions">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_overridable_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L2044"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_overridable_functions" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_overridable_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L2044"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_overridable_functions" title="Link to this definition">#</a></dt>
 <dd><p>List functions that are overridable via __torch_function__</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7171,7 +7171,7 @@ to functions in that namespace that can be overridden.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.resolve_name">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">resolve_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L2057"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.resolve_name" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">resolve_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L2057"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.resolve_name" title="Link to this definition">#</a></dt>
 <dd><p>Get a human readable string name for a function passed to
 __torch_function__</p>
 <dl class="field-list simple">
@@ -7190,7 +7190,7 @@ function.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.get_testing_overrides">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_testing_overrides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L424"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_testing_overrides" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">get_testing_overrides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L424"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.get_testing_overrides" title="Link to this definition">#</a></dt>
 <dd><p>Return a dict containing dummy overrides for all overridable functions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -7214,7 +7214,7 @@ for testing API coverage for a type that defines <code class="docutils literal n
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.handle_torch_function">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">handle_torch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">public_api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relevant_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L1820"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.handle_torch_function" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">handle_torch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">public_api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relevant_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L1820"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.handle_torch_function" title="Link to this definition">#</a></dt>
 <dd><p>Implement a function with checks for <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> overrides.</p>
 <p>See torch::autograd::handle_torch_function for the equivalent of this
 function in the C++ implementation.</p>
@@ -7249,7 +7249,7 @@ method, as appropriate.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.has_torch_function">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">has_torch_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L1909"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.has_torch_function" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">has_torch_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L1909"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.has_torch_function" title="Link to this definition">#</a></dt>
 <dd><p>Check for __torch_function__ implementations in the elements of an iterable
 or if a __torch_function__ mode is enabled.  Considers exact <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> s
 and <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> s non-dispatchable.  Use this to guard a call to
@@ -7277,7 +7277,7 @@ implementations, False otherwise.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.is_tensor_like">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">is_tensor_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L2112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.is_tensor_like" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">is_tensor_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L2112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.is_tensor_like" title="Link to this definition">#</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the passed-in input is a Tensor-like.</p>
 <p>Currently, this occurs whenever there’s a <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>
 attribute on the type of the input.</p>
@@ -7311,7 +7311,7 @@ attribute on the type of the input.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.is_tensor_method_or_property">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">is_tensor_method_or_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L2086"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.is_tensor_method_or_property" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">is_tensor_method_or_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L2086"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.is_tensor_method_or_property" title="Link to this definition">#</a></dt>
 <dd><p>Returns True if the function passed in is a handler for a
 method or property belonging to <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, as passed
 into <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>.</p>
@@ -7341,7 +7341,7 @@ of <code class="docutils literal notranslate"><span class="pre">torch.Tensor</sp
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.wrap_torch_function">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">wrap_torch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dispatcher</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L1699"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.wrap_torch_function" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">wrap_torch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dispatcher</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L1699"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.wrap_torch_function" title="Link to this definition">#</a></dt>
 <dd><p>Wraps a given function with <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> -related functionality.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -7370,7 +7370,7 @@ low-level library and you also need it to work for Tensor-likes, then this funct
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.overrides.redispatch_function">
-<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">redispatch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/overrides.py#L2267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.redispatch_function" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.overrides.</span></span><span class="sig-name descname"><span class="pre">redispatch_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/overrides.py#L2267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.overrides.redispatch_function" title="Link to this definition">#</a></dt>
 <dd><p>Skip one level of <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> dispatch and call the function.</p>
 <p>This is primarily useful for <strong>Tensor subclasses</strong> that want to call into
 a function’s implementation while still intercepting PyTorch operations

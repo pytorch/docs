@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/cuda/graphs.py#L1124)
+*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/cuda/graphs.py#L1174)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -32,9 +32,9 @@ Requires single-threaded autograd; wrap the capture in
 - **annotation_config** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - Options for annotation recording, used when
 `enable_annotations=True`. An unrecognized key or value raises. Currently
 supports `"backend"`, which selects how `mark_kernels` scopes discover their
-nodes: `"auto"` (default) uses CUPTI node-creation callbacks when the CUPTI
-monitor already holds a subscription and otherwise walks the capture graph's
-dependent edges; `"cupti"` requires the CUPTI path, bringing the monitor up if
+nodes: `"auto"` (default) uses CUPTI node-creation callbacks when Cuspy
+already holds a subscription and otherwise walks the capture graph's
+dependent edges; `"cupti"` requires the CUPTI path, bringing Cuspy up if
 needed - which prevents kineto from initializing, so a later
 [`torch.profiler.profile`](../profiler.html#torch.profiler.profile) records no GPU activity; `"edge_walk"` forces
 the walk, which cannot see nodes created while the current stream was not yet

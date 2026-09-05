@@ -1,6 +1,6 @@
 # torch.linalg.eigvalsh
 
-torch.linalg.eigvalsh(*A*, *UPLO='L'*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/01eee25952cb32e0868ff00f26f080d46ef71e27/torch/linalg/__init__.py#L765)
+torch.linalg.eigvalsh(*A*, *UPLO='L'*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/linalg/__init__.py#L765)
 
 Computes the eigenvalues of a complex Hermitian or real symmetric matrix.
 
