@@ -1,6 +1,6 @@
 # EmbeddingBag
 
-*class*torch.nn.EmbeddingBag(*num_embeddings*, *embedding_dim*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *_weight=None*, *include_last_offset=False*, *padding_idx=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/nn/modules/sparse.py#L267)
+*class*torch.nn.EmbeddingBag(*num_embeddings*, *embedding_dim*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *_weight=None*, *include_last_offset=False*, *padding_idx=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/nn/modules/sparse.py#L267)
 
 Compute sums or means of 'bags' of embeddings, without instantiating the intermediate embeddings.
 
@@ -83,7 +83,7 @@ tensor([[ 0.0000, 0.0000, 0.0000],
  mode='sum')
 ```
 
-forward(*input*, *offsets=None*, *per_sample_weights=None*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/nn/modules/sparse.py#L425)
+forward(*input*, *offsets=None*, *per_sample_weights=None*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/nn/modules/sparse.py#L425)
 
 Forward pass of EmbeddingBag.
 
@@ -119,7 +119,7 @@ starting index positions of each bag in `input`. Therefore, for `offsets` of sha
 `input` will be viewed as having `B` bags. Empty bags (i.e., having 0-length) will have
 returned vectors filled by zeros.
 
-*classmethod*from_pretrained(*embeddings*, *freeze=True*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/13818df097cc56c9a2a860678049f2a42a008853/torch/nn/modules/sparse.py#L488)
+*classmethod*from_pretrained(*embeddings*, *freeze=True*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/nn/modules/sparse.py#L488)
 
 Create EmbeddingBag instance from given 2-dimensional FloatTensor.
 
