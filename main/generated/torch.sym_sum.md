@@ -1,6 +1,6 @@
 # torch.sym_sum
 
-torch.sym_sum(**args*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/__init__.py#L1329)
+torch.sym_sum(**args*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/__init__.py#L1329)
 
 N-ary add which is faster to compute for long lists than iterated binary
 addition. Only does something special for integers.

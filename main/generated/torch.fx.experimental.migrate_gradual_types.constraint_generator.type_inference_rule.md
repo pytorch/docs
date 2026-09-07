@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L452)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.type_inference_rule(*n*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L452)
 
 We generate the constraint: input = output
 

@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.sdpa_flop
 
-torch.utils.flop_counter.sdpa_flop(*query_shape*, *key_shape*, *value_shape*, **args*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/utils/flop_counter.py#L397)
+torch.utils.flop_counter.sdpa_flop(*query_shape*, *key_shape*, *value_shape*, **args*, *out_shape=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/utils/flop_counter.py#L397)
 
 Count flops for self-attention.
 

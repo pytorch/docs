@@ -1,6 +1,6 @@
 # torch.func.jacfwd
 
-torch.func.jacfwd(*func*, *argnums=0*, *has_aux=False*, ***, *randomness='error'*)[[source]](https://github.com/pytorch/pytorch/blob/071dd4d98ee0ca692fbe0cb3e9f3b95955d73329/torch/_functorch/eager_transforms.py#L1256)
+torch.func.jacfwd(*func*, *argnums=0*, *has_aux=False*, ***, *randomness='error'*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/_functorch/eager_transforms.py#L1256)
 
 Computes the Jacobian of `func` with respect to the arg(s) at index
 `argnum` using forward-mode autodiff
