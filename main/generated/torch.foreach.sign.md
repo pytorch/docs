@@ -1,6 +1,6 @@
 # torch.foreach.sign
 
-torch.foreach.sign(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/foreach/__init__.py#L601)
+torch.foreach.sign(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b7354c3f61c5e0d880f1b6d5b887c4f9ad12579f/torch/foreach/__init__.py#L601)
 
 Applies [`torch.sign()`](torch.sign.html#torch.sign) to each tensor in `inputs`.
 

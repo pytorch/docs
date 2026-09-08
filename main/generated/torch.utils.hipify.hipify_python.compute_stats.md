@@ -1,3 +1,3 @@
 # torch.utils.hipify.hipify_python.compute_stats
 
-torch.utils.hipify.hipify_python.compute_stats(*stats*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/utils/hipify/hipify_python.py#L222)
+torch.utils.hipify.hipify_python.compute_stats(*stats*)[[source]](https://github.com/pytorch/pytorch/blob/b7354c3f61c5e0d880f1b6d5b887c4f9ad12579f/torch/utils/hipify/hipify_python.py#L222)

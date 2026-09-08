@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.hashable
 
-torch.fx.experimental.unification.utils.hashable(*x*)[[source]](https://github.com/pytorch/pytorch/blob/4144bea4b7c2f67da9d4840f4659f977bbd754e5/torch/fx/experimental/unification/utils.py#L17)
+torch.fx.experimental.unification.utils.hashable(*x*)[[source]](https://github.com/pytorch/pytorch/blob/b7354c3f61c5e0d880f1b6d5b887c4f9ad12579f/torch/fx/experimental/unification/utils.py#L17)
 
 Return type:
 
