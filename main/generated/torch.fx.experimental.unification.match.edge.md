@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.match.edge
 
-torch.fx.experimental.unification.match.edge(*a*, *b*, *tie_breaker=<built-in function hash>*)[[source]](https://github.com/pytorch/pytorch/blob/b7354c3f61c5e0d880f1b6d5b887c4f9ad12579f/torch/fx/experimental/unification/match.py#L126)
+torch.fx.experimental.unification.match.edge(*a*, *b*, *tie_breaker=<built-in function hash>*)[[source]](https://github.com/pytorch/pytorch/blob/c712ec6ebb4ecd2838e2cafb0bbc7a3c5acfe668/torch/fx/experimental/unification/match.py#L126)
 
 A should be checked before B
 Tie broken by tie_breaker, defaults to `hash`
