@@ -1,6 +1,6 @@
 # torch.foreach.log2
 
-torch.foreach.log2(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/c712ec6ebb4ecd2838e2cafb0bbc7a3c5acfe668/torch/foreach/__init__.py#L523)
+torch.foreach.log2(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/foreach/__init__.py#L523)
 
 Applies [`torch.log2()`](torch.log2.html#torch.log2) to each tensor in `inputs`.
 

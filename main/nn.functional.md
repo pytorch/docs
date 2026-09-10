@@ -172,4 +172,6 @@ scaled_dot_product_attention.
 | [`SwizzleType`](generated/torch.nn.functional.SwizzleType.html#torch.nn.functional.SwizzleType) | alias of `_SwizzleType` |
 | [`grouped_mm`](generated/torch.nn.functional.grouped_mm.html#torch.nn.functional.grouped_mm) | Computes a grouped matrix multiply that shares weight shapes across experts but allows jagged token counts per expert, which is common in Mixture-of-Experts (MoE) layers. |
 | [`scaled_mm`](generated/torch.nn.functional.scaled_mm.html#torch.nn.functional.scaled_mm) | scaled_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, output_dtype, |
+| [`scaled_addmm`](generated/torch.nn.functional.scaled_addmm.html#torch.nn.functional.scaled_addmm) | Compute a scaled matrix product and add it to `input`. |
+| [`scaled_addmm_`](generated/torch.nn.functional.scaled_addmm_.html#torch.nn.functional.scaled_addmm_) | In-place version of [`scaled_addmm()`](generated/torch.nn.functional.scaled_addmm.html#torch.nn.functional.scaled_addmm). |
 | [`scaled_grouped_mm`](generated/torch.nn.functional.scaled_grouped_mm.html#torch.nn.functional.scaled_grouped_mm) | scaled_grouped_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, offs, |

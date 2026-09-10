@@ -256,7 +256,7 @@ Range constraints: {}
 
 Note
 
-Tags: torch.cond, [python.closure](python.closure.html)
+Tags: [python.closure](python.closure.html), torch.cond
 
 Support Level: SUPPORTED
 

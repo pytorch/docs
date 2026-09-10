@@ -2561,6 +2561,8 @@
 - [torch.nn.functional.rms_norm](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.rms_norm.md)
 - [torch.nn.functional.rrelu](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.rrelu.md)
 - [torch.nn.functional.rrelu_](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.rrelu_.md)
+- [torch.nn.functional.scaled_addmm](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_addmm.md)
+- [torch.nn.functional.scaled_addmm_](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_addmm_.md)
 - [torch.nn.functional.scaled_dot_product_attention](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.md)
 - [torch.nn.functional.scaled_grouped_mm](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_grouped_mm.md)
 - [torch.nn.functional.scaled_mm](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_mm.md)

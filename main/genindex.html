@@ -48,6 +48,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/js/search-tuning.js?v=87be1517"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
@@ -84,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitc712ec6 )">
+<meta name="llm:version" content="main (2.15.0a0+gita62499b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -190,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc712ec6 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita62499b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6308,8 +6309,6 @@ document.write(`
 </li>
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">consolidate_state_dict() (torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.const_data_ptr">const_data_ptr() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -6318,6 +6317,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
@@ -7132,6 +7133,8 @@ document.write(`
         <li><a href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
+      <li><a href="profiler.html#torch.profiler.CuspyConfig">CuspyConfig (class in torch.profiler)</a>
+</li>
       <li><a href="amp.html#torch.amp.custom_bwd">custom_bwd() (in module torch.amp)</a>
 
       <ul>
@@ -12271,6 +12274,8 @@ document.write(`
 
       <ul>
         <li><a href="generated/torch.cuda.graphs.is_current_stream_capturing.html#torch.cuda.graphs.is_current_stream_capturing">(in module torch.cuda.graphs)</a>
+</li>
+        <li><a href="mtia.mtia_graph.html#torch.mtia.mtia_graph.is_current_stream_capturing">(in module torch.mtia.mtia_graph)</a>
 </li>
         <li><a href="generated/torch.xpu.is_current_stream_capturing.html#torch.xpu.is_current_stream_capturing">(in module torch.xpu)</a>
 </li>
@@ -17614,6 +17619,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.observer.PerChannelMinMaxObserver.html#torch.ao.quantization.observer.PerChannelMinMaxObserver">PerChannelMinMaxObserver (class in torch.ao.quantization.observer)</a>
 </li>
+      <li><a href="profiler.html#torch.profiler.PerformanceMetricsConfig">PerformanceMetricsConfig (class in torch.profiler)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.observer.PerGroup.html#torch.ao.quantization.observer.PerGroup">PerGroup (class in torch.ao.quantization.observer)</a>
 </li>
       <li><a href="generated/torch.permute.html#torch.permute">permute() (in module torch)</a>
@@ -18057,6 +18064,8 @@ document.write(`
       <li><a href="profiler.html#torch.profiler.ProfilerAction">ProfilerAction (class in torch.profiler)</a>
 </li>
       <li><a href="profiler.html#torch.profiler.ProfilerActivity">ProfilerActivity (class in torch.profiler)</a>
+</li>
+      <li><a href="profiler.html#torch.profiler.ProfilerActivityConfig">ProfilerActivityConfig (class in torch.profiler)</a>
 </li>
       <li><a href="generated/torch.promote_types.html#torch.promote_types">promote_types() (in module torch)</a>
 </li>
@@ -20160,6 +20169,10 @@ document.write(`
         <li><a href="distributions.html#torch.distributions.wishart.Wishart.scale_tril">(torch.distributions.wishart.Wishart property)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.nn.functional.scaled_addmm.html#torch.nn.functional.scaled_addmm">scaled_addmm() (in module torch.nn.functional)</a>
+</li>
+      <li><a href="generated/torch.nn.functional.scaled_addmm_.html#torch.nn.functional.scaled_addmm_">scaled_addmm_() (in module torch.nn.functional)</a>
+</li>
       <li><a href="generated/torch.nn.functional.scaled_dot_product_attention.html#torch.nn.functional.scaled_dot_product_attention">scaled_dot_product_attention() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.functional.scaled_grouped_mm.html#torch.nn.functional.scaled_grouped_mm">scaled_grouped_mm() (in module torch.nn.functional)</a>
@@ -21148,10 +21161,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
+</li>
       <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SoftMarginLoss.html#torch.nn.SoftMarginLoss">SoftMarginLoss (class in torch.nn)</a>

@@ -1,0 +1,6 @@
+﻿torch.nn.functional.scaled\_addmm
+=================================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: scaled_addmm

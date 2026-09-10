@@ -49,6 +49,7 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/js/search-tuning.js?v=87be1517"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/mps';</script>
     <script>
@@ -79,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitc712ec6 )">
+<meta name="llm:version" content="main (2.15.0a0+gita62499b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -185,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc712ec6 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita62499b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3686,7 +3687,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mps-backend">
 <span id="id1"></span><h1>MPS backend<a class="headerlink" href="#mps-backend" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 11, 2026 | Last Updated On: May 11, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 11, 2026 | Last Updated On: Sep 09, 2026</p>
 <p><code class="xref py py-mod docutils literal notranslate"><span class="pre">mps</span></code> device enables high-performance
 training on GPU for macOS devices with Metal programming framework. It
 introduces a new device to map Machine Learning computational graphs and
@@ -3723,6 +3724,23 @@ capabilities to setup and run operations on GPU.</p>
     <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
+<section id="double-precision-types">
+<h2>Double-precision types<a class="headerlink" href="#double-precision-types" title="Link to this heading">#</a></h2>
+<p>The MPS backend does not support <code class="docutils literal notranslate"><span class="pre">torch.float64</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.double</span></code>) or
+<code class="docutils literal notranslate"><span class="pre">torch.complex128</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.cdouble</span></code>) because Metal Shading Language has no
+<code class="docutils literal notranslate"><span class="pre">double</span></code> type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;mps&quot;</span><span class="p">)</span>
+<span class="go">TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework</span>
+<span class="go">doesn&#39;t support float64. Please use float32 instead.</span>
+</pre></div>
+</div>
+<p>This is a fundamental limitation of Metal Shading Language rather than an
+unimplemented PyTorch operator. Consequently, <code class="docutils literal notranslate"><span class="pre">PYTORCH_ENABLE_MPS_FALLBACK=1</span></code>
+does not apply: tensors with double-precision types cannot be allocated or
+copied to MPS in the first place. <code class="docutils literal notranslate"><span class="pre">Tensor.to(&quot;mps&quot;)</span></code> on a float64 tensor raises
+for the same reason, rather than downcasting implicitly.</p>
+<p>A computation that genuinely requires double precision has to run on the CPU.</p>
+</section>
 </section>
 
 
@@ -3833,6 +3851,18 @@ capabilities to setup and run operations on GPU.</p>
               
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-precision-types">Double-precision types</a></li>
+</ul>
+  </nav></div>
     
        <div class="sidebar-secondary-item">
 
@@ -4083,7 +4113,7 @@ capabilities to setup and run operations on GPU.</p>
        "headline": "MPS backend",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/notes/mps.html",
-       "articleBody": "MPS backend# Created On: May 11, 2026 | Last Updated On: May 11, 2026 mps device enables high-performance training on GPU for macOS devices with Metal programming framework. It introduces a new device to map Machine Learning computational graphs and primitives on highly efficient Metal Performance Shaders Graph framework and tuned kernels provided by Metal Performance Shaders framework respectively. The new MPS backend extends the PyTorch ecosystem and provides existing scripts capabilities to setup and run operations on GPU. To get started, simply move your Tensor and Module to the mps device: # Check that MPS is available if not torch.backends.mps.is_available(): if not torch.backends.mps.is_built(): print(\"MPS not available because the current PyTorch install was not \" \"built with MPS enabled.\") else: print(\"MPS not available because the current macOS version is not 14.0+ \" \"and/or you do not have an MPS-enabled device on this machine.\") else: mps_device = torch.device(\"mps\") # Create a Tensor directly on the mps device x = torch.ones(5, device=mps_device) # Or x = torch.ones(5, device=\"mps\") # Any operation happens on the GPU y = x * 2 # Move your model to mps just like any other device model = YourFavoriteNet() model.to(mps_device) # Now every call runs on the GPU pred = model(x)",
+       "articleBody": "MPS backend# Created On: May 11, 2026 | Last Updated On: Sep 09, 2026 mps device enables high-performance training on GPU for macOS devices with Metal programming framework. It introduces a new device to map Machine Learning computational graphs and primitives on highly efficient Metal Performance Shaders Graph framework and tuned kernels provided by Metal Performance Shaders framework respectively. The new MPS backend extends the PyTorch ecosystem and provides existing scripts capabilities to setup and run operations on GPU. To get started, simply move your Tensor and Module to the mps device: # Check that MPS is available if not torch.backends.mps.is_available(): if not torch.backends.mps.is_built(): print(\"MPS not available because the current PyTorch install was not \" \"built with MPS enabled.\") else: print(\"MPS not available because the current macOS version is not 14.0+ \" \"and/or you do not have an MPS-enabled device on this machine.\") else: mps_device = torch.device(\"mps\") # Create a Tensor directly on the mps device x = torch.ones(5, device=mps_device) # Or x = torch.ones(5, device=\"mps\") # Any operation happens on the GPU y = x * 2 # Move your model to mps just like any other device model = YourFavoriteNet() model.to(mps_device) # Now every call runs on the GPU pred = model(x) Double-precision types# The MPS backend does not support torch.float64 (torch.double) or torch.complex128 (torch.cdouble) because Metal Shading Language has no double type: \u003e\u003e\u003e torch.ones(3, dtype=torch.float64, device=\"mps\") TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework doesn\u0027t support float64. Please use float32 instead. This is a fundamental limitation of Metal Shading Language rather than an unimplemented PyTorch operator. Consequently, PYTORCH_ENABLE_MPS_FALLBACK=1 does not apply: tensors with double-precision types cannot be allocated or copied to MPS in the first place. Tensor.to(\"mps\") on a float64 tensor raises for the same reason, rather than downcasting implicitly. A computation that genuinely requires double precision has to run on the CPU.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4095,7 +4125,7 @@ capabilities to setup and run operations on GPU.</p>
          "@id": "/notes/mps.html"
        },
        "datePublished": "May 11, 2026T00:00:00Z",
-       "dateModified": "May 11, 2026T00:00:00Z"
+       "dateModified": "Sep 09, 2026T00:00:00Z"
      }
  </script>
   <script>
