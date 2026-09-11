@@ -1,6 +1,6 @@
 # torch.autograd.Function.vmap
 
-*static*Function.vmap(*info*, *in_dims*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/function.py#L622)
+*static*Function.vmap(*info*, *in_dims*, **args*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/function.py#L622)
 
 Define the behavior for this autograd.Function underneath [`torch.vmap()`](torch.vmap.html#torch.vmap).
 

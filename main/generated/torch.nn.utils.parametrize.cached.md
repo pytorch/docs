@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.cached
 
-torch.nn.utils.parametrize.cached()[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/utils/parametrize.py#L33)
+torch.nn.utils.parametrize.cached()[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/utils/parametrize.py#L33)
 
 Context manager that enables the caching system within parametrizations registered with [`register_parametrization()`](torch.nn.utils.parametrize.register_parametrization.html#torch.nn.utils.parametrize.register_parametrization).
 

@@ -1,6 +1,6 @@
 # HuberLoss
 
-*class*torch.nn.modules.loss.HuberLoss(*reduction='mean'*, *delta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/loss.py#L1081)
+*class*torch.nn.modules.loss.HuberLoss(*reduction='mean'*, *delta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/loss.py#L1081)
 
 Creates a criterion that uses a squared term if the absolute
 element-wise error falls below delta and a delta-scaled L1 term otherwise.
@@ -67,7 +67,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/loss.py#L1148)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/loss.py#L1148)
 
 Runs the forward pass.
 

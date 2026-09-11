@@ -1,6 +1,6 @@
 # get_default_qat_qconfig_mapping
 
-*class*torch.ao.quantization.qconfig_mapping.get_default_qat_qconfig_mapping(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/ao/quantization/qconfig_mapping.py#L143)
+*class*torch.ao.quantization.qconfig_mapping.get_default_qat_qconfig_mapping(*backend='x86'*, *version=1*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/ao/quantization/qconfig_mapping.py#L143)
 
 Return the default QConfigMapping for quantization aware training.
 

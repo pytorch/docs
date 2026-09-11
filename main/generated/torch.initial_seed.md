@@ -1,6 +1,6 @@
 # torch.initial_seed
 
-torch.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/random.py#L144)
+torch.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/random.py#L144)
 
 Returns the initial seed for generating random numbers as a
 Python long.

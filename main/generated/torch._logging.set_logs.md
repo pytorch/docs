@@ -1,6 +1,6 @@
 # torch._logging.set_logs
 
-torch._logging.set_logs(***, *all=None*, *dynamo=None*, *aot=None*, *autograd=None*, *dynamic=None*, *inductor=None*, *distributed=None*, *c10d=None*, *ddp=None*, *fsdp=None*, *dtensor=None*, *onnx=None*, *bytecode=False*, *aot_graphs=False*, *aot_joint_graph=False*, *ddp_graphs=False*, *graph=False*, *graph_code=False*, *graph_code_verbose=False*, *graph_breaks=False*, *side_effects=False*, *graph_sizes=False*, *guards=False*, *recompiles=False*, *recompiles_verbose=False*, *trace_source=False*, *trace_call=False*, *trace_bytecode=False*, *output_code=False*, *kernel_code=False*, *schedule=False*, *perf_hints=False*, *pre_grad_graphs=False*, *post_grad_graphs=False*, *ir_pre_fusion=False*, *ir_post_fusion=False*, *onnx_diagnostics=False*, *fusion=False*, *overlap=False*, *export=None*, *modules=None*, *cudagraphs=False*, *sym_node=False*, *compiled_autograd=False*, *compiled_autograd_verbose=False*, *cudagraph_static_inputs=False*, *benchmarking=False*, *autotuning=False*, *autotuning_inputs=False*, *incremental=False*, *graph_region_expansion=False*, *inductor_metrics=False*, *hierarchical_compile=False*, *compute_dependencies=False*, *caching=False*, *partitioned_scatter=False*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/_logging/_internal.py#L211)
+torch._logging.set_logs(***, *all=None*, *dynamo=None*, *aot=None*, *autograd=None*, *dynamic=None*, *inductor=None*, *distributed=None*, *c10d=None*, *ddp=None*, *fsdp=None*, *dtensor=None*, *onnx=None*, *bytecode=False*, *aot_graphs=False*, *aot_joint_graph=False*, *ddp_graphs=False*, *graph=False*, *graph_code=False*, *graph_code_verbose=False*, *graph_breaks=False*, *side_effects=False*, *graph_sizes=False*, *guards=False*, *recompiles=False*, *recompiles_verbose=False*, *trace_source=False*, *trace_call=False*, *trace_bytecode=False*, *output_code=False*, *kernel_code=False*, *schedule=False*, *perf_hints=False*, *pre_grad_graphs=False*, *post_grad_graphs=False*, *ir_pre_fusion=False*, *ir_post_fusion=False*, *onnx_diagnostics=False*, *fusion=False*, *overlap=False*, *export=None*, *modules=None*, *cudagraphs=False*, *sym_node=False*, *compiled_autograd=False*, *compiled_autograd_verbose=False*, *cudagraph_static_inputs=False*, *benchmarking=False*, *autotuning=False*, *autotuning_inputs=False*, *incremental=False*, *graph_region_expansion=False*, *inductor_metrics=False*, *hierarchical_compile=False*, *compute_dependencies=False*, *caching=False*, *partitioned_scatter=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/_logging/_internal.py#L211)
 
 Sets the log level for individual components and toggles individual log
 artifact types.
@@ -108,6 +108,7 @@ been registered but a keyword argument for it has not been added
 to this function and (2) if the log level for an unregistered module
 needs to be set. This can be done by providing the fully-qualified module
 name as the key, with the log level as the value. Default: `None`
+- **cudagraphs** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit debug info from wrapping Inductor generated code with CUDA graphs. Default: `False`
 - **cudagraph_static_inputs** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit debug info for cudagraph static input detection. Default: `False`
 - **autotuning** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Autotuning choice logs, such as kernel source, perf, and tuning parameters. Default: `False`
 - **autotuning_inputs** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Per-kernel input tensor shapes/dtypes/strides logged during autotuning. Default: `False`
@@ -115,6 +116,10 @@ name as the key, with the log level as the value. Default: `None`
 - **graph_region_expansion** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit the detailed steps of the duplicate graph region tracker expansion algorithm. Default: `False`
 - **inductor_metrics** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to estimate the runtimes of the nodes in a graph and log them to the metrics table. Default: `False`
 - **hierarchical_compile** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit debug info for hierarchical compilation. Default: `False`
+- **compiled_autograd** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit compiled autograd logs, including graphs. Default: `False`
+- **compiled_autograd_verbose** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit verbose compiled autograd logs with C++ info, such as
+autograd node to FX node mappings. Default: `False`
+- **compute_dependencies** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit Inductor compute dependency information. Default: `False`
 - **caching** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - Whether to emit detailed Inductor caching information. Default: `False`
 
 Example:

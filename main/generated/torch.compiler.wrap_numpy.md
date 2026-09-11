@@ -1,6 +1,6 @@
 # torch.compiler.wrap_numpy
 
-torch.compiler.wrap_numpy(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/compiler/__init__.py#L546)
+torch.compiler.wrap_numpy(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/compiler/__init__.py#L546)
 
 Decorator that turns a function from `np.ndarray`s to `np.ndarray`s into a function
 from `torch.Tensor`s to `torch.Tensor`s.

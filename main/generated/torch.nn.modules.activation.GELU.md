@@ -1,6 +1,6 @@
 # GELU
 
-*class*torch.nn.modules.activation.GELU(*approximate='none'*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/activation.py#L778)
+*class*torch.nn.modules.activation.GELU(*approximate='none'*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/activation.py#L778)
 
 Applies the Gaussian Error Linear Units function.
 
@@ -35,7 +35,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/activation.py#L819)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/activation.py#L819)
 
 Return the extra representation of the module.
 
@@ -43,7 +43,7 @@ Return type:
 
 [str](https://docs.python.org/3/library/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/activation.py#L813)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/activation.py#L813)
 
 Runs the forward pass.
 

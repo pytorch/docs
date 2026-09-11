@@ -1,6 +1,6 @@
 # torch.fft.hfft2
 
-torch.fft.hfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/fft/__init__.py#L931)
+torch.fft.hfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/fft/__init__.py#L931)
 
 Computes the 2-dimensional discrete Fourier transform of a Hermitian symmetric
 `input` signal. Equivalent to [`hfftn()`](torch.fft.hfftn.html#torch.fft.hfftn) but only

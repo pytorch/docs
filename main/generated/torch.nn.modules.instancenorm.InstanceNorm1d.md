@@ -1,6 +1,6 @@
 # InstanceNorm1d
 
-*class*torch.nn.modules.instancenorm.InstanceNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/instancenorm.py#L136)
+*class*torch.nn.modules.instancenorm.InstanceNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/instancenorm.py#L136)
 
 Applies Instance Normalization.
 

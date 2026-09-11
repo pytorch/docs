@@ -1,6 +1,6 @@
 # torch.autograd.forward_ad.make_dual
 
-torch.autograd.forward_ad.make_dual(*tensor*, *tangent*, ***, *level=None*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/forward_ad.py#L77)
+torch.autograd.forward_ad.make_dual(*tensor*, *tangent*, ***, *level=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/forward_ad.py#L77)
 
 Associate a tensor value with its tangent to create a "dual tensor" for forward AD gradient computation.
 

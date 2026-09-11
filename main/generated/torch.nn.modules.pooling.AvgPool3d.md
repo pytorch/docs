@@ -1,6 +1,6 @@
 # AvgPool3d
 
-*class*torch.nn.modules.pooling.AvgPool3d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/pooling.py#L790)
+*class*torch.nn.modules.pooling.AvgPool3d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*, *divisor_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/pooling.py#L790)
 
 Applies a 3D average pooling over an input signal composed of several input planes.
 
@@ -80,7 +80,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/modules/pooling.py#L894)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/pooling.py#L894)
 
 Runs the forward pass.
 

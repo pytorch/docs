@@ -1,6 +1,6 @@
 # torch.pca_lowrank
 
-torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/_lowrank.py#L183)
+torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/_lowrank.py#L183)
 
 Performs linear Principal Component Analysis (PCA) on a low-rank
 matrix, batches of such matrices, or sparse matrix.

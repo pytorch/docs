@@ -1,6 +1,6 @@
 # torch.nn.functional.conv_transpose3d
 
-torch.nn.functional.conv_transpose3d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/functional.py#L287)
+torch.nn.functional.conv_transpose3d(*input*, *weight*, *bias=None*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *dilation=1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/functional.py#L287)
 
 Applies a 3D transposed convolution operator over an input image
 composed of several input planes, sometimes also called "deconvolution"

@@ -1,6 +1,6 @@
 # prepare_fx
 
-*class*torch.ao.quantization.quantize_fx.prepare_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *_equalization_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/ao/quantization/quantize_fx.py#L253)
+*class*torch.ao.quantization.quantize_fx.prepare_fx(*model*, *qconfig_mapping*, *example_inputs*, *prepare_custom_config=None*, *_equalization_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/ao/quantization/quantize_fx.py#L253)
 
 Prepare a model for post training quantization
 

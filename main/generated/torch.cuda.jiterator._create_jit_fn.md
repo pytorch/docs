@@ -1,6 +1,6 @@
 # torch.cuda.jiterator._create_jit_fn
 
-torch.cuda.jiterator._create_jit_fn(*code_string*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/cuda/jiterator.py#L101)
+torch.cuda.jiterator._create_jit_fn(*code_string*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/cuda/jiterator.py#L101)
 
 Create a jiterator-generated cuda kernel for an elementwise op.
 

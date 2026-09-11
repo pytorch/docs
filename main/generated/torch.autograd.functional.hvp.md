@@ -1,6 +1,6 @@
 # torch.autograd.functional.hvp
 
-torch.autograd.functional.hvp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/functional.py#L1098)
+torch.autograd.functional.hvp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/functional.py#L1098)
 
 Compute the dot product between the scalar function's Hessian and a vector `v` at a specified point.
 

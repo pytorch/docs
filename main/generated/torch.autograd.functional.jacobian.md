@@ -1,6 +1,6 @@
 # torch.autograd.functional.jacobian
 
-torch.autograd.functional.jacobian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/functional.py#L587)
+torch.autograd.functional.jacobian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/functional.py#L587)
 
 Compute the Jacobian of a given function.
 

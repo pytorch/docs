@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.modules_to_mkldnn
 
-torch.fx.experimental.optimization.modules_to_mkldnn(*nodes*, *modules*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/fx/experimental/optimization.py#L182)
+torch.fx.experimental.optimization.modules_to_mkldnn(*nodes*, *modules*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/fx/experimental/optimization.py#L182)
 
 For each node, if it's a module that can be preconverted into MKLDNN,
 then we do so and create a mapping to allow us to convert from the MKLDNN

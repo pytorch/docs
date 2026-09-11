@@ -5,7 +5,7 @@ Variable-length attention implementation using Flash Attention.
 This module provides a high-level Python interface for variable-length attention
 that calls into the optimized Flash Attention kernels.
 
-torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/attention/varlen.py#L321)
+torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/attention/varlen.py#L348)
 
 Compute variable-length attention using Flash Attention.
 
@@ -119,18 +119,19 @@ Example:
 ... )
 ```
 
-torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/attention/varlen.py#L570)
+torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/attention/varlen.py#L614)
 
-Compute variable-length attention using Flash Attention with a pre-allocated output tensor.
+Compute variable-length attention with a pre-allocated output tensor.
 
 Same as `varlen_attn()` but writes the attention output into the provided `out` tensor
-instead of allocating a new one.
+instead of allocating a new one. Backend selection follows `varlen_attn()`; the cuDNN
+backend requires `out` to be 16-byte aligned with a contiguous last dimension.
 
 Return type:
 
 [*Tensor*](tensors.html#torch.Tensor) | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)]
 
-*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/nn/attention/varlen.py#L195)
+*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/attention/varlen.py#L222)
 
 Request which auxiliary outputs to compute from varlen_attn.
 

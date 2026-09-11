@@ -1,6 +1,6 @@
 # get_default_compare_output_module_list
 
-*class*torch.ao.quantization.quantization_mappings.get_default_compare_output_module_list[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/ao/quantization/quantization_mappings.py#L323)
+*class*torch.ao.quantization.quantization_mappings.get_default_compare_output_module_list[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/ao/quantization/quantization_mappings.py#L323)
 
 Get list of module class types that we will record output
 in numeric suite

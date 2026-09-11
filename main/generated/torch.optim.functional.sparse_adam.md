@@ -1,6 +1,6 @@
 # torch.optim.functional.sparse_adam
 
-torch.optim.functional.sparse_adam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *state_steps*, ***, *eps*, *beta1*, *beta2*, *lr*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/optim/_functional.py#L24)
+torch.optim.functional.sparse_adam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *state_steps*, ***, *eps*, *beta1*, *beta2*, *lr*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/optim/_functional.py#L24)
 
 Functional API that performs SparseAdam algorithm computation.
 

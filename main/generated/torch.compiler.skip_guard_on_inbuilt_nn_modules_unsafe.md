@@ -1,6 +1,6 @@
 # torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe
 
-torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/compiler/__init__.py#L817)
+torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/compiler/__init__.py#L817)
 
 A common function to skip guards on the inbuilt nn modules like
 torch.nn.Linear. This is unsafe to use by default. But for majority of

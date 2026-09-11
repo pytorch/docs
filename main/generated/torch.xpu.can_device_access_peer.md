@@ -1,6 +1,6 @@
 # torch.xpu.can_device_access_peer
 
-torch.xpu.can_device_access_peer(*device*, *peer*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/xpu/__init__.py#L549)
+torch.xpu.can_device_access_peer(*device*, *peer*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/xpu/__init__.py#L549)
 
 Query whether a device can access a peer device's memory.
 

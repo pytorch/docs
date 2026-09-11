@@ -1,6 +1,6 @@
 # KinetoStepTracker
 
-*class*torch.autograd.profiler.KinetoStepTracker[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/profiler.py#L1317)
+*class*torch.autograd.profiler.KinetoStepTracker[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/profiler.py#L1317)
 
 Provides an abstraction for incrementing the step count globally.
 
@@ -42,7 +42,7 @@ We only call the kineto step() function when global count increments.
 NOTE: Please do not use the KinetoStepTracker in modules beside the Optimizer
 for now. The result could be incorrect increments of the step count.
 
-*classmethod*current_step()[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/profiler.py#L1401)
+*classmethod*current_step()[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/profiler.py#L1401)
 
 Get the latest step for any requester
 
@@ -50,7 +50,7 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-*classmethod*erase_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/profiler.py#L1369)
+*classmethod*erase_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/profiler.py#L1369)
 
 Remove a given requester.
 
@@ -58,7 +58,7 @@ Return type:
 
 [bool](https://docs.python.org/3/library/functions.html#bool)
 
-*classmethod*increment_step(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/profiler.py#L1376)
+*classmethod*increment_step(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/profiler.py#L1376)
 
 Increments the step count for the requester.
 
@@ -69,6 +69,6 @@ Return type:
 
 [int](https://docs.python.org/3/library/functions.html#int)
 
-*classmethod*init_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/a62499b17156f49891b06593215215c6df2f94b4/torch/autograd/profiler.py#L1362)
+*classmethod*init_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/autograd/profiler.py#L1362)
 
 Initialize for a given requester.
