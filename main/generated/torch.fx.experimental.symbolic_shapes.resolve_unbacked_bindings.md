@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings
 
-torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings(*shape_env*, *bindings*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/fx/experimental/symbolic_shapes.py#L582)
+torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings(*shape_env*, *bindings*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/fx/experimental/symbolic_shapes.py#L582)
 
 When we do fake tensor prop, we oftentimes will allocate new unbacked symints.
 We then run proxy tensor mode, which populates node.meta["unbacked_bindings"]

@@ -1,6 +1,6 @@
 # torch.nn.functional.logsigmoid
 
-torch.nn.functional.logsigmoid(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/functional.py#L2049)
+torch.nn.functional.logsigmoid(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/functional.py#L2049)
 
 Applies element-wise LogSigmoid(xi)=log⁡(11+exp⁡(−xi))\text{LogSigmoid}(x_i) = \log \left(\frac{1}{1 + \exp(-x_i)}\right)LogSigmoid(xi​)=log(1+exp(−xi​)1​)
 

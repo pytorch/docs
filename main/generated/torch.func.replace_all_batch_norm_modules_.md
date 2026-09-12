@@ -1,6 +1,6 @@
 # torch.func.replace_all_batch_norm_modules_
 
-torch.func.replace_all_batch_norm_modules_(*root*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/_functorch/batch_norm_replacement.py#L16)
+torch.func.replace_all_batch_norm_modules_(*root*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/_functorch/batch_norm_replacement.py#L16)
 
 In place updates `root` by setting the `running_mean` and `running_var` to be None and
 setting track_running_stats to be False for any nn.BatchNorm module in `root`

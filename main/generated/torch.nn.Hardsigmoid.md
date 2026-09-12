@@ -1,6 +1,6 @@
 # Hardsigmoid
 
-*class*torch.nn.Hardsigmoid(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/activation.py#L364)
+*class*torch.nn.Hardsigmoid(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/modules/activation.py#L364)
 
 Applies the Hardsigmoid function element-wise.
 
@@ -32,7 +32,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/modules/activation.py#L400)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/modules/activation.py#L400)
 
 Runs the forward pass.
 

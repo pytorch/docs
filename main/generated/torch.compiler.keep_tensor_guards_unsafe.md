@@ -1,6 +1,6 @@
 # torch.compiler.keep_tensor_guards_unsafe
 
-torch.compiler.keep_tensor_guards_unsafe(*guard_entries*, *keep_parameters=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/compiler/__init__.py#L860)
+torch.compiler.keep_tensor_guards_unsafe(*guard_entries*, *keep_parameters=False*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/compiler/__init__.py#L860)
 
 A common function to keep tensor guards on all tensors. This is unsafe to
 use by default. But if you don't expect any changes in the model code, you

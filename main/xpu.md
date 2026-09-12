@@ -85,7 +85,7 @@ This package is lazily initialized, so you can always import it, and use
 | [`set_per_process_memory_fraction`](generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction) | Set the memory fraction for a single process on XPU device. |
 | [`MemPool`](generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
 
-*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/xpu/memory.py#L600)
+*class*torch.xpu.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/xpu/memory.py#L600)
 
 A context manager that routes allocations to a given pool.
 

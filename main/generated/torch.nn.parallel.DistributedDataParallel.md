@@ -1,6 +1,6 @@
 # DistributedDataParallel
 
-*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/parallel/distributed.py#L466)
+*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L465)
 
 Implement distributed data parallelism based on `torch.distributed` at module level.
 
@@ -384,7 +384,32 @@ Example:
 >>> net = torch.nn.parallel.DistributedDataParallel(model)
 ```
 
-join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/parallel/distributed.py#L1990)
+finalize_backward()[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L2690)
+
+Finalize a backward pass that requires manual finalization.
+
+When `should_finalize_after_backward` is `True`, call this after
+backward returns. Otherwise, call it after all DDP buckets are ready,
+either from a backward hook or after backward returns. This waits for
+all in-flight gradient all-reduces to complete and writes the reduced
+gradients back into parameter `.grad` fields.
+
+Finalization runs on the caller's current device stream, and DDP's
+communication-end timing reflects this caller-selected point.
+
+Defer this method to let later sparse work overlap an in-flight
+gradient all-reduce, or call it from a backward hook to run
+`optimizer.step()` while remaining sparse communication is in flight.
+
+Raises:
+
+[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If `require_manual_backward_finalization` is
+ `False`, if called before all gradient buckets are ready, if
+ no gradient reduction requires finalization, or if called
+ during `no_sync()` or with an unsupported DDP reducer
+ configuration.
+
+join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L1998)
 
 Context manager for training with uneven inputs across processes in DDP.
 
@@ -480,7 +505,7 @@ Example:
 >>> torch.cuda.synchronize(device=rank)
 ```
 
-join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/parallel/distributed.py#L2096)
+join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L2104)
 
 DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.
 
@@ -504,7 +529,7 @@ unevenness is small but can be set to `False` in extreme
 cases for possibly better results.
 Default is `True`.
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/parallel/distributed.py#L1659)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L1667)
 
 Context manager to disable gradient synchronizations across DDP processes.
 
@@ -527,7 +552,7 @@ Warning
 The forward pass should be included inside the context manager, or
 else gradients will still be synchronized.
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/nn/parallel/distributed.py#L2179)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/parallel/distributed.py#L2187)
 
 Register communication hook for user-defined DDP aggregation of gradients across multiple workers.
 
@@ -614,3 +639,34 @@ allreduce, and then decoded after allreduce.
 >>> return fut.then(decode)
 >>> ddp.register_comm_hook(state=None, hook=encode_and_decode)
 ```
+
+*property*require_manual_backward_finalization*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+
+Whether the caller must manually finalize backward.
+
+When `True`, the reducer will not automatically finalize the
+backward pass after all gradient buckets are ready. Instead, the caller
+must invoke `finalize_backward()` after all buckets are ready to
+wait for in-flight gradient synchronization and perform write-back.
+
+This allows later sparse work to overlap an in-flight gradient
+all-reduce, or `optimizer.step()` to overlap remaining sparse
+communication when the all-reduce finishes first.
+
+Must be set before forward or after backward finalization. For each
+synchronized backward, the caller must invoke `finalize_backward()`
+exactly once.
+
+*property*should_finalize_after_backward*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+
+Whether manual finalization must run after backward returns.
+
+Query this after forward for the upcoming backward pass. When `True`,
+call `finalize_backward()` only after backward returns. When
+`False`, it may instead be called from a backward hook after all DDP
+buckets are ready.
+
+This is `True` while DDP is rebuilding buckets and when DDP native
+mixed precision requires end-of-backward stream synchronization. It is
+`False` when manual finalization is disabled. In manual mode, the
+caller is responsible for honoring this ordering requirement.

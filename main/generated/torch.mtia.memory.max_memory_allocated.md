@@ -1,6 +1,6 @@
 # torch.mtia.memory.max_memory_allocated
 
-torch.mtia.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/mtia/memory.py#L26)
+torch.mtia.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/mtia/memory.py#L26)
 
 Return the maximum memory allocated in bytes for a given device.
 

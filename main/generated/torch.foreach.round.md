@@ -1,6 +1,6 @@
 # torch.foreach.round
 
-torch.foreach.round(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/foreach/__init__.py#L556)
+torch.foreach.round(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/foreach/__init__.py#L556)
 
 Applies [`torch.round()`](torch.round.html#torch.round) to each tensor in `inputs`.
 

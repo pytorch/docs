@@ -1,6 +1,6 @@
 # torch.linalg.solve_triangular
 
-torch.linalg.solve_triangular(*A*, *B*, ***, *upper*, *left=True*, *unitriangular=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/linalg/__init__.py#L2365)
+torch.linalg.solve_triangular(*A*, *B*, ***, *upper*, *left=True*, *unitriangular=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/linalg/__init__.py#L2365)
 
 Computes the solution of a triangular system of linear equations with a unique solution.
 

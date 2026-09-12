@@ -1,6 +1,6 @@
 # ConvReLU2d
 
-*class*torch.ao.nn.intrinsic.ConvReLU2d(*conv*, *relu*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/ao/nn/intrinsic/modules/fused.py#L59)
+*class*torch.ao.nn.intrinsic.ConvReLU2d(*conv*, *relu*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/ao/nn/intrinsic/modules/fused.py#L59)
 
 This is a sequential container which calls the Conv2d and ReLU modules.
 During quantization this will be replaced with the corresponding fused module.

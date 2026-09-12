@@ -1,6 +1,6 @@
 # torch.svd_lowrank
 
-torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/_lowrank.py#L85)
+torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/_lowrank.py#L85)
 
 Return the singular value decomposition `(U, S, V)` of a matrix,
 batches of matrices, or a sparse matrix AAA such that

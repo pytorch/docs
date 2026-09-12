@@ -1,6 +1,6 @@
 # torch.optim.swa_utils.get_ema_avg_fn
 
-torch.optim.swa_utils.get_ema_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/optim/swa_utils.py#L119)
+torch.optim.swa_utils.get_ema_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/optim/swa_utils.py#L119)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 

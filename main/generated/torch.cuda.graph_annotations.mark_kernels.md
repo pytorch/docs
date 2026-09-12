@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.mark_kernels
 
-torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/cuda/_graph_annotations.py#L794)
+torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/cuda/_graph_annotations.py#L794)
 
 Context manager that annotates GPU work captured within its scope.
 

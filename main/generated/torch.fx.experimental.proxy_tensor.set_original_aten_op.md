@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.set_original_aten_op
 
-torch.fx.experimental.proxy_tensor.set_original_aten_op(*func*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/fx/experimental/proxy_tensor.py#L1986)
+torch.fx.experimental.proxy_tensor.set_original_aten_op(*func*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/fx/experimental/proxy_tensor.py#L1986)
 
 Return type:
 

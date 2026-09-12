@@ -1,6 +1,6 @@
 # torch.func.stack_module_state
 
-torch.func.stack_module_state(*models*) → params, buffers[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/_functorch/functional_call.py#L164)
+torch.func.stack_module_state(*models*) → params, buffers[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/_functorch/functional_call.py#L164)
 
 Prepares a list of torch.nn.Modules for ensembling with [`vmap()`](torch.func.vmap.html#torch.func.vmap).
 

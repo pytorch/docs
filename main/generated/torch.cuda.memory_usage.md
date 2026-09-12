@@ -1,6 +1,6 @@
 # torch.cuda.memory_usage
 
-torch.cuda.memory_usage(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/11cc3f2c2feafe59bf1d7f19c46edaa02b3eac25/torch/cuda/__init__.py#L1638)
+torch.cuda.memory_usage(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/cuda/__init__.py#L1638)
 
 Return the percent of time over the past sample period during which global (device)
 memory was being read or written as given by nvidia-smi.
