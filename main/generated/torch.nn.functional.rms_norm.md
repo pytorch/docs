@@ -1,6 +1,6 @@
 # torch.nn.functional.rms_norm
 
-torch.nn.functional.rms_norm(*input*, *normalized_shape*, *weight=None*, *eps=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/nn/functional.py#L2998)
+torch.nn.functional.rms_norm(*input*, *normalized_shape*, *weight=None*, *eps=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L2998)
 
 Apply Root Mean Square Layer Normalization.
 

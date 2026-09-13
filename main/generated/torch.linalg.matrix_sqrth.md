@@ -1,6 +1,6 @@
 # torch.linalg.matrix_sqrth
 
-torch.linalg.matrix_sqrth(*A*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/linalg/__init__.py#L2213)
+torch.linalg.matrix_sqrth(*A*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2213)
 
 Computes the principal square root of a symmetric (resp. Hermitian) positive-definite matrix.
 

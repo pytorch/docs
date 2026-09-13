@@ -1,6 +1,6 @@
 # torch.is_warn_always_enabled
 
-torch.is_warn_always_enabled()[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/__init__.py#L2087)
+torch.is_warn_always_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/__init__.py#L2087)
 
 Returns True if the global warn_always flag is turned on. Refer to
 [`torch.set_warn_always()`](torch.set_warn_always.html#torch.set_warn_always) documentation for more details.

@@ -4,7 +4,7 @@
 
 Note
 
-Tags: [torch.cond](torch.cond.html), python.closure
+Tags: python.closure, [torch.cond](torch.cond.html)
 
 Support Level: SUPPORTED
 

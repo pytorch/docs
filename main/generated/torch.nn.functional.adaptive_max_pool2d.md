@@ -1,6 +1,6 @@
 # torch.nn.functional.adaptive_max_pool2d
 
-torch.nn.functional.adaptive_max_pool2d(*input*, *output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/_jit_internal.py#L627)
+torch.nn.functional.adaptive_max_pool2d(*input*, *output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_jit_internal.py#L627)
 
 Applies a 2D adaptive max pooling over an input signal composed of
 several input planes.

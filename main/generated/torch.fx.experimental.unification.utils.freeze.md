@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.freeze
 
-torch.fx.experimental.unification.utils.freeze(*d*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/fx/experimental/unification/utils.py#L113)
+torch.fx.experimental.unification.utils.freeze(*d*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/unification/utils.py#L113)
 
 Freeze container to hashable form
 >>> freeze(1)

@@ -2,7 +2,7 @@
 
 ## Retrieve SubprocessHandler
 
-torch.distributed.elastic.multiprocessing.subprocess_handler.handlers.get_subprocess_handler(*entrypoint*, *args*, *env*, *stdout*, *stderr*, *local_rank_id*, *numa_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/distributed/elastic/multiprocessing/subprocess_handler/handlers.py#L16)
+torch.distributed.elastic.multiprocessing.subprocess_handler.handlers.get_subprocess_handler(*entrypoint*, *args*, *env*, *stdout*, *stderr*, *local_rank_id*, *numa_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/subprocess_handler/handlers.py#L16)
 
 Return type:
 
@@ -10,7 +10,7 @@ Return type:
 
 ## SubprocessHandler
 
-*class*torch.distributed.elastic.multiprocessing.subprocess_handler.subprocess_handler.SubprocessHandler(*entrypoint*, *args*, *env*, *stdout*, *stderr*, *local_rank_id*, *numa_options*)[[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/distributed/elastic/multiprocessing/subprocess_handler/subprocess_handler.py#L30)
+*class*torch.distributed.elastic.multiprocessing.subprocess_handler.subprocess_handler.SubprocessHandler(*entrypoint*, *args*, *env*, *stdout*, *stderr*, *local_rank_id*, *numa_options*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/subprocess_handler/subprocess_handler.py#L30)
 
 Convenience wrapper around python's `subprocess.Popen`. Keeps track of
 meta-objects associated to the process (e.g. stdout and stderr redirect fds).

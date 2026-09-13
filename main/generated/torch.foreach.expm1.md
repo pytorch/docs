@@ -1,6 +1,6 @@
 # torch.foreach.expm1
 
-torch.foreach.expm1(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/84e524623ea4754a748936bf1ba6ecaaa92c3ae6/torch/foreach/__init__.py#L446)
+torch.foreach.expm1(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/foreach/__init__.py#L446)
 
 Applies [`torch.expm1()`](torch.expm1.html#torch.expm1) to each tensor in `inputs`.
 
